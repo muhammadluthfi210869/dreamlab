@@ -1,0 +1,64 @@
+{
+  "baseline_captured_at": "2026-05-08T00:22:51Z",
+  "target_domain": "dreamlab.id",
+  "layer_1_status": {
+    "crawl_baseline": "completed",
+    "pagespeed_snapshot": "pending_api_key",
+    "gsc_baseline": "pending_credentials",
+    "backlink_profile": "pending_api_key"
+  },
+  "crawl_results": {
+    "total_urls_from_sitemap": 212,
+    "sitemaps_found": [
+      "post-sitemap.xml (164 URLs)",
+      "page-sitemap.xml (29 URLs)",
+      "e-floating-buttons-sitemap.xml (1 URL)",
+      "category-sitemap.xml (14 URLs)",
+      "cms_block_cat-sitemap.xml (3 URLs)",
+      "author-sitemap.xml (1 URL)"
+    ],
+    "http_status": {
+      "200_ok": 195,
+      "301_redirect": 16,
+      "errors": 0
+    },
+    "avg_response_time_ms": 939,
+    "fastest_page_ms": 27,
+    "slowest_page_ms": 6947
+  },
+  "seo_issues_found": {
+    "missing_title": 0,
+    "missing_meta_description": 17,
+    "missing_canonical": 0,
+    "wrong_og_locale_en_US": 195,
+    "no_schema_detected": 0,
+    "non_200_status": 17
+  },
+  "pages_missing_meta_description": [
+    "/maklon-bodymist/", "/biaya-maklon-parfum-moq-kecil/", "/privacy-policy/",
+    "/contact-form-dreamlab/", "/shop/", "/cart/", "/my-account/",
+    "/thankyou-page/", "/e-floating-buttons/popup-website/",
+    "/category/bisnis-men-grooming/", "/category/bisnis-skincare/",
+    "/category/dreampreneur-beauty-academy/", "/category/maklon-baby-care/",
+    "/category/maklon-personal-care/", "/cms_block_cat/flying-button/",
+    "/cms_block_cat/footer-column/", "/cms_block_cat/pop-up-form/"
+  ],
+  "redirects_detected": [
+    "/tips-sukses-bisnis-parfum/", "/maklon-scalp-haircare-bisnis-produk-rambut-sehat/",
+    "/tren-parfum-arab-bisnis-maklon-dreamlab/", "/maklon-skincare-untuk-brand-baru/",
+    "/prediksi-tren-2026/", "/pabrik-parfum-makasar/", "/cara-bisnis-skincare-dari-nol/",
+    "/pabrik-parfum-surabaya-biaya-2026/", "/maklon-parfum-bpom-indonesia-strategi-bisnis/",
+    "/maklon-kosmetik-parfum-tangerang/", "/maklon-kosmetik-jakarta-dreamlab-2026/",
+    "/maklon-skincare-surabaya-umkm/", "/jasa-maklon-sabun-mandi-batang/",
+    "/bahan-aktif-untuk-mengatasi-jerawat/", "/maklon-parfum-jakarta/",
+    "/rahasia-maklon-parfum-jakarta/"
+  ],
+  "key_action_items": [
+    "Fix og:locale from en_US to id_ID on ALL pages (195 pages affected)",
+    "Add meta descriptions to 17 pages that are missing them",
+    "Map 16 WordPress 301 redirects in seo-mapping.json or middleware",
+    "Run GSC export (API or manual) for performance baseline",
+    "Run PageSpeed tests (API key or manual) for CWV baseline",
+    "Run backlink profile (API key or manual) for domain authority baseline"
+  ]
+}

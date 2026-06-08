@@ -1,0 +1,242 @@
+[
+  {
+    "url": "https://dreamlab.id/",
+    "label": "Homepage",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/",
+    "label": "Homepage",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/news-blog/",
+    "label": "Blog Listing",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/news-blog/",
+    "label": "Blog Listing",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/skincare-face-care/",
+    "label": "Service: Skincare",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/skincare-face-care/",
+    "label": "Service: Skincare",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/parfum/",
+    "label": "Service: Parfum",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/parfum/",
+    "label": "Service: Parfum",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/hair-care/",
+    "label": "Service: Hair Care",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/hair-care/",
+    "label": "Service: Hair Care",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/body-care/",
+    "label": "Service: Body Care",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/body-care/",
+    "label": "Service: Body Care",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/foot-care/",
+    "label": "Service: Foot Care",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/foot-care/",
+    "label": "Service: Foot Care",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/baby-care/",
+    "label": "Service: Baby Care",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/baby-care/",
+    "label": "Service: Baby Care",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/decorative/",
+    "label": "Service: Decorative",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/decorative/",
+    "label": "Service: Decorative",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/pkrt/",
+    "label": "Service: PKRT",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/pkrt/",
+    "label": "Service: PKRT",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/about-us/",
+    "label": "About Us",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/about-us/",
+    "label": "About Us",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/services/",
+    "label": "Services",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/services/",
+    "label": "Services",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-skincare/",
+    "label": "Category: Maklon Skincare",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-skincare/",
+    "label": "Category: Maklon Skincare",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/category/dreamlabpedia/",
+    "label": "Category: Dreamlab Pedia",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/category/dreamlabpedia/",
+    "label": "Category: Dreamlab Pedia",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/pabrik-maklon-kosmetik-cpkb-grade-a/",
+    "label": "Article: CPKB",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/pabrik-maklon-kosmetik-cpkb-grade-a/",
+    "label": "Article: CPKB",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/cara-hitunghpp-produk-kosmeti/",
+    "label": "Article: HPP",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/cara-hitunghpp-produk-kosmeti/",
+    "label": "Article: HPP",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/rekomendasi-sunscreen-lokal/",
+    "label": "Article: Sunscreen",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/rekomendasi-sunscreen-lokal/",
+    "label": "Article: Sunscreen",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/atur-kosmetik-halal-dreamlab/",
+    "label": "Article: Halal",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/atur-kosmetik-halal-dreamlab/",
+    "label": "Article: Halal",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/perusahaan-maklon-kosmetik/",
+    "label": "Article: Perusahaan",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/perusahaan-maklon-kosmetik/",
+    "label": "Article: Perusahaan",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/maklon-kosmetik-kediri/",
+    "label": "Article: Kediri",
+    "strategy": "mobile",
+    "error": "Requests from referer <empty> are blocked."
+  },
+  {
+    "url": "https://dreamlab.id/maklon-kosmetik-kediri/",
+    "label": "Article: Kediri",
+    "strategy": "desktop",
+    "error": "Requests from referer <empty> are blocked."
+  }
+]

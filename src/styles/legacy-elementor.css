@@ -1,0 +1,207 @@
+/* 
+  Legacy Elementor CSS Bridge 
+  Ensures that WordPress Elementor HTML renders correctly in Next.js 
+*/
+
+.legacy-content-wrapper {
+  color: #333;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.legacy-content-wrapper .elementor-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.legacy-content-wrapper .elementor-container {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+}
+
+@media (max-width: 1024px) {
+  .legacy-content-wrapper .elementor-container {
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+}
+
+.legacy-content-wrapper .elementor-column {
+  position: relative;
+  min-height: 1px;
+  display: flex;
+}
+
+.legacy-content-wrapper .elementor-col-50 {
+  width: 50%;
+}
+
+.legacy-content-wrapper .elementor-col-100 {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .legacy-content-wrapper .elementor-column {
+    width: 100% !important;
+  }
+}
+
+.legacy-content-wrapper .elementor-widget-wrap {
+  position: relative;
+  width: 100%;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  display: flex;
+}
+
+.legacy-content-wrapper .elementor-widget {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.legacy-content-wrapper .elementor-heading-title {
+  margin: 0;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.legacy-content-wrapper h1.elementor-heading-title { font-size: 2.5rem; font-weight: 800; }
+.legacy-content-wrapper h2.elementor-heading-title { font-size: 2rem; font-weight: 700; }
+.legacy-content-wrapper h3.elementor-heading-title { font-size: 1.5rem; font-weight: 600; }
+
+.legacy-content-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.legacy-content-wrapper a {
+  color: #FF5C35;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.legacy-content-wrapper a:hover {
+  text-decoration: underline;
+}
+
+/* Specific widget fixes */
+.legacy-content-wrapper .elementor-widget-image {
+  text-align: center;
+}
+
+.legacy-content-wrapper .elementor-invisible {
+  visibility: visible !important; /* Force visible in case animations don't trigger */
+}
+
+/* Spacing fixes */
+.legacy-content-wrapper p {
+  margin-bottom: 1.5rem;
+}
+
+.legacy-content-wrapper ul, .legacy-content-wrapper ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.legacy-content-wrapper li {
+  margin-bottom: 0.5rem;
+}
+
+/* Elementor Specific Widgets */
+.legacy-content-wrapper .elementor-widget-spacer {
+  width: 100%;
+}
+
+.legacy-content-wrapper .elementor-spacer-inner {
+  height: 50px; /* Default height if not specified */
+}
+
+.legacy-content-wrapper .elementor-divider {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.legacy-content-wrapper .elementor-divider-separator {
+  border-top: 1px solid #ddd;
+  width: 100%;
+}
+
+.legacy-content-wrapper .elementor-button-wrapper {
+  margin: 15px 0;
+}
+
+.legacy-content-wrapper .elementor-button {
+  display: inline-block;
+  background-color: #FF5C35;
+  color: white !important;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.legacy-content-wrapper .elementor-button:hover {
+  background-color: #1a1a1a;
+  text-decoration: none !important;
+  transform: translateY(-2px);
+}
+
+.legacy-content-wrapper .elementor-icon-list-items {
+  list-style: none;
+  padding: 0;
+}
+
+.legacy-content-wrapper .elementor-icon-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.legacy-content-wrapper .elementor-icon-list-icon {
+  color: #FF5C35;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.legacy-content-wrapper .elementor-image-caption {
+  font-size: 13px;
+  color: #777;
+  text-align: center;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* WordPress Core Blocks (Gutenberg) */
+.legacy-content-wrapper .wp-block-image {
+  margin-bottom: 2rem;
+}
+
+.legacy-content-wrapper .wp-block-image figcaption {
+  font-size: 13px;
+  color: #777;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.legacy-content-wrapper blockquote {
+  border-left: 4px solid #FF5C35;
+  padding: 20px 30px;
+  margin: 30px 0;
+  background: #fdf2ef;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+  border-radius: 0 20px 20px 0;
+}

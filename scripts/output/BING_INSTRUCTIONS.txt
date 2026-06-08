@@ -1,0 +1,13 @@
+BING WEBMASTER TOOLS SETUP (GRATIS)
+====================================
+CARA 1: Manual Export
+1. Buka https://www.bing.com/webmasters/
+2. Add site: dreamlab.id → Verify (meta tag or DNS)
+3. Dashboard → "Backlinks" → Export CSV
+4. Simpan sebagai: scripts/output/bing-backlinks-export.csv
+
+CARA 2: API (untuk otomatisasi)
+1. Bing Webmaster Tools → Settings → API Access
+2. Generate API Key
+3. Set environment: $env:BING_API_KEY="your-key"
+4. Jalankan: npx tsx scripts/backlink-baseline.ts

@@ -1,0 +1,10 @@
+    {
+      question: "Berapa biaya dan MOQ maklon mascara?",
+      answer: "MOQ fleksibel dengan biaya yang menyesuaikan formula dan packaging produk."
+    },
+    {
+      question: "Apakah sudah termasuk BPOM dan Halal?",
+      answer: "Ya, seluruh legalitas produk dibantu oleh Dreamlab hingga siap dipasarkan."
+    },
+  ],
+};

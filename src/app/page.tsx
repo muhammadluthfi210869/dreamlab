@@ -1,65 +1,144 @@
-import Image from "next/image";
+import { homepageData } from "@/data/homepage";
+import { aboutData } from "@/data/about-us";
+import { Metadata } from "next";
+import { getSEOData } from "@/lib/seo-service";
+import { getMetaKeywords } from "@/data/keywords";
+import dynamic from "next/dynamic";
+
+const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
+  ssr: true,
+  loading: () => <div className="py-20 bg-[#FAF9F6]" />
+});
+
+const PremiumHero = dynamic(() => import("@/components/PremiumHero"), { 
+  ssr: true,
+  loading: () => <div className="h-screen bg-[#F1E9DA]" />
+});
+const ProductTrustBar = dynamic(() => import("@/components/ProductPageV2/ProductTrustBar"), { 
+  ssr: true,
+  loading: () => <div className="py-8 bg-white" />
+});
+const AdvantagesGrid = dynamic(() => import("@/components/AdvantagesGrid"), { 
+  ssr: true,
+  loading: () => <div className="py-20 bg-gray-50" />
+});
+const OurCertification = dynamic(() => import("@/components/OurCertification"), { 
+  ssr: true,
+  loading: () => <div className="py-20 bg-white" />
+});
+const KatalogProduk = dynamic(() => import("@/components/KatalogProduk"), { 
+  ssr: true,
+  loading: () => <div className="py-16 bg-white" />
+});
+const BrandShowcaseSection = dynamic(() => import("@/components/BrandShowcaseSection"), { 
+  ssr: true,
+  loading: () => <div className="py-20 bg-white" />
+});
+const Testimonials = dynamic(() => import("@/components/Testimonials"), { 
+  ssr: true,
+  loading: () => <div className="py-16 bg-gray-50" />
+});
+const FaqHome = dynamic(() => import("@/components/FaqHome"), { 
+  ssr: true,
+  loading: () => <div className="py-20 bg-white" />
+});
+const CtaSection = dynamic(() => import("@/components/CtaSection"), { 
+  ssr: true,
+  loading: () => <div className="py-16 bg-brand-orange" />
+});
+const MediaCoverage = dynamic(() => import("@/components/MediaCoverage"), { 
+  ssr: true,
+  loading: () => <div className="py-16 bg-white" />
+});
+const BlogSection = dynamic(() => import("@/components/BlogSection"), { 
+  ssr: true,
+  loading: () => <div className="py-16 bg-gray-50" />
+});
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seoData = await getSEOData("/");
+
+  return {
+    title: seoData?.meta_title
+      ? { absolute: seoData.meta_title }
+      : { absolute: "Dreamlab | Maklon Kosmetik & Parfum BPOM Terbaik - Wujudkan Brand Impian Anda" },
+    description: seoData?.meta_description || "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 500+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
+    keywords: getMetaKeywords(''),
+    alternates: {
+      canonical: seoData?.canonical || "https://dreamlab.id/",
+    },
+  };
+}
 
 export default function Home() {
+  const { hero, trustedBrands, advantages, katalog, testimonials, blog } = homepageData;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen bg-brand-white">
+      {/* 1. HERO SECTION (Plek Ketiplek Content) */}
+      <PremiumHero 
+        smallTitle={hero.smallTitle}
+        title={hero.title}
+        subtitle={hero.subtitle}
+        ctaText={hero.ctaText}
+        ctaLink={hero.ctaLink}
+        backgroundImage={hero.backgroundImage}
+      />
+
+      {/* 1.5. TRUST BAR SECTION */}
+      <ProductTrustBar />
+
+      {/* 2. KATALOG PRODUK (Moved to Section 2 as requested) */}
+      <KatalogProduk 
+        title={katalog.title}
+        categories={katalog.categories}
+      />
+
+      {/* 2.3. BRAND SHOWCASE SECTION (Sunscreen Highlight) */}
+      <BrandShowcaseSection />
+
+      {/* 2.5. DI PERCAYA 150+ BRAND (LOGO SCROLL - BERWARNA) */}
+      <LogoScroll 
+        logos={aboutData.partnerLogos} 
+        headline={trustedBrands.title}
+        subHeadline={trustedBrands.subtitle}
+      />
+
+
+
+      {/* 5. 8 KEUNTUNGAN (Slider Otomatis) */}
+      <AdvantagesGrid 
+        title={advantages.title}
+        items={advantages.items}
+      />
+
+      {/* 5.5. SERTIFIKASI RESMI TERPERCAYA (Our Certification Section) */}
+      <OurCertification />
+
+      {/* 6. TESTIMONIALS */}
+      {/* TODO: Re-enable testimonials slider when content is ready */}
+      {/* <Testimonials
+        title={testimonials.title}
+        items={testimonials.items}
+      /> */}
+
+      {/* 7. CTA SECTION (Siap Wujudkan Brand Impian?) */}
+      <CtaSection />
+
+      {/* 7.5. LIPUTAN MEDIA */}
+      <MediaCoverage 
+        title={homepageData.media.title} 
+        logos={homepageData.media.logos} 
+      />
+
+      {/* 6.8. GENERAL TRUST FAQ */}
+      <FaqHome />
+
+      {/* 10. BLOG SECTION */}
+      <BlogSection 
+        title={blog.title}
+        posts={blog.posts}
+      />
+    </main>
   );
 }

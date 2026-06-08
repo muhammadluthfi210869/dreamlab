@@ -1,7 +1,177 @@
 import type { NextConfig } from "next";
+import seoMappingData from './src/data/seo-mapping.json';
+
+interface SeoMappingItem {
+  source: string;
+  destination: string;
+  _metadata: {
+    original_title: string;
+    original_h1?: string;
+  };
+}
+
+const seoMapping = seoMappingData as SeoMappingItem[];
+
+// Extract all article slugs that exist in articles data
+// These are blog posts that WordPress served at root level
+const articleSlugs = seoMapping
+  .filter(m => 
+    m.source !== '/' && 
+    !m.source.startsWith('/category/') &&
+    !m.source.startsWith('/about-us') &&
+    !m.source.startsWith('/services') &&
+    !m.source.startsWith('/career') &&
+    !m.source.startsWith('/contact-us') &&
+    !m.source.startsWith('/our-client') &&
+    !m.source.startsWith('/news-blog') &&
+    !m.source.startsWith('/produk') &&
+    !m.source.startsWith('/baby-care') &&
+    !m.source.startsWith('/body-care') &&
+    !m.source.startsWith('/hair-care') &&
+    !m.source.startsWith('/foot-care') &&
+    !m.source.startsWith('/skincare-face-care') &&
+    !m.source.startsWith('/decorative') &&
+    !m.source.startsWith('/parfum') &&
+    !m.source.startsWith('/pkrt') &&
+    !m.source.startsWith('/author/') &&
+    !m.source.startsWith('/thankyou') &&
+    !m.source.includes('page/') &&
+    !m.source.includes('%20') &&
+    !m.source.includes(':') &&
+    m.source.length < 255
+  )
+  .map(m => m.source.replace(/^\/+/, '').replace(/\/+$/, ''));
+
+// Build category slug → display name mapping from seo-mapping
+const categoryMappings: Record<string, string> = {
+  'bisnis-kosmetik': 'Bisnis Kosmetik',
+  'bisnis-skincare': 'Bisnis Skincare',
+  'tips-trick': 'Tips & Trick',
+  'maklon-personal-care': 'Maklon Personal Care',
+  'maklon-baby-care': 'Maklon Baby Care',
+  'maklon-haircare': 'Maklon Haircare',
+  'maklon-skincare': 'Maklon Skincare',
+  'maklon-bodycare': 'Maklon Bodycare',
+  'dreamlabpedia': 'Dreamlab Pedia',
+  'maklon-parfum': 'Maklon Parfum',
+  'dreampreneur-beauty-academy': 'Dreampreneur Beauty Academy',
+  'maklon-footcare': 'Maklon Footcare',
+  'bisnis-men-grooming': 'Bisnis Men Grooming',
+  'personal-care': 'Personal Care',
+};
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  trailingSlash: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dreamlab.id',
+        pathname: '/**',
+      },
+    ],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [480, 640, 768, 1024, 1280, 1536, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-icons',
+    ],
+  },
+  turbopack: {
+    root: process.cwd(),
+  },
+
+  async redirects() {
+    const redirects: Array<{
+      source: string;
+      destination: string;
+      permanent: boolean;
+    }> = [];
+
+    // 1. Redirect /news-blog/{slug} → /{slug}/ (articles should live at root, matching legacy WordPress)
+    // This prevents duplicate content between /news-blog/slug and /slug
+    articleSlugs.forEach(slug => {
+      if (slug) {
+        redirects.push({
+          source: `/news-blog/${slug}`,
+          destination: `/${slug}/`,
+          permanent: true,
+        });
+      }
+    });
+
+    // 2. Category pages are now handled by dedicated route handler: /category/[slug]/
+    // No redirect needed — the route already exists.
+
+    // 3. Redirect known legacy WordPress structural URLs (only those without new routes)
+    redirects.push({
+      source: '/thankyou-page',
+      destination: '/contact-us',
+      permanent: true,
+    });
+
+    // 3b. Redirect /news-blog/ listing page to root (commented out to allow access to blog archive)
+    /*
+    redirects.push({
+      source: '/news-blog',
+      destination: '/',
+      permanent: true,
+    });
+    */
+
+    // Note: Author and pagination routes are now handled by dedicated route handlers:
+    // - /author/[author]/  → src/app/author/[author]/page.tsx
+    // - /news-blog/page/[num]/  → src/app/news-blog/page/[num]/page.tsx
+    // These should NOT be redirected to preserve content and SEO equity.
+
+    // 4. Category → Silo redirects: Old WordPress category pages redirect to new silo pages
+    // These preserve SEO equity from the old site structure
+    const categoryToSiloRedirects: Array<[string, string]> = [
+      ['/skincare-face-care', '/maklon-skincare/'],
+      ['/body-care', '/maklon-body-care/'],
+      ['/baby-care', '/maklon-baby-care/'],
+      ['/foot-care', '/maklon-foot-care/'],
+      ['/hair-care', '/maklon-hair-care/'],
+      ['/parfum', '/maklon-parfum/'],
+      ['/decorative', '/maklon-decorative/'],
+      ['/pkrt', '/maklon-pkrt/'],
+      ['/product', '/services/'],
+    ];
+    for (const [source, destination] of categoryToSiloRedirects) {
+      redirects.push({ source, destination, permanent: true });
+    }
+
+    // 5. Preserve existing WordPress 301 redirects (old slugs → new slugs)
+    // These were captured from the live site crawl — maintaining them preserves backlink equity
+    const wordpressRedirects: Array<[string, string]> = [
+      ['/tips-sukses-bisnis-parfum', '/bisnis-parfum-merk-sendiri/'],
+      ['/maklon-scalp-haircare-bisnis-produk-rambut-sehat', '/pabrik-shampoo-merek-sendiri/'],
+      ['/tren-parfum-arab-bisnis-maklon-dreamlab', '/produk-viral-tiktok/'],
+      ['/maklon-skincare-untuk-brand-baru', '/maklon-kosmetik-pemula-modal-kecil/'],
+      ['/prediksi-tren-2026', '/8-tren-kecantikan-2026-smart-formula/'],
+      ['/pabrik-parfum-makasar', '/maklon-parfum-makassar/'],
+      ['/cara-bisnis-skincare-dari-nol', '/bisnis-kosmetik-dari-nol/'],
+      ['/pabrik-parfum-surabaya-biaya-2026', '/pabrik-parfum-surabaya/'],
+      ['/maklon-parfum-bpom-indonesia-strategi-bisnis', '/maklon-parfum-dreamlab/'],
+      ['/maklon-kosmetik-parfum-tangerang', '/maklon-kosmetik-tangerang-terpercaya/'],
+      ['/maklon-kosmetik-jakarta-dreamlab-2026', '/maklon-jakarta-terbaik/'],
+      ['/maklon-skincare-surabaya-umkm', '/pabrik-maklon-kosmetik-surabaya-terlengkap/'],
+      ['/jasa-maklon-sabun-mandi-batang', '/jasa-maklon-bar-soap-merek-sendiri/'],
+      ['/bahan-aktif-untuk-mengatasi-jerawat', '/bahan-aktif-skincare-jerawat/'],
+      ['/maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
+      ['/rahasia-maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
+      ['/body-care-2', '/maklon-body-care/'],
+      ['/cara-membuat-masker-wajah-organik-praktis-aman-dan-cocok-untuk-ide-bisnis-skincare', '/maklon-skincare/masker-wajah/'],
+    ];
+    for (const [source, destination] of wordpressRedirects) {
+      redirects.push({ source, destination, permanent: true });
+    }
+
+    return redirects;
+  },
 };
 
 export default nextConfig;

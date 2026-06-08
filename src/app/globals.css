@@ -1,26 +1,354 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Official Brand Colors from Guidelines (dreamlab.id) */
+  --dream-orange: #F39200;
+  --dream-blue: #F39200; /* Replaced #4898D3 with #F39200 to change all blues to orange */
+  --dream-green: #2A5841;
+  --dream-black: #212120;
+  --dream-white: #FFFFFF;
+
+  /* System Defaults */
+  --background: var(--dream-white);
+  --foreground: var(--dream-black);
+
+  /* Base font families - defined here in :root so Next.js --font-viga
+     (injected by next/font/google as a CSS var on <html>) is accessible
+     via normal CSS cascade and NOT shadowed by @theme tokens */
+  --helvetica-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @theme inline {
+  /* Color Palette */
+  --color-brand-orange: var(--dream-orange);
+  --color-brand-blue: var(--dream-blue);
+  --color-brand-light-blue: #FDF8F3; /* Map standard light-blue backgrounds to warm light cream/orange */
+  --color-brand-green: var(--dream-green);
+  --color-brand-black: var(--dream-black);
+  --color-brand-white: var(--dream-white);
+
+  --color-dream-orange: var(--dream-orange);
+  --color-dream-blue: var(--dream-blue);
+  --color-dream-green: var(--dream-green);
+  --color-dream-black: var(--dream-black);
+  --color-dream-white: var(--dream-white);
+
+  /* Background/Foreground Aliases */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-dark: var(--dream-black);
+
+  /* Typography Aliases for Tailwind utility classes
+     IMPORTANT: --font-viga is injected by Next.js on <html> element.
+     We do NOT declare --font-viga here to avoid Tailwind @theme shadowing it.
+     Font utilities are applied via @layer base rules below instead. */
+  --font-display: "Viga", sans-serif;
+  --font-sans: var(--helvetica-stack);
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-text: var(--helvetica-stack);
+  --font-helvetica: var(--helvetica-stack);
+  --font-onest: var(--helvetica-stack);
+  --font-poppins: var(--helvetica-stack);
+  --font-montserrat: var(--helvetica-stack);
+  --font-inter: var(--helvetica-stack);
+
+  /* Spacing & Radii */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Animations */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+  --animate-fade-in: fadeIn 1s ease-out forwards;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: normal;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    /* "Viga" works because Next.js registers @font-face { font-family: Viga; }
+       var(--font-viga) is a backup CSS variable chain */
+    font-family: "Viga", var(--font-viga), sans-serif !important;
+    font-weight: 400 !important;
+  }
+
+  h1 {
+    @apply tracking-tight text-brand-black text-[38px] md:text-[42px] lg:text-[80px];
+    line-height: 1.0;
+  }
+
+  h2 {
+    @apply tracking-tight text-brand-black text-[28px] md:text-[32px] lg:text-[48px];
+    line-height: 1.1;
+  }
+
+  h3 {
+    @apply tracking-tight text-brand-black text-[22px] md:text-[26px] lg:text-[38px];
+    line-height: 1.2;
+  }
+
+  h4 {
+    @apply tracking-tight text-brand-black text-[20px] md:text-[23px] lg:text-[32px];
+    line-height: 1.2;
+  }
+
+  h5 {
+    @apply tracking-tight text-brand-black text-[18px] md:text-[20px] lg:text-[24px];
+    line-height: 1.2;
+  }
+
+  h6 {
+    @apply tracking-tight text-brand-black text-[16px] md:text-[18px] lg:text-[20px];
+    line-height: 1.3;
+  }
+
+  .font-display,
+  .font-viga {
+    font-family: "Viga", var(--font-viga), sans-serif !important;
+    font-weight: 400 !important;
+  }
+
+  /* Hero Section H1 - Force Viga Font via all common hero wrappers */
+  section h1,
+  .hero-heading,
+  .services-hero h1,
+  .premium-hero h1 {
+    font-family: "Viga", var(--font-viga), sans-serif !important;
+    font-weight: 400 !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .animate-on-scroll {
+    opacity: 0;
+  }
+
+  .animate-on-scroll.visible {
+    @apply animate-fade-in-up;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+
+  .container-custom {
+    @apply max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Premium Components from Guidelines */
+  .pattern-orange {
+    background-color: var(--dream-orange);
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4v-4H4v4H0v2h4v4h2v-4h4v-2H6zm30 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .glass-premium {
+    @apply bg-white/70 backdrop-blur-lg border border-gray-100 shadow-xl;
+  }
+
+  .btn-dreamlab {
+    @apply bg-dream-orange text-white px-10 py-5 font-black uppercase tracking-widest transition-all duration-300 hover:bg-dream-black hover:scale-105 active:scale-95 shadow-xl font-onest rounded-xl inline-flex items-center justify-center;
+  }
+
+  .btn-primary {
+    @apply bg-dream-orange text-white px-10 py-5 font-black uppercase tracking-widest transition-all duration-300 hover:bg-dream-black hover:scale-105 active:scale-95 shadow-xl font-onest rounded-xl inline-flex items-center justify-center;
+  }
+
+  .btn-outline {
+    @apply border-2 border-dream-orange text-dream-orange px-10 py-5 font-black uppercase tracking-widest transition-all duration-300 hover:bg-dream-orange hover:text-white rounded-xl font-onest inline-flex items-center justify-center;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Article Content Styling (Elementor Parity) */
+  .article-content {
+    @apply text-brand-black/80 font-sans;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4 {
+    @apply text-brand-black tracking-tight mt-16 mb-8;
+    line-height: 1.2;
+  }
+
+  .article-content h2 {
+    @apply text-[32px] md:text-[42px] font-black;
+  }
+
+  .article-content h3 {
+    @apply text-[24px] md:text-[32px] font-bold;
+  }
+
+  .article-content h4 {
+    @apply text-[20px] md:text-[24px] font-bold;
+  }
+
+  .article-content p {
+    @apply mb-8;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    @apply mb-10 ml-8 space-y-4;
+  }
+
+  .article-content li {
+    @apply list-disc marker:text-brand-orange;
+  }
+
+  .article-content blockquote {
+    @apply border-l-8 border-brand-orange bg-[#F9F9F9] p-12 my-12 rounded-r-3xl italic text-2xl text-brand-black/70 font-medium;
+  }
+
+  .article-content img {
+    @apply rounded-[40px] my-16 shadow-2xl mx-auto border-8 border-white;
+  }
+
+  .article-content table {
+    @apply w-full border-collapse my-12 overflow-hidden rounded-2xl shadow-sm;
+  }
+
+  .article-content th {
+    @apply bg-brand-black text-white p-6 text-left font-black uppercase tracking-widest text-[11px];
+  }
+
+  .article-content td {
+    @apply p-6 border-b border-gray-100 bg-white text-sm;
+  }
+
+  .article-content a {
+    @apply text-brand-orange font-bold underline decoration-2 underline-offset-4 hover:text-brand-black transition-all;
+  }
+
+  /* Elementor Layout Parity */
+  .article-content .elementor-section {
+    @apply flex flex-wrap relative w-full;
+  }
+
+  .article-content .elementor-container {
+    @apply flex mr-auto ml-auto relative max-w-[1200px] w-full flex-wrap;
+  }
+
+  .article-content .elementor-column {
+    @apply relative min-h-[1px] flex flex-col;
+  }
+
+  .article-content .elementor-col-50 {
+    @apply w-full md:w-1/2;
+  }
+
+  .article-content .elementor-col-100 {
+    @apply w-full;
+  }
+
+  .article-content .elementor-col-33 {
+    @apply w-full md:w-1/3;
+  }
+
+  .article-content .elementor-widget-wrap {
+    @apply relative flex w-full flex-wrap content-start p-2 md:p-4;
+  }
+
+  .article-content .elementor-widget {
+    @apply relative w-full mb-5;
+  }
+
+  /* Specific WoodMart/Elementor Section Gaps */
+  .article-content .wd-negative-gap {
+    @apply -mx-4 md:-mx-8;
+  }
+
+  .article-content .elementor-widget-divider {
+    @apply my-8;
+  }
+
+  .article-content .elementor-divider-separator {
+    @apply block w-full border-t border-gray-100;
+  }
+
+  /* Hide metadata if it's re-rendered in content */
+  .article-content .entry-meta,
+  .article-content .meta-categories-wrapp,
+  .article-content .elementor-element-41200b3f {
+    /* Hide the duplicate Elementor Hero Section */
+    @apply hidden;
+  }
+
+  /* Fix for empty image sources */
+  .article-content img[src=""] {
+    @apply hidden;
+  }
+
+  /* Table of Contents Styling */
+  .ez-toc-container {
+    @apply bg-[#F9F9F9] p-10 rounded-[32px] my-12 border border-gray-100;
+  }
+
+  .ez-toc-title {
+    @apply text-xl font-black text-brand-black uppercase tracking-widest mb-6 border-b border-gray-200 pb-4;
+  }
+
+  .ez-toc-list {
+    @apply space-y-3;
+  }
+
+  /* CLS Prevention: all content images get aspect-ratio from width/height attrs */
+  .article-content img,
+  .legacy-content-wrapper img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .article-content img[width]:not([width=""]) {
+    aspect-ratio: attr(width) / attr(height);
+  }
+
 }

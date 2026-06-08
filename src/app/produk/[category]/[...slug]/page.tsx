@@ -1,0 +1,289 @@
+import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
+import { getProductDataV2, getSubCategory, getAllSubCategories, getFlatCategoryProductPages, getAllSubCategoryProductPages } from "@/data/products-v2";
+import { getProductTitle, getProductMetaDescription, getCategoryTitle, getCategoryMetaDescription, getSubCategoryMetaDescription } from "@/data/keywords";
+import ProductHero from "@/components/ProductPageV2/ProductHero";
+import ProductAbout from "@/components/ProductPageV2/ProductAbout";
+import ProductGrid from "@/components/ProductPageV2/ProductGrid";
+import SubCategoryGrid from "@/components/ProductPageV2/SubCategoryGrid";
+import IndividualProductPage from "@/components/ProductPageV2/IndividualProductPage";
+import JsonLd from "@/components/JsonLd";
+import { generateProductPageSchema } from "@/lib/schema-generator";
+import ProductPackagingGrid from "@/components/ProductPageV2/ProductPackagingGrid";
+import ProductSubCategoryFormula from "@/components/ProductPageV2/ProductSubCategoryFormula";
+import { aboutData } from "@/data/about-us";
+
+const AdvantagesGrid = dynamic(() => import("@/components/AdvantagesGrid"));
+const ProductProcess = dynamic(() => import("@/components/ProductPageV2/ProductProcess"));
+const ProductFAQ = dynamic(() => import("@/components/ProductPageV2/ProductFAQ"));
+const CtaSection = dynamic(() => import("@/components/CtaSection"));
+const LogoScroll = dynamic(() => import("@/components/LogoScroll"));
+const OurCertification = dynamic(() => import("@/components/OurCertification"));
+
+type Props = {
+  params: Promise<{ category: string; slug: string[] }>;
+};
+
+export default async function CatchAllPage({ params }: Props) {
+  const { category, slug } = await params;
+  const categoryData = getProductDataV2(category);
+
+  if (!categoryData) notFound();
+
+  const hasSubCategories = categoryData.subCategories && categoryData.subCategories.length > 0;
+
+  // Single segment: /produk/skincare/serum/ OR /produk/bodycare/body-lotion/
+  if (slug.length === 1) {
+    const segment = slug[0];
+
+    // Check if it's a sub-category
+    if (hasSubCategories) {
+      const subData = getSubCategory(category, segment);
+      if (subData) {
+        const enrichedData = {
+          ...categoryData,
+          slug: category,
+          name: subData.name,
+          tagline: subData.description,
+          heroImage: subData.heroImage,
+          bgColor: subData.bgColor,
+          products: subData.products,
+          breadcrumb: [
+            ...categoryData.breadcrumb,
+            { label: subData.name, href: `/produk/${category}/${segment}/` },
+          ],
+        };
+        return (
+          <main className="min-h-screen bg-white">
+            <ProductHero categoryData={enrichedData} subCategorySlug={segment} />
+            {category === "skincare" || category === "decorative" ? (
+              <ProductSubCategoryFormula categorySlug={category} subCategoryName={subData.name} />
+            ) : (
+              <ProductAbout categoryName={subData.name} />
+            )}
+            <ProductGrid products={subData.products} categorySlug={category} subCategorySlug={segment} />
+            <ProductPackagingGrid categorySlug={category} subCategorySlug={segment} />
+            <AdvantagesGrid title="8 Keuntungan Maklon" />
+            <LogoScroll logos={aboutData.partnerLogos} />
+            <OurCertification />
+            <ProductProcess />
+            <CtaSection title={`Wujudkan Brand ${subData.name} Impian Anda dalam 3 Bulan`} />
+            <ProductFAQ categorySlug={category} categoryName={subData.name} subCategorySlug={segment} />
+          </main>
+        );
+      }
+    }
+
+    // Check if it's a product (flat category)
+    if (!hasSubCategories) {
+      const productData = categoryData.products.find(p => p.slug === segment);
+      if (productData) {
+        const currentUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+        const schemaData = {
+          url: currentUrl,
+          productName: productData.name,
+          categoryName: categoryData.name,
+          tagline: categoryData.tagline,
+          description: productData.seoParagraph,
+          heroImage: productData.heroImage,
+          breadcrumbs: [
+            ...categoryData.breadcrumb,
+            { label: productData.name, href: currentUrl },
+          ],
+          faqs: categoryData.faqs || [],
+          moq: productData.moq,
+          productionTime: productData.productionTime,
+          certifications: productData.certifications,
+        };
+        const schema = generateProductPageSchema(schemaData);
+        return (
+          <>
+            <JsonLd data={schema} />
+            <IndividualProductPage categoryData={categoryData} productData={productData} />
+          </>
+        );
+      }
+    }
+
+    notFound();
+  }
+
+  // Two segments: /produk/skincare/serum/facial-serum/
+  if (slug.length === 2) {
+    const [subCategorySlug, productSlug] = slug;
+
+    if (!hasSubCategories) notFound();
+
+    const subData = getSubCategory(category, subCategorySlug);
+    if (!subData) notFound();
+
+    const productData = subData.products.find(p => p.slug === productSlug);
+    if (!productData) notFound();
+
+    const currentUrl = `https://dreamlab.id/produk/${category}/${subCategorySlug}/${productSlug}/`;
+    const schemaData = {
+      url: currentUrl,
+      productName: productData.name,
+      categoryName: categoryData.name,
+      tagline: categoryData.tagline,
+      description: productData.seoParagraph || productData.shortDescription,
+      heroImage: productData.heroImage,
+      breadcrumbs: [
+        ...categoryData.breadcrumb,
+        { label: subData.name, href: `/produk/${category}/${subCategorySlug}/` },
+        { label: productData.name, href: currentUrl },
+      ],
+      faqs: categoryData.faqs || [],
+      moq: productData.moq,
+      productionTime: productData.productionTime,
+      certifications: productData.certifications,
+    };
+    const schema = generateProductPageSchema(schemaData);
+
+    // Build subcategory-specific related products from sibling products
+    const subCategoryRelatedProducts = subData.products
+      .filter(p => p.slug !== productSlug)
+      .slice(0, 4)
+      .map(p => ({
+        name: p.name,
+        slug: p.slug,
+        image: p.heroImage,
+        category: categoryData.name,
+        categorySlug: category,
+        subCategorySlug: subCategorySlug,
+      }));
+
+    return (
+      <>
+        <JsonLd data={schema} />
+        <IndividualProductPage
+          categoryData={{
+            ...categoryData,
+            heroImage: subData.heroImage,
+            bgColor: subData.bgColor,
+            breadcrumb: [
+              ...categoryData.breadcrumb,
+              { label: subData.name, href: `/produk/${category}/${subCategorySlug}/` },
+            ],
+            relatedProducts: subCategoryRelatedProducts.length > 0 ? subCategoryRelatedProducts : categoryData.relatedProducts,
+          }}
+          productData={productData}
+        />
+      </>
+    );
+  }
+
+  notFound();
+}
+
+export async function generateStaticParams() {
+  const subCategoryParams = getAllSubCategories().map(({ category, subCategory }) => ({
+    category,
+    slug: [subCategory],
+  }));
+
+  const subCategoryProductParams = getAllSubCategoryProductPages().map(({ category, subCategory, product }) => ({
+    category,
+    slug: [subCategory, product],
+  }));
+
+  const flatProductParams = getFlatCategoryProductPages().map(({ category, product }) => ({
+    category,
+    slug: [product],
+  }));
+
+  return [...subCategoryParams, ...subCategoryProductParams, ...flatProductParams];
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { category, slug } = await params;
+  const categoryData = getProductDataV2(category);
+
+  if (!categoryData) {
+    return { title: "Halaman Tidak Ditemukan", robots: "noindex" };
+  }
+
+  const hasSubCategories = categoryData.subCategories && categoryData.subCategories.length > 0;
+
+  // Single segment
+  if (slug.length === 1) {
+    const segment = slug[0];
+
+    // Sub-category
+    if (hasSubCategories) {
+      const subData = getSubCategory(category, segment);
+      if (subData) {
+        const canonicalUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+        const title = `Jasa Maklon ${subData.name} ${categoryData.name} BPOM & Halal | Dreamlab`;
+        const mappedDesc = getSubCategoryMetaDescription(category, subData.slug);
+        const description = mappedDesc || `Jasa maklon ${subData.name.toLowerCase()} ${categoryData.name.toLowerCase()} BPOM & Halal. ${subData.description} ✓ MOQ Fleksibel. Konsultasi gratis.`;
+        return {
+          title,
+          description,
+          alternates: { canonical: canonicalUrl },
+          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          openGraph: {
+            title, description, url: canonicalUrl,
+            images: [{ url: subData.heroImage, width: 1200, height: 630, alt: title }],
+            locale: "id_ID", type: "website", siteName: "Dreamlab Indonesia",
+          },
+          twitter: { card: "summary_large_image", title, description, images: [subData.heroImage] },
+        };
+      }
+    }
+
+    // Product (flat category)
+    if (!hasSubCategories) {
+      const productData = categoryData.products.find(p => p.slug === segment);
+      if (productData) {
+        const canonicalUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+        const title = getProductTitle(category, productData.slug);
+        const description = getProductMetaDescription(
+          productData.name, categoryData.name, productData.shortDescription,
+          productData.moq, productData.productionTime, productData.certifications,
+          category, productData.slug
+        );
+        return {
+          title, description, alternates: { canonical: canonicalUrl },
+          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          openGraph: {
+            title, description, url: canonicalUrl,
+            images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
+            locale: "id_ID", type: "website", siteName: "Dreamlab Indonesia",
+          },
+          twitter: { card: "summary_large_image", title, description, images: [productData.heroImage] },
+        };
+      }
+    }
+  }
+
+  // Two segments: product under sub-category
+  if (slug.length === 2) {
+    const [subCategorySlug, productSlug] = slug;
+    const subData = getSubCategory(category, subCategorySlug);
+    if (subData) {
+      const productData = subData.products.find(p => p.slug === productSlug);
+      if (productData) {
+        const canonicalUrl = `https://dreamlab.id/produk/${category}/${subCategorySlug}/${productSlug}/`;
+        const title = getProductTitle(category, productData.slug);
+        const description = getProductMetaDescription(
+          productData.name, categoryData.name, productData.shortDescription,
+          productData.moq, productData.productionTime, productData.certifications,
+          category, productData.slug
+        );
+        return {
+          title, description, alternates: { canonical: canonicalUrl },
+          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          openGraph: {
+            title, description, url: canonicalUrl,
+            images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
+            locale: "id_ID", type: "website", siteName: "Dreamlab Indonesia",
+          },
+          twitter: { card: "summary_large_image", title, description, images: [productData.heroImage] },
+        };
+      }
+    }
+  }
+
+  return { title: "Halaman Tidak Ditemukan", robots: "noindex" };
+}
