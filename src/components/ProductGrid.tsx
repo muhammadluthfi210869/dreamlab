@@ -50,7 +50,7 @@ export default function ProductGrid() {
     }
   ];
 
-  const whatsappLink = (name: string) => `https://wa.me/6281234567890?text=Halo%20Dreamlab!%20Saya%20tertarik%20dengan%20${name}.%20Bisa%20bantu%20info%20detailnya?`;
+  const whatsappLink = (name: string) => `https://wa.me/62881027240339?text=Halo%20Dreamlab!%20Saya%20tertarik%20dengan%20${name}.%20Bisa%20bantu%20info%20detailnya?`;
 
   return (
     <section className="py-24 lg:py-32 bg-white border-t border-gray-50">

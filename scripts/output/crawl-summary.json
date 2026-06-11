@@ -1,11 +1,11 @@
 {
-  "crawl_date": "2026-05-08T00:22:51.246Z",
+  "crawl_date": "2026-06-11T03:08:44.294Z",
   "base_url": "https://dreamlab.id",
-  "total_urls": 212,
-  "ok": 195,
+  "total_urls": 226,
+  "ok": 209,
   "redirects": 16,
   "errors": 1,
-  "avg_response_time": 939,
+  "avg_response_time": 159,
   "seo_issues": {
     "missing_canonical": 0,
     "missing_schema": 0,

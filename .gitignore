@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -32,6 +30,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,7 +39,17 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# sensitive - service accounts / credentials
+scripts/gsc-credentials.json
+sunny-idiom-499103-g6-93cd98095277.json
 
+# generated SEO audit outputs (regenerated on demand)
+scripts/output/
 
-.vercel
+# temp / local files
+_all_article_images.txt
+file_list.txt
+eslint_errors.txt
+tsc_errors.txt
+lint_*.txt
+full_lint_report.txt

@@ -27,8 +27,8 @@ const slugToCardImageMap: Record<string, Record<string, string>> = {
     "moisturizing-cream": "new asset/skincare&facecare/moizturizing-cream.webp",
     "brightening-cream": "new asset/skincare&facecare/brightening.webp",
     "eye-cream": "new asset/skincare&facecare/eye-cream.webp",
-    // Subcategory: day-night-cream
-    "face-cream": "new asset/skincare&facecare/facial-cream.webp",
+    // Subcategory: face-cream (Day & Night Cream product)
+    "day-night-cream": "new asset/skincare&facecare/facial-cream.webp",
     // Subcategory: face-mask
     "peel-off-mask": "new asset/skincare&facecare/peel-mask.webp",
     "brightening-mask": "new asset/skincare&facecare/brightening-mask.webp",

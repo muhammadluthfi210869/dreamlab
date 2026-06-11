@@ -105,6 +105,20 @@ const packagingOptionImageMap: Record<string, string> = {
   "Kraft Box": "custom-kemasan- dreamlab-maklon-kosmetik .png",
   "Paper Box": "custom-kemasan- dreamlab-maklon-kosmetik .png",
   "Shrink Wrap": "custom-kemasan- dreamlab-maklon-kosmetik .png",
+
+  // Parfum PNG images
+  "Glass Parfum Bottle": "maklon-kosmetik-botol-parfum-kaca.png",
+  "Roll-On Parfum Bottle": "maklon-kosmetik-roll-on-botol.png",
+  "Spray Parfum Bottle": "maklon-kosmetik-spray-botol-plastik.png",
+
+  // Lip PNG images
+  "Lip Roll Bottle": "maklon-kosmetik-botol-lip-roll.png",
+  "Doe Foot Applicator Bottle": "maklon-kosmetik-botol-dengan-aplikator-doe-foot.png",
+
+  // Footcare
+  "Botol Spray": "maklon-kosmetik-spray-botol-plastik.png",
+  "Bottle Spray": "maklon-kosmetik-spray-botol-plastik.png",
+  "Tub": "maklon-kosmetik-tube.svg",
 };
 
 const bodycarePackagingMap: Record<string, string[]> = {
@@ -120,7 +134,6 @@ const bodycarePackagingMap: Record<string, string[]> = {
   "organic-soap": ["Bar Wrap", "Kraft Box"],
   "body-serum": ["Airless Pump Bottle", "Dropper Bottle"],
   "transparent-soap": ["Bar Wrap", "Box"],
-  "transparent-soap-cream": ["Jar / Pot", "Tube"],
   "underarm-cream": ["Jar", "Tube"],
   "whitening-soap": ["Bar Wrap", "Box", "Pump Bottle"],
   "bar-soap": ["Bar Wrap", "Kraft Box"],
@@ -130,14 +143,12 @@ const bodycarePackagingMap: Record<string, string[]> = {
 };
 
 const parfumPackagingMap: Record<string, string[]> = {
-  "edp": ["Spray Bottle", "Glass Bottle", "Custom Exclusive Packaging"],
-  "edt": ["Spray Bottle", "Glass Bottle", "Custom Exclusive Packaging"],
-  "edc": ["Spray Bottle", "Glass Bottle", "Custom Exclusive Packaging"],
-  "extrait": ["Crystal Square", "Artisan Round", "Limited Edition"],
-  "body-mist": ["Spray Bottle", "Frosted Bottle", "Custom Exclusive Packaging"],
-  "essential-oil": ["Amber Glass", "Blue Glass", "Roll-on"],
-  "reed-diffuser": ["Glass Bottle", "Reed Stick Bottle"],
-  "parfum": ["Spray Bottle", "Roller Bottle"],
+  "eau-de-parfum": ["Glass Parfum Bottle", "Roll-On Parfum Bottle", "Spray Parfum Bottle", "Custom Exclusive Packaging"],
+  "eau-de-toilette": ["Glass Parfum Bottle", "Roll-On Parfum Bottle", "Spray Parfum Bottle", "Custom Exclusive Packaging"],
+  "eau-de-cologne": ["Glass Parfum Bottle", "Roll-On Parfum Bottle", "Spray Parfum Bottle", "Custom Exclusive Packaging"],
+  "extrait-de-parfum": ["Glass Parfum Bottle", "Roll-On Parfum Bottle", "Spray Parfum Bottle", "Custom Exclusive Packaging"],
+  "body-mist": ["Glass Parfum Bottle", "Roll-On Parfum Bottle", "Spray Parfum Bottle", "Custom Exclusive Packaging"],
+  "minyak-atsiri": ["Amber Glass", "Blue Glass", "Roll-on"],
 };
 
 const haircarePackagingMap: Record<string, string[]> = {
@@ -159,16 +170,16 @@ const babycarePackagingMap: Record<string, string[]> = {
   "baby-wash": ["Pump Bottle", "Flip Top Bottle", "Custom Exclusive Packaging"],
   "baby-powder": ["Shaker Bottle", "Jar"],
   "baby-cologne": ["Glass Bottle", "Custom Exclusive Packaging"],
-  "baby-moisturizer-cream": ["Tube", "Jar", "Custom Exclusive Packaging"],
 };
 
 const footcarePackagingMap: Record<string, string[]> = {
-  "foot-cream": ["Tube", "Jar", "Custom Exclusive Packaging"],
-  "foot-scrub": ["Jar", "Tube", "Custom Exclusive Packaging"],
+  "foot-cream": ["Tube", "Jar", "Bottle Spray", "Custom Exclusive Packaging"],
+  "foot-scrub": ["Jar", "Tube", "Standing Pouch", "Custom Exclusive Packaging"],
   "foot-mask": ["Sachet (Booties)", "Tube", "Jar"],
-  "foot-spray": ["Custom Exclusive Packaging"],
-  "foot-soak": ["Standing Pouch", "Jar", "Custom Exclusive Packaging"],
-  "foot-serum": ["Dropper Bottle", "Airless Pump Bottle", "Custom Exclusive Packaging"],
+  "foot-spray": ["Spray Bottle", "Custom Exclusive Packaging"],
+  "foot-soak": ["Jar", "Standing Pouch", "Custom Exclusive Packaging"],
+  "foot-serum": ["Dropper Bottle", "Tube", "Custom Exclusive Packaging"],
+  "foot-anti-bacterial": ["Spray Bottle", "Pump Bottle", "Lotion Tube"],
 };
 
 const pkrtPackagingMap: Record<string, string[]> = {
@@ -193,7 +204,7 @@ const categoryIconOverrides: Record<string, string[]> = {
   bodycare: ["bottle.webp", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
   haircare: ["bottle.webp", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
   babycare: ["bottle.webp", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
-  footcare: ["bottle.webp", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
+  footcare: ["maklon-kosmetik-tube.svg", "maklon-kosmetik-jar.svg", "maklon-kosmetik-spray-botol-plastik.png", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
   pkrt: ["bottle.webp", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
   parfum: ["bottle.webp", "custom-kemasan- dreamlab-maklon-kosmetik .png"],
 };
@@ -201,7 +212,7 @@ const categoryIconOverrides: Record<string, string[]> = {
 type SubCategoryTab = { slug: string; folder: string; label: string };
 
 const skincareSubCategoryTabs: SubCategoryTab[] = [
-  { slug: "day-night-cream", folder: "cream", label: "Face Cream" },
+  { slug: "face-cream", folder: "cream", label: "Face Cream" },
   { slug: "face-mask", folder: "face-mask", label: "Face Mask" },
   { slug: "sunscreen", folder: "sunscreen", label: "Sunscreen" },
   { slug: "cleansing", folder: "cleansing", label: "Cleanser & Micellar" },
@@ -216,7 +227,7 @@ const decorativeSubCategoryTabs: SubCategoryTab[] = [
 ];
 
 const skincareIconFiles: Record<string, string[]> = {
-  cream: ["bottle.webp"],
+  cream: ["maklon-kosmetik-jar.svg", "maklon-kosmetik-tube.svg", "maklon-kosmetik-airless-pump.svg"],
   "face-mask": ["bottle.webp"],
   sunscreen: ["bottle.webp"],
   cleansing: ["bottle.webp"],
@@ -228,6 +239,12 @@ const skincareIconFiles: Record<string, string[]> = {
 const decorativeIconFiles: Record<string, string[]> = {
   "make-up": ["bb-cream.webp", "foundation-serum.webp", "face-primer.webp", "mascara.webp", "eyebrow-gel.webp", "liquid-blush.webp", "cream-blush.webp", "liquid-highlighter1.webp", "foundatio.webp"],
   "lipcare": ["custom-kemasan- dreamlab-maklon-kosmetik .png"],
+};
+
+const CUSTOM_ICON = "custom-kemasan- dreamlab-maklon-kosmetik .png";
+
+const addCustomOnce = (arr: string[]): string[] => {
+  return arr.includes(CUSTOM_ICON) ? arr : [...arr, CUSTOM_ICON];
 };
 
 const toTitleCase = (str: string) => {
@@ -247,6 +264,7 @@ const customDisplayOverrides: Record<string, string> = {
   "Custom Exclusive Packaging": "Custom",
   "Custom Product": "Custom",
   "Custom Design": "Custom",
+  "Maklon Kosmetik Spray Botol Plastik": "Bottle Spray",
 };
 
 const getDisplayLabel = (value: string) => {
@@ -373,8 +391,7 @@ export default function ProductPackagingGrid({ categorySlug, subCategorySlug, pr
       ? (iconFilesMap[activeTab.folder] || [])
       : Object.values(iconFilesMap).flat().filter((v, i, a) => a.indexOf(v) === i);
 
-    // Always add custom design option (single)
-    const filteredIconsWithCustom = [...filteredIcons, "custom-kemasan- dreamlab-maklon-kosmetik .png"];
+    const filteredIconsWithCustom = addCustomOnce(filteredIcons);
 
     if (filteredIconsWithCustom.length === 0) return null;
 
@@ -431,7 +448,7 @@ export default function ProductPackagingGrid({ categorySlug, subCategorySlug, pr
     : packagingOptions.filter((opt) => packagingOptionImageMap[opt]);
 
   const packagingOptionsWithCustom = categoryIcons
-    ? [...categoryIcons, "custom-kemasan- dreamlab-maklon-kosmetik .png"]
+    ? addCustomOnce(categoryIcons)
     : filteredPackagingOptions.length > 0
       ? (filteredPackagingOptions.includes("Custom Exclusive Packaging") || filteredPackagingOptions.includes("Custom Design"))
         ? filteredPackagingOptions
@@ -456,8 +473,21 @@ export default function ProductPackagingGrid({ categorySlug, subCategorySlug, pr
         }));
       })();
 
+  // ─── SOAP 1-CARD OVERRIDE ───────────────────────────────────────────────
+  const soapSlugs = ["transparent-soap", "whitening-soap", "bar-soap"];
+  const isSoapProduct = !!productSlug && soapSlugs.includes(productSlug);
+
+  if (isSoapProduct) {
+    dedupedOptions.length = 0;
+    dedupedOptions.push({
+      label: "Bar Wrap / Kraft Box / Custom Exclusive Packaging",
+      imageFile: "custom-kemasan- dreamlab-maklon-kosmetik .png",
+    });
+  }
+  // ────────────────────────────────────────────────────────────────────────
+
   const allIconFiles = categoryIcons
-    ? [...categoryIcons, "custom-kemasan- dreamlab-maklon-kosmetik .png"]
+    ? addCustomOnce(categoryIcons)
     : [];
 
   if (!categoryIcons && dedupedOptions.length === 0) return null;

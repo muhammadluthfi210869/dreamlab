@@ -284,38 +284,6 @@ Baby Oil Dreamlab diformulasikan dengan minyak nabati murni yang ringan dan muda
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
-    {
-      id: "baby-moisturizer-cream",
-      name: "Baby Moisturizer Cream",
-      slug: "baby-moisturizer-cream",
-      heroImage: "/new asset/baby-care/baby-moisturizer-cream.webp",
-      galleryImages: ["/new asset/baby-care/baby-moisturizer-cream.webp"],
-      tags: ["Moisturizing", "Skin Barrier", "Daily Care"],
-      shortDescription: "Maklon Baby Moisturizer Cream dengan formula kaya untuk melindungi dan melembapkan kulit sensitif bayi. Tekstur lembut dengan Ceramide dan Shea Butter.",
-      story: `Kulit bayi membutuhkan perlindungan ekstra karena lebih tipis dan lebih rentan dibandingkan kulit dewasa.
-
-Baby Moisturizer Cream Dreamlab diformulasikan untuk memberikan hidrasi intensif sekaligus memperkuat skin barrier bayi. Dengan Ceramide NP yang memperbaiki lapisan pelindung kulit, Shea Butter yang melembutkan, dan Chamomile yang menenangkan. Tekstur krim yang lembut dan mudah diratakan, cocok untuk penggunaan setelah mandi sebagai pelembap harian.`,
-      seoParagraph: "Maklon Baby Moisturizer Cream — jasa maklon krim pelembap bayi dengan Ceramide dan Shea Butter. Hipoalergenik, aman untuk newborn (0+ bulan). ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
-      benefits: [
-        "Ceramide NP — memperkuat dan melindungi skin barrier bayi",
-        "Shea Butter — melembutkan dan melembapkan secara alami",
-        "Formula Hipoalergenik — aman untuk kulit newborn",
-        "Tekstur Krim Lembut — mudah diratakan, nyaman dipakai",
-        "Bebas Pewarna & Pewangi Buatan",
-        "Sertifikasi BPOM & Halal",
-      ],
-      ingredients: [
-        { name: "Ceramide NP", origin: "Germany", function: "Memperkuat skin barrier bayi" },
-        { name: "Shea Butter", origin: "Africa", function: "Melembutkan dan melembapkan" },
-        { name: "Chamomile Extract", origin: "Germany", function: "Menenangkan iritasi dan kemerahan" },
-      ],
-      sizeOptions: ["30g", "50g", "100g"],
-      bottleOptions: ["Tube", "Jar", "Pump Jar"],
-      capOptions: ["Flip Cap", "Screw Lid", "Pump"],
-      moq: "2000 pcs",
-      productionTime: "2-3 bulan",
-      certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
-    },
   ],
   trustStats: [
     { icon: "award", value: "98%", label: "Dermatology Score", description: "Tingkat persetujuan dari audit dermatologis independen" },

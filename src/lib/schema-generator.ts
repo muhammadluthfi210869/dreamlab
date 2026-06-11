@@ -27,7 +27,7 @@ export function generatePageSchema(data: SchemaPageData) {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
       name: 'Dreamlab Indonesia',
-      url: siteUrl,
+      url: `${siteUrl}/`,
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp`,
@@ -41,7 +41,7 @@ export function generatePageSchema(data: SchemaPageData) {
       ],
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+62-812-3456-7890',
+        telephone: '+62-881-0272-40339',
         contactType: 'customer service',
         areaServed: 'ID',
         availableLanguage: 'Indonesian',
@@ -52,7 +52,7 @@ export function generatePageSchema(data: SchemaPageData) {
     {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
-      url: siteUrl,
+      url: `${siteUrl}/`,
       name: 'Dreamlab Indonesia',
       description: 'Pabrik maklon kosmetik terbaik di Indonesia. Solusi lengkap dari formulasi, kemasan, BPOM & halal, MOQ fleksibel.',
       publisher: { '@id': `${siteUrl}/#organization` },
@@ -176,13 +176,11 @@ export interface ProductPageSchemaData {
   productionTime: string;
   certifications: string[];
   priceRange?: string;
-  ratingValue?: number;
-  reviewCount?: number;
 }
 
 export function generateProductPageSchema(data: ProductPageSchemaData) {
   const siteUrl = 'https://dreamlab.id';
-  const { url, productName, categoryName, tagline, description, heroImage, breadcrumbs, faqs, moq, productionTime, certifications, ratingValue, reviewCount } = data;
+  const { url, productName, categoryName, tagline, description, heroImage, breadcrumbs, faqs, moq, productionTime, certifications } = data;
   const cleanUrl = url.replace(/\/?$/, '/');
 
   const graph: Record<string, unknown>[] = [
@@ -191,7 +189,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
       name: 'Dreamlab Indonesia',
-      url: siteUrl,
+      url: `${siteUrl}/`,
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp`,
@@ -205,7 +203,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       ],
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+62-812-3456-7890',
+        telephone: '+62-881-0272-40339',
         contactType: 'customer service',
         areaServed: 'ID',
         availableLanguage: 'Indonesian',
@@ -216,7 +214,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
     {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
-      url: siteUrl,
+      url: `${siteUrl}/`,
       name: 'Dreamlab Indonesia',
       description: 'Pabrik maklon kosmetik terbaik di Indonesia. Solusi lengkap dari formulasi, kemasan, BPOM & halal, MOQ fleksibel.',
       publisher: { '@id': `${siteUrl}/#organization` },
@@ -257,15 +255,6 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       offers: {
         '@id': `${cleanUrl}#offer`,
       },
-      ...(ratingValue ? {
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: ratingValue,
-          bestRating: 5,
-          worstRating: 1,
-          ratingCount: reviewCount || 1,
-        },
-      } : {}),
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'MOQ', value: moq },
         { '@type': 'PropertyValue', name: 'Production Time', value: productionTime },

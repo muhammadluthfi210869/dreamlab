@@ -14,7 +14,7 @@ export default function StrategicClosing({ headline, subheadline, ctaText, produ
   const whatsappMessage = encodeURIComponent(
     `Halo Dreamlab! Saya ingin menjadwalkan pembuatan sampel produk ${productName || "premium"} untuk brand saya.`
   );
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
   
   const premiumEase = [0.16, 1, 0.3, 1] as any;
 

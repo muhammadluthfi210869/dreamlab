@@ -1,11 +1,30 @@
+import { Metadata } from 'next';
 import Image from "next/image";
 import Link from "next/link";
 import PremiumHero from "@/components/PremiumHero";
 import { careerData } from "@/data/career";
+import { PageSchema } from "@/components/PageSchema";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Career - Dreamlab Indonesia",
   description: "Build Your Career With Dreamlab. Join our team and be part of beauty innovation in Indonesia.",
+  alternates: {
+    canonical: 'https://dreamlab.id/career/',
+  },
+  openGraph: {
+    title: "Career - Dreamlab Indonesia",
+    description: "Build Your Career With Dreamlab. Join our team and be part of beauty innovation in Indonesia.",
+    url: 'https://dreamlab.id/career/',
+    siteName: 'Dreamlab',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Career - Dreamlab Indonesia",
+    description: "Build Your Career With Dreamlab. Join our team.",
+  },
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
 
 export default function CareerPage() {
@@ -13,6 +32,17 @@ export default function CareerPage() {
 
   return (
     <main className="bg-brand-white">
+      <PageSchema
+        url="https://dreamlab.id/career/"
+        title="Career - Dreamlab Indonesia"
+        description="Build Your Career With Dreamlab. Join our team and be part of beauty innovation."
+        h1="Career at Dreamlab"
+        type="category"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Career' },
+        ]}
+      />
       {/* Hero Section */}
       <PremiumHero 
         title={hero.title}

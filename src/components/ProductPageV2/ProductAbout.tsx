@@ -11,7 +11,7 @@ interface ProductAboutProps {
 export default function ProductAbout({ categoryName }: ProductAboutProps) {
   const isMobile = useMediaQuery("(max-width: 1024px)");
   const whatsappMessage = encodeURIComponent(`Halo Dreamlab! Saya tertarik untuk maklon produk ${categoryName}. Mohon informasi dan konsultasi lebih lanjut.`);
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
   return (
     <motion.section

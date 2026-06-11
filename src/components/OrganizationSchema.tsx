@@ -7,7 +7,7 @@ export default function OrganizationSchema() {
     "@type": "Organization",
     "@id": "https://dreamlab.id/#organization",
     "name": "Dreamlab Indonesia",
-    "url": "https://dreamlab.id",
+    "url": "https://dreamlab.id/",
     "logo": "https://dreamlab.id/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp",
     "sameAs": [
       "https://www.instagram.com/dreamlab.id",
@@ -16,7 +16,7 @@ export default function OrganizationSchema() {
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+62-812-3456-7890",
+      "telephone": "+62-881-0272-40339",
       "contactType": "customer service",
       "areaServed": "ID",
       "availableLanguage": "Indonesian"

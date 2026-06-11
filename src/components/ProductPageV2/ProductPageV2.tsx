@@ -34,8 +34,8 @@ export default function ProductPageV2({ data }: ProductPageV2Props) {
         <ProductGrid products={data.products} categorySlug={data.slug} />
       )}
 
-      {/* Packaging design grid */}
-      <ProductPackagingGrid categorySlug={data.slug} />
+      {/* Packaging design grid — skip for parfum category */}
+      {data.slug !== "parfum" && <ProductPackagingGrid categorySlug={data.slug} />}
 
       <AdvantagesGrid title="8 Keuntungan Maklon" />
       <ProductProcess />

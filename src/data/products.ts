@@ -51,13 +51,13 @@ export const productData: Record<string, Category> = {
     },
     categories: [
       {
-        id: "day-night-cream",
-        label: "Day & Night Cream Series",
+        id: "face-cream",
+        label: "Face Cream Series",
         tabImage: "/assets/images/Slimming-Cream-1.webp",
         products: [
           {
             id: "skincare-1",
-            slug: "day-night-cream",
+            slug: "face-cream",
             name: "Day & Night Cream Series",
             description: "Pelembap wajah untuk pagi dan malam hari dengan formula khusus yang merawat kulit sepanjang hari. Mengandung bahan aktif untuk melembapkan, brighten, dan melindungi kulit dari radikal bebas.",
             subDescription: "Yuk, konsultasi sekarang dan wujudkan brand skincareimpian kamu!",

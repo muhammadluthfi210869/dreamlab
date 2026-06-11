@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { ArrowRight, Sparkles, Palette, Star } from "lucide-react";
+import { ArrowRight, Sparkles, Palette } from "lucide-react";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
 
 interface PackagingIcon {
@@ -89,15 +89,6 @@ const folderToConfigMap: Record<string, { price: string; moq: string }> = {
   "face-wash": { price: "Rp 12.000", moq: "1.000 Pcs" },
   "facial-toner": { price: "Rp 12.000", moq: "1.000 Pcs" },
   "facial-serum": { price: "Rp 18.000", moq: "1.000 Pcs" },
-};
-
-const getReviewData = (name: string) => {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const count = 120 + (Math.abs(hash) % 80);
-  return { rating: "5.0", count };
 };
 
 
@@ -187,7 +178,7 @@ export default function ProductPackagingGallery({ productSlug, categorySlug, pro
   if (icons.length === 0) return null;
 
   const whatsappMessage = encodeURIComponent(`Halo Dreamlab! Saya tertarik dengan packaging design untuk ${productName}. Mohon info lebih lanjut.`);
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
   return (
     <section ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-[#F9F7F2] via-white to-[#F9F7F2]">
@@ -304,8 +295,6 @@ export default function ProductPackagingGallery({ productSlug, categorySlug, pro
             {icons.map((icon, index) => {
               const isFeatured = index === 0;
               const isHovered = hoveredIndex === index;
-              const reviews = getReviewData(icon.name);
-
               return (
                 <motion.div
                   key={index}
@@ -357,16 +346,6 @@ export default function ProductPackagingGallery({ productSlug, categorySlug, pro
                       <h4 className="font-onest text-sm md:text-base font-bold text-[#212120] leading-snug tracking-tight flex-grow transition-colors duration-300 group-hover:text-brand-orange min-h-[40px] flex items-center">
                         {icon.name}
                       </h4>
-
-                      {/* B2B Review Rating (⭐⭐⭐⭐⭐ style) */}
-                      <div className="flex items-center gap-1 mt-1.5">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span className="text-xs font-bold text-gray-800 font-onest">{reviews.rating}</span>
-                        <span className="text-[10px] text-gray-400 font-normal font-onest">
-                          ({reviews.count} Reviews)
-                        </span>
-                      </div>
-
 
                     </div>
                   </div>

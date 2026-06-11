@@ -450,7 +450,7 @@ Eyebrow Gel Dreamlab menggabungkan formula tint yang memberikan warna natural pa
           seoParagraph: "Maklon Eyebrow Gel — jasa maklon gel alis dengan efek tint dan hold tahan seharian. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Tint + Hold in One", "Precise Brush Applicator", "Waterproof Formula", "Natural, Full-looking Brows", "All-day Hold", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Natural Waxes", origin: "Germany", function: "Hold and shaping" }, { name: "Iron Oxides", origin: "Germany", function: "Natural tint color" }, { name: "Panthenol", origin: "Germany", function: "Brow conditioning" }],
-          sizeOptions: ["5ml", "8ml"], bottleOptions: ["Mascara Tube", "Custom Exclusive Packaging"], capOptions: ["Screw Cap with Brush"],
+          sizeOptions: ["5ml", "8ml"], bottleOptions: ["Jar", "Custom Exclusive Packaging"], capOptions: ["Screw Cap with Brush"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -464,7 +464,7 @@ Foundation Dreamlab diformulasikan dengan pigmen tinggi yang memberikan coverage
           seoParagraph: "Maklon Foundation — jasa maklon foundation full coverage long-wear dengan shade untuk kulit Indonesia. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Full Coverage, Lightweight", "12-Hour Long-wear", "Anti-Oxidation Formula", "Shades for Indonesian Skin", "Buildable Coverage", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Bismuth Oxychloride", origin: "USA", function: "Soft-focus, smooth finish" }, { name: "Niacinamide", origin: "Korea", function: "Brightening during wear" }, { name: "Silicone Elastomers", origin: "Germany", function: "Long-wear, blurring" }],
-          sizeOptions: ["20ml", "30ml", "50ml"], bottleOptions: ["Pump Bottle", "Cushion Case", "Stick"], capOptions: ["Pump Cap", "Screw Cap"],
+          sizeOptions: ["20ml", "30ml", "50ml"], bottleOptions: ["Pump Bottle", "Cushion Case", "Stick", "Custom Exclusive Packaging"], capOptions: ["Pump Cap", "Screw Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -479,34 +479,6 @@ BB Cream Dreamlab memberikan coverage ringan yang menyamarkan ketidaksempurnaan,
           benefits: ["Coverage + SPF 30 + Skincare", "Niacinamide + Hyaluronic Acid", "Lightweight, Natural Finish", "One Product, Multi-Benefit", "Cocok daily use", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Niacinamide", origin: "Korea", function: "Brightening, pore care" }, { name: "SPF 30 Filters", origin: "Germany", function: "UV protection" }, { name: "Hyaluronic Acid", origin: "Germany", function: "Hydration, plumping" }],
           sizeOptions: ["20ml", "30ml"], bottleOptions: ["Tube", "Pump Bottle", "Custom Exclusive Packaging"], capOptions: ["Flip Cap", "Pump Cap"],
-          moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
-        },
-        {
-          id: "cc-cream", name: "CC Cream", slug: "cc-cream",
-          heroImage: "/assets/images/decorative-hero.webp", galleryImages: ["/assets/images/decorative-hero.webp"],
-          tags: ["Color Correcting", "SPF"],
-          shortDescription: "CC Cream untuk koreksi warna kulit dengan SPF dan coverage ringan.",
-          story: `CC Cream (Color Correcting Cream) adalah evolusi dari BB Cream yang lebih fokus pada koreksi warna kulit.
-
-CC Cream Dreamlab diformulasikan dengan pigmen color-correcting yang mengadaptasi warna kulit secara otomatis, menyamarkan kemerahan, bekas jerawat, dan warna kulit tidak merata. Dilengkapi SPF 35 untuk perlindungan UV, Hyaluronic Acid untuk hidrasi, dan Vitamin C untuk pencerahan. Tekstur ringan yang memberikan coverage natural dengan efek skincare yang menyatu sempurna.`,
-          seoParagraph: "Maklon CC Cream — jasa maklon CC cream color correcting dengan SPF 35 dan Vitamin C untuk kulit merata. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
-          benefits: ["Color Adapting Pigments", "SPF 35 UV Protection", "Vitamin C Brightening", "Redness Correction", "Lightweight Natural Finish", "Sertifikasi BPOM & Halal"],
-          ingredients: [{ name: "Color Adapt Pigments", origin: "Korea", function: "Mengadaptasi warna kulit secara otomatis" }, { name: "SPF 35 Filters", origin: "Germany", function: "UV protection" }, { name: "Vitamin C Derivative", origin: "Switzerland", function: "Brightening, antioxidant" }],
-          sizeOptions: ["20ml", "30ml", "50ml"], bottleOptions: ["Tube", "Pump Bottle", "Custom Exclusive Packaging"], capOptions: ["Flip Cap", "Pump Cap"],
-          moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
-        },
-        {
-          id: "concealer", name: "Concealer", slug: "concealer",
-          heroImage: "/assets/images/decorative-hero.webp", galleryImages: ["/assets/images/decorative-hero.webp"],
-          tags: ["Full Coverage", "Long-wear"],
-          shortDescription: "Concealer full coverage untuk menyamarkan bekas jerawat, dark circles, dan ketidaksempurnaan kulit.",
-          story: `Concealer adalah senjata rahasia makeup artist untuk kulit yang tampak sempurna.
-
-Concealer Dreamlab diformulasikan dengan pigmen tinggi yang memberikan coverage penuh dengan aplikasi minimal. Formula long-wear yang tahan hingga 16 jam tanpa creasing atau fading. Tersedia dalam format applicator tube untuk presisi dan stick untuk aplikasi luas — dua cara menyamarkan ketidaksempurnaan dengan satu produk yang luar biasa.`,
-          seoParagraph: "Maklon Concealer — jasa maklon concealer full coverage long-wear 16 jam dengan format applicator tube dan stick. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
-          benefits: ["Full Coverage, Minimal Application", "16-Hour Long-wear", "Anti-Creasing Formula", "Water-resistant", "Applicator Tube & Stick Format", "Sertifikasi BPOM & Halal"],
-          ingredients: [{ name: "High-Coverage Pigments", origin: "Korea", function: "Full coverage dengan aplikasi minimal" }, { name: "Trimethylsiloxane", origin: "Germany", function: "Long-wear, water-resistant" }, { name: "Caffeine Extract", origin: "Brazil", function: "Mengurangi pembengkakan dan dark circles" }],
-          sizeOptions: ["3ml", "5ml", "8ml"], bottleOptions: ["Applicator Tube", "Stick", "Custom Exclusive Packaging"], capOptions: ["Twist Cap", "Screw Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -544,7 +516,7 @@ Lip Cream Dreamlab diformulasikan dengan tekstur creamy yang mudah diaplikasikan
           seoParagraph: "Maklon Lip Cream — jasa maklon lip cream creamy dengan warna intens dan long-wear 6-8 jam. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Creamy, Easy Application", "Intense, Buildable Color", "6-8 Hour Long-wear", "Transfer-Resistant", "Vitamin E + Shea Butter", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "High-Hue Pigments", origin: "Germany", function: "Intense color payoff" }, { name: "Shea Butter", origin: "Africa", function: "Moisturizing, comfortable wear" }, { name: "Vitamin E", origin: "Switzerland", function: "Lip nourishment" }],
-          sizeOptions: ["3ml", "4ml", "5ml"], bottleOptions: ["Lip Cream Tube", "Applicator Tube", "Custom Exclusive Packaging"], capOptions: ["Snap Cap", "Magnetic Cap"],
+          sizeOptions: ["3ml", "4ml", "5ml"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Snap Cap", "Magnetic Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -558,7 +530,7 @@ Lip Serum Dreamlab diformulasikan dengan Hyaluronic Acid Spheres yang memberikan
           seoParagraph: "Maklon Lip Serum — jasa maklon serum bibir dengan Hyaluronic Acid dan Peptide untuk plumping dan perawatan. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Hyaluronic Acid Plumping", "Peptide Collagen Boost", "Ceramide Barrier Repair", "Overnight Treatment", "Smooth Lip Base", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Hyaluronic Acid Spheres", origin: "Korea", function: "Plumping, volume" }, { name: "Peptide Complex", origin: "Switzerland", function: "Collagen stimulation" }, { name: "Ceramide NP", origin: "Germany", function: "Lip barrier repair" }],
-          sizeOptions: ["5ml", "10ml"], bottleOptions: ["Dropper Bottle", "Applicator Tube", "Custom Exclusive Packaging"], capOptions: ["Rubber Dropper", "Flip Cap"],
+          sizeOptions: ["5ml", "10ml"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Rubber Dropper", "Flip Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -572,7 +544,7 @@ Lip Balm Dreamlab diformulasikan dengan campuran beeswax, Shea Butter, dan Jojob
           seoParagraph: "Maklon Lip Balm — jasa maklon lip balm pelembap dengan beeswax dan Shea Butter untuk perlindungan harian. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Beeswax + Shea Butter", "All-Day Moisture Protection", "Lightweight, Non-Sticky", "Unscented + Flavored Options", "Essential Daily Product", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Beeswax", origin: "Local", function: "Protective barrier" }, { name: "Shea Butter", origin: "Africa", function: "Deep moisturizing" }, { name: "Jojoba Oil", origin: "Israel", function: "Skin-compatible hydration" }],
-          sizeOptions: ["4g", "5g"], bottleOptions: ["Lip Balm Tube", "Pot", "Stick"], capOptions: ["Twist Cap", "Screw Lid"],
+          sizeOptions: ["4g", "5g"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Twist Cap", "Screw Lid"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -586,7 +558,7 @@ Tinted Lip Balm Dreamlab menggabungkan kelembapan lip balm dengan sentuhan warna
           seoParagraph: "Maklon Tinted Lip Balm — jasa maklon lip balm berwarna dengan hint of color natural dan kelembapan. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Sheer, Natural Color", "Moisturizing + Tinted", "No-Makeup Makeup Look", "Buildable Coverage", "Multiple Natural Shades", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Beeswax", origin: "Local", function: "Protective barrier" }, { name: "Shea Butter", origin: "Africa", function: "Deep moisturizing" }, { name: "Iron Oxides", origin: "Germany", function: "Natural tint pigments" }],
-          sizeOptions: ["4g", "5g"], bottleOptions: ["Lip Balm Tube", "Stick", "Custom Exclusive Packaging"], capOptions: ["Twist Cap", "Screw Lid"],
+          sizeOptions: ["4g", "5g"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Twist Cap", "Screw Lid"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -600,7 +572,7 @@ Lip Gloss Dreamlab diformulasikan dengan non-sticky formula yang memberikan kila
           seoParagraph: "Maklon Lip Gloss — jasa maklon lip gloss non-sticky dengan efek plumping dan kilau maksimal. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Non-Sticky Formula", "Maximum Shine", "Hyaluronic Acid Plumping", "Clear, Sheer, Glitter Options", "Youthful, Full-looking Lips", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Hydrogenated Polyisobutene", origin: "Germany", function: "Non-sticky shine" }, { name: "Hyaluronic Acid Spheres", origin: "Korea", function: "Plumping effect" }, { name: "Vitamin E", origin: "Switzerland", function: "Lip nourishment" }],
-          sizeOptions: ["5ml", "8ml", "10ml"], bottleOptions: ["Lip Gloss Tube", "Applicator Tube", "Custom Exclusive Packaging"], capOptions: ["Wand Cap", "Doe-foot Cap"],
+          sizeOptions: ["5ml", "8ml", "10ml"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Wand Cap", "Doe-foot Cap"],
           moq: "2000 pcs", productionTime: "2 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -614,7 +586,7 @@ Lip Scrub Dreamlab menggunakan gula halus sebagai eksfoliator alami yang lembut 
           seoParagraph: "Maklon Lip Scrub — jasa maklon lip scrub eksfoliator lembut untuk bibir halus dan smooth. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Fine Sugar Exfoliation", "Coconut Oil Moisturizing", "Removes Dead Skin", "Preps for Lipstick", "Smooth, Soft Lips", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Fine Sugar", origin: "Local", function: "Gentle physical exfoliant" }, { name: "Coconut Oil", origin: "Local", function: "Moisturizing during scrub" }, { name: "Vitamin E", origin: "Switzerland", function: "Lip nourishment" }],
-          sizeOptions: ["10g", "15g"], bottleOptions: ["Pot", "Stick", "Tube", "Custom Exclusive Packaging"], capOptions: ["Screw Lid", "Flip Cap"],
+          sizeOptions: ["10g", "15g"], bottleOptions: ["Pot", "Custom Exclusive Packaging"], capOptions: ["Screw Lid", "Flip Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -628,7 +600,7 @@ Lip Matte Dreamlab diformulasikan dengan pigmentasi tinggi yang memberikan warna
           seoParagraph: "Maklon Lip Matte — jasa maklon lipstik matte tahan lama 6-8 jam tidak transfer, 50+ warna. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["High Pigment, One-Swipe Coverage", "6-8 Hour Transfer-Proof", "Non-Drying Formula", "Wide Color Range", "Bold, Confident Finish", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "High-Hue Pigments", origin: "Germany", function: "Intense color saturation" }, { name: "Silicone Wax", origin: "Germany", function: "Long-wear, smooth application" }, { name: "Vitamin E", origin: "Switzerland", function: "Prevents drying, nourishment" }],
-          sizeOptions: ["3ml", "4ml", "5ml"], bottleOptions: ["Lip Cream Tube", "Lipstick Case", "Custom Exclusive Packaging"], capOptions: ["Snap Cap", "Magnetic Cap"],
+          sizeOptions: ["3ml", "4ml", "5ml"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Snap Cap", "Magnetic Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
         {
@@ -642,7 +614,7 @@ Lip Blush Dreamlab diformulasikan dengan water-based tint yang memberikan warna 
           seoParagraph: "Maklon Lip Blush — jasa maklon lip tint dengan hasil natural seperti bibir sehat. ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
           benefits: ["Water-based Tint", "Natural 'My Lips But Better'", "Lightweight, No Makeup Feel", "Fades Evenly", "All-day Wear", "Sertifikasi BPOM & Halal"],
           ingredients: [{ name: "Water-based Gel", origin: "Laboratory", function: "Lightweight tint base" }, { name: "Natural Red Pigments", origin: "Germany", function: "Natural lip color" }, { name: "Aloe Vera", origin: "Local", function: "Soothing, moisturizing" }],
-          sizeOptions: ["3ml", "5ml"], bottleOptions: ["Applicator Tube", "Cushion Case", "Custom Exclusive Packaging"], capOptions: ["Snap Cap", "Magnetic Cap"],
+          sizeOptions: ["3ml", "5ml"], bottleOptions: ["Lip Roll Bottle", "Doe Foot Applicator Bottle"], capOptions: ["Snap Cap", "Magnetic Cap"],
           moq: "2000 pcs", productionTime: "2-3 bulan", certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
         },
       ],

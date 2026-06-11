@@ -50,8 +50,8 @@ const productCardImageMap: Record<string, Record<string, string>> = {
     "moisturizing-cream": "new asset/skincare&facecare/moizturizing-cream.webp",
     "brightening-cream": "new asset/skincare&facecare/brightening.webp",
     "eye-cream": "new asset/skincare&facecare/eye-cream.webp",
-    // Subcategory: day-night-cream
-    "face-cream": "new asset/skincare&facecare/facial-cream.webp",
+    // Subcategory: face-cream (Day & Night Cream product)
+    "day-night-cream": "new asset/skincare&facecare/moizturizing-cream.webp",
     // Subcategory: face-mask
     "peel-off-mask": "new asset/skincare&facecare/peel-mask.webp",
     "brightening-mask": "new asset/skincare&facecare/brightening-mask.webp",
@@ -192,7 +192,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     if (categoryData.slug === 'parfum') {
       return {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Rancang lini parfum eksklusif Anda dengan legalitas BPOM terjamin dan proses produksi efisien dari awal hingga siap jual.",
+        description: "Ingin punya brand parfum sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian wewangian — dari body mist, eau de cologne, eau de toilette, eau de parfum, hingga extrait de parfum — dengan aroma custom khas brand Anda.",
         image: "/new asset/background-visual-hero-section/parfum.webp",
         mobileImage: "/new asset/background-visual-hero-section/parfum.webp",
         ctaText: "FREE KONSULTASI BISNIS",
@@ -369,7 +369,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "facial-toner": {
             smallTitle: "KATALOG MAKLON TONER WAJAH / FACIAL TONER",
             headline: "Jasa Maklon Toner Wajah (Facial Toner) BPOM & Halal Terlengkap",
-            description: "Jasa maklon facial toner dengan custom formula sesuai kebutuhan brand skincare Anda. Diproduksi dengan standar kualitas tinggi, legalitas BPOM, dan sertifikasi Halal."
+            description: "Ingin punya brand facial toner sendiri? Dreamlab adalah solusi Anda untuk mengembangkan facial toner — hydrating, exfoliating, brightening, hingga calming — dengan formula pH seimbang yang menyegarkan dan mempersiapkan kulit untuk menyerap skincare berikutnya."
           },
           "facial-wash": {
             smallTitle: "KATALOG MAKLON SABUN WAJAH / FACIAL WASH",
@@ -379,7 +379,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "micellar-cleansing-gel": {
             smallTitle: "KATALOG MAKLON PEMBERSIH WAJAH / MICELLAR CLEANSING GEL",
             headline: "Jasa Maklon Cleansing BPOM & Halal Terlengkap",
-            description: "Layanan jasa maklon cleansing terpercaya untuk produk skincare berkualitas dengan legalitas BPOM, Halal, dan formula custom sesuai kebutuhan brand Anda."
+            description: "Ingin punya brand cleansing series sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian pembersih wajah — cleansing oil, cleansing balm, micellar water, milk cleanser, hingga makeup remover — dengan formula mild dan non-irritasi untuk sistem double cleanse yang sempurna."
           },
           "facial-sunscreen": {
             smallTitle: "KATALOG MAKLON TABIR SURYA / FACIAL SUNSCREEN",
@@ -389,7 +389,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "facial-moisturizer": {
             smallTitle: "MAKLON CREAM WAJAH PREMIUM / MOISTURIZER",
             headline: "Jasa Maklon Day Cream & Night Cream BPOM dan Halal",
-            description: "Jasa maklon day cream dan night cream bersertifikat CPKB Grade A, BPOM, dan Halal. Diformulasikan untuk hidrasi, regenerasi, dan perlindungan kulit sepanjang hari."
+            description: "Ingin punya brand day cream & night cream sendiri? Dreamlab adalah solusi Anda untuk mengembangkan face cream — day cream SPF, night cream repair, anti-aging, hingga brightening — dengan formula terpisah untuk kebutuhan kulit di siang dan malam hari."
           },
           "acne-cream": {
             smallTitle: "KATALOG MAKLON KRIM JERAWAT / ACNE CREAM",
@@ -421,12 +421,12 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "body-wash": {
             smallTitle: "KATALOG MAKLON SABUN MANDI / BODY WASH",
             headline: "Jasa Maklon Sabun Mandi (Body Wash) BPOM & Halal Terlengkap",
-            description: "Layanan maklon sabun mandi cair terlengkap di Indonesia. Dari shower gel, body wash dengan scrub halus, hingga sabun khusus kulit sensitif - diformulasikan dengan keharuman premium dan busa mewah melimpah."
+            description: "Ingin punya brand sabun mandi sendiri? Dreamlab adalah solusi Anda untuk mengembangkan body wash — shower gel, cream wash, foaming wash, hingga antiseptic wash — dengan formula pH seimbang, keharuman premium, dan busa mewah melimpah."
           },
           "body-butter": {
             smallTitle: "KATALOG MAKLON BODY BUTTER / PELEMBAB INTENSIF",
             headline: "Jasa Maklon Body Butter Premium BPOM & Halal Terlengkap",
-            description: "Diformulasikan khusus untuk hidrasi ekstra mendalam bagi kulit kering. Maklon body butter Dreamlab menggunakan basis butter alami seperti shea butter dan cocoa butter yang meleleh lembut di kulit dengan nutrisi melimpah."
+            description: "Jasa maklon body butter terlengkap di Indonesia. Anda dapat custom formula dengan tekstur rich dan melembapkan sesuai konsep brand Anda. Lebih dari 1.000 produk telah dikembangkan di fasilitas bersertifikat CPKB Grade A, berizin BPOM RI dan Halal MUI."
           },
           "body-scrub": {
             smallTitle: "KATALOG MAKLON LULUR TUBUH / BODY SCRUB",
@@ -436,7 +436,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "massage-oil": {
             smallTitle: "KATALOG MAKLON MINYAK PIJAT / MASSAGE OIL",
             headline: "Jasa Maklon Massage Oil Premium BPOM & Halal Terlengkap",
-            description: "Layanan maklon minyak pijat profesional dengan bahan dasar minyak nabati pilihan (sweet almond, jojoba, coconut oil) yang licin sempurna, beraroma aromaterapi menenangkan, dan menutrisi kulit secara maksimal."
+            description: "Jasa maklon massage oil terlengkap di Indonesia. Dari relaxing oil, aromatherapy oil, hingga herbal massage oil — semua bisa diformulasikan custom sesuai konsep brand Anda."
           },
           "body-oil": {
             smallTitle: "KATALOG MAKLON MINYAK TUBUH / BODY OIL",
@@ -446,12 +446,12 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "anti-bacterial-soap": {
             smallTitle: "KATALOG MAKLON SABUN ANTIBAKTERI",
             headline: "Jasa Maklon Sabun Antibakteri BPOM & Halal",
-            description: "Anda ingin memiliki brand sabun antibakterial? Dreamlab siap membantu memformulasikan brand Anda sendiri dengan konsultasi langsung bersama Business Consultant kami. Diproduksi di fasilitas bersertifikat CPKB Grade A, BPOM, dan Halal."
+            description: "Anda ingin memiliki brand sabun antibakterial? Dreamlab siap membantu memformulasikan brand Anda sendiri dengan konsultasi langsung bersama Business Consultant kami. Lebih dari 1.000 produk telah dikembangkan di fasilitas bersertifikat CPKB Grade A, berizin BPOM RI dan Halal MUI."
           },
           "shower-gel": {
             smallTitle: "KATALOG MAKLON SHOWER GEL",
             headline: "Jasa Maklon Shower Gel BPOM dan Halal",
-            description: "Jasa maklon shower gel bersertifikat CPKB Grade A, BPOM, dan Halal. Diformulasikan dengan keharuman premium dan busa mewah melimpah untuk pengalaman mandi yang menyegarkan."
+            description: "Ingin punya brand shower gel sendiri? Dreamlab adalah solusi Anda untuk mengembangkan shower gel dengan tekstur lembut, busa melimpah, dan aroma khas yang menjadikan mandi momen self-care."
           },
           "bath-salt": {
             smallTitle: "KATALOG MAKLON BATH SALT",
@@ -508,7 +508,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "shampoo": {
             smallTitle: "KATALOG MAKLON SHAMPOO / PEMBERSIH RAMBUT",
             headline: "Jasa Maklon Shampoo Rambut BPOM & Halal Terlengkap",
-            description: "Jasa maklon shampoo terlengkap di Indonesia. Mulai dari anti-dandruff, anti-hair fall, scalp care, hingga sulfate-free shampoo - diformulasikan dengan bahan aktif klinis tepercaya untuk kesehatan kulit kepala konsumen Anda."
+            description: "Ingin punya brand shampoo sendiri? Dreamlab adalah solusi Anda untuk mengembangkan shampoo — anti-dandruff, anti-hair fall, hair growth, sulfate-free, hingga daily care — dengan formula yang membersihkan sekaligus merawat kesehatan kulit kepala."
           },
           "hair-mask": {
             smallTitle: "KATALOG MAKLON MASKER RAMBUT / HAIR MASK",
@@ -528,27 +528,27 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "hair-conditioner": {
             smallTitle: "KATALOG MAKLON HAIR CONDITIONER",
             headline: "Jasa Maklon Hair Conditioner BPOM & Halal Terlengelap",
-            description: "Jasa maklon hair conditioner terlengkap di Indonesia. Dari daily conditioner hingga deep treatment — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk melembapkan dan memperbaiki tekstur rambut setelah keramas."
+            description: "Ingin punya brand hair conditioner sendiri? Dreamlab adalah solusi Anda untuk mengembangkan hair conditioner — rinse-off, leave-in, smoothing, repair, hingga volume — dengan formula yang melembapkan dan memperbaiki tekstur rambut setelah keramas."
           },
           "hair-gel": {
             smallTitle: "KATALOG MAKLON HAIR GEL",
             headline: "Jasa Maklon Hair Gel BPOM & Halal Terlengelap",
-            description: "Jasa maklon hair gel terlengkap di Indonesia. Dari strong hold hingga flexible hold — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk styling tahan lama tanpa residue."
+            description: "Ingin punya brand hair gel sendiri? Dreamlab adalah solusi Anda untuk mengembangkan hair gel — strong hold, light hold, wet look, hingga natural shine — dengan formula non-sticky dan water soluble yang tidak meninggalkan residu putih."
           },
           "pomade": {
             smallTitle: "KATALOG MAKLON POMADE",
             headline: "Jasa Maklon Pomade BPOM & Halal Terlengelap",
-            description: "Jasa maklon pomade terlengkap di Indonesia. Dari water-based hingga oil-based — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk kilau dan hold yang disesuaikan dengan gaya pria Indonesia."
+            description: "Ingin punya brand pomade sendiri? Dreamlab adalah solusi Anda untuk mengembangkan pomade — water based, oil based, matte, high shine, hingga clay — dengan formula tahan lama yang mudah dibersihkan dan memberikan hasil styling sempurna."
           },
           "scalp-care": {
             smallTitle: "KATALOG MAKLON SCALP CARE",
             headline: "Jasa Maklon Scalp Care BPOM & Halal Terlengelap",
-            description: "Jasa maklon scalp care terlengkap di Indonesia. Dari anti-dandruff hingga growth serum — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk menjaga kesehatan kulit kepala dan akar rambut."
+            description: "Ingin punya brand scalp care sendiri? Dreamlab adalah solusi Anda untuk mengembangkan produk perawatan kulit kepala — scalp serum, scalp treatment, scalp exfoliator, hingga soothing essence — dengan formula yang mengatasi ketombe, iritasi, dan menyehatkan akar rambut."
           },
           "beard-serum": {
             smallTitle: "KATALOG MAKLON BEARD SERUM",
             headline: "Jasa Maklon Beard Serum BPOM & Halal Terlengelap",
-            description: "Jasa maklon beard serum terlengkap di Indonesia. Dari oil-based hingga serum — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk merawat jenggot dan kulit wajah pria."
+            description: "Ingin punya brand beard serum sendiri? Dreamlab adalah solusi Anda untuk mengembangkan beard serum — growth serum, beard oil, beard balm, hingga beard moisturizer — dengan formula non-greasy yang merawat jenggot dan kulit wajah pria."
           }
         },
         decorative: {
@@ -642,12 +642,12 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "foot-cream": {
             smallTitle: "KATALOG MAKLON KRIM KAKI / FOOT CREAM",
             headline: "Jasa Maklon Krim Kaki (Foot Cream) BPOM & Halal Terlengkap",
-            description: "Kembangkan formula krim kaki khusus untuk mengatasi tumit pecah-pecah, kulit kasar, dan memberikan kelembapan ekstra mendalam. Diperkaya bahan aktif keratolitik dan antibakteri alami untuk kaki sehat."
+            description: "Ingin punya brand foot cream sendiri? Dreamlab adalah solusi Anda untuk mengembangkan foot cream yang merawat tumit kering dan pecah-pecah, solusi masalah kaki yang dialami banyak orang."
           },
           "foot-scrub": {
             smallTitle: "KATALOG MAKLON SCRUB KAKI / FOOT SCRUB",
             headline: "Jasa Maklon Scrub Kaki (Foot Scrub) BPOM & Halal Terlengkap",
-            description: "Maklon scrub kaki eksfoliasi tinggi dengan butiran scrub yang pas untuk membersihkan kulit mati di telapak kaki, menyegarkan kaki yang lelah, serta memberikan efek relaksasi yang instan."
+            description: "Ingin punya brand foot scrub sendiri? Dreamlab adalah solusi Anda untuk mengembangkan foot scrub yang mengangkat kulit mati dan menghadirkan kaki halus, produk pelengkap rangkaian foot care."
           },
           "foot-mask": {
             smallTitle: "KATALOG MAKLON MASKER KAKI / FOOT MASK",
@@ -657,7 +657,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "foot-soak": {
             smallTitle: "KATALOG MAKLON RENDAMAN KAKI / FOOT SOAK",
             headline: "Jasa Maklon Rendaman Kaki (Foot Soak) BPOM & Halal Terlengkap",
-            description: "Maklon garam rendaman kaki aromaterapik atau foot soak cair beraroma menenangkan. Diformulasikan untuk mendetoksifikasi kulit, meredakan ketegangan otot kaki, dan memberikan kenyamanan maksimal setelah seharian beraktivitas."
+            description: "Ingin punya brand foot soak sendiri? Dreamlab adalah solusi Anda untuk mengembangkan foot soak untuk merendam dan merelaksasi kaki lelah, produk wellness pengalaman spa di rumah."
           },
           "foot-spray": {
             smallTitle: "KATALOG MAKLON FOOT SPRAY",
@@ -684,71 +684,71 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "baby-shampoo": {
             smallTitle: "KATALOG MAKLON SAMPO BAYI / BABY SHAMPOO",
             headline: "Jasa Maklon Sampo Bayi (Baby Shampoo) BPOM & Halal Terlengkap",
-            description: "Sampo bayi dengan kandungan kemiri dan seledri alami untuk menutrisi kulit kepala bayi secara aman, melembutkan rambut, dan mendukung rambut tumbuh lebih lebat sejak lahir."
+            description: "Ingin punya brand sampo bayi sendiri? Dreamlab adalah solusi Anda untuk mengembangkan baby shampoo — tear-free, gentle, hypoallergenic, hingga fragrance-free — dengan formula lembut yang membersihkan rambut tanpa mengiritasi mata dan kulit kepala bayi."
           },
           "baby-lotion": {
             smallTitle: "KATALOG MAKLON PELEMBAB BAYI / BABY LOTION",
             headline: "Jasa Maklon Pelembap Bayi (Baby Lotion) BPOM & Halal Terlengkap",
-            description: "Kembangkan produk pelembap kulit bayi dengan standar hypoallergenic tertinggi. Dreamlab memformulasikan losion bayi yang sangat lembut, menjaga kelembapan kulit sensitif bayi, serta bebas dari bahan kimia berbahaya."
+            description: "Ingin punya brand baby lotion sendiri? Dreamlab adalah solusi Anda untuk mengembangkan baby lotion — daily moisturizer, calming, nourishing, hingga soothing — dengan formula hypoallergenic yang menjaga kelembapan kulit sensitif bayi sepanjang hari."
           },
           "baby-powder": {
             smallTitle: "KATALOG MAKLON BEDAK BAYI / BABY POWDER",
             headline: "Jasa Maklon Bedak Bayi (Baby Powder) BPOM & Halal Terlengkap",
-            description: "Bedak bayi talc-free berbasis corn starch alami yang aman untuk sistem pernapasan bayi sekaligus menjaga kulit bayi tetap kering bebas biang keringat."
+            description: "Ingin punya brand bedak bayi sendiri? Dreamlab adalah solusi Anda untuk mengembangkan baby powder — talc-free, corn starch, calming, hingga cooling — dengan formula lembut yang menjaga kulit bayi tetap kering, nyaman, dan bebas biang keringat."
           },
           "baby-cologne": {
             smallTitle: "KATALOG MAKLON PARFUM BAYI / BABY COLOGNE",
             headline: "Jasa Maklon Parfum Bayi (Baby Cologne) BPOM & Halal Terlengkap",
-            description: "Parfum bayi bebas alkohol (alcohol-free) dengan keharuman lembut khas bayi yang menenangkan, segar tahan lama, dan hipoalergenik untuk kulit sensitif bayi."
+            description: "Ingin punya brand parfum bayi sendiri? Dreamlab adalah solusi Anda untuk mengembangkan baby cologne — alcohol-free, hypoallergenic, fresh, hingga calming — dengan wewangian lembut khas bayi yang segar dan aman untuk kulit sensitif."
           },
           "baby-oil": {
             smallTitle: "KATALOG MAKLON BABY OIL",
             headline: "Jasa Maklon Baby Oil BPOM & Halal Terlengelap",
-            description: "Jasa maklon baby oil terlengkap di Indonesia. Dari massage oil hingga pelembap kulit bayi — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan hypoallergenic dan aman untuk kulit bayi sensitif."
+            description: "Ingin punya brand baby oil sendiri? Dreamlab adalah solusi Anda untuk mengembangkan baby oil — massage oil, moisturizing, nourishing, hingga calming — dengan formula hypoallergenic yang melembapkan dan melindungi kulit bayi secara alami."
           },
           "baby-moisturizer-cream": {
             smallTitle: "KATALOG MAKLON BABY MOISTURIZER CREAM",
             headline: "Jasa Maklon Baby Moisturizer Cream BPOM & Halal Terlengelap",
-            description: "Jasa maklon baby moisturizer cream terlengkap di Indonesia. Dari daily moisturizer hingga cream khusus eksim — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan hypoallergenic dan aman untuk kulit bayi."
+            description: "Ingin punya brand baby moisturizer cream sendiri? Dreamlab adalah solusi Anda untuk mengembangkan krim pelembap bayi — daily moisturizer, eczema care, calming, hingga intensive — dengan formula hypoallergenic yang menutrisi dan melindungi skin barrier bayi."
           }
         },
         parfum: {
           "eau-de-parfum": {
             smallTitle: "KATALOG MAKLON EAU DE PARFUM / EDP",
             headline: "Jasa Maklon Eau de Parfum (EDP) BPOM & Halal Terlengkap",
-            description: "Kembangkan lini Eau de Parfum premium Anda bersama Dreamlab. Dengan konsentrasi fragrance oil tinggi (15-20%), kami merancang parfum berdaya tahan 6-8 jam dengan sillage menawan dan longevity optimal."
+            description: "Ingin punya brand parfum eau de parfum (EDP) sendiri? Dreamlab adalah solusi Anda untuk mengembangkan eau de parfum beraroma kuat dan tahan lama, pilihan premium untuk brand parfum kelas menengah ke atas."
           },
           "eau-de-toilette": {
             smallTitle: "KATALOG MAKLON EAU DE TOILETTE / EDT",
             headline: "Jasa Maklon Eau de Toilette (EDT) BPOM & Halal Terlengkap",
-            description: "Hadirkan koleksi Eau de Toilette beraroma segar dan ringan yang cocok untuk penggunaan sehari-hari. Dreamlab meracik wewangian premium dengan proyeksi aroma seimbang dan disukai pasar luas."
+            description: "Ingin punya brand parfum eau de toilette (EDT) sendiri? Dreamlab adalah solusi Anda untuk mengembangkan eau de toilette dengan ketahanan aroma menengah, pilihan parfum paling seimbang antara harga dan performa."
           },
           "eau-de-cologne": {
             smallTitle: "KATALOG MAKLON EAU DE COLOGNE / EDC",
             headline: "Jasa Maklon Eau de Cologne (EDC) BPOM & Halal Terlengkap",
-            description: "Jasa maklon Eau de Cologne untuk produk wewangian kasual harian yang menyegarkan dengan harga kompetitif. Diformulasikan khusus agar memberikan kesegaran instan dengan aroma menyenangkan."
+            description: "Ingin punya brand parfum eau de cologne sendiri? Dreamlab adalah solusi Anda untuk mengembangkan eau de cologne beraroma segar dan ringan, pilihan parfum harian yang disukai semua kalangan."
           },
           "extrait-de-parfum": {
             smallTitle: "KATALOG MAKLON EXTRAIT DE PARFUM / EXTRAIT",
             headline: "Jasa Maklon Extrait de Parfum BPOM & Halal Terlengkap",
-            description: "Maklon kasta tertinggi wewangian: Extrait de Parfum dengan konsentrasi minyak wangi di atas 30%. Menghasilkan aroma sangat mewah, sillage kuat, longevity super panjang, bebas noda di pakaian, dan formula eksklusif."
+            description: "Ingin punya brand parfum extrait de parfum sendiri? Dreamlab adalah solusi Anda untuk mengembangkan extrait de parfum dengan konsentrasi minyak wangi tertinggi, kelas parfum mewah untuk brand segmen luxury."
           },
           "body-mist": {
             smallTitle: "KATALOG MAKLON BODY MIST / BODY SPRAY",
             headline: "Jasa Maklon Body Mist & Body Spray BPOM & Halal Terlengkap",
-            description: "Hadirkan kesegaran beraktivitas dengan lini body mist/fragrance mist beraroma buah, bunga, atau wewangian manis. Cocok untuk pasar remaja dan dewasa muda dengan kemasan praktis serta harga terjangkau."
+            description: "Ingin punya brand body mist sendiri? Dreamlab adalah solusi Anda untuk mengembangkan body mist beraroma menyegarkan dengan harga terjangkau, produk wewangian favorit pasar anak muda."
           },
           "minyak-atsiri": {
             smallTitle: "KATALOG MAKLON MINYAK ATSIRI / ESSENTIAL OIL",
             headline: "Jasa Maklon Essential Oil & Aromatherapy BPOM & Halal Terlengkap",
-            description: "Kembangkan lini minyak atsiri murni atau blends aromatherapy bersama Dreamlab. Diperoleh dari distilasi tumbuhan berkualitas tinggi untuk kebutuhan relaksasi, wewangian rumah, maupun produk wellness."
+            description: "Ingin punya brand minyak atsiri sendiri? Dreamlab adalah solusi Anda untuk mengembangkan minyak atsiri atau essential oil untuk aromaterapi dan wellness, kategori yang tumbuh seiring tren self-care."
           }
         },
         pkrt: {
           "hand-sanitizer": {
             smallTitle: "KATALOG MAKLON HAND SANITIZER / PKRT",
             headline: "Jasa Maklon Hand Sanitizer Kemenkes RI & Halal Terlengkap",
-            description: "Jasa maklon hand sanitizer bersertifikat FKP Kemenkes RI dan Halal. Diproduksi dalam bentuk cair maupun gel dengan kadar alkohol efektif, lembut di kulit, dan tidak lengket."
+            description: "Ingin punya brand hand sanitizer sendiri? Dreamlab adalah solusi Anda untuk mengembangkan hand sanitizer — gel, spray, moisturizing, hingga antibacterial — dengan formula efektif membunuh kuman yang lembut di kulit dan tidak lengket."
           },
           "hand-wash": {
             smallTitle: "KATALOG MAKLON SABUN CUCI TANGAN / HAND WASH",
@@ -783,7 +783,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           "herbal-soap": {
             smallTitle: "KATALOG MAKLON SABUN HERBAL",
             headline: "Jasa Maklon Sabun Herbal BPOM & Halal Terlengkan",
-            description: "Jasa maklon sabun herbal terlengkap di Indonesia. Dari chamomile hingga tea tree — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan dengan bahan herbal berkualitas untuk pembersihan alami."
+            description: "Ingin punya brand sabun herbal sendiri? Dreamlab adalah solusi Anda untuk mengembangkan sabun herbal — chamomile, tea tree, lavender, hingga calendula — dengan bahan herbal alami berkualitas untuk pembersihan yang lembut dan menyehatkan kulit."
           }
         }
       };
@@ -807,7 +807,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
 
       return {
         headline: `Jasa Maklon ${productData.name} ${certLabel}`,
-        description: `Jasa maklon ${productData.name.toLowerCase()} bersertifikat ${isPkrt ? 'FKP Kemenkes RI' : 'CPKB Grade A, BPOM, dan Halal'}.`,
+        description: `Ingin punya brand ${productData.name.toLowerCase()} sendiri? Dreamlab adalah solusi Anda untuk mengembangkan ${productData.name.toLowerCase()} dengan formula custom sesuai kebutuhan brand Anda.`,
         smallTitle: `MAKLON ${productData.name.toUpperCase()} PREMIUM`,
         ctaText: "FREE KONSULTASI BISNIS",
         image: getProductHeroImage(productData, false),
@@ -821,7 +821,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     if (categoryData.slug === 'skincare') {
       return {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Dreamlab adalah perusahaan maklon Skincare dengan layanan lengkap dari awal hingga akhir. One Stop Maklon Service — didukung legalitas bersertifikat CPKB Grade A, BPOM, dan Halal.",
+        description: "Ingin punya brand skincare sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian perawatan wajah — dari facial wash, toner, serum, moisturizer, sunscreen, hingga masker wajah — dengan formula custom sesuai konsep brand Anda. Lebih dari 1.000 produk telah dikembangkan di fasilitas bersertifikat CPKB Grade A, berizin BPOM RI dan Halal MUI.",
         image: getCategoryHeroImage(categoryData.slug, false, categoryData.heroImage),
         mobileImage: getCategoryHeroImage(categoryData.slug, true, categoryData.heroImage),
         ctaText: "FREE KONSULTASI BISNIS",
@@ -833,27 +833,27 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     const categoryCopyMap: Record<string, { headline: React.ReactNode; description: string }> = {
       haircare: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Layanan maklon haircare bersertifikat CPKB Grade A, BPOM, dan Halal. Dari shampoo, conditioner, hair mask, hair serum, hingga hair tonic — semua bisa diformulasikan custom sesuai konsep brand Anda."
+        description: "Ingin punya brand haircare sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian perawatan rambut — dari shampoo, conditioner, hair mask, hair tonic, hair serum, hingga styling products — dengan formula custom sesuai kebutuhan rambut konsumen Indonesia."
       },
       babycare: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Dreamlab adalah perusahaan maklon perawatan bayi dengan layanan lengkap dari awal hingga akhir. One Stop Maklon Service — didukung legalitas bersertifikat CPKB Grade A, BPOM, dan Halal."
+        description: "Ingin punya brand baby care sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian perawatan bayi — dari baby wash, baby shampoo, baby lotion, baby powder, hingga baby cologne — dengan formula hypoallergenic yang aman dan lembut untuk kulit sensitif bayi."
       },
       bodycare: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Layanan maklon body care bersertifikat CPKB Grade A, BPOM, dan Halal. Dari body lotion, body wash, body scrub, body butter, hingga massage oil — semua bisa diformulasikan custom sesuai konsep brand Anda."
+        description: "Ingin punya brand body care sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian perawatan tubuh — dari body lotion, body wash, body scrub, body butter, massage oil, hingga body serum — dengan formula premium sesuai konsep brand Anda."
       },
       decorative: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Layanan maklon kosmetik dekoratif (makeup) bersertifikat CPKB Grade A, BPOM, dan Halal. Dari foundation, cushion, lip matte, mascara, hingga highlighter — semua bisa diformulasikan custom sesuai konsep brand Anda."
+        description: "Ingin punya brand makeup sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian kosmetik dekoratif — dari foundation, BB cream, cushion, mascara, blush, highlighter, hingga lip product — dengan formula pigmented dan tahan lama yang pas untuk iklim Indonesia."
       },
       footcare: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Layanan maklon foot care bersertifikat CPKB Grade A, BPOM, dan Halal. Dari foot cream, foot scrub, foot mask, hingga foot spray — semua bisa diformulasikan custom sesuai konsep brand Anda."
+        description: "Ingin punya brand foot care sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian perawatan kaki — dari foot cream, foot scrub, foot spray, foot soak, hingga foot serum — dengan formula khusus yang mengatasi masalah kaki konsumen Indonesia."
       },
       pkrt: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Layanan maklon PKRT (Produk Kimia Rumah Tangga) bersertifikat FKP Kemenkes RI dan Halal. Dari hand sanitizer, hand wash, hingga pewangi ruangan — semua bisa diformulasikan custom sesuai konsep brand Anda."
+        description: "Ingin punya brand PKRT sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian produk kimia rumah tangga — dari hand sanitizer, hand wash, disinfectant spray, floor cleaner, hingga room spray — dengan formula efektif bersertifikat Kemenkes RI dan Halal."
       },
     };
 
@@ -883,7 +883,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
 
   const content = getHeroContent();
   const whatsappMessage = encodeURIComponent(`Halo Dreamlab! Saya tertarik dengan layanan Maklon ${title}. Mohon info lebih lanjut.`);
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
   // ═══════════════════════════════════════════════════════════════════
   // PRODUCT PAGE HERO — World-Class Premium Layout
@@ -1131,6 +1131,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
 
     const subCategoryHeroImageMap: Record<string, Record<string, string>> = {
       skincare: {
+        "face-cream": "/new asset/skincare&facecare/moizturizing-cream.webp",
         "day-night-cream": "/new asset/skincare&facecare/moizturizing-cream.webp",
         "face-mask": "/new asset/skincare&facecare/brightening-mask.webp",
         "sunscreen": "/new asset/skincare&facecare/physical-sunscreen.webp",
@@ -1177,34 +1178,34 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
 
     const subCategoryCopyMap: Record<string, Record<string, { smallTitle: string; headline: React.ReactNode; description: string; ctaText?: string }>> = {
       skincare: {
-        // Subcategory: Day & Night Cream
-        "day-night-cream": {
-          smallTitle: "MAKLON CREAM WAJAH PREMIUM",
-          headline: "Jasa Maklon Day Cream & Night Cream BPOM dan Halal",
-          description: "Jasa maklon day cream dan night cream bersertifikat CPKB Grade A, BPOM, dan Halal. Diformulasikan untuk hidrasi, regenerasi, dan perlindungan kulit sepanjang hari.",
+        // Subcategory: Face Cream
+        "face-cream": {
+          smallTitle: "MAKLON FACE CREAM PREMIUM",
+          headline: "Jasa Maklon Face Cream BPOM dan Halal",
+          description: "Jasa maklon face cream terlengkap di Indonesia. Dari day cream, night cream, moisturizing, brightening, hingga eye cream — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk hidrasi, regenerasi, dan perlindungan kulit wajah.",
           ctaText: "LIHAT PRODUCT"
         },
-        "face-cream": {
-          smallTitle: "MAKLON FACE CREAM BPOM & HALAL",
+        "day-night-cream": {
+          smallTitle: "MAKLON DAY & NIGHT CREAM BPOM & HALAL",
           headline: "Jasa Maklon Day Cream & Night Cream BPOM dan Halal",
-          description: "Jasa maklon face cream terlengkap di Indonesia. Dari moisturizing cream hingga anti-aging cream — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk hidrasi mendalam dan menjaga skin barrier.",
+          description: "Ingin punya brand day cream & night cream sendiri? Dreamlab adalah solusi Anda untuk mengembangkan face cream — day cream SPF, night cream repair, anti-aging, hingga brightening — dengan formula terpisah untuk kebutuhan kulit di siang dan malam hari.",
           ctaText: "LIHAT PRODUCT"
         },
         "moisturizing-cream": {
           smallTitle: "MAKLON MOISTURIZING CREAM BPOM & HALAL",
-          headline: "Jasa Maklon Day Cream & Night Cream BPOM dan Halal",
+          headline: "Jasa Maklon Moisturizing Cream BPOM dan Halal",
           description: "Jasa maklon moisturizing cream terlengkap di Indonesia. Dari gel-based hingga cream-based — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk hidrasi mendalam dan menjaga skin barrier.",
           ctaText: "LIHAT PRODUCT"
         },
         "brightening-cream": {
           smallTitle: "MAKLON BRIGHTENING CREAM BPOM & HALAL",
-          headline: "Jasa Maklon Day Cream & Night Cream BPOM dan Halal",
+          headline: "Jasa Maklon Brightening Cream BPOM dan Halal",
           description: "Jasa maklon brightening cream terlengkap di Indonesia. Dari niacinamide hingga alpha arbutin — semua bisa diformulasikan custom sesuai konsep brand Anda. Diformulasikan untuk kulit cerah merata dan bercahaya.",
           ctaText: "LIHAT PRODUCT"
         },
         "eye-cream": {
           smallTitle: "MAKLON EYE CREAM BPOM & HALAL",
-          headline: "Jasa Maklon Day Cream & Night Cream BPOM dan Halal",
+          headline: "Jasa Maklon Eye Cream BPOM dan Halal",
           description: "Jasa maklon eye cream terlengkap di Indonesia. Diformulasikan untuk mengatasi mata panda, kantung mata, dan garis halus di area mata. Semua bisa dikustomisasi sesuai konsep brand Anda.",
           ctaText: "LIHAT PRODUCT"
         },
@@ -1280,7 +1281,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
         "cleansing": {
           smallTitle: "MAKLON PEMBERSIH WAJAH PREMIUM",
           headline: "Jasa Maklon Cleansing BPOM dan Halal",
-          description: "Layanan jasa maklon cleansing terpercaya untuk produk skincare berkualitas dengan legalitas BPOM, Halal, dan formula custom sesuai kebutuhan brand Anda.",
+          description: "Ingin punya brand cleansing series sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian pembersih wajah — cleansing oil, cleansing balm, micellar water, milk cleanser, hingga makeup remover — dengan formula mild dan non-irritasi untuk sistem double cleanse yang sempurna.",
           ctaText: "LIHAT PRODUCT"
         },
         "face-cleansing-oil": {
@@ -1400,13 +1401,13 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
         "make-up": {
           smallTitle: "MAKLON MAKE UP PREMIUM",
           headline: "Jasa Maklon Make Up BPOM dan Halal",
-          description: "Jasa maklon make up bersertifikat CPKB Grade A, BPOM, dan Halal. Dari foundation, cushion, mascara, hingga lip matte — semua bisa diformulasikan custom sesuai konsep brand Anda.",
+          description: "Ingin punya brand make up sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian kosmetik dekoratif — dari foundation, cushion, mascara, cream blush, liquid blush, hingga highlighter — dengan formula pigmented dan tahan lama yang pas untuk iklim Indonesia.",
           ctaText: "LIHAT PRODUCT"
         },
         "lipcare": {
           smallTitle: "MAKLON PERAWATAN BIBIR PREMIUM",
           headline: "Jasa Maklon Perawatan Bibir BPOM dan Halal",
-          description: "Jasa maklon perawatan bibir bersertifikat CPKB Grade A, BPOM, dan Halal. Dari lip matte, lip gloss, hingga lip balm — semua bisa diformulasikan custom sesuai konsep brand Anda.",
+          description: "Ingin punya brand perawatan bibir sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian lip care — dari lip matte, lip gloss, lip cream, lip balm, lip serum, hingga lip scrub — dengan formula moisturizing dan long-lasting yang aman di bibir.",
           ctaText: "LIHAT PRODUCT"
         },
         // Decorative sub-products
@@ -1440,7 +1441,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     const subCategoryCopy = subCategoryCopyMap[categoryData.slug]?.[subCategorySlug!] || {
       smallTitle: `MAKLON ${categoryData.name.toUpperCase()} PREMIUM`,
       headline: `Jasa Maklon ${categoryData.name} BPOM dan Halal`,
-      description: `Jasa maklon ${categoryData.name.toLowerCase()} bersertifikat CPKB Grade A, BPOM, dan Halal.`,
+      description: `Ingin punya brand ${categoryData.name.toLowerCase()} sendiri? Dreamlab adalah solusi Anda untuk mengembangkan produk ${categoryData.name.toLowerCase()} dengan formula custom sesuai kebutuhan brand Anda.`,
       ctaText: "LIHAT PRODUCT"
     };
 

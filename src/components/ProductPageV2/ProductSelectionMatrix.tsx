@@ -63,7 +63,7 @@ export default function ProductSelectionMatrix() {
     const whatsappMessage = encodeURIComponent(
       `Halo Dreamlab! Saya ingin diskusi strategi maklon untuk: ${product.name}.`
     );
-    const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+    const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
     return (
       <motion.div

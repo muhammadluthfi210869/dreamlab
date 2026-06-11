@@ -35,9 +35,9 @@ export const maklonPages: MaklonPageConfig[] = [
     ],
   },
   {
-    path: '/maklon-skincare/day-night-cream/',
-    slug: 'day-night-cream',
-    title: 'Jasa Maklon Day Cream & Night Cream BPOM & Halal | Dreamlab',
+    path: '/maklon-skincare/face-cream/',
+    slug: 'face-cream',
+    title: 'Jasa Maklon Face Cream BPOM & Halal | Dreamlab',
     description: 'Jasa maklon day cream & night cream BPOM, CPKB & Halal. Formula custom teruji klinis, MOQ fleksibel. Wujudkan brand cream wajah Anda. Konsultasi gratis!',
     pageName: 'MAKLON DAY & NIGHT CREAM',
     category: 'Skincare',

@@ -4,6 +4,7 @@ import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { articles } from '@/data/articles';
 import { getAllCategories } from '@/data/products-v2';
+import { maklonPages } from '@/data/maklon-pages';
 
 interface AuditData {
   slug: string;
@@ -103,8 +104,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
+  // 5. Maklon Pages (silent SEO workhorse — ~80 service location pages)
+  const maklonRoutes: MetadataRoute.Sitemap = maklonPages.map(mp => ({
+    url: `${baseUrl}${mp.path.replace(/\/?$/, '/')}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.75,
+  }));
+
   // Combine and de-duplicate by URL
-  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes];
+  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes];
   const uniqueRoutes = Array.from(new Map(allRoutes.map(r => [r.url, r])).values());
 
   return uniqueRoutes;

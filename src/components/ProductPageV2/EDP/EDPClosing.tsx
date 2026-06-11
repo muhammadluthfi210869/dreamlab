@@ -7,7 +7,7 @@ export default function EDPClosing() {
   const whatsappMessage = encodeURIComponent(
     "Halo Dreamlab! Saya ingin menjadwalkan pembuatan sampel aroma untuk brand saya."
   );
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
   return (
     <section className="py-24 bg-[#1B1B1B] text-white overflow-hidden relative">

@@ -15,12 +15,12 @@ export default function ProductSubCategoryFormula({
   const whatsappMessage = encodeURIComponent(
     `Halo Dreamlab! Saya tertarik untuk konsultasi maklon dengan formulasi eksklusif untuk produk ${subCategoryName}. Mohon informasi R&D dan ketentuannya.`
   );
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
   const lowercaseName = subCategoryName.toLowerCase();
   
   // Custom copywriting specifically for Day & Night Cream subcategory
-  const isDayNightCream = lowercaseName.includes("day") || lowercaseName.includes("night") || lowercaseName.includes("cream");
+  const isDayNightCream = lowercaseName.includes("day") || lowercaseName.includes("night");
 
   const displayParagraph = isDayNightCream
     ? (

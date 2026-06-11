@@ -29,7 +29,7 @@ export default function ProductEdukasi({ items }: ProductEdukasiProps) {
                <h4 className="font-viga text-xl text-brand-black mb-2 relative z-10">Butuh Jawaban Cepat?</h4>
                <p className="text-brand-gray mb-6 relative z-10">Tim konsultan kami siap bantu bedah strategi brand kamu via WhatsApp.</p>
                <a 
-                href="https://wa.me/6281234567890" 
+                href="https://wa.me/62881027240339" 
                 target="_blank"
                 className="inline-flex items-center gap-2 font-bold text-brand-orange hover:gap-4 transition-all"
                >

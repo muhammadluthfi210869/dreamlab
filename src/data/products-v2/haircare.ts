@@ -422,8 +422,8 @@ Hair Conditioner Dreamlab diformulasikan untuk mengembalikan kelembapan rambut s
       id: "hair-mist",
       name: "Hair Mist",
       slug: "hair-mist",
-      heroImage: "/assets/images/haircare-hero.webp",
-      galleryImages: ["/assets/images/haircare-hero.webp"],
+      heroImage: "/new asset/haircare/hair-mist.jpeg",
+      galleryImages: ["/new asset/haircare/hair-mist.jpeg"],
       tags: ["Fragrance", "Refreshing", "Daily"],
       shortDescription: "Maklon Hair Mist untuk pewangi rambut ringan dan menyegarkan. Aroma yang tahan lama tanpa membuat rambut lepek.",
       story: `Hair mist adalah sentuhan akhir sempurna yang memberikan aroma segar dan kilau sehat sepanjang hari.

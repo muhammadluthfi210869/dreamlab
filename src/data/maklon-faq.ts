@@ -14,7 +14,7 @@ const faqData: Record<string, FAQItem[]> = {
     { question: "Apakah formula skincare bisa dibuat custom sesuai keinginan saya?", answer: "Bisa. Dreamlab menyediakan formula custom yang dirancang dari nol oleh tim R&D \u2014 Anda menentukan bahan aktif, tekstur, dan aroma. Tersedia juga formula ready stock bila ingin proses lebih cepat. Untuk formula custom berlaku prinsip 1 klien, 1 formula." },
     { question: "Apa saja tahapan memulai maklon skincare di Dreamlab?", answer: "Mulai dengan konsultasi gratis untuk membahas konsep brand. Lalu tim R&D merancang formula, dilanjutkan uji sample dan revisi, produksi massal, hingga pengurusan BPOM dan Halal. Hubungi Dreamlab via WhatsApp untuk menjadwalkan konsultasi pertama Anda." },
   ],
-  "/maklon-skincare/day-night-cream/": [
+  "/maklon-skincare/face-cream/": [
     { question: "Berapa MOQ minimum untuk maklon day & night cream?", answer: "Di Dreamlab anda bisa memulai dengan MOQ fleksibel dan menyesuaikan kebutuhan Anda. Brand pemula bisa mulai dari jumlah kecil untuk menguji pasar sebelum scale up." },
     { question: "Berapa biaya maklon day cream dan night cream?", answer: "Biaya tergantung formula, ukuran kemasan, jumlah produksi, dan jenis bahan aktif. Setelah konsep brand Anda jelas, tim kami akan memberikan estimasi biaya yang transparan tanpa biaya tersembunyi" },
     { question: "Berapa lama proses sampai produk siap edar?", answer: "Hanya 3 bulan dari konsep hingga produk siap launching, termasuk formula dan proses legalitas BPOM serta Halal." },

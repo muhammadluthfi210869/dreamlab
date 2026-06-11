@@ -1,11 +1,42 @@
-export const metadata = {
+import { Metadata } from 'next';
+import { PageSchema } from "@/components/PageSchema";
+
+export const metadata: Metadata = {
   title: "Privacy Policy | Dreamlab Maklon Kosmetik",
   description: "Kebijakan privasi Dreamlab (PT Karya Impian Laboratoris). Bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda sesuai UU ITE Indonesia.",
+  alternates: {
+    canonical: 'https://dreamlab.id/privacy-policy/',
+  },
+  openGraph: {
+    title: "Privacy Policy | Dreamlab Maklon Kosmetik",
+    description: "Kebijakan privasi Dreamlab (PT Karya Impian Laboratoris). Bagaimana kami melindungi data pribadi Anda sesuai UU ITE.",
+    url: 'https://dreamlab.id/privacy-policy/',
+    siteName: 'Dreamlab',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Privacy Policy | Dreamlab Maklon Kosmetik",
+    description: "Kebijakan privasi Dreamlab. Bagaimana kami melindungi data pribadi Anda.",
+  },
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
 
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-brand-white">
+      <PageSchema
+        url="https://dreamlab.id/privacy-policy/"
+        title="Privacy Policy | Dreamlab Maklon Kosmetik"
+        description="Kebijakan privasi Dreamlab. Bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda."
+        h1="Privacy Policy"
+        type="category"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Privacy Policy' },
+        ]}
+      />
       <section className="pt-48 pb-24 bg-brand-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand/20 to-brand-dark/30" />
         <div className="container-custom relative z-10">

@@ -406,22 +406,22 @@ Tanpa hidrasi yang cukup, barrier kulit akan melemah dan rentan terhadap iritasi
   ],
   subCategories: [
     {
-      id: "day-night-cream",
+      id: "face-cream",
       name: "Face Cream",
-      slug: "day-night-cream",
-      description: "Face cream untuk perawatan kulit harian. Formula yang disesuaikan untuk perlindungan siang hari dan perbaikan malam hari.",
+      slug: "face-cream",
+      description: "Face cream untuk perawatan kulit harian. Formula yang disesuaikan untuk hidrasi, perlindungan, dan nutrisi kulit sepanjang hari.",
       heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
       bgColor: "#EADBC8",
       products: [
         {
-          id: "face-cream", name: "Day & Night Cream", slug: "face-cream",
+          id: "day-night-cream", name: "Day & Night Cream", slug: "day-night-cream",
           heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
           tags: ["Daily Use", "Protection"],
-          shortDescription: "Krim wajah pagi hari dengan SPF dan perlindungan polusi.",
-          story: `Face cream adalah lini pertahanan pertama kulit Anda setiap pagi.
+          shortDescription: "Krim wajah dengan SPF dan perlindungan polusi.",
+          story: `Face cream adalah lini pertahanan pertama kulit Anda.
 
 Di Dreamlab, kami memformulasikan face cream yang tidak hanya melembapkan, tetapi juga memberikan perlindungan aktif terhadap polusi, sinar UV, dan radikal bebas. Dengan kombinasi SPF ringan, antioksidan, dan bahan pelembap yang cepat meresap, face cream kami menjaga kulit tetap sehat dan terlindungi sepanjang hari.`,
-          seoParagraph: "Maklon Face Cream — jasa maklon krim wajah pagi hari dengan SPF dan perlindungan polusi. Formula ringan, cepat meresap, cocok untuk iklim tropis Indonesia. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+          seoParagraph: "Maklon Face Cream — jasa maklon krim wajah dengan SPF dan perlindungan polusi. Formula ringan, cepat meresap, cocok untuk iklim tropis Indonesia. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
           benefits: [
             "Perlindungan SPF — melindungi dari sinar UV harian",
             "Anti-Polusi — shield terhadap partikel berbahaya",
@@ -441,16 +441,16 @@ Di Dreamlab, kami memformulasikan face cream yang tidak hanya melembapkan, tetap
         {
           id: "moisturizing-cream", name: "Moisturizing Cream", slug: "moisturizing-cream",
           heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
-          tags: ["Hydration", "Night Repair"],
-          shortDescription: "Krim pelembap malam dengan Ceramide dan Squalane.",
-          story: `Kulit Anda melakukan regenerasi paling aktif saat Anda tidur.
+          tags: ["Hydration", "Deep Moisture"],
+          shortDescription: "Krim pelembap dengan Ceramide dan Squalane.",
+          story: `Kulit Anda membutuhkan hidrasi optimal setiap saat.
 
-Moisturizing Cream Dreamlab diformulasikan khusus untuk mendukung proses perbaikan kulit semalaman. Dengan Ceramide Complex yang memperkuat skin barrier dan Squalane yang mengunci kelembapan, krim ini bekerja keras saat Anda beristirahat. Bangun dengan kulit yang terasa kenyal, lembut, dan terhidrasi sempurna.`,
-          seoParagraph: "Maklon Moisturizing Cream — jasa maklon krim pelembap malam dengan Ceramide dan Squalane untuk regenerasi kulit optimal. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+Moisturizing Cream Dreamlab diformulasikan khusus untuk memberikan hidrasi mendalam dan mendukung perbaikan skin barrier. Dengan Ceramide Complex yang memperkuat skin barrier dan Squalane yang mengunci kelembapan, krim ini memberikan nutrisi intensif tanpa rasa lengket. Hasilnya: kulit yang terasa kenyal, lembut, dan terhidrasi sempurna.`,
+          seoParagraph: "Maklon Moisturizing Cream — jasa maklon krim pelembap dengan Ceramide dan Squalane untuk hidrasi dan regenerasi kulit optimal. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
           benefits: [
-            "Night Repair Formula — mendukung regenerasi kulit semalaman",
+            "Deep Hydration Formula — mendukung regenerasi dan hidrasi kulit",
             "Ceramide Complex — memperkuat dan memperbaiki skin barrier",
-            "Squalane — mengunci kelembapan hingga pagi",
+            "Squalane — mengunci kelembapan sepanjang hari",
             "Tekstur Kaya — nutrisi intensif tanpa rasa lengket",
             "Cocok untuk kulit kering dan normal",
             "Sertifikasi BPOM & Halal",

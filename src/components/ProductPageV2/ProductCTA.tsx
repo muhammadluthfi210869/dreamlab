@@ -14,7 +14,7 @@ export default function ProductCTA({ data, productName }: ProductCTAProps) {
   const whatsappMessage = encodeURIComponent(
     `Halo Dreamlab! Saya tertarik untuk konsultasi bikin Brand ${displayName} saya sendiri. Bisa info langkah awalnya?`
   );
-  const whatsappLink = `https://wa.me/6281234567890?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
 
   return (
     <motion.section

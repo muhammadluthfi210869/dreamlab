@@ -3,12 +3,50 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getSEOData, getAllSlugs } from '@/lib/seo-service';
+import { cleanWordPressHtml } from '@/lib/clean-html';
 import { generatePageSchema } from '@/lib/schema-generator';
 import { getMaklonPage } from '@/data/maklon-pages';
 import { getMaklonFAQ } from '@/data/maklon-faq';
 import { getMetaKeywords } from '@/data/keywords';
 import path from 'path';
 import Link from 'next/link';
+import seoMappingData from '@/data/seo-mapping.json';
+
+interface SeoMappingEntry {
+  source: string;
+  destination: string;
+  _metadata: {
+    original_title: string;
+    original_h1?: string;
+  };
+}
+
+const seoMapping = seoMappingData as SeoMappingEntry[];
+
+function normalizeSlug(slug: string): string {
+  return '/' + slug.replace(/^\/+/, '').replace(/\/+$/, '');
+}
+
+function isSlugValidInSeoMapping(normalizedSlug: string): boolean {
+  return seoMapping.some(
+    m => normalizeSlug(m.source) === normalizedSlug || normalizeSlug(m.destination) === normalizedSlug
+  );
+}
+
+async function validateSlugOrReject(pathStr: string): Promise<void> {
+  const normalized = normalizeSlug(pathStr);
+  const articlesList = await getArticles();
+  const maklonPage = getMaklonPage(pathStr);
+  const seoData = await getSEOData(pathStr);
+
+  const matchedArticle = articlesList.some(a => normalizeSlug(a.slug) === normalized);
+  if (matchedArticle) return;
+  if (maklonPage) return;
+  if (seoData) return;
+  if (isSlugValidInSeoMapping(normalized)) return;
+
+  notFound();
+}
 
 const ArticleTemplate = dynamic(() => import('@/components/ArticleTemplate'), {
   loading: () => <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-orange"></div></div>
@@ -47,6 +85,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!resolvedParams?.slug) return { title: 'Dreamlab' };
 
   const pathStr = `/${resolvedParams.slug.join('/')}`;
+  await validateSlugOrReject(pathStr);
   const seoData = await getSEOData(pathStr);
   const articlesList = await getArticles();
   const article = articlesList.find(a => a.slug === resolvedParams.slug.join('/') || a.slug === pathStr);
@@ -90,6 +129,7 @@ export default async function DynamicPage({ params }: PageProps) {
   if (!resolvedParams?.slug) notFound();
 
   const pathStr = `/${resolvedParams.slug.join('/')}`;
+  await validateSlugOrReject(pathStr);
   const seoData = await getSEOData(pathStr);
   const articlesList = await getArticles();
   const article = articlesList.find(a => 
@@ -100,6 +140,10 @@ export default async function DynamicPage({ params }: PageProps) {
 
   // Only render as Article if there is actual content, otherwise treat as Programmatic Service Page
   if (article && article.content && article.content.trim() !== '') {
+    const cleanedArticle = {
+      ...article,
+      content: cleanWordPressHtml(article.content),
+    };
     const recentPosts = [...articlesList]
       .filter(a => a.slug !== article.slug && a.title)
       .sort((a, b) => {
@@ -110,7 +154,7 @@ export default async function DynamicPage({ params }: PageProps) {
       .slice(0, 5);
     return (
       <main className="min-h-screen">
-        <ArticleTemplate article={article} recentPosts={recentPosts} allArticles={articlesList} />
+        <ArticleTemplate article={cleanedArticle} recentPosts={recentPosts} allArticles={articlesList} />
       </main>
     );
   }
@@ -317,7 +361,7 @@ export default async function DynamicPage({ params }: PageProps) {
               <h3 className="text-2xl font-bold mb-4 relative z-10">Konsultasi Gratis</h3>
               <p className="text-white/70 mb-8 relative z-10">Dapatkan formulasi eksklusif dan pendampingan BPOM gratis untuk brand Anda.</p>
               <a 
-                href="https://wa.me/6281234567890" 
+                href="https://wa.me/62881027240339" 
                 target="_blank"
                 className="block w-full bg-brand hover:bg-brand-light text-white text-center py-4 rounded-xl font-bold transition-all shadow-lg"
               >

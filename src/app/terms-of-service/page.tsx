@@ -1,11 +1,42 @@
-export const metadata = {
+import { Metadata } from 'next';
+import { PageSchema } from "@/components/PageSchema";
+
+export const metadata: Metadata = {
   title: "Terms of Service | Dreamlab Maklon Kosmetik",
   description: "Syarat dan ketentuan layanan maklon kosmetik Dreamlab (PT Karya Impian Laboratoris). Baca kebijakan penggunaan jasa, formulasi, produksi, dan hak kekayaan intelektual.",
+  alternates: {
+    canonical: 'https://dreamlab.id/terms-of-service/',
+  },
+  openGraph: {
+    title: "Terms of Service | Dreamlab Maklon Kosmetik",
+    description: "Syarat dan ketentuan layanan maklon kosmetik Dreamlab (PT Karya Impian Laboratoris).",
+    url: 'https://dreamlab.id/terms-of-service/',
+    siteName: 'Dreamlab',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Terms of Service | Dreamlab Maklon Kosmetik",
+    description: "Syarat dan ketentuan layanan maklon kosmetik Dreamlab.",
+  },
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
 
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-brand-white">
+      <PageSchema
+        url="https://dreamlab.id/terms-of-service/"
+        title="Terms of Service | Dreamlab Maklon Kosmetik"
+        description="Syarat dan ketentuan layanan maklon kosmetik Dreamlab."
+        h1="Terms of Service"
+        type="category"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Terms of Service' },
+        ]}
+      />
       <section className="pt-48 pb-24 bg-brand-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand/20 to-brand-dark/30" />
         <div className="container-custom relative z-10">

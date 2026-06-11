@@ -13,7 +13,7 @@ export default function FloatingWhatsApp() {
       className="fixed bottom-8 right-8 z-50"
     >
       <Link
-        href="https://wa.me/628123456789"
+        href="https://wa.me/62881027240339"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center w-16 h-16 bg-[#25D366] text-white rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform group"

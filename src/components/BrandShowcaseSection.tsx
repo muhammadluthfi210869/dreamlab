@@ -28,32 +28,70 @@ export default function BrandShowcaseSection() {
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Sunscreen Product Image with Leaves */}
+          {/* Left Column: 4-Grid Asymmetric Layout */}
           <motion.div 
-            initial={{ opacity: 0, x: -50, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: premiumEase }}
-            className="lg:col-span-6 flex justify-center relative select-none"
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-6 w-full"
           >
-            {/* Ambient shadow glow behind product */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-brand-orange/5 rounded-full blur-[80px] -z-10" />
-            
-            <motion.div
-              whileHover={{ y: -6, scale: 1.02 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="relative w-full max-w-[480px] aspect-[4/3] md:aspect-[1.5/1]"
-            >
-              <Image 
-                src="/new asset/wujudkan-brand-bg.png" 
-                alt="Wujudkan Brand Kosmetik Sunscreen Bersama Dreamlab" 
-                title="Sunscreen Maklon Premium — Dreamlab Indonesia"
-                fill
-                priority
-                className="object-contain"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </motion.div>
+            <div className="grid grid-cols-12 gap-4 items-stretch relative">
+              
+              {/* Top Left: Main Image (Lab / Scientist) */}
+              <div className="col-span-7 relative rounded-[24px] overflow-hidden shadow-xl border border-neutral-100 group min-h-[220px] lg:min-h-[260px]">
+                <Image
+                  src="/new asset/people/17.webp"
+                  alt="Dreamlab R&D Lab"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 1024px) 60vw, 30vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                <div className="absolute top-1/2 -right-6 -translate-y-1/2 z-20">
+                  <motion.div
+                    animate={{ scale: [1, 1.08, 1] }}
+                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                    className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center text-white shadow-xl cursor-pointer hover:bg-neutral-900 transition-colors"
+                  >
+                    <svg className="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Top Right: Portfolio Numbers Card */}
+              <div className="col-span-5 bg-brand-black border border-brand-orange/15 rounded-[24px] p-5 flex flex-col justify-center items-center text-center shadow-xl text-white">
+                <span className="text-3xl md:text-4xl font-extrabold font-onest text-white leading-none tracking-tight">1.000+</span>
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-orange mt-2 leading-tight">Produk Dikembangkan</span>
+                <p className="text-[9px] text-white/50 mt-2 leading-tight">Fasilitas produksi bersertifikat CPKB Grade A</p>
+              </div>
+
+              {/* Bottom Left: World Class Innovation Card */}
+              <div className="col-span-5 bg-brand-orange rounded-[24px] p-5 flex flex-col justify-center items-center text-center shadow-xl text-white">
+                <span className="text-3xl md:text-4xl font-extrabold font-onest text-white leading-none tracking-tight">World Class</span>
+                <span className="text-[10px] md:text-xs font-extrabold uppercase tracking-wider leading-tight">Innovation</span>
+                <p className="text-[9px] text-white/70 mt-2 leading-tight">500+ formulasi untuk brand di 15+ negara</p>
+              </div>
+
+              {/* Bottom Right: Secondary Image (Quality Control) */}
+              <div className="col-span-7 relative rounded-[24px] overflow-hidden shadow-xl border border-neutral-100 group min-h-[220px] lg:min-h-[260px]">
+                <Image
+                  src="/new asset/people/Busdev-dreamlab.png"
+                  alt="Dreamlab Quality Control"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 1024px) 60vw, 30vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl py-1.5 px-3 flex items-center gap-1.5 shadow-md border border-brand-orange/10">
+                  <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-brand-black font-onest">BPOM VERIFIED</span>
+                </div>
+              </div>
+              
+            </div>
           </motion.div>
 
           {/* Right Column: Copywriting & CTAs */}

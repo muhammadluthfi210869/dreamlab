@@ -33,7 +33,20 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
     robots: 'noindex, follow',
     alternates: {
         canonical: `https://dreamlab.id${pathStr}/`,
-    }
+    },
+    openGraph: {
+      title: mapping?._metadata.original_title || `Posts by ${slug} | Dreamlab Indonesia`,
+      description: mapping?._metadata.original_description || `Kumpulan artikel yang ditulis oleh ${slug} di Dreamlab Indonesia.`,
+      url: `https://dreamlab.id${pathStr}/`,
+      siteName: 'Dreamlab',
+      locale: 'id_ID',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: mapping?._metadata.original_title || `Posts by ${slug} | Dreamlab Indonesia`,
+      description: mapping?._metadata.original_description || `Kumpulan artikel oleh ${slug} di Dreamlab.`,
+    },
   };
 }
 

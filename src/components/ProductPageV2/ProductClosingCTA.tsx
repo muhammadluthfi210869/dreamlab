@@ -3,7 +3,7 @@
 import React from 'react';
 
 export default function ProductClosingCTA() {
-  const whatsappLink = `https://wa.me/6281234567890?text=Halo%20Dreamlab!%20Saya%20ingin%20menjadwalkan%20pembuatan%20sampel%20parfum.%20Mohon%20info%20prosedurnya.`;
+  const whatsappLink = `https://wa.me/62881027240339?text=Halo%20Dreamlab!%20Saya%20ingin%20menjadwalkan%20pembuatan%20sampel%20parfum.%20Mohon%20info%20prosedurnya.`;
 
   return (
     <section className="relative z-10 bg-[#1A1A1A] py-24 lg:py-40 overflow-hidden text-center">
