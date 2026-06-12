@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { getProductDataV2, getSubCategory, getAllSubCategories, getFlatCategoryProductPages, getAllSubCategoryProductPages } from "@/data/products-v2";
+import { getProductDataV2, getSubCategory, getAllSubCategories, getFlatCategoryProductPages, getAllSubCategoryProductPages, getAllCategories } from "@/data/products-v2";
 import { getProductTitle, getProductMetaDescription, getCategoryTitle, getCategoryMetaDescription, getSubCategoryMetaDescription } from "@/data/keywords";
 import ProductHero from "@/components/ProductPageV2/ProductHero";
 import ProductAbout from "@/components/ProductPageV2/ProductAbout";
@@ -32,7 +32,7 @@ export default async function CatchAllPage({ params }: Props) {
 
   const hasSubCategories = categoryData.subCategories && categoryData.subCategories.length > 0;
 
-  // Single segment: /produk/skincare/serum/ OR /produk/bodycare/body-lotion/
+  // Single segment: /produk/skincare/serum/ OR /produk/skincare/acne-cream/ OR /produk/bodycare/body-lotion/
   if (slug.length === 1) {
     const segment = slug[0];
 
@@ -74,35 +74,33 @@ export default async function CatchAllPage({ params }: Props) {
       }
     }
 
-    // Check if it's a product (flat category)
-    if (!hasSubCategories) {
-      const productData = categoryData.products.find(p => p.slug === segment);
-      if (productData) {
-        const currentUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
-        const schemaData = {
-          url: currentUrl,
-          productName: productData.name,
-          categoryName: categoryData.name,
-          tagline: categoryData.tagline,
-          description: productData.seoParagraph,
-          heroImage: productData.heroImage,
-          breadcrumbs: [
-            ...categoryData.breadcrumb,
-            { label: productData.name, href: currentUrl },
-          ],
-          faqs: categoryData.faqs || [],
-          moq: productData.moq,
-          productionTime: productData.productionTime,
-          certifications: productData.certifications,
-        };
-        const schema = generateProductPageSchema(schemaData);
-        return (
-          <>
-            <JsonLd data={schema} />
-            <IndividualProductPage categoryData={categoryData} productData={productData} />
-          </>
-        );
-      }
+    // Check if it's a top-level product (works for both flat and hybrid categories)
+    const productData = categoryData.products.find(p => p.slug === segment);
+    if (productData) {
+      const currentUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+      const schemaData = {
+        url: currentUrl,
+        productName: productData.name,
+        categoryName: categoryData.name,
+        tagline: categoryData.tagline,
+        description: productData.seoParagraph,
+        heroImage: productData.heroImage,
+        breadcrumbs: [
+          ...categoryData.breadcrumb,
+          { label: productData.name, href: currentUrl },
+        ],
+        faqs: categoryData.faqs || [],
+        moq: productData.moq,
+        productionTime: productData.productionTime,
+        certifications: productData.certifications,
+      };
+      const schema = generateProductPageSchema(schemaData);
+      return (
+        <>
+          <JsonLd data={schema} />
+          <IndividualProductPage categoryData={categoryData} productData={productData} />
+        </>
+      );
     }
 
     notFound();
@@ -192,7 +190,15 @@ export async function generateStaticParams() {
     slug: [product],
   }));
 
-  return [...subCategoryParams, ...subCategoryProductParams, ...flatProductParams];
+  // Also include top-level products from categories that have BOTH sub-categories and top-level products
+  const topLevelProductParams = getAllCategories()
+    .filter(cat => cat.subCategories && cat.subCategories.length > 0 && cat.products.length > 0)
+    .flatMap(cat => cat.products.map(p => ({
+      category: cat.slug,
+      slug: [p.slug],
+    })));
+
+  return [...subCategoryParams, ...subCategoryProductParams, ...flatProductParams, ...topLevelProductParams];
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -232,28 +238,26 @@ export async function generateMetadata({ params }: Props) {
       }
     }
 
-    // Product (flat category)
-    if (!hasSubCategories) {
-      const productData = categoryData.products.find(p => p.slug === segment);
-      if (productData) {
-        const canonicalUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
-        const title = getProductTitle(category, productData.slug);
-        const description = getProductMetaDescription(
-          productData.name, categoryData.name, productData.shortDescription,
-          productData.moq, productData.productionTime, productData.certifications,
-          category, productData.slug
-        );
-        return {
-          title, description, alternates: { canonical: canonicalUrl },
-          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-          openGraph: {
-            title, description, url: canonicalUrl,
-            images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
-            locale: "id_ID", type: "website", siteName: "Dreamlab Indonesia",
-          },
-          twitter: { card: "summary_large_image", title, description, images: [productData.heroImage] },
-        };
-      }
+    // Top-level product (works for both flat and hybrid categories)
+    const productData = categoryData.products.find(p => p.slug === segment);
+    if (productData) {
+      const canonicalUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+      const title = getProductTitle(category, productData.slug);
+      const description = getProductMetaDescription(
+        productData.name, categoryData.name, productData.shortDescription,
+        productData.moq, productData.productionTime, productData.certifications,
+        category, productData.slug
+      );
+      return {
+        title, description, alternates: { canonical: canonicalUrl },
+        robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+        openGraph: {
+          title, description, url: canonicalUrl,
+          images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
+          locale: "id_ID", type: "website", siteName: "Dreamlab Indonesia",
+        },
+        twitter: { card: "summary_large_image", title, description, images: [productData.heroImage] },
+      };
     }
   }
 

@@ -53,3 +53,5 @@ eslint_errors.txt
 tsc_errors.txt
 lint_*.txt
 full_lint_report.txt
+
+.vercel
