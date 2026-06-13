@@ -85,13 +85,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!resolvedParams?.slug) return { title: 'Dreamlab' };
 
   const pathStr = `/${resolvedParams.slug.join('/')}`;
-  await validateSlugOrReject(pathStr);
   const seoData = await getSEOData(pathStr);
   const articlesList = await getArticles();
   const article = articlesList.find(a => a.slug === resolvedParams.slug.join('/') || a.slug === pathStr);
   const maklonPage = getMaklonPage(pathStr);
-  const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
 
+  if (!article && !maklonPage && !seoData) {
+    const normalized = '/' + pathStr.replace(/^\/+/, '').replace(/\/+$/, '');
+    const isValid = seoMapping.some(
+      m => normalizeSlug(m.source) === normalized || normalizeSlug(m.destination) === normalized
+    );
+    if (!isValid) {
+      return {
+        title: "Halaman Tidak Ditemukan",
+        robots: "noindex, nofollow",
+      };
+    }
+  }
+
+  const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
   const title = seoData?.meta_title || (article ? article.title : 'Dreamlab');
   const description = seoData?.meta_description || (article ? article.excerpt : 'Dreamlab - Maklon Kosmetik & Skincare Terbaik BPOM Indonesia');
   const canonical = (seoData?.canonical || `https://dreamlab.id${pathStr}`).replace(/\/?$/, '/');

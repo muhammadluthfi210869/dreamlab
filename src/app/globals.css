@@ -417,3 +417,10 @@
   }
 
 }
+
+/* Hide global layout elements on ads landing pages */
+body:has(.landing-page-ads) header,
+body:has(.landing-page-ads) footer,
+body:has(.landing-page-ads) a[aria-label="Contact via WhatsApp"] {
+  display: none !important;
+}
