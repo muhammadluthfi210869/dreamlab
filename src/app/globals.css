@@ -240,57 +240,75 @@
   }
 
   /* Premium List Grid Cards */
+  /* Standard, comfortable list styles */
   .article-content ul {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-4 ml-0 pl-0 my-10 list-none!;
+    list-style-type: disc !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-left: 2rem !important;
   }
 
   .article-content ul li {
-    @apply bg-white p-5 rounded-2xl border border-gray-100/80 shadow-sm flex items-start gap-3 hover:border-brand-orange/20 hover:shadow-md transition-all duration-300 text-sm font-semibold text-brand-black/85 list-none! relative;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.7 !important;
+    font-size: 16px !important;
+    list-style-type: disc !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    display: list-item !important;
   }
 
   .article-content ul li::before {
-    content: "✓";
-    @apply text-brand-orange font-black bg-brand-orange/10 w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs;
+    display: none !important;
   }
 
   .article-content ol {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-5 ml-0 pl-0 my-10 list-none!;
-    counter-reset: article-ol-counter;
+    list-style-type: decimal !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-left: 2rem !important;
+    counter-reset: none !important;
   }
 
   .article-content ol li {
-    @apply bg-white p-6 rounded-3xl border border-gray-100/80 shadow-sm hover:shadow-lg hover:border-brand-orange/20 transition-all duration-300 list-none! relative flex flex-col gap-2;
-    counter-increment: article-ol-counter;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.7 !important;
+    font-size: 16px !important;
+    list-style-type: decimal !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    display: list-item !important;
   }
 
   .article-content ol li::before {
-    content: counter(article-ol-counter, decimal-leading-zero);
-    @apply text-[11px] font-black text-white bg-brand-orange w-8 h-8 rounded-xl flex items-center justify-center font-sans mb-2;
+    display: none !important;
   }
 
   .article-content ol li strong {
-    @apply text-base font-bold text-brand-black block leading-snug;
+    display: inline !important;
+    font-weight: 700 !important;
   }
 
-  /* Custom parsed Callouts - using SVG not emoji */
-  .article-content .article-bpom-callout {
-    @apply my-8 p-6 bg-emerald-50/30 border border-emerald-500/10 rounded-3xl flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-300 text-sm font-semibold text-brand-black/85 leading-relaxed!;
-  }
-
-  .article-content .article-bpom-callout::before {
-    content: "";
-    @apply block w-6 h-6 shrink-0 mt-0.5;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F39200' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E") center/contain no-repeat;
-  }
-
+  /* Reset Callout styles to standard paragraphs */
+  .article-content .article-bpom-callout,
   .article-content .article-chemist-callout {
-    @apply my-8 p-6 bg-gradient-to-br from-[#FDF8F3] to-[#FFFBF8] border border-brand-orange/10 rounded-3xl flex gap-4 items-start shadow-sm hover:shadow-md transition-all duration-300 text-sm font-semibold text-brand-black/85 leading-relaxed!;
+    margin: 1.5rem 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    display: block !important;
   }
 
+  .article-content .article-bpom-callout::before,
   .article-content .article-chemist-callout::before {
-    content: "";
-    @apply block w-6 h-6 shrink-0 mt-0.5;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F39200' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.9 19.1C1 15.2 1 8.8 4.9 4.9'/%3E%3Cpath d='M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5'/%3E%3Cpath d='M10.7 13.3c-1-1-1-2.6 0-3.6'/%3E%3Ccircle cx='19' cy='7' r='3'/%3E%3Cpath d='M22 12v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7'/%3E%3C/svg%3E") center/contain no-repeat;
+    display: none !important;
   }
 
   .article-content blockquote {
@@ -418,9 +436,9 @@
 
 }
 
-/* Hide global layout elements on ads landing pages */
-body:has(.landing-page-ads) header,
-body:has(.landing-page-ads) footer,
-body:has(.landing-page-ads) a[aria-label="Contact via WhatsApp"] {
+/* Hide global layout elements on ads landing pages — child selector only */
+body:has(.landing-page-ads) > div#page > header,
+body:has(.landing-page-ads) > div#page > footer,
+body:has(.landing-page-ads) > div#page > a[aria-label="Contact via WhatsApp"] {
   display: none !important;
 }
