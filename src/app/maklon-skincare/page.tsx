@@ -2,10 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { 
   ArrowRight, 
-  MessageCircle,
   Sparkles, 
   Layers, 
   ShieldCheck, 
@@ -25,42 +23,19 @@ const skincareVivid = "#CFB185";
 
 export default function MaklonSkincareAdsLP() {
   const benefits = [
-    "Free Custom Formula",
-    "Free HKI",
-    "Free Desain Kemasan",
-    "Free Konsultasi",
-    "Free BPOM & Halal"
+    { title: "Formula Custom", badge: "Gratis R&D Eksklusif", icon: FlaskConical },
+    { title: "Desain Kemasan", badge: "Gratis Visual Premium", icon: Sparkles },
+    { title: "Legalitas Lengkap", badge: "Gratis Pengurusan BPOM", icon: ShieldCheck },
+    { title: "Perlindungan HKI", badge: "Gratis Merek Dagang", icon: Award },
+    { title: "Konsultasi Privat", badge: "Gratis Ahli Formulator", icon: Headphones },
+    { title: "MOQ Fleksibel", badge: "Ramah Untuk Pemula", icon: TrendingUp }
   ];
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
-      {/* 1. HEADER */}
-      <header className="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-              alt="Dreamlab Logo"
-              width={160}
-              height={52}
-              className="h-10 sm:h-12 w-auto object-contain"
-              priority
-            />
-          </Link>
-          <a
-            href="/thankyou-maklon/"
-            className="bg-brand-orange text-white px-5 py-2.5 rounded-xl font-bold text-xs font-onest uppercase tracking-wider hover:bg-brand-black transition-all duration-300 flex items-center gap-2 shadow-md"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">Hubungi Sales</span>
-            <span className="sm:hidden">WhatsApp</span>
-          </a>
-        </div>
-      </header>
-
-      {/* 2. HERO */}
-      <section className="relative min-h-[600px] lg:min-h-screen xl:min-h-[800px] flex items-center overflow-hidden bg-white pt-24 pb-16 lg:pt-36 lg:pb-24">
+      {/* 1. HERO */}
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-8 lg:pt-12">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -143,19 +118,29 @@ export default function MaklonSkincareAdsLP() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.7, duration: 0.8 }}
-              className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-6 md:mb-8 max-w-xl"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
             >
-              {benefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1.5 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-3 py-2 rounded-xl shadow-sm"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
-                  <span className="text-[11px] sm:text-xs font-bold text-brand-black/90 tracking-wide font-onest">
-                    {benefit}
-                  </span>
-                </div>
-              ))}
+              {benefits.map((benefit, i) => {
+                const IconComponent = benefit.icon;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
+                        {benefit.title}
+                      </span>
+                      <span className="text-[10px] text-brand-orange font-bold tracking-wide uppercase mt-0.5 font-onest">
+                        {benefit.badge}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </motion.div>
 
             <motion.div

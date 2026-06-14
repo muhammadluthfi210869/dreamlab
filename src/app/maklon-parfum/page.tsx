@@ -60,32 +60,8 @@ export default function MaklonParfumAdsLP() {
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
-      {/* 1. HEADER */}
-      <header className="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-              alt="Dreamlab Logo"
-              width={160}
-              height={52}
-              className="h-10 sm:h-12 w-auto object-contain"
-              priority
-            />
-          </Link>
-          <a
-            href="/thankyou-maklon/"
-            className="bg-brand-orange text-white px-5 py-2.5 rounded-xl font-bold text-xs font-onest uppercase tracking-wider hover:bg-brand-black transition-all duration-300 flex items-center gap-2 shadow-md"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">Hubungi Sales</span>
-            <span className="sm:hidden">WhatsApp</span>
-          </a>
-        </div>
-      </header>
-
-      {/* 2. HERO */}
-      <section className="relative min-h-[600px] lg:min-h-screen xl:min-h-[800px] flex items-center overflow-hidden bg-white pt-24 pb-16 lg:pt-36 lg:pb-24">
+      {/* 1. HERO */}
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-8 lg:pt-12">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
