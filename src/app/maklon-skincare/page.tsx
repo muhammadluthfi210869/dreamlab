@@ -32,12 +32,12 @@ export default function MaklonSkincareAdsLP() {
   ];
 
   const section3Items = [
-    { title: "Formula R&D Gratis", icon: FlaskConical },
-    { title: "Kemasan Premium", icon: Sparkles },
-    { title: "BPOM, Halal & HKI", icon: ShieldCheck },
-    { title: "Produk Siap Jual", icon: PackageCheck },
-    { title: "Pendampingan Bisnis", icon: Headphones },
-    { title: "500+ Brand Owner", icon: Users }
+    { title: "Formula skincare kamu diracik GRATIS oleh formulator kami - kamu tinggal pilih konsepnya", icon: FlaskConical },
+    { title: "Kemasan premium yang bikin orang sangka ini brand luar negeri", icon: Sparkles },
+    { title: "BPOM, Halal, HKI - semua kami urus paralel, kamu tidak perlu ikut prosesnya", icon: ShieldCheck },
+    { title: "Produk datang siap jual - sudah dikemas, berlabel, bersertifikat", icon: PackageCheck },
+    { title: "Tim kami standby untuk reorder dan konsultasi - bukan vendor yang hilang setelah transfer", icon: Headphones },
+    { title: "500+ brand owner sudah buktikan - brandmu bisa tampil setara merek besar sejak produk pertama", icon: Users }
   ];
 
   return (
@@ -235,7 +235,7 @@ export default function MaklonSkincareAdsLP() {
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-snug pt-0.5">
+                    <span className="text-[13px] font-medium text-brand-black/85 font-sans leading-relaxed pt-0.5">
                       {item.title}
                     </span>
                   </motion.div>
