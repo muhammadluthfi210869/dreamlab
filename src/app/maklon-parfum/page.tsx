@@ -10,10 +10,11 @@ import {
   ShieldCheck, 
   PackageCheck, 
   Headphones, 
-  Award,
+  Award, 
   TrendingUp,
   MessageCircle,
-  CheckCircle2
+  CheckCircle2,
+  FlaskConical
 } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
@@ -23,11 +24,12 @@ const parfumVivid = "#E2BC86";
 
 export default function MaklonParfumAdsLP() {
   const benefits = [
-    "Free Custom Formula",
-    "Free Desain Kemasan",
-    "Free BPOM & Halal",
-    "Free HKI",
-    "Free Konsultasi"
+    { title: "Formula Custom", icon: FlaskConical },
+    { title: "Desain Kemasan", icon: Sparkles },
+    { title: "Legalitas Lengkap", icon: ShieldCheck },
+    { title: "Perlindungan HKI", icon: Award },
+    { title: "Konsultasi Privat", icon: Headphones },
+    { title: "MOQ Fleksibel", icon: TrendingUp }
   ];
 
   const usps = [
@@ -144,19 +146,24 @@ export default function MaklonParfumAdsLP() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.7, duration: 0.8 }}
-              className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-6 md:mb-8 max-w-xl"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
             >
-              {benefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1.5 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-3 py-2 rounded-xl shadow-sm"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
-                  <span className="text-[11px] sm:text-xs font-bold text-brand-black/90 tracking-wide font-onest">
-                    {benefit}
-                  </span>
-                </div>
-              ))}
+              {benefits.map((benefit, i) => {
+                const IconComponent = benefit.icon;
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
+                      {benefit.title}
+                    </span>
+                  </div>
+                );
+              })}
             </motion.div>
 
             <motion.div

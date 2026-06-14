@@ -4,7 +4,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { 
-  ArrowRight
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Award,
+  Headphones,
+  TrendingUp,
+  FlaskConical
 } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
@@ -13,11 +19,12 @@ const haircareBg = "#E7ECFE";
 
 export default function MaklonHaircareAdsLP() {
   const benefits = [
-    "Kamu pilih konsep",
-    "Formula GRATIS dari formulator",
-    "Kemasan premium kami desainkan",
-    "BPOM, Halal, HKI-beres",
-    "Kamu tinggal jual"
+    { title: "Formula Custom", icon: FlaskConical },
+    { title: "Desain Kemasan", icon: Sparkles },
+    { title: "Legalitas Lengkap", icon: ShieldCheck },
+    { title: "Perlindungan HKI", icon: Award },
+    { title: "Konsultasi Privat", icon: Headphones },
+    { title: "MOQ Fleksibel", icon: TrendingUp }
   ];
 
   return (
@@ -101,34 +108,28 @@ export default function MaklonHaircareAdsLP() {
               Wujudkan produk impian Anda dengan formula kualitas klinik, sampel gratis dari formulator ahli, desain kemasan mewah, dan legalitas BPOM lengkap. Kami tangani semuanya dari A sampai Z.
             </motion.p>
 
-            {/* Workflow Steps - Responsive Grid, No Scrollbars */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.6, duration: 0.8 }}
-              className="mb-8 w-full"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
             >
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                {benefits.map((benefit, i) => (
-                  <motion.div
+              {benefits.map((benefit, i) => {
+                const IconComponent = benefit.icon;
+                return (
+                  <div
                     key={i}
-                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                    className="flex flex-col justify-between bg-white/75 backdrop-blur-md border border-brand-orange/10 p-4 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-orange/30 transition-all duration-300 min-h-[100px]"
+                    className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-black text-brand-orange bg-brand-orange/10 w-5 h-5 rounded-lg flex items-center justify-center">
-                        0{i + 1}
-                      </span>
-                      {i < benefits.length - 1 && (
-                        <span className="text-brand-orange/30 text-xs hidden lg:inline-block font-bold">→</span>
-                      )}
+                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
+                      <IconComponent className="w-5 h-5" />
                     </div>
-                    <span className="text-[11px] sm:text-xs font-bold text-neutral-800 leading-tight">
-                      {benefit}
+                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
+                      {benefit.title}
                     </span>
-                  </motion.div>
-                ))}
-              </div>
+                  </div>
+                );
+              })}
             </motion.div>
 
             {/* CTA + Reassurance Microcopy */}

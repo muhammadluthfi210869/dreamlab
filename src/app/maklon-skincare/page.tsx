@@ -23,12 +23,12 @@ const skincareVivid = "#CFB185";
 
 export default function MaklonSkincareAdsLP() {
   const benefits = [
-    { title: "Formula Custom", badge: "Gratis R&D Eksklusif", icon: FlaskConical },
-    { title: "Desain Kemasan", badge: "Gratis Visual Premium", icon: Sparkles },
-    { title: "Legalitas Lengkap", badge: "Gratis Pengurusan BPOM", icon: ShieldCheck },
-    { title: "Perlindungan HKI", badge: "Gratis Merek Dagang", icon: Award },
-    { title: "Konsultasi Privat", badge: "Gratis Ahli Formulator", icon: Headphones },
-    { title: "MOQ Fleksibel", badge: "Ramah Untuk Pemula", icon: TrendingUp }
+    { title: "Formula Custom", icon: FlaskConical },
+    { title: "Desain Kemasan", icon: Sparkles },
+    { title: "Legalitas Lengkap", icon: ShieldCheck },
+    { title: "Perlindungan HKI", icon: Award },
+    { title: "Konsultasi Privat", icon: Headphones },
+    { title: "MOQ Fleksibel", icon: TrendingUp }
   ];
 
   return (
@@ -130,14 +130,9 @@ export default function MaklonSkincareAdsLP() {
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <div className="flex flex-col justify-center">
-                      <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
-                        {benefit.title}
-                      </span>
-                      <span className="text-[10px] text-brand-orange font-bold tracking-wide uppercase mt-0.5 font-onest">
-                        {benefit.badge}
-                      </span>
-                    </div>
+                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
+                      {benefit.title}
+                    </span>
                   </div>
                 );
               })}
