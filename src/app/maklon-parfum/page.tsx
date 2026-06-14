@@ -14,7 +14,8 @@ import {
   TrendingUp,
   MessageCircle,
   CheckCircle2,
-  FlaskConical
+  FlaskConical,
+  Users
 } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
@@ -63,6 +64,15 @@ export default function MaklonParfumAdsLP() {
       icon: Award,
       className: "md:col-span-3 bg-brand-orange/[0.03] border-brand-orange/10 hover:border-brand-orange/30 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)]"
     }
+  ];
+
+  const section3Items = [
+    { title: "Formula parfum kamu diracik GRATIS oleh formulator kami - kamu tinggal pilih konsepnya", icon: FlaskConical },
+    { title: "Kemasan premium yang bikin orang sangka ini brand luar negeri", icon: Sparkles },
+    { title: "BPOM, Halal, HKI - semua kami urus paralel, kamu tidak perlu ikut prosesnya", icon: ShieldCheck },
+    { title: "Produk datang siap jual - sudah dikemas, berlabel, bersertifikat", icon: PackageCheck },
+    { title: "Tim kami standby untuk reorder dan konsultasi - bukan vendor yang hilang setelah transfer", icon: Headphones },
+    { title: "500+ brand owner sudah buktikan - brandmu bisa tampil setara merek besar sejak produk pertama", icon: Users }
   ];
 
   return (
@@ -202,7 +212,7 @@ export default function MaklonParfumAdsLP() {
 
       {/* 3. URGENCY & MARKET — Warm/Light Version (No Dark Mode) */}
       <section
-        className="relative py-20 md:py-28 overflow-hidden"
+        className="relative py-20 md:py-24 overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${parfumBg}22 0%, #FAF9F6 50%, ${parfumVivid}22 100%)` }}
       >
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] opacity-[0.08] blur-[100px] rounded-full pointer-events-none"
@@ -210,75 +220,62 @@ export default function MaklonParfumAdsLP() {
         />
 
         <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center text-left">
 
-            {/* Left: Stat Card */}
+            {/* Left: Heading & CTA */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8, ease: premiumEase }}
-              className="lg:col-span-5 flex justify-center"
+              className="lg:col-span-5 space-y-6 flex flex-col justify-center"
             >
-              <div
-                className="w-full max-w-[360px] border rounded-[32px] p-8 md:p-10 flex flex-col justify-center text-left shadow-2xl relative"
-                style={{ backgroundColor: `${parfumBg}33`, borderColor: `${parfumVivid}44` }}
-              >
-                <div className="absolute top-6 right-6 w-12 h-12 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${parfumVivid}22` }}>
-                  <TrendingUp className="w-6 h-6 text-brand-orange" />
-                </div>
-                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-orange">
-                  PARFUM LOKAL MARKET
+              <div className="space-y-3">
+                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+                  MOMENTUM PASAR EMAS
                 </span>
-                <span className="text-6xl md:text-7xl font-extrabold font-onest text-brand-black leading-none tracking-tight mt-4">
-                  +23%
-                </span>
-                <span className="text-sm font-bold text-brand-black/90 mt-2">
-                  Tumbuh Setiap Tahun
-                </span>
-                <p className="text-xs text-brand-black/50 mt-4 leading-relaxed">
-                  Konsumen di Indonesia semakin memprioritaskan merek lokal. Ini adalah momentum emas bagi brand Anda.
-                </p>
+                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
+                  Kenapa Kamu Harus<br />Mulai Brand Parfum<br /><span className="text-brand-orange">Bareng DreamLab</span>
+                </h2>
+                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
               </div>
-            </motion.div>
-
-            {/* Right: Copy */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: 0.1, ease: premiumEase }}
-              className="lg:col-span-7 space-y-6 text-left"
-            >
-              <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                MOMENTUM PASAR EMAS
-              </span>
-              <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
-                Kenapa Kamu Harus Mulai Brand Parfum Bareng DreamLab <span className="text-brand-orange">Sekarang</span>
-              </h2>
-
-              <div className="h-[2px] w-16 bg-brand-orange/40 rounded-full" />
-
-              <div className="space-y-4 text-brand-black/80 text-sm md:text-base leading-relaxed font-medium">
-                <p>
-                  Pasar parfum lokal Indonesia sedang meledak dan tumbuh 23% per tahun. Konsumen makin bangga dan memilih brand lokal karena kualitas yang bersaing.
-                </p>
-                <p className="border-l-4 border-brand-orange pl-4 italic bg-brand-orange/[0.03] py-3 pr-3 rounded-r-xl text-brand-black/70">
-                  "Tapi slot di pasar ini tidak menunggu. Setiap hari yang kamu tunda, ada brand owner lain yang sudah memesan sampel pertamanya di DreamLab."
-                </p>
-              </div>
-
-              <div className="pt-4">
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm">
+                Pasar parfum lokal Indonesia sedang meledak dan tumbuh 23% per tahun. Konsumen makin bangga dan memilih brand lokal karena kualitas yang bersaing.
+              </p>
+              <div className="pt-2">
                 <a
                   href="/thankyou-maklon/"
-                  className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3"
+                  className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3 w-full sm:w-auto"
                 >
                   <span>Minta Sampel Parfum Pertamamu</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </motion.div>
+
+            {/* Right: Compact 2-Column Grid */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {section3Items.map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
+                    className="bg-white/45 backdrop-blur-sm border border-brand-orange/10 hover:border-brand-orange/30 p-4 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)] hover:-translate-y-0.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <span className="text-[13px] font-medium text-brand-black/85 font-sans leading-relaxed pt-0.5">
+                      {item.title}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
 
           </div>
         </div>
