@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   title: "Dreamlab | Maklon Kosmetik & Parfum BPOM Terbaik Indonesia",
   description: "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 500+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
     icons: {
-      icon: "/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp",
+      icon: [{ url: "/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp", sizes: "256x256", type: "image/webp" }],
       apple: "/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp",
     },
   openGraph: {
