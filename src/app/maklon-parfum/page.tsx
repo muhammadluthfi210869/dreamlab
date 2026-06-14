@@ -33,30 +33,12 @@ export default function MaklonParfumAdsLP() {
   ];
 
   const usps = [
-    {
-      title: "Aromanya\neksklusif — tidak\nada di mana-\nmana",
-      icon: <Sparkles className="w-6 h-6 text-brand-orange" />
-    },
-    {
-      title: "Kemasannya\nbikin orang\nberhenti scroll",
-      icon: <Layers className="w-6 h-6 text-brand-orange" />
-    },
-    {
-      title: "Jual hari ini, legal\nbesok — tidak ada\nyang perlu kamu\nurus",
-      icon: <ShieldCheck className="w-6 h-6 text-brand-orange" />
-    },
-    {
-      title: "Produkmu tiba\nsiap jual — bukan\nsiap dirakit",
-      icon: <PackageCheck className="w-6 h-6 text-brand-orange" />
-    },
-    {
-      title: "Ada yang bisa\ndihubungi kalau\nada masalah",
-      icon: <Headphones className="w-6 h-6 text-brand-orange" />
-    },
-    {
-      title: "Brand-mu berdiri\nsejajar dengan\nmerek premium",
-      icon: <Award className="w-6 h-6 text-brand-orange" />
-    }
+    { title: "Aromanya eksklusif — tidak ada di mana-mana", icon: Sparkles },
+    { title: "Kemasannya bikin orang berhenti scroll", icon: Layers },
+    { title: "Jual hari ini, legal besok — tidak ada yang perlu kamu urus", icon: ShieldCheck },
+    { title: "Produkmu tiba siap jual — bukan siap dirakit", icon: PackageCheck },
+    { title: "Ada yang bisa dihubungi kalau ada masalah", icon: Headphones },
+    { title: "Brand-mu berdiri sejajar dengan merek premium", icon: Award }
   ];
 
   return (
@@ -267,7 +249,7 @@ export default function MaklonParfumAdsLP() {
       </section>
 
       {/* 4. USP GRID */}
-      <section className="bg-white py-20 md:py-28 relative overflow-hidden">
+      <section className="bg-white py-20 md:py-24 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none hidden lg:flex items-center justify-center z-0 opacity-40">
           <div className="absolute w-[700px] h-[700px] rounded-full border border-gray-200/50 flex items-center justify-center">
             <div className="w-[500px] h-[500px] rounded-full border border-gray-200/50 flex items-center justify-center">
@@ -276,43 +258,55 @@ export default function MaklonParfumAdsLP() {
           </div>
         </div>
 
-        <div className="container-custom relative z-10 text-center space-y-16">
-          <div className="max-w-3xl mx-auto space-y-4">
-            <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-              KEUNGGULAN UTAMA
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
-              Kenapa Kamu Harus Mulai Brand Parfum <span className="text-brand-orange">Bareng DreamLab</span>
-            </h2>
-            <div className="h-[2px] w-20 bg-brand-orange/40 mx-auto rounded-full" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-left">
-            {usps.map((usp, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-8 rounded-[28px] border border-gray-100 shadow-sm hover:border-brand-orange/20 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300 mb-3">
-                  {usp.icon}
-                </div>
-                <h3 className="text-sm md:text-base font-bold text-brand-black leading-snug whitespace-pre-line">
-                  {usp.title}
-                </h3>
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center text-left">
+            
+            {/* Left Column: Heading & CTA */}
+            <div className="lg:col-span-5 space-y-6 flex flex-col justify-center">
+              <div className="space-y-3">
+                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+                  KEUNGGULAN UTAMA
+                </span>
+                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
+                  Kenapa Kamu Harus<br />Mulai Brand Parfum<br /><span className="text-brand-orange">Bareng DreamLab</span>
+                </h2>
+                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
               </div>
-            ))}
-          </div>
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm">
+                Wujudkan brand parfum impian Anda dengan layanan all-in-one termudah, legalitas lengkap, dan formula kualitas premium.
+              </p>
+              <div className="pt-2">
+                <a
+                  href="/thankyou-maklon/"
+                  className="bg-brand-orange text-white px-7 py-4.5 rounded-2xl font-black text-xs font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-brand-black hover:scale-[1.02] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
+                >
+                  <span>KONSULTASI SEKARANG</span>
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
 
-          <div className="pt-6">
-            <a
-              href="/thankyou-maklon/"
-              className="bg-brand-orange text-white px-8 py-5 rounded-2xl font-black text-xs sm:text-sm font-onest uppercase tracking-widest shadow-xl shadow-brand-orange/10 hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
-            >
-              <span>KONSULTASIKAN BRAND ANDA SEKARANG</span>
-              <MessageCircle className="w-4 h-4" />
-            </a>
-          </div>
+            {/* Right Column: Compact 2-Column Grid */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {usps.map((usp, idx) => {
+                const IconComponent = usp.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white/45 backdrop-blur-sm border border-gray-100 hover:border-brand-orange/20 p-4 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-0.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-snug pt-0.5">
+                      {usp.title}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
 
+          </div>
         </div>
       </section>
 
@@ -381,30 +375,6 @@ export default function MaklonParfumAdsLP() {
         <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
         <span className="absolute right-full mr-4 bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-bold shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">Chat with us!</span>
       </a>
-
-      {/* 6. FOOTER — Warm tone */}
-      <footer
-        className="py-10 border-t"
-        style={{ backgroundColor: `${parfumBg}55`, borderColor: `${parfumVivid}22` }}
-      >
-        <div className="container-custom text-center space-y-4">
-          <Image
-            src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-            alt="Dreamlab Logo"
-            width={120}
-            height={38}
-            className="h-8 w-auto mx-auto object-contain"
-          />
-          <p className="text-[10px] font-medium text-brand-black/40 tracking-wide uppercase mt-4">
-            © PT Karya Impian Laboratoris. All Rights Reserved.
-          </p>
-          <div className="flex justify-center gap-6 text-[10px] text-brand-black/40 font-bold uppercase tracking-wider">
-            <Link href="/privacy-policy" className="hover:text-brand-orange transition-colors">Privacy Policy</Link>
-            <span>•</span>
-            <Link href="/terms-of-service" className="hover:text-brand-orange transition-colors">Terms of Service</Link>
-          </div>
-        </div>
-      </footer>
 
     </div>
   );
