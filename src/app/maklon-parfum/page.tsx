@@ -34,34 +34,34 @@ export default function MaklonParfumAdsLP() {
 
   const usps = [
     { 
-      title: "Aromanya eksklusif — tidak ada di mana-mana", 
-      icon: Sparkles,
-      className: "md:col-span-2 bg-brand-orange/[0.03] border-brand-orange/10 hover:border-brand-orange/30 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)]"
+      hook: "Aromanya eksklusif", 
+      desc: "tidak ada di mana-mana", 
+      icon: Sparkles 
     },
     { 
-      title: "Kemasannya bikin orang berhenti scroll", 
-      icon: Layers,
-      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+      hook: "Kemasannya", 
+      desc: "bikin orang berhenti scroll", 
+      icon: Layers 
     },
     { 
-      title: "Jual hari ini, legal besok — tidak ada yang perlu kamu urus", 
-      icon: ShieldCheck,
-      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+      hook: "Jual hari ini, legal besok", 
+      desc: "tidak ada yang perlu kamu urus", 
+      icon: ShieldCheck 
     },
     { 
-      title: "Produkmu tiba siap jual — bukan siap dirakit", 
-      icon: PackageCheck,
-      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+      hook: "Produkmu tiba siap jual", 
+      desc: "bukan siap dirakit", 
+      icon: PackageCheck 
     },
     { 
-      title: "Ada yang bisa dihubungi kalau ada masalah", 
-      icon: Headphones,
-      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+      hook: "Ada yang bisa dihubungi", 
+      desc: "kalau ada masalah", 
+      icon: Headphones 
     },
     { 
-      title: "Brand-mu berdiri sejajar dengan merek premium", 
-      icon: Award,
-      className: "md:col-span-3 bg-brand-orange/[0.03] border-brand-orange/10 hover:border-brand-orange/30 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)]"
+      hook: "Brand-mu berdiri sejajar", 
+      desc: "dengan merek premium", 
+      icon: Award 
     }
   ];
 
@@ -285,60 +285,81 @@ export default function MaklonParfumAdsLP() {
       </section>
 
       {/* 4. USP GRID */}
-      <section className="bg-white py-20 md:py-24 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none hidden lg:flex items-center justify-center z-0 opacity-40">
-          <div className="absolute w-[700px] h-[700px] rounded-full border border-gray-200/50 flex items-center justify-center">
-            <div className="w-[500px] h-[500px] rounded-full border border-gray-200/50 flex items-center justify-center">
-              <div className="w-[300px] h-[300px] rounded-full border border-gray-200/50" />
+      <section className="bg-white py-20 md:py-28 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none hidden lg:flex items-center justify-center z-0 opacity-30">
+          <div className="absolute w-[700px] h-[700px] rounded-full border border-gray-200/55 flex items-center justify-center">
+            <div className="w-[500px] h-[500px] rounded-full border border-gray-200/55 flex items-center justify-center">
+              <div className="w-[300px] h-[300px] rounded-full border border-gray-200/55" />
             </div>
           </div>
         </div>
 
-        <div className="container-custom relative z-10 text-center space-y-12">
-          <div className="max-w-3xl mx-auto space-y-4">
-            <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-              KEUNGGULAN UTAMA
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
-              Kenapa Kamu Harus Mulai Brand Parfum <span className="text-brand-orange">Bareng DreamLab</span>
-            </h2>
-            <div className="h-[2px] w-20 bg-brand-orange/40 mx-auto rounded-full" />
-          </div>
-
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left max-w-5xl mx-auto">
-            {usps.map((usp, idx) => {
-              const IconComponent = usp.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
-                  className={`p-6 rounded-[24px] border flex items-center gap-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group ${usp.className}`}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
-                    <IconComponent className="w-5.5 h-5.5" />
-                  </div>
-                  <span className="text-sm md:text-[15px] font-bold text-brand-black/90 font-onest leading-snug">
-                    {usp.title}
-                  </span>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div className="pt-6">
-            <a
-              href="/thankyou-maklon/"
-              className="bg-brand-orange text-white px-8 py-5 rounded-2xl font-black text-xs sm:text-sm font-onest uppercase tracking-widest shadow-xl shadow-brand-orange/10 hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
+            
+            {/* Left: Heading & CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: premiumEase }}
+              className="lg:col-span-5 space-y-6 flex flex-col justify-center"
             >
-              <span>KONSULTASIKAN BRAND ANDA SEKARANG</span>
-              <MessageCircle className="w-4 h-4" />
-            </a>
-          </div>
+              <div className="space-y-3">
+                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+                  KEUNGGULAN UTAMA
+                </span>
+                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
+                  Kenapa Kamu Harus<br />Mulai Brand Parfum<br /><span className="text-brand-orange">Bareng DreamLab</span>
+                </h2>
+                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
+              </div>
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm font-medium">
+                Wujudkan brand parfum impian Anda dengan layanan maklon terlengkap. Kami meracik formula eksklusif, merancang kemasan memikat, dan mengurus semua legalitas secara paralel agar produk Anda siap sukses di pasar.
+              </p>
+              <div className="pt-2">
+                <a
+                  href="/thankyou-maklon/"
+                  className="bg-brand-orange text-white px-7 py-4.5 rounded-2xl font-black text-xs font-onest uppercase tracking-widest shadow-xl shadow-brand-orange/15 hover:bg-brand-black hover:scale-[1.02] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
+                >
+                  <span>KONSULTASIKAN BRAND SEKARANG</span>
+                  <MessageCircle className="w-4 h-4 animate-pulse" />
+                </a>
+              </div>
+            </motion.div>
 
+            {/* Right: 2-Column Grid of 6 World-Class USP Cards */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4.5">
+              {usps.map((usp, idx) => {
+                const IconComponent = usp.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
+                    className="relative bg-white/75 backdrop-blur-md border border-neutral-100/90 hover:border-brand-orange/20 p-5 pl-7 rounded-[24px] flex items-start gap-4 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(243,146,0,0.07)] hover:bg-white/95 hover:-translate-y-1 group overflow-hidden"
+                  >
+                    {/* Left Accent Glow Line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-brand-orange rounded-l-2xl opacity-60 group-hover:opacity-100 group-hover:bg-brand-black transition-all duration-300" />
+                    
+                    {/* Icon Container */}
+                    <div className="w-11 h-11 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
+                      <IconComponent className="w-5.5 h-5.5" />
+                    </div>
+                    
+                    {/* Content */}
+                    <span className="text-[13.5px] md:text-[14.5px] font-sans leading-relaxed pt-0.5">
+                      <strong className="font-black text-brand-black font-onest">{usp.hook}</strong>{" "}
+                      <span className="font-medium text-brand-black/65 font-sans">— {usp.desc}</span>
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+          </div>
         </div>
       </section>
 
