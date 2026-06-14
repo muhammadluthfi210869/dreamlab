@@ -108,17 +108,17 @@ export default function MaklonHaircareAdsLP() {
               Wujudkan produk impian Anda dengan formula kualitas klinik, sampel gratis dari formulator ahli, desain kemasan mewah, dan legalitas BPOM lengkap. Kami tangani semuanya dari A sampai Z.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.6, duration: 0.8 }}
+            <div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
             >
               {benefits.map((benefit, i) => {
                 const IconComponent = benefit.icon;
                 return (
-                  <div
+                  <motion.div
                     key={i}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.5 + i * 0.08, duration: 0.6, ease: premiumEase }}
                     className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
@@ -127,10 +127,10 @@ export default function MaklonHaircareAdsLP() {
                     <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
                       {benefit.title}
                     </span>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </motion.div>
+            </div>
 
             {/* CTA + Reassurance Microcopy */}
             <motion.div

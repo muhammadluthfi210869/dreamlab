@@ -33,12 +33,36 @@ export default function MaklonParfumAdsLP() {
   ];
 
   const usps = [
-    { title: "Aromanya eksklusif — tidak ada di mana-mana", icon: Sparkles },
-    { title: "Kemasannya bikin orang berhenti scroll", icon: Layers },
-    { title: "Jual hari ini, legal besok — tidak ada yang perlu kamu urus", icon: ShieldCheck },
-    { title: "Produkmu tiba siap jual — bukan siap dirakit", icon: PackageCheck },
-    { title: "Ada yang bisa dihubungi kalau ada masalah", icon: Headphones },
-    { title: "Brand-mu berdiri sejajar dengan merek premium", icon: Award }
+    { 
+      title: "Aromanya eksklusif — tidak ada di mana-mana", 
+      icon: Sparkles,
+      className: "md:col-span-2 bg-brand-orange/[0.03] border-brand-orange/10 hover:border-brand-orange/30 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)]"
+    },
+    { 
+      title: "Kemasannya bikin orang berhenti scroll", 
+      icon: Layers,
+      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+    },
+    { 
+      title: "Jual hari ini, legal besok — tidak ada yang perlu kamu urus", 
+      icon: ShieldCheck,
+      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+    },
+    { 
+      title: "Produkmu tiba siap jual — bukan siap dirakit", 
+      icon: PackageCheck,
+      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+    },
+    { 
+      title: "Ada yang bisa dihubungi kalau ada masalah", 
+      icon: Headphones,
+      className: "md:col-span-1 bg-white border-gray-100 hover:border-brand-orange/20"
+    },
+    { 
+      title: "Brand-mu berdiri sejajar dengan merek premium", 
+      icon: Award,
+      className: "md:col-span-3 bg-brand-orange/[0.03] border-brand-orange/10 hover:border-brand-orange/30 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)]"
+    }
   ];
 
   return (
@@ -124,17 +148,17 @@ export default function MaklonParfumAdsLP() {
               Kami racikkan formulanya. Kami desainkan kemasannya. Kami urus BPOM, Halal, HKI-nya. <strong className="text-brand-black font-semibold">Kamu tinggal jual.</strong>
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.7, duration: 0.8 }}
+            <div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
             >
               {benefits.map((benefit, i) => {
                 const IconComponent = benefit.icon;
                 return (
-                  <div
+                  <motion.div
                     key={i}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.5 + i * 0.08, duration: 0.6, ease: premiumEase }}
                     className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
@@ -143,10 +167,10 @@ export default function MaklonParfumAdsLP() {
                     <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
                       {benefit.title}
                     </span>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </motion.div>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -189,7 +213,13 @@ export default function MaklonParfumAdsLP() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
             {/* Left: Stat Card */}
-            <div className="lg:col-span-5 flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: premiumEase }}
+              className="lg:col-span-5 flex justify-center"
+            >
               <div
                 className="w-full max-w-[360px] border rounded-[32px] p-8 md:p-10 flex flex-col justify-center text-left shadow-2xl relative"
                 style={{ backgroundColor: `${parfumBg}33`, borderColor: `${parfumVivid}44` }}
@@ -211,10 +241,16 @@ export default function MaklonParfumAdsLP() {
                   Konsumen di Indonesia semakin memprioritaskan merek lokal. Ini adalah momentum emas bagi brand Anda.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right: Copy */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.1, ease: premiumEase }}
+              className="lg:col-span-7 space-y-6 text-left"
+            >
               <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
                 MOMENTUM PASAR EMAS
               </span>
@@ -242,7 +278,7 @@ export default function MaklonParfumAdsLP() {
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -258,55 +294,51 @@ export default function MaklonParfumAdsLP() {
           </div>
         </div>
 
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center text-left">
-            
-            {/* Left Column: Heading & CTA */}
-            <div className="lg:col-span-5 space-y-6 flex flex-col justify-center">
-              <div className="space-y-3">
-                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                  KEUNGGULAN UTAMA
-                </span>
-                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
-                  Kenapa Kamu Harus<br />Mulai Brand Parfum<br /><span className="text-brand-orange">Bareng DreamLab</span>
-                </h2>
-                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
-              </div>
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm">
-                Wujudkan brand parfum impian Anda dengan layanan all-in-one termudah, legalitas lengkap, dan formula kualitas premium.
-              </p>
-              <div className="pt-2">
-                <a
-                  href="/thankyou-maklon/"
-                  className="bg-brand-orange text-white px-7 py-4.5 rounded-2xl font-black text-xs font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-brand-black hover:scale-[1.02] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
-                >
-                  <span>KONSULTASI SEKARANG</span>
-                  <MessageCircle className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-
-            {/* Right Column: Compact 2-Column Grid */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {usps.map((usp, idx) => {
-                const IconComponent = usp.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-white/45 backdrop-blur-sm border border-gray-100 hover:border-brand-orange/20 p-4 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-0.5 group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-snug pt-0.5">
-                      {usp.title}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
+        <div className="container-custom relative z-10 text-center space-y-12">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+              KEUNGGULAN UTAMA
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
+              Kenapa Kamu Harus Mulai Brand Parfum <span className="text-brand-orange">Bareng DreamLab</span>
+            </h2>
+            <div className="h-[2px] w-20 bg-brand-orange/40 mx-auto rounded-full" />
           </div>
+
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left max-w-5xl mx-auto">
+            {usps.map((usp, idx) => {
+              const IconComponent = usp.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
+                  className={`p-6 rounded-[24px] border flex items-center gap-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group ${usp.className}`}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
+                    <IconComponent className="w-5.5 h-5.5" />
+                  </div>
+                  <span className="text-sm md:text-[15px] font-bold text-brand-black/90 font-onest leading-snug">
+                    {usp.title}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="pt-6">
+            <a
+              href="/thankyou-maklon/"
+              className="bg-brand-orange text-white px-8 py-5 rounded-2xl font-black text-xs sm:text-sm font-onest uppercase tracking-widest shadow-xl shadow-brand-orange/10 hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
+            >
+              <span>KONSULTASIKAN BRAND ANDA SEKARANG</span>
+              <MessageCircle className="w-4 h-4" />
+            </a>
+          </div>
+
         </div>
       </section>
 
