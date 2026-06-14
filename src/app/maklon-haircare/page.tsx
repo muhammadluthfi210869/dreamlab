@@ -145,16 +145,7 @@ export default function MaklonHaircareAdsLP() {
                 <span className="uppercase tracking-wider text-[11px] font-display">Mulai Konsultasi Gratis</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
-              <div className="text-[10px] text-neutral-400 font-medium tracking-wide flex flex-col gap-0.5 justify-center">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-emerald-500" />
-                  <span>Respon Cepat via WhatsApp</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-emerald-500" />
-                  <span>Tanpa Biaya & Komitmen Awal</span>
-                </div>
-              </div>
+
             </motion.div>
 
           </div>

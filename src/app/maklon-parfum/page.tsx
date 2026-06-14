@@ -32,39 +32,27 @@ export default function MaklonParfumAdsLP() {
 
   const usps = [
     {
-      title: "Aromanya Eksklusif",
-      desc: "Formula parfum dirancang unik dan eksklusif oleh perfumer ahli kami — wewangian berkelas yang tidak akan ditemukan di pasar massal.",
-      tag: "tidak ada di mana-mana",
+      title: "Aromanya\neksklusif — tidak\nada di mana-\nmana",
       icon: <Sparkles className="w-6 h-6 text-brand-orange" />
     },
     {
-      title: "Kemasan Menawan",
-      desc: "Desain botol dan kotak kemasan mewah berstandar estetika tinggi. Membuat produk Anda langsung mencuri perhatian saat pertama kali dilihat.",
-      tag: "bikin orang berhenti scroll",
+      title: "Kemasannya\nbikin orang\nberhenti scroll",
       icon: <Layers className="w-6 h-6 text-brand-orange" />
     },
     {
-      title: "Legalitas Kilat",
-      desc: "Seluruh sertifikasi keamanan, izin edar BPOM, Halal MUI, hingga pendaftaran Hak Kekayaan Intelektual (HKI) kami yang mengurus.",
-      tag: "jual hari ini, legal besok",
+      title: "Jual hari ini, legal\nbesok — tidak ada\nyang perlu kamu\nurus",
       icon: <ShieldCheck className="w-6 h-6 text-brand-orange" />
     },
     {
-      title: "Produk Siap Jual",
-      desc: "Parfum Anda dikirim dalam keadaan selesai diproduksi, dikemas rapi, dan siap didistribusikan ke pasar ritel atau online store.",
-      tag: "bukan siap dirakit",
+      title: "Produkmu tiba\nsiap jual — bukan\nsiap dirakit",
       icon: <PackageCheck className="w-6 h-6 text-brand-orange" />
     },
     {
-      title: "Layanan BD Responsif",
-      desc: "Dukungan konsultasi berkelanjutan dan bantuan sales manager yang siaga menangani setiap kebutuhan dan kendala operasional Anda.",
-      tag: "ada yang bisa dihubungi",
+      title: "Ada yang bisa\ndihubungi kalau\nada masalah",
       icon: <Headphones className="w-6 h-6 text-brand-orange" />
     },
     {
-      title: "Merek Premium",
-      desc: "Formulasi bahan baku impor berkualitas tinggi memastikan ketahanan aroma dan prestise yang menempatkan brand Anda di level global.",
-      tag: "berdiri sejajar",
+      title: "Brand-mu berdiri\nsejajar dengan\nmerek premium",
       icon: <Award className="w-6 h-6 text-brand-orange" />
     }
   ];
@@ -322,28 +310,12 @@ export default function MaklonParfumAdsLP() {
                 key={idx}
                 className="bg-white p-8 rounded-[28px] border border-gray-100 shadow-sm hover:border-brand-orange/20 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
-                <div className="space-y-6">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                    {usp.icon}
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg md:text-xl font-bold text-brand-black leading-snug">
-                      {usp.title}
-                    </h3>
-                    <p className="text-sm text-neutral-500 leading-relaxed font-medium">
-                      {usp.desc}
-                    </p>
-                  </div>
+                <div className="w-12 h-12 rounded-2xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300 mb-3">
+                  {usp.icon}
                 </div>
-
-                <div className="mt-6 pt-4 border-t border-gray-50 flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand-orange bg-brand-orange/[0.06] px-3 py-1 rounded-full">
-                    {usp.tag}
-                  </span>
-                  <span className="text-xs font-semibold text-neutral-300 group-hover:text-brand-orange transition-colors">
-                    0{idx + 1}
-                  </span>
-                </div>
+                <h3 className="text-sm md:text-base font-bold text-brand-black leading-snug whitespace-pre-line">
+                  {usp.title}
+                </h3>
               </div>
             ))}
           </div>
@@ -406,7 +378,7 @@ export default function MaklonParfumAdsLP() {
                   href="/thankyou-maklon/"
                   className="inline-flex items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-extrabold text-sm md:text-base lg:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
-                  Jadwalkan Konsultasi Gratis (WA)
+                  KONSULTASIKAN BRAND ANDA SEKARANG
                 </a>
               </div>
             </motion.div>
