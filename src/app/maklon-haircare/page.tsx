@@ -24,7 +24,7 @@ export default function MaklonHaircareAdsLP() {
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
       {/* 1. HERO */}
-      <section className="relative min-h-[600px] lg:min-h-screen xl:min-h-[800px] flex items-center overflow-hidden bg-white pt-24 pb-16 lg:pt-36 lg:pb-24">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-8 lg:pt-12">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
