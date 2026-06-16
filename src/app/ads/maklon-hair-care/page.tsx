@@ -139,7 +139,7 @@ export default function MaklonHairCareAdsLP() {
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6"
             >
               <a
-                href="/thankyou-maklon/"
+                href="/ads/thankyou-maklon/?source=meta-haircare"
                 className="group relative inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-[0_12px_24px_rgba(243,146,0,0.2)] hover:shadow-[0_18px_32px_rgba(243,146,0,0.3)] hover:-translate-y-0.5"
               >
                 <span className="uppercase tracking-wider text-[11px] font-display">Mulai Konsultasi Gratis</span>
@@ -201,7 +201,7 @@ export default function MaklonHairCareAdsLP() {
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
-                  href="/thankyou-maklon/"
+                  href="/ads/thankyou-maklon/?source=meta-haircare"
                   className="inline-flex flex-col items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider leading-tight transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
                   <span>Mulai Brand Hair Careku</span>
@@ -221,7 +221,7 @@ export default function MaklonHairCareAdsLP() {
 
       {/* FLOATING WA BUTTON */}
       <a
-        href="/thankyou-maklon/"
+        href="/ads/thankyou-maklon/?source=meta-haircare"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Contact via WhatsApp"
       >

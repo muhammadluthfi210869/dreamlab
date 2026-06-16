@@ -7,25 +7,54 @@ import { CheckCircle2 } from "lucide-react";
 
 export default function ThankYouMaklon() {
   const numbers = ["628777650657", "6281952417051"];
-  const message = "Halo Dreamlab, saya lihat iklan di meta ads dan ingin konsultasi buat brand skincare saya sendiri. Bisa dibantu?";
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [source, setSource] = useState("direct");
 
   useEffect(() => {
+    // 1. Baca source dari URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get("source") || "direct";
+    setSource(src);
+
+    // 2. Kirim ke dataLayer GTM
+    if (typeof window !== "undefined") {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        event: "conversion",
+        source: src,
+        campaign: src,
+        page: window.location.pathname,
+      });
+    }
+
+    // 3. Rotate WA index
     const saved = localStorage.getItem("waIndex");
     if (saved !== null) {
       setCurrentIndex(parseInt(saved, 10) % numbers.length);
     }
   }, [numbers.length]);
 
+  const getWAMessage = () => {
+    const msgs = {
+      "meta-parfum": "Halo Dreamlab, saya dari landing page Meta Ads Parfum dan ingin konsultasi buat brand parfum saya.",
+      "meta-skincare": "Halo Dreamlab, saya dari landing page Meta Ads Skincare dan ingin konsultasi buat brand skincare saya.",
+      "meta-haircare": "Halo Dreamlab, saya dari landing page Meta Ads Haircare dan ingin konsultasi buat brand haircare saya.",
+      "google-ads": "Halo Dreamlab, saya dari Google Ads dan tertarik untuk memulai brand kosmetik saya sendiri.",
+      organic: "Halo Dreamlab, saya dari pencarian Google dan ingin konsultasi buat brand kosmetik saya.",
+    };
+    return msgs[source as keyof typeof msgs] || "Halo Dreamlab, saya ingin konsultasi buat brand kosmetik saya sendiri.";
+  };
+
   const handleWaClick = useCallback(() => {
     const phone = numbers[currentIndex];
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const msg = getWAMessage();
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
     const next = (currentIndex + 1) % numbers.length;
     setCurrentIndex(next);
     localStorage.setItem("waIndex", String(next));
     window.open(url, "_blank");
-  }, [currentIndex, numbers, message]);
+  }, [currentIndex, numbers, source]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">

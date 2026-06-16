@@ -154,7 +154,7 @@ export default function MaklonSkincareAdsLP() {
               className="flex flex-col items-start gap-3"
             >
               <a
-                href="/thankyou-maklon/"
+                href="/ads/thankyou-maklon/?source=meta-skincare"
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-10 rounded-xl transition-all duration-500 shadow-[0_15px_30px_rgba(246,145,30,0.15)] hover:-translate-y-1"
               >
                 <span className="uppercase tracking-[0.2em] text-[10px] font-onest">KONSULTASIKAN BRAND ANDA SEKARANG</span>
@@ -210,7 +210,7 @@ export default function MaklonSkincareAdsLP() {
               </p>
               <div className="pt-2">
                 <a
-                  href="/thankyou-maklon/"
+                  href="/ads/thankyou-maklon/?source=meta-skincare"
                   className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3 w-full sm:w-auto"
                 >
                   <span>MULAI SEKARANG</span>
@@ -294,7 +294,7 @@ export default function MaklonSkincareAdsLP() {
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
-                  href="/thankyou-maklon/"
+                  href="/ads/thankyou-maklon/?source=meta-skincare"
                   className="inline-flex flex-col items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider leading-tight transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
                   <span>Chat dengan Formulator</span>
@@ -314,7 +314,7 @@ export default function MaklonSkincareAdsLP() {
 
       {/* FLOATING WA BUTTON */}
       <a
-        href="/thankyou-maklon/"
+        href="/ads/thankyou-maklon/?source=meta-skincare"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Contact via WhatsApp"
       >
