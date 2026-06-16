@@ -20,7 +20,7 @@ const visualCategories = [
     id: "skincare",
     name: "Skincare",
     tag: "15+ Formula Premium",
-    image: "/assets/images/cleansing-oill.webp",
+    image: "/new asset/skincare&facecare/cleansing-oill.webp",
     subcategories: "Day & Night Cream • Sunscreen • Facial Wash • Face Serum • Masker",
     link: "/produk/skincare"
   },
@@ -28,7 +28,7 @@ const visualCategories = [
     id: "bodycare",
     name: "Body Care",
     tag: "20+ Formula Premium",
-    image: "/assets/images/body-scrub.webp",
+    image: "/new asset/bodycare/body-scrub.webp",
     subcategories: "Body Scrub • Body Lotion • Body Butter • Shower Gel • Bath Salt",
     link: "/produk/bodycare"
   },
@@ -36,7 +36,7 @@ const visualCategories = [
     id: "haircare",
     name: "Hair Care",
     tag: "10+ Formula Premium",
-    image: "/assets/images/shampoo-scaled.webp",
+    image: "/new asset/haircare/shampoo.webp",
     subcategories: "Shampoo • Conditioner • Hair Mask • Pomade • Beard Serum",
     link: "/produk/haircare"
   },
@@ -44,7 +44,7 @@ const visualCategories = [
     id: "decorative",
     name: "Decorative (Makeup)",
     tag: "12+ Formula Premium",
-    image: "/assets/images/lip-cream.webp",
+    image: "/new asset/lipcare/lip-cream.webp",
     subcategories: "Lip Matte • Lip Cream • Foundation • Cushion • Face Primer",
     link: "/produk/decorative"
   },
@@ -52,7 +52,7 @@ const visualCategories = [
     id: "babycare",
     name: "Baby Care",
     tag: "8+ Formula Premium",
-    image: "/assets/images/Baby-Cologne.webp",
+    image: "/new asset/baby-care/baby-cologne.webp",
     subcategories: "Baby Oil • Baby Cologne • Shampoo Baby • Baby Wash • Lotion",
     link: "/produk/babycare"
   },
@@ -60,7 +60,7 @@ const visualCategories = [
     id: "parfum",
     name: "Parfum & Fragrance",
     tag: "15+ Signature Scent",
-    image: "/assets/images/Dreamlab-Maklon-Parfum.webp",
+    image: "/new asset/parfum/edpp.webp",
     subcategories: "Extrait de Parfum • Eau de Parfum • Eau de Toilette • Body Mist",
     link: "/produk/parfum"
   },
@@ -68,7 +68,7 @@ const visualCategories = [
     id: "footcare",
     name: "Foot Care & Special Care",
     tag: "10+ Formula Premium",
-    image: "/assets/images/maklon_produk_perawatankaki.webp",
+    image: "/new asset/footcare/Footcream-maklon .png",
     subcategories: "Foot Cream • Foot Scrub • Underarm Cream • Soothing Gel",
     link: "/produk/footcare"
   }

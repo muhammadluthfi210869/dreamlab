@@ -18,7 +18,7 @@ export default function SubCategoryGrid({ subCategories, categorySlug, categoryN
     const cardImageMap: Record<string, Record<string, string>> = {
       skincare: {
         "face-cream": "new asset/skincare&facecare/moizturizing-cream.webp",
-        "day-night-cream": "new asset/skincare&facecare/moizturizing-cream.webp",
+        "day-night-cream": "new asset/skincare&facecare/facial-cream.webp",
         "face-mask": "new asset/skincare&facecare/brightening-mask.webp",
         "sunscreen": "new asset/skincare&facecare/physical-sunscreen.webp",
         "cleansing": "new asset/skincare&facecare/milk-cleanser.webp",

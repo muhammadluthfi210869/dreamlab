@@ -5,7 +5,7 @@ export const homepageData = {
     subtitle: "Di balik setiap brand hebat ada FORMULA YANG KUAT. Solusi Maklon terpercaya untuk JUARANYA FORMULA.",
     ctaText: "Konsultasi Formula Gratis",
     ctaLink: "https://api.whatsapp.com/send/?phone=62881027240339&text=Hi+saya+ingin+konsultasi+untuk+brand+saya&type=phone_number&app_absent=0",
-    backgroundImage: "/assets/Cosmetic_bottles_on_marble_plinths_202605181529.jpeg"
+    backgroundImage: ""
   },
   trustedBrands: {
     title: "DREAMLAB TELAH DIPERCAYA 500+ BRAND",

@@ -75,7 +75,7 @@ export default function StrategicMarketPotential({ headline, points, image }: St
               {/* Compact Inset Visual */}
               <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg border-2 border-white flex-shrink-0 relative z-10 bg-[#FFF5F2] rotate-2">
                 <Image
-                  src={image || "/assets/produk/parfum/strategic-market-visual.webp"}
+                  src={image || "/new asset/produk/parfum/strategic-market-visual.webp"}
                   alt="Asset"
                   fill
                   sizes="80px"
@@ -158,7 +158,7 @@ export default function StrategicMarketPotential({ headline, points, image }: St
               />
               <div className="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl border border-white/50 bg-[#FFF5F2]">
                 <Image
-                  src={image || "/assets/produk/parfum/strategic-market-visual.webp"}
+                  src={image || "/new asset/produk/parfum/strategic-market-visual.webp"}
                   alt="Premium Packaging Asset"
                   fill
                   sizes="(max-width: 1024px) 100vw, 450px"

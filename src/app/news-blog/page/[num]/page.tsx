@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { articles } from '@/data/articles';
+import { articles, Article } from '@/data/articles';
 import seoMappingData from '@/data/seo-mapping.json';
 import { SeoMappingItem } from '@/types';
 
@@ -51,9 +51,14 @@ export default async function BlogPaginationPage({ params }: BlogPaginationProps
     notFound();
   }
 
+  const sortedArticles: Article[] = [...articles].sort((a, b) => {
+    const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
+    const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
+    return dateB - dateA;
+  });
   const start = (pageNum - 1) * POSTS_PER_PAGE;
   const end = start + POSTS_PER_PAGE;
-  const paginatedArticles = articles.slice(start, end);
+  const paginatedArticles = sortedArticles.slice(start, end);
   const totalPages = Math.ceil(articles.length / POSTS_PER_PAGE);
 
   if (paginatedArticles.length === 0 && pageNum > 1) {

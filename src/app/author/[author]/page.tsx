@@ -55,7 +55,13 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   
   const articlesList = await getArticles();
   const authorName = slug === 'admin' ? 'Dreamlab Admin' : slug;
-  const filteredArticles = articlesList.filter(a => a.author === authorName || a.author.toLowerCase() === slug);
+  const filteredArticles = articlesList
+    .filter(a => a.author === authorName || a.author.toLowerCase() === slug)
+    .sort((a: any, b: any) => {
+      const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
+      const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
+      return dateB - dateA;
+    });
 
   if (filteredArticles.length === 0 && slug !== 'admin') {
     notFound();

@@ -51,7 +51,7 @@ const productCardImageMap: Record<string, Record<string, string>> = {
     "brightening-cream": "new asset/skincare&facecare/brightening.webp",
     "eye-cream": "new asset/skincare&facecare/eye-cream.webp",
     // Subcategory: face-cream (Day & Night Cream product)
-    "day-night-cream": "new asset/skincare&facecare/moizturizing-cream.webp",
+    "day-night-cream": "new asset/skincare&facecare/facial-cream.webp",
     // Subcategory: face-mask
     "peel-off-mask": "new asset/skincare&facecare/peel-mask.webp",
     "brightening-mask": "new asset/skincare&facecare/brightening-mask.webp",
@@ -1132,7 +1132,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     const subCategoryHeroImageMap: Record<string, Record<string, string>> = {
       skincare: {
         "face-cream": "/new asset/skincare&facecare/moizturizing-cream.webp",
-        "day-night-cream": "/new asset/skincare&facecare/moizturizing-cream.webp",
+        "day-night-cream": "/new asset/skincare&facecare/facial-cream.webp",
         "face-mask": "/new asset/skincare&facecare/brightening-mask.webp",
         "sunscreen": "/new asset/skincare&facecare/physical-sunscreen.webp",
         "cleansing": "/new asset/skincare&facecare/milk-cleanser.webp",

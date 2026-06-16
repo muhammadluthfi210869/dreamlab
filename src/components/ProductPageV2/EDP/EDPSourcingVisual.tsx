@@ -9,7 +9,7 @@ export default function EDPSourcingVisual() {
       {/* Background Image - Right Aligned Landscape */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/produk/parfum/edp-sourcing.webp"
+          src="/new asset/produk/parfum/edp-sourcing.webp"
           alt="EDP Sourcing Ecosystem"
           fill
           className="object-cover object-right"

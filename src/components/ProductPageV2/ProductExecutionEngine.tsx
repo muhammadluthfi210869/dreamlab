@@ -31,7 +31,7 @@ export default function ProductExecutionEngine() {
           </div>
           <div className="lg:w-[45%] relative bg-[#F8F8FF] overflow-hidden">
             <div className="relative w-full h-full p-12">
-              <Image src="/assets/images/Perfume_bottles_on_podiums_202605101341.webp" alt="Your Brand Execution" title="Eksekusi Brand Parfum — Dreamlab Maklon Kosmetik" fill sizes="(max-width: 1024px) 100vw, 45vw" loading="lazy" decoding="async" className="object-contain" />
+              <Image src="/new asset/produk/parfum/Perfume_bottles_on_podiums_202605101341.webp" alt="Your Brand Execution" title="Eksekusi Brand Parfum — Dreamlab Maklon Kosmetik" fill sizes="(max-width: 1024px) 100vw, 45vw" loading="lazy" decoding="async" className="object-contain" />
             </div>
           </div>
         </div>

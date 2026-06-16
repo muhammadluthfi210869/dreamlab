@@ -2,20 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { 
-  ArrowRight, 
-  Sparkles, 
-  Layers, 
-  ShieldCheck, 
-  PackageCheck, 
-  Headphones, 
-  Award, 
-  TrendingUp,
-  MessageCircle,
-  CheckCircle2,
-  FlaskConical
-} from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -24,45 +11,19 @@ const parfumVivid = "#E2BC86";
 
 export default function MaklonParfumAdsLP() {
   const benefits = [
-    { title: "Formula Custom", icon: FlaskConical },
-    { title: "Desain Kemasan", icon: Sparkles },
-    { title: "Legalitas Lengkap", icon: ShieldCheck },
-    { title: "Perlindungan HKI", icon: Award },
-    { title: "Konsultasi Privat", icon: Headphones },
-    { title: "MOQ Fleksibel", icon: TrendingUp }
+    "FREE Custom Formula",
+    "FREE Desain Logo & Kemasan",
+    "FREE Pengurusan BPOM & Halal",
+    "MOQ Fleksibel",
+    "FREE Konsultasi Brand"
   ];
 
-  const usps = [
-    { 
-      hook: "Aromanya eksklusif", 
-      desc: "tidak ada di mana-mana", 
-      icon: Sparkles 
-    },
-    { 
-      hook: "Kemasannya", 
-      desc: "bikin orang berhenti scroll", 
-      icon: Layers 
-    },
-    { 
-      hook: "Jual hari ini, legal besok", 
-      desc: "tidak ada yang perlu kamu urus", 
-      icon: ShieldCheck 
-    },
-    { 
-      hook: "Produkmu tiba siap jual", 
-      desc: "bukan siap dirakit", 
-      icon: PackageCheck 
-    },
-    { 
-      hook: "Ada yang bisa dihubungi", 
-      desc: "kalau ada masalah", 
-      icon: Headphones 
-    },
-    { 
-      hook: "Brand-mu berdiri sejajar", 
-      desc: "dengan merek premium", 
-      icon: Award 
-    }
+  const section2Benefits = [
+    "Tim R&D Perfumery Profesional",
+    "Pengembangan Signature Scent untuk Brand Anda",
+    "Custom Formula & Custom Fragrance",
+    "Diproduksi di Pabrik Berstandar CPKB GRADE A",
+    "Legalitas Lengkap untuk Mendukung Pertumbuhan Brand"
   ];
 
   return (
@@ -130,12 +91,12 @@ export default function MaklonParfumAdsLP() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 1, ease: premiumEase }}
-              className="font-normal text-brand-black mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
+              className="font-extrabold text-brand-black mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
               style={{ textShadow: '0 0 30px rgba(255,255,255,0.8)' }}
             >
-              <span className="text-brand-orange">Mau Buat Brand</span>
+              <span className="text-brand-orange">Mau Punya Brand</span>
               <br />
-              <span className="text-brand-orange italic">Parfum Premium?</span>
+              <span className="text-brand-orange">Parfum Premium?</span>
             </motion.h1>
 
             <motion.p
@@ -145,38 +106,33 @@ export default function MaklonParfumAdsLP() {
               className="text-xs sm:text-sm text-brand-black/80 lg:text-brand-black/70 font-medium leading-relaxed mb-6 md:mb-8 max-w-xl lg:text-[18px] xl:text-[20px]"
               style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
             >
-              Kami racikkan formulanya. Kami desainkan kemasannya. Kami urus BPOM, Halal, HKI-nya. <strong className="text-brand-black font-semibold">Kamu tinggal jual.</strong>
+              Wujudkan brand parfum yang siap bersaing di market melalui aroma eksklusif, pengembangan formula, dan pendampingan dari awal hingga produk siap dipasarkan.
             </motion.p>
 
-            <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
+              className="flex flex-wrap gap-3 mb-8 max-w-2xl"
             >
-              {benefits.map((benefit, i) => {
-                const IconComponent = benefit.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.5 + i * 0.08, duration: 0.6, ease: premiumEase }}
-                    className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
-                      {benefit.title}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
+              {benefits.map((benefit, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-4 py-2.5 rounded-xl shadow-sm"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
+                  <span className="text-[12px] sm:text-sm font-bold text-brand-black/90 tracking-wide font-onest">
+                    {benefit}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.9, duration: 0.8 }}
-              className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
+              className="flex flex-col items-start gap-3"
             >
               <a
                 href="/ads/thankyou/metaads/?source=meta-parfum"
@@ -200,7 +156,7 @@ export default function MaklonParfumAdsLP() {
         />
       </section>
 
-      {/* 3. URGENCY & MARKET — Warm/Light Version (No Dark Mode) */}
+      {/* 2. JANGAN SALAH PILIH MAKLON PARFUM */}
       <section
         className="relative py-20 md:py-28 overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${parfumBg}22 0%, #FAF9F6 50%, ${parfumVivid}22 100%)` }}
@@ -209,161 +165,43 @@ export default function MaklonParfumAdsLP() {
           style={{ background: `radial-gradient(circle, ${parfumVivid} 0%, transparent 70%)` }}
         />
 
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
-            {/* Left: Stat Card */}
+        <div className="container-custom relative z-10 w-full px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, ease: premiumEase }}
-              className="lg:col-span-5 flex justify-center"
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
             >
-              <div
-                className="w-full max-w-[360px] border rounded-[32px] p-8 md:p-10 flex flex-col justify-center text-left shadow-2xl relative"
-                style={{ backgroundColor: `${parfumBg}33`, borderColor: `${parfumVivid}44` }}
-              >
-                <div className="absolute top-6 right-6 w-12 h-12 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${parfumVivid}22` }}>
-                  <TrendingUp className="w-6 h-6 text-brand-orange" />
-                </div>
-                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-orange">
-                  PARFUM LOKAL MARKET
-                </span>
-                <span className="text-6xl md:text-7xl font-extrabold font-onest text-brand-black leading-none tracking-tight mt-4">
-                  +23%
-                </span>
-                <span className="text-sm font-bold text-brand-black/90 mt-2">
-                  Tumbuh Setiap Tahun
-                </span>
-                <p className="text-xs text-brand-black/50 mt-4 leading-relaxed">
-                  Konsumen di Indonesia semakin memprioritaskan merek lokal. Ini adalah momentum emas bagi brand Anda.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Right: Copy */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: 0.1, ease: premiumEase }}
-              className="lg:col-span-7 space-y-6 text-left"
-            >
-              <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                MOMENTUM PASAR EMAS
-              </span>
-              <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
-                Kenapa Kamu Harus Mulai Brand Parfum Bareng DreamLab <span className="text-brand-orange">Sekarang</span>
+              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-6">
+                Jangan Salah Pilih<br />
+                <span className="text-brand-orange">Maklon Parfum</span>
               </h2>
 
-              <div className="h-[2px] w-16 bg-brand-orange/40 rounded-full" />
-
-              <div className="space-y-4 text-brand-black/80 text-sm md:text-base leading-relaxed font-medium">
-                <p>
-                  Pasar parfum lokal Indonesia sedang meledak dan tumbuh 23% per tahun. Konsumen makin bangga dan memilih brand lokal karena kualitas yang bersaing.
-                </p>
-                <p className="border-l-4 border-brand-orange pl-4 italic bg-brand-orange/[0.03] py-3 pr-3 rounded-r-xl text-brand-black/70">
-                  "Tapi slot di pasar ini tidak menunggu. Setiap hari yang kamu tunda, ada brand owner lain yang sudah memesan sampel pertamanya di DreamLab."
-                </p>
-              </div>
-
-              <div className="pt-4">
-                <a
-                  href="/ads/thankyou/metaads/?source=meta-parfum"
-                  className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3"
-                >
-                  <span>Minta Sampel Parfum Pertamamu</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 4. USP GRID */}
-      <section className="bg-white py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none hidden lg:flex items-center justify-center z-0 opacity-30">
-          <div className="absolute w-[700px] h-[700px] rounded-full border border-gray-200/55 flex items-center justify-center">
-            <div className="w-[500px] h-[500px] rounded-full border border-gray-200/55 flex items-center justify-center">
-              <div className="w-[300px] h-[300px] rounded-full border border-gray-200/55" />
-            </div>
-          </div>
-        </div>
-
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
-            
-            {/* Left: Heading & CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, ease: premiumEase }}
-              className="lg:col-span-5 space-y-6 flex flex-col justify-center"
-            >
-              <div className="space-y-3">
-                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                  KEUNGGULAN UTAMA
-                </span>
-                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
-                  Kenapa Kamu Harus<br />Mulai Brand Parfum<br /><span className="text-brand-orange">Bareng DreamLab</span>
-                </h2>
-                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
-              </div>
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm font-medium">
-                Wujudkan brand parfum impian Anda dengan layanan maklon terlengkap. Kami meracik formula eksklusif, merancang kemasan memikat, dan mengurus semua legalitas secara paralel agar produk Anda siap sukses di pasar.
+              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-sans mb-8">
+                Karena tidak semua maklon memiliki Tim R&amp;D Perfumery. Dreamlab membantu Anda menciptakan parfum dengan aroma yang dirancang sesuai identitas brand, bukan sekadar memilih aroma yang sudah ada di pasaran.
               </p>
-              <div className="pt-2">
-                <a
-                  href="/ads/thankyou/metaads/?source=meta-parfum"
-                  className="bg-brand-orange text-white px-7 py-4.5 rounded-2xl font-black text-xs font-onest uppercase tracking-widest shadow-xl shadow-brand-orange/15 hover:bg-brand-black hover:scale-[1.02] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
-                >
-                  <span>KONSULTASIKAN BRAND SEKARANG</span>
-                  <MessageCircle className="w-4 h-4 animate-pulse" />
-                </a>
+
+              <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+                {section2Benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-4 py-2.5 rounded-xl shadow-sm"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
+                    <span className="text-[12px] sm:text-sm font-bold text-brand-black/90 tracking-wide font-onest">
+                      {benefit}
+                    </span>
+                  </div>
+                ))}
               </div>
             </motion.div>
-
-            {/* Right: 2-Column Grid of 6 World-Class USP Cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4.5">
-              {usps.map((usp, idx) => {
-                const IconComponent = usp.icon;
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 25 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
-                    className="relative bg-white/75 backdrop-blur-md border border-neutral-100/90 hover:border-brand-orange/20 p-5 pl-7 rounded-[24px] flex items-start gap-4 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(243,146,0,0.07)] hover:bg-white/95 hover:-translate-y-1 group overflow-hidden"
-                  >
-                    {/* Left Accent Glow Line */}
-                    <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-brand-orange rounded-l-2xl opacity-60 group-hover:opacity-100 group-hover:bg-brand-black transition-all duration-300" />
-                    
-                    {/* Icon Container */}
-                    <div className="w-11 h-11 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
-                      <IconComponent className="w-5.5 h-5.5" />
-                    </div>
-                    
-                    {/* Content */}
-                    <span className="text-[13.5px] md:text-[14.5px] font-sans leading-relaxed pt-0.5">
-                      <strong className="font-black text-brand-black font-onest">{usp.hook}</strong>{" "}
-                      <span className="font-medium text-brand-black/65 font-sans">— {usp.desc}</span>
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
           </div>
         </div>
       </section>
 
-      {/* 5. CLOSING CTA — Homepage style background visual */}
+      {/* 3. CLOSING CTA */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
         <motion.div
@@ -395,21 +233,25 @@ export default function MaklonParfumAdsLP() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="col-span-12 md:col-span-6 lg:col-span-6 text-left z-20 flex flex-col justify-center"
             >
-              <h2 className="text-brand-orange text-[30px] sm:text-[40px] md:text-[38px] lg:text-[48px] xl:text-[54px] font-display font-extrabold leading-[1.12] tracking-tight font-onest mb-6 uppercase">
-                Siap Mewujudkan Brand Parfum Impian Anda?
+              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[38px] lg:text-[46px] xl:text-[52px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-4">
+                Bangun Brand Parfum<br />
+                <span className="text-brand-orange">yang Memiliki Karakter</span>
               </h2>
 
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-8 font-sans max-w-lg">
-                Mulai langkah sukses bisnis parfum premium Anda bersama tim ahli kami. Kami memandu konsultasi formula, desain, legalitas, hingga produk tiba di gudang Anda.
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-lg">
+                Pelanggan Anda tidak membutuhkan parfum yang pasaran. Mereka mencari aroma yang memiliki karakter, identitas, dan alasan untuk diingat.
               </p>
 
-              <div className="rounded-2xl w-fit mt-2">
+              <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
                   href="/ads/thankyou/metaads/?source=meta-parfum"
-                  className="inline-flex items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-extrabold text-sm md:text-base lg:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
+                  className="inline-flex items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
-                  KONSULTASIKAN BRAND ANDA SEKARANG
+                  <span>FREE KONSULTASI BISNIS</span>
                 </a>
+                <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-neutral-400 font-onest">
+                  RESPON CEPAT . TANPA KEWAJIBAN . 100% GRATIS
+                </span>
               </div>
             </motion.div>
 

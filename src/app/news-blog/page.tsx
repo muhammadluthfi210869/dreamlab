@@ -3,9 +3,17 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { articles } from '@/data/articles';
+import { articles, Article } from '@/data/articles';
 
 const MONTHS_ID = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'];
+
+function sortByDateDesc(list: Article[]) {
+  return [...list].sort((a, b) => {
+    const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
+    const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
+    return dateB - dateA;
+  });
+}
 
 function formatDate(dateStr: string) {
   if (!dateStr || dateStr.trim() === '') return { day: '01', month: 'JAN', year: '2026', full: '01 Jan 2026' };
@@ -43,7 +51,7 @@ export default function BlogArchivePage() {
   const [visibleCount, setVisibleCount] = useState(9); // Initial visible articles for search grid
 
   const filteredByBlog = useMemo(() => {
-    return articles.filter(a => (a.categories || []).length > 0);
+    return sortByDateDesc(articles.filter(a => (a.categories || []).length > 0));
   }, []);
 
   const categories = useMemo(() => {
@@ -746,7 +754,7 @@ export default function BlogArchivePage() {
                 <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm">
                   <h4 className="text-sm font-black uppercase tracking-widest mb-8 border-b border-gray-100 pb-4">Latest Insights</h4>
                   <div className="space-y-8">
-                    {articles.slice(0, 5).map((a, i) => (
+                    {sortByDateDesc(articles).slice(0, 5).map((a, i) => (
                       <Link href={`${a.slug}`} key={i} className="flex gap-4 group">
                         <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50">
                           <Image 

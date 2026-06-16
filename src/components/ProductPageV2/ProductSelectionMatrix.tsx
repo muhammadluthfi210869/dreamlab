@@ -13,7 +13,7 @@ const products = [
     name: 'Extrait de Parfum',
     target: 'Luxury Market',
     uvp: 'Targeting <span class="text-brand-orange font-bold">margin profit tertinggi</span>.',
-    image: '/assets/produk/parfum/World-class_commercial_product_photography._Perfectly_202605101730.jpeg',
+    image: '/new asset/produk/parfum/World-class_commercial_product_photography._Perfectly_202605101730.jpeg',
     isPopular: false
   },
   {
@@ -21,7 +21,7 @@ const products = [
     name: 'Eau de Parfum',
     target: 'Premium Retail',
     uvp: 'Standar emas untuk retail dengan <span class="text-brand-orange font-bold">balancing</span>.',
-    image: '/assets/produk/parfum/Glass_bottle_and_packaging_box_202605101730 (1).jpeg',
+    image: '/new asset/produk/parfum/Glass_bottle_and_packaging_box_202605101730 (1).jpeg',
     isPopular: true
   },
   {
@@ -29,7 +29,7 @@ const products = [
     name: 'Eau de Toilette',
     target: 'Mass Market',
     uvp: 'Ideal untuk <span class="text-brand-orange font-bold">volume Produksi Masif</span> dan kompetisi pasar menengah.',
-    image: '/assets/produk/parfum/Glass_bottle_and_packaging_box_202605101730.jpeg',
+    image: '/new asset/produk/parfum/Glass_bottle_and_packaging_box_202605101730.jpeg',
     isPopular: false
   },
   {
@@ -37,7 +37,7 @@ const products = [
     name: 'Cologne',
     target: 'Lifestyle / Active',
     uvp: 'Produk entry level untuk <span class="text-brand-orange font-bold">branding cepat</span>.',
-    image: '/assets/produk/parfum/Glass_bottle_and_packaging_202605101730.jpeg',
+    image: '/new asset/produk/parfum/Glass_bottle_and_packaging_202605101730.jpeg',
     isPopular: false
   },
   {
@@ -45,7 +45,7 @@ const products = [
     name: 'Body Mist',
     target: 'Gen-Z / FMCG',
     uvp: 'Menargetkan <span class="text-brand-orange font-bold">turnover cepat</span>.',
-    image: '/assets/produk/parfum/Glass_spray_bottle_and_box_202605101729.jpeg',
+    image: '/new asset/produk/parfum/Glass_spray_bottle_and_box_202605101729.jpeg',
     isPopular: false
   },
   {
@@ -53,7 +53,7 @@ const products = [
     name: 'Minyak Atsiri',
     target: 'Therapeutic',
     uvp: 'Fokus pada <span class="text-brand-orange font-bold">100 persen pure grade</span> alami.',
-    image: '/assets/produk/parfum/Glass_dropper_bottle_and_box_202605101730.jpeg',
+    image: '/new asset/produk/parfum/Glass_dropper_bottle_and_box_202605101730.jpeg',
     isPopular: false
   },
 ];

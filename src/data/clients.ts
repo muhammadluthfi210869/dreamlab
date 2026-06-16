@@ -12,11 +12,11 @@ export const clientLogos = [
 ];
 
 export const clientShowcase = [
-  { name: "Cleansing Oil", src: "/assets/images/cleansing-oill.webp" },
-  { name: "Cleansing Balm", src: "/assets/images/cleasing-balm.webp" },
-  { name: "Eye Cream", src: "/assets/images/Eye-Cream.webp" },
-  { name: "Face Cleansing Oil", src: "/assets/images/face-cleansing-oil.webp" },
-  { name: "Facial Cream", src: "/assets/images/Facial-Cream.webp" },
+  { name: "Cleansing Oil", src: "/new asset/skincare&facecare/cleansing-oill.webp" },
+  { name: "Cleansing Balm", src: "/new asset/skincare&facecare/cleasing-balm.webp" },
+  { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
+  { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
+  { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
   { name: "Facial Wash", src: "/assets/images/facial-wash.webp" },
   { name: "Feminine Cleanser", src: "/assets/images/feminine-cleanser.webp" },
   { name: "Micellar Cleansing Gel", src: "/assets/images/micellar-cleansing-gel.webp" },
@@ -103,11 +103,11 @@ export const signatureFormulaTabs = [
     id: "skin-care",
     label: "Skin Care",
     products: [
-      { name: "Cleansing Oil", src: "/assets/images/cleansing-oill.webp" },
-      { name: "Cleansing Balm", src: "/assets/images/cleasing-balm.webp" },
-      { name: "Eye Cream", src: "/assets/images/Eye-Cream.webp" },
-      { name: "Face Cleansing Oil", src: "/assets/images/face-cleansing-oil.webp" },
-      { name: "Facial Cream", src: "/assets/images/Facial-Cream.webp" },
+      { name: "Cleansing Oil", src: "/new asset/skincare&facecare/cleansing-oill.webp" },
+      { name: "Cleansing Balm", src: "/new asset/skincare&facecare/cleasing-balm.webp" },
+      { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
+      { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
+      { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
       { name: "Facial Wash", src: "/assets/images/facial-wash.webp" },
     ]
   },

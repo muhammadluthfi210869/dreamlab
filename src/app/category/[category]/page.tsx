@@ -64,7 +64,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   const articlesList = await getArticles();
-  const filteredArticles = articlesList.filter((a: any) => a.categories.includes(categoryName));
+  const filteredArticles = articlesList
+    .filter((a: any) => a.categories.includes(categoryName))
+    .sort((a: any, b: any) => {
+      const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
+      const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
+      return dateB - dateA;
+    });
   const seoData = await getSEOData(`/category/${slug}`);
 
   return (

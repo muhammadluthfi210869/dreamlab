@@ -9,10 +9,10 @@ interface ProductWhyUsProps {
 }
 
 const wcuImages = [
-  '/assets/produk/parfum/card1_wcu.webp',
-  '/assets/produk/parfum/card2-wcu.webp',
-  '/assets/produk/parfum/card3-wcu.webp',
-  '/assets/produk/parfum/card4-wcu.webp',
+  '/new asset/produk/parfum/card1_wcu.webp',
+  '/new asset/produk/parfum/card2-wcu.webp',
+  '/new asset/produk/parfum/card3-wcu.webp',
+  '/new asset/produk/parfum/card4-wcu.webp',
 ];
 
 const sellingPointsByCategory: Record<string, { id: string; title: string; image: string }[]> = {

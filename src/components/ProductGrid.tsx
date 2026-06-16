@@ -10,14 +10,14 @@ export default function ProductGrid() {
       name: "EXTRAIT DE PARFUM",
       uvp: "Konsentrasi Tertinggi untuk target market Luxury & Niche.",
       highlight: "Luxury & Niche",
-      image: "/assets/produk/parfum/World-class_commercial_product_photography._Perfectly_202605101730.jpeg"
+      image: "/new asset/produk/parfum/World-class_commercial_product_photography._Perfectly_202605101730.jpeg"
     },
     {
       id: "edp",
       name: "EAU DE PARFUM",
       uvp: "Standar Emas industri dengan Sillage & Longevity optimal.",
       highlight: "Longevity optimal",
-      image: "/assets/produk/parfum/Glass_bottle_and_packaging_box_202605101730.jpeg",
+      image: "/new asset/produk/parfum/Glass_bottle_and_packaging_box_202605101730.jpeg",
       isMostPreferred: true
     },
     {
@@ -25,28 +25,28 @@ export default function ProductGrid() {
       name: "EAU DE TOILETTE",
       uvp: "Opsi Mass Market terbaik untuk Volume Produksi masif.",
       highlight: "Volume Produksi masif",
-      image: "/assets/produk/parfum/Glass_bottle_and_packaging_202605101730.jpeg"
+      image: "/new asset/produk/parfum/Glass_bottle_and_packaging_202605101730.jpeg"
     },
     {
       id: "cologne",
       name: "COLOGNE",
       uvp: "Produk Entry-Level ideal untuk penetrasi pasar cepat.",
       highlight: "penetrasi pasar cepat",
-      image: "/assets/produk/parfum/Glass_bottle_and_packaging_box_202605101730 (1).jpeg"
+      image: "/new asset/produk/parfum/Glass_bottle_and_packaging_box_202605101730 (1).jpeg"
     },
     {
       id: "bodymist",
       name: "BODY MIST",
       uvp: "Varian Gen-Z dengan High Turnover & biaya efisien.",
       highlight: "High Turnover",
-      image: "/assets/produk/parfum/Glass_spray_bottle_and_box_202605101729.jpeg"
+      image: "/new asset/produk/parfum/Glass_spray_bottle_and_box_202605101729.jpeg"
     },
     {
       id: "atsiri",
       name: "MINYAK ATSIRI",
       uvp: "100% Pure Grade untuk segmentasi Therapeutic alami.",
       highlight: "Therapeutic alami",
-      image: "/assets/produk/parfum/Glass_dropper_bottle_and_box_202605101730.jpeg"
+      image: "/new asset/produk/parfum/Glass_dropper_bottle_and_box_202605101730.jpeg"
     }
   ];
 
