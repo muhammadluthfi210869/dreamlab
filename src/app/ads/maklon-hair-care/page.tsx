@@ -196,9 +196,13 @@ export default function MaklonHairCareAdsLP() {
               className="col-span-12 md:col-span-6 lg:col-span-6 text-left z-20 flex flex-col justify-center"
             >
               <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[38px] lg:text-[46px] xl:text-[52px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-4">
-                WUJUDKAN BRAND<br />
-                <span className="text-brand-orange">KOSMETIK IMPIAN ANDA DALAM 3 BULAN</span>
+                Mulai Brand<br />
+                <span className="text-brand-orange">Hair Care Hari Ini</span>
               </h2>
+
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-lg">
+                Chat sekarang - gratis, tanpa komitmen. 3 bulan lagi brandmu sudah bisa jualan.
+              </p>
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
