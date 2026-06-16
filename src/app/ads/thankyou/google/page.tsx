@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
@@ -10,15 +10,24 @@ const numbers = ["628777650657", "6281952417051"];
 
 export default function ThankYouGoogle() {
   const [source, setSource] = useState("google-ads");
+  const waOpened = useRef(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const src = params.get("source") || "google-ads";
     setSource(src);
     fireConversion(src);
+
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 2500);
+    return () => clearTimeout(timer);
   }, []);
 
   const processWA = useCallback(() => {
+    if (waOpened.current) return;
+    waOpened.current = true;
+
     const saved = localStorage.getItem("waIndex");
     const idx = parseInt(saved || "0", 10) % numbers.length;
     const phone = numbers[idx];

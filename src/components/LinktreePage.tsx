@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,8 +41,19 @@ const badges = [
 
 export default function LinktreePage() {
   const numbers = ["628777650657", "6281952417051"];
+  const waOpened = useRef(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const processWA = useCallback(() => {
+    if (waOpened.current) return;
+    waOpened.current = true;
+
     const saved = localStorage.getItem("waIndex");
     const idx = parseInt(saved || "0", 10) % numbers.length;
     const phone = numbers[idx];
