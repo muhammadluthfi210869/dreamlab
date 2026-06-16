@@ -295,10 +295,9 @@ export default function MaklonSkincareAdsLP() {
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
                   href="/ads/thankyou/metaads/?source=meta-skincare"
-                  className="inline-flex flex-col items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider leading-tight transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
+                  className="inline-flex items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
-                  <span>Chat dengan Formulator</span>
-                  <span>Kami — Gratis</span>
+                  <span>FREE KONSULTASI BISNIS</span>
                 </a>
                 <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-neutral-400 font-onest">
                   RESPON CEPAT — TANPA KEWAJIBAN · 100% GRATIS
