@@ -140,58 +140,6 @@ export default function MaklonHairCareAdsLP() {
         />
       </section>
 
-      {/* 2. SALON SECTION — ANDA PEMILIK SALON? */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] opacity-[0.06] blur-[100px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, #E7ECFE 0%, transparent 70%)" }}
-        />
-
-        <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-              KHUSUS PEMILIK SALON
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
-              Anda Pemilik Salon?<br />
-              <span className="text-brand-orange">Bangun Brand Hair Care Treatment Anda Sendiri!</span>
-            </h2>
-            <div className="h-[2px] w-20 bg-brand-orange/40 mx-auto rounded-full" />
-
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-white/70 backdrop-blur-sm border border-brand-orange/10 p-8 md:p-10 rounded-[28px] shadow-sm text-left space-y-6">
-                <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-brand-black">
-                    Ini Peluang Anda Memiliki Brand Hair Care Sendiri
-                  </h3>
-                  <p className="text-sm md:text-base text-neutral-600 leading-relaxed font-medium">
-                    Ubah pelanggan treatment menjadi pelanggan produk dengan hair care berformula custom yang dirancang khusus untuk kebutuhan salon Anda.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  {benefits.map((benefit, i) => (
-                    <div key={i} className="flex items-center gap-2 bg-brand-orange/5 border border-brand-orange/10 px-3.5 py-2 rounded-xl">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange shrink-0" />
-                      <span className="text-[11px] font-bold text-brand-black/80 font-onest">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="pt-2">
-                  <a
-                    href="/ads/thankyou/metaads/?source=meta-haircare"
-                    className="inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-[0_12px_24px_rgba(243,146,0,0.2)] hover:shadow-[0_18px_32px_rgba(243,146,0,0.3)] hover:-translate-y-0.5"
-                  >
-                    <span className="uppercase tracking-wider text-[11px] font-display">Konsultasi Sekarang</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 3. CLOSING CTA — Homepage style background visual */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
@@ -224,13 +172,26 @@ export default function MaklonHairCareAdsLP() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="col-span-12 md:col-span-6 lg:col-span-6 text-left z-20 flex flex-col justify-center"
             >
-              <h2 className="text-brand-orange text-[30px] sm:text-[40px] md:text-[38px] lg:text-[48px] xl:text-[54px] font-display font-extrabold leading-[1.12] tracking-tight font-onest mb-6 uppercase">
-                Mulai Brand Hair Care Hari Ini
+              <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest mb-3">
+                KHUSUS PEMILIK SALON
+              </span>
+              <h2 className="text-brand-orange text-[30px] sm:text-[40px] md:text-[38px] lg:text-[48px] xl:text-[54px] font-display font-extrabold leading-[1.12] tracking-tight font-onest mb-4 uppercase">
+                Anda Pemilik Salon?<br />
+                <span className="text-brand-orange/90">Bangun Brand Hair Care Treatment Anda Sendiri!</span>
               </h2>
 
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-8 font-sans max-w-lg">
-                Chat sekarang — gratis, tanpa komitmen. 3 bulan lagi brandmu sudah bisa jualan.
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-lg">
+                Ini Peluang Anda Memiliki Brand Hair Care Sendiri. Ubah pelanggan treatment menjadi pelanggan produk dengan hair care berformula custom yang dirancang khusus untuk kebutuhan salon Anda.
               </p>
+
+              <div className="flex flex-wrap gap-2 mb-8">
+                {benefits.map((benefit, i) => (
+                  <div key={i} className="flex items-center gap-1.5 bg-brand-orange/5 border border-brand-orange/10 px-3 py-1.5 rounded-lg">
+                    <CheckCircle2 className="w-3 h-3 text-brand-orange shrink-0" />
+                    <span className="text-[10px] font-bold text-brand-black/80 font-onest">{benefit}</span>
+                  </div>
+                ))}
+              </div>
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
