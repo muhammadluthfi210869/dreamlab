@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, FlaskConical, Sparkles, Layers, ShieldCheck, Award } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -19,11 +19,11 @@ export default function MaklonParfumAdsLP() {
   ];
 
   const section2Benefits = [
-    "Tim R&D Perfumery Profesional",
-    "Pengembangan Signature Scent untuk Brand Anda",
-    "Custom Formula & Custom Fragrance",
-    "Diproduksi di Pabrik Berstandar CPKB GRADE A",
-    "Legalitas Lengkap untuk Mendukung Pertumbuhan Brand"
+    { title: "Tim R&D Perfumery Profesional", icon: FlaskConical },
+    { title: "Pengembangan Signature Scent untuk Brand Anda", icon: Sparkles },
+    { title: "Custom Formula & Custom Fragrance", icon: Layers },
+    { title: "Diproduksi di Pabrik Berstandar CPKB GRADE A", icon: ShieldCheck },
+    { title: "Legalitas Lengkap untuk Mendukung Pertumbuhan Brand", icon: Award }
   ];
 
   return (
@@ -166,37 +166,64 @@ export default function MaklonParfumAdsLP() {
         />
 
         <div className="container-custom relative z-10 w-full px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
+            
+            {/* Left Column: Heading & Paragraph */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: premiumEase }}
+              className="lg:col-span-5 space-y-6 flex flex-col justify-center"
             >
-              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-6">
-                Jangan Salah Pilih<br />
-                <span className="text-brand-orange">Maklon Parfum</span>
-              </h2>
-
-              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-sans mb-8">
+              <div className="space-y-3">
+                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+                  DREAMLAB PERFUMERY
+                </span>
+                <h2 className="text-3xl sm:text-[38px] lg:text-[42px] xl:text-[46px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
+                  Jangan Salah Pilih<br />
+                  <span className="text-brand-orange">Maklon Parfum</span>
+                </h2>
+                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
+              </div>
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm font-medium font-sans">
                 Karena tidak semua maklon memiliki Tim R&amp;D Perfumery. Dreamlab membantu Anda menciptakan parfum dengan aroma yang dirancang sesuai identitas brand, bukan sekadar memilih aroma yang sudah ada di pasaran.
               </p>
-
-              <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-                {section2Benefits.map((benefit, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-4 py-2.5 rounded-xl shadow-sm"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
-                    <span className="text-[12px] sm:text-sm font-bold text-brand-black/90 tracking-wide font-onest">
-                      {benefit}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </motion.div>
+
+            {/* Right Column: 2-Column Grid of 5 World-Class Cards */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {section2Benefits.map((benefit, idx) => {
+                const IconComponent = benefit.icon;
+                const isLast = idx === section2Benefits.length - 1;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
+                    className={`relative bg-white/75 backdrop-blur-md border border-neutral-100/90 hover:border-brand-orange/20 p-5 pl-7 rounded-[24px] flex items-center gap-4.5 transition-all duration-300 hover:shadow-[0_15px_35px_rgba(243,146,0,0.07)] hover:bg-white/95 hover:-translate-y-1 group overflow-hidden ${
+                      isLast ? "sm:col-span-2" : ""
+                    }`}
+                  >
+                    {/* Left Accent Glow Line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-brand-orange rounded-l-2xl opacity-60 group-hover:opacity-100 group-hover:bg-brand-black transition-all duration-300" />
+                    
+                    {/* Icon Container */}
+                    <div className="w-11 h-11 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
+                      <IconComponent className="w-5.5 h-5.5" />
+                    </div>
+                    
+                    {/* Content */}
+                    <span className="text-[13.5px] md:text-[14.5px] font-bold text-brand-black/95 font-onest leading-snug">
+                      {benefit.title}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
+
           </div>
         </div>
       </section>
