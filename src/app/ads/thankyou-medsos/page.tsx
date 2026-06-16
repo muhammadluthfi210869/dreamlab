@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -17,7 +17,6 @@ const services = [
 const badges = ["Free Formula", "Free Desain", "Free BPOM", "Free Halal", "Free HKI"];
 
 export default function ThankYouMedsos() {
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -26,21 +25,15 @@ export default function ThankYouMedsos() {
   }, []);
 
   const processWA = useCallback(() => {
-    if (loading) return;
-    setLoading(true);
-
-    setTimeout(() => {
-      const saved = localStorage.getItem("waIndex");
-      const idx = parseInt(saved || "0", 10) % numbers.length;
-      const phone = numbers[idx];
-      const msg = "Halo Dreamlab, saya tertarik untuk membuat brand kosmetik saya sendiri. Bisa dibantu?";
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-      const next = (idx + 1) % numbers.length;
-      localStorage.setItem("waIndex", String(next));
-      setLoading(false);
-      window.open(url, "_blank");
-    }, 3000);
-  }, [loading]);
+    const saved = localStorage.getItem("waIndex");
+    const idx = parseInt(saved || "0", 10) % numbers.length;
+    const phone = numbers[idx];
+    const msg = "Halo Dreamlab, saya tertarik untuk membuat brand kosmetik saya sendiri. Bisa dibantu?";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    const next = (idx + 1) % numbers.length;
+    localStorage.setItem("waIndex", String(next));
+    window.open(url, "_blank");
+  }, []);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
@@ -58,7 +51,7 @@ export default function ThankYouMedsos() {
             Solusi Maklon Skincare, Parfum, Hair Care & Body Care untuk Brand Impianmu
           </h3>
           <p className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">HUBUNGI KAMI</p>
-          <button onClick={processWA} disabled={loading} className={`btn-wa w-full text-center px-6 py-5 rounded-xl font-bold text-sm uppercase tracking-wider shadow-lg ${loading ? "opacity-70" : "hover:scale-[1.02]"}`}>
+          <button onClick={processWA} className="btn-wa w-full text-center px-6 py-5 rounded-xl font-bold text-sm uppercase tracking-wider shadow-lg hover:scale-[1.02]">
             <div>HUBUNGI KAMI VIA WHATSAPP</div>
             <div className="text-[11px] font-normal mt-1 opacity-80">Konsultasi Gratis - Respon Cepat</div>
           </button>
@@ -92,7 +85,6 @@ export default function ThankYouMedsos() {
       <style>{`
         .btn-wa { display: block; background: #22c55e; color: white; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; }
         .btn-wa:hover { background: #16a34a; }
-        .btn-wa:disabled { opacity: 0.7; cursor: not-allowed; }
       `}</style>
     </div>
   );
