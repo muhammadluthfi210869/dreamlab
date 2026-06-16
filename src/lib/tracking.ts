@@ -1,4 +1,4 @@
-import { GTM_ID, GA4_ID, META_PIXEL_ID } from "@/components/TrackingScripts";
+import { GTM_ID, GA4_ID, META_PIXEL_ID, TIKTOK_PIXEL_ID } from "@/components/TrackingScripts";
 
 export function fireConversion(source: string) {
   // dataLayer (GTM)
@@ -24,5 +24,10 @@ export function fireConversion(source: string) {
   // Meta Pixel Lead event
   if (typeof (window as any).fbq === "function") {
     (window as any).fbq("track", "Lead", { source });
+  }
+
+  // TikTok Pixel Lead event
+  if (typeof (window as any).ttq === "object" && typeof (window as any).ttq.track === "function") {
+    (window as any).ttq.track("Lead", { source });
   }
 }

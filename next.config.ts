@@ -179,7 +179,8 @@ const nextConfig: NextConfig = {
       ['/maklon-skincare', '/ads/maklon-skincare/'],
       ['/maklon-hair-care', '/ads/maklon-hair-care/'],
       ['/thankyou-maklon', '/ads/thankyou-maklon/'],
-      ['/linktree', '/links/'],
+      ['/linktree', '/contact-medsos/'],
+      ['/links', '/contact-medsos/'],
     ];
     for (const [source, destination] of adsRedirects) {
       redirects.push({ source, destination, permanent: true });

@@ -3,8 +3,8 @@ import { getSEOData } from "@/lib/seo-service";
 import LinktreePage from "@/components/LinktreePage";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = await getSEOData("/links");
-  const canonicalUrl = "https://dreamlab.id/links/";
+  const seoData = await getSEOData("/contact-medsos");
+  const canonicalUrl = "https://dreamlab.id/contact-medsos/";
   const title = seoData?.meta_title || "Dreamlab Indonesia | Layanan Maklon Kosmetik & Parfum Premium";
   const description = seoData?.meta_description || "Hubungi kami via WhatsApp untuk konsultasi maklon kosmetik gratis dan cepat, serta temukan layanan maklon skincare, parfum, hair care, dan body care premium.";
 
@@ -29,6 +29,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Links() {
+export default function ContactMedsos() {
   return <LinktreePage />;
 }
