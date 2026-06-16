@@ -98,25 +98,6 @@ export default function MaklonHairCareAdsLP() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.6, duration: 0.8 }}
-              className="flex flex-wrap gap-3 mb-8 max-w-2xl"
-            >
-              {benefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-4 py-2.5 rounded-xl shadow-sm"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
-                  <span className="text-[12px] sm:text-sm font-bold text-brand-black/90 tracking-wide font-onest">
-                    {benefit}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.8, duration: 0.8 }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6"
             >
