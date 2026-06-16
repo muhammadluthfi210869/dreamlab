@@ -55,7 +55,6 @@ export default function Header() {
         { name: "Maklon Hair Care", path: "/produk/haircare" },
         { name: "Maklon Decorative", path: "/produk/decorative" },
         { name: "Maklon Parfum", path: "/produk/parfum" },
-        { name: "Maklon PKRT", path: "/produk/pkrt" },
         { name: "Maklon Foot Care", path: "/produk/footcare" },
       ]
     },

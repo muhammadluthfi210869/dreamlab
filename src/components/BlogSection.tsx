@@ -51,6 +51,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({ title, posts }) => {
     }
   };
 
+  if (!posts || posts.length === 0) return null;
+
   return (
     <section className="py-32 bg-brand-white relative overflow-hidden w-full">
       {/* Decorative ambient gradients */}

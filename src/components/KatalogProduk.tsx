@@ -71,14 +71,6 @@ const visualCategories = [
     image: "/assets/images/maklon_produk_perawatankaki.webp",
     subcategories: "Foot Cream • Foot Scrub • Underarm Cream • Soothing Gel",
     link: "/produk/footcare"
-  },
-  {
-    id: "pkrt",
-    name: "PKRT (Home Care)",
-    tag: "8+ Formula Premium",
-    image: "/assets/produk/pkrt/hero-landss.webp",
-    subcategories: "Hand Wash • Hand Sanitizer • Sabun Cuci Piring • Disinfektan",
-    link: "/produk/pkrt"
   }
 ];
 

@@ -156,31 +156,6 @@ export const homepageData = {
   },
   blog: {
     title: "Temukan Wawasan Bisnis Kecantikan",
-    posts: [
-      {
-        title: "Pentingnya Memilih Pabrik Maklon Kosmetik Bersertifikasi CPKB Grade A",
-        date: "25 Apr 2026",
-        category: "Dreamlab Pedia",
-        image: "/assets/images/Dreamlab_maklon_cpkbgradeA.webp",
-        excerpt: "Kamu sudah punya ide produk. Nama brand sudah kepikiran. Packaging sudah dibayangkan. Tapi satu pertanyaan yang sering dilewatkan begit...",
-        link: "/blog/pabrik-maklon-kosmetik-cpkb-grade-a"
-      },
-      {
-        title: "Foot Care Produk: Peluang Bisnis yang Masih Underrated",
-        date: "25 Apr 2026",
-        category: "Maklon Footcare",
-        image: "/assets/images/maklon_produk_perawatankaki.webp",
-        excerpt: "Bicara soal skincare, kebanyakan orang langsung kepikiran wajah. Padahal, ada satu area tubuh yang sering bekerja keras tapi paling jarang dimanjakan...",
-        link: "/blog/foot-care-produk-peluang-bisnis-maklon"
-      },
-      {
-        title: "10 Kesalahan Pemula Saat Memulai Brand Hair Care yang Wajib Kamu Hindari",
-        date: "24 Apr 2026",
-        category: "Maklon Haircare",
-        image: "/assets/images/jasa-maklon-hair-care-indonesia.webp",
-        excerpt: "Memulai bisnis hair care di Indonesia memang menggiurkan. Namun, banyak founder pemula yang terjebak pada kesalahan yang sama...",
-        link: "/blog/maklon-hair-care-kesalahan-pemula"
-      }
-    ]
+    posts: []
   }
 };

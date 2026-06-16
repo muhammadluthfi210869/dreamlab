@@ -53,7 +53,6 @@ export default function Footer() {
                 "Maklon Hair Care",
                 "Maklon Decorative",
                 "Maklon Parfum",
-                "Maklon PKRT",
                 "Maklon Foot Care"
               ].map((item, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
