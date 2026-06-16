@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { TrackingScripts, GTMNoScript } from "@/components/TrackingScripts";
 import OrganizationSchema from "@/components/OrganizationSchema";
 import SpeculationRules from "@/components/SpeculationRules";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
         <link rel="preload" href="/new%20asset/background-visual-hero-section/home-page.webp" as="image" fetchPriority="high" />
         <SpeculationRules />
         <OrganizationSchema />
+        <TrackingScripts />
         <div id="page" className="site">
           <Header />
           <div id="content" className="site-content">
@@ -79,6 +81,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <WhatsAppButton />
+          <GTMNoScript />
         </div>
       </body>
     </html>
