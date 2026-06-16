@@ -98,6 +98,25 @@ export default function MaklonHairCareAdsLP() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.6, duration: 0.8 }}
+              className="flex flex-wrap gap-3 mb-8 max-w-2xl"
+            >
+              {benefits.map((benefit, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-4 py-2.5 rounded-xl shadow-sm"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
+                  <span className="text-[12px] sm:text-sm font-bold text-brand-black/90 tracking-wide font-onest">
+                    {benefit}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.8, duration: 0.8 }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6"
             >
@@ -119,6 +138,32 @@ export default function MaklonHairCareAdsLP() {
           transition={{ delay: 2.0, duration: 1 }}
           className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#F9F7F2] to-transparent z-10"
         />
+      </section>
+
+      {/* 2. SALON SECTION */}
+      <section className="relative w-full overflow-hidden bg-white py-20 md:py-28">
+        <div className="container-custom w-full px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <span className="inline-block text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest mb-4">
+                KHUSUS PEMILIK SALON
+              </span>
+              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-6">
+                Anda Pemilik Salon?<br />
+                <span className="text-brand-orange">Bangun Brand Hair Care Treatment Anda Sendiri!</span>
+              </h2>
+              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-sans">
+                Ini Peluang Anda Memiliki Brand Hair Care Sendiri. Ubah pelanggan treatment menjadi pelanggan produk dengan hair care berformula custom yang dirancang khusus untuk kebutuhan salon Anda.
+              </p>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* 3. CLOSING CTA — Homepage style background visual */}
@@ -153,16 +198,13 @@ export default function MaklonHairCareAdsLP() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="col-span-12 md:col-span-6 lg:col-span-6 text-left z-20 flex flex-col justify-center"
             >
-              <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest mb-3">
-                KHUSUS PEMILIK SALON
-              </span>
-              <h2 className="text-brand-orange text-[30px] sm:text-[40px] md:text-[38px] lg:text-[48px] xl:text-[54px] font-display font-extrabold leading-[1.12] tracking-tight font-onest mb-4 uppercase">
-                Anda Pemilik Salon?<br />
-                <span className="text-brand-orange/90">Bangun Brand Hair Care Treatment Anda Sendiri!</span>
+              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[38px] lg:text-[46px] xl:text-[52px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-4">
+                SIAP MEMULAI BRAND<br />
+                <span className="text-brand-orange">HAIR CARE ANDA?</span>
               </h2>
 
               <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-lg">
-                Ini Peluang Anda Memiliki Brand Hair Care Sendiri. Ubah pelanggan treatment menjadi pelanggan produk dengan hair care berformula custom yang dirancang khusus untuk kebutuhan salon Anda.
+                Konsultasikan ide brand Anda bersama tim ahli Dreamlab. Dapatkan formula custom, kemasan premium, dan bantuan legalitas secara gratis.
               </p>
 
               <div className="flex flex-wrap gap-2 mb-8">
