@@ -3,25 +3,20 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { 
-  ArrowRight, 
-  Sparkles, 
-  Layers, 
-  ShieldCheck, 
-  PackageCheck, 
-  Headphones, 
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
   Award,
+  Headphones,
   TrendingUp,
-  CheckCircle2,
-  Users,
   FlaskConical
 } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
-const skincareBg = "#EADBC8";
-const skincareVivid = "#CFB185";
+const haircareBg = "#E7ECFE";
 
-export default function MaklonSkincareAdsLP() {
+export default function HaircareMetaAdsLP() {
   const benefits = [
     { title: "Formula Custom", icon: FlaskConical },
     { title: "Desain Kemasan", icon: Sparkles },
@@ -29,15 +24,6 @@ export default function MaklonSkincareAdsLP() {
     { title: "Perlindungan HKI", icon: Award },
     { title: "Konsultasi Privat", icon: Headphones },
     { title: "MOQ Fleksibel", icon: TrendingUp }
-  ];
-
-  const section3Items = [
-    { title: "Formula skincare kamu diracik GRATIS oleh formulator kami - kamu tinggal pilih konsepnya", icon: FlaskConical },
-    { title: "Kemasan premium yang bikin orang sangka ini brand luar negeri", icon: Sparkles },
-    { title: "BPOM, Halal, HKI - semua kami urus paralel, kamu tidak perlu ikut prosesnya", icon: ShieldCheck },
-    { title: "Produk datang siap jual - sudah dikemas, berlabel, bersertifikat", icon: PackageCheck },
-    { title: "Tim kami standby untuk reorder dan konsultasi - bukan vendor yang hilang setelah transfer", icon: Headphones },
-    { title: "500+ brand owner sudah buktikan - brandmu bisa tampil setara merek besar sejak produk pertama", icon: Users }
   ];
 
   return (
@@ -57,8 +43,8 @@ export default function MaklonSkincareAdsLP() {
           }}
         >
           <Image
-            src="/new asset/background-visual-hero-section/skincare.webp"
-            alt="Dreamlab Premium Skincare"
+            src="/new asset/background-visual-hero-section/haircare.webp"
+            alt="Dreamlab Premium Hair Care"
             fill
             priority
             fetchPriority="high"
@@ -87,15 +73,15 @@ export default function MaklonSkincareAdsLP() {
         </motion.div>
 
         <div className="container-custom relative z-20 w-full">
-          <div className="max-w-2xl lg:max-w-3xl">
+          <div className="max-w-3xl lg:max-w-4xl transform -translate-y-4 lg:-translate-y-16">
 
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="inline-flex items-center gap-3 px-3 py-1 bg-brand-orange/5 rounded-full mb-2.5 md:mb-4 border border-brand-orange/20 backdrop-blur-sm"
+              transition={{ delay: 1.0, duration: 0.8 }}
+              className="inline-flex items-center gap-3 px-3.5 py-1.5 bg-brand-orange/5 rounded-full mb-4 md:mb-6 border border-brand-orange/20 backdrop-blur-sm"
             >
-              <span className="w-1 h-1 rounded-full bg-brand-orange" />
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
               <span className="text-[9px] lg:text-[10px] font-black text-brand-orange uppercase tracking-[0.2em] font-onest">
                 Dreamlab #JUARAFORMULA
               </span>
@@ -104,36 +90,34 @@ export default function MaklonSkincareAdsLP() {
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4, duration: 1, ease: premiumEase }}
-              className="font-normal text-brand-black mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
-              style={{ textShadow: '0 0 30px rgba(255,255,255,0.8)' }}
+              transition={{ delay: 1.2, duration: 1, ease: premiumEase }}
+              className="font-normal text-brand-black mb-4 md:mb-6 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[60px] xl:text-[68px]"
             >
-              <span className="text-brand-orange">Mau Buat Brand</span>
+              Mau Buat Brand
               <br />
-              <span className="text-brand-orange italic">Skincare Premium?</span>
+              <span className="text-brand-orange italic font-display font-bold">Hair Care Premium?</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6, duration: 1 }}
-              className="text-xs sm:text-sm text-brand-black/80 lg:text-brand-black/70 font-medium leading-relaxed mb-6 md:mb-8 max-w-xl lg:text-[18px] xl:text-[20px]"
-              style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              className="text-neutral-600 font-sans text-sm sm:text-base md:text-lg leading-relaxed mb-8 max-w-2xl"
             >
-              Sekarang bikin skincare brand sendiri semudah pesan online. Kamu tinggal bilang mau apa — kami yang kerjain semuanya. <strong className="text-brand-black font-semibold">Dari formula sampai produk siap kirim ke pelangganmu.</strong>
+              Wujudkan produk impian Anda dengan formula kualitas klinik, sampel gratis dari formulator ahli, desain kemasan mewah, dan legalitas BPOM lengkap. Kami tangani semuanya dari A sampai Z.
             </motion.p>
 
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.6, duration: 0.8 }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
             >
               {benefits.map((benefit, i) => {
                 const IconComponent = benefit.icon;
                 return (
-                  <motion.div
+                  <div
                     key={i}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.5 + i * 0.08, duration: 0.6, ease: premiumEase }}
                     className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
@@ -142,26 +126,26 @@ export default function MaklonSkincareAdsLP() {
                     <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
                       {benefit.title}
                     </span>
-                  </motion.div>
+                  </div>
                 );
               })}
-            </div>
+            </motion.div>
 
+            {/* CTA + Reassurance Microcopy */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.9, duration: 0.8 }}
-              className="flex flex-col items-start gap-3"
+              transition={{ delay: 1.8, duration: 0.8 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6"
             >
               <a
-                href="/ads/thankyou/metaads/?source=meta-skincare"
-                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-10 rounded-xl transition-all duration-500 shadow-[0_15px_30px_rgba(246,145,30,0.15)] hover:-translate-y-1"
+                href="/ads/thankyou/metaads/?source=meta-haircare"
+                className="group relative inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-[0_12px_24px_rgba(243,146,0,0.2)] hover:shadow-[0_18px_32px_rgba(243,146,0,0.3)] hover:-translate-y-0.5"
               >
-                <span className="uppercase tracking-[0.2em] text-[10px] font-onest">KONSULTASIKAN BRAND ANDA SEKARANG</span>
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <span className="uppercase tracking-wider text-[11px] font-display">Mulai Konsultasi Gratis</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
+
             </motion.div>
 
           </div>
@@ -175,79 +159,7 @@ export default function MaklonSkincareAdsLP() {
         />
       </section>
 
-      {/* 3. FORMULA. KEMASAN. SIAP JUAL. — Warm/Light Version */}
-      {/* 3. FORMULA. KEMASAN. SIAP JUAL. — Warm/Light Version */}
-      <section
-        className="relative py-20 md:py-24 overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${skincareBg}22 0%, #FAF9F6 50%, ${skincareVivid}22 100%)` }}
-      >
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] opacity-[0.08] blur-[100px] rounded-full pointer-events-none"
-          style={{ background: `radial-gradient(circle, ${skincareVivid} 0%, transparent 70%)` }}
-        />
-
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center text-left">
-
-            {/* Left: Heading & CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, ease: premiumEase }}
-              className="lg:col-span-5 space-y-6 flex flex-col justify-center"
-            >
-              <div className="space-y-3">
-                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                  DAPATKAN INI
-                </span>
-                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
-                  Formula. Kemasan.<br />Siap Jual.
-                </h2>
-                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
-              </div>
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm">
-                Ini yang Anda dapatkan sejak hari pertama konsultasi hingga produk kecantikan Anda siap dipasarkan secara luas.
-              </p>
-              <div className="pt-2">
-                <a
-                  href="/ads/thankyou/metaads/?source=meta-skincare"
-                  className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3 w-full sm:w-auto"
-                >
-                  <span>MULAI SEKARANG</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Right: Compact 2-Column Grid */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {section3Items.map((item, idx) => {
-                const IconComponent = item.icon;
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
-                    className="bg-white/45 backdrop-blur-sm border border-brand-orange/10 hover:border-brand-orange/30 p-4 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)] hover:-translate-y-0.5 group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <span className="text-[13px] font-medium text-brand-black/85 font-sans leading-relaxed pt-0.5">
-                      {item.title}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 5. CLOSING CTA — Homepage style background visual */}
+      {/* 3. CLOSING CTA — Homepage style background visual */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
         <motion.div
@@ -279,29 +191,24 @@ export default function MaklonSkincareAdsLP() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="col-span-12 md:col-span-6 lg:col-span-6 text-left z-20 flex flex-col justify-center"
             >
-              <span className="text-[9px] md:text-[10px] font-black tracking-[0.3em] uppercase font-onest text-brand-orange mb-3">
-                CHAT SEKARANG — GRATIS, TANPA KOMITMEN
-              </span>
               <h2 className="text-brand-orange text-[30px] sm:text-[40px] md:text-[38px] lg:text-[48px] xl:text-[54px] font-display font-extrabold leading-[1.12] tracking-tight font-onest mb-6 uppercase">
-                Pilih Formulamu.
-                <br />
-                <span className="text-brand-orange/90">Sisanya Urusan Kami.</span>
+                Mulai Brand Hair Care Hari Ini
               </h2>
 
               <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-8 font-sans max-w-lg">
-                Chat sekarang — gratis, tanpa komitmen. Tim kami siap bantu kamu mulai hari ini.
+                Chat sekarang — gratis, tanpa komitmen. 3 bulan lagi brandmu sudah bisa jualan.
               </p>
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
-                  href="/ads/thankyou/metaads/?source=meta-skincare"
+                  href="/ads/thankyou/metaads/?source=meta-haircare"
                   className="inline-flex flex-col items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider leading-tight transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
-                  <span>Chat dengan Formulator</span>
-                  <span>Kami — Gratis</span>
+                  <span>Mulai Brand Hair Careku</span>
+                  <span>— Gratis</span>
                 </a>
                 <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-neutral-400 font-onest">
-                  RESPON CEPAT — TANPA KEWAJIBAN · 100% GRATIS
+                  RESPON CEPAT . TANPA KEWAJIBAN . 100% GRATIS
                 </span>
               </div>
             </motion.div>
@@ -314,7 +221,7 @@ export default function MaklonSkincareAdsLP() {
 
       {/* FLOATING WA BUTTON */}
       <a
-        href="/ads/thankyou/metaads/?source=meta-skincare"
+        href="/ads/thankyou/metaads/?source=meta-haircare"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Contact via WhatsApp"
       >

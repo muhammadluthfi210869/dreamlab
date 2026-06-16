@@ -179,7 +179,7 @@ export default function MaklonParfumAdsLP() {
               className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
             >
               <a
-                href="/ads/thankyou-maklon/?source=meta-parfum"
+                href="/ads/thankyou/metaads/?source=meta-parfum"
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-10 rounded-xl transition-all duration-500 shadow-[0_15px_30px_rgba(246,145,30,0.15)] hover:-translate-y-1"
               >
                 <span className="uppercase tracking-[0.2em] text-[10px] font-onest">KONSULTASIKAN BRAND ANDA SEKARANG</span>
@@ -271,7 +271,7 @@ export default function MaklonParfumAdsLP() {
 
               <div className="pt-4">
                 <a
-                  href="/ads/thankyou-maklon/?source=meta-parfum"
+                  href="/ads/thankyou/metaads/?source=meta-parfum"
                   className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3"
                 >
                   <span>Minta Sampel Parfum Pertamamu</span>
@@ -319,7 +319,7 @@ export default function MaklonParfumAdsLP() {
               </p>
               <div className="pt-2">
                 <a
-                  href="/ads/thankyou-maklon/?source=meta-parfum"
+                  href="/ads/thankyou/metaads/?source=meta-parfum"
                   className="bg-brand-orange text-white px-7 py-4.5 rounded-2xl font-black text-xs font-onest uppercase tracking-widest shadow-xl shadow-brand-orange/15 hover:bg-brand-black hover:scale-[1.02] active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-3 w-full sm:w-auto"
                 >
                   <span>KONSULTASIKAN BRAND SEKARANG</span>
@@ -405,7 +405,7 @@ export default function MaklonParfumAdsLP() {
 
               <div className="rounded-2xl w-fit mt-2">
                 <a
-                  href="/ads/thankyou-maklon/?source=meta-parfum"
+                  href="/ads/thankyou/metaads/?source=meta-parfum"
                   className="inline-flex items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-extrabold text-sm md:text-base lg:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
                   KONSULTASIKAN BRAND ANDA SEKARANG
@@ -421,7 +421,7 @@ export default function MaklonParfumAdsLP() {
 
       {/* FLOATING WA BUTTON */}
       <a
-        href="/ads/thankyou-maklon/?source=meta-parfum"
+        href="/ads/thankyou/metaads/?source=meta-parfum"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Contact via WhatsApp"
       >

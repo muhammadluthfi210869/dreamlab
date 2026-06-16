@@ -21,7 +21,7 @@ const premiumEase = [0.16, 1, 0.3, 1] as any;
 const skincareBg = "#EADBC8";
 const skincareVivid = "#CFB185";
 
-export default function MaklonSkincareAdsLP() {
+export default function SkincareMetaAdsLP() {
   const benefits = [
     { title: "Formula Custom", icon: FlaskConical },
     { title: "Desain Kemasan", icon: Sparkles },

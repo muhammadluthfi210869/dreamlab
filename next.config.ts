@@ -178,7 +178,7 @@ const nextConfig: NextConfig = {
       ['/maklon-parfum', '/ads/maklon-parfum/'],
       ['/maklon-skincare', '/ads/maklon-skincare/'],
       ['/maklon-hair-care', '/ads/maklon-hair-care/'],
-      ['/thankyou-maklon', '/ads/thankyou-maklon/'],
+      ['/thankyou-maklon', '/ads/thankyou/metaads/'],
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
     ];
