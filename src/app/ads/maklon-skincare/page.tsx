@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, TrendingUp, ArrowRight } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -149,44 +149,86 @@ export default function MaklonSkincareAdsLP() {
       </section>
 
       {/* 2. DREAMLAB MEMBANTU MEWUJUDKAN BRAND SKINCARE ANDA */}
-      <section className="relative w-full overflow-hidden bg-white py-20 md:py-28">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(180deg, ${skincareBg}15 0%, transparent 40%, transparent 60%, ${skincareVivid}15 100%)` }} />
-        <div className="container-custom relative z-10 w-full px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
+      <section
+        className="relative py-20 md:py-28 overflow-hidden"
+        style={{ background: `linear-gradient(135deg, ${skincareBg}22 0%, #FAF9F6 50%, ${skincareVivid}22 100%)` }}
+      >
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] opacity-[0.08] blur-[100px] rounded-full pointer-events-none"
+          style={{ background: `radial-gradient(circle, ${skincareVivid} 0%, transparent 70%)` }}
+        />
+
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+            {/* Left: Stat Card */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-center space-y-6"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: premiumEase }}
+              className="lg:col-span-5 flex justify-center"
             >
-              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-display font-extrabold leading-[1.12] tracking-tight uppercase">
+              <div
+                className="w-full max-w-[360px] border rounded-[32px] p-8 md:p-10 flex flex-col justify-center text-left shadow-2xl relative"
+                style={{ backgroundColor: `${skincareBg}33`, borderColor: `${skincareVivid}44` }}
+              >
+                <div className="absolute top-6 right-6 w-12 h-12 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: `${skincareVivid}22` }}>
+                  <TrendingUp className="w-6 h-6 text-brand-orange" />
+                </div>
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-orange">
+                  BRAND OWNER
+                </span>
+                <span className="text-6xl md:text-7xl font-extrabold font-onest text-brand-black leading-none tracking-tight mt-4">
+                  500+
+                </span>
+                <span className="text-sm font-bold text-brand-black/90 mt-2">
+                  Telah Mempercayai Dreamlab
+                </span>
+                <p className="text-xs text-brand-black/50 mt-4 leading-relaxed">
+                  Brand skincare terus bertumbuh setiap tahunnya. Dreamlab membantu Anda menciptakan produk yang memiliki konsep, formula, dan nilai yang mampu bersaing di market.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Right: Copy */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.1, ease: premiumEase }}
+              className="lg:col-span-7 space-y-6 text-left"
+            >
+              <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+                DIPERCAYA 500+ BRAND OWNER
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display">
                 Dreamlab Membantu Mewujudkan<br />
                 <span className="text-brand-orange">Brand Skincare Anda</span>
               </h2>
 
-              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-sans">
-                Brand skincare memang terus bertumbuh setiap tahunnya. Namun jangan khawatir, karena pelanggan selalu mencari produk yang mampu menjawab kebutuhan mereka. Dreamlab membantu Anda menciptakan produk yang memiliki konsep, formula, dan nilai yang mampu bersaing di market.
-              </p>
+              <div className="h-[2px] w-16 bg-brand-orange/40 rounded-full" />
 
-              <div className="flex items-center justify-center gap-3 py-4">
-                <div className="h-px w-12 bg-brand-orange/30" />
-                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                  Dipercaya oleh 500+ Brand Owner
-                </span>
-                <div className="h-px w-12 bg-brand-orange/30" />
+              <div className="space-y-4 text-brand-black/80 text-sm md:text-base leading-relaxed font-medium">
+                <p>
+                  Brand skincare memang terus bertumbuh setiap tahunnya. Namun jangan khawatir, karena pelanggan selalu mencari produk yang mampu menjawab kebutuhan mereka. Dreamlab membantu Anda menciptakan produk yang memiliki konsep, formula, dan nilai yang mampu bersaing di market.
+                </p>
+                <p className="border-l-4 border-brand-orange pl-4 italic bg-brand-orange/[0.03] py-3 pr-3 rounded-r-xl text-brand-black/70">
+                  "Produk yang sukses bukan hanya memiliki kemasan yang menarik, tetapi juga formula yang membuat pelanggan kembali membeli."
+                </p>
               </div>
-
-              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-sans">
-                Produk yang sukses bukan hanya memiliki kemasan yang menarik, tetapi juga formula yang membuat pelanggan kembali membeli.
-              </p>
 
               <div className="pt-4">
-                <span className="inline-block text-brand-black text-[13px] sm:text-sm font-bold font-onest uppercase tracking-widest border-b-2 border-brand-orange/40 pb-1">
-                  Mulai Perjalanan Brand Anda Bersama Dreamlab
-                </span>
+                <a
+                  href="/ads/thankyou/metaads/?source=meta-skincare"
+                  className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3"
+                >
+                  <span>Mulai Perjalanan Brand Anda Bersama Dreamlab</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
