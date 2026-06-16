@@ -2,19 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { 
-  ArrowRight, 
-  Sparkles, 
-  Layers, 
-  ShieldCheck, 
-  PackageCheck, 
-  Headphones, 
-  Award,
-  TrendingUp,
-  CheckCircle2,
-  Users,
-  FlaskConical
-} from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -23,21 +11,11 @@ const skincareVivid = "#CFB185";
 
 export default function MaklonSkincareAdsLP() {
   const benefits = [
-    { title: "Formula Custom", icon: FlaskConical },
-    { title: "Desain Kemasan", icon: Sparkles },
-    { title: "Legalitas Lengkap", icon: ShieldCheck },
-    { title: "Perlindungan HKI", icon: Award },
-    { title: "Konsultasi Privat", icon: Headphones },
-    { title: "MOQ Fleksibel", icon: TrendingUp }
-  ];
-
-  const section3Items = [
-    { title: "Formula skincare kamu diracik GRATIS oleh formulator kami - kamu tinggal pilih konsepnya", icon: FlaskConical },
-    { title: "Kemasan premium yang bikin orang sangka ini brand luar negeri", icon: Sparkles },
-    { title: "BPOM, Halal, HKI - semua kami urus paralel, kamu tidak perlu ikut prosesnya", icon: ShieldCheck },
-    { title: "Produk datang siap jual - sudah dikemas, berlabel, bersertifikat", icon: PackageCheck },
-    { title: "Tim kami standby untuk reorder dan konsultasi - bukan vendor yang hilang setelah transfer", icon: Headphones },
-    { title: "500+ brand owner sudah buktikan - brandmu bisa tampil setara merek besar sejak produk pertama", icon: Users }
+    "FREE Formula Custom",
+    "FREE Desain Logo & Kemasan",
+    "FREE Pengurusan BPOM & Halal",
+    "MOQ Fleksibel",
+    "FREE Digital Marketing Support"
   ];
 
   return (
@@ -105,12 +83,12 @@ export default function MaklonSkincareAdsLP() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 1, ease: premiumEase }}
-              className="font-normal text-brand-black mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
+              className="font-extrabold text-brand-black mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
               style={{ textShadow: '0 0 30px rgba(255,255,255,0.8)' }}
             >
               <span className="text-brand-orange">Mau Buat Brand</span>
               <br />
-              <span className="text-brand-orange italic">Skincare Premium?</span>
+              <span className="text-brand-orange">Skincare Premium?</span>
             </motion.h1>
 
             <motion.p
@@ -120,32 +98,27 @@ export default function MaklonSkincareAdsLP() {
               className="text-xs sm:text-sm text-brand-black/80 lg:text-brand-black/70 font-medium leading-relaxed mb-6 md:mb-8 max-w-xl lg:text-[18px] xl:text-[20px]"
               style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
             >
-              Sekarang bikin skincare brand sendiri semudah pesan online. Kamu tinggal bilang mau apa — kami yang kerjain semuanya. <strong className="text-brand-black font-semibold">Dari formula sampai produk siap kirim ke pelangganmu.</strong>
+              Wujudkan brand skincare yang siap bersaing di market melalui formula inovatif, custom ingredient, dan pendampingan dari awal hingga produk siap dipasarkan.
             </motion.p>
 
-            <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
+              className="flex flex-wrap gap-3 mb-8 max-w-2xl"
             >
-              {benefits.map((benefit, i) => {
-                const IconComponent = benefit.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.5 + i * 0.08, duration: 0.6, ease: premiumEase }}
-                    className="flex items-center gap-3 bg-white/45 hover:bg-white/80 backdrop-blur-md border border-brand-orange/10 hover:border-brand-orange/30 px-3.5 py-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(243,146,0,0.08)] hover:-translate-y-0.5 group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <span className="text-[13px] font-bold text-brand-black/90 font-onest leading-tight">
-                      {benefit.title}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
+              {benefits.map((benefit, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-brand-orange/15 px-4 py-2.5 rounded-xl shadow-sm"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0" />
+                  <span className="text-[12px] sm:text-sm font-bold text-brand-black/90 tracking-wide font-onest">
+                    {benefit}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -175,74 +148,45 @@ export default function MaklonSkincareAdsLP() {
         />
       </section>
 
-      {/* 3. FORMULA. KEMASAN. SIAP JUAL. — Warm/Light Version */}
-      {/* 3. FORMULA. KEMASAN. SIAP JUAL. — Warm/Light Version */}
-      <section
-        className="relative py-20 md:py-24 overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${skincareBg}22 0%, #FAF9F6 50%, ${skincareVivid}22 100%)` }}
-      >
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] opacity-[0.08] blur-[100px] rounded-full pointer-events-none"
-          style={{ background: `radial-gradient(circle, ${skincareVivid} 0%, transparent 70%)` }}
-        />
-
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center text-left">
-
-            {/* Left: Heading & CTA */}
+      {/* 2. DREAMLAB MEMBANTU MEWUJUDKAN BRAND SKINCARE ANDA */}
+      <section className="relative w-full overflow-hidden bg-white py-20 md:py-28">
+        <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(180deg, ${skincareBg}15 0%, transparent 40%, transparent 60%, ${skincareVivid}15 100%)` }} />
+        <div className="container-custom relative z-10 w-full px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, ease: premiumEase }}
-              className="lg:col-span-5 space-y-6 flex flex-col justify-center"
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center space-y-6"
             >
-              <div className="space-y-3">
-                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
-                  DAPATKAN INI
-                </span>
-                <h2 className="text-3xl md:text-[40px] xl:text-[44px] font-black text-brand-black tracking-tight leading-[1.08] uppercase font-display">
-                  Formula. Kemasan.<br />Siap Jual.
-                </h2>
-                <div className="h-[2px] w-20 bg-brand-orange/40 rounded-full" />
-              </div>
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed max-w-sm">
-                Ini yang Anda dapatkan sejak hari pertama konsultasi hingga produk kecantikan Anda siap dipasarkan secara luas.
+              <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-display font-extrabold leading-[1.12] tracking-tight uppercase">
+                Dreamlab Membantu Mewujudkan<br />
+                <span className="text-brand-orange">Brand Skincare Anda</span>
+              </h2>
+
+              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-sans">
+                Brand skincare memang terus bertumbuh setiap tahunnya. Namun jangan khawatir, karena pelanggan selalu mencari produk yang mampu menjawab kebutuhan mereka. Dreamlab membantu Anda menciptakan produk yang memiliki konsep, formula, dan nilai yang mampu bersaing di market.
               </p>
-              <div className="pt-2">
-                <a
-                  href="/ads/thankyou/metaads/?source=meta-skincare"
-                  className="bg-brand-orange text-white px-8 py-4.5 rounded-xl font-bold text-xs sm:text-sm font-onest uppercase tracking-widest hover:bg-brand-black hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3 w-full sm:w-auto"
-                >
-                  <span>MULAI SEKARANG</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+
+              <div className="flex items-center justify-center gap-3 py-4">
+                <div className="h-px w-12 bg-brand-orange/30" />
+                <span className="text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest">
+                  Dipercaya oleh 500+ Brand Owner
+                </span>
+                <div className="h-px w-12 bg-brand-orange/30" />
+              </div>
+
+              <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-sans">
+                Produk yang sukses bukan hanya memiliki kemasan yang menarik, tetapi juga formula yang membuat pelanggan kembali membeli.
+              </p>
+
+              <div className="pt-4">
+                <span className="inline-block text-brand-black text-[13px] sm:text-sm font-bold font-onest uppercase tracking-widest border-b-2 border-brand-orange/40 pb-1">
+                  Mulai Perjalanan Brand Anda Bersama Dreamlab
+                </span>
               </div>
             </motion.div>
-
-            {/* Right: Compact 2-Column Grid */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {section3Items.map((item, idx) => {
-                const IconComponent = item.icon;
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6, delay: idx * 0.08, ease: premiumEase }}
-                    className="bg-white/45 backdrop-blur-sm border border-brand-orange/10 hover:border-brand-orange/30 p-4 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(243,146,0,0.06)] hover:-translate-y-0.5 group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/5 border border-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <span className="text-[13px] font-medium text-brand-black/85 font-sans leading-relaxed pt-0.5">
-                      {item.title}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
           </div>
         </div>
       </section>
