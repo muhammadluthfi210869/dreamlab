@@ -164,18 +164,27 @@ const nextConfig: NextConfig = {
       ['/body-care', '/maklon-body-care/'],
       ['/baby-care', '/maklon-baby-care/'],
       ['/foot-care', '/maklon-foot-care/'],
-      ['/hair-care', '/maklon-hair-care/'],
-      ['/parfum', '/maklon-parfum/'],
-      ['/maklon-haircare', '/maklon-hair-care/'],
+      ['/hair-care', '/ads/maklon-hair-care/'],
+      ['/parfum', '/ads/maklon-parfum/'],
+      ['/maklon-haircare', '/ads/maklon-hair-care/'],
       ['/decorative', '/maklon-decorative/'],
       ['/pkrt', '/maklon-pkrt/'],
       ['/product', '/services/'],
     ];
-    for (const [source, destination] of categoryToSiloRedirects) {
+
+    // 5. Landing pages moved under /ads/ subdirectory
+    // Redirect old URLs to new /ads/ paths for campaign tracking
+    const adsRedirects: Array<[string, string]> = [
+      ['/maklon-parfum', '/ads/maklon-parfum/'],
+      ['/maklon-skincare', '/ads/maklon-skincare/'],
+      ['/maklon-hair-care', '/ads/maklon-hair-care/'],
+      ['/thankyou-maklon', '/ads/thankyou-maklon/'],
+    ];
+    for (const [source, destination] of adsRedirects) {
       redirects.push({ source, destination, permanent: true });
     }
 
-    // 5. Preserve existing WordPress 301 redirects (old slugs → new slugs)
+    // 6. Preserve existing WordPress 301 redirects (old slugs → new slugs)
     // These were captured from the live site crawl — maintaining them preserves backlink equity
     const wordpressRedirects: Array<[string, string]> = [
       ['/tips-sukses-bisnis-parfum', '/bisnis-parfum-merk-sendiri/'],
