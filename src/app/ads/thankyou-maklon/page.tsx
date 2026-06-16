@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import { fireConversion } from "@/lib/tracking";
 
 export default function ThankYouMaklon() {
   const numbers = ["628777650657", "6281952417051"];
@@ -17,16 +18,8 @@ export default function ThankYouMaklon() {
     const src = params.get("source") || "direct";
     setSource(src);
 
-    // 2. Kirim ke dataLayer GTM
-    if (typeof window !== "undefined") {
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer.push({
-        event: "conversion",
-        source: src,
-        campaign: src,
-        page: window.location.pathname,
-      });
-    }
+    // 2. Kirim ke dataLayer GTM + GA4 + tracking lainnya
+    fireConversion(src);
 
     // 3. Rotate WA index
     const saved = localStorage.getItem("waIndex");
