@@ -84,8 +84,8 @@ export default function RootLayout({
           <WhatsAppButton />
           <GTMNoScript />
 
-          {/* TikTok Pixel — server-rendered for Tag Explorer detection */}
-          <Script id="tiktok-pixel" strategy="afterInteractive">
+          {/* TikTok Pixel — beforeInteractive supaya terdeteksi Tag Explorer */}
+          <Script id="tiktok-pixel" strategy="beforeInteractive">
             {`!function (w, d, t) {
               w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
               ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
