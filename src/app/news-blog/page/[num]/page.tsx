@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: BlogPaginationProps): Promise
   const mapping = seoMapping.find(m => m.source === pathStr || m.source === `${pathStr}/`);
 
   const canonical = `https://dreamlab.id${pathStr}/`.replace(/\/?$/, '/');
-  const totalPages = Math.ceil(articles.length / 6);
+  const blogArticles = articles.filter(a => (a.categories || []).length > 0);
+  const totalPages = Math.ceil(blogArticles.length / 6);
 
   return {
     title: mapping?._metadata.original_title || `Blog Bisnis Kosmetik & Skincare — Halaman ${num} | Dreamlab`,
@@ -51,7 +52,8 @@ export default async function BlogPaginationPage({ params }: BlogPaginationProps
     notFound();
   }
 
-  const sortedArticles: Article[] = [...articles].sort((a, b) => {
+  const blogArticles = articles.filter(a => (a.categories || []).length > 0);
+  const sortedArticles: Article[] = [...blogArticles].sort((a, b) => {
     const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
     const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
     return dateB - dateA;
@@ -59,7 +61,7 @@ export default async function BlogPaginationPage({ params }: BlogPaginationProps
   const start = (pageNum - 1) * POSTS_PER_PAGE;
   const end = start + POSTS_PER_PAGE;
   const paginatedArticles = sortedArticles.slice(start, end);
-  const totalPages = Math.ceil(articles.length / POSTS_PER_PAGE);
+  const totalPages = Math.ceil(sortedArticles.length / POSTS_PER_PAGE);
 
   if (paginatedArticles.length === 0 && pageNum > 1) {
     notFound();
@@ -160,7 +162,8 @@ export default async function BlogPaginationPage({ params }: BlogPaginationProps
 }
 
 export async function generateStaticParams() {
-  const totalPages = Math.ceil(articles.length / POSTS_PER_PAGE);
+  const blogArticles = articles.filter(a => (a.categories || []).length > 0);
+  const totalPages = Math.ceil(blogArticles.length / POSTS_PER_PAGE);
   const params = [];
   for (let i = 2; i <= totalPages; i++) {
     params.push({ num: i.toString() });
