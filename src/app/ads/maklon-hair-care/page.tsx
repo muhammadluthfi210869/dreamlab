@@ -151,12 +151,9 @@ export default function MaklonHairCareAdsLP() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <span className="inline-block text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest mb-4">
-                KHUSUS PEMILIK SALON
-              </span>
               <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-6">
-                Anda Pemilik Salon?<br />
-                <span className="text-brand-orange">Bangun Brand Hair Care Treatment Anda Sendiri!</span>
+                Anda Pemilik Salon? Bangun<br />
+                <span className="text-brand-orange">Brand Hair Care Treatment Anda Sendiri!</span>
               </h2>
               <p className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-sans">
                 Ini Peluang Anda Memiliki Brand Hair Care Sendiri. Ubah pelanggan treatment menjadi pelanggan produk dengan hair care berformula custom yang dirancang khusus untuk kebutuhan salon Anda.
@@ -199,22 +196,9 @@ export default function MaklonHairCareAdsLP() {
               className="col-span-12 md:col-span-6 lg:col-span-6 text-left z-20 flex flex-col justify-center"
             >
               <h2 className="text-brand-black text-[28px] sm:text-[36px] md:text-[38px] lg:text-[46px] xl:text-[52px] font-display font-extrabold leading-[1.12] tracking-tight uppercase mb-4">
-                SIAP MEMULAI BRAND<br />
-                <span className="text-brand-orange">HAIR CARE ANDA?</span>
+                WUJUDKAN BRAND<br />
+                <span className="text-brand-orange">KOSMETIK IMPIAN ANDA DALAM 3 BULAN</span>
               </h2>
-
-              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-lg">
-                Konsultasikan ide brand Anda bersama tim ahli Dreamlab. Dapatkan formula custom, kemasan premium, dan bantuan legalitas secara gratis.
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-8">
-                {benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-center gap-1.5 bg-brand-orange/5 border border-brand-orange/10 px-3 py-1.5 rounded-lg">
-                    <CheckCircle2 className="w-3 h-3 text-brand-orange shrink-0" />
-                    <span className="text-[10px] font-bold text-brand-black/80 font-onest">{benefit}</span>
-                  </div>
-                ))}
-              </div>
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
