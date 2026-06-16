@@ -181,6 +181,7 @@ const nextConfig: NextConfig = {
       ['/thankyou-maklon', '/ads/thankyou/metaads/'],
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
+      ['/ads/thankyou-medsos', '/contact-medsos/'],
     ];
     for (const [source, destination] of adsRedirects) {
       redirects.push({ source, destination, permanent: true });
