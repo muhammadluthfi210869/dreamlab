@@ -124,8 +124,8 @@ Di Dreamlab, kami menciptakan foot cream yang benar-benar menjawab akar masalah:
       id: "foot-scrub",
       name: "Foot Scrub",
       slug: "foot-scrub",
-      heroImage: "/assets/produk/footcare/card5-foot-scrub.webp",
-      galleryImages: ["/assets/produk/footcare/card5-foot-scrub.webp"],
+      heroImage: "/new asset/produk/footcare/card5-foot-scrub.webp",
+      galleryImages: ["/new asset/produk/footcare/card5-foot-scrub.webp"],
       tags: ["Exfoliate", "Smooth", "Weekly Treatment"],
       shortDescription: "Maklon Foot Scrub untuk mengangkat sel kulit mati dan menghaluskan area yang kasar. Eksfoliasi fisik dengan butiran alami dan minyak penutrisi.",
       story: `Eksfoliasi bagi kaki sama pentingnya dengan masker bagi wajah.
@@ -406,7 +406,7 @@ Foot Anti-Bacterial Dreamlab diformulasikan untuk memberikan perlindungan optima
   ],
   relatedProducts: [
     { name: "Foot Cream", slug: "foot-cream", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
-    { name: "Foot Scrub", slug: "foot-scrub", image: "/assets/produk/footcare/card5-foot-scrub.webp", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Scrub", slug: "foot-scrub", image: "/new asset/produk/footcare/card5-foot-scrub.webp", category: "Foot Care", categorySlug: "footcare" },
     { name: "Foot Mask", slug: "foot-mask", image: "/new asset/footcare/footmask-maklonkosmetik-dreamlab .png", category: "Foot Care", categorySlug: "footcare" },
     { name: "Foot Soak", slug: "foot-soak", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
     { name: "Foot Serum", slug: "foot-serum", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },

@@ -5,7 +5,7 @@ export const homepageData = {
     subtitle: "Di balik setiap brand hebat ada FORMULA YANG KUAT. Solusi Maklon terpercaya untuk JUARANYA FORMULA.",
     ctaText: "Konsultasi Formula Gratis",
     ctaLink: "https://api.whatsapp.com/send/?phone=62881027240339&text=Hi+saya+ingin+konsultasi+untuk+brand+saya&type=phone_number&app_absent=0",
-    backgroundImage: ""
+    backgroundImage: "/assets/Cosmetic_bottles_on_marble_plinths_202605181529.jpeg"
   },
   trustedBrands: {
     title: "DREAMLAB TELAH DIPERCAYA 500+ BRAND",
@@ -72,40 +72,40 @@ export const homepageData = {
         id: "skincare",
         name: "Skin Care",
         items: [
-          { name: "Cleansing Oil", src: "/assets/images/cleansing-oill.webp" },
-          { name: "Cleansing Balm", src: "/assets/images/cleasing-balm.webp" },
-          { name: "Eye Cream", src: "/assets/images/Eye-Cream.webp" },
-          { name: "Face Cleansing Oil", src: "/assets/images/face-cleansing-oil.webp" },
-          { name: "Facial Cream", src: "/assets/images/Facial-Cream.webp" },
-          { name: "Facial Wash", src: "/assets/images/facial-wash.webp" }
+          { name: "Cleansing Oil", src: "/new asset/skincare&facecare/cleansing-oill.webp" },
+          { name: "Cleansing Balm", src: "/new asset/skincare&facecare/cleasing-balm.webp" },
+          { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
+          { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
+          { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
+          { name: "Facial Wash", src: "/new asset/skincare&facecare/facial-wash.webp" }
         ]
       },
       {
         id: "body-care",
         name: "Body Care",
         items: [
-          { name: "Body Scrub", src: "/assets/images/body-scrub.webp" },
-          { name: "Body Butter", src: "/assets/images/body-butter.webp" },
-          { name: "Bar Soap", src: "/assets/images/bar-soap.webp" },
-          { name: "Organic Soap", src: "/assets/images/organic-soap.webp" }
+          { name: "Body Scrub", src: "/new asset/bodycare/body-scrub.webp" },
+          { name: "Body Butter", src: "/new asset/bodycare/body-butter.webp" },
+          { name: "Bar Soap", src: "/new asset/bodycare/bar-soap.webp" },
+          { name: "Organic Soap", src: "/new asset/bodycare/organic-soap.webp" }
         ]
       },
       {
         id: "hair-care",
         name: "Hair Care",
         items: [
-          { name: "Shampoo", src: "/assets/images/shampoo-scaled.webp" },
-          { name: "Hair Conditioner", src: "/assets/images/hair-conditioner-scaled.webp" },
-          { name: "Hair Mask", src: "/assets/images/hair-mask-scaled.webp" }
+          { name: "Shampoo", src: "/new asset/haircare/shampoo.webp" },
+          { name: "Hair Conditioner", src: "/new asset/haircare/hair-conditioner.webp" },
+          { name: "Hair Mask", src: "/new asset/haircare/hair-mask.webp" }
         ]
       },
       {
         id: "decorative",
         name: "Decorative",
         items: [
-          { name: "Foundation", src: "/assets/images/foundation-scaled.webp" },
-          { name: "BB Cream", src: "/assets/images/bb-cream-scaled.webp" },
-          { name: "Lip Cream", src: "/assets/images/lip-cream.webp" }
+          { name: "Foundation", src: "/new asset/make up/foundation.webp" },
+          { name: "BB Cream", src: "/new asset/make up/bb-cream.webp" },
+          { name: "Lip Cream", src: "/new asset/lipcare/lip-cream.webp" }
         ]
       },
       {

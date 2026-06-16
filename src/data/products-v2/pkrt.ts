@@ -5,7 +5,7 @@ export const pkrtData: ProductCategoryV2 = {
   name: "PKRT",
   tagline: "Kesehatan Keluarga dengan Standar Farmasi",
   description: "Layanan maklon PKRT (Produk Kimia Rumah Tangga) terlengkap: hand sanitizer, hand wash, disinfectant, pembersih lantai, dan pewangi ruangan. Diformulasi dengan standar keamanan BPOM untuk menjaga kesehatan keluarga Indonesia.",
-  heroImage: "/assets/produk/pkrt/hero-landss.webp",
+  heroImage: "/new asset/produk/pkrt/hero-landss.webp",
   bgColor: "#E8F5E9",
   breadcrumb: [
     { label: "Home", href: "/" },

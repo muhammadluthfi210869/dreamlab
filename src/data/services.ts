@@ -130,7 +130,7 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'footcare',
     name: 'Foot Care',
     items: [
-      { image: '/assets/images/footcare-scaled.webp', title: 'Foot Care' },
+      { image: '/new asset/footcare/Footcream-maklon .png', title: 'Foot Care' },
     ],
   },
 ];

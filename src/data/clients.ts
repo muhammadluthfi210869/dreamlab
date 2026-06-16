@@ -17,19 +17,19 @@ export const clientShowcase = [
   { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
   { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
   { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
-  { name: "Facial Wash", src: "/assets/images/facial-wash.webp" },
-  { name: "Feminine Cleanser", src: "/assets/images/feminine-cleanser.webp" },
-  { name: "Micellar Cleansing Gel", src: "/assets/images/micellar-cleansing-gel.webp" },
-  { name: "Micellar Water", src: "/assets/images/micellar-water.webp" },
-  { name: "Milk Cleanser", src: "/assets/images/milk-cleanser.webp" },
-  { name: "Moist Facial Toner", src: "/assets/images/mois-facial-toner.webp" },
-  { name: "Moist Facial Wash", src: "/assets/images/mois-facial-wash.webp" },
-  { name: "Moisturizing Cream", src: "/assets/images/Moizturizing-Cream.webp" },
-  { name: "Peel Mask", src: "/assets/images/Peel-Mask.webp" },
-  { name: "Peeling Serum", src: "/assets/images/peeling-serum.webp" },
-  { name: "Physical Sunscreen", src: "/assets/images/Physical-Sunscreen.webp" },
-  { name: "Radiant Serum", src: "/assets/images/radiant-serum.webp" },
-  { name: "Serum Gel", src: "/assets/images/serum-gel.webp" },
+  { name: "Facial Wash", src: "/new asset/skincare&facecare/facial-wash.webp" },
+  { name: "Feminine Cleanser", src: "/new asset/skincare&facecare/feminine-cleanser.webp" },
+  { name: "Micellar Cleansing Gel", src: "/new asset/skincare&facecare/micellar-cleansing-gel.webp" },
+  { name: "Micellar Water", src: "/new asset/skincare&facecare/micellar-water.webp" },
+  { name: "Milk Cleanser", src: "/new asset/skincare&facecare/milk-cleanser.webp" },
+  { name: "Moist Facial Toner", src: "/new asset/skincare&facecare/mois-facial-toner.webp" },
+  { name: "Moist Facial Wash", src: "/new asset/skincare&facecare/mois-facial-wash.webp" },
+  { name: "Moisturizing Cream", src: "/new asset/skincare&facecare/moizturizing-cream.webp" },
+  { name: "Peel Mask", src: "/new asset/skincare&facecare/peel-mask.webp" },
+  { name: "Peeling Serum", src: "/new asset/skincare&facecare/peeling-serum.webp" },
+  { name: "Physical Sunscreen", src: "/new asset/skincare&facecare/physical-sunscreen.webp" },
+  { name: "Radiant Serum", src: "/new asset/skincare&facecare/radiant-serum.webp" },
+  { name: "Serum Gel", src: "/new asset/skincare&facecare/serum-gel.webp" },
 ];
 
 export const clientValueProps = [
@@ -108,35 +108,35 @@ export const signatureFormulaTabs = [
       { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
       { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
       { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
-      { name: "Facial Wash", src: "/assets/images/facial-wash.webp" },
+      { name: "Facial Wash", src: "/new asset/skincare&facecare/facial-wash.webp" },
     ]
   },
   {
     id: "body-care",
     label: "Body Care",
     products: [
-      { name: "Body Mist", src: "/assets/images/body-mist-scaled.webp" },
-      { name: "Body Serum", src: "/assets/images/body-serum.webp" },
-      { name: "Body Scrub", src: "/assets/images/body-scrub.webp" },
-      { name: "Body Wash", src: "/assets/images/body-wash.webp" },
+      { name: "Body Mist", src: "/new asset/parfum/body-mist.webp" },
+      { name: "Body Serum", src: "/new asset/bodycare/body-serum.webp" },
+      { name: "Body Scrub", src: "/new asset/bodycare/body-scrub.webp" },
+      { name: "Body Wash", src: "/new asset/bodycare/body-wash.webp" },
     ]
   },
   {
     id: "hair-care",
     label: "Hair Care",
     products: [
-      { name: "Hair Serum", src: "/assets/images/beard-serum-scaled.webp" }, // Approximation
-      { name: "Shampoo", src: "/assets/images/shampoo-scaled.webp" },
-      { name: "Conditioner", src: "/assets/images/hair-conditioner-scaled.webp" },
+      { name: "Hair Serum", src: "/new asset/haircare/beard-serum.webp" }, // Approximation
+      { name: "Shampoo", src: "/new asset/haircare/shampoo.webp" },
+      { name: "Conditioner", src: "/new asset/haircare/hair-conditioner.webp" },
     ]
   },
   {
     id: "decorative",
     label: "Decorative",
     products: [
-      { name: "BB Cream", src: "/assets/images/bb-cream-scaled.webp" },
-      { name: "Lip Matte", src: "/assets/images/LIP-MATTE.webp" },
-      { name: "Foundation", src: "/assets/images/foundation-scaled.webp" },
+      { name: "BB Cream", src: "/new asset/make up/bb-cream.webp" },
+      { name: "Lip Matte", src: "/new asset/lipcare/lip-matte.webp" },
+      { name: "Foundation", src: "/new asset/make up/foundation.webp" },
     ]
   },
   {

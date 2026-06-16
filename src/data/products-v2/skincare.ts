@@ -12,7 +12,7 @@ export const skincareData: ProductCategoryV2 = {
   name: "Skincare",
   tagline: "Dermatologi Klinis untuk Kulit Indonesia — Bukti Hasil Nyata",
   description: "Layanan maklon skincare untuk brand modern Indonesia. Menggabungkan science-backed ingredients dengan manufaktur grade farmasi bersertifikat CPKB dan Halal BPOM. Tersedia 50+ bahan aktif teruji klinis untuk mengatasi berbagai masalah kulit.",
-  heroImage: "/assets/produk/skincare/hero-section.webp",
+  heroImage: "/new asset/produk/skincare/hero-section.webp",
   bgColor: "#EADBC8",
   breadcrumb: [
     { label: "Home", href: "/" },
@@ -87,8 +87,8 @@ export const skincareData: ProductCategoryV2 = {
       id: "acne-cream",
       name: "Acne Cream",
       slug: "acne-cream",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
       tags: ["Acne Treatment", "Targeted", "Best Seller"],
       shortDescription: "Maklon Acne Cream untuk mengatasi jerawat secara efektif. Formula dengan Salicylic Acid dan Tea Tree Oil yang membantu meredakan jerawat dan mengontrol minyak.",
       story: `Di dunia skincare, krim jerawat adalah solusi pertama yang dicari konsumen.
@@ -119,8 +119,8 @@ Acne Cream Dreamlab diformulasikan dengan bahan aktif yang terbukti klinis: Sali
       id: "moisturizing-cream",
       name: "Moisturizing Cream",
       slug: "moisturizing-cream",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
       tags: ["Hydration", "Daily Use", "Essential"],
       shortDescription: "Maklon Moisturizing Cream untuk hidrasi mendalam dan perbaikan skin barrier. Cocok untuk semua jenis kulit dengan tekstur ringan.",
       story: `Pelembap adalah langkah penutup yang mengunci seluruh nutrisi dalam kulit.
@@ -151,8 +151,8 @@ Moisturizing Cream Dreamlab tidak hanya memberikan kelembapan di permukaan, teta
       id: "brightening-cream",
       name: "Brightening Cream",
       slug: "brightening-cream",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
       tags: ["Brightening", "Premium", "Best Seller"],
       shortDescription: "Maklon Brightening Cream untuk mencerahkan kulit dan meratakan warna wajah. Formula dengan Niacinamide dan Vitamin C.",
       story: `Krim pencerah adalah produk yang paling dicari di pasar skincare Indonesia.
@@ -183,8 +183,8 @@ Brightening Cream Dreamlab diformulasikan dengan Niacinamide, Vitamin C, dan Alp
       id: "eye-cream",
       name: "Eye Cream",
       slug: "eye-cream",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
       tags: ["Eye Care", "Anti-aging", "Premium"],
       shortDescription: "Maklon Eye Cream untuk merawat area mata yang sensitif. Mengurangi kantung mata, garis halus, dan lingkaran hitam.",
       story: `Area mata adalah bagian kulit paling tipis dan paling rentan menunjukkan tanda penuaan.
@@ -215,8 +215,8 @@ Eye Cream Dreamlab diformulasikan khusus untuk area sensitif di sekitar mata. De
       id: "facial-serum",
       name: "Facial Serum",
       slug: "facial-serum",
-      heroImage: "/assets/produk/skincare/bg-lands-card2.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card2.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card2.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card2.webp"],
       tags: ["Premium", "Targeted", "Best Seller"],
       shortDescription: "Maklon Facial Serum dengan konsentrasi aktif tinggi untuk solusi kulit spesifik. Target market premium dengan efikasi nyata.",
       story: `Di dunia skincare, serum adalah titik di mana sains bertemu dengan ekspektasi konsumen.
@@ -247,8 +247,8 @@ Bukan sekadar melembapkan — tetapi benar-benar mentransformasi. Konsentrasi ak
       id: "facial-toner",
       name: "Facial Toner",
       slug: "facial-toner",
-      heroImage: "/assets/produk/skincare/bg-lands-card4.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card4.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card4.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card4.webp"],
       tags: ["Daily Use", "Hydration", "pH Balance"],
       shortDescription: "Maklon Facial Toner untuk menyeimbangkan pH kulit dan mempersiapkan kulit untuk tahap perawatan selanjutnya. Formula ringan tanpa alkohol.",
       story: `Toner adalah fondasi krusial bagi skin barrier yang sehat.
@@ -279,8 +279,8 @@ Fungsi utama toner kami bukan sekadar menyegarkan, tetapi menormalkan kembali pH
       id: "facial-wash",
       name: "Facial Wash",
       slug: "facial-wash",
-      heroImage: "/assets/produk/skincare/bg-lands-card5.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card5.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card5.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card5.webp"],
       tags: ["Daily", "Deep Cleanse", "Populer"],
       shortDescription: "Maklon Facial Wash untuk pembersihan mendalam tanpa merusak kelembapan alami. Tersedia untuk berbagai jenis kulit.",
       story: `Pembersihan adalah tahap yang menentukan kesehatan kulit sepanjang hari.
@@ -311,8 +311,8 @@ Facial wash yang terlalu keras akan mengikis minyak alami kulit, sementara yang 
       id: "micellar-cleansing-gel",
       name: "Micellar Cleansing Gel",
       slug: "micellar-cleansing-gel",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
       tags: ["Gentle", "No-Rinse", "Travel Friendly"],
       shortDescription: "Maklon Micellar Cleansing Gel — pembersih wajah praktis tanpa perlu bilas. Cocok untuk sensitive skin dan daily use yang gentle.",
       story: `Teknologi Micellar: bagaimana molekul pembersih cerdas bekerja tanpa perlu dibilas.
@@ -343,8 +343,8 @@ Konsepnya sederhana namun kuat: misel — molekul kecil yang menarik dan menjeba
       id: "facial-sunscreen",
       name: "Facial Sunscreen",
       slug: "facial-sunscreen",
-      heroImage: "/assets/produk/skincare/bg-lands-card3.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card3.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card3.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
       tags: ["Essential", "Protection", "Daily"],
       shortDescription: "Maklon Facial Sunscreen dengan perlindungan UV spektrum luas. Formula ringan, non-greasy, dan tanpa white cast, ideal untuk iklim tropis.",
       story: `Perlindungan matahari bukan lagi opsi, melainkan kebutuhan dasar kesehatan kulit.
@@ -375,8 +375,8 @@ Di iklim tropis Indonesia, sunscreen adalah investasi terbaik untuk mencegah pen
       id: "facial-moisturizer",
       name: "Facial Moisturizer",
       slug: "facial-moisturizer",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
-      galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
+      galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
       tags: ["Essential", "Barrier Repair", "Moisturizing"],
       shortDescription: "Maklon Facial Moisturizer untuk hidrasi mendalam dan perbaikan skin barrier. Tersedia dalam tekstur gel-cream yang ringan untuk kulit Indonesia.",
       story: `Pelembap adalah langkah penutup yang mengunci seluruh nutrisi dalam kulit.
@@ -410,12 +410,12 @@ Tanpa hidrasi yang cukup, barrier kulit akan melemah dan rentan terhadap iritasi
       name: "Face Cream",
       slug: "face-cream",
       description: "Face cream untuk perawatan kulit harian. Formula yang disesuaikan untuk hidrasi, perlindungan, dan nutrisi kulit sepanjang hari.",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "day-night-cream", name: "Day & Night Cream", slug: "day-night-cream",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Daily Use", "Protection"],
           shortDescription: "Krim wajah dengan SPF dan perlindungan polusi.",
           story: `Face cream adalah lini pertahanan pertama kulit Anda.
@@ -440,7 +440,7 @@ Di Dreamlab, kami memformulasikan face cream yang tidak hanya melembapkan, tetap
         },
         {
           id: "moisturizing-cream", name: "Moisturizing Cream", slug: "moisturizing-cream",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Hydration", "Deep Moisture"],
           shortDescription: "Krim pelembap dengan Ceramide dan Squalane.",
           story: `Kulit Anda membutuhkan hidrasi optimal setiap saat.
@@ -465,7 +465,7 @@ Moisturizing Cream Dreamlab diformulasikan khusus untuk memberikan hidrasi menda
         },
         {
           id: "brightening-cream", name: "Brightening Cream", slug: "brightening-cream",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Brightening", "Premium"],
           shortDescription: "Krim pencerah dengan Niacinamide dan Vitamin C.",
           story: `Krim pencerah adalah produk yang paling dicari di pasar skincare Indonesia.
@@ -490,7 +490,7 @@ Brightening Cream Dreamlab menggabungkan kekuatan Niacinamide 5% dan Vitamin C s
         },
         {
           id: "eye-cream", name: "Eye Cream", slug: "eye-cream",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Eye Care", "Anti-aging"],
           shortDescription: "Krim mata dengan Peptide dan Caffeine.",
           story: `Area mata adalah bagian kulit paling tipis dan paling rentan menunjukkan tanda penuaan.
@@ -520,12 +520,12 @@ Eye Cream Dreamlab diformulasikan khusus untuk area sensitif di sekitar mata. De
       name: "Face Mask",
       slug: "face-mask",
       description: "Masker wajah dengan berbagai formula untuk perawatan intensif. Dari peel-off hingga sleeping mask untuk hasil spa di rumah.",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "peel-off-mask", name: "Peel Off Mask", slug: "peel-off-mask",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Deep Cleanse", "Pore Care"],
           shortDescription: "Masker peel-off untuk mengangkat komedo dan membersihkan pori.",
           story: `Peel-off mask adalah cara paling memuaskan untuk membersihkan pori-pori secara mendalam.
@@ -539,7 +539,7 @@ Peel Off Mask Dreamlab diformulasikan dengan activated charcoal dan bamboo extra
         },
         {
           id: "brightening-mask", name: "Brightening Mask", slug: "brightening-mask",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Brightening", "Glow"],
           shortDescription: "Masker pencerah dengan Vitamin C dan Niacinamide.",
           story: `Brightening Mask adalah treatment intensif untuk kulit kusam dan tidak merata.
@@ -553,7 +553,7 @@ Masker pencerah Dreamlab menggabungkan Vitamin C stabil, Niacinamide, dan Licori
         },
         {
           id: "wash-off-mask", name: "Wash Off Mask", slug: "wash-off-mask",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Detox", "Clay"],
           shortDescription: "Masker lumpur yang dibilas untuk detoksifikasi kulit.",
           story: `Wash-off mask dengan clay adalah treatment detoksifikasi paling efektif untuk kulit.
@@ -567,7 +567,7 @@ Masker lumpur Dreamlab menggunakan kombinasi Kaolin Clay dan Bentonite Clay yang
         },
         {
           id: "sleeping-mask", name: "Sleeping Mask", slug: "sleeping-mask",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Overnight", "Repair"],
           shortDescription: "Masker tidur untuk regenerasi kulit semalaman.",
           story: `Sleeping mask adalah treatment overnight yang bekerja saat Anda tidur.
@@ -586,12 +586,12 @@ Sleeping Mask Dreamlab diformulasikan dengan Hyaluronic Acid, Centella Asiatica,
       name: "Sunscreen",
       slug: "sunscreen",
       description: "Tabir surya dengan perlindungan UV spektrum luas. Formula ringan, non-greasy, tanpa white cast untuk iklim tropis.",
-      heroImage: "/assets/produk/skincare/bg-lands-card3.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card3.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "physical-sunscreen", name: "Physical Sunscreen", slug: "physical-sunscreen",
-          heroImage: "/assets/produk/skincare/bg-lands-card3.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card3.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card3.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
           tags: ["Mineral", "Sensitive Skin"],
           shortDescription: "Sunscreen mineral dengan Zinc Oxide untuk kulit sensitif.",
           story: `Physical sunscreen menggunakan filter mineral yang memantulkan sinar UV langsung dari kulit.
@@ -605,7 +605,7 @@ Physical Sunscreen Dreamlab diformulasikan dengan Zinc Oxide dan Titanium Dioxid
         },
         {
           id: "hybrid-sunscreen", name: "Hybrid Sunscreen", slug: "hybrid-sunscreen",
-          heroImage: "/assets/produk/skincare/bg-lands-card3.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card3.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card3.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
           tags: ["Best Seller", "Dual Protection"],
           shortDescription: "Sunscreen hybrid gabungan filter mineral dan kimia.",
           story: `Hybrid sunscreen menggabungkan keunggulan filter mineral dan kimia dalam satu formula.
@@ -619,7 +619,7 @@ Hybrid Sunscreen Dreamlab menawarkan perlindungan terbaik dari kedua dunia: keam
         },
         {
           id: "chemical-sunscreen", name: "Chemical Sunscreen", slug: "chemical-sunscreen",
-          heroImage: "/assets/produk/skincare/bg-lands-card3.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card3.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card3.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
           tags: ["Lightweight", "No White Cast"],
           shortDescription: "Sunscreen kimia dengan tekstur ultra-ringan tanpa white cast.",
           story: `Chemical sunscreen menyerap sinar UV dan mengubahnya menjadi panas yang dilepaskan dari kulit.
@@ -633,7 +633,7 @@ Chemical Sunscreen Dreamlab menggunakan filter generasi terbaru (Uvinul, Tinosor
         },
         {
           id: "tone-up-sunscreen", name: "Tone Up Sunscreen", slug: "tone-up-sunscreen",
-          heroImage: "/assets/produk/skincare/bg-lands-card3.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card3.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card3.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
           tags: ["Brightening", "K-Beauty"],
           shortDescription: "Sunscreen dengan efek tone-up untuk kulit lebih cerah instan.",
           story: `Tone-up sunscreen adalah tren K-Beauty yang menggabungkan perlindungan UV dengan efek mencerahkan instan.
@@ -647,7 +647,7 @@ Tone Up Sunscreen Dreamlab memberikan perlindungan SPF 50 PA++++ sekaligus efek 
         },
         {
           id: "sunscreen-gel", name: "Sunscreen Gel", slug: "sunscreen-gel",
-          heroImage: "/assets/produk/skincare/bg-lands-card3.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card3.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card3.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
           tags: ["Oil-Free", "Refreshing"],
           shortDescription: "Sunscreen gel berbasis air untuk kulit berminyak.",
           story: `Sunscreen gel adalah solusi untuk mereka yang tidak tahan dengan tekstur krim sunscreen.
@@ -666,12 +666,12 @@ Sunscreen Gel Dreamlab diformulasikan dengan basis air yang memberikan sensasi c
       name: "Cleansing",
       slug: "cleansing",
       description: "Pembersih wajah dari micellar gel hingga cleansing oil. Membersihkan efektif tanpa merusak skin barrier.",
-      heroImage: "/assets/produk/skincare/bg-lands-card1.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card1.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "micellar-cleansing-gel", name: "Micellar Cleansing Gel", slug: "micellar-cleansing-gel",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Gentle", "No-Rinse"],
           shortDescription: "Pembersih micellar tanpa perlu bilas.",
           story: `Teknologi Micellar: molekul pembersih cerdas yang bekerja seperti magnet untuk kotoran.
@@ -685,7 +685,7 @@ Micellar Cleansing Gel Dreamlab menggunakan misel — molekul kecil yang menarik
         },
         {
           id: "face-cleansing-oil", name: "Face Cleansing Oil", slug: "face-cleansing-oil",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Double Cleanse", "Makeup Remover"],
           shortDescription: "Cleansing oil untuk mengangkat makeup dan sunscreen.",
           story: `Cleansing oil adalah langkah pertama dalam double cleansing yang efektif.
@@ -699,7 +699,7 @@ Face Cleansing Oil Dreamlab menggunakan campuran minyak nabati ringan (Jojoba, G
         },
         {
           id: "milk-cleanser", name: "Milk Cleanser", slug: "milk-cleanser",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Gentle", "Dry Skin"],
           shortDescription: "Pembersih susu lembut untuk kulit kering dan sensitif.",
           story: `Milk cleanser adalah pembersih paling lembut yang bisa Anda gunakan.
@@ -713,7 +713,7 @@ Milk Cleanser Dreamlab memiliki tekstur krim-susu yang kaya namun sangat lembut.
         },
         {
           id: "cleansing-balm", name: "Cleansing Balm", slug: "cleansing-balm",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Premium", "Melting"],
           shortDescription: "Cleansing balm yang meleleh mengangkat makeup membandel.",
           story: `Cleansing balm adalah pembersih premium yang berubah dari balm padat menjadi minyak saat menyentuh kulit.
@@ -727,7 +727,7 @@ Cleansing Balm Dreamlab diformulasikan dengan Shea Butter dan minyak esensial ya
         },
         {
           id: "cleansing-oil", name: "Cleansing Oil", slug: "cleansing-oil",
-          heroImage: "/assets/produk/skincare/bg-lands-card1.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
           tags: ["Deep Cleanse", "Emulsifying"],
           shortDescription: "Cleansing oil emulsifying untuk double cleansing sempurna.",
           story: `Cleansing oil emulsifying adalah kunci double cleansing yang efektif.
@@ -746,12 +746,12 @@ Cleansing Oil Dreamlab menggunakan campuran minyak nabati premium yang melarutka
       name: "Facial Wash",
       slug: "facial-wash",
       description: "Pembersih wajah berbusa untuk berbagai jenis kulit. Formula pH seimbang yang membersihkan tanpa mengeringkan.",
-      heroImage: "/assets/produk/skincare/bg-lands-card5.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card5.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "brightening-facial-wash", name: "Brightening Facial Wash", slug: "brightening-facial-wash",
-          heroImage: "/assets/produk/skincare/bg-lands-card5.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card5.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card5.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card5.webp"],
           tags: ["Brightening", "Vitamin C"],
           shortDescription: "Facial wash pencerah dengan Vitamin C dan Niacinamide.",
           story: `Facial wash pencerah adalah langkah pertama dalam rutinitas brightening.
@@ -765,7 +765,7 @@ Brightening Facial Wash Dreamlab menggabungkan Vitamin C stabil dan Niacinamide 
         },
         {
           id: "acne-facial-wash", name: "Acne Facial Wash", slug: "acne-facial-wash",
-          heroImage: "/assets/produk/skincare/bg-lands-card5.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card5.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card5.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card5.webp"],
           tags: ["Acne Control", "Salicylic Acid"],
           shortDescription: "Facial wash anti-jerawat dengan Salicylic Acid dan Tea Tree.",
           story: `Facial wash anti-jerawat adalah pertahanan pertama melawan breakout.
@@ -779,7 +779,7 @@ Acne Facial Wash Dreamlab diformulasikan dengan Salicylic Acid 2% yang menembus 
         },
         {
           id: "moisturizing-facial-wash", name: "Moisturizing Facial Wash", slug: "moisturizing-facial-wash",
-          heroImage: "/assets/produk/skincare/bg-lands-card5.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card5.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card5.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card5.webp"],
           tags: ["Hydrating", "Gentle"],
           shortDescription: "Facial wash melembapkan dengan Hyaluronic Acid dan Ceramide.",
           story: `Facial wash melembapkan membersihkan tanpa mengorbankan hidrasi kulit.
@@ -798,12 +798,12 @@ Moisturizing Facial Wash Dreamlab menggunakan surfaktan ultra-lembut yang member
       name: "Facial Toner",
       slug: "facial-toner",
       description: "Toner wajah untuk menyeimbangkan pH dan mempersiapkan kulit menerima serum. Formula tanpa alkohol.",
-      heroImage: "/assets/produk/skincare/bg-lands-card4.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card4.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "acne-facial-toner", name: "Acne Facial Toner", slug: "acne-facial-toner",
-          heroImage: "/assets/produk/skincare/bg-lands-card4.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card4.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card4.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card4.webp"],
           tags: ["Acne Control", "BHA"],
           shortDescription: "Toner anti-jerawat dengan BHA dan Centella Asiatica.",
           story: `Toner anti-jerawat adalah langkah krusial setelah pembersihan untuk kulit berjerawat.
@@ -817,7 +817,7 @@ Acne Facial Toner Dreamlab mengandung BHA (Beta Hydroxy Acid) yang menembus pori
         },
         {
           id: "moisturizing-facial-toner", name: "Moisturizing Facial Toner", slug: "moisturizing-facial-toner",
-          heroImage: "/assets/produk/skincare/bg-lands-card4.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card4.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card4.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card4.webp"],
           tags: ["Hydration", "Daily Use"],
           shortDescription: "Toner pelembap dengan Hyaluronic Acid dan Aloe Vera.",
           story: `Toner pelembap memberikan hidrasi awal yang mempersiapkan kulit untuk serum.
@@ -831,7 +831,7 @@ Moisturizing Facial Toner Dreamlab diformulasikan dengan multi-weight Hyaluronic
         },
         {
           id: "brightening-facial-toner", name: "Brightening Facial Toner", slug: "brightening-facial-toner",
-          heroImage: "/assets/produk/skincare/bg-lands-card4.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card4.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card4.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card4.webp"],
           tags: ["Brightening", "Niacinamide"],
           shortDescription: "Toner pencerah dengan Niacinamide dan Licorice Extract.",
           story: `Toner pencerah adalah langkah pertama dalam rutinitas brightening yang efektif.
@@ -850,12 +850,12 @@ Brightening Facial Toner Dreamlab menggabungkan Niacinamide 3% dan Licorice Extr
       name: "Facial Serum",
       slug: "facial-serum",
       description: "Serum wajah dengan konsentrasi aktif tinggi untuk solusi kulit spesifik. Target market premium dengan efikasi nyata.",
-      heroImage: "/assets/produk/skincare/bg-lands-card2.webp",
+      heroImage: "/new asset/produk/skincare/bg-lands-card2.webp",
       bgColor: "#EADBC8",
       products: [
         {
           id: "serum-gel", name: "Serum Gel", slug: "serum-gel",
-          heroImage: "/assets/produk/skincare/bg-lands-card2.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card2.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card2.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card2.webp"],
           tags: ["Lightweight", "Hydrating"],
           shortDescription: "Serum gel berbasis air dengan Hyaluronic Acid.",
           story: `Serum gel adalah inovasi tekstur yang menggabungkan efikasi serum dengan kenyamanan gel.
@@ -869,7 +869,7 @@ Serum Gel Dreamlab diformulasikan dengan basis air yang ultra-ringan dan cepat m
         },
         {
           id: "radiant-advance-serum", name: "Radiant Advance Serum", slug: "radiant-advance-serum",
-          heroImage: "/assets/produk/skincare/bg-lands-card2.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card2.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card2.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card2.webp"],
           tags: ["Premium", "Brightening"],
           shortDescription: "Serum pencerah premium dengan Vitamin C dan Glutathione.",
           story: `Radiant Advance Serum adalah serum pencerah paling premium dalam portofolio Dreamlab.
@@ -883,7 +883,7 @@ Menggabungkan Vitamin C stabil (Ascorbyl Tetraisopalmitate) yang menembus kulit 
         },
         {
           id: "acne-serum", name: "Acne Serum", slug: "acne-serum",
-          heroImage: "/assets/produk/skincare/bg-lands-card2.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card2.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card2.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card2.webp"],
           tags: ["Acne Treatment", "BHA"],
           shortDescription: "Serum anti-jerawat dengan Salicylic Acid dan Zinc.",
           story: `Acne Serum adalah treatment intensif untuk kulit berjerawat yang membutuhkan solusi cepat.
@@ -897,7 +897,7 @@ Acne Serum Dreamlab diformulasikan dengan Salicylic Acid 2% yang menembus pori-p
         },
         {
           id: "peeling-serum", name: "Peeling Serum", slug: "peeling-serum",
-          heroImage: "/assets/produk/skincare/bg-lands-card2.webp", galleryImages: ["/assets/produk/skincare/bg-lands-card2.webp"],
+          heroImage: "/new asset/produk/skincare/bg-lands-card2.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card2.webp"],
           tags: ["Exfoliating", "AHA/BHA"],
           shortDescription: "Serum peeling dengan AHA/BHA untuk eksfoliasi kimiawi.",
           story: `Peeling Serum adalah eksfoliasi kimiawi yang bisa dilakukan di rumah tanpa perlu ke klinik.
@@ -1058,10 +1058,10 @@ Peeling Serum Dreamlab menggabungkan Glycolic Acid (AHA) untuk mengangkat sel ku
     },
   ],
   relatedProducts: [
-    { name: "Facial Toner", slug: "facial-toner", image: "/assets/produk/skincare/bg-lands-card4.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Facial Wash", slug: "facial-wash", image: "/assets/produk/skincare/bg-lands-card5.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Facial Sunscreen", slug: "facial-sunscreen", image: "/assets/produk/skincare/bg-lands-card3.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Micellar Cleansing Gel", slug: "micellar-cleansing-gel", image: "/assets/produk/skincare/bg-lands-card1.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Facial Toner", slug: "facial-toner", image: "/new asset/produk/skincare/bg-lands-card4.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Facial Wash", slug: "facial-wash", image: "/new asset/produk/skincare/bg-lands-card5.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Facial Sunscreen", slug: "facial-sunscreen", image: "/new asset/produk/skincare/bg-lands-card3.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Micellar Cleansing Gel", slug: "micellar-cleansing-gel", image: "/new asset/produk/skincare/bg-lands-card1.webp", category: "Skincare", categorySlug: "skincare" },
   ],
 };
 
