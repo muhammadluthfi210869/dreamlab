@@ -16,7 +16,7 @@ export const clientShowcase = [
   { name: "Cleansing Balm", src: "/new asset/skincare&facecare/cleasing-balm.webp" },
   { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
   { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
-  { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
+  { name: "Facial Cream", src: "/new asset/skincare&facecare/moizturizing-cream.webp" },
   { name: "Facial Wash", src: "/new asset/skincare&facecare/facial-wash.webp" },
   { name: "Feminine Cleanser", src: "/new asset/skincare&facecare/feminine-cleanser.webp" },
   { name: "Micellar Cleansing Gel", src: "/new asset/skincare&facecare/micellar-cleansing-gel.webp" },
@@ -107,7 +107,7 @@ export const signatureFormulaTabs = [
       { name: "Cleansing Balm", src: "/new asset/skincare&facecare/cleasing-balm.webp" },
       { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
       { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
-      { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
+      { name: "Facial Cream", src: "/new asset/skincare&facecare/moizturizing-cream.webp" },
       { name: "Facial Wash", src: "/new asset/skincare&facecare/facial-wash.webp" },
     ]
   },

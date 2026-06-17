@@ -76,7 +76,7 @@ export const homepageData = {
           { name: "Cleansing Balm", src: "/new asset/skincare&facecare/cleasing-balm.webp" },
           { name: "Eye Cream", src: "/new asset/skincare&facecare/eye-cream.webp" },
           { name: "Face Cleansing Oil", src: "/new asset/skincare&facecare/face-cleansing-oil.webp" },
-          { name: "Facial Cream", src: "/new asset/skincare&facecare/facial-cream.webp" },
+          { name: "Facial Cream", src: "/new asset/skincare&facecare/moizturizing-cream.webp" },
           { name: "Facial Wash", src: "/new asset/skincare&facecare/facial-wash.webp" }
         ]
       },

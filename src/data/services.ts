@@ -23,7 +23,7 @@ export const serviceCategories: ServiceCategory[] = [
       { image: '/new asset/skincare&facecare/cleasing-balm.webp', title: 'Cleansing Balm' },
       { image: '/new asset/skincare&facecare/eye-cream.webp', title: 'Eye Cream' },
       { image: '/new asset/skincare&facecare/face-cleansing-oil.webp', title: 'Face Cleansing Oil' },
-      { image: '/new asset/skincare&facecare/facial-cream.webp', title: 'Facial Cream' },
+      { image: '/new asset/skincare&facecare/moizturizing-cream.webp', title: 'Facial Cream' },
       { image: '/new asset/skincare&facecare/facial-wash.webp', title: 'Facial Wash' },
       { image: '/new asset/skincare&facecare/feminine-cleanser.webp', title: 'Feminine Cleanser' },
       { image: '/new asset/skincare&facecare/micellar-cleansing-gel.webp', title: 'Micellar Cleansing Gel' },
