@@ -233,7 +233,6 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       },
       serviceType: 'Kontrak Manufaktur Kosmetik',
       areaServed: 'Indonesia',
-      offers: { '@id': `${cleanUrl}#offer` },
     },
 
     // Product (Top-level for better indexing)
@@ -252,30 +251,11 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
         '@id': `${siteUrl}/#organization`,
         name: 'Dreamlab Indonesia',
       },
-      offers: {
-        '@id': `${cleanUrl}#offer`,
-      },
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'MOQ', value: moq },
         { '@type': 'PropertyValue', name: 'Production Time', value: productionTime },
         ...certifications.map((cert) => ({ '@type': 'PropertyValue', name: 'Certification', value: cert })),
       ],
-    },
-
-    // Offer
-    {
-      '@type': 'Offer',
-      '@id': `${cleanUrl}#offer`,
-      url: cleanUrl,
-      priceCurrency: 'IDR',
-      minOrderQuantity: moq,
-      availability: 'https://schema.org/InStock',
-      validFrom: new Date().toISOString().split('T')[0],
-      seller: {
-        '@type': 'Organization',
-        '@id': `${siteUrl}/#organization`,
-        name: 'Dreamlab Indonesia',
-      },
     },
 
     // WebPage
