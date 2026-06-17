@@ -917,9 +917,9 @@ Neck Cream Dreamlab diformulasikan khusus untuk kulit leher yang lebih tipis dan
     },
   ],
   relatedProducts: [
-    { name: "Body Butter", slug: "body-butter", image: "/assets/images/body-butter-1.webp", category: "Body Care", categorySlug: "bodycare" },
-    { name: "Body Scrub", slug: "body-scrub", image: "/assets/images/body-scrub.webp", category: "Body Care", categorySlug: "bodycare" },
-    { name: "Massage Oil", slug: "massage-oil", image: "/assets/images/massage-oil-scaled.webp", category: "Body Care", categorySlug: "bodycare" },
+    { name: "Body Butter", slug: "body-butter", image: "/new asset/bodycare/body-butter.webp", category: "Body Care", categorySlug: "bodycare" },
+    { name: "Body Scrub", slug: "body-scrub", image: "/new asset/bodycare/body-scrub.webp", category: "Body Care", categorySlug: "bodycare" },
+    { name: "Massage Oil", slug: "massage-oil", image: "/new asset/bodycare/massage-oil.webp", category: "Body Care", categorySlug: "bodycare" },
     { name: "Body Serum", slug: "body-serum", image: "/new asset/bodycare/body-serum.webp", category: "Body Care", categorySlug: "bodycare" },
     { name: "Anti-Bacterial Soap", slug: "anti-bacterial-soap", image: "/new asset/bodycare/anti-bacterial-soap.webp", category: "Body Care", categorySlug: "bodycare" },
     { name: "Shower Gel", slug: "shower-gel", image: "/new asset/bodycare/shower-gel.webp", category: "Body Care", categorySlug: "bodycare" },

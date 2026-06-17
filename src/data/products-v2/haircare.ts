@@ -537,8 +537,8 @@ Di Dreamlab, kami merancang hair mist dengan formula ultra-ringan yang tidak men
     },
   ],
   relatedProducts: [
-    { name: "Shampoo", slug: "shampoo", image: "/assets/images/shampoo-scaled.webp", category: "Hair Care", categorySlug: "haircare" },
-    { name: "Hair Mask", slug: "hair-mask", image: "/assets/images/hair-mask-1.webp", category: "Hair Care", categorySlug: "haircare" },
+    { name: "Shampoo", slug: "shampoo", image: "/new asset/haircare/shampoo.webp", category: "Hair Care", categorySlug: "haircare" },
+    { name: "Hair Mask", slug: "hair-mask", image: "/new asset/haircare/hair-mask.webp", category: "Hair Care", categorySlug: "haircare" },
     { name: "Hair Gel", slug: "hair-gel", image: "/new asset/haircare/hair-gel.webp", category: "Hair Care", categorySlug: "haircare" },
     { name: "Hair Conditioner", slug: "hair-conditioner", image: "/new asset/haircare/hair-conditioner.webp", category: "Hair Care", categorySlug: "haircare" },
     { name: "Pomade", slug: "pomade", image: "/new asset/haircare/pomade.webp", category: "Hair Care", categorySlug: "haircare" },

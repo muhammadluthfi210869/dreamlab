@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getProductDataV2, getSubCategory, getAllSubCategories, getFlatCategoryProductPages, getAllSubCategoryProductPages, getAllCategories } from "@/data/products-v2";
+import { getCardImagePath } from "@/data/product-card-images";
 import { getProductTitle, getProductMetaDescription, getCategoryTitle, getCategoryMetaDescription, getSubCategoryMetaDescription } from "@/data/keywords";
 import ProductHero from "@/components/ProductPageV2/ProductHero";
 import ProductAbout from "@/components/ProductPageV2/ProductAbout";
@@ -145,7 +146,7 @@ export default async function CatchAllPage({ params }: Props) {
       .map(p => ({
         name: p.name,
         slug: p.slug,
-        image: p.heroImage,
+        image: getCardImagePath(p.slug, category) || p.heroImage,
         category: categoryData.name,
         categorySlug: category,
         subCategorySlug: subCategorySlug,

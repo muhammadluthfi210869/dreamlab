@@ -387,9 +387,9 @@ Minyak atsiri (Essential Oil) adalah jiwa dari industri aromaterapi. Dreamlab me
     },
   ],
   relatedProducts: [
-    { name: "Body Mist", slug: "body-mist", image: "/assets/images/body-mist-scaled.webp", category: "Parfum", categorySlug: "parfum" },
-    { name: "Eau de Toilette", slug: "eau-de-toilette", image: "/assets/images/edt.webp", category: "Parfum", categorySlug: "parfum" },
-    { name: "Extrait de Parfum", slug: "extrait-de-parfum", image: "/assets/images/extrait-de-parfum-scaled.webp", category: "Parfum", categorySlug: "parfum" },
-    { name: "Minyak Atsiri", slug: "minyak-atsiri", image: "/assets/images/Essential-Oil-scaled.webp", category: "Parfum", categorySlug: "parfum" },
+    { name: "Body Mist", slug: "body-mist", image: "/new asset/parfum/body-mist.webp", category: "Parfum", categorySlug: "parfum" },
+    { name: "Eau de Toilette", slug: "eau-de-toilette", image: "/new asset/parfum/edt.webp", category: "Parfum", categorySlug: "parfum" },
+    { name: "Extrait de Parfum", slug: "extrait-de-parfum", image: "/new asset/parfum/extrait-de-parfum.webp", category: "Parfum", categorySlug: "parfum" },
+    { name: "Minyak Atsiri", slug: "minyak-atsiri", image: "/new asset/parfum/essential-oil.webp", category: "Parfum", categorySlug: "parfum" },
   ],
 };

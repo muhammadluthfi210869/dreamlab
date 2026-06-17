@@ -710,7 +710,7 @@ Lip Blush Dreamlab diformulasikan dengan water-based tint yang memberikan warna 
   ],
   relatedProducts: [
     { name: "Liquid Highlighter", slug: "liquid-highlighter", image: "/new asset/make up/liquid-highlighter1.webp", category: "Decorative", categorySlug: "decorative" },
-    { name: "Foundation", slug: "foundation", image: "/assets/images/foundation-scaled.webp", category: "Decorative", categorySlug: "decorative" },
+    { name: "Foundation", slug: "foundation", image: "/new asset/make up/foundation.webp", category: "Decorative", categorySlug: "decorative" },
     { name: "BB Cream", slug: "bb-cream", image: "/new asset/make up/bb-cream.webp", category: "Decorative", categorySlug: "decorative" },
     { name: "Face Primer", slug: "face-primer", image: "/new asset/make up/face-primer.webp", category: "Decorative", categorySlug: "decorative" },
     { name: "Mascara", slug: "mascara", image: "/new asset/make up/mascara.webp", category: "Decorative", categorySlug: "decorative" },

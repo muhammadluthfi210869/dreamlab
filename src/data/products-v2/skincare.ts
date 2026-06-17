@@ -415,7 +415,7 @@ Tanpa hidrasi yang cukup, barrier kulit akan melemah dan rentan terhadap iritasi
       products: [
         {
           id: "day-night-cream", name: "Day & Night Cream", slug: "day-night-cream",
-          heroImage: "/new asset/produk/skincare/bg-lands-card1.webp", galleryImages: ["/new asset/produk/skincare/bg-lands-card1.webp"],
+          heroImage: "/new asset/skincare&facecare/day-and-night-cream.webp", galleryImages: ["/new asset/skincare&facecare/day-and-night-cream.webp"],
           tags: ["Daily Use", "Protection"],
           shortDescription: "Krim wajah dengan SPF dan perlindungan polusi.",
           story: `Face cream adalah lini pertahanan pertama kulit Anda.
