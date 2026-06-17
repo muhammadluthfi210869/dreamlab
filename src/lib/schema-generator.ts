@@ -241,6 +241,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       '@id': `${cleanUrl}#product`,
       name: `Maklon ${productName}`,
       description: description,
+      image: heroImage,
       category: categoryName,
       brand: {
         '@type': 'Brand',
