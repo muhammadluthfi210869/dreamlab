@@ -116,7 +116,7 @@ export const signatureFormulaTabs = [
     label: "Body Care",
     products: [
       { name: "Body Mist", src: "/new asset/parfum/body-mist.webp" },
-      { name: "Body Serum", src: "/new asset/bodycare/body-serum.webp" },
+      { name: "Body Serum", src: "/new asset/bodycare/body-serum-new.jpeg" },
       { name: "Body Scrub", src: "/new asset/bodycare/body-scrub.webp" },
       { name: "Body Wash", src: "/new asset/bodycare/body-wash.webp" },
     ]

@@ -63,7 +63,7 @@ export const serviceCategories: ServiceCategory[] = [
       { image: '/new asset/bodycare/bath-salt.webp', title: 'Bath Salt' },
       { image: '/new asset/bodycare/body-butter.webp', title: 'Body Butter' },
       { image: '/new asset/bodycare/body-scrub.webp', title: 'Body Scrub' },
-      { image: '/new asset/bodycare/body-serum.webp', title: 'Body Serum' },
+      { image: '/new asset/bodycare/body-serum-new.jpeg', title: 'Body Serum' },
       { image: '/new asset/bodycare/body-wash.webp', title: 'Body Wash' },
       { image: '/new asset/bodycare/massage-cream.webp', title: 'Massage Cream' },
       { image: '/new asset/bodycare/massage-oil.webp', title: 'Massage Oil' },

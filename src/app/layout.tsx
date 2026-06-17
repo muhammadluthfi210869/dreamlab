@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     google: "xbEDjXMgxa8PqdCWCHtZ9-7xbPIgRcxc2azHdOLUBCE",
   },
     icons: {
-      icon: [{ url: "/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp", sizes: "256x256", type: "image/webp" }],
-      apple: "/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp",
+      icon: [{ url: "/assets/images/cropped-Logo-dreamlab-maklon-kosmetik-1.webp", sizes: "256x256", type: "image/webp" }],
+      apple: "/assets/images/cropped-Logo-dreamlab-maklon-kosmetik-1.webp",
     },
   openGraph: {
     type: 'website',
