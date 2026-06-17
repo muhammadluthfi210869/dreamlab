@@ -405,12 +405,12 @@ Foot Anti-Bacterial Dreamlab diformulasikan untuk memberikan perlindungan optima
     },
   ],
   relatedProducts: [
-    { name: "Foot Cream", slug: "foot-cream", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
-    { name: "Foot Scrub", slug: "foot-scrub", image: "/new asset/produk/footcare/card5-foot-scrub.webp", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Cream", slug: "foot-cream", image: "/new asset/footcare/Footcream-maklon .png", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Scrub", slug: "foot-scrub", image: "/new asset/footcare/footscrub-maklonkosmetik-dreamlab.png", category: "Foot Care", categorySlug: "footcare" },
     { name: "Foot Mask", slug: "foot-mask", image: "/new asset/footcare/footmask-maklonkosmetik-dreamlab .png", category: "Foot Care", categorySlug: "footcare" },
-    { name: "Foot Soak", slug: "foot-soak", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
-    { name: "Foot Serum", slug: "foot-serum", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
-    { name: "Foot Spray", slug: "foot-spray", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
-    { name: "Foot Anti-Bacterial", slug: "foot-anti-bacterial", image: "/assets/images/footcare-scaled.webp", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Soak", slug: "foot-soak", image: "/new asset/footcare/maklon-soak-cream.png", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Serum", slug: "foot-serum", image: "/new asset/footcare/foot-serum.jpeg", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Spray", slug: "foot-spray", image: "/new asset/footcare/footspray-dreamlab-maklonkosmetik .png", category: "Foot Care", categorySlug: "footcare" },
+    { name: "Foot Anti-Bacterial", slug: "foot-anti-bacterial", image: "/new asset/footcare/foot antibacterial-maklon ksometik.png", category: "Foot Care", categorySlug: "footcare" },
   ],
 };

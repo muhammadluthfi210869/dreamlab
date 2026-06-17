@@ -1058,10 +1058,10 @@ Peeling Serum Dreamlab menggabungkan Glycolic Acid (AHA) untuk mengangkat sel ku
     },
   ],
   relatedProducts: [
-    { name: "Facial Toner", slug: "facial-toner", image: "/new asset/produk/skincare/bg-lands-card4.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Facial Wash", slug: "facial-wash", image: "/new asset/produk/skincare/bg-lands-card5.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Facial Sunscreen", slug: "facial-sunscreen", image: "/new asset/produk/skincare/bg-lands-card3.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Micellar Cleansing Gel", slug: "micellar-cleansing-gel", image: "/new asset/produk/skincare/bg-lands-card1.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Facial Toner", slug: "facial-toner", image: "/new asset/skincare&facecare/mois-facial-toner.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Facial Wash", slug: "facial-wash", image: "/new asset/skincare&facecare/facial-wash.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Facial Sunscreen", slug: "facial-sunscreen", image: "/new asset/skincare&facecare/physical-sunscreen.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Micellar Cleansing Gel", slug: "micellar-cleansing-gel", image: "/new asset/skincare&facecare/micellar-cleansing-gel.webp", category: "Skincare", categorySlug: "skincare" },
   ],
 };
 
