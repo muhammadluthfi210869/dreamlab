@@ -18,19 +18,6 @@ export default function ThankYouMetaAds() {
   const [source, setSource] = useState("direct");
   const waOpened = useRef(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const src = params.get("source") || "direct";
-    setSource(src);
-    fireConversion(src);
-
-    // Auto-redirect after 2.5s if user hasn't clicked WA
-    const timer = setTimeout(() => {
-      if (!waOpened.current) processWA();
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
-
   const processWA = useCallback(() => {
     if (waOpened.current) return;
     waOpened.current = true;
@@ -45,6 +32,21 @@ export default function ThankYouMetaAds() {
     localStorage.setItem("waIndex", String(next));
     window.open(url, "_blank");
   }, [source]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get("source") || "direct";
+    setSource(src);
+    fireConversion(src);
+  }, []);
+
+  useEffect(() => {
+    if (!source) return;
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [source, processWA]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">

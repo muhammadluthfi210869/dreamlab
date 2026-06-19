@@ -43,13 +43,6 @@ export default function LinktreePage() {
   const numbers = ["628777650657", "6281952417051"];
   const waOpened = useRef(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!waOpened.current) processWA();
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
-
   const processWA = useCallback(() => {
     if (waOpened.current) return;
     waOpened.current = true;
@@ -63,7 +56,14 @@ export default function LinktreePage() {
     const next = (idx + 1) % numbers.length;
     localStorage.setItem("waIndex", String(next));
     window.open(url, "_blank");
-  }, [numbers]);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [processWA]);
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {

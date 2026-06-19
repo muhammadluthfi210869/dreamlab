@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -17,14 +17,11 @@ const services = [
 const badges = ["Free Formula", "Free Desain", "Free BPOM", "Free Halal", "Free HKI"];
 
 export default function ThankYouMedsos() {
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const src = params.get("source") || "medsos";
-    fireConversion(src);
-  }, []);
+  const waOpened = useRef(false);
 
   const processWA = useCallback(() => {
+    if (waOpened.current) return;
+    waOpened.current = true;
     const saved = localStorage.getItem("waIndex");
     const idx = parseInt(saved || "0", 10) % numbers.length;
     const phone = numbers[idx];
@@ -34,6 +31,19 @@ export default function ThankYouMedsos() {
     localStorage.setItem("waIndex", String(next));
     window.open(url, "_blank");
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get("source") || "medsos";
+    fireConversion(src);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [processWA]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">

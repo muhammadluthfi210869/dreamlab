@@ -12,18 +12,6 @@ export default function ThankYouGoogle() {
   const [source, setSource] = useState("google-ads");
   const waOpened = useRef(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const src = params.get("source") || "google-ads";
-    setSource(src);
-    fireConversion(src);
-
-    const timer = setTimeout(() => {
-      if (!waOpened.current) processWA();
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
-
   const processWA = useCallback(() => {
     if (waOpened.current) return;
     waOpened.current = true;
@@ -38,6 +26,20 @@ export default function ThankYouGoogle() {
     localStorage.setItem("waIndex", String(next));
     window.open(url, "_blank");
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get("source") || "google-ads";
+    setSource(src);
+    fireConversion(src);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [processWA]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
