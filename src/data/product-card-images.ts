@@ -40,7 +40,7 @@ export const slugToCardImageMap: Record<string, Record<string, string>> = {
     "body-butter": "new asset/bodycare/body-butter.webp",
     "body-scrub": "new asset/bodycare/body-scrub.webp",
     "body-wash": "new asset/bodycare/body-wash.webp",
-    "body-oil": "new asset/bodycare/massage-oil.webp",
+    "body-oil": "new asset/bodycare/Maklon-kosmetik-body-oil.webp",
     "body-lotion": "new asset/skincare&facecare/Dreamlab-maklon-bodylotion.png",
     "anti-bacterial-soap": "new asset/bodycare/anti-bacterial-soap.webp",
     "shower-gel": "new asset/bodycare/shower-gel.webp",
