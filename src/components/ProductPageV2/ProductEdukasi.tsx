@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { EdukasiItemV2 } from "@/types/product-v2";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface ProductEdukasiProps {
   items: EdukasiItemV2[];
@@ -28,16 +29,15 @@ export default function ProductEdukasi({ items }: ProductEdukasiProps) {
                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
                <h4 className="font-viga text-xl text-brand-black mb-2 relative z-10">Butuh Jawaban Cepat?</h4>
                <p className="text-brand-gray mb-6 relative z-10">Tim konsultan kami siap bantu bedah strategi brand kamu via WhatsApp.</p>
-               <a 
-                href="https://wa.me/62881027240339" 
-                target="_blank"
+               <button
+                onClick={() => openWARoundRobin("Halo Dreamlab, saya ingin bertanya sebelum memulai")}
                 className="inline-flex items-center gap-2 font-bold text-brand-orange hover:gap-4 transition-all"
                >
                  Tanya Langsung Sekarang
                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                  </svg>
-               </a>
+               </button>
             </div>
           </div>
 

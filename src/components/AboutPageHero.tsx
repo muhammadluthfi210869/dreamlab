@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { AboutHeroData } from "@/types";
 import { getImageTitle } from "@/lib/image-utils";
 import { fadeInLeft, fadeInRight, staggerContainer } from "@/lib/animations";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 export default function AboutPageHero({ data }: { data: AboutHeroData }) {
   return (
@@ -48,14 +49,24 @@ export default function AboutPageHero({ data }: { data: AboutHeroData }) {
 
             {/* CTA Button */}
             <div className="pt-1">
-              <Link
-                href={data.ctaLink}
-                target="_blank"
-                className="inline-flex items-center gap-2.5 bg-brand-orange text-white font-bold text-sm md:text-base px-7 py-3.5 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/20 hover:scale-[1.02] active:scale-[0.98]"
-              >
-                {data.ctaText}
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              {data.ctaLink.startsWith("http") || data.ctaLink.startsWith("/") ? (
+                <Link
+                  href={data.ctaLink}
+                  target={data.ctaLink.startsWith("http") ? "_blank" : undefined}
+                  className="inline-flex items-center gap-2.5 bg-brand-orange text-white font-bold text-sm md:text-base px-7 py-3.5 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/20 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  {data.ctaText}
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              ) : (
+                <button
+                  onClick={() => openWARoundRobin(data.ctaLink)}
+                  className="inline-flex items-center gap-2.5 bg-brand-orange text-white font-bold text-sm md:text-base px-7 py-3.5 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/20 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  {data.ctaText}
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
             </div>
           </motion.div>
 

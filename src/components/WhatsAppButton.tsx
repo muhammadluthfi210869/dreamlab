@@ -1,15 +1,13 @@
 "use client";
 
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
+
 export default function WhatsAppButton() {
-  const waNumber = "62881027240339";
   const message = "Hi Dreamlab, saya ingin jadwalkan pertemuan";
-  const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <a
-      href={waUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      onClick={() => openWARoundRobin(message)}
       className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
       aria-label="Contact via WhatsApp"
     >
@@ -25,6 +23,6 @@ export default function WhatsAppButton() {
       <span className="absolute right-full mr-4 bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-bold shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
         Chat with us!
       </span>
-    </a>
+    </button>
   );
 }

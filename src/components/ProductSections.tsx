@@ -6,6 +6,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
 import { ChevronRight, Phone, Plus, Minus, ChevronDown, HelpCircle } from "lucide-react";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface ProductHeroProps {
   category: string;
@@ -32,12 +33,12 @@ export function ProductHero({ category, tagline, description, imageSrc }: Produc
             {tagline}
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Link 
-              href="https://wa.me/62881027240339"
+            <button
+              onClick={() => openWARoundRobin("Halo Dreamlab, saya tertarik dengan layanan maklon Anda")}
               className="bg-brand-orange text-brand-white px-8 py-4 rounded-full font-onest font-bold uppercase tracking-widest hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-brand-orange/20"
             >
               Hubungi Tim Kami <ChevronRight className="w-5 h-5" />
-            </Link>
+            </button>
             <Link 
               href="#"
               className="bg-brand-black text-brand-white px-8 py-4 rounded-full font-onest font-bold uppercase tracking-widest hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-brand-black/20"
@@ -190,13 +191,13 @@ export function ProductCTA({ category }: { category: string }) {
         <p className="text-brand-white/80 text-xl max-w-2xl mx-auto font-onest">
           Maklon {category} BPOM Konsultasi Gratis dengan Business Development untuk Konsep Produk Aman, Formula Juara
         </p>
-        <Link 
-          href="https://wa.me/62881027240339"
+        <button
+          onClick={() => openWARoundRobin(`Halo Dreamlab, saya tertarik dengan maklon ${category}`)}
           className="inline-flex items-center gap-3 bg-brand-white text-brand-orange px-10 py-5 rounded-full font-onest font-black uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-2xl"
         >
           <Phone className="w-6 h-6" />
           Konsultasi Produk Sekarang
-        </Link>
+        </button>
       </div>
     </section>
   );

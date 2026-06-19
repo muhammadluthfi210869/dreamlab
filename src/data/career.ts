@@ -15,6 +15,6 @@ export const careerData = {
     title: "We're Looking for Talented Individuals",
     description: "Become part of Dreamlab's mission to elevate beauty innovation in Indonesia.",
     cta: "APPLY NOW",
-    ctaLink: "https://wa.me/62881027240339?text=Hi%20Dreamlab%2C%20saya%20ingin%20melamar%20pekerjaan"
+    ctaLink: "Halo Dreamlab, saya ingin melamar pekerjaan"
   }
 };

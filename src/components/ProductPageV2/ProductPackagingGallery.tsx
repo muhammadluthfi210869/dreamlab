@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { ArrowRight, Sparkles, Palette } from "lucide-react";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface PackagingIcon {
   name: string;
@@ -177,8 +178,7 @@ export default function ProductPackagingGallery({ productSlug, categorySlug, pro
 
   if (icons.length === 0) return null;
 
-  const whatsappMessage = encodeURIComponent(`Halo Dreamlab! Saya tertarik dengan packaging design untuk ${productName}. Mohon info lebih lanjut.`);
-  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
+  const waMessage = `Halo Dreamlab! Saya tertarik dengan packaging design untuk ${productName}. Mohon info lebih lanjut.`;
 
   return (
     <section ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-[#F9F7F2] via-white to-[#F9F7F2]">
@@ -371,15 +371,13 @@ export default function ProductPackagingGallery({ productSlug, categorySlug, pro
                 Tim design kami siap membantu merealisasikan visi packaging brand Anda dari konsep hingga produksi.
               </p>
             </div>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => openWARoundRobin(waMessage)}
               className="group flex items-center gap-3 bg-brand-orange hover:bg-[#212120] text-white font-bold py-4 px-8 rounded-xl transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex-shrink-0"
             >
               <span className="text-[10px] uppercase tracking-[0.2em]">Konsultasi Design</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
+            </button>
           </div>
         </motion.div>
 

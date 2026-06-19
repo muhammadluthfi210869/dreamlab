@@ -4,7 +4,7 @@ export const aboutData = {
     subtitle: "Dari Ide Sampai Siap Jual",
     description: "Formulasi eksklusif, produksi bersertifikat CPKB, BPOM & Halal diurus. Satu partner, semua beres.",
     ctaText: "Konsultasi Gratis Sekarang",
-    ctaLink: "https://wa.me/62881027240339?text=Hi%20Dreamlab%2C%20saya%20ingin%20konsultasi%20membuat%20brand%20kosmetik",
+    ctaLink: "Hi Dreamlab, saya ingin konsultasi membuat brand kosmetik",
     backgroundImage: "/assets/images/about-hero-bg.webp",
     productImage: "/assets/images/PrdSunscreenfront.webp",
     trustBadges: [
@@ -54,7 +54,7 @@ export const aboutData = {
     headline: "KAMI TIDAK TINGGALKAN SETELAH PRODUK JADI.",
     subheadline: "Komitmen kualitas berkelanjutan dengan harga produksi kompetitif — karena brand Anda adalah bisnis jangka panjang.",
     ctaText: "Pelajari After-Sales Kami",
-    ctaLink: "https://wa.me/62881027240339?text=Hi%20Dreamlab%2C%20saya%20ingin%20tahu%20lebih%20lanjut%20tentang%20after-sales%20support",
+    ctaLink: "Hi Dreamlab, saya ingin tahu lebih lanjut tentang after-sales support",
     badge: {
       text: "QUALITY",
       subtext: "GUARANTEED"
@@ -125,9 +125,9 @@ export const aboutData = {
     headline: "MULAI BANGUN BRAND ANDA SEKARANG.",
     subheadline: "Pilih langkah konkrit menuju dominasi pasar kecantikan.",
     actions: [
-      { id: 1, title: "Request Sampel Formula Gratis", icon: "beaker", link: "https://api.whatsapp.com/send/?phone=62881027240339&text=Hi+Dreamlab+saya+tertarik+request+sampel+formula+skincare&type=phone_number&app_absent=0" },
+      { id: 1, title: "Request Sampel Formula Gratis", icon: "beaker", link: "Hi Dreamlab, saya tertarik request sampel formula skincare" },
       { id: 2, title: "Jadwalkan Kunjungan Pabrik", icon: "mapPin", link: "https://maps.google.com/?q=SIER+Surabaya" },
-      { id: 3, title: "Konsultasi R&D Bersama Apoteker", icon: "messageSquare", link: "https://api.whatsapp.com/send/?phone=62881027240339&text=Hi+saya+ingin+berkonsultasi+teknis+dengan+tim+R%26D+apoteker+Dreamlab&type=phone_number&app_absent=0" }
+      { id: 3, title: "Konsultasi R&D Bersama Apoteker", icon: "messageSquare", link: "Hi Dreamlab, saya ingin berkonsultasi teknis dengan tim R&D apoteker Dreamlab" }
     ]
   }
 };

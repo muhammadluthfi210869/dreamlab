@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, Sparkles, MessageCircle, HelpCircle, CheckCircle } from 'lucide-react';
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface CategoryConfig {
   name: string;
@@ -101,14 +102,13 @@ export default function MaklonCalculator() {
   };
 
   const waMessage = useMemo(() => {
-    const text = `Halo Dreamlab, saya mencoba Kalkulator Maklon di website Anda. Saya tertarik membuat:\n` +
+    return `Halo Dreamlab, saya mencoba Kalkulator Maklon di website Anda. Saya tertarik membuat:\n` +
       `- Kategori: ${activeCategory.label}\n` +
       `- Tingkat Formulasi: ${tier.toUpperCase()}\n` +
       `- Estimasi Kuantitas: ${quantity.toLocaleString('id-ID')} pcs\n` +
       `- Estimasi Biaya Per Unit: ${formatCurrency(pricing.pricePerUnit)}\n` +
       `- Estimasi Total Biaya (Termasuk BPOM & Halal): ${formatCurrency(pricing.totalCost)}\n\n` +
       `Mohon info lebih lanjut untuk memulai sampel formulasi. Terima kasih.`;
-    return encodeURIComponent(text);
   }, [activeCategory, tier, quantity, pricing]);
 
   return (
@@ -265,15 +265,13 @@ export default function MaklonCalculator() {
         </div>
 
         {/* CTA Button */}
-        <a
-          href={`https://wa.me/62881027240339?text=${waMessage}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => openWARoundRobin(waMessage)}
           className="flex items-center justify-center gap-3 w-full bg-brand-orange hover:bg-white text-white hover:text-brand-orange py-4 rounded-2xl font-black text-center text-xs tracking-widest transition-all duration-300 shadow-xl border border-transparent hover:border-brand-orange group"
         >
           <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
           KONSULTASI FORMULASI SEKARANG
-        </a>
+        </button>
         
         <p className="text-[9px] text-center text-gray-500 font-medium leading-relaxed">
           *Perhitungan di atas merupakan estimasi kasar. Biaya final dipengaruhi oleh kerumitan formula bahan aktif, jenis botol/pot kemasan, dan volume kemasan.

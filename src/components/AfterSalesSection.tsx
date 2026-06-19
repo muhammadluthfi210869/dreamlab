@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, HeartHandshake, ShieldCheck, Headphones, BadgeCheck } from "lucide-react";
 import { AfterSalesSectionData } from "@/types";
 import { getImageTitle } from "@/lib/image-utils";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface AfterSalesSectionProps {
   data: AfterSalesSectionData;
@@ -152,14 +153,13 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
 
             {/* CTA Button */}
             <div className="pt-4">
-              <Link
-                href={data.ctaLink}
-                target="_blank"
+              <button
+                onClick={() => openWARoundRobin(data.ctaLink)}
                 className="bg-brand-orange hover:bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-xl transition-all duration-300 group inline-flex items-center gap-2.5 shadow-lg shadow-brand-orange/15 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Mulai Maklon Sekarang</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </button>
             </div>
 
           </motion.div>

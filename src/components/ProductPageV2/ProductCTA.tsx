@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { ProductCategoryV2 } from "@/types/product-v2";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface ProductCTAProps {
   data: ProductCategoryV2;
@@ -11,10 +12,7 @@ interface ProductCTAProps {
 
 export default function ProductCTA({ data, productName }: ProductCTAProps) {
   const displayName = productName || data.name;
-  const whatsappMessage = encodeURIComponent(
-    `Halo Dreamlab! Saya tertarik untuk konsultasi bikin Brand ${displayName} saya sendiri. Bisa info langkah awalnya?`
-  );
-  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
+  const waMessage = `Halo Dreamlab! Saya tertarik untuk konsultasi bikin Brand ${displayName} saya sendiri. Bisa info langkah awalnya?`;
 
   return (
     <motion.section
@@ -86,10 +84,8 @@ export default function ProductCTA({ data, productName }: ProductCTAProps) {
             }}
             className="pt-8 flex flex-col items-center gap-6"
           >
-            <a 
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => openWARoundRobin(waMessage)}
               className="group relative inline-flex items-center gap-6 px-10 py-5 bg-[#212120] text-white overflow-hidden transition-all duration-500 hover:pr-14"
             >
               <span className="relative z-10 text-[12px] font-black uppercase tracking-[0.3em]">
@@ -97,7 +93,7 @@ export default function ProductCTA({ data, productName }: ProductCTAProps) {
               </span>
               <div className="absolute right-0 top-0 h-full w-0 bg-brand-orange transition-all duration-500 group-hover:w-full z-0"></div>
               <ArrowRight className="relative z-10 w-5 h-5 transition-transform duration-500 group-hover:translate-x-2" />
-            </a>
+            </button>
             
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
               Limited Production Slots Monthly

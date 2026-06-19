@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -119,15 +120,13 @@ export default function BrandShowcaseSection() {
 
             {/* Interactive CTAs to enhance conversion */}
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <a 
-                href="https://wa.me/62881027240339?text=Halo%20Dreamlab%2C%20saya%20tertarik%20untuk%20mewujudkan%20brand%20kosmetik%20saya%20sendiri%20dari%20halaman%20depan%20website%20Anda."
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => openWARoundRobin("Halo Dreamlab, saya tertarik untuk mewujudkan brand kosmetik saya sendiri dari halaman depan website Anda.")}
                 className="flex items-center gap-2 bg-brand-orange hover:bg-brand-black text-white hover:text-white px-8 py-4 rounded-2xl font-black text-xs tracking-widest transition-all duration-300 shadow-xl shadow-brand-orange/10 hover:scale-105 active:scale-95"
               >
                 <MessageCircle className="w-4 h-4" />
                 KONSULTASI GRATIS (WA)
-              </a>
+              </button>
 
               <Link 
                 href="/services/"

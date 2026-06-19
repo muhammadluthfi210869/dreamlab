@@ -8,10 +8,11 @@ interface ProductAboutProps {
   categoryName: string;
 }
 
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
+
 export default function ProductAbout({ categoryName }: ProductAboutProps) {
   const isMobile = useMediaQuery("(max-width: 1024px)");
-  const whatsappMessage = encodeURIComponent(`Halo Dreamlab! Saya tertarik untuk maklon produk ${categoryName}. Mohon informasi dan konsultasi lebih lanjut.`);
-  const whatsappLink = `https://wa.me/62881027240339?text=${whatsappMessage}`;
+  const waMessage = `Halo Dreamlab! Saya tertarik untuk maklon produk ${categoryName}. Mohon informasi dan konsultasi lebih lanjut.`;
 
   return (
     <motion.section
@@ -172,17 +173,15 @@ export default function ProductAbout({ categoryName }: ProductAboutProps) {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row items-center gap-8 pt-4 border-t border-gray-100">
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => openWARoundRobin(waMessage)}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-brand-orange/10 hover:-translate-y-0.5"
               >
                 <span className="uppercase tracking-[0.15em] text-[10px] font-onest">Konsultasi Sekarang</span>
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </a>
+              </button>
             </div>
 
           </motion.div>

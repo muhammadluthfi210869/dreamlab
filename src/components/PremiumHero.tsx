@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface HeroProps {
   smallTitle?: string;
@@ -106,16 +107,28 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
             className="flex flex-wrap items-center gap-4"
           >
             {ctaLink && (
-              <Link
-                href={ctaLink}
-                target="_blank"
-                className="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-xs md:text-sm font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-neutral-900 transition-all duration-300 inline-flex items-center justify-center gap-3 group"
-              >
-                <span>FREE KONSULTASI BISNIS</span>
-                <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand-orange transition-colors">
-                  <ArrowRight className="w-3 h-3" />
-                </div>
-              </Link>
+              ctaLink.startsWith("http") || ctaLink.startsWith("/") || ctaLink.startsWith("#") ? (
+                <Link
+                  href={ctaLink}
+                  target={ctaLink.startsWith("http") ? "_blank" : undefined}
+                  className="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-xs md:text-sm font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-neutral-900 transition-all duration-300 inline-flex items-center justify-center gap-3 group"
+                >
+                  <span>FREE KONSULTASI BISNIS</span>
+                  <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand-orange transition-colors">
+                    <ArrowRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => openWARoundRobin(ctaLink)}
+                  className="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-xs md:text-sm font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-neutral-900 transition-all duration-300 inline-flex items-center justify-center gap-3 group"
+                >
+                  <span>FREE KONSULTASI BISNIS</span>
+                  <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand-orange transition-colors">
+                    <ArrowRight className="w-3 h-3" />
+                  </div>
+                </button>
+              )
             )}
           </motion.div>
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PremiumHero from "@/components/PremiumHero";
 import { careerData } from "@/data/career";
+import WaRoundRobinButton from "@/components/WaRoundRobinButton";
 import { PageSchema } from "@/components/PageSchema";
 
 export const metadata: Metadata = {
@@ -74,12 +75,9 @@ export default function CareerPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-10 left-10 right-10 flex justify-center">
-                <Link 
-                  href={ctaSection.ctaLink} 
-                  className="bg-brand-orange text-white text-xl font-black py-5 px-12 rounded-xl uppercase tracking-tighter shadow-2xl hover:scale-105 transition-transform"
-                >
+                <WaRoundRobinButton message={ctaSection.ctaLink} className="bg-brand-orange text-white text-xl font-black py-5 px-12 rounded-xl uppercase tracking-tighter shadow-2xl hover:scale-105 transition-transform">
                   Apply via WhatsApp 🚀
-                </Link>
+                </WaRoundRobinButton>
               </div>
             </div>
           </div>
