@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { getImageAlt, getImageTitle } from '@/lib/image-utils';
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 
 const products = [
@@ -61,7 +61,7 @@ const products = [
 
 export default function ProductSelectionMatrix() {
   const renderCard = (product: any, index: number) => {
-    const waMessage = `Halo Dreamlab! Saya ingin diskusi strategi maklon untuk: ${product.name}.`;
+    const waUrl = `/thankyou/google/`;
 
     return (
       <motion.div
@@ -79,8 +79,8 @@ export default function ProductSelectionMatrix() {
         }}
         key={product.id}
       >
-        <button
-          onClick={() => openWARoundRobin(waMessage)}
+        <Link
+          href={waUrl}
           className={`group relative block bg-white border rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-brand-orange/10 flex flex-col h-full text-left w-full ${
             product.isPopular ? "border-brand-orange ring-1 ring-brand-orange/20 shadow-xl shadow-brand-orange/10" : "border-gray-100"
           }`}
@@ -128,7 +128,7 @@ export default function ProductSelectionMatrix() {
               </div>
             </div>
           </div>
-        </button>
+        </Link>
       </motion.div>
     );
   };

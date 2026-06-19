@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ArrowRight, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 import { CategoryTab } from "@/types";
 
@@ -131,15 +130,15 @@ export default function DecorativeProductDetailTabs({ categories }: DecorativeTa
 
                   {/* CTA Buttons */}
                   <div className="flex flex-wrap gap-3 mt-6">
-                    <button
-                      onClick={() => openWARoundRobin("Halo Dreamlab, saya tertarik dengan produk kosmetik dekoratif. Mohon info lebih lanjut.")}
+                    <Link
+                      href="/thankyou/google/"
                       className="flex items-center justify-between gap-4 bg-brand-orange text-white px-6 py-3 rounded-xl font-onest font-black uppercase tracking-wider text-[11px] hover:bg-brand-black transition-all shadow-lg shadow-brand-orange/20 group min-w-[200px]"
                     >
                       HUBUNGI TIM KAMI
                       <div className="w-8 h-8 flex items-center justify-center bg-white/20 rounded-full group-hover:translate-x-1 transition-transform">
                         <ArrowRight className="w-4 h-4" />
                       </div>
-                    </button>
+                    </Link>
                     <Link
                       href="https://calendar.google.com/"
                       className="flex items-center justify-between gap-4 bg-brand-blue text-white px-6 py-3 rounded-xl font-onest font-black uppercase tracking-wider text-[11px] hover:bg-brand-black transition-all shadow-lg shadow-brand-blue/20 group min-w-[200px]"

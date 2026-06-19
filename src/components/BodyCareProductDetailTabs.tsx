@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface ProductDetail {
   name: string;
@@ -144,13 +143,13 @@ export default function BodyCareProductDetailTabs({ categories }: BodyCareProduc
 
                   {/* CTA Buttons */}
                   <div className="flex flex-wrap gap-4 mt-12">
-                    <button
-                      onClick={() => openWARoundRobin("Halo Dreamlab, saya tertarik dengan produk body care. Mohon info lebih lanjut.")}
+                    <Link
+                      href="/thankyou/google/"
                       className="flex items-center gap-3 bg-brand-orange text-white px-10 py-5 rounded-xl font-onest font-black uppercase tracking-wider text-[13px] hover:bg-brand-black transition-all shadow-xl shadow-brand-orange/20 group"
                     >
                       HUBUNGI TIM KAMI
                       <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </Link>
                     
                     <Link 
                       href="/contact-us" 

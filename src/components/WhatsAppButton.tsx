@@ -1,13 +1,11 @@
 "use client";
 
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 export default function WhatsAppButton() {
-  const message = "Hi Dreamlab, saya ingin jadwalkan pertemuan";
-
   return (
-    <button
-      onClick={() => openWARoundRobin(message)}
+    <Link
+      href="/thankyou/google/"
       className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
       aria-label="Contact via WhatsApp"
     >
@@ -23,6 +21,6 @@ export default function WhatsAppButton() {
       <span className="absolute right-full mr-4 bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-bold shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
         Chat with us!
       </span>
-    </button>
+    </Link>
   );
 }

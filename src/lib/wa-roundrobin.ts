@@ -20,7 +20,6 @@ export function openWARoundRobin(msg: string): void {
   window.open(url, "_blank");
 }
 
-export function handleWAClick(e: React.MouseEvent, msg: string): void {
-  e.preventDefault();
-  openWARoundRobin(msg);
+export function getThankyouUrl(source = "organic"): string {
+  return `/thankyou/google/?source=${encodeURIComponent(source)}`;
 }

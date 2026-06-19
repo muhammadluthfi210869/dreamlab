@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 export default function ProductClosingCTA() {
 
@@ -15,9 +15,9 @@ export default function ProductClosingCTA() {
           <p className="font-poppins text-lg lg:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
             Jadwalkan pembuatan sampel (prototipe) untuk Anda tes dan evaluasi secara personal sebelum melangkah ke tahap produksi massal.
           </p>
-          <button onClick={() => openWARoundRobin("Halo Dreamlab! Saya ingin menjadwalkan pembuatan sampel parfum. Mohon info prosedurnya.")} className="inline-block bg-brand-orange text-white font-bold py-6 px-16 rounded-2xl shadow-xl hover:-translate-y-2 transition-all">
+          <Link href="/thankyou/google/" className="inline-block bg-brand-orange text-white font-bold py-6 px-16 rounded-2xl shadow-xl hover:-translate-y-2 transition-all">
             JADWALKAN PEMBUATAN SAMPEL
-          </button>
+          </Link>
         </div>
       </div>
     </section>

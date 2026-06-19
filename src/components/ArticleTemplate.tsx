@@ -16,7 +16,6 @@ import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
 import '@/styles/legacy-elementor.css';
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
  
 interface ArticleData {
   slug: string;
@@ -247,13 +246,13 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 <p className="text-neutral-400 text-xs mb-6 leading-relaxed font-semibold">
                   Konsultasikan formulasi produk, sertifikasi BPOM, dan desain kemasan bersama tim expert Dreamlab.
                 </p>
-                <button
-                  onClick={() => openWARoundRobin("Halo Dreamlab, saya ingin konsultasi mengenai pembuatan brand kosmetik saya sendiri.")}
+                <Link
+                  href="/thankyou/google/"
                   className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
                   KONSULTASI VIA WHATSAPP
-                </button>
+                </Link>
               </div>
             </aside>
  

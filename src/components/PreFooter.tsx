@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 const PreFooter = () => {
   return (
@@ -40,16 +39,15 @@ const PreFooter = () => {
             </motion.p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <motion.button
-                onClick={() => openWARoundRobin("Halo Dreamlab, saya ingin konsultasi pembuatan brand kosmetik")}
-                whileHover={{ scale: 1.02 }}
+              <Link
+                href="/thankyou/google/"
                 className="bg-[#F7941D] text-white px-6 py-3 rounded-md font-bold text-xs uppercase tracking-wider flex items-center gap-3 transition-colors hover:bg-orange-600"
               >
                 Hubungi Tim Kami
                 <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                   <FaChevronRight className="text-[8px]" />
                 </span>
-              </motion.button>
+              </Link>
 
               <motion.div whileHover={{ scale: 1.02 }}>
                 <Link

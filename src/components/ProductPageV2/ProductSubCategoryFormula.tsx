@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 interface ProductSubCategoryFormulaProps {
   categorySlug: string;
@@ -13,7 +13,7 @@ export default function ProductSubCategoryFormula({
   categorySlug,
   subCategoryName,
 }: ProductSubCategoryFormulaProps) {
-  const waMessage = `Halo Dreamlab! Saya tertarik untuk konsultasi maklon dengan formulasi eksklusif untuk produk ${subCategoryName}. Mohon informasi R&D dan ketentuannya.`;
+  const waUrl = `/thankyou/google/`;
 
   const lowercaseName = subCategoryName.toLowerCase();
   
@@ -65,13 +65,13 @@ export default function ProductSubCategoryFormula({
 
           {/* CTA Link */}
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-4 justify-center">
-            <button
-              onClick={() => openWARoundRobin(waMessage)}
+            <Link
+              href={waUrl}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#212120] hover:bg-brand-orange text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5"
             >
               <span className="uppercase tracking-[0.15em] text-[9px] font-black">Konsultasi Formula</span>
               <ArrowRight className="w-3 h-3" />
-            </button>
+            </Link>
             <span className="text-[11px] text-gray-400 font-medium font-onest">Free Konsultasi dengan RnD Team Kami</span>
           </div>
 

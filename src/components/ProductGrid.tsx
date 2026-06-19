@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 export default function ProductGrid() {
   const showcaseProducts = [
@@ -51,7 +51,7 @@ export default function ProductGrid() {
     }
   ];
 
-  const waMessage = (name: string) => `Halo Dreamlab! Saya tertarik dengan ${name}. Bisa bantu info detailnya?`;
+  const waUrl = `/thankyou/google/`;
 
   return (
     <section className="py-24 lg:py-32 bg-white border-t border-gray-50">
@@ -111,8 +111,8 @@ export default function ProductGrid() {
 
                 {/* Hidden "Diskusi" Trigger on hover */}
                 <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                   <button
-                    onClick={() => openWARoundRobin(waMessage(product.name))}
+                   <Link
+                    href={waUrl}
                     className="inline-flex items-center gap-2 text-[9px] font-black text-brand-orange uppercase tracking-widest"
                    >
                      Mulai Diskusi 
@@ -121,7 +121,7 @@ export default function ProductGrid() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                      </div>
-                   </button>
+                   </Link>
                 </div>
               </div>
 

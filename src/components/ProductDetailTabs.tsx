@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 import { CategoryTab } from "@/types";
 
@@ -108,13 +107,13 @@ export default function ProductDetailTabs({ categories }: ProductDetailTabsProps
 
                 {/* CTA Buttons */}
                 <div className="flex flex-wrap gap-4">
-                  <button
-                    onClick={() => openWARoundRobin("Halo Dreamlab, saya tertarik dengan produk ini. Mohon info lebih lanjut.")}
+                  <Link
+                    href="/thankyou/google/"
                     className="flex items-center gap-2 bg-brand-orange text-white px-6 py-3 rounded-xl font-onest font-black uppercase tracking-wider text-[11px] hover:bg-brand-black transition-all shadow-lg group"
                   >
                     HUBUNGI TIM KAMI
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  </Link>
                   
                   <Link 
                     href="/contact-us" 

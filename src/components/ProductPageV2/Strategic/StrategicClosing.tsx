@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface StrategicClosingProps {
   headline: string;
@@ -12,7 +11,7 @@ interface StrategicClosingProps {
 }
 
 export default function StrategicClosing({ headline, subheadline, ctaText, productName }: StrategicClosingProps) {
-  const waMessage = `Halo Dreamlab! Saya ingin menjadwalkan pembuatan sampel produk ${productName || "premium"} untuk brand saya.`;
+  const waUrl = `/thankyou/google/`;
   
   const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -109,8 +108,8 @@ export default function StrategicClosing({ headline, subheadline, ctaText, produ
             variants={ctaContainerVariants}
             className="flex flex-col items-center gap-8"
           >
-            <motion.button
-              onClick={() => openWARoundRobin(waMessage)}
+            <motion.a
+              href={waUrl}
               whileHover={{ scale: 1.04, y: -4 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -121,7 +120,7 @@ export default function StrategicClosing({ headline, subheadline, ctaText, produ
               
               <span className="uppercase tracking-[0.2em] text-xs font-onest">{ctaText}</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
-            </motion.button>
+            </motion.a>
           </motion.div>
 
         </div>

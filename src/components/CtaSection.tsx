@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { getImageTitle } from "@/lib/image-utils";
 import { VIEWPORT_ONCE, fadeInLeft, fadeIn, staggerContainer } from "@/lib/animations";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface CtaSectionProps {
   title?: React.ReactNode;
@@ -66,12 +66,12 @@ export default function CtaSection({
             )}
 
             <div className="rounded-2xl w-fit mt-2">
-              <button
-                onClick={() => openWARoundRobin("Hi Dreamlab, saya ingin konsultasi membuat brand kosmetik")}
+              <Link
+                href="/thankyou/google/"
                 className="inline-flex items-center justify-center bg-[#F39200] hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-extrabold text-sm md:text-base lg:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl shadow-[#F39200]/15 w-fit"
               >
                 KONSULTASI HARI INI !
-              </button>
+              </Link>
             </div>
           </motion.div>
 

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getImageTitle } from "@/lib/image-utils";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 interface ServicesPageHeroProps {
   title: string;
@@ -54,13 +53,13 @@ export default function ServicesPageHero({ description }: ServicesPageHeroProps)
 
             {/* CTA Button with brand-orange styling */}
             <div className="flex flex-col sm:flex-row gap-4 pt-1">
-              <button
-                onClick={() => openWARoundRobin("Hi Dreamlab, saya tertarik dengan one-stop maklon services")}
+              <Link
+                href="/thankyou/google/"
                 className="inline-flex items-center justify-center gap-3 bg-brand-orange text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/25"
               >
                 Mulai Konsultasi Gratis
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
               <Link
                 href="#strategic-partnership"
                 className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 text-neutral-800 font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:border-brand-orange hover:text-brand-orange transition-all duration-300"

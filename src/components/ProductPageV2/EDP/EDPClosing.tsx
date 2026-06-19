@@ -2,10 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 export default function EDPClosing() {
-  const waMessage = "Halo Dreamlab! Saya ingin menjadwalkan pembuatan sampel aroma untuk brand saya.";
 
   return (
     <section className="py-24 bg-[#1B1B1B] text-white overflow-hidden relative">
@@ -35,13 +34,13 @@ export default function EDPClosing() {
           </p>
 
           <div className="flex flex-col items-center gap-8">
-            <button
-              onClick={() => openWARoundRobin(waMessage)}
+            <Link
+              href="/thankyou/google/"
               className="group relative inline-flex items-center justify-center gap-6 bg-brand-orange hover:bg-white hover:text-[#1B1B1B] text-white font-bold py-6 px-14 rounded-2xl transition-all duration-500 shadow-[0_20px_40px_rgba(246,145,30,0.2)] hover:-translate-y-2"
             >
               <span className="uppercase tracking-[0.2em] text-xs font-onest">Jadwalkan Pembuatan Sampel</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
-            </button>
+            </Link>
 
             <div className="flex items-center gap-8 pt-8 border-t border-white/5 w-full max-w-md justify-center">
               <div className="text-center">

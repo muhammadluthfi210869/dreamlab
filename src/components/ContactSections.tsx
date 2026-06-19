@@ -14,7 +14,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { getImageTitle } from "@/lib/image-utils";
 import { VIEWPORT_ONCE, fadeInUp, staggerContainer, staggerItemUp } from "@/lib/animations";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 const premiumEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -62,13 +61,13 @@ export function ContactHero() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="pt-2"
             >
-              <button
-                onClick={() => openWARoundRobin("Hi Dreamlab, saya tertarik dengan maklon kosmetik dan ingin konsultasi gratis")}
+              <Link
+                href="/thankyou/google/"
                 className="inline-flex items-center gap-3 bg-brand-orange hover:bg-neutral-950 text-white px-10 py-5 rounded-2xl font-onest font-extrabold uppercase tracking-wider text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:shadow-neutral-950/15 group"
               >
                 <span>Mulai Konsultasi Gratis</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </motion.div>
           </div>
 

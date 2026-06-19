@@ -7,7 +7,6 @@ import { ArrowRight } from "lucide-react";
 import { AboutHeroData } from "@/types";
 import { getImageTitle } from "@/lib/image-utils";
 import { fadeInLeft, fadeInRight, staggerContainer } from "@/lib/animations";
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
 
 export default function AboutPageHero({ data }: { data: AboutHeroData }) {
   return (
@@ -59,13 +58,13 @@ export default function AboutPageHero({ data }: { data: AboutHeroData }) {
                   <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
-                <button
-                  onClick={() => openWARoundRobin(data.ctaLink)}
+                <Link
+                  href="/thankyou/google/"
                   className="inline-flex items-center gap-2.5 bg-brand-orange text-white font-bold text-sm md:text-base px-7 py-3.5 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/20 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {data.ctaText}
                   <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               )}
             </div>
           </motion.div>

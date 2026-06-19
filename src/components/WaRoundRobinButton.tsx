@@ -1,6 +1,6 @@
 "use client";
 
-import { openWARoundRobin } from "@/lib/wa-roundrobin";
+import Link from "next/link";
 
 interface WaRoundRobinButtonProps {
   message: string;
@@ -8,13 +8,13 @@ interface WaRoundRobinButtonProps {
   children?: React.ReactNode;
 }
 
-export default function WaRoundRobinButton({ message, className, children }: WaRoundRobinButtonProps) {
+export default function WaRoundRobinButton({ className, children }: WaRoundRobinButtonProps) {
   return (
-    <button
-      onClick={() => openWARoundRobin(message)}
+    <Link
+      href="/thankyou/google/"
       className={className}
     >
       {children}
-    </button>
+    </Link>
   );
 }
