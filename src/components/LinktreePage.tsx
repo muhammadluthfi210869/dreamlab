@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,37 +39,6 @@ const badges = [
 ];
 
 export default function LinktreePage() {
-  const numbers = ["6287776550657", "6281952417051"];
-  const waOpened = useRef(false);
-
-  const processWA = useCallback(() => {
-    if (waOpened.current) return;
-    waOpened.current = true;
-
-    const saved = localStorage.getItem("waIndex");
-    const idx = parseInt(saved || "0", 10) % numbers.length;
-    const phone = numbers[idx];
-    const msg = "Hi Dreamlab, Saya mengetaui dari media social ingin konsultasi Produk lebih lanjut";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-
-    const next = (idx + 1) % numbers.length;
-    localStorage.setItem("waIndex", String(next));
-    window.open(url, "_blank");
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!waOpened.current) processWA();
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [processWA]);
-
-  useEffect(() => {
-    const onFocus = () => { waOpened.current = false; };
-    window.addEventListener('focus', onFocus);
-    return () => window.removeEventListener('focus', onFocus);
-  }, []);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -148,8 +116,8 @@ export default function LinktreePage() {
           transition={{ delay: 0.3, duration: 0.8, ease: premiumEase }}
           className="w-full"
         >
-          <button
-            onClick={processWA}
+          <Link
+            href="/thankyou/google/"
             id="wa-button"
             className="btn-wa w-full bg-[#24C75D] hover:bg-[#1EAE4F] text-white py-4 px-6 rounded-[22px] flex items-center justify-center gap-4 transition-all duration-300 hover:scale-[1.015] active:scale-98 shadow-[0_8px_25px_rgba(36,199,93,0.22)] hover:shadow-[0_12px_30px_rgba(36,199,93,0.3)] group"
           >
@@ -160,7 +128,7 @@ export default function LinktreePage() {
               <span className="text-[12px] font-black uppercase tracking-wider font-onest">Hubungi Kami via WhatsApp</span>
               <span className="text-[11px] text-white/90 font-medium font-sans">Konsultasi Gratis · Respon Cepat</span>
             </div>
-          </button>
+          </Link>
         </motion.div>
 
         {/* Section: LAYANAN KAMI */}
