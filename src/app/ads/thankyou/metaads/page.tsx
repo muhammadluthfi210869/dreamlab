@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
 
-const numbers = ["628777650657", "6281952417051"];
+const numbers = ["6287776550657", "6281952417051"];
 
 const WA_MSGS: Record<string, string> = {
   "meta-parfum": "Halo Dreamlab, saya lihat iklan di meta ads parfum dan ingin konsultasi buat brand parfum saya. Bisa dibantu?",

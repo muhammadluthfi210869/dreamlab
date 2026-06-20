@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
 
-const numbers = ["628777650657", "6281952417051"];
+const numbers = ["6287776550657", "6281952417051"];
 
 export default function ThankYouGoogle() {
   const [source, setSource] = useState("google-ads");

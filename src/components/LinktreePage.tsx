@@ -40,7 +40,7 @@ const badges = [
 ];
 
 export default function LinktreePage() {
-  const numbers = ["628777650657", "6281952417051"];
+  const numbers = ["6287776550657", "6281952417051"];
   const waOpened = useRef(false);
 
   const processWA = useCallback(() => {

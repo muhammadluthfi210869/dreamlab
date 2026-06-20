@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
 
-const numbers = ["628777650657", "6281952417051"];
+const numbers = ["6287776550657", "6281952417051"];
 
 const services = [
   { title: "Maklon Skincare", desc: "Serum, moisturizer, toner, sunscreen & lebih" },

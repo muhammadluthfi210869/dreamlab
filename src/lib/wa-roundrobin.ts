@@ -1,6 +1,6 @@
 "use client";
 
-const RR_NUMBERS = ["628777650657", "6281952417051"];
+const RR_NUMBERS = ["6287776550657", "6281952417051"];
 
 function getNextIndex(): number {
   const saved = localStorage.getItem("waIndex");
