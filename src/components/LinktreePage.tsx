@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +39,41 @@ const badges = [
   "Free HKI",
 ];
 
-export default function LinktreePage() {
+interface LinktreePageProps {
+  waMessage?: string;
+  waThankyouUrl?: string;
+}
+
+export default function LinktreePage({ waMessage, waThankyouUrl }: LinktreePageProps = {}) {
+  const numbers = ["628777650657", "6281952417051"];
+  const waOpened = useRef(false);
+
+  const processWA = useCallback(() => {
+    if (waOpened.current) return;
+    waOpened.current = true;
+
+    const saved = localStorage.getItem("waIndex");
+    const idx = parseInt(saved || "0", 10) % numbers.length;
+    const phone = numbers[idx];
+    const msg = waMessage || "Hi Dreamlab, Saya mengetaui dari media social ingin konsultasi Produk lebih lanjut";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
+    const next = (idx + 1) % numbers.length;
+    localStorage.setItem("waIndex", String(next));
+    window.open(url, "_blank");
+
+    if (waThankyouUrl) {
+      window.location.href = waThankyouUrl;
+    }
+  }, [waMessage, waThankyouUrl]);
+
+  useEffect(() => {
+    if (waThankyouUrl) return;
+    const timer = setTimeout(() => {
+      if (!waOpened.current) processWA();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [processWA, waThankyouUrl]);
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {

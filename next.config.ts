@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
-import seoMappingData from './src/data/seo-mapping.json';
+import fs from 'fs';
+import path from 'path';
 
 interface SeoMappingItem {
   source: string;
@@ -10,7 +11,9 @@ interface SeoMappingItem {
   };
 }
 
-const seoMapping = seoMappingData as SeoMappingItem[];
+const seoMapping = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), 'src/data/seo-mapping.json'), 'utf-8')
+) as SeoMappingItem[];
 
 // Extract all article slugs that exist in articles data
 // These are blog posts that WordPress served at root level
@@ -181,7 +184,6 @@ const nextConfig: NextConfig = {
       ['/thankyou-maklon', '/ads/thankyou/metaads/'],
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
-      ['/ads/thankyou-medsos', '/contact-medsos/'],
     ];
     for (const [source, destination] of adsRedirects) {
       redirects.push({ source, destination, permanent: true });

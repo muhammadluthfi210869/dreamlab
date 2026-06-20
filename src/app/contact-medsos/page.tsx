@@ -30,5 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ContactMedsos() {
-  return <LinktreePage />;
+  return (
+    <LinktreePage
+      waMessage="Saya mengetahui dari media sosial dan ingin konsultasi produk lebih lanjut."
+      waThankyouUrl="/ads/thankyou-medsos/?skip_wa=1"
+    />
+  );
 }
