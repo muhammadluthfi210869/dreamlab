@@ -45,6 +45,12 @@ export default function ThankYouMedsos() {
     return () => clearTimeout(timer);
   }, [processWA]);
 
+  useEffect(() => {
+    const onFocus = () => { waOpened.current = false; };
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
+  }, []);
+
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
       <header className="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-4 sm:px-6 lg:px-8">

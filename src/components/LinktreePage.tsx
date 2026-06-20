@@ -64,6 +64,13 @@ export default function LinktreePage() {
     }, 3000);
     return () => clearTimeout(timer);
   }, [processWA]);
+
+  useEffect(() => {
+    const onFocus = () => { waOpened.current = false; };
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
