@@ -195,19 +195,32 @@ Kalau ada yang salah, minta OpenCode perbaiki, build ulang, refresh browser.
 
 ## ✅ LANGKAH 5 — DEPLOY KE PRODUCTION
 
-Kalau sudah fix, paste ini:
+Kalau sudah fix, **pakai Vercel CLI** (cara paling stabil):
 
 ```
-Jalankan npx next build dulu. Kalau sukses, lalu:
+Jalankan npx next build dulu untuk verifikasi tidak ada error. Kalau sukses, deploy ke Vercel Production:
 
+vercel --prod --token [VERCEL_TOKEN] --yes
+```
+
+ATAU pakai **Git push** (kalau GitHub sudah connect ke Vercel):
+
+```
 git add -A
 git commit -m "feat: [TULIS PERUBAHAN — contoh: add article maklon-skincare-jakarta]"
 git push origin master
 ```
 
-**Selesai!** Tunggu 2-3 menit, Vercel auto-deploy ke `https://dreamlab.id`.
+**Selesai!** Tunggu 2-3 menit, site live di `https://dreamlab.id`.
 
 Cek di browser: `https://dreamlab.id/news-blog/[SLUG_ARTIKEL]/`
+
+> **ℹ️ Info Akun Vercel:**
+> - Akun: **luthfizywx@gmail.com** (Vercel Pro)
+> - Project: `dreamlab-site`
+> - Dashboard: https://vercel.com/luthfizywx-2603s-projects/dreamlab-site
+> - **Kalau GitHub auto-deploy error**, pakai cara Vercel CLI di atas
+> - **Kalau domain error**, cek Settings → Domains di dashboard Vercel, pastikan `dreamlab.id` verified
 
 ---
 
@@ -219,7 +232,8 @@ Cek di browser: `https://dreamlab.id/news-blog/[SLUG_ARTIKEL]/`
 | Ganti teks di semua file | Cari "[TEKS_LAMA]" di folder src/ dan ganti semua dengan "[TEKS_BARU]" |
 | Cek build | `npx next build` |
 | Jalankan server lokal | `npm run dev` lalu buka http://localhost:3000 |
-| Deploy | `git add -A && git commit -m "..." && git push origin master` |
+| Deploy (Git) | `git add -A && git commit -m "..." && git push origin master` |
+| Deploy (Vercel CLI) | `vercel --prod --yes` |
 | Lihat daftar artikel | Baca file `src/data/articles.ts` dan sebutkan semua judul |
 
 ---
