@@ -1121,7 +1121,7 @@ export const articles: Article[] = [
   },
   {
     "slug": "/maklon-hairmist",
-    "title": "Maklon Hair Mist Solusi Efisien untuk Brand Haircare",
+    "title": "Solusi Maklon Hair Mist Terpercaya",
     "publishDate": "2025-11-30T02:22:33+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
