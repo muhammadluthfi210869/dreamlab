@@ -5,47 +5,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
-
-const numbers = ["6287776550657", "6281952417051"];
+import { getNextBusdev } from "@/lib/round-robin";
 
 export default function ThankYouGoogle() {
   const [source, setSource] = useState("google-ads");
+  const [phone, setPhone] = useState("");
   const waOpened = useRef(false);
-
-  const processWA = useCallback(() => {
-    if (waOpened.current) return;
-    waOpened.current = true;
-
-    const saved = localStorage.getItem("waIndex");
-    const idx = parseInt(saved || "0", 10) % numbers.length;
-    const phone = numbers[idx];
-    const msg = "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi untuk brand saya, apakah bisa dibantu?";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-
-    const next = (idx + 1) % numbers.length;
-    localStorage.setItem("waIndex", String(next));
-    window.open(url, "_blank");
-  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const src = params.get("source") || "google-ads";
     setSource(src);
     fireConversion(src);
+    getNextBusdev().then((busdev) => setPhone(busdev.phone));
   }, []);
 
+  const processWA = useCallback(() => {
+    if (waOpened.current || !phone) return;
+    waOpened.current = true;
+
+    const msg = "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi untuk brand saya, apakah bisa dibantu?";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  }, [phone]);
+
   useEffect(() => {
+    if (!phone) return;
     const timer = setTimeout(() => {
       if (!waOpened.current) processWA();
     }, 3000);
     return () => clearTimeout(timer);
-  }, [processWA]);
-
-  useEffect(() => {
-    const onFocus = () => { waOpened.current = false; };
-    window.addEventListener('focus', onFocus);
-    return () => window.removeEventListener('focus', onFocus);
-  }, []);
+  }, [phone, processWA]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">

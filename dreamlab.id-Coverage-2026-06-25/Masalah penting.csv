@@ -1,0 +1,12 @@
+Alasan,Sumber,Validasi,Halaman
+Di-crawl - saat ini tidak diindeks,Sistem Google,Gagal,65
+Halaman dengan pengalihan,Situs web,Belum Dimulai,34
+Tidak ditemukan (404),Situs web,Belum Dimulai,26
+Halaman alternatif dengan tag kanonis yang tepat,Situs web,Belum Dimulai,25
+Dikecualikan oleh tag ‘noindex’,Situs web,Belum Dimulai,22
+Diblokir karena masalah 4xx lainnya,Situs web,Belum Dimulai,4
+"Duplikat, Google memilih versi kanonis yang berbeda dengan pengguna",Sistem Google,Belum Dimulai,1
+Ditemukan - saat ini tidak diindeks,Sistem Google,Belum Dimulai,1
+"Duplikat, tanpa ada versi kanonis pilihan pengguna",Situs web,Dimulai,7
+Kesalahan pengalihan,Situs web,Dimulai,1
+Error server (5xx),Situs web,Lulus,0

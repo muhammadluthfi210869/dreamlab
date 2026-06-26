@@ -1,38 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
-
-const numbers = ["6287776550657", "6281952417051"];
+import { getNextBusdev } from "@/lib/round-robin";
 
 export default function ThankYouMedsos() {
+  const [phone, setPhone] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const processWA = useCallback(() => {
-    const saved = localStorage.getItem("waIndex");
-    const idx = parseInt(saved || "0", 10) % numbers.length;
-    const phone = numbers[idx];
-    const msg = "Halo Dreamlab, Saya mengetaui dari media social ingin konsultasi Produk lebih lanjut";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-
-    const next = (idx + 1) % numbers.length;
-    localStorage.setItem("waIndex", String(next));
-    window.open(url, "_blank");
-  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const src = params.get("source") || "medsos";
     fireConversion(src);
+    getNextBusdev().then((busdev) => setPhone(busdev.phone));
   }, []);
+
+  const processWA = useCallback(() => {
+    if (!phone) return;
+    const msg = "Halo Dreamlab, Saya mengetaui dari media social ingin konsultasi Produk lebih lanjut";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  }, [phone]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const skipWA = params.get("skip_wa") === "1";
-    if (skipWA) return;
+    if (skipWA || !phone) return;
 
     timerRef.current = setTimeout(() => {
       processWA();
@@ -40,7 +36,7 @@ export default function ThankYouMedsos() {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [processWA]);
+  }, [phone, processWA]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">

@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
-
-const numbers = ["6287776550657", "6281952417051"];
+import { getNextBusdev } from "@/lib/round-robin";
 
 const WA_MSGS: Record<string, string> = {
   "meta-parfum": "Halo Dreamlab, saya lihat iklan di meta ads parfum dan ingin konsultasi buat brand parfum saya. Bisa dibantu?",
@@ -16,43 +15,33 @@ const WA_MSGS: Record<string, string> = {
 
 export default function ThankYouMetaAds() {
   const [source, setSource] = useState("direct");
+  const [phone, setPhone] = useState("");
   const waOpened = useRef(false);
-
-  const processWA = useCallback(() => {
-    if (waOpened.current) return;
-    waOpened.current = true;
-
-    const saved = localStorage.getItem("waIndex");
-    const idx = parseInt(saved || "0", 10) % numbers.length;
-    const phone = numbers[idx];
-    const msg = WA_MSGS[source] || "Halo Dreamlab, saya lihat iklan di meta ads dan ingin konsultasi buat brand saya. Bisa dibantu?";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-
-    const next = (idx + 1) % numbers.length;
-    localStorage.setItem("waIndex", String(next));
-    window.open(url, "_blank");
-  }, [source]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const src = params.get("source") || "direct";
     setSource(src);
     fireConversion(src);
+    getNextBusdev().then((busdev) => setPhone(busdev.phone));
   }, []);
 
+  const processWA = useCallback(() => {
+    if (waOpened.current || !phone) return;
+    waOpened.current = true;
+
+    const msg = WA_MSGS[source] || "Halo Dreamlab, saya lihat iklan di meta ads dan ingin konsultasi buat brand saya. Bisa dibantu?";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  }, [phone, source]);
+
   useEffect(() => {
-    if (!source) return;
+    if (!phone || !source) return;
     const timer = setTimeout(() => {
       if (!waOpened.current) processWA();
     }, 3000);
     return () => clearTimeout(timer);
-  }, [source, processWA]);
-
-  useEffect(() => {
-    const onFocus = () => { waOpened.current = false; };
-    window.addEventListener('focus', onFocus);
-    return () => window.removeEventListener('focus', onFocus);
-  }, []);
+  }, [phone, source, processWA]);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">

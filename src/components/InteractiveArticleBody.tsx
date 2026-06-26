@@ -52,9 +52,43 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         }
       });
  
-      // 4. Strip span.ez-toc-section and other WP artifacts
-      const tocSections = doc.querySelectorAll('span.ez-toc-section, span.ez-toc-section-end');
-      tocSections.forEach(el => el.remove());
+      // 4. Round Robin: buat CTA & legalitas images jadi clickable → thankyou/google
+      const THANKYOU_URL = '/thankyou/google/';
+
+      // 4a. Ganti href <a> yang mengandung img → thankyou/google
+      const oldAnchors = doc.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="dreamlab.id"], a[href*="thankyoupage-google"], a[href*="thankyou-page"]');
+      oldAnchors.forEach(a => {
+        if (!a.querySelector('img')) return;
+        a.setAttribute('href', THANKYOU_URL);
+      });
+
+      // 4b. Wrap img legalitas/CTA/artikel yang belum punya <a>
+      const unwrappedImgs = doc.querySelectorAll('img[src*="legalitas"], img[src*="artikel-mid"], img[src*="cta-wa"], img[src*="artikel-cta"]');
+      unwrappedImgs.forEach(img => {
+        if (img.closest('a')) return;
+        const wrapper = doc.createElement('a');
+        wrapper.setAttribute('href', THANKYOU_URL);
+        wrapper.setAttribute('style', 'display:block;cursor:pointer;text-decoration:none;');
+        img.parentNode?.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
+      });
+
+      // 4c. Redirect semua link thankyoupage-google yang rusak
+      const brokenLinks = doc.querySelectorAll('a[href*="thankyoupage-google"], a[href*="thankyou-page"]');
+      brokenLinks.forEach(a => {
+        if (a.querySelector('img')) return; // sudah ditangani di 4a
+        a.setAttribute('href', THANKYOU_URL);
+      });
+
+      // 4d. Hapus figcaption yang mengandung URL rusak
+      const brokenCaptions = doc.querySelectorAll('figcaption');
+      brokenCaptions.forEach(fc => {
+        if (fc.textContent?.includes('thankyoupage-google') || fc.textContent?.includes('thankyou-page')) {
+          fc.remove();
+        }
+      });
+
+      // 5. Strip span.ez-toc-section and other WP artifacts
       
       const brTags = doc.querySelectorAll('br');
       brTags.forEach((br, idx) => {

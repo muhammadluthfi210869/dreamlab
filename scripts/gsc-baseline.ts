@@ -140,7 +140,7 @@ async function main() {
       const fmt = (d: Date) => d.toISOString().split('T')[0];
 
       const response = await webmasters.searchanalytics.query({
-        siteUrl: 'sc_domain:dreamlab.id',
+        siteUrl: 'sc-domain:dreamlab.id',
         requestBody: {
           startDate: fmt(startDate),
           endDate: fmt(endDate),

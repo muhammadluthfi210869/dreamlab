@@ -180,7 +180,7 @@ export interface ProductPageSchemaData {
 
 export function generateProductPageSchema(data: ProductPageSchemaData) {
   const siteUrl = 'https://dreamlab.id';
-  const { url, productName, categoryName, tagline, description, heroImage, breadcrumbs, faqs, moq, productionTime, certifications } = data;
+  const { url, productName, categoryName, tagline, description, heroImage, breadcrumbs, faqs, moq, productionTime, certifications, priceRange } = data;
   const cleanUrl = url.replace(/\/?$/, '/');
 
   const graph: Record<string, unknown>[] = [
@@ -251,6 +251,52 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
         '@type': 'Organization',
         '@id': `${siteUrl}/#organization`,
         name: 'Dreamlab Indonesia',
+      },
+      offers: {
+        '@type': 'Offer',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          price: priceRange || 'Hubungi Kami',
+          priceCurrency: 'IDR',
+        },
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        url: cleanUrl,
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountryCountry: 'ID',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 30,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'ID',
+        },
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: 0,
+          currency: 'IDR',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 14,
+            maxValue: 60,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 3,
+            maxValue: 7,
+            unitCode: 'DAY',
+          },
+        },
       },
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'MOQ', value: moq },

@@ -5,7 +5,8 @@
 - [Cara Menambah Artikel Baru](#-langkah-2-menambah-artikel-baru)
 - [Cara Edit Minor (teks, gambar, warna)](#-langkah-3-edit-minor)
 - [Cara Cek di Localhost](#-langkah-4-cek-di-localhost)
-- [Cara Deploy](#-langkah-5-deploy-ke-production)
+- [Cara Pull & Push dengan Git](#-langkah-5-git-pull--push)
+- [Cara Deploy](#-langkah-6-deploy-ke-production)
 
 ---
 
@@ -193,48 +194,115 @@ Kalau ada yang salah, minta OpenCode perbaiki, build ulang, refresh browser.
 
 ---
 
-## ✅ LANGKAH 5 — DEPLOY KE PRODUCTION
+## 🔄 LANGKAH 5 — GIT PULL & PUSH
 
-Kalau sudah fix, **pakai Vercel CLI** (cara paling stabil):
+Sebelum mulai kerja, **WAJIB** `pull` dulu. Sesudah selesai, **WAJIB** `push`.
 
+### 5a. Pull (ambil perubahan terbaru dari GitHub)
+
+Pertama kali clone atau kalau mau ambil update dari orang lain:
+
+```bash
+cd C:\GAWE\Web Dev\Porto Aureon\CRAWL WEBSITE DREAMLAB\dreamlab-site
+git pull origin master
 ```
-Jalankan npx next build dulu untuk verifikasi tidak ada error. Kalau sukses, deploy ke Vercel Production:
 
-vercel --prod --token [VERCEL_TOKEN] --yes
+> **⚠️ Kalau error "Your local changes would be overwritten":**
+> Simpan dulu kerjaan lokal kamu dengan `git stash`, lalu pull, lalu `git stash pop`:
+> ```bash
+> git stash
+> git pull origin master
+> git stash pop
+> ```
+
+### 5b. Cek status (file apa yang berubah)
+
+```bash
+git status
 ```
 
-ATAU pakai **Git push** (kalau GitHub sudah connect ke Vercel):
+### 5c. Commit & Push (kirim perubahan ke GitHub)
 
-```
+```bash
 git add -A
 git commit -m "feat: [TULIS PERUBAHAN — contoh: add article maklon-skincare-jakarta]"
 git push origin master
 ```
 
-**Selesai!** Tunggu 2-3 menit, site live di `https://dreamlab.id`.
+> **⚠️ Kalau git push minta token GitHub:**
+> - Username: `muhammadluthfi210869`
+> - Password: pakai **Personal Access Token (PAT)** dari https://github.com/settings/tokens
+>   - Klik "Generate new token (classic)"
+>   - Checklist `repo` (full control)
+>   - Copy token-nya, paste sebagai password di terminal
+>
+> Atau simpan biar tidak diminta tiap kali:
+> ```bash
+> git remote set-url origin https://[USERNAME]:[TOKEN]@github.com/muhammadluthfi210869/dreamlab.git
+> ```
+> Contoh:
+> ```bash
+> git remote set-url origin https://muhammadluthfi210869:ghp_xxxxxxxxxxxx@github.com/muhammadluthfi210869/dreamlab.git
+> ```
 
-Cek di browser: `https://dreamlab.id/news-blog/[SLUG_ARTIKEL]/`
+### 5d. Cara menghindari conflict
 
-> **ℹ️ Info Akun Vercel:**
-> - Akun: **luthfizywx@gmail.com** (Vercel Pro)
-> - Project: `dreamlab-site`
-> - Dashboard: https://vercel.com/luthfizywx-2603s-projects/dreamlab-site
-> - **Kalau GitHub auto-deploy error**, pakai cara Vercel CLI di atas
-> - **Kalau domain error**, cek Settings → Domains di dashboard Vercel, pastikan `dreamlab.id` verified
+| Situasi | Solusi |
+|---------|--------|
+| Kamu edit, Revita juga edit file yang sama | **Pertama** commit & push duluan — conflict di local lebih mudah diresolve |
+| Lupa pull sebelum mulai kerja | `git stash → pull → stash pop` — lalu resolve conflict jika ada |
+| Mau ganti branch/kerjaan berbeda | Buat branch baru: `git checkout -b nama-fitur`, push ke situ, nanti merge ke master |
+
+### 5e. Contoh workflow sehari-hari
+
+```bash
+# 1. Ambil update terbaru
+git pull origin master
+
+# 2. Kerjakan perubahan (lewat OpenCode)
+
+# 3. Cek apa yang berubah
+git status
+
+# 4. Kirim ke GitHub
+git add -A
+git commit -m "feat: update artikel maklon-skincare-jakarta"
+git push origin master
+```
+
+---
+
+## ✅ LANGKAH 6 — DEPLOY KE PRODUCTION
+
+Setelah `git push` berhasil, **Vercel auto-deploy otomatis** dari GitHub.
+
+Cukup push aja:
+
+```bash
+git push origin master
+```
+
+Tunggu 2-3 menit, cek `https://dreamlab.id`.
+
+> **Tidak perlu** `vercel --prod` manual — push aja cukup.
+> 
+> **Tidak ada conflict** — semua deploy dari satu sumber (GitHub master).
 
 ---
 
 ## ⚡ CHEATSHEET — Perintah Cepat
 
-| Yang Ingin Dilakukan | Perintah ke OpenCode |
-|---|---|
-| Cari teks di semua file | Cari di folder src/ semua file yang mengandung teks "[TEKS]" |
-| Ganti teks di semua file | Cari "[TEKS_LAMA]" di folder src/ dan ganti semua dengan "[TEKS_BARU]" |
+| Yang Ingin Dilakukan | Perintah |
+| ---- | ---- |
+| Ambil update terbaru | `git pull origin master` |
+| Cek file yang berubah | `git status` |
+| Simpan kerjaan sementara | `git stash` |
+| Ambil kembali kerjaan | `git stash pop` |
+| Kirim ke GitHub | `git add -A && git commit -m "feat: ..." && git push origin master` |
 | Cek build | `npx next build` |
 | Jalankan server lokal | `npm run dev` lalu buka http://localhost:3000 |
-| Deploy (Git) | `git add -A && git commit -m "..." && git push origin master` |
-| Deploy (Vercel CLI) | `vercel --prod --yes` |
-| Lihat daftar artikel | Baca file `src/data/articles.ts` dan sebutkan semua judul |
+| Deploy (auto dari push) | Cukup `git push origin master` — Vercel auto-deploy |
+| Lihat daftar artikel | Baca `src/data/articles.ts` di folder |
 
 ---
 

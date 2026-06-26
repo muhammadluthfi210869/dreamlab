@@ -83,7 +83,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  if (!resolvedParams?.slug) return { title: 'Dreamlab' };
+  if (!resolvedParams?.slug) notFound();
 
   const pathStr = `/${resolvedParams.slug.join('/')}`;
   const seoData = await getSEOData(pathStr);
@@ -96,12 +96,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const isValid = seoMapping.some(
       m => normalizeSlug(m.source) === normalized || normalizeSlug(m.destination) === normalized
     );
-    if (!isValid) {
-      return {
-        title: "Halaman Tidak Ditemukan",
-        robots: "noindex, nofollow",
-      };
-    }
+    if (!isValid) notFound();
   }
 
   const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
@@ -165,9 +160,10 @@ export default async function DynamicPage({ params }: PageProps) {
         return dateB - dateA;
       })
       .slice(0, 5);
+    const allArticlesLight = articlesList.map(({ slug, title, categories }) => ({ slug, title, categories }));
     return (
       <main className="min-h-screen">
-        <ArticleTemplate article={cleanedArticle} recentPosts={recentPosts} allArticles={articlesList} />
+        <ArticleTemplate article={cleanedArticle} recentPosts={recentPosts} allArticles={allArticlesLight} />
       </main>
     );
   }

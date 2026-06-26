@@ -155,6 +155,41 @@ const nextConfig: NextConfig = {
     });
     */
 
+    // 3c. Redirect legacy WordPress / soft-404 pages that don't exist in Next.js
+    // These preserve SEO equity from old site structure + fix GSC 404 errors
+    const legacyRedirects: Array<[string, string]> = [
+      ['/thankyoupage-google', '/'],
+      ['/contact-form-dreamlab', '/contact-us/'],
+      ['/cms_block_cat/pop-up-form', '/'],
+      ['/e-floating-buttons/popup-website', '/'],
+      ['/https-dreamlab-id-dreamlab-visit-ici-2026', '/'],
+      ['/maklon-kosmetik-terbaik-english', '/'],
+      ['/jadwalkanvisitmeeting.php', '/contact-us/'],
+      // GSC 404 fixes — legacy pages that no longer exist
+      ['/homepage.php', '/'],
+      ['/Homepage{/}?', '/'],
+      ['/result-body-lotion-a', '/produk/skincare/'],
+      ['/thank-you-maklon', '/thankyou/google/'],
+      ['/dreampreneur-id-konfirmasi-pembayaran', '/contact-us/'],
+      ['/academy-beautypreneur', '/category/dreampreneur-beauty-academy/'],
+      ['/advantages-and-challenges-in-registering-hki-products-and-bpom-maklon-kosmetik', '/news-blog/'],
+      ['/menghadapi-tantangan-dalam-industri-maklon-kosmetik', '/news-blog/'],
+      ['/career-2', '/career'],
+      ['/career-3', '/career'],
+      ['/newest-innovations-in-the-world-of-skincare-opportunities-for-women-careers', '/news-blog/'],
+      ['/perbedaan-moisturizer-gel-vs-cream/dreamlab{/}?', '/perbedaan-moisturizer-gel-vs-cream/'],
+      ['/category/bisnis-kosmetik/page/4', '/category/bisnis-kosmetik/'],
+      ['/news-blog/page/8', '/news-blog/'],
+    ];
+    redirects.push({
+      source: '/author/admin/page/:path*',
+      destination: '/author/admin/',
+      permanent: true,
+    });
+    for (const [source, destination] of legacyRedirects) {
+      redirects.push({ source, destination, permanent: true });
+    }
+
     // Note: Author and pagination routes are now handled by dedicated route handlers:
     // - /author/[author]/  → src/app/author/[author]/page.tsx
     // - /news-blog/page/[num]/  → src/app/news-blog/page/[num]/page.tsx
