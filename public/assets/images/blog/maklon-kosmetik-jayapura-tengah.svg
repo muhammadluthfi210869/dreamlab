@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="midBg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D98A00"/>
+      <stop offset="100%" stop-color="#f0b830"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#midBg)"/>
+  <circle cx="1000" cy="100" r="180" fill="rgba(217,138,0,0.04)"/>
+  <circle cx="200" cy="500" r="150" fill="rgba(217,138,0,0.03)"/>
+  <text x="600" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">Alur Maklon Kosmetik Dreamlab</text>
+  <rect x="450" y="116" width="300" height="2" rx="1" fill="url(#gold)"/>
+  <text x="600" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="#94a3b8" text-anchor="middle">Dari Konsep hingga Siap Jual — Semua dalam Satu Atap</text>
+  <g transform="translate(100,190)">
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="rgba(217,138,0,0.1)" stroke="rgba(217,138,0,0.2)" stroke-width="1"/>
+    <text x="70" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#D98A00" text-anchor="middle">1</text>
+    <text x="70" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Konsultasi</text>
+    <text x="70" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Gratis via WA</text>
+  </g>
+  <g transform="translate(265,190)">
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="rgba(217,138,0,0.1)" stroke="rgba(217,138,0,0.2)" stroke-width="1"/>
+    <text x="70" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#D98A00" text-anchor="middle">2</text>
+    <text x="70" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">R&amp;D Formula</text>
+    <text x="70" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Eksklusif</text>
+  </g>
+  <g transform="translate(430,190)">
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="rgba(217,138,0,0.1)" stroke="rgba(217,138,0,0.2)" stroke-width="1"/>
+    <text x="70" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#D98A00" text-anchor="middle">3</text>
+    <text x="70" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Sample</text>
+    <text x="70" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Dikirim &amp; Review</text>
+  </g>
+  <g transform="translate(595,190)">
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="rgba(217,138,0,0.1)" stroke="rgba(217,138,0,0.2)" stroke-width="1"/>
+    <text x="70" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#D98A00" text-anchor="middle">4</text>
+    <text x="70" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Kemasan</text>
+    <text x="70" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Desain Gratis</text>
+  </g>
+  <g transform="translate(760,190)">
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="rgba(217,138,0,0.1)" stroke="rgba(217,138,0,0.2)" stroke-width="1"/>
+    <text x="70" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#D98A00" text-anchor="middle">5</text>
+    <text x="70" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">BPOM &amp;</text>
+    <text x="70" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Halal</text>
+  </g>
+  <g transform="translate(925,190)">
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="rgba(217,138,0,0.1)" stroke="rgba(217,138,0,0.2)" stroke-width="1"/>
+    <text x="70" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#D98A00" text-anchor="middle">6</text>
+    <text x="70" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Produksi</text>
+    <text x="70" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">CPKB Grade A</text>
+  </g>
+  <g transform="translate(400,370)">
+    <rect x="0" y="0" width="400" height="60" rx="30" fill="url(#gold)"/>
+    <text x="200" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#1a1a2e" text-anchor="middle">Produk Siap Jual ke Seluruh Indonesia</text>
+  </g>
+  <g transform="translate(220,460)">
+    <rect x="0" y="0" width="760" height="1" rx="0.5" fill="rgba(217,138,0,0.2)"/>
+  </g>
+  <text x="600" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Dari Jayapura, untuk Indonesia — Dreamlab dampingi kamu dari awal hingga produk siap dipasarkan</text>
+</svg>

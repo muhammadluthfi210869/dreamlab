@@ -1737,6 +1737,15 @@
     }
   },
   {
+    "source": "/maklon-kosmetik-jayapura",
+    "destination": "/maklon-kosmetik-jayapura/",
+    "permanent": true,
+    "_metadata": {
+      "original_title": "Maklon Kosmetik Jayapura — Wujudkan Brand Skincare dari Bumi Papua",
+      "original_h1": "Maklon Kosmetik Jayapura — Mulai Brand Skincare dari Bumi Papua"
+    }
+  },
+  {
     "source": "/maklon-kosmetik-bpom-bandar-lampung",
     "destination": "/maklon-kosmetik-bpom-bandar-lampung/",
     "permanent": true,

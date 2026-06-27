@@ -107,12 +107,12 @@ export default async function BlogPaginationPage({ params }: BlogPaginationProps
                 key={index}
                 className="group bg-white rounded-[40px] border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-700"
               >
-                <Link href={`${article.slug}/`} className="block relative aspect-video overflow-hidden">
+                <Link href={`${article.slug}/`} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
                   <Image 
                     src={article.featuredImage || '/assets/images/placeholder.jpg'} 
                     alt={article.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-1000"
+                    className="object-contain group-hover:scale-105 transition-transform duration-1000"
                   />
                 </Link>
                 <div className="p-10">

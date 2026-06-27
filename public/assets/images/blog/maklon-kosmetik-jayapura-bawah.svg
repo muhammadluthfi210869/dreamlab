@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500">
+  <defs>
+    <linearGradient id="bawahBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D98A00"/>
+      <stop offset="50%" stop-color="#e6a020"/>
+      <stop offset="100%" stop-color="#f0b830"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="500" fill="url(#bawahBg)"/>
+  <circle cx="100" cy="400" r="200" fill="rgba(217,138,0,0.04)"/>
+  <circle cx="1100" cy="100" r="180" fill="rgba(217,138,0,0.03)"/>
+  <text x="600" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">Siap Memulai Brand Kosmetik dari Jayapura?</text>
+  <text x="600" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">Dreamlab siap menjadi mitra maklon kosmetik terpercaya untuk brand-mu.</text>
+  <rect x="340" y="210" width="520" height="60" rx="30" fill="url(#btnGrad)" filter="url(#shadow)"/>
+  <text x="600" y="248" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#1a1a2e" text-anchor="middle" letter-spacing="0.5">Konsultasi Gratis Sekarang →</text>
+  <rect x="300" y="290" width="600" height="1" rx="0.5" fill="rgba(217,138,0,0.15)"/>
+  <text x="600" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#475569" text-anchor="middle">✓ Free Custom Formula  ✓ Desain Kemasan Gratis  ✓ BPOM &amp; Halal  ✓ MOQ Fleksibel</text>
+</svg>

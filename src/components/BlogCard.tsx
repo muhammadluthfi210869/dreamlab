@@ -15,13 +15,13 @@ export interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ title, date, category, image, excerpt, link }) => {
   return (
     <article className="group bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-gray-100">
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-64 overflow-hidden bg-[#FAF9F6]">
         <Image 
           src={image || "/assets/images/placeholder-blog.webp"}
           alt={getImageAlt(image || "/assets/images/placeholder-blog.webp", title)}
           title={getImageTitle(image || "/assets/images/placeholder-blog.webp")}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="object-contain p-2 transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-6 left-6 bg-brand-orange text-white text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full shadow-lg">

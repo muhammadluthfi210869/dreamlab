@@ -273,12 +273,12 @@ export default function BlogArchivePage() {
                     <div className="space-y-10">
                       {/* Featured Big Card */}
                       <div className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] transition-all duration-700">
-                        <Link href={`${businessArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50">
+                        <Link href={`${businessArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50 bg-[#FAF9F6]">
                           <Image 
                             src={businessArticles[0].featuredImage ? `/assets/images/blog/${businessArticles[0].featuredImage}` : '/assets/images/placeholder.jpg'} 
                             alt={businessArticles[0].title}
                             fill
-                            className="object-cover group-hover:scale-103 transition-transform duration-1000"
+                            className="object-contain group-hover:scale-103 transition-transform duration-1000"
                             sizes="(max-width: 1024px) 100vw, 70vw"
                             priority
                           />
@@ -306,12 +306,12 @@ export default function BlogArchivePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                           {businessArticles.slice(1, 3).map((a, idx) => (
                             <div key={idx} className="group/sub bg-white p-6 rounded-2xl border border-gray-50 hover:shadow-md transition-shadow duration-500 flex flex-col h-full">
-                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50 bg-[#FAF9F6]">
                                 <Image 
                                   src={a.featuredImage ? `/assets/images/blog/${a.featuredImage}` : '/assets/images/placeholder.jpg'} 
                                   alt={a.title}
                                   fill
-                                  className="object-cover group-hover/sub:scale-105 transition-transform duration-750"
+                                  className="object-contain group-hover/sub:scale-105 transition-transform duration-750"
                                   sizes="(max-width: 768px) 100vw, 33vw"
                                 />
                               </Link>
@@ -347,12 +347,12 @@ export default function BlogArchivePage() {
                     <div className="space-y-10">
                       {/* Featured Big Card */}
                       <div className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] transition-all duration-700">
-                        <Link href={`${productArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50">
+                        <Link href={`${productArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50 bg-[#FAF9F6]">
                           <Image 
                             src={productArticles[0].featuredImage ? `/assets/images/blog/${productArticles[0].featuredImage}` : '/assets/images/placeholder.jpg'} 
                             alt={productArticles[0].title}
                             fill
-                            className="object-cover group-hover:scale-103 transition-transform duration-1000"
+                            className="object-contain group-hover:scale-103 transition-transform duration-1000"
                             sizes="(max-width: 1024px) 100vw, 70vw"
                           />
                         </Link>
@@ -379,12 +379,12 @@ export default function BlogArchivePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                           {productArticles.slice(1, 3).map((a, idx) => (
                             <div key={idx} className="group/sub bg-white p-6 rounded-2xl border border-gray-50 hover:shadow-md transition-shadow duration-500 flex flex-col h-full">
-                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50 bg-[#FAF9F6]">
                                 <Image 
                                   src={a.featuredImage ? `/assets/images/blog/${a.featuredImage}` : '/assets/images/placeholder.jpg'} 
                                   alt={a.title}
                                   fill
-                                  className="object-cover group-hover/sub:scale-105 transition-transform duration-750"
+                                  className="object-contain group-hover/sub:scale-105 transition-transform duration-750"
                                   sizes="(max-width: 768px) 100vw, 33vw"
                                 />
                               </Link>
@@ -420,12 +420,12 @@ export default function BlogArchivePage() {
                     <div className="space-y-10">
                       {/* Featured Big Card */}
                       <div className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] transition-all duration-700">
-                        <Link href={`${complianceArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50">
+                        <Link href={`${complianceArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50 bg-[#FAF9F6]">
                           <Image 
                             src={complianceArticles[0].featuredImage ? `/assets/images/blog/${complianceArticles[0].featuredImage}` : '/assets/images/placeholder.jpg'} 
                             alt={complianceArticles[0].title}
                             fill
-                            className="object-cover group-hover:scale-103 transition-transform duration-1000"
+                            className="object-contain group-hover:scale-103 transition-transform duration-1000"
                             sizes="(max-width: 1024px) 100vw, 70vw"
                           />
                         </Link>
@@ -452,12 +452,12 @@ export default function BlogArchivePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                           {complianceArticles.slice(1, 3).map((a, idx) => (
                             <div key={idx} className="group/sub bg-white p-6 rounded-2xl border border-gray-50 hover:shadow-md transition-shadow duration-500 flex flex-col h-full">
-                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50 bg-[#FAF9F6]">
                                 <Image 
                                   src={a.featuredImage ? `/assets/images/blog/${a.featuredImage}` : '/assets/images/placeholder.jpg'} 
                                   alt={a.title}
                                   fill
-                                  className="object-cover group-hover/sub:scale-105 transition-transform duration-750"
+                                  className="object-contain group-hover/sub:scale-105 transition-transform duration-750"
                                   sizes="(max-width: 768px) 100vw, 33vw"
                                 />
                               </Link>
@@ -493,12 +493,12 @@ export default function BlogArchivePage() {
                     <div className="space-y-10">
                       {/* Featured Big Card */}
                       <div className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] transition-all duration-700">
-                        <Link href={`${brandingArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50">
+                        <Link href={`${brandingArticles[0].slug}`} className="block relative aspect-[21/9] w-full overflow-hidden bg-gray-50 bg-[#FAF9F6]">
                           <Image 
                             src={brandingArticles[0].featuredImage ? `/assets/images/blog/${brandingArticles[0].featuredImage}` : '/assets/images/placeholder.jpg'} 
                             alt={brandingArticles[0].title}
                             fill
-                            className="object-cover group-hover:scale-103 transition-transform duration-1000"
+                            className="object-contain group-hover:scale-103 transition-transform duration-1000"
                             sizes="(max-width: 1024px) 100vw, 70vw"
                           />
                         </Link>
@@ -525,12 +525,12 @@ export default function BlogArchivePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                           {brandingArticles.slice(1, 3).map((a, idx) => (
                             <div key={idx} className="group/sub bg-white p-6 rounded-2xl border border-gray-50 hover:shadow-md transition-shadow duration-500 flex flex-col h-full">
-                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50">
+                              <Link href={`${a.slug}`} className="block relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-gray-50 bg-[#FAF9F6]">
                                 <Image 
                                   src={a.featuredImage ? `/assets/images/blog/${a.featuredImage}` : '/assets/images/placeholder.jpg'} 
                                   alt={a.title}
                                   fill
-                                  className="object-cover group-hover/sub:scale-105 transition-transform duration-750"
+                                  className="object-contain group-hover/sub:scale-105 transition-transform duration-750"
                                   sizes="(max-width: 768px) 100vw, 33vw"
                                 />
                               </Link>
@@ -654,12 +654,12 @@ export default function BlogArchivePage() {
                           key={index}
                           className="group bg-white rounded-[32px] border border-gray-100 overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] transition-all duration-700 flex flex-col h-full"
                         >
-                          <Link href={`${article.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-gray-50">
+                          <Link href={`${article.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-gray-50 bg-[#FAF9F6]">
                             <Image 
                               src={article.featuredImage ? `/assets/images/blog/${article.featuredImage}` : '/assets/images/placeholder.jpg'} 
                               alt={article.title}
                               fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                              className="object-contain group-hover:scale-105 transition-transform duration-1000"
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               priority={index < 4}
                             />
@@ -756,12 +756,12 @@ export default function BlogArchivePage() {
                   <div className="space-y-8">
                     {sortByDateDesc(articles).slice(0, 5).map((a, i) => (
                       <Link href={`${a.slug}`} key={i} className="flex gap-4 group">
-                        <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50">
+                        <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 bg-[#FAF9F6]">
                           <Image 
                             src={a.featuredImage ? `/assets/images/blog/${a.featuredImage}` : '/assets/images/placeholder.jpg'} 
                             alt={a.title} 
                             fill 
-                            className="object-cover group-hover:scale-110 transition-transform duration-500" 
+                            className="object-contain group-hover:scale-110 transition-transform duration-500" 
                             sizes="64px" 
                           />
                         </div>
