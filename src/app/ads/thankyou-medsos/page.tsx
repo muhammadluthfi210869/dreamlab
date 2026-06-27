@@ -10,7 +10,6 @@ import { getNextBusdev } from "@/lib/round-robin";
 export default function ThankYouMedsos() {
   const [phone, setPhone] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const src = params.get("source") || "medsos";

@@ -1,4 +1,4 @@
-import { Viga, Onest, Poppins, Inter } from "next/font/google";
+import { Viga, Onest, Poppins } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -25,12 +25,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   weight: ["400"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -64,19 +58,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${viga.variable} ${onest.variable} ${poppins.variable} ${inter.variable}`}>
+    <html lang="id" className={`${viga.variable} ${onest.variable} ${poppins.variable}`}>
       <body className="font-sans antialiased text-brand-black selection:bg-brand-orange selection:text-white">
-        <link rel="preconnect" href="https://dreamlab.id" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://dreamlab.id" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preload" href="/new%20asset/background-visual-hero-section/home-page.webp" as="image" fetchPriority="high" />
+        <link rel="preload" href="/new%20asset/background-visual-hero-section/home-page.webp" as="image" fetchPriority="high" imageSrcSet="/new%20asset/background-visual-hero-section/home-page.webp 1920w" imageSizes="100vw" />
         <SpeculationRules />
         <OrganizationSchema />
         <TrackingScripts />
 
         {/* Microsoft Clarity */}
-        <Script id="clarity" strategy="beforeInteractive">
+        <Script id="clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -85,7 +78,7 @@ export default function RootLayout({
         </Script>
 
         {/* TikTok Pixel */}
-        <Script id="tiktok-pixel" strategy="beforeInteractive">
+        <Script id="tiktok-pixel" strategy="afterInteractive">
           {`!function (w, d, t) {
             w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
             ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
