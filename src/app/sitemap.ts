@@ -18,9 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/news-blog',
     '/about-us',
+    '/about-us/alur-maklon',
     '/services',
     '/produk',
     '/contact-us',
+    '/contact-medsos',
     '/our-client',
     '/career',
     '/terms-of-service',
@@ -31,6 +33,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: 1.0,
   }));
+
+  // Known slug patterns that exist in the current app (safelist for CSV audit slugs)
+  const validRoutePrefixes = [
+    'category/', 'produk/', 'maklon/', 'author/',
+    'news-blog/', 'about-us/', 'ads/',
+  ];
+  const knownArticleSlugs = new Set(
+    articles
+      .filter(a => a.slug)
+      .map(a => a.slug.replace(/^\/+/, '').replace(/\/+$/, ''))
+  );
+  const proxyPrefixes = [
+    'wp-content/', 'wp-admin/', 'wp-json/', '.help/dhl/',
+    'product-category/', 'shop/', 'cms_block_cat/', 'cgi-sys/',
+    'checkout/', 'cart/', 'my-account/', 'blog/',
+    'post-sitemap', 'search/', 'juaranyaformula/',
+  ];
+
+  function isSlugInCurrentSite(slug: string): boolean {
+    if (knownArticleSlugs.has(slug)) return true;
+    for (const p of validRoutePrefixes) {
+      if (slug.startsWith(p)) return true;
+    }
+    return false;
+  }
+
+  function isProxyCaught(slug: string): boolean {
+    for (const p of proxyPrefixes) {
+      if (slug.startsWith(p)) return true;
+    }
+    return false;
+  }
 
   // 2. Audit CSV Routes (The Legacy Footprint)
   let auditRoutes: MetadataRoute.Sitemap = [];
@@ -44,6 +78,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
         const s = r.slug;
         if (!s || s === '/') return false;
         if (s.length > 200 || s.includes(' ') || s.includes('%20') || s.includes(':')) return false;
+        
+        // Strip leading/trailing slashes
+        let cleaned = s.replace(/^\/+/, '').replace(/\/+$/, '');
+        
+        // news-blog/ prefix maps to root — adjust before checking
+        if (cleaned.startsWith('news-blog/')) {
+          cleaned = cleaned.replace('news-blog/', '');
+        }
+        
+        // Exclude slugs caught by proxy (410 Gone)
+        if (isProxyCaught(cleaned)) return false;
+        
+        // Only include slugs that exist in the current site
+        if (!isSlugInCurrentSite(cleaned)) return false;
+        
         return true;
       })
       .map(r => {

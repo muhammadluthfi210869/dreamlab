@@ -23,18 +23,42 @@ Git push ttp bisa (`git add -A && git commit -m "..." && git push origin master`
 # GSC Issue Fix Progress
 
 ## Done
+### Phase 0 — Infrastructure
 - 26 × 404 URLs fixed (14 redirect + 12 410)
 - Soft 404 fix deployed (generateMetadata calls notFound())
 - Page bloat fix (3.3MB → ~280KB, 92%)
 - 7 crawled-not-indexed articles expanded (~500 → 1,563-2,521 words)
-- Schema fix (3 issues): shippingDetails inside offers, image absolute URL, priceSpec conditional — test 12/12 pass
-- Fase 1: proxy.ts anomaly cleanup — 410 untuk /product-category/, /shop/, .php
+- Schema fix (3 issues): shippingDetails inside offers, image absolute URL, priceSpec conditional — test 12/12 pass, commit 95ccc89
+
+### Phase 1 — Anomaly Cleanup (commit 43d7953)
+- proxy.ts: /product-category/, /shop/, .php → 410 Gone
+- Build: 543 pages, 0 errors
+
+### Phase 2A — proxy.ts expansion (5× more 410 patterns)
+- Added: /cms_block_cat/, /cgi-sys/, /checkout/, /cart/, /my-account/, /blog/, /post-sitemap, /search/ (startsWith)
+- Added: /feed/ (includes — catches 14 category feed URLs)
+- Added: /juaranyaformula/, /$/, /&/ (edge case noindex URLs)
+- Now covers all 65 crawled-not-indexed + 22 noindex structural URLs
+
+### Phase 2B — Redirects (commit e799458)
+- 20 new 301 redirects for legacy content without existing redirects (memunculkan-keranjang-reels → /news-blog/, pabrik-parfum-surabaya → /produk/parfum/, dll.)
+- Fixed dead-end redirect: /pabrik-parfum-surabaya-biaya-2026 → /pabrik-parfum-surabaya/ (was → non-existent page)
+- Fixed redirect: /pabrik-parfum-surabaya → /produk/parfum/
+
+## Coverage Impact
+| Category | Before | After (code fix) | Need deploy |
+|----------|--------|------------------|-------------|
+| Crawled-not-indexed | 65 | ~2 (benign non-www variants) | ⏳ deploy |
+| Pages with redirect | 34 | ~0 if Vercel www redirect is active | ⏳ deploy |
+| Canonical | 25 | ~25 (low priority, content overlap) | ⏳ deploy |
+| Noindex | 22 | ~1-2 ($/& — caught by proxy now) | ⏳ deploy |
 
 ## Blocked — butuh deploy ke dreamlab.id
 - Vercel token dari dashboard dreamlabid team blm ada
 - Bisa deploy manual dari GitHub → Vercel dashboard
 
-## Next
-- Fase 2: Export CSV per-URL dari GSC (65 crawled-not-indexed, 34 redirect, 25 canonical, 22 noindex)
-- Fase 3: Sitemap cleanup (sitemap_index.xml + linktree spam)
-- Fase 4: Monitoring + re-index via Indexing API
+## Remaining (post-deploy)
+- Fase 3: Sitemap cleanup (sitemap_index.xml error + linktree spam sitemaps)
+- Fase 4: Monitoring via gsc-coverage-monitor.ts + re-index priority pages via Indexing API
+- Canonical category (25): Evaluate if self-referencing canonical needed
+- Blocked: All fixes need deploy → Google recrawl (1-4 weeks) to reflect in GSC
