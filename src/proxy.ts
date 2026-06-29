@@ -6,11 +6,14 @@ const GONE_PATTERNS = [
   '/wp-content/',
   '/wp-admin/',
   '/wp-json/',
+  '/product-category/',
+  '/shop/',
 ];
 
 const GONE_EXACT = [
   { type: 'includes', value: '):attr_identifier' },
   { type: 'includes', value: '%29:attr_identifier' },
+  { type: 'includes', value: '.php' },
 ];
 
 export function proxy(request: NextRequest) {
