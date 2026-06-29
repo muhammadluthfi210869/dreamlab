@@ -8,12 +8,21 @@ const GONE_PATTERNS = [
   '/wp-json/',
   '/product-category/',
   '/shop/',
+  '/cms_block_cat/',
+  '/cgi-sys/',
+  '/checkout/',
+  '/cart/',
+  '/my-account/',
+  '/blog/',
+  '/post-sitemap',
+  '/search/',
 ];
 
 const GONE_EXACT = [
   { type: 'includes', value: '):attr_identifier' },
   { type: 'includes', value: '%29:attr_identifier' },
   { type: 'includes', value: '.php' },
+  { type: 'includes', value: '/feed/' },
 ];
 
 export function proxy(request: NextRequest) {
