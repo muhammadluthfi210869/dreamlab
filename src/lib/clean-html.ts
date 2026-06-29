@@ -1,3 +1,43 @@
+function normalizeSectionKey(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#xa0;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&#x201[2349];/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function dedupeHeadingSections(html: string): string {
+  const headingRegex = /<h([2-4])[^>]*>[\s\S]*?<\/h\1>/gi;
+  const matches = Array.from(html.matchAll(headingRegex));
+
+  if (matches.length < 2) {
+    return html;
+  }
+
+  const intro = html.slice(0, matches[0].index ?? 0);
+  const seen = new Set<string>();
+  const sections: string[] = [];
+
+  for (let i = 0; i < matches.length; i += 1) {
+    const start = matches[i].index ?? 0;
+    const end = i + 1 < matches.length ? (matches[i + 1].index ?? html.length) : html.length;
+    const sectionHtml = html.slice(start, end).trim();
+    const key = normalizeSectionKey(sectionHtml);
+
+    if (!key || seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    sections.push(sectionHtml);
+  }
+
+  return `${intro}${sections.join('\n\n')}`;
+}
+
 export function cleanWordPressHtml(html: string): string {
   let c = html;
 
@@ -21,6 +61,17 @@ export function cleanWordPressHtml(html: string): string {
   // 5. Remove empty wrapper divs/p
   c = c.replace(/<div>\s*<\/div>/g, '');
   c = c.replace(/<p>\s*<\/p>/g, '');
+  c = c.replace(/<h[1-6][^>]*>\s*(?:<span[^>]*><\/span>\s*)*<\/h[1-6]>/gi, '');
+
+  // 5b. Normalize legacy internal URLs before HTML reaches crawlers
+  c = c.replace(/https?:\/\/www\.dreamlab\.id/gi, 'https://dreamlab.id');
+  c = c.replace(/https?:\/\/dreamlab\.id\/thankyoupage-google\/?/gi, '/thankyou/google/');
+  c = c.replace(/https?:\/\/dreamlab\.id\/thankyou-page\/?/gi, '/thankyou/google/');
+  c = c.replace(/https?:\/\/dreamlab\.id\/thank-you-maklon\/?/gi, '/thankyou/google/');
+  c = c.replace(/https?:\/\/dreamlab\.id\/contact-us\/?/gi, '/contact-us/');
+
+  // 5c. Remove exact repeated heading sections from legacy imports.
+  c = dedupeHeadingSections(c);
 
   // 6. Normalize whitespace
   c = c.replace(/\n{3,}/g, '\n\n');

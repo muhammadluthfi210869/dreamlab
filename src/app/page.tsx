@@ -1,5 +1,6 @@
 import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
+import { articles } from "@/data/articles";
 import { Metadata } from "next";
 import { getSEOData } from "@/lib/seo-service";
 import { getMetaKeywords } from "@/data/keywords";
@@ -72,6 +73,24 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Home() {
   const { hero, trustedBrands, advantages, katalog, testimonials, blog } = homepageData;
+  const priorityBlogSlugs = new Set([
+    "/biaya-maklon-parfum-moq-kecil",
+    "/bisnis-skincare-glow-glasskin-cystamine",
+    "/perbedaan-micellar-water-dan-toner",
+  ]);
+  const spotlightPosts = articles
+    .filter((article) => priorityBlogSlugs.has(article.slug))
+    .slice(0, 3)
+    .map((article) => ({
+      title: article.title,
+      date: article.publishDate,
+      category: article.categories?.[0] || "Artikel",
+      image: article.featuredImage
+        ? `/assets/images/${article.featuredImage}`
+        : "/assets/images/blog/artikel-cta.png",
+      excerpt: article.excerpt,
+      link: `${article.slug.replace(/\/?$/, "/")}`,
+    }));
 
   return (
     <main className="min-h-screen bg-brand-white">
@@ -137,7 +156,7 @@ export default function Home() {
       {/* 10. BLOG SECTION */}
       <BlogSection 
         title={blog.title}
-        posts={blog.posts}
+        posts={spotlightPosts.length > 0 ? spotlightPosts : blog.posts}
       />
     </main>
   );

@@ -294,7 +294,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       },
       hasMerchantReturnPolicy: {
         '@type': 'MerchantReturnPolicy',
-        applicableCountryCountry: 'ID',
+        applicableCountry: 'ID',
         returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
         merchantReturnDays: 30,
         returnMethod: 'https://schema.org/ReturnByMail',
@@ -317,7 +317,10 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       isPartOf: { '@id': `${siteUrl}/#website` },
       about: { '@id': `${siteUrl}/#organization` },
       breadcrumb: { '@id': `${cleanUrl}#breadcrumb` },
-      primaryImageOfPage: { '@type': 'ImageObject', url: heroImage },
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: heroImage.startsWith('http') ? heroImage : new URL(heroImage, siteUrl).toString(),
+      },
     },
 
     // BreadcrumbList

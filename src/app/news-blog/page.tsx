@@ -602,7 +602,7 @@ export default function BlogArchivePage() {
                       Rancang formula premium, kemasan eksklusif, dan legalitas BPOM lengkap di bawah bimbingan para ahli kami.
                     </p>
                     <Link 
-                      href="https://dreamlab.id/thankyou-page/" 
+                      href="/thankyou/google/" 
                       className="inline-flex items-center gap-2 bg-brand-orange text-white hover:bg-brand-black px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-colors shadow-md cursor-pointer"
                     >
                       Hubungi Kami <i className="ri-arrow-right-line"></i>

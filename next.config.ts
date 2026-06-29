@@ -142,7 +142,7 @@ const nextConfig: NextConfig = {
     // 3. Redirect known legacy WordPress structural URLs (only those without new routes)
     redirects.push({
       source: '/thankyou-page',
-      destination: '/contact-us',
+      destination: '/thankyou/google/',
       permanent: true,
     });
 

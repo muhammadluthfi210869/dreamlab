@@ -4,6 +4,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getSEOData, getAllSlugs } from '@/lib/seo-service';
 import { cleanWordPressHtml } from '@/lib/clean-html';
+import { getArticleOverride } from '@/lib/article-overrides';
 import { generatePageSchema } from '@/lib/schema-generator';
 import { getMaklonPage } from '@/data/maklon-pages';
 import { getMaklonFAQ } from '@/data/maklon-faq';
@@ -148,9 +149,11 @@ export default async function DynamicPage({ params }: PageProps) {
 
   // Only render as Article if there is actual content, otherwise treat as Programmatic Service Page
   if (article && article.content && article.content.trim() !== '') {
+    const articleOverride = getArticleOverride(pathStr);
     const cleanedArticle = {
       ...article,
-      content: cleanWordPressHtml(article.content),
+      excerpt: articleOverride?.excerpt || article.excerpt,
+      content: cleanWordPressHtml(articleOverride?.content || article.content),
     };
     const recentPosts = [...articlesList]
       .filter(a => a.slug !== article.slug && a.title)

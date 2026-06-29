@@ -7,13 +7,33 @@ interface RelatedLinksProps {
   allArticles: Array<{ slug: string; title: string; categories: string[] }>;
 }
 
+const PRIORITY_INDEX_SLUGS = [
+  '/biaya-maklon-parfum-moq-kecil',
+  '/bisnis-skincare-glow-glasskin-cystamine',
+  '/perbedaan-micellar-water-dan-toner',
+];
+
 const RelatedLinks: React.FC<RelatedLinksProps> = ({ currentSlug, categories, allArticles }) => {
-  const relatedArticles = allArticles
-    .filter(a => 
-      a.slug !== currentSlug && 
-      a.categories.some(cat => categories.includes(cat))
-    )
-    .slice(0, 4);
+  const normalizedCurrentSlug = currentSlug.replace(/\/$/, '');
+  const normalizedPriority = PRIORITY_INDEX_SLUGS.map((slug) => slug.replace(/\/$/, ''));
+
+  const sameCategoryArticles = allArticles.filter(a =>
+    a.slug !== currentSlug &&
+    a.categories.some(cat => categories.includes(cat))
+  );
+
+  const priorityArticles = sameCategoryArticles.filter((article) =>
+    normalizedPriority.includes(article.slug.replace(/\/$/, ''))
+  );
+
+  const regularArticles = sameCategoryArticles.filter((article) =>
+    !normalizedPriority.includes(article.slug.replace(/\/$/, ''))
+  );
+
+  const relatedArticles = [
+    ...priorityArticles.filter((article) => article.slug.replace(/\/$/, '') !== normalizedCurrentSlug),
+    ...regularArticles,
+  ].slice(0, 4);
 
   const displayArticles = relatedArticles.length > 0 
     ? relatedArticles 

@@ -12,6 +12,11 @@ interface AuditData {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://dreamlab.id';
+  const priorityRecrawlSlugs = new Set([
+    'biaya-maklon-parfum-moq-kecil',
+    'bisnis-skincare-glow-glasskin-cystamine',
+    'perbedaan-micellar-water-dan-toner',
+  ]);
 
   // 1. Static Routes
   const staticRoutes = [
@@ -121,11 +126,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter(a => a.slug)
     .map(article => {
       const slug = article.slug.replace(/^\/+/, '').replace(/\/+$/, '');
+      const isPriorityRecrawl = priorityRecrawlSlugs.has(slug);
+      const changeFrequency: 'weekly' | 'monthly' = isPriorityRecrawl ? 'weekly' : 'monthly';
       return {
         url: `${baseUrl}/${slug}/`,
         lastModified: new Date(article.publishDate || new Date()),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
+        changeFrequency,
+        priority: isPriorityRecrawl ? 0.9 : 0.7,
       };
     });
 

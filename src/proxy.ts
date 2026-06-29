@@ -25,11 +25,44 @@ const GONE_EXACT = [
   { type: 'includes', value: '.php' },
   { type: 'includes', value: '/feed/' },
   { type: 'includes', value: '/$/' },
+  { type: 'includes', value: '/$' },
   { type: 'includes', value: '/&/' },
+  { type: 'includes', value: '/&' },
 ];
 
 export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+  const { nextUrl } = request;
+  const normalizedPathname = nextUrl.pathname.replace(/[\u2010-\u2015\u2212]/g, '-');
+  const hostname = nextUrl.hostname.toLowerCase();
+  const forwardedProto = request.headers.get('x-forwarded-proto');
+
+  if (normalizedPathname !== nextUrl.pathname) {
+    const normalizedUrl = new URL(nextUrl.toString());
+    normalizedUrl.pathname = normalizedPathname;
+    return NextResponse.redirect(normalizedUrl, 308);
+  }
+
+  const pathname = normalizedPathname;
+
+  if (forwardedProto === 'http') {
+    const secureUrl = new URL(nextUrl.toString());
+    secureUrl.protocol = 'https:';
+    return NextResponse.redirect(secureUrl, 308);
+  }
+
+  if (hostname === 'www.dreamlab.id') {
+    const normalizedUrl = new URL(nextUrl.toString());
+    normalizedUrl.hostname = 'dreamlab.id';
+    return NextResponse.redirect(normalizedUrl, 308);
+  }
+
+  if (
+    nextUrl.searchParams.has('wc-ajax') ||
+    nextUrl.searchParams.has('s') ||
+    nextUrl.searchParams.get('action') === 'googlesitekit_auth'
+  ) {
+    return new NextResponse(null, { status: 410 });
+  }
 
   for (const pattern of GONE_PATTERNS) {
     if (pathname.startsWith(pattern)) {
