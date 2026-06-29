@@ -2776,7 +2776,7 @@ export const articles: Article[] = [
   }
 ,
   {
-    "slug": "/blog/perbedaan-bpom-notifikasi-vs-izin-edar-kosmetik",
+    "slug": "/perbedaan-bpom-notifikasi-vs-izin-edar-kosmetik",
     "title": "Perbedaan BPOM Notifikasi vs Izin Edar Kosmetik",
     "publishDate": "2026-06-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
