@@ -16,6 +16,7 @@ const GONE_PATTERNS = [
   '/blog/',
   '/post-sitemap',
   '/search/',
+  '/juaranyaformula/',
 ];
 
 const GONE_EXACT = [
@@ -23,6 +24,8 @@ const GONE_EXACT = [
   { type: 'includes', value: '%29:attr_identifier' },
   { type: 'includes', value: '.php' },
   { type: 'includes', value: '/feed/' },
+  { type: 'includes', value: '/$/' },
+  { type: 'includes', value: '/&/' },
 ];
 
 export function proxy(request: NextRequest) {
