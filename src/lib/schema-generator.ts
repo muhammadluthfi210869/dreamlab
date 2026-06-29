@@ -241,7 +241,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       '@id': `${cleanUrl}#product`,
       name: `Maklon ${productName}`,
       description: description,
-      image: heroImage,
+      image: heroImage.startsWith('http') ? heroImage : new URL(heroImage, siteUrl).toString(),
       category: categoryName,
       brand: {
         '@type': 'Brand',
@@ -254,14 +254,43 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       },
       offers: {
         '@type': 'Offer',
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: priceRange || 'Hubungi Kami',
-          priceCurrency: 'IDR',
-        },
+        ...(priceRange && !isNaN(Number(priceRange)) ? {
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            price: Number(priceRange),
+            priceCurrency: 'IDR',
+          },
+        } : {}),
         availability: 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',
         url: cleanUrl,
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingDestination: {
+            '@type': 'DefinedRegion',
+            addressCountry: 'ID',
+          },
+          shippingRate: {
+            '@type': 'MonetaryAmount',
+            value: 0,
+            currency: 'IDR',
+          },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 14,
+              maxValue: 60,
+              unitCode: 'DAY',
+            },
+            transitTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 3,
+              maxValue: 7,
+              unitCode: 'DAY',
+            },
+          },
+        },
       },
       hasMerchantReturnPolicy: {
         '@type': 'MerchantReturnPolicy',
@@ -270,33 +299,6 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
         merchantReturnDays: 30,
         returnMethod: 'https://schema.org/ReturnByMail',
         returnFees: 'https://schema.org/FreeReturn',
-      },
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'ID',
-        },
-        shippingRate: {
-          '@type': 'MonetaryAmount',
-          value: 0,
-          currency: 'IDR',
-        },
-        deliveryTime: {
-          '@type': 'ShippingDeliveryTime',
-          handlingTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 14,
-            maxValue: 60,
-            unitCode: 'DAY',
-          },
-          transitTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 3,
-            maxValue: 7,
-            unitCode: 'DAY',
-          },
-        },
       },
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'MOQ', value: moq },
