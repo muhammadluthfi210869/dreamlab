@@ -218,7 +218,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                           alt={post.title} 
                           title={`${post.title} — Dreamlab Indonesia`} 
                           fill 
-                          className="object-cover" 
+className="object-contain"
                           sizes="80px" 
                         />
                       </div>
