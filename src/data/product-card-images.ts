@@ -117,6 +117,7 @@ export const slugToCardImageMap: Record<string, Record<string, string>> = {
     "foot-mask": "new asset/footcare/footmask-maklonkosmetik-dreamlab .png",
     "foot-scrub": "new asset/footcare/footscrub-maklonkosmetik-dreamlab.png",
     "foot-spray": "new asset/footcare/footspray-dreamlab-maklonkosmetik .png",
+    "foot-serum": "new asset/footcare/foot-serum.jpeg",
     "foot-anti-bacterial": "new asset/footcare/foot antibacterial-maklon ksometik.png",
   },
 };
