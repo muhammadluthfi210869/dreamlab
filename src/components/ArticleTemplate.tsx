@@ -122,7 +122,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               </h1>
  
               {/* Featured Image */}
-              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-sm border border-neutral-200/20 bg-white">
+              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-sm border border-neutral-200/20 bg-white max-w-3xl mx-auto">
                 <Image 
                   src={article.featuredImage ? `/assets/images/blog/${article.featuredImage}` : '/assets/images/placeholder.jpg'} 
                   alt={article.title} 
