@@ -205,3 +205,108 @@
   color: #555;
   border-radius: 0 20px 20px 0;
 }
+
+.legacy-content-wrapper .article-cta {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 24px;
+  padding: 36px 28px;
+  margin: 40px 0;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.legacy-content-wrapper .article-cta h3 {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 10px;
+  line-height: 1.3;
+  position: relative;
+}
+
+.legacy-content-wrapper .article-cta p {
+  color: #a0aec0;
+  font-size: 14px;
+  margin: 0 0 20px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.legacy-content-wrapper .cta-button {
+  background: linear-gradient(135deg, #D98A00 0%, #e6a020 50%, #f0b830 100%);
+  color: #ffffff !important;
+  padding: 16px 44px;
+  border-radius: 50px;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.legacy-content-wrapper .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(217, 138, 0, 0.3);
+  text-decoration: none !important;
+}
+
+.legacy-content-wrapper details.article-faq {
+  border: 1px solid #e8e3d8;
+  border-radius: 12px;
+  margin: 12px 0;
+  overflow: hidden;
+  background: #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+.legacy-content-wrapper details.article-faq[open] {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border-color: #D98A00;
+}
+
+.legacy-content-wrapper details.article-faq summary {
+  padding: 18px 24px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1a1a2e;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.2s ease;
+}
+
+.legacy-content-wrapper details.article-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.legacy-content-wrapper details.article-faq summary::after {
+  content: "+";
+  font-size: 20px;
+  font-weight: 300;
+  color: #D98A00;
+  transition: transform 0.3s ease;
+}
+
+.legacy-content-wrapper details.article-faq[open] summary::after {
+  content: "\2212";
+  transform: rotate(180deg);
+}
+
+.legacy-content-wrapper details.article-faq[open] summary {
+  color: #D98A00;
+  border-bottom: 1px solid #f0ede6;
+}
+
+.legacy-content-wrapper details.article-faq p {
+  padding: 4px 24px 20px;
+  margin: 0;
+  color: #4a4a5a;
+  font-size: 14px;
+  line-height: 1.7;
+}
