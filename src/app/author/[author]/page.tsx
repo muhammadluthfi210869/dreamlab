@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import seoMappingData from '@/data/seo-mapping.json';
 import { SeoMappingItem } from '@/types';
+import { resolveArticleImageSrc } from '@/lib/asset-paths';
 
 const seoMapping = seoMappingData as SeoMappingItem[];
 
@@ -95,10 +96,11 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               >
                 <Link href={`/${article.slug}/`} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
                   <Image 
-                    src={article.featuredImage || '/assets/images/placeholder.jpg'} 
+                    src={resolveArticleImageSrc(article.featuredImage)} 
                     alt={article.title}
                     fill
                     className="object-contain group-hover:scale-105 transition-transform duration-1000"
+                    unoptimized
                   />
                 </Link>
                 <div className="p-10">

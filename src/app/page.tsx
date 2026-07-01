@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { getSEOData } from "@/lib/seo-service";
 import { getMetaKeywords } from "@/data/keywords";
 import dynamic from "next/dynamic";
+import { resolveArticleImageSrc } from "@/lib/asset-paths";
 
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
   ssr: true,
@@ -86,7 +87,7 @@ export default function Home() {
       date: article.publishDate,
       category: article.categories?.[0] || "Artikel",
       image: article.featuredImage
-        ? `/assets/images/${article.featuredImage}`
+        ? resolveArticleImageSrc(article.featuredImage)
         : "/assets/images/blog/artikel-cta.png",
       excerpt: article.excerpt,
       link: `${article.slug.replace(/\/?$/, "/")}`,

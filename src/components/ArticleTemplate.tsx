@@ -15,6 +15,7 @@ import JsonLd from './JsonLd';
 import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
+import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
  
 interface ArticleData {
@@ -58,6 +59,8 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
     setTimeout(() => setCopied(false), 2000);
   };
  
+  const featuredImageSrc = resolveArticleImageSrc(article.featuredImage);
+
   const pageSchema = generatePageSchema({
     url: article.slug,
     title: article.title,
@@ -69,10 +72,10 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
       { name: 'News & Blog', url: '/news-blog/' },
       { name: article.title },
     ],
-    image: article.featuredImage ? `https://dreamlab.id/assets/images/blog/${article.featuredImage}` : 'https://dreamlab.id/assets/images/placeholder.jpg',
+    image: resolveSiteImageUrl(article.featuredImage),
     article: {
       headline: article.title,
-      image: article.featuredImage ? `https://dreamlab.id/assets/images/blog/${article.featuredImage}` : 'https://dreamlab.id/assets/images/placeholder.jpg',
+      image: resolveSiteImageUrl(article.featuredImage),
       datePublished: article.publishDate,
       author: article.author,
     },
@@ -124,12 +127,13 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               {/* Featured Image */}
               <div className="relative aspect-video rounded-2xl overflow-hidden shadow-sm border border-neutral-200/20 bg-white max-w-3xl mx-auto">
                 <Image 
-                  src={article.featuredImage ? `/assets/images/blog/${article.featuredImage}` : '/assets/images/placeholder.jpg'} 
+                  src={featuredImageSrc} 
                   alt={article.title} 
                   title={`${article.title} — Dreamlab Indonesia`}
                   fill 
                   className="object-cover"
                   priority
+                  unoptimized
                   sizes="(max-width: 1024px) 100vw, 66vw"
                 />
               </div>
@@ -214,11 +218,12 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                     <Link key={i} href={`${post.slug.startsWith('/') ? post.slug : `/${post.slug}`}`} className="flex gap-4 group">
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-50 border border-neutral-100">
                         <Image 
-                          src={post.featuredImage ? `/assets/images/blog/${post.featuredImage}` : '/assets/images/placeholder.jpg'} 
+                          src={resolveArticleImageSrc(post.featuredImage)} 
                           alt={post.title} 
                           title={`${post.title} — Dreamlab Indonesia`} 
                           fill 
-className="object-contain"
+                          className="object-contain"
+                          unoptimized
                           sizes="80px" 
                         />
                       </div>

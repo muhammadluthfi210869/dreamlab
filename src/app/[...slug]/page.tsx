@@ -9,6 +9,7 @@ import { generatePageSchema } from '@/lib/schema-generator';
 import { getMaklonPage } from '@/data/maklon-pages';
 import { getMaklonFAQ } from '@/data/maklon-faq';
 import { getMetaKeywords } from '@/data/keywords';
+import { resolveSiteImageUrl } from '@/lib/asset-paths';
 import path from 'path';
 import Link from 'next/link';
 import seoMappingData from '@/data/seo-mapping.json';
@@ -118,13 +119,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'Dreamlab',
       locale: 'id_ID',
       type: article ? 'article' : 'website',
-      ...(article?.featuredImage && { images: [{ url: article.featuredImage, width: 1200, height: 630 }] }),
+      ...(article?.featuredImage && { images: [{ url: resolveSiteImageUrl(article.featuredImage), width: 1200, height: 630 }] }),
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      ...(article?.featuredImage && { images: [article.featuredImage] }),
+      ...(article?.featuredImage && { images: [resolveSiteImageUrl(article.featuredImage)] }),
     },
     other: {
       'article:published_time': article?.publishDate || '',

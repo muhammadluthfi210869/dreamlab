@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaFacebookF, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
 import { MdLocationOn, MdEmail, MdSchedule } from "react-icons/md";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
+import { resolveArticleImageSrc } from "@/lib/asset-paths";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,12 +15,13 @@ export default function Footer() {
           {/* Column 1: Logo & Info */}
           <div className="space-y-6">
             <Image
-              src="/assets/images/LOGO-DREAMLAB-1-white.webp"
+              src={resolveArticleImageSrc("/assets/images/LOGO-DREAMLAB-1-white.webp")}
               alt="Dreamlab Logo"
               title={getImageTitle("/assets/images/LOGO-DREAMLAB-1-white.webp")}
               width={220}
               height={70}
               className="h-16 w-auto"
+              unoptimized
             />
             <p className="text-gray-400 text-sm leading-relaxed">
               Dreamlab Cosmetics adalah manufaktur kosmetik berkualitas tinggi yang menggabungkan tren kecantikan Eropa dan Korea melalui konsep Natural Mix
