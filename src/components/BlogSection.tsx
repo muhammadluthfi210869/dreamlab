@@ -75,7 +75,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ title, posts }) => {
             <div className="w-24 h-1.5 bg-brand-orange mt-6 rounded-full" />
           </div>
           <Link 
-            href="/blog"
+            href="/news-blog"
             className="hidden md:flex items-center gap-3 text-brand-black font-black uppercase tracking-widest text-sm hover:text-brand-orange transition-all hover:translate-x-1"
           >
             Lihat Semua Artikel

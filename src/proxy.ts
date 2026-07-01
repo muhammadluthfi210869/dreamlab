@@ -44,6 +44,12 @@ export function proxy(request: NextRequest) {
 
   const pathname = normalizedPathname;
 
+  if (pathname === '/blog' || pathname === '/blog/') {
+    const redirectUrl = new URL(nextUrl.toString());
+    redirectUrl.pathname = '/news-blog/';
+    return NextResponse.redirect(redirectUrl, 308);
+  }
+
   if (forwardedProto === 'http') {
     const secureUrl = new URL(nextUrl.toString());
     secureUrl.protocol = 'https:';
