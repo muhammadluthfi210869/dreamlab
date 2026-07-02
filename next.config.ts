@@ -265,8 +265,9 @@ const nextConfig: NextConfig = {
       ['/rahasia-maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
       ['/body-care-2', '/maklon-body-care/'],
       ['/cara-membuat-masker-wajah-organik-praktis-aman-dan-cocok-untuk-ide-bisnis-skincare', '/maklon-skincare/masker-wajah/'],
-      ['/berapa-biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum/'],
-      ['/biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum/'],
+      ['/berapa-biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
+      ['/biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
+      ['/rincian-biaya-produksi-serum', '/rincian-biaya-produksi-serum-wajah/'],
     ];
     for (const [source, destination] of wordpressRedirects) {
       redirects.push({ source, destination, permanent: true });

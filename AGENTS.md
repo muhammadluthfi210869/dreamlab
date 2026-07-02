@@ -20,6 +20,76 @@ Info Vercel:
 
 Git push ttp bisa (`git add -A && git commit -m "..." && git push origin master`) tapi GitHub belum connect ke Vercel. Kalau git push gagal minta token GitHub, pakai cara Vercel CLI di atas aja.
 
+# Article Creation Workflow
+
+Simpan prompt ini dan gunakan setiap kali bikin artikel baru.
+
+## Steps (urutan wajib)
+
+### 1. Content Preparation
+- Ambil konten dari file `.md.txt` yang diberikan user
+- Ambil bagian pembahasan tertentu yang user minta untuk dipertahankan (jika ada)
+
+### 2. Data Entry — `src/data/articles.ts`
+- Cari struktur artikel terakhir di file, duplikat objeknya
+- Isi field:
+  - `slug`: `/nama-artikel` (URL friendly)
+  - `title`: H1 / judul artikel
+  - `publishDate`: `YYYY-MM-DDT00:00:00+00:00`
+  - `author`: `"Dreamlab Maklon Kosmetik"`
+  - `categories`: sesuai topik
+  - `featuredImage`: nama file gambar
+  - `excerpt`: ringkasan pendek (max ~160 chars)
+  - `content`: HTML konten artikel, escaped (`\\n`, `\\"`)
+  - `seo.title`: meta title (50-60 chars, beda dari H1)
+  - `seo.description`: meta description (max ~160 chars)
+
+### 3. HTML Content Rules
+- Container: `<div class=\"elementor-element elementor-element-4cdeffb8 elementor-widget elementor-widget-theme-post-content\">`
+- Paragraphs: wrapped in `<p>`
+- Headings: `<h2>` for main sections, `<h3>` for subsections
+- Tables: standard HTML with inline styles (bg, border, padding)
+- FAQ: `<details><summary>...</summary><p>...</p></details>`
+- All escaped with `\\n` for newlines, `\\"` for quotes
+
+### 4. Images (Tengah & Bawah)
+- **Gambar tengah**: `<figure>` after intro paragraph, `bv-data-src=\"/assets/images/blog/dreamlab_maklonkosmetik_artikel_tengah.png\"`
+- **Gambar bawah**: `<figure>` before CTA/FAQ, `bv-data-src=\"/assets/images/blog/dreamlab_maklonkosmetik_artikel_akhir.png\"`
+- Both images link to: `https://dreamlab.id/thankyou/google/`
+- Use `class=\"bv-tag-attr-replace bv-lazyload-tag-img\"` and `style=\"width:auto;height:auto\"`
+
+### 5. Daftar Isi (Table of Contents)
+- Add after intro paragraph, before first image
+- `<nav>` with cream background, border, rounded corners
+- Ordered list `<ol>` linking to all `<h2 id="...">` anchors
+- Style: `color:#4a6fa5` for links
+
+### 6. CTA Button
+- `<div style=\"text-align:center;margin:48px 0\">`
+- Button: `background:#D98A00`, `border-radius:50px`, `font-weight:800`, `box-shadow`
+- Text: "Konsultasi Gratis dengan Dreamlab"
+- Link: `https://dreamlab.id/thankyou/google/`
+- Subtext: "Diskusikan HPP, formula, dan strategi brand serum-mu tanpa komitmen awal."
+
+### 7. Inbound & Outbound Links
+- **Inbound**: link ke artikel terkait di dreamlab.id (gunakan `<a href=\"https://dreamlab.id/{slug}/\" style=\"color:#4a6fa5\" target=\"_blank\">`)
+- **Outbound**: link ke sumber eksternal otoritatif dengan `rel=\"nofollow\"`
+- Minimal 4 inbound + 2 outbound
+
+### 8. SEO Optimization
+- H1: unique, keyword-rich, ~50-65 chars
+- Meta title: berbeda dari H1, ~50-60 chars, pakai format berbeda
+- Meta description: catch people click, max 160 chars
+- Excerpt: ringkasan artikel
+- Slug: URL friendly
+
+### 9. Git
+```bash
+git add .
+git commit -m "Auto update by OpenCode"
+git push origin master
+```
+
 # GSC Issue Fix Progress
 
 ## Done
