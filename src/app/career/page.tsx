@@ -96,11 +96,10 @@ export default function CareerPage() {
         {/* Background Visual Image (Right Side) */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <Image
-            src="/new asset/people/bg-career.png"
+            src="/new asset/people/bg-career.webp"
             alt="Dreamlab Indonesia Career Team"
             fill
             priority
-            unoptimized={true}
             className="object-cover object-[85%_center] md:object-right-bottom"
             sizes="100vw"
           />
@@ -272,10 +271,9 @@ export default function CareerPage() {
             {/* Background Image on Right Side */}
             <div className="absolute right-0 top-0 bottom-0 w-full sm:w-[45%] md:w-[40%] z-0 select-none pointer-events-none opacity-30 sm:opacity-100 mix-blend-multiply">
               <Image
-                src="/new asset/people/career_cta_cosmetics.jpg"
+                src="/new asset/people/career_cta_cosmetics.webp"
                 alt="Dreamlab Cosmetics Showcase"
                 fill
-                unoptimized={true}
                 className="object-cover sm:object-contain object-right"
                 sizes="(max-width: 768px) 100vw, 400px"
               />

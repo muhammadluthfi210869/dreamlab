@@ -41,7 +41,7 @@ export default function MaklonParfumAdsLP() {
         {/* Background Visual Image (Full Screen) */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <Image
-            src="/new asset/landing page/parfum.png"
+            src="/new asset/landing page/parfum.webp"
             alt="Dreamlab Indonesia Premium Parfum Hero Visual"
             fill
             priority
@@ -212,7 +212,7 @@ export default function MaklonParfumAdsLP() {
               {/* Left Column: Lab Image with rounded corners */}
               <div className="lg:col-span-5 relative aspect-square w-full rounded-[24px] overflow-hidden shadow-2xl border border-white/5 group">
                 <Image
-                  src="/new asset/landing page/perfume_lab_rd.jpg"
+                  src="/new asset/landing page/perfume_lab_rd.webp"
                   alt="R&D Perfumery Laboratory"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"

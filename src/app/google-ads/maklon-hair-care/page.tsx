@@ -38,11 +38,10 @@ export default function MaklonHairCareAdsLP() {
         {/* Background Visual Image (Full Screen) */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <Image
-            src="/new asset/landing page/hero-haircare.png"
+            src="/new asset/landing page/hero-haircare.webp"
             alt="Dreamlab Indonesia Premium Haircare Hero Visual"
             fill
             priority
-            unoptimized={true}
             fetchPriority="high"
             decoding="sync"
             className="object-cover object-[82%_center] md:object-center"
@@ -228,10 +227,9 @@ export default function MaklonHairCareAdsLP() {
                   {/* Left: Dropper Image */}
                   <div className="relative w-28 h-28 rounded-2xl overflow-hidden shrink-0 bg-neutral-50/50 border border-neutral-100">
                     <Image
-                      src="/new asset/landing page/scalp_treatment_serum.jpg"
+                      src="/new asset/landing page/scalp_treatment_serum.webp"
                       alt="Scalp Treatment Serum Mockup"
                       fill
-                      unoptimized={true}
                       className="object-contain p-2 mix-blend-multiply"
                       sizes="112px"
                     />
@@ -263,10 +261,9 @@ export default function MaklonHairCareAdsLP() {
                   {/* Left: Pump Image */}
                   <div className="relative w-28 h-28 rounded-2xl overflow-hidden shrink-0 bg-neutral-50/50 border border-neutral-100">
                     <Image
-                      src="/new asset/landing page/hair_growth_shampoo.jpg"
+                      src="/new asset/landing page/hair_growth_shampoo.webp"
                       alt="Hair Growth Shampoo Mockup"
                       fill
-                      unoptimized={true}
                       className="object-contain p-2 mix-blend-multiply"
                       sizes="112px"
                     />
@@ -386,10 +383,9 @@ export default function MaklonHairCareAdsLP() {
                 {/* AI Generated Mockup Image in MOQ section */}
                 <div className="relative w-40 h-40 rounded-2xl overflow-hidden shrink-0 hidden sm:block shadow-md border border-neutral-100">
                   <Image
-                    src="/new asset/landing page/haircare_moq_mockup.jpg"
+                    src="/new asset/landing page/haircare_moq_mockup.webp"
                     alt="YOUR BRAND cosmetics mockup"
                     fill
-                    unoptimized={true}
                     className="object-cover"
                     sizes="160px"
                   />

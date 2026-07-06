@@ -36,7 +36,7 @@ export default function MaklonSkincareAdsLP() {
         {/* Background Visual Image (Full Screen) */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <Image
-            src="/new asset/landing page/skincare.png"
+            src="/new asset/landing page/skincare.webp"
             alt="Dreamlab Indonesia Premium Skincare Hero Visual"
             fill
             priority
@@ -141,10 +141,9 @@ export default function MaklonSkincareAdsLP() {
               {/* Left Column: Image with rounded corners */}
               <div className="lg:col-span-5 relative aspect-square w-full rounded-[24px] overflow-hidden shadow-2xl border border-white/5 group">
                 <Image
-                  src="/new asset/landing page/maklon_kosmetik.png"
+                  src="/new asset/landing page/maklon_kosmetik.webp"
                   alt="Dreamlab Skincare Lab R&D Setup"
                   fill
-                  unoptimized={true}
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 1024px) 100vw, 400px"
                 />
@@ -258,7 +257,7 @@ export default function MaklonSkincareAdsLP() {
                 {/* AI Generated Mockup Image in MOQ section */}
                 <div className="relative w-40 h-40 rounded-2xl overflow-hidden shrink-0 hidden sm:block shadow-md border border-neutral-100">
                   <Image
-                    src="/new asset/landing page/skincare_moq_mockup.jpg"
+                    src="/new asset/landing page/skincare_moq_mockup.webp"
                     alt="YOUR BRAND cosmetics mockup"
                     fill
                     className="object-cover"
