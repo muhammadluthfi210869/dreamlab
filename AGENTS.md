@@ -123,12 +123,34 @@ git push origin master
 | Canonical | 25 | ~25 (low priority, content overlap) | ⏳ deploy |
 | Noindex | 22 | ~1-2 ($/& — caught by proxy now) | ⏳ deploy |
 
-## Blocked — butuh deploy ke dreamlab.id
-- Vercel token dari dashboard dreamlabid team blm ada
-- Bisa deploy manual dari GitHub → Vercel dashboard
+### Phase 3 — Sitemap Cleanup (commit 7ebc698)
+- ✅ Deleted 3 spam/broken sitemaps via GSC API: `sitemap_index.xml` (errors:1), `linktree.dreamlab.id/reliccovereduae.xml`, `linktree.dreamlab.id/forcivekvq.xml`
+- ✅ sitemap.ts: Added `contact-medsos/` + `about-us/alur-maklon/` static routes
+- ✅ sitemap.ts: Added proxy 410 pattern filter — excludes caught slugs from sitemap
+- ✅ sitemap.ts: Added current-site safelist — only includes audit CSV slugs that exist in current app
+- Build: 543 pages, 0 errors
 
-## Remaining (post-deploy)
-- Fase 3: Sitemap cleanup (sitemap_index.xml error + linktree spam sitemaps)
-- Fase 4: Monitoring via gsc-coverage-monitor.ts + re-index priority pages via Indexing API
-- Canonical category (25): Evaluate if self-referencing canonical needed
-- Blocked: All fixes need deploy → Google recrawl (1-4 weeks) to reflect in GSC
+### Phase 4 — Schema Validation Baseline & Tools
+- ✅ Built `scripts/validate-schema-all.mjs` — validates all product URLs' JSON-LD schema against live site
+- ✅ Established baseline: **81 URLs checked, 0 passed**
+  - 8 category pages: no Product schema (expected — listing pages with Service+WebPage schema)
+  - 73 product detail pages: missing `price`/`priceCurrency` (B2B model — no fixed prices, handled by conditional `priceSpecification`)
+  - 3 product pages (`facial-serum`, `facial-toner`, `facial-wash`): **ZERO Product schema** (only Organization) — caused by old deployed code; fixed in current codebase via `generateProductPageSchema()` in `[...slug]/page.tsx`
+  - `shippingDetails` inside `offers`, image absolute URL, B2B priceSpec conditional — all fixed in current code (commit 95ccc89) but not deployed
+- ✅ Discovered live site has `www.dreamlab.id → dreamlab.id` (307) — canonical is non-www
+- 🔄 GSC coverage monitor (`scripts/gsc-coverage-monitor.ts`): partially run (timed out at ~180/329 URLs)
+- 🚫 Indexing API (scripts/request-reindex.ts): all 16 URLs failed with `Permission denied` — service account not verified as URL owner
+
+## Blockers
+- 🚫 **Deploy ke dreamlab.id**: Vercel token dari dashboard dreamlabid team blm ada. Bisa deploy manual dari GitHub → Vercel dashboard.
+- 🚫 **Indexing API**: Service account (`dreamlab-gsc@dreamlab-site.iam.gserviceaccount.com`) bukan URL owner — harus ditambahkan di GSC Settings → Users and permissions.
+- 🚫 **Google recrawl**: Semua fix butuh deploy dulu, lalu Google butuh 1-4 minggu untuk recrawl.
+
+## Post-Deploy Checklist
+1. ✅ Build with `npx next build` (confirm 543 pages, 0 errors)
+2. Run `scripts/validate-schema-all.mjs` against live site — expect 73+/81 passing
+3. Run `scripts/gsc-coverage-monitor.ts` — establish baseline, re-run weekly
+4. Fix Indexing API ownership — add service account to GSC property owners
+5. Run `scripts/request-reindex.ts` — submit 14+ priority product pages
+6. Monitor GSC for 1-4 weeks — let Google recrawl and recategorize
+7. Evaluate 25 canonical issues (low priority, mostly content overlap on category/article pages)

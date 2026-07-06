@@ -50,7 +50,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(redirectUrl, 308);
   }
 
-  if (forwardedProto === 'http') {
+  if (forwardedProto === 'http' && hostname !== 'localhost' && hostname !== '127.0.0.1') {
     const secureUrl = new URL(nextUrl.toString());
     secureUrl.protocol = 'https:';
     return NextResponse.redirect(secureUrl, 308);

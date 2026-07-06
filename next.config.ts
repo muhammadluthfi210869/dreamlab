@@ -233,9 +233,9 @@ const nextConfig: NextConfig = {
     // 5. Landing pages moved under /ads/ subdirectory
     // Redirect old URLs to new /ads/ paths for campaign tracking
     const adsRedirects: Array<[string, string]> = [
-      ['/maklon-parfum', '/ads/maklon-parfum/'],
-      ['/maklon-skincare', '/ads/maklon-skincare/'],
-      ['/maklon-hair-care', '/ads/maklon-hair-care/'],
+      ['/maklon-parfum', '/google-ads/maklon-parfum/'],
+      ['/maklon-skincare', '/google-ads/maklon-kosmetik/'],
+      ['/maklon-hair-care', '/google-ads/maklon-hair-care/'],
       ['/thankyou-maklon', '/ads/thankyou/metaads/'],
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
