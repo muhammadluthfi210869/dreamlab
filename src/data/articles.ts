@@ -2453,7 +2453,7 @@ export const articles: Article[] = [
   },
   {
     "slug": "/jasa-maklon-sunscreen-terbaik",
-    "title": "Maklon Sunscreen SPF Syarat BPOM, Proses Produksi &amp; Estimasi Biaya",
+    "title": "Maklon Sunscreen SPF Syarat BPOM, Proses Produksi & Estimasi Biaya",
     "publishDate": "2026-05-23T18:06:56+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": ["Maklon Skincare"],
