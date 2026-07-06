@@ -5,6 +5,7 @@ import { parse } from 'csv-parse/sync';
 import { articles } from '@/data/articles';
 import { getAllCategories } from '@/data/products-v2';
 import { maklonPages } from '@/data/maklon-pages';
+import { pilotBatch1Routes } from '@/data/seo-pilot/batch-1';
 
 interface AuditData {
   slug: string;
@@ -22,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     '',
     '/news-blog',
+    '/panduan',
     '/about-us',
     '/about-us/alur-maklon',
     '/services',
@@ -168,8 +170,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  const pilotRoutes: MetadataRoute.Sitemap = pilotBatch1Routes.map(route => ({
+    url: `${baseUrl}${route.replace(/\/?$/, '/')}`,
+    lastModified: new Date('2026-07-06T00:00:00+07:00'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }));
+
   // Combine and de-duplicate by URL
-  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes];
+  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes, ...pilotRoutes];
   const uniqueRoutes = Array.from(new Map(allRoutes.map(r => [r.url, r])).values());
 
   return uniqueRoutes;
