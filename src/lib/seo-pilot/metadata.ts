@@ -5,6 +5,11 @@ export function buildPilotMetadata(page: PilotPageData): Metadata {
   return {
     title: page.metaTitle,
     description: page.metaDescription,
+    keywords: [
+      page.keywordTarget,
+      page.pageType === 'pilot_article' ? 'panduan maklon skincare' : 'estimasi maklon skincare',
+      'Dreamlab',
+    ],
     alternates: {
       canonical: page.canonical,
     },
@@ -15,6 +20,8 @@ export function buildPilotMetadata(page: PilotPageData): Metadata {
       title: page.metaTitle,
       description: page.metaDescription,
       url: page.canonical,
+      publishedTime: page.pageType === 'pilot_article' ? page.publishedAt : undefined,
+      modifiedTime: page.updatedAt,
     },
     twitter: {
       card: 'summary_large_image',

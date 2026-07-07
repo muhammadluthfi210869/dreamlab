@@ -2,6 +2,7 @@ import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
 import { articles } from "@/data/articles";
 import { Metadata } from "next";
+import Link from "next/link";
 import { getSEOData } from "@/lib/seo-service";
 import { getMetaKeywords } from "@/data/keywords";
 import dynamic from "next/dynamic";
@@ -153,6 +154,26 @@ export default function Home() {
 
       {/* 6.8. GENERAL TRUST FAQ */}
       <FaqHome />
+
+      <section className="bg-[#fff8ef] px-4 py-14 sm:px-6">
+        <div className="mx-auto max-w-4xl rounded-[32px] border border-[#eadfcf] bg-white p-8 text-center shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-10">
+          <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#b06f00]">Panduan Batch 1</p>
+          <h2 className="mt-4 text-3xl font-black tracking-tight text-[#1f1f1d] sm:text-4xl">
+            Butuh jalur yang lebih rapi untuk membaca biaya dan MOQ?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-neutral-600 sm:text-base">
+            Buka hub panduan Dreamlab untuk membaca 2 artikel pilot dan 2 money page yang disusun khusus untuk intent buyer, estimasi, dan validasi MOQ.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/panduan/"
+              className="inline-flex items-center justify-center rounded-full bg-[#D98A00] px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-[#D98A00]/20 transition hover:translate-y-[-1px] hover:bg-[#c97e00]"
+            >
+              Buka Hub Panduan
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* 10. BLOG SECTION */}
       <BlogSection 

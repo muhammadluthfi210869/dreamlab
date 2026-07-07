@@ -91,6 +91,7 @@ export default function Footer() {
               {[
                 { name: "About Dreamlab", link: "/about-us" },
                 { name: "Services", link: "/services" },
+                { name: "Panduan", link: "/panduan" },
                 { name: "News & Blog", link: "/news-blog" },
                 { name: "Our Client", link: "/our-client" },
                 { name: "Contact Us", link: "/contact-us" },

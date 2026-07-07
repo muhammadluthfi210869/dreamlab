@@ -36,6 +36,8 @@ function buildWebPageSchema(page: PilotPageData) {
     name: page.metaTitle,
     description: page.metaDescription,
     inLanguage: 'id-ID',
+    datePublished: page.publishedAt,
+    dateModified: page.updatedAt,
     isPartOf: {
       '@type': 'WebSite',
       '@id': `${SITE_URL}/#website`,
@@ -52,8 +54,9 @@ function buildArticleSchema(page: PilotPageData) {
     '@id': `${page.canonical}#article`,
     headline: page.title,
     description: page.metaDescription,
-    datePublished: '2026-07-06T00:00:00+07:00',
-    dateModified: '2026-07-06T00:00:00+07:00',
+    keywords: [page.keywordTarget, page.seoCluster],
+    datePublished: page.publishedAt,
+    dateModified: page.updatedAt,
     author: {
       '@type': 'Organization',
       name: 'Dreamlab Maklon Kosmetik',
@@ -83,6 +86,10 @@ function buildServiceSchema(page: PilotPageData) {
       name: 'Dreamlab Indonesia',
     },
     areaServed: 'Indonesia',
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Brand owner kosmetik dan skincare',
+    },
   };
 }
 
