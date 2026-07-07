@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getSEOData } from '@/lib/seo-service';
 
 let articlesCache: any[] | null = null;
+const THIN_CATEGORY_MAX_ARTICLES = 2;
 
 async function getArticles() {
   if (articlesCache) return articlesCache;
@@ -28,22 +29,33 @@ async function getCategoryName(slug: string): Promise<string | null> {
   ) || null;
 }
 
+async function getCategoryArticleCount(slug: string): Promise<number> {
+  const categoryName = await getCategoryName(slug);
+  if (!categoryName) return 0;
+
+  const articlesList = await getArticles();
+  return articlesList.filter((a: any) => a.categories.includes(categoryName)).length;
+}
+
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { category: slug } = await params;
-  const categoryName = getCategoryName(slug);
+  const categoryName = await getCategoryName(slug);
   const pathStr = `/category/${slug}`;
-  
+  const articleCount = await getCategoryArticleCount(slug);
   const seoData = await getSEOData(pathStr);
 
   if (!categoryName && !seoData) return { title: 'Category Not Found' };
 
   const canonical = (seoData?.canonical || `https://dreamlab.id${pathStr}/`).replace(/\/?$/, '/');
+  const isThinCategory = articleCount > 0 && articleCount <= THIN_CATEGORY_MAX_ARTICLES;
 
   return {
     title: seoData?.meta_title || `${categoryName} Archives | Dreamlab Indonesia`,
     description: seoData?.meta_description || `Kumpulan artikel dan berita seputar ${categoryName} dari Dreamlab Indonesia.`,
     alternates: { canonical },
-    robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    robots: isThinCategory
+      ? 'noindex, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+      : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     openGraph: {
       title: seoData?.meta_title || `${categoryName} Archives | Dreamlab Indonesia`,
       description: seoData?.meta_description || `Kumpulan artikel dan berita seputar ${categoryName} dari Dreamlab Indonesia.`,

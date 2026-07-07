@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Known slug patterns that exist in the current app (safelist for CSV audit slugs)
   const validRoutePrefixes = [
-    'category/', 'produk/', 'maklon/', 'author/',
+    'category/', 'produk/', 'maklon/',
     'news-blog/', 'about-us/', 'ads/',
   ];
   const knownArticleSlugs = new Set(
@@ -51,6 +51,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       .filter(a => a.slug)
       .map(a => a.slug.replace(/^\/+/, '').replace(/\/+$/, ''))
   );
+  const categoryArticleCounts = new Map<string, number>();
+  for (const article of articles) {
+    for (const category of article.categories || []) {
+      const slug = category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-');
+      categoryArticleCounts.set(slug, (categoryArticleCounts.get(slug) || 0) + 1);
+    }
+  }
   const proxyPrefixes = [
     'wp-content/', 'wp-admin/', 'wp-json/', '.help/dhl/',
     'product-category/', 'shop/', 'cms_block_cat/', 'cgi-sys/',
@@ -71,6 +78,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       if (slug.startsWith(p)) return true;
     }
     return false;
+  }
+
+  function isThinCategorySlug(slug: string): boolean {
+    if (!slug.startsWith('category/')) return false;
+    const categorySlug = slug.replace(/^category\//, '').replace(/\/+$/, '');
+    const count = categoryArticleCounts.get(categorySlug) || 0;
+    return count > 0 && count <= 2;
   }
 
   // 2. Audit CSV Routes (The Legacy Footprint)
@@ -96,6 +110,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         
         // Exclude slugs caught by proxy (410 Gone)
         if (isProxyCaught(cleaned)) return false;
+
+        if (isThinCategorySlug(cleaned)) return false;
         
         // Only include slugs that exist in the current site
         if (!isSlugInCurrentSite(cleaned)) return false;

@@ -6,6 +6,7 @@ const GONE_PATTERNS = [
   '/wp-content/',
   '/wp-admin/',
   '/wp-json/',
+  '/pages/',
   '/product-category/',
   '/shop/',
   '/cms_block_cat/',
@@ -23,6 +24,7 @@ const GONE_EXACT = [
   { type: 'includes', value: '):attr_identifier' },
   { type: 'includes', value: '%29:attr_identifier' },
   { type: 'includes', value: '.php' },
+  { type: 'includes', value: '/feed' },
   { type: 'includes', value: '/feed/' },
   { type: 'includes', value: '/$/' },
   { type: 'includes', value: '/$' },
@@ -35,32 +37,7 @@ export function proxy(request: NextRequest) {
   const normalizedPathname = nextUrl.pathname.replace(/[\u2010-\u2015\u2212]/g, '-');
   const hostname = nextUrl.hostname.toLowerCase();
   const forwardedProto = request.headers.get('x-forwarded-proto');
-
-  if (normalizedPathname !== nextUrl.pathname) {
-    const normalizedUrl = new URL(nextUrl.toString());
-    normalizedUrl.pathname = normalizedPathname;
-    return NextResponse.redirect(normalizedUrl, 308);
-  }
-
   const pathname = normalizedPathname;
-
-  if (pathname === '/blog' || pathname === '/blog/') {
-    const redirectUrl = new URL(nextUrl.toString());
-    redirectUrl.pathname = '/news-blog/';
-    return NextResponse.redirect(redirectUrl, 308);
-  }
-
-  if (forwardedProto === 'http' && hostname !== 'localhost' && hostname !== '127.0.0.1') {
-    const secureUrl = new URL(nextUrl.toString());
-    secureUrl.protocol = 'https:';
-    return NextResponse.redirect(secureUrl, 308);
-  }
-
-  if (hostname === 'www.dreamlab.id') {
-    const normalizedUrl = new URL(nextUrl.toString());
-    normalizedUrl.hostname = 'dreamlab.id';
-    return NextResponse.redirect(normalizedUrl, 308);
-  }
 
   if (
     nextUrl.searchParams.has('wc-ajax') ||
@@ -80,6 +57,42 @@ export function proxy(request: NextRequest) {
     if (exact.type === 'includes' && pathname.includes(exact.value)) {
       return new NextResponse(null, { status: 410 });
     }
+  }
+
+  const shouldForceHttps = forwardedProto === 'http' && hostname !== 'localhost' && hostname !== '127.0.0.1';
+  const shouldForceNonWww = hostname === 'www.dreamlab.id';
+  const shouldNormalizeDash = normalizedPathname !== nextUrl.pathname;
+  const shouldNormalizeBlog = pathname === '/blog' || pathname === '/blog/';
+  const categoryPaginationMatch = pathname.match(/^\/category\/([^/]+)\/page\/(\d+)\/?$/);
+
+  if (shouldForceHttps || shouldForceNonWww || shouldNormalizeDash || shouldNormalizeBlog || categoryPaginationMatch) {
+    const canonicalUrl = new URL(nextUrl.toString());
+
+    if (shouldNormalizeDash) {
+      canonicalUrl.pathname = normalizedPathname;
+    }
+
+    if (shouldNormalizeBlog) {
+      canonicalUrl.pathname = '/news-blog/';
+    }
+
+    if (categoryPaginationMatch) {
+      canonicalUrl.pathname = `/category/${categoryPaginationMatch[1]}/`;
+    }
+
+    if (shouldForceHttps) {
+      canonicalUrl.protocol = 'https:';
+    }
+
+    if (shouldForceNonWww) {
+      canonicalUrl.hostname = 'dreamlab.id';
+    }
+
+    if (!canonicalUrl.pathname.endsWith('/')) {
+      canonicalUrl.pathname = `${canonicalUrl.pathname}/`;
+    }
+
+    return NextResponse.redirect(canonicalUrl, 308);
   }
 
   return NextResponse.next();
