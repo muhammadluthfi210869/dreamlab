@@ -195,6 +195,98 @@
   margin-top: 10px;
 }
 
+.legacy-content-wrapper .article-outline {
+  background: #fff7eb;
+  border: 1px solid rgba(217, 138, 0, 0.18);
+  border-radius: 20px;
+  padding: 22px 24px;
+  margin: 0 0 2rem;
+}
+
+.legacy-content-wrapper .article-outline-label {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8c5b00;
+}
+
+.legacy-content-wrapper .article-outline ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.legacy-content-wrapper .article-outline li {
+  margin-bottom: 0.65rem;
+}
+
+.legacy-content-wrapper .article-outline a {
+  color: #4a6fa5;
+  font-weight: 700;
+}
+
+.legacy-content-wrapper .article-figure {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.legacy-content-wrapper .article-figure img {
+  border-radius: 18px;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+.legacy-content-wrapper .article-table-wrap {
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.legacy-content-wrapper .article-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #eadfce;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.legacy-content-wrapper .article-comparison-table th,
+.legacy-content-wrapper .article-comparison-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0e7da;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legacy-content-wrapper .article-comparison-table th {
+  background: #faf4eb;
+  color: #3f2f1f;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.legacy-content-wrapper .article-comparison-table td {
+  font-size: 14px;
+}
+
+.legacy-content-wrapper .article-faq {
+  border: 1px solid #ebe4d9;
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: #fffdfa;
+  margin-bottom: 14px;
+}
+
+.legacy-content-wrapper .article-faq summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: #222;
+}
+
+.legacy-content-wrapper .article-faq p {
+  margin: 14px 0 0;
+}
+
 .legacy-content-wrapper blockquote {
   border-left: 4px solid #FF5C35;
   padding: 20px 30px;

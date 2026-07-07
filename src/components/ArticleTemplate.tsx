@@ -1,23 +1,22 @@
 'use client';
- 
-import React, { useState, useEffect, useMemo } from 'react';
+
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Clock, 
-  MessageCircle, 
-  Share2, 
-  Copy, 
-  CheckCircle2 
+import {
+  CheckCircle2,
+  Clock,
+  Copy,
+  MessageCircle,
+  Share2,
 } from 'lucide-react';
-import Breadcrumb from './Breadcrumb';
 import JsonLd from './JsonLd';
 import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
 import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
- 
+
 interface ArticleData {
   slug: string;
   title: string;
@@ -28,37 +27,31 @@ interface ArticleData {
   publishDate: string;
   author: string;
 }
- 
+
 interface ArticleTemplateProps {
   article: ArticleData;
   recentPosts: ArticleData[];
   allArticles: Array<{ slug: string; title: string; categories: string[] }>;
 }
- 
+
 const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [] }) => {
   const [copied, setCopied] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
- 
+
   const articleUrl = `https://dreamlab.id${article.slug.startsWith('/') ? article.slug : `/${article.slug}`}`;
- 
-  // Calculate Reading Time (assuming average 200 WPM)
+
   const readingTime = useMemo(() => {
     const text = article.content.replace(/<[^>]*>/g, '');
     const wordCount = text.split(/\s+/).length;
     const time = Math.ceil(wordCount / 200);
     return time < 1 ? 1 : time;
   }, [article.content]);
- 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
- 
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(articleUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
- 
+
   const featuredImageSrc = resolveArticleImageSrc(article.featuredImage);
 
   const pageSchema = generatePageSchema({
@@ -80,84 +73,85 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
       author: article.author,
     },
   });
- 
+
   return (
     <>
       <JsonLd data={pageSchema} />
- 
+
       <div className="bg-[#FAF9F6] min-h-screen pt-24 pb-16 md:pt-28 lg:pt-32">
         <div className="container-custom">
-          {/* Breadcrumb - Left Aligned */}
-          <div className="mb-6">
-            <Breadcrumb 
-              items={[
-                { label: "Home", path: "/" },
-                { label: "News & Blog", path: "/news-blog" },
-                { label: article.title, path: "" }
-              ]} 
-            />
-          </div>
- 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* LEFT COLUMN: Main Content */}
-            <div className="col-span-12 lg:col-span-8 space-y-6">
-              
-              {/* Category Badge & Meta */}
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">
-                  {article.categories[0] || "Uncategorized"}
-                </span>
-                <span className="text-neutral-300">•</span>
-                <span className="text-neutral-500 text-xs font-bold">
-                  {new Date(article.publishDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                </span>
-                <span className="text-neutral-300">•</span>
-                <div className="flex items-center gap-1 text-brand-orange text-xs font-bold">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>{readingTime} Menit Baca</span>
-                </div>
+          <header className="max-w-5xl mx-auto text-center space-y-6 mb-10">
+            <nav className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-400">
+              <Link href="/" className="hover:text-brand-orange transition-colors">Home</Link>
+              <span>/</span>
+              <Link href="/news-blog" className="hover:text-brand-orange transition-colors">News & Blog</Link>
+              <span>/</span>
+              <span className="text-neutral-500">{article.categories[0] || 'Uncategorized'}</span>
+            </nav>
+
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <span className="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">
+                {article.categories[0] || 'Uncategorized'}
+              </span>
+              <span className="text-neutral-300">•</span>
+              <span className="text-neutral-500 text-xs font-bold">
+                {new Date(article.publishDate).toLocaleDateString('id-ID', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </span>
+              <span className="text-neutral-300">•</span>
+              <div className="flex items-center gap-1 text-brand-orange text-xs font-bold">
+                <Clock className="w-3.5 h-3.5" />
+                <span>{readingTime} Menit Baca</span>
               </div>
- 
-              {/* Title - Left Aligned */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display text-brand-black leading-tight tracking-tight">
-                {article.title}
-              </h1>
- 
-              {/* Featured Image */}
-              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-sm border border-neutral-200/20 bg-white max-w-3xl mx-auto">
-                <Image 
-                  src={featuredImageSrc} 
-                  alt={article.title} 
-                  title={`${article.title} — Dreamlab Indonesia`}
-                  fill 
-                  className="object-cover"
-                  priority
-                  unoptimized
-                  sizes="(max-width: 1024px) 100vw, 66vw"
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-brand-black leading-tight tracking-tight max-w-4xl mx-auto">
+              {article.title}
+            </h1>
+
+            <p className="max-w-3xl mx-auto text-sm md:text-lg leading-relaxed text-neutral-600 font-medium">
+              {article.excerpt}
+            </p>
+
+            <div className="relative aspect-video rounded-[28px] overflow-hidden shadow-sm border border-neutral-200/40 bg-white max-w-4xl mx-auto">
+              <Image
+                src={featuredImageSrc}
+                alt={article.title}
+                title={`${article.title} - Dreamlab Indonesia`}
+                fill
+                className="object-cover"
+                priority
+                unoptimized
+                sizes="(max-width: 1280px) 100vw, 896px"
+              />
+            </div>
+          </header>
+
+          <div className="max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
+            <div className="space-y-6 min-w-0">
+              <div className="bg-white border border-neutral-200/50 p-6 md:p-10 lg:p-12 rounded-[28px] text-brand-black shadow-sm font-sans text-base leading-relaxed max-w-4xl mx-auto xl:max-w-none">
+                <InteractiveArticleBody
+                  htmlContent={
+                    article.content
+                      .replace(/https?:\/\/dreamlab\.id\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
+                      .replace(/\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
+                      .replace(/bv-data-src=/gi, 'data-src=')
+                      .replace(/src="data:image\/svg\+xml[^"]*"/gi, '')
+                      .replace(/data-src=/gi, 'src=')
+                      .replace(/srcset="[^"]*"/g, '')
+                      .replace(/<img\s/gi, '<img loading="lazy" ')
+                      .replace(/loading="lazy"\s+loading="lazy"/gi, 'loading="lazy"')
+                      .replace(/bv-data-srcset="[^"]*"/g, '')
+                      .replace(/sizes="[^"]*"/g, '')
+                      .replace(/data-id="[^"]*"/g, '')
+                      .replace(/|[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA00}-\u{1FA6F}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}]/gu, '')
+                      .replace(/\s{3,}/g, ' ')
+                  }
                 />
-              </div>
- 
-              {/* Main Reading Content */}
-              <div className="bg-white border border-neutral-200/50 p-6 md:p-10 rounded-2xl text-brand-black shadow-sm font-sans text-base leading-relaxed">
-                <InteractiveArticleBody htmlContent={
-                  article.content
-                    .replace(/https?:\/\/dreamlab\.id\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
-                    .replace(/\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
-                    .replace(/bv-data-src=/gi, 'data-src=')
-                    .replace(/src="data:image\/svg\+xml[^"]*"/gi, '')
-                    .replace(/data-src=/gi, 'src=')
-                    .replace(/srcset="[^"]*"/g, '')
-                    .replace(/<img\s/gi, '<img loading="lazy" ')
-                    .replace(/loading="lazy"\s+loading="lazy"/gi, 'loading="lazy"')
-                    .replace(/bv-data-srcset="[^"]*"/g, '')
-                    .replace(/sizes="[^"]*"/g, '')
-                    .replace(/data-id="[^"]*"/g, '')
-                    .replace(/|[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA00}-\u{1FA6F}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}]/gu, '')
-                    .replace(/\s{3,}/g, ' ')
-                } />
- 
-                {/* Author Bio at the Bottom */}
+
                 <div className="mt-10 pt-6 border-t border-neutral-200 flex gap-4 items-center">
                   <div className="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold font-display text-lg shadow-sm">
                     {article.author.charAt(0).toUpperCase()}
@@ -168,11 +162,10 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                   </div>
                 </div>
               </div>
- 
-              {/* Share & Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-b border-neutral-200/50 text-xs">
+
+              <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-b border-neutral-200/50 text-xs max-w-4xl mx-auto xl:max-w-none">
                 <div className="flex items-center gap-2">
-                  <button 
+                  <button
                     onClick={copyToClipboard}
                     className="flex items-center gap-2 bg-white hover:bg-neutral-50 text-neutral-600 px-3.5 py-2 rounded-xl transition-all font-bold border border-neutral-200"
                   >
@@ -188,8 +181,8 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                       </>
                     )}
                   </button>
- 
-                  <a 
+
+                  <a
                     href={`https://wa.me/?text=${encodeURIComponent(`${article.title} - ${articleUrl}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -200,14 +193,13 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                   </a>
                 </div>
               </div>
- 
-              {/* Semantic Internal Linking */}
-              <RelatedLinks currentSlug={article.slug} categories={article.categories} allArticles={allArticles} />
+
+              <div className="max-w-4xl mx-auto xl:max-w-none">
+                <RelatedLinks currentSlug={article.slug} categories={article.categories} allArticles={allArticles} />
+              </div>
             </div>
- 
-            {/* RIGHT COLUMN: Sidebar */}
-            <aside className="col-span-12 lg:col-span-4 sticky top-28 space-y-8">
-              {/* Latest News */}
+
+            <aside className="w-full max-w-4xl mx-auto xl:max-w-none xl:sticky xl:top-28 space-y-8">
               <div className="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm">
                 <h3 className="text-[10px] font-black mb-6 flex items-center gap-3 text-neutral-400 uppercase tracking-widest">
                   LATEST NEWS
@@ -217,14 +209,14 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                   {recentPosts.slice(0, 4).map((post, i) => (
                     <Link key={i} href={`${post.slug.startsWith('/') ? post.slug : `/${post.slug}`}`} className="flex gap-4 group">
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-50 border border-neutral-100">
-                        <Image 
-                          src={resolveArticleImageSrc(post.featuredImage)} 
-                          alt={post.title} 
-                          title={`${post.title} — Dreamlab Indonesia`} 
-                          fill 
+                        <Image
+                          src={resolveArticleImageSrc(post.featuredImage)}
+                          alt={post.title}
+                          title={`${post.title} - Dreamlab Indonesia`}
+                          fill
                           className="object-contain"
                           unoptimized
-                          sizes="80px" 
+                          sizes="80px"
                         />
                       </div>
                       <div className="flex flex-col justify-center">
@@ -239,8 +231,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                   ))}
                 </div>
               </div>
- 
-              {/* Simple WhatsApp CTA */}
+
               <div className="bg-brand-black p-6 rounded-2xl text-white shadow-md relative overflow-hidden">
                 <span className="text-[9px] font-black bg-white/10 px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
                   Konsultasi Gratis
@@ -260,12 +251,11 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 </Link>
               </div>
             </aside>
- 
           </div>
         </div>
       </div>
     </>
   );
 };
- 
+
 export default ArticleTemplate;
