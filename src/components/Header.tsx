@@ -124,21 +124,21 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
-      <div className="container-custom lg:grid lg:grid-cols-[auto_auto_1fr] flex items-center justify-between h-22 md:h-28">
+      <div className="container-custom lg:grid lg:grid-cols-[auto_auto_1fr] lg:gap-x-8 xl:gap-x-16 2xl:gap-x-24 flex items-center justify-between h-22 md:h-28">
         {/* Desktop Left Menu — Home, About Us */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-10 h-full">
           {menuItems.slice(0, 2).map(renderNavItem)}
         </nav>
 
         {/* Logo — center column on desktop, left on mobile */}
-        <Link href="/" className="flex items-center group transition-transform duration-300">
+        <Link href="/" className="flex items-center group transition-transform duration-300 mx-3 2xl:mx-6">
           <Image
             src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
             alt="Dreamlab Logo"
             title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
             width={240}
             height={78}
-            className="h-14 md:h-20 w-auto object-contain"
+            className="h-16 md:h-24 w-auto object-contain"
             priority
           />
         </Link>

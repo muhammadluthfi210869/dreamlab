@@ -41,15 +41,6 @@ export default function ThankYouMetaAds() {
           display: flex;
           flex-direction: column;
         }
-        .header-metaads {
-          padding: 20px 24px;
-          display: flex;
-          justify-content: center;
-        }
-        .header-metaads img {
-          height: 40px;
-          object-fit: contain;
-        }
         .main-metaads {
           flex: 1;
           display: flex;
@@ -232,14 +223,6 @@ export default function ThankYouMetaAds() {
           to { width: 100%; }
         }
       `}</style>
-
-      <header className="header-metaads">
-        <img
-          src="https://dreamlab.id/assets/images/LOGO-DREAMLAB-1-white.webp"
-          alt="Dreamlab"
-          style={{ filter: "invert(1) grayscale(1) brightness(0.3)" }}
-        />
-      </header>
 
       <main className="main-metaads">
         <div className="card">
