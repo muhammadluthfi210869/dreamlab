@@ -9,9 +9,9 @@ interface LeadStats {
 }
 
 const CS_POOL: CSAgent[] = [
-  { id: "cs1", name: "CS 1", number: "+6287765506577" },
+  { id: "cs1", name: "CS 1", number: "087712232389" },
   { id: "cs2", name: "CS 2", number: "081952417051" },
-  { id: "cs3", name: "CS 3", number: "08771223289" },
+  { id: "cs3", name: "CS 3", number: "087776550657" },
 ];
 
 class RoundRobinPool {
