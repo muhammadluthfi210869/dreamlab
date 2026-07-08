@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { leadPool } from "@/lib/roundRobin";
 
 const WA_MESSAGE =
-  "Hi Dreamlab saya mengetahui dari Google Ads saya ingin konsultasi untuk brand saya, apakah bisa dibantu?";
+  "Hi Dreamlab saya mengetahui dari Google Ads. Saya ingin konsultasi untuk brand saya, apakah bisa dibantu?";
 
 export async function GET(request: NextRequest) {
   const campaign =
