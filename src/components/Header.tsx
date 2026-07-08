@@ -5,12 +5,11 @@ import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Search } from "lucide-react";
-import { getImageAlt, getImageTitle } from "@/lib/image-utils";
+import { getImageTitle } from "@/lib/image-utils";
 
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   // Helper untuk menormalisasi trailing slash dari URL (Next.js trailingSlash: true)
   const normalizePath = (p: string) => {
@@ -77,8 +76,6 @@ export default function Header() {
       <div
         key={item.name}
         className="relative group h-full flex items-center"
-        onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
-        onMouseLeave={() => setActiveDropdown(null)}
       >
         <Link
           href={item.path}
@@ -89,13 +86,13 @@ export default function Header() {
         >
           {item.name}
           {item.dropdown && (
-            <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${activeDropdown === item.name ? "rotate-180" : ""}`} />
+            <ChevronDown className="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" />
           )}
         </Link>
 
-        {/* WoodMart Style Dropdown */}
-        {item.dropdown && activeDropdown === item.name && (
-          <div className="absolute top-full left-0 pt-2 w-max min-w-[240px] animate-in fade-in slide-in-from-top-2 duration-300">
+        {/* CSS-only dropdown via group-hover */}
+        {item.dropdown && (
+          <div className="absolute top-full left-0 pt-2 w-max min-w-[240px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
             <div className="bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] rounded-b-xl border-t-2 border-brand-orange overflow-hidden">
               <ul className="py-2">
                 {item.dropdown.map((subItem) => {
@@ -106,7 +103,7 @@ export default function Header() {
                     <li key={subItem.name}>
                       <Link
                         href={subItem.path}
-                        className={`block px-8 py-3.5 text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-[0.15em] font-onest border-b border-gray-50 last:border-none
+                        className={`block px-8 py-3.5 text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-[0.15em] font-onest border-b border-gray-50 last:border-none cursor-pointer
                           ${isSubActive ? "text-brand-orange" : "text-brand-black/70 hover:text-brand-orange"}`}
                       >
                         {subItem.name}
@@ -126,7 +123,7 @@ export default function Header() {
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
       <div className="container-custom flex items-center justify-between h-22 md:h-28">
         {/* Left: Logo + All Menu Items */}
-        <div className="flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8">
+        <div className="flex items-center">
           <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
             <Image
               src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
@@ -138,7 +135,7 @@ export default function Header() {
               priority
             />
           </Link>
-          <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 h-full whitespace-nowrap">
+          <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 h-full whitespace-nowrap lg:ml-2 xl:ml-4">
             {menuItems.map(renderNavItem)}
           </nav>
         </div>
