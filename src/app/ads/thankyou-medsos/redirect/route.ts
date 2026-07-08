@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { leadPool } from "@/lib/roundRobin";
 
 const WA_MESSAGE =
-  "Halo Dreamlab, saya lihat iklan di meta ads dan ingin konsultasi buat brand saya. Bisa dibantu?";
+  "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
 
 export async function GET(request: NextRequest) {
   const campaign =
-    request.nextUrl.searchParams.get("campaign") ?? "metaads";
+    request.nextUrl.searchParams.get("campaign") ?? "medsos";
 
   const existingCs = request.cookies.get("dreamlab_cs")?.value;
   const validIds = ["cs1", "cs2", "cs3"];

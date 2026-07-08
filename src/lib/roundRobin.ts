@@ -63,6 +63,4 @@ class RoundRobinPool {
   }
 }
 
-const pool = new RoundRobinPool(CS_POOL);
-
-export default pool;
+export const leadPool = new RoundRobinPool(CS_POOL);
