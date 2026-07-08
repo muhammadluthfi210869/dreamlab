@@ -78,7 +78,6 @@ export default function Home() {
   const priorityBlogSlugs = new Set([
     "/biaya-maklon-parfum-moq-kecil",
     "/bisnis-skincare-glow-glasskin-cystamine",
-    "/perbedaan-micellar-water-dan-toner",
   ]);
   const spotlightPosts = articles
     .filter((article) => priorityBlogSlugs.has(article.slug))
