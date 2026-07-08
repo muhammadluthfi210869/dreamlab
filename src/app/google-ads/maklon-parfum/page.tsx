@@ -89,7 +89,7 @@ export default function MaklonParfumAdsLP() {
             <div className="hero-fade-in" style={{ animationDelay: "0.65s" }}>
               <div className="flex flex-wrap items-center gap-4">
                 <a
-                  href="/ads/thankyou/google/?source=googleads-parfum"
+                  href="/ads/thankyou/google-ads/"
                   className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-extrabold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_15px_30px_rgba(243,146,0,0.2)] hover:-translate-y-1 text-xs md:text-sm"
                 >
                   {/* WhatsApp SVG Icon */}
@@ -347,7 +347,7 @@ export default function MaklonParfumAdsLP() {
 
                 <div className="w-full sm:w-auto pt-2 flex flex-col items-center sm:items-start gap-2">
                   <a
-                    href="/ads/thankyou/google/?source=googleads-parfum"
+                    href="/ads/thankyou/google-ads/"
                     className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-orange hover:bg-brand-black text-white font-extrabold py-3.5 px-8 rounded-full transition-all duration-300 shadow-[0_12px_24px_rgba(243,146,0,0.15)] hover:-translate-y-0.5 text-xs uppercase"
                   >
                     {/* WhatsApp Icon */}
@@ -422,7 +422,7 @@ export default function MaklonParfumAdsLP() {
 
               <div className="rounded-2xl w-fit mt-2 flex flex-col items-start gap-3">
                 <a
-                  href="/ads/thankyou/google/?source=googleads-parfum"
+                  href="/ads/thankyou/google-ads/"
                   className="inline-flex items-center justify-center bg-brand-orange hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 rounded-2xl font-extrabold text-xs md:text-sm uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-orange/15 w-fit"
                 >
                   <span>FREE KONSULTASI BISNIS</span>
@@ -463,7 +463,7 @@ export default function MaklonParfumAdsLP() {
 
       {/* FLOATING WA BUTTON */}
       <a
-        href="/ads/thankyou/google/?source=googleads-parfum"
+        href="/ads/thankyou/google-ads/"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Contact via WhatsApp"
       >
