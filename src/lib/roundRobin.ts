@@ -47,6 +47,10 @@ class RoundRobinPool {
     return { agent, phone: this.normalizePhoneNumber(agent.number) };
   }
 
+  getAgent(id: string): CSAgent | undefined {
+    return this.agents.find((a) => a.id === id);
+  }
+
   getStats(): LeadStats {
     return { ...this.stats };
   }
