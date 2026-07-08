@@ -135,7 +135,7 @@ export default function Header() {
               priority
             />
           </Link>
-          <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 h-full whitespace-nowrap lg:ml-2 xl:ml-4">
+          <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 h-full whitespace-nowrap lg:ml-0.5 xl:ml-1">
             {menuItems.map(renderNavItem)}
           </nav>
         </div>
