@@ -124,46 +124,39 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
-      <div className="container-custom lg:grid lg:grid-cols-[auto_auto_1fr] lg:gap-x-8 xl:gap-x-16 2xl:gap-x-24 flex items-center justify-between h-22 md:h-28">
-        {/* Desktop Left Menu — Home, About Us */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-10 h-full">
-          {menuItems.slice(0, 2).map(renderNavItem)}
-        </nav>
+      <div className="container-custom flex items-center justify-between h-22 md:h-28">
+        {/* Left: Logo + All Menu Items */}
+        <div className="flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 overflow-hidden">
+          <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
+            <Image
+              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
+              alt="Dreamlab Logo"
+              title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
+              width={240}
+              height={78}
+              className="h-16 md:h-20 xl:h-24 w-auto object-contain"
+              priority
+            />
+          </Link>
+          <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 h-full whitespace-nowrap">
+            {menuItems.map(renderNavItem)}
+          </nav>
+        </div>
 
-        {/* Logo — center column on desktop, left on mobile */}
-        <Link href="/" className="flex items-center group transition-transform duration-300 mx-3 2xl:mx-6">
-          <Image
-            src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-            alt="Dreamlab Logo"
-            title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
-            width={240}
-            height={78}
-            className="h-16 md:h-24 w-auto object-contain"
-            priority
-          />
-        </Link>
-
-        {/* Desktop Right Menu + Search + Mobile Hamburger */}
-        <div className="flex items-center justify-end gap-4 xl:gap-6">
-          <div className="hidden lg:flex items-center gap-4 xl:gap-10 h-full">
-            <nav className="flex items-center gap-4 xl:gap-10 h-full">
-              {menuItems.slice(2).map(renderNavItem)}
-            </nav>
-            <button className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center text-white shadow-lg transition-all hover:bg-black hover:scale-110 active:scale-90 flex-shrink-0">
-              <Search className="w-5 h-5 stroke-[3]" />
-            </button>
-          </div>
-
-        {/* Mobile Menu Toggle - Adjusted for better tap target */}
-        <button
-          className="lg:hidden p-2 text-brand-black"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
-          </svg>
-        </button>
-      </div>
+        {/* Right: Search + Hamburger */}
+        <div className="flex items-center gap-3 shrink-0">
+          <button className="hidden lg:flex w-12 h-12 rounded-full bg-brand-orange items-center justify-center text-white shadow-lg transition-all hover:bg-black hover:scale-110 active:scale-90">
+            <Search className="w-5 h-5 stroke-[3]" />
+          </button>
+          <button
+            className="lg:hidden p-2 text-brand-black"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
