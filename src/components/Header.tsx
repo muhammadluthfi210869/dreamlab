@@ -126,7 +126,7 @@ export default function Header() {
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
       <div className="container-custom flex items-center justify-between h-22 md:h-28">
         {/* Left: Logo + All Menu Items */}
-        <div className="flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 overflow-hidden">
+        <div className="flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8">
           <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
             <Image
               src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
