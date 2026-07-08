@@ -6,6 +6,7 @@ import PilotBreadcrumbs from '@/components/seo-pilot/PilotBreadcrumbs';
 import PilotCtaButton from '@/components/seo-pilot/PilotCtaButton';
 import PilotLeadForm from '@/components/seo-pilot/PilotLeadForm';
 import PilotStickyCta from '@/components/seo-pilot/PilotStickyCta';
+import PilotTrackedLink from '@/components/seo-pilot/PilotTrackedLink';
 import type { PilotPageData } from '@/data/seo-pilot/batch-1';
 import { buildPilotSchemas } from '@/lib/seo-pilot/schema';
 
@@ -13,38 +14,76 @@ interface PilotPageRendererProps {
   page: PilotPageData;
 }
 
+function slugifyAnchor(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
+
 function pageContext(page: PilotPageData) {
   return {
     pageUrl: page.canonical,
-    pageTitle: page.metaTitle,
+    pageTitle: page.title,
     pageType: page.pageType,
     seoCluster: page.seoCluster,
     keywordTarget: page.keywordTarget,
   } as const;
 }
 
-function SectionCard({ title, children }: { title: string; children: ReactNode }) {
+function SectionCard({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section className="rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+    <section id={id} className="scroll-mt-28 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
       <h2 className="text-2xl font-black tracking-tight text-[#1f1f1d]">{title}</h2>
       <div className="mt-4 space-y-4 text-[15px] leading-7 text-neutral-700">{children}</div>
     </section>
   );
 }
 
-function LabelBlock({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
+function LabelBlock({ title, description }: { title: string; description?: string }) {
   return (
     <div className="max-w-3xl">
-      <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#b06f00]">{eyebrow}</p>
-      <h2 className="mt-2 text-2xl font-black tracking-tight text-[#1f1f1d]">{title}</h2>
+      <h2 className="text-2xl font-black tracking-tight text-[#1f1f1d]">{title}</h2>
       {description ? <p className="mt-3 text-sm leading-7 text-neutral-600">{description}</p> : null}
+    </div>
+  );
+}
+
+function DataTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
+  return (
+    <div className="mt-5 overflow-x-auto">
+      <table className="min-w-full border-separate border-spacing-0 overflow-hidden rounded-2xl border border-[#eadfcf]">
+        <thead>
+          <tr className="bg-[#fff3de] text-left text-sm font-black uppercase tracking-wider text-[#7a4b00]">
+            {headers.map((header) => (
+              <th key={header} className="border-b border-[#eadfcf] px-4 py-4">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row[0]} className="align-top even:bg-[#fffdf8]">
+              {row.map((cell, index) => (
+                <td
+                  key={`${row[0]}-${index}`}
+                  className={`border-b border-[#f1e4d2] px-4 py-4 text-sm leading-7 text-neutral-700 ${index === 0 ? 'font-semibold text-[#1f1f1d]' : ''}`}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
 function CtaCluster({
   page,
-  eyebrow,
   title,
   description,
   primaryLabel,
@@ -53,7 +92,6 @@ function CtaCluster({
   secondaryMessage,
 }: {
   page: PilotPageData;
-  eyebrow: string;
   title: string;
   description: string;
   primaryLabel: string;
@@ -65,13 +103,15 @@ function CtaCluster({
 
   return (
     <section className="grid gap-6 rounded-[28px] border border-[#eadfcf] bg-[#fffaf1] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
-      <LabelBlock eyebrow={eyebrow} title={title} description={description} />
+      <LabelBlock title={title} description={description} />
       <div className="flex flex-wrap gap-3">
         <PilotCtaButton
           label={primaryLabel}
           message={primaryMessage}
           location="contextual_cta_primary"
           page={ctx}
+          href="/biaya-maklon-skincare/"
+          actionType="link"
         />
         <PilotCtaButton
           label={secondaryLabel}
@@ -97,6 +137,18 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
   const schema = buildPilotSchemas(page);
   const ctx = pageContext(page);
   const isArticle = page.pageType === 'pilot_article';
+  const contentMap = [
+    page.table ? { id: 'tabel-komponen-biaya', label: page.table.title } : null,
+    { id: 'decision-box', label: page.decisionBox.title },
+    page.checklist ? { id: 'checklist-sebelum-minta-estimasi', label: page.checklist.title } : null,
+    ...page.sections
+      .filter((section) => !section.title.startsWith('Skor Kesiapan Estimasi') && section.title !== page.table?.title)
+      .map((section) => ({
+        id: slugifyAnchor(section.title),
+        label: section.title,
+      })),
+    { id: 'faq', label: 'FAQ' },
+  ].filter(Boolean) as Array<{ id: string; label: string }>;
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#fffdf8_0%,#fff8ef_100%)] text-[#1f1f1d]">
@@ -107,15 +159,14 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
         <PilotBreadcrumbs
           items={[
             { label: 'Home', href: '/' },
-            { label: isArticle ? 'Panduan' : 'Biaya & MOQ', href: isArticle ? '/panduan/' : '/panduan/' },
+            { label: isArticle ? 'Panduan' : 'Biaya & MOQ', href: '/panduan/' },
             { label: page.title, href: page.slug },
           ]}
         />
 
         <article className="mt-5 space-y-6">
           <header className="rounded-[32px] border border-[#eadfcf] bg-[#fffaf1] p-7 text-center shadow-[0_24px_80px_rgba(0,0,0,0.05)] sm:p-10">
-            <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#b06f00]">SEO Pilot Dreamlab</p>
-            <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-black tracking-tight text-[#1f1f1d] sm:text-5xl">
+            <h1 className="mx-auto max-w-4xl text-4xl font-black tracking-tight text-[#1f1f1d] sm:text-5xl">
               {page.heroHeadline}
             </h1>
             <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
@@ -125,9 +176,6 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm text-neutral-500">
               <span className="rounded-full bg-white px-4 py-2 font-semibold text-[#4a4a48]">Last updated: {page.lastUpdated}</span>
               <span className="rounded-full bg-white px-4 py-2 font-semibold text-[#4a4a48]">{page.readingTime}</span>
-              <span className="rounded-full bg-white px-4 py-2 font-semibold text-[#4a4a48]">
-                {isArticle ? 'Pilot Article' : 'Money Page'}
-              </span>
             </div>
 
             <div className="mt-7 flex flex-wrap justify-center gap-3">
@@ -138,7 +186,8 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
                   message={cta.message}
                   location={cta.location}
                   page={ctx}
-                  actionType={cta.tone === 'secondary' ? 'scroll' : 'wa'}
+                  href={cta.href}
+                  actionType={cta.tone === 'secondary' ? 'scroll' : 'link'}
                   scrollTarget={cta.tone === 'secondary' ? 'brief-form' : undefined}
                   className={
                     cta.tone === 'secondary'
@@ -151,7 +200,7 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
           </header>
 
           <section className="grid gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
-            <LabelBlock eyebrow="Quick Answer Box" title="Jawaban cepat" />
+            <LabelBlock title="Jawaban cepat" />
             <ul className="grid gap-3">
               {page.quickAnswers.map((answer) => (
                 <li key={answer} className="rounded-2xl border border-[#f1e4d2] bg-[#fffdf8] p-4 text-[15px] leading-7 text-neutral-700">
@@ -161,42 +210,30 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
             </ul>
           </section>
 
+          <section className="rounded-[28px] border border-[#eadfcf] bg-[#fffaf1] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+            <LabelBlock title="Daftar isi" />
+            <nav className="mt-5 rounded-[24px] border border-[#eadfcf] bg-white p-5">
+              <ol className="grid gap-3 text-sm font-semibold text-[#4a4a48] md:grid-cols-2">
+                {contentMap.map((item) => (
+                  <li key={item.id}>
+                    <Link href={`#${item.id}`} className="transition hover:text-[#D98A00]">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </section>
+
           {page.table ? (
-            <section className="rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
-              <LabelBlock eyebrow={page.table.eyebrow} title={page.table.title} />
-              <div className="mt-5 overflow-x-auto">
-                <table className="min-w-full border-separate border-spacing-0 overflow-hidden rounded-2xl border border-[#eadfcf]">
-                  <thead>
-                    <tr className="bg-[#fff3de] text-left text-sm font-black uppercase tracking-wider text-[#7a4b00]">
-                      {page.table.headers.map((header) => (
-                        <th key={header} className="border-b border-[#eadfcf] px-4 py-4">
-                          {header}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {page.table.rows.map((row) => (
-                      <tr key={row[0]} className="align-top even:bg-[#fffdf8]">
-                        {row.map((cell, index) => (
-                          <td
-                            key={`${row[0]}-${index}`}
-                            className={`border-b border-[#f1e4d2] px-4 py-4 text-sm leading-7 text-neutral-700 ${index === 0 ? 'font-semibold text-[#1f1f1d]' : ''}`}
-                          >
-                            {cell}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            <section id="tabel-komponen-biaya" className="scroll-mt-28 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+              <LabelBlock title={page.table.title} />
+              <DataTable headers={page.table.headers} rows={page.table.rows} />
             </section>
           ) : null}
 
-          <section className="rounded-[28px] border border-[#eadfcf] bg-[#111111] p-6 text-white shadow-[0_18px_50px_rgba(0,0,0,0.08)] sm:p-8">
-            <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#f8c26b]">{page.decisionBox.eyebrow}</p>
-            <h2 className="mt-2 text-2xl font-black tracking-tight">{page.decisionBox.title}</h2>
+          <section id="decision-box" className="scroll-mt-28 rounded-[28px] border border-[#eadfcf] bg-[#111111] p-6 text-white shadow-[0_18px_50px_rgba(0,0,0,0.08)] sm:p-8">
+            <h2 className="text-2xl font-black tracking-tight">{page.decisionBox.title}</h2>
             {page.decisionBox.description ? (
               <p className="mt-3 max-w-3xl text-sm leading-7 text-white/75">{page.decisionBox.description}</p>
             ) : null}
@@ -210,8 +247,8 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
           </section>
 
           {page.checklist ? (
-            <section className="grid gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
-              <LabelBlock eyebrow={page.checklist.eyebrow} title={page.checklist.title} description={page.checklist.description} />
+            <section id="checklist-sebelum-minta-estimasi" className="grid scroll-mt-28 gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+              <LabelBlock title={page.checklist.title} description={page.checklist.description} />
               <ul className="grid gap-3 md:grid-cols-2">
                 {page.checklist.items.map((item) => (
                   <li key={item} className="rounded-2xl border border-[#f1e4d2] bg-[#fffdf8] p-4 text-sm leading-7 text-neutral-700">
@@ -224,9 +261,9 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
 
           <div className="grid gap-5">
             {page.sections.map((section) => (
-              <SectionCard key={section.title} title={section.title}>
+              <SectionCard key={section.title} id={slugifyAnchor(section.title)} title={section.title}>
                 {section.body.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <p key={paragraph} dangerouslySetInnerHTML={{ __html: paragraph }} />
                 ))}
                 {section.bullets ? (
                   <ul className="grid gap-2">
@@ -237,51 +274,51 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
                     ))}
                   </ul>
                 ) : null}
+                {section.table ? <DataTable headers={section.table.headers} rows={section.table.rows} /> : null}
               </SectionCard>
             ))}
           </div>
 
-          <CtaCluster page={page} {...page.contextualCta} />
+          <div id="contextual-cta" className="scroll-mt-28">
+            <CtaCluster page={page} {...page.contextualCta} />
+          </div>
 
-          <section className="grid gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
-            <LabelBlock
-              eyebrow={page.relatedSection.eyebrow}
-              title={page.relatedSection.title}
-              description={page.relatedSection.description}
-            />
+          <section id="related-links" className="grid scroll-mt-28 gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+            <LabelBlock title={page.relatedSection.title} description={page.relatedSection.description} />
             <div className="grid gap-4 md:grid-cols-2">
-              {page.relatedLinks.map((link) => (
-                <Link
+              {page.relatedLinks.map((link, index) => (
+                <PilotTrackedLink
                   key={link.href}
                   href={link.href}
+                  label={link.label}
+                  location={`related_link_${index + 1}`}
+                  page={ctx}
                   className="group rounded-[24px] border border-[#eadfcf] bg-[#fffaf1] p-5 transition hover:-translate-y-0.5 hover:shadow-lg"
                 >
-                  <p className="text-sm font-black uppercase tracking-[0.24em] text-[#b06f00]">{link.intent}</p>
-                  <h3 className="mt-2 text-lg font-black tracking-tight text-[#1f1f1d]">{link.label}</h3>
+                  <h3 className="text-lg font-black tracking-tight text-[#1f1f1d]">{link.label}</h3>
                   <p className="mt-2 text-sm leading-6 text-neutral-600">{link.description}</p>
                   <span className="mt-4 inline-flex text-sm font-bold text-[#D98A00] transition group-hover:translate-x-1">
                     Buka halaman
                   </span>
-                </Link>
+                </PilotTrackedLink>
               ))}
             </div>
           </section>
 
-          <section className="grid gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
-            <LabelBlock eyebrow="FAQ" title="Pertanyaan yang paling sering muncul" />
+          <section id="faq" className="grid scroll-mt-28 gap-4 rounded-[28px] border border-[#eadfcf] bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+            <LabelBlock title="FAQ" />
             <div className="grid gap-3">
               {page.faq.map((item) => (
                 <details key={item.question} className="rounded-2xl border border-[#f1e4d2] bg-[#fffdf8] p-4">
                   <summary className="cursor-pointer list-none text-sm font-extrabold text-[#1f1f1d]">{item.question}</summary>
-                  <p className="mt-3 text-sm leading-7 text-neutral-700">{item.answer}</p>
+                  <p className="mt-3 text-sm leading-7 text-neutral-700" dangerouslySetInnerHTML={{ __html: item.answer }} />
                 </details>
               ))}
             </div>
           </section>
 
           <section className="rounded-[32px] border border-[#eadfcf] bg-[#111111] p-7 text-white shadow-[0_24px_80px_rgba(0,0,0,0.08)] sm:p-10">
-            <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#f8c26b]">{page.finalCta.eyebrow}</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight">{page.finalCta.title}</h2>
+            <h2 className="text-3xl font-black tracking-tight">{page.finalCta.title}</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">{page.finalCta.description}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <PilotCtaButton
@@ -289,6 +326,8 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
                 message={page.finalCta.primaryMessage}
                 location="final_cta_primary"
                 page={ctx}
+                href="/biaya-maklon-skincare/"
+                actionType="link"
                 className="inline-flex items-center justify-center rounded-full bg-[#D98A00] px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-[#D98A00]/20 transition hover:translate-y-[-1px] hover:bg-[#c97e00]"
               />
               <PilotCtaButton

@@ -15,6 +15,7 @@ interface PilotStickyCtaProps {
   secondaryLabel: string;
   secondaryMessage: string;
   formHref: string;
+  primaryHref?: string;
 }
 
 export default function PilotStickyCta({
@@ -24,6 +25,7 @@ export default function PilotStickyCta({
   secondaryLabel,
   secondaryMessage,
   formHref,
+  primaryHref = '/biaya-maklon-skincare/',
 }: PilotStickyCtaProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#eadfcf] bg-white/96 px-3 py-3 shadow-[0_-12px_40px_rgba(0,0,0,0.08)] backdrop-blur-md md:hidden">
@@ -33,6 +35,8 @@ export default function PilotStickyCta({
           message={primaryMessage}
           location="sticky_mobile_primary"
           page={page}
+          href={primaryHref}
+          actionType="link"
           className="inline-flex items-center justify-center rounded-2xl bg-[#D98A00] px-3 py-3 text-[12px] font-black text-white shadow-lg shadow-[#D98A00]/20 transition active:scale-[0.98]"
         />
         <PilotCtaButton

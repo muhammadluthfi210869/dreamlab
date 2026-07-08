@@ -5,8 +5,8 @@ const hubCards = [
   {
     type: 'Pilot Article',
     href: '/panduan/komponen-biaya-maklon-skincare',
-    title: 'Komponen Biaya Maklon Skincare',
-    description: 'Breakdown komponen biaya, area yang masih bisa dihemat, dan checklist sebelum minta estimasi.',
+    title: 'Checklist Komponen Biaya Maklon Skincare',
+    description: 'Checklist komponen biaya, area yang masih bisa dihemat, dan brief sebelum minta estimasi.',
   },
   {
     type: 'Pilot Article',

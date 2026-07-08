@@ -2,6 +2,7 @@
 
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { getNextBusdev } from '@/lib/round-robin';
+import { getFallbackBusdev } from '@/lib/round-robin-config';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
 
 interface PilotLeadFormProps {
@@ -18,7 +19,7 @@ interface PilotLeadFormProps {
 }
 
 export default function PilotLeadForm({ page, title, description, submitLabel }: PilotLeadFormProps) {
-  const [phone, setPhone] = useState('6287776550657');
+  const [phone, setPhone] = useState(() => getFallbackBusdev().phone);
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [need, setNeed] = useState('');
@@ -48,11 +49,14 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!phone) return;
+
     const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     const payload = resolvePilotPayload('lead_form', page);
 
     pushPilotEvent('form_submit', {
       ...payload,
+      cta_label: submitLabel,
       form_name: 'pilot_brief_form',
       form_fields: {
         name,
@@ -81,8 +85,7 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
   return (
     <section id="brief-form" className="rounded-[28px] border border-[#eadfcf] bg-[#fffaf1] p-6 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,0.04)]">
       <div className="max-w-2xl">
-        <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#b06f00]">Brief Form</p>
-        <h2 className="mt-3 text-2xl font-black tracking-tight text-[#1f1f1d]">{title}</h2>
+        <h2 className="text-2xl font-black tracking-tight text-[#1f1f1d]">{title}</h2>
         <p className="mt-2 text-sm leading-6 text-neutral-600">{description}</p>
       </div>
 
@@ -131,6 +134,7 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
         <button
           type="submit"
+          disabled={!phone}
           className="inline-flex items-center justify-center rounded-full bg-[#D98A00] px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-[#D98A00]/20 transition hover:translate-y-[-1px] hover:bg-[#c97e00] sm:w-fit"
         >
           {submitLabel}

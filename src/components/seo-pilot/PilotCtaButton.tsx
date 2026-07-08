@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getNextBusdev } from '@/lib/round-robin';
+import { getFallbackBusdev } from '@/lib/round-robin-config';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
 
 interface PilotCtaButtonProps {
@@ -16,12 +18,14 @@ interface PilotCtaButtonProps {
     keywordTarget: string;
   };
   className?: string;
-  actionType?: 'wa' | 'scroll';
+  href?: string;
+  actionType?: 'wa' | 'scroll' | 'link';
   scrollTarget?: string;
 }
 
-export default function PilotCtaButton({ label, message, location, page, className, actionType = 'wa', scrollTarget }: PilotCtaButtonProps) {
-  const [phone, setPhone] = useState('6287776550657');
+export default function PilotCtaButton({ label, message, location, page, className, href, actionType = 'wa', scrollTarget }: PilotCtaButtonProps) {
+  const router = useRouter();
+  const [phone, setPhone] = useState(() => getFallbackBusdev().phone);
 
   useEffect(() => {
     let mounted = true;
@@ -34,12 +38,18 @@ export default function PilotCtaButton({ label, message, location, page, classNa
   }, []);
 
   const url = useMemo(() => {
+    if (!phone) return '';
     return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   }, [phone, message]);
 
   const handleClick = () => {
     const payload = resolvePilotPayload(location, page);
-    const ctaUrl = actionType === 'wa' ? url : `#${scrollTarget || 'brief-form'}`;
+    const ctaUrl =
+      actionType === 'wa'
+        ? url
+        : actionType === 'link'
+          ? href || '/biaya-maklon-skincare/'
+          : `#${scrollTarget || 'brief-form'}`;
 
     pushPilotEvent('cta_click', {
       ...payload,
@@ -53,7 +63,18 @@ export default function PilotCtaButton({ label, message, location, page, classNa
         cta_label: label,
         cta_url: ctaUrl,
       });
+      if (!phone) {
+        const target = document.getElementById(scrollTarget || 'brief-form');
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
       window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    if (actionType === 'link') {
+      router.push(href || '/biaya-maklon-skincare/');
       return;
     }
 
