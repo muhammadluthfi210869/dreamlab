@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getConfiguredBusdevs, getFallbackBusdev, resolveRoundRobinIndex } from '@/lib/round-robin-config';
 import { getServiceClient } from '@/lib/supabase-server';
 
 const WA_MSG = "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
@@ -19,16 +20,27 @@ export async function GET() {
       .order('id', { ascending: true });
 
     if (queryError) throw queryError;
-    if (!busdevs || busdevs.length === 0) {
-      return NextResponse.json({ error: 'No active busdevs' }, { status: 500 });
-    }
 
-    const phone = busdevs[index].phone;
+    const pool = getConfiguredBusdevs(busdevs ?? []);
+    const phone = pool[resolveRoundRobinIndex(index, pool.length)].phone;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(WA_MSG)}`;
 
-    return NextResponse.redirect(url, { status: 302 });
+    return NextResponse.redirect(url, {
+      status: 302,
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   } catch (error) {
     console.error('Round robin redirect error:', error);
-    return NextResponse.json({ error: 'Failed to redirect' }, { status: 500 });
+    const fallback = getFallbackBusdev(Date.now());
+    const url = `https://wa.me/${fallback.phone}?text=${encodeURIComponent(WA_MSG)}`;
+
+    return NextResponse.redirect(url, {
+      status: 302,
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   }
 }

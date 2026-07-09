@@ -59,7 +59,8 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  const shouldForceHttps = forwardedProto === 'http' && hostname !== 'localhost' && hostname !== '127.0.0.1';
+  const localHosts = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
+  const shouldForceHttps = forwardedProto === 'http' && !localHosts.has(hostname);
   const shouldForceNonWww = hostname === 'www.dreamlab.id';
   const shouldNormalizeDash = normalizedPathname !== nextUrl.pathname;
   const shouldNormalizeBlog = pathname === '/blog' || pathname === '/blog/';

@@ -30,6 +30,11 @@ Jika ada konflik:
 - Ikuti repo truth kedua.
 - Pakai knowledge base sebagai panduan, bukan dogma.
 
+Koreksi penting untuk fase pilot:
+- Jangan memprioritaskan kalkulator dinamis atau quiz interaktif sebagai alat konversi awal.
+- Untuk 90 hari pertama, utamakan visual comparison statis yang cepat dipahami visitor B2B.
+- Walaupun pilot aktif saat ini fokus di cluster skincare, arsitektur situs tetap harus mencerminkan 8 kategori utama pabrik: skincare, bodycare, haircare, parfum, baby care, decorative, foot care, dan PKRT.
+
 ## 3. Rendering SEO
 
 Halaman pilot yang harus diindex wajib menghasilkan HTML matang pada server.
@@ -164,7 +169,7 @@ Untuk pilot, monitoring cukup minimal:
 - `cta_click`
 - `wa_click`
 - `form_submit`
-- `calculator_complete` jika calculator dipakai
+- `comparison_visual_view` jika modul perbandingan visual dipakai
 
 Payload minimum:
 - `page_url`
@@ -190,6 +195,7 @@ Aturan UI:
 - mobile-first
 - whitespace cukup
 - card-based untuk decision box, related links, FAQ, dan CTA
+- visual comparison statis lebih diprioritaskan daripada tool interaktif berat
 - CTA spesifik, bukan generik
 - animasi minimal
 - fokus pada clarity, trust, dan decision-making

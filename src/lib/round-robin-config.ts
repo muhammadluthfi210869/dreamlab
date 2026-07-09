@@ -73,6 +73,8 @@ export function resolveRoundRobinIndex(rawIndex: unknown, total: number): number
 }
 
 export function getFallbackBusdev(rawIndex?: unknown): BusdevContact {
-  const index = resolveRoundRobinIndex(rawIndex ?? Date.now(), ROUND_ROBIN_BUSDEVS.length);
+  const index = rawIndex === undefined
+    ? 0
+    : resolveRoundRobinIndex(rawIndex, ROUND_ROBIN_BUSDEVS.length);
   return ROUND_ROBIN_BUSDEVS[index];
 }

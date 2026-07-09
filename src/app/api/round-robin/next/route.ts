@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getConfiguredBusdevs, getFallbackBusdev, resolveRoundRobinIndex } from '@/lib/round-robin-config';
 import { getServiceClient } from '@/lib/supabase-server';
 
 export async function GET() {
@@ -18,25 +19,30 @@ export async function GET() {
 
     if (queryError) throw queryError;
 
-    if (!busdevs || busdevs.length === 0) {
-      return NextResponse.json(
-        { error: 'No active busdevs' },
-        { status: 500 }
-      );
-    }
-
-    const assigned = busdevs[index];
+    const pool = getConfiguredBusdevs(busdevs ?? []);
+    const assigned = pool[resolveRoundRobinIndex(index, pool.length)];
 
     return NextResponse.json({
       phone: assigned.phone,
       busdev_id: assigned.id,
       name: assigned.name,
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
     });
   } catch (error) {
     console.error('Round robin error:', error);
-    return NextResponse.json(
-      { error: 'Failed to assign busdev' },
-      { status: 500 }
-    );
+    const fallback = getFallbackBusdev(Date.now());
+
+    return NextResponse.json({
+      phone: fallback.phone,
+      busdev_id: fallback.id,
+      name: fallback.name,
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   }
 }

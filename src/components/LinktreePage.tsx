@@ -1,9 +1,12 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
+import { useLeadAssignment } from "@/hooks/useLeadAssignment";
+import { buildWhatsAppUrl } from "@/lib/lead-routing";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -48,7 +51,30 @@ const badges = [
   "Free HKI",
 ];
 
-export default function LinktreePage() {
+type LinktreePageProps = {
+  initialSource?: string;
+};
+
+export default function LinktreePage({ initialSource = "linktree" }: LinktreePageProps) {
+  const [source, setSource] = useState(initialSource);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const resolvedSource = params.get("source") || initialSource;
+    setSource(resolvedSource);
+  }, [initialSource]);
+
+  const assignment = useLeadAssignment({
+    routeKey: "contact-medsos",
+    source,
+  });
+
+  const handleWAClick = useCallback(() => {
+    const msg = "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
+    const url = buildWhatsAppUrl(assignment.phone, msg);
+    window.location.assign(url);
+  }, [assignment.phone]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -119,15 +145,15 @@ export default function LinktreePage() {
           transition={{ delay: 0.3, duration: 0.8, ease: premiumEase }}
           className="w-full"
         >
-          <Link
-            href="/ads/thankyou-medsos/"
-            className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white py-5 px-6 rounded-2xl flex items-center justify-center gap-4 transition-all duration-300 shadow-[0_8px_24px_rgba(34,197,94,0.35)] hover:shadow-[0_12px_32px_rgba(34,197,94,0.45)] hover:scale-[1.02] active:scale-[0.98] group no-underline cursor-pointer border-none"
+          <button
+            onClick={handleWAClick}
+            className="btn-wa w-full bg-[#22c55e] hover:bg-[#16a34a] text-white py-5 px-6 rounded-2xl flex items-center justify-center gap-4 transition-all duration-300 shadow-[0_8px_24px_rgba(34,197,94,0.35)] hover:shadow-[0_12px_32px_rgba(34,197,94,0.45)] hover:scale-[1.02] active:scale-[0.98] group no-underline cursor-pointer border-none"
           >
             <div className="flex flex-col text-center w-full">
               <span className="text-sm font-bold tracking-wider">HUBUNGI KAMI VIA WHATSAPP</span>
-              <span className="text-[12px] font-normal opacity-80 mt-1">Konsultasi Gratis &mdash; Respon Cepat</span>
+              <span className="text-[12px] font-normal opacity-80 mt-1">Konsultasi Gratis - Respon Cepat</span>
             </div>
-          </Link>
+          </button>
         </motion.div>
 
         <motion.div

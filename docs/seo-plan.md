@@ -6,7 +6,7 @@ Jangan langsung coding sebelum membuat plan. Pertama, audit struktur repo, routi
 
 ## 1. Konteks bisnis
 
-Dreamlab adalah perusahaan B2B maklon kosmetik. Target visitor utama adalah calon brand owner, klinik kecantikan, reseller, influencer, owner bisnis, dan perusahaan yang ingin membuat produk skincare, bodycare, haircare, parfum, atau kosmetik private label.
+Dreamlab adalah perusahaan B2B maklon kosmetik. Target visitor utama adalah calon brand owner, klinik kecantikan, reseller, influencer, owner bisnis, dan perusahaan yang ingin membuat produk skincare, bodycare, haircare, parfum, baby care, decorative, foot care, PKRT, atau kosmetik private label.
 
 Masalah bisnis utama:
 
@@ -27,6 +27,23 @@ Bangun sistem SEO B2B yang bisa:
 5. Membangun topical authority di niche maklon kosmetik.
 6. Membuat tracking yang bisa membuktikan performa ke owner/bos.
 7. Membuat struktur website yang siap di-scale dalam 3–6 bulan.
+
+## 2A. Koreksi prioritas pilot
+
+Koreksi ini mengoverride asumsi lama jika ada konflik di dokumen:
+
+1. Jangan memprioritaskan interactive tool berat seperti quiz atau kalkulator dinamis pada fase pilot awal.
+2. Untuk lead assist di 90 hari pertama, utamakan side-by-side visual comparison statis yang tajam dan cepat dipahami visitor B2B.
+3. Infrastruktur kategori, URL, internal linking, dan copy capability harus merepresentasikan 8 kategori utama pabrik:
+   - skincare
+   - bodycare
+   - haircare
+   - parfum
+   - baby care
+   - decorative
+   - foot care
+   - PKRT
+4. Jangan biarkan roadmap awal memberi sinyal ke Googlebot bahwa pabrik hanya menangani skincare dan parfum.
 
 ## 3. Prinsip strategi
 
@@ -94,14 +111,13 @@ Event minimal:
 * form_start
 * form_submit
 * product_brief_submit
-* calculator_start
-* calculator_complete
 * phone_click
 * email_click
 * catalog_download
 * faq_expand
 * cta_view
 * cta_click
+* comparison_visual_view
 
 Setiap event harus membawa payload:
 
@@ -154,12 +170,16 @@ Buat atau optimasi halaman utama berikut:
 4. /maklon-bodycare
 5. /maklon-haircare
 6. /maklon-parfum
-7. /maklon-kosmetik-bpom
-8. /private-label-kosmetik
-9. /pabrik-kosmetik
-10. /jasa-maklon-skincare
-11. /jasa-maklon-parfum
-12. /jasa-maklon-bodycare
+7. /maklon-baby-care
+8. /maklon-decorative
+9. /maklon-foot-care
+10. /maklon-pkrt
+11. /maklon-kosmetik-bpom
+12. /private-label-kosmetik
+13. /pabrik-kosmetik
+14. /jasa-maklon-skincare
+15. /jasa-maklon-parfum
+16. /jasa-maklon-bodycare
 
 Setiap money page harus punya struktur:
 
@@ -225,20 +245,28 @@ Setiap artikel harus:
 * Memiliki FAQ.
 * Memiliki internal link ke artikel terkait.
 * Tidak menjadi artikel awareness generik.
-* Fokus pada keputusan bisnis, bukan edukasi skincare umum.
+* Fokus pada keputusan bisnis, bukan edukasi kategori konsumen umum.
 
 ### E. Landing page produk/kategori
 
 Buat halaman produk turunan dengan struktur yang scalable.
 
-Kategori utama:
+Kategori utama yang harus direpresentasikan sejak awal:
 
 * skincare
 * bodycare
 * haircare
 * parfum
-* babycare jika relevan
-* personal care jika relevan
+* baby care
+* decorative
+* foot care
+* PKRT
+
+Aturan:
+
+* Infrastruktur kategori dan URL harus mencerminkan 8 kategori utama pabrik.
+* Walaupun pilot lead masih fokus pada cluster tertentu, Googlebot tidak boleh menangkap sinyal seolah pabrik hanya menangani skincare dan parfum.
+* Kategori yang belum diprioritaskan untuk campaign SEO tetap harus muncul sebagai capability bisnis yang nyata di struktur situs.
 
 Contoh URL:
 
@@ -258,6 +286,14 @@ Contoh URL:
 * /maklon-parfum/eau-de-parfum
 * /maklon-parfum/body-mist
 * /maklon-parfum/roll-on
+* /maklon-baby-care/baby-lotion
+* /maklon-baby-care/baby-wash
+* /maklon-decorative/lip-cream
+* /maklon-decorative/cushion
+* /maklon-foot-care/foot-cream
+* /maklon-foot-care/foot-spray
+* /maklon-pkrt/hand-sanitizer
+* /maklon-pkrt/disinfectant-spray
 
 Setiap halaman produk harus punya data unik:
 
@@ -351,40 +387,41 @@ Buat halaman pendukung conversion:
 
 Trust pages tidak harus mengejar traffic besar, tetapi harus mendukung conversion. Internal link dari money page dan artikel harus sering mengarah ke halaman ini.
 
-### H. Interactive lead magnet
+### H. Lead assist asset
 
-Rancang minimal satu interactive tool untuk 90 hari pertama.
+Rancang minimal satu lead assist asset untuk 90 hari pertama, tanpa bergantung pada tool interaktif berat.
 
-Prioritas tool:
+Prioritas asset:
 
-1. Kalkulator Estimasi Modal Maklon Kosmetik
+1. Side-by-side visual comparison statis
 2. Checklist Persiapan Brand Kosmetik
 3. Form Brief Produk
-4. Quiz Produk Pertama yang Cocok untuk Brand Kamu
+4. Infografis keputusan buyer
 
-Kalkulator harus menanyakan:
+Jika asset utama berupa visual comparison, muatan minimumnya:
 
-* kategori produk
-* jenis produk
-* target market
-* packaging preference
-* jumlah SKU awal
-* kebutuhan BPOM
-* kebutuhan desain packaging
-* estimasi budget
-* timeline launching
-* nama dan WhatsApp
+* kategori atau keputusan yang dibandingkan
+* dua kolom yang tegas
+* 3-6 pembeda inti dari sisi bisnis
+* implikasi terhadap MOQ, biaya, positioning, atau risiko
+* CTA WhatsApp atau brief form
 
-Output kalkulator:
+Output asset:
 
-* estimasi kategori kebutuhan
+* ringkasan keputusan yang bisa dipahami cepat
 * rekomendasi langkah berikutnya
 * CTA WhatsApp dengan pesan prefilled
-* event calculator_complete
-* optional lead submission
+* event `comparison_visual_view`
 
 CTA akhir:
 “Cek estimasi ini dengan tim Dreamlab lewat WhatsApp.”
+
+Koreksi implementasi:
+
+* Untuk 90 hari pertama, asset utama bukan quiz atau kalkulator dinamis, tetapi side-by-side visual comparison statis.
+* Contoh yang diprioritaskan: OEM vs ODM, batch kecil vs batch lebih efisien, kemasan standar vs premium, atau SKU awal toner vs micellar water dari sisi bisnis.
+* Interactive calculator boleh masuk backlog, tetapi bukan fondasi utama fase pilot awal.
+* Jika visual comparison dipakai sebagai modul utama, track dengan event `comparison_visual_view`.
 
 ### I. Internal linking system
 
@@ -407,7 +444,12 @@ Contoh struktur:
 /maklon-kosmetik
   -> /maklon-skincare
   -> /maklon-bodycare
+  -> /maklon-haircare
   -> /maklon-parfum
+  -> /maklon-baby-care
+  -> /maklon-decorative
+  -> /maklon-foot-care
+  -> /maklon-pkrt
   -> /biaya-maklon-skincare
   -> /faq-maklon-kosmetik
 
@@ -558,15 +600,23 @@ Gunakan struktur yang rapi:
  /maklon-kosmetik
  /maklon-skincare
  /maklon-skincare/[product]
- /maklon-bodycare
- /maklon-bodycare/[product]
- /maklon-haircare
- /maklon-haircare/[product]
- /maklon-parfum
- /maklon-parfum/[product]
- /private-label-kosmetik
- /maklon-kosmetik-bpom
- /pabrik-kosmetik
+/maklon-bodycare
+/maklon-bodycare/[product]
+/maklon-haircare
+/maklon-haircare/[product]
+/maklon-parfum
+/maklon-parfum/[product]
+/maklon-baby-care
+/maklon-baby-care/[product]
+/maklon-decorative
+/maklon-decorative/[product]
+/maklon-foot-care
+/maklon-foot-care/[product]
+/maklon-pkrt
+/maklon-pkrt/[product]
+/private-label-kosmetik
+/maklon-kosmetik-bpom
+/pabrik-kosmetik
 
  /artikel/[slug]
  /panduan/[slug]
@@ -593,7 +643,7 @@ Buat atau audit komponen:
 6. HeroCTA
 7. StickyWhatsappCTA
 8. ProductBriefForm
-9. EstimateCalculator
+9. ComparisonVisualBlock
 10. FAQSection
 11. Breadcrumbs
 12. RelatedPages
@@ -712,6 +762,7 @@ Implementasikan:
 * FAQ per halaman.
 * CTA per page type.
 * Retargeting-ready dataLayer events.
+* Representasi 8 kategori utama di struktur category/product pages.
 
 Deliverable:
 
@@ -719,6 +770,7 @@ Deliverable:
 * BOFU cluster live.
 * Internal linking kuat.
 * GA4/GTM event active.
+* Representasi capability pabrik terbaca lebih lengkap, tidak bias hanya ke skincare/parfum.
 
 ### Phase 4 — Hari 61–90: Optimasi berdasarkan data
 
@@ -729,7 +781,8 @@ Implementasikan:
 * Tambah internal link ke halaman yang mulai ranking.
 * Buat halaman baru dari query GSC.
 * Perbaiki CTA halaman yang dapat traffic tapi conversion rendah.
-* Tambahkan calculator/checklist jika belum selesai.
+* Tambahkan visual comparison baru berdasarkan objection sales dan data GSC.
+* Tambahkan checklist atau visual comparison baru jika dibutuhkan.
 * Buat dashboard SEO performance.
 
 Deliverable:
@@ -761,7 +814,7 @@ Conversion:
 
 * WA clicks from organic
 * Form submits from organic
-* Calculator completes
+* Comparison visual views
 * Product brief submits
 * CTA click rate
 * Page conversion rate
@@ -886,7 +939,7 @@ Kelompokkan:
 * P0: wajib untuk tracking dan SEO foundation.
 * P1: money pages dan trust pages.
 * P2: topic cluster dan product pages.
-* P3: calculator, dashboard, dan advanced pSEO.
+* P3: dashboard, visual comparison expansion, dan advanced pSEO.
 
 ### F. Risks and safeguards
 

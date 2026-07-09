@@ -29,6 +29,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ContactMedsos() {
-  return <LinktreePage />;
+type PageProps = {
+  searchParams?: {
+    source?: string;
+  };
+};
+
+export default function ContactMedsos({ searchParams }: PageProps) {
+  return <LinktreePage initialSource={searchParams?.source || "linktree"} />;
 }

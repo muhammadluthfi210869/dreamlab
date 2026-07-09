@@ -1,4 +1,4 @@
-const BUSDEV_FALLBACK = ['6287776550657', '6281952417051'];
+import { getFallbackBusdev } from '@/lib/round-robin-config';
 
 interface RoundRobinResult {
   phone: string;
@@ -12,11 +12,11 @@ export async function getNextBusdev(): Promise<RoundRobinResult> {
     if (!res.ok) throw new Error(`API error: ${res.status}`);
     return await res.json();
   } catch {
-    const idx = Math.floor(Math.random() * BUSDEV_FALLBACK.length);
+    const fallback = getFallbackBusdev(Date.now());
     return {
-      phone: BUSDEV_FALLBACK[idx],
-      busdev_id: idx + 1,
-      name: `Busdev ${idx + 1}`,
+      phone: fallback.phone,
+      busdev_id: fallback.id,
+      name: fallback.name,
     };
   }
 }
