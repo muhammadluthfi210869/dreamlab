@@ -121,26 +121,21 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-8 flex items-center justify-between h-22 md:h-28">
-        {/* Left: Logo + All Menu Items */}
-        <div className="flex items-center">
-          <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
-            <Image
-              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-              alt="Dreamlab Logo"
-              title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
-              width={240}
-              height={78}
-              className="h-16 md:h-20 xl:h-24 w-auto object-contain"
-              priority
-            />
-          </Link>
-          <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 h-full whitespace-nowrap lg:ml-0.5 xl:ml-1">
-            {menuItems.map(renderNavItem)}
-          </nav>
-        </div>
-
-        {/* Right: Search + Hamburger */}
+      <div className="max-w-[1400px] px-6 lg:px-8 flex items-center h-22 md:h-28">
+        <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
+          <Image
+            src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
+            alt="Dreamlab Logo"
+            title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
+            width={240}
+            height={78}
+            className="h-16 md:h-20 xl:h-24 w-auto object-contain"
+            priority
+          />
+        </Link>
+        <nav className="hidden lg:flex items-center justify-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 whitespace-nowrap flex-1 lg:ml-0.5 xl:ml-1">
+          {menuItems.map(renderNavItem)}
+        </nav>
         <div className="flex items-center gap-3 shrink-0">
           <button className="hidden lg:flex w-12 h-12 rounded-full bg-brand-orange items-center justify-center text-white shadow-lg transition-all hover:bg-black hover:scale-110 active:scale-90">
             <Search className="w-5 h-5 stroke-[3]" />
