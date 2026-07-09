@@ -79,7 +79,7 @@ export default function Header() {
       >
         <Link
           href={item.path}
-          className={`flex items-center gap-1 text-[13px] font-bold tracking-[0.1em] font-onest uppercase transition-all duration-200 border-b-2 pb-1
+          className={`flex items-center gap-1 text-[13px] font-bold tracking-[0.1em] font-onest uppercase transition-all duration-200 border-b-2 pb-1 outline-none focus-visible:outline-none
             ${isActive
               ? "text-brand-orange border-brand-orange"
               : "text-brand-black/80 hover:text-brand-orange border-transparent"}`}
