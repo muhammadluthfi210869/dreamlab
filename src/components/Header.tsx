@@ -121,7 +121,7 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
-      <div className="max-w-[1440px] mx-auto xl:ml-28 xl:mr-0 px-6 lg:px-8 flex items-center gap-4 lg:gap-5 xl:gap-6 2xl:gap-8 h-22 md:h-28">
+      <div className="max-w-[1440px] mx-auto 2xl:ml-28 2xl:mr-0 px-6 lg:px-8 flex items-center justify-between h-22 md:h-28">
         <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
           <Image
             src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
