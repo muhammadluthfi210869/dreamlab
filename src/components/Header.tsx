@@ -121,7 +121,7 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
-      <div className="max-w-[1400px] px-6 lg:px-8 flex items-center h-22 md:h-28">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-8 flex items-center justify-between h-22 md:h-28">
         <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
           <Image
             src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
@@ -133,7 +133,7 @@ export default function Header() {
             priority
           />
         </Link>
-        <nav className="hidden lg:flex items-center justify-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 whitespace-nowrap flex-1 lg:ml-0.5 xl:ml-1">
+        <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 whitespace-nowrap lg:ml-0.5 xl:ml-1">
           {menuItems.map(renderNavItem)}
         </nav>
         <div className="flex items-center gap-3 shrink-0">
