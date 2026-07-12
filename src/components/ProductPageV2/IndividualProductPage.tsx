@@ -148,6 +148,9 @@ export default function IndividualProductPage({
       "bodycare:soothing-gel": "Anda menentukan bahan aktif menenangkan, tekstur gel, dan klaim produk.",
       "bodycare:neck-cream": "Anda menentukan bahan aktif (anti-aging/pencerah) dan tekstur krim.",
       "bodycare:deodorant": "Anda menentukan varian (spray, roll on, atau dry serum), bahan aktif, dan aroma sesuai konsep brand Anda.",
+      "bodycare:deodorant-spray": "Anda menentukan bahan aktif (anti-bau/antiperspirant) dan aroma deodorant spray.",
+      "bodycare:deodorant-roll-on": "Anda menentukan bahan aktif (soothing/anti-bau) dan tekstur roll on.",
+      "bodycare:deodorant-dry-serum": "Anda menentukan bahan aktif (pencerah/anti-bau) dan tekstur serum.",
       // Foot Care
       "footcare:foot-cream": "Anda menentukan bahan aktif dan tekstur foot cream.",
       "footcare:foot-scrub": "Anda menentukan jenis butiran scrub dan aroma produk.",

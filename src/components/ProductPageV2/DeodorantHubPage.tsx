@@ -1,9 +1,9 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import ProductHero from "./ProductHero";
 import { ProductCategoryV2 } from "@/types/product-v2";
@@ -20,135 +20,31 @@ interface DeodorantHubPageProps {
   categoryData: ProductCategoryV2;
 }
 
-type VariantKey = "spray" | "roll-on" | "dry-serum";
+const premiumEase = [0.16, 1, 0.3, 1] as any;
 
-interface VariantContent {
-  key: VariantKey;
-  label: string;
-  image: string;
-  title: string;
-  intro: string;
-  benefits: { title: string; description: string }[];
-  packaging: string;
-}
-
-const variants: VariantContent[] = [
+const variantCards = [
   {
-    key: "spray",
+    slug: "deodorant-spray",
     label: "Spray",
     image: "/new asset/bodycare/deodorant-spray.webp",
     title: "Deodorant Spray",
-    intro:
-      "Ingin punya brand deodorant spray sendiri? Dreamlab adalah solusi Anda untuk mengembangkan deodorant spray yang menjaga kesegaran ketiak seharian, cepat kering, dan tidak lengket — formula eksklusif sesuai konsep brand Anda.",
-    benefits: [
-      {
-        title: "FREE Custom Formula",
-        description:
-          "Anda menentukan bahan aktif (anti-bau/antiperspirant) dan aroma deodorant spray.",
-      },
-      {
-        title: "FREE Pengurusan Legalitas",
-        description:
-          "BPOM, HKI, dan Halal diurus sampai tuntas oleh tim kami.",
-      },
-      {
-        title: "FREE Desain Logo & Kemasan",
-        description: "dibantu tim kreatif Dreamlab.",
-      },
-      {
-        title: "1 Client, 1 Formula",
-        description:
-          "formula eksklusif milik brand Anda, tidak dipakai brand lain.",
-      },
-    ],
-    packaging: "Spray Bottle, Custom",
+    intro: "Maklon Deodorant Spray untuk menjaga kesegaran ketiak seharian, cepat kering, dan tidak lengket — formula eksklusif sesuai konsep brand Anda.",
   },
   {
-    key: "roll-on",
+    slug: "deodorant-roll-on",
     label: "Roll On",
     image: "/new asset/bodycare/deodorant-roll-on.webp",
     title: "Deodorant Roll On",
-    intro:
-      "Ingin punya brand deodorant roll on sendiri? Dreamlab adalah solusi Anda untuk mengembangkan deodorant roll on yang lembut di kulit, cocok untuk ketiak sensitif, dan memberikan perlindungan anti-bau sepanjang hari.",
-    benefits: [
-      {
-        title: "FREE Custom Formula",
-        description:
-          "Anda menentukan bahan aktif (soothing/anti-bau) dan tekstur roll on.",
-      },
-      {
-        title: "FREE Pengurusan Legalitas",
-        description:
-          "BPOM, HKI, dan Halal diurus sampai tuntas oleh tim kami.",
-      },
-      {
-        title: "FREE Desain Logo & Kemasan",
-        description: "dibantu tim kreatif Dreamlab.",
-      },
-      {
-        title: "1 Client, 1 Formula",
-        description:
-          "formula eksklusif milik brand Anda, tidak dipakai brand lain.",
-      },
-    ],
-    packaging: "Roll On Bottle, Custom",
+    intro: "Maklon Deodorant Roll On yang lembut di kulit, cocok untuk ketiak sensitif, dan memberikan perlindungan anti-bau sepanjang hari.",
   },
   {
-    key: "dry-serum",
+    slug: "deodorant-dry-serum",
     label: "Dry Serum",
     image: "/new asset/bodycare/deodorant-dry-serum.webp",
     title: "Deodorant Dry Serum",
-    intro:
-      "Ingin punya brand deodorant dry serum sendiri? Dreamlab adalah solusi Anda untuk mengembangkan deodorant format serum bertekstur ringan ala tren Korea — cepat kering, tidak lengket, dan membantu mencerahkan area ketiak.",
-    benefits: [
-      {
-        title: "FREE Custom Formula",
-        description:
-          "Anda menentukan bahan aktif (pencerah/anti-bau) dan tekstur serum.",
-      },
-      {
-        title: "FREE Pengurusan Legalitas",
-        description:
-          "BPOM, HKI, dan Halal diurus sampai tuntas oleh tim kami.",
-      },
-      {
-        title: "FREE Desain Logo & Kemasan",
-        description: "dibantu tim kreatif Dreamlab.",
-      },
-      {
-        title: "1 Client, 1 Formula",
-        description:
-          "formula eksklusif milik brand Anda, tidak dipakai brand lain.",
-      },
-    ],
-    packaging: "Dropper Bottle / Roll On Bottle, Custom",
+    intro: "Maklon Deodorant Dry Serum format serum bertekstur ringan ala tren Korea — cepat kering, tidak lengket, dan membantu mencerahkan area ketiak.",
   },
 ];
-
-const faqItems = [
-  {
-    q: "Apa itu maklon deodorant dan varian apa saja yang tersedia di Dreamlab?",
-    a: "Maklon deodorant adalah layanan produksi deodorant dengan brand Anda sendiri. Dreamlab menyediakan 3 varian: Deodorant Spray, Deodorant Roll On, dan Deodorant Dry Serum.",
-  },
-  {
-    q: "Apa bedanya deodorant spray, roll on, dan dry serum?",
-    a: "Deodorant Spray cocok untuk daily use dengan aroma segar dan cepat kering. Deodorant Roll On memiliki tekstur lembut, cocok untuk kulit sensitif. Deodorant Dry Serum adalah format serum ringan ala Korea yang cepat kering dan tidak lengket.",
-  },
-  {
-    q: "Berapa biaya, MOQ, dan lama proses maklon deodorant di Dreamlab?",
-    a: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel dengan estimasi proses sekitar 3 bulan hingga siap edar, sudah termasuk BPOM dan Halal.",
-  },
-  {
-    q: "Apakah sudah termasuk BPOM & Halal, dan bagaimana cara memulai?",
-    a: "Ya, Dreamlab menyediakan layanan One Stop Service yang membantu pengurusan BPOM dan sertifikasi Halal. Mulai dengan konsultasi gratis via WhatsApp.",
-  },
-  {
-    q: "Bisa pilih lebih dari 1 varian dalam satu brand?",
-    a: "Tentu. Dreamlab dapat memproduksi beberapa varian deodorant sekaligus dalam satu brand dengan formula eksklusif masing-masing.",
-  },
-];
-
-const premiumEase = [0.16, 1, 0.3, 1] as any;
 
 const fakeProductData = {
   slug: "deodorant",
@@ -159,13 +55,6 @@ const fakeProductData = {
 };
 
 function DeodorantHubPageInner({ categoryData }: DeodorantHubPageProps) {
-  const searchParams = useSearchParams();
-  const variantParam = searchParams.get("variant") as VariantKey | null;
-  const defaultVariant: VariantKey = "spray";
-  const activeVariant = variants.find((v) => v.key === variantParam)
-    ? variantParam!
-    : defaultVariant;
-
   return (
     <main className="min-h-screen bg-white">
       <ProductHero
@@ -175,197 +64,79 @@ function DeodorantHubPageInner({ categoryData }: DeodorantHubPageProps) {
         }
       />
 
-      {/* Tab Selector */}
-      <section className="py-8 lg:py-12 bg-white">
-        <div className="container-custom">
-          <div className="flex justify-center">
-            <div className="inline-flex bg-gray-100 rounded-full p-1.5 gap-1">
-              {variants.map((v) => {
-                const isActive = activeVariant === v.key;
-                return (
-                  <a
-                    key={v.key}
-                    href={`?variant=${v.key}`}
-                    className={`px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
-                      isActive
-                        ? "bg-brand-orange text-white shadow-lg"
-                        : "text-gray-500 hover:text-gray-900"
-                    }`}
+      {/* Product Catalog Grid */}
+      <section className="relative z-10 bg-[#FAF9F6] py-12 lg:py-16 overflow-hidden border-b border-gray-100">
+        <div className="container-custom w-full">
+          <div className="flex flex-col gap-8 lg:gap-10 w-full">
+            <div className="text-center max-w-3xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: premiumEase }}
+                className="space-y-3"
+              >
+                <h2 className="font-display text-[26px] md:text-[34px] lg:text-[40px] font-normal text-[#212120] leading-tight">
+                  Pilihan Varian <span className="text-brand-orange font-bold">Deodorant</span> Siap Maklon
+                </h2>
+                <p className="text-xs md:text-sm text-gray-500 font-medium max-w-xl mx-auto leading-relaxed">
+                  Pilih varian deodorant yang sesuai dengan konsep brand Anda. Setiap varian bisa dikustomisasi formula, aroma, dan kemasannya.
+                </p>
+              </motion.div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 xl:gap-8 w-full">
+              {variantCards.map((v, index) => (
+                <motion.div
+                  key={v.slug}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: premiumEase, delay: index * 0.1 }}
+                >
+                  <Link
+                    href={`/produk/bodycare/${v.slug}/`}
+                    className="group relative flex flex-col bg-white p-4 rounded-[28px] border border-gray-100 transition-all duration-500 hover:shadow-lg hover:shadow-gray-200/60 hover:-translate-y-1.5 h-full"
                   >
-                    {v.label}
-                  </a>
-                );
-              })}
+                    <div className="relative aspect-square w-full rounded-[20px] overflow-hidden flex items-center justify-center mb-3 bg-[#FAF9F6]">
+                      <Image
+                        src={v.image}
+                        alt={v.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 300px"
+                        className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="flex flex-col flex-grow">
+                      <h3 className="font-onest text-sm md:text-base font-bold text-[#212120] leading-snug tracking-tight flex-grow transition-colors group-hover:text-brand-orange">
+                        {v.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 mt-1 leading-relaxed line-clamp-2">
+                        {v.intro}
+                      </p>
+
+                      <div className="mt-4 pt-3 border-t border-gray-100">
+                        <div className="w-full bg-[#212120] text-white text-center py-2.5 px-4 rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-brand-orange shadow-sm hover:shadow-md flex items-center justify-center gap-1.5">
+                          <span>LIHAT PRODUK</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300 group-hover:translate-x-1 flex-shrink-0">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </section>
-
-      {/* Tab Content Panels */}
-      {variants.map((v) => {
-        const isActive = activeVariant === v.key;
-        return (
-          <section
-            key={v.key}
-            className={`${isActive ? "flex" : "hidden"} flex-col`}
-          >
-            <div className="container-custom py-8 lg:py-16">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                {/* Image */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, ease: premiumEase }}
-                  className="relative aspect-square w-full max-w-md mx-auto"
-                >
-                  <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#FFF5F2] shadow-xl border border-white/50">
-                    <Image
-                      src={v.image}
-                      alt={v.title}
-                      fill
-                      className="object-contain p-8"
-                      sizes="(max-width: 768px) 100vw, 500px"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Content */}
-                <div className="space-y-6">
-                  <motion.h2
-                    initial={{ opacity: 0, y: 25 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 0.8, ease: premiumEase }}
-                    className="font-display text-3xl lg:text-[40px] font-black text-[#212120] uppercase tracking-tight leading-tight"
-                  >
-                    {v.title}
-                  </motion.h2>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.35, duration: 0.8, ease: premiumEase }}
-                    className="text-[#212120]/70 leading-relaxed font-medium text-sm lg:text-[15px]"
-                  >
-                    {v.intro}
-                  </motion.p>
-
-                  {/* Benefits Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                    {v.benefits.map((b, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 0.5 + i * 0.1,
-                          duration: 0.6,
-                          ease: premiumEase,
-                        }}
-                        className="bg-[#FDFDFC] p-5 rounded-2xl border border-gray-100 shadow-sm"
-                      >
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="text-[10px] font-black text-brand-orange">
-                            POINT 0{i + 1}
-                          </div>
-                          <div className="flex-grow h-[1px] bg-brand-orange/10" />
-                        </div>
-                        <h3 className="font-onest text-sm font-black text-[#212120] uppercase tracking-tight mb-2 leading-tight">
-                          {b.title}
-                        </h3>
-                        <p className="text-[#212120]/70 leading-relaxed font-medium text-xs">
-                          {b.description}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Packaging Info */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.9, duration: 0.6, ease: premiumEase }}
-                    className="pt-2"
-                  >
-                    <span className="text-xs font-black text-brand-orange uppercase tracking-wider">
-                      Packaging:
-                    </span>
-                    <span className="text-sm text-[#212120]/80 font-medium ml-2">
-                      {v.packaging}
-                    </span>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
 
       <AdvantagesGrid title="8 Keuntungan Maklon" />
       <LogoScroll logos={aboutData.partnerLogos} />
       <OurCertification />
       <CtaSection title="Wujudkan Brand Deodorant Impian Anda dalam 3 Bulan" />
-
-      {/* FAQ */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="container-custom max-w-3xl">
-          <motion.h2
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: premiumEase }}
-            className="font-display text-[28px] lg:text-[42px] font-black text-[#212120] uppercase tracking-tight text-center mb-12"
-          >
-            FAQ Maklon Deodorant
-          </motion.h2>
-          <div className="space-y-4">
-            {faqItems.map((item, i) => (
-              <motion.details
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: i * 0.1,
-                  duration: 0.6,
-                  ease: premiumEase,
-                }}
-                className="group bg-[#FDFDFC] border border-gray-100 rounded-2xl overflow-hidden shadow-sm"
-              >
-                <summary className="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
-                  <span className="font-onest text-sm font-bold text-[#212120] pr-4">
-                    {item.q}
-                  </span>
-                  <svg
-                    className="w-5 h-5 text-brand-orange flex-shrink-0 transition-transform duration-300 group-open:rotate-180"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div className="px-6 pb-5">
-                  <p className="text-[#212120]/70 leading-relaxed text-sm font-medium">
-                    {item.a}
-                  </p>
-                </div>
-              </motion.details>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <ProductRelated
         products={categoryData.relatedProducts}
