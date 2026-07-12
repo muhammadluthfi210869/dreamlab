@@ -135,6 +135,12 @@ export default async function CatchAllPage({ params }: Props) {
           { question: "Berapa biaya, MOQ, dan lama proses maklon deodorant dry serum?", answer: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel dengan estimasi proses sekitar 3 bulan hingga siap edar." },
           { question: "Apakah format dry serum ini sedang tren dan cocok untuk pasar Indonesia?", answer: "Ya, format dry serum sedang tren dari Korea. Teksturnya yang ringan, cepat kering, dan tidak lengket sangat cocok untuk iklim tropis Indonesia." },
         ],
+        "bodycare-deodorant-balm": [
+          { question: "Apa itu maklon deodorant balm?", answer: "Maklon deodorant balm adalah layanan produksi deodorant format stick padat dengan brand Anda sendiri, dari formulasi hingga legalitas BPOM dan Halal." },
+          { question: "Apa kelebihan deodorant balm dibanding format lain?", answer: "Balm memiliki tekstur padat yang praktis — tidak tumpah, tidak berantakan, dan mudah dibawa bepergian. Cocok untuk gaya hidup aktif dan traveling." },
+          { question: "Bahan apa saja yang bisa diformulasikan pada deodorant balm?", answer: "Deodorant balm dapat diformulasikan dengan shea butter, vitamin E, dan bahan aktif anti-bau alami dengan pilihan fragrance premium." },
+          { question: "Berapa biaya dan MOQ maklon deodorant balm?", answer: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel sehingga brand pemula bisa memulai dari jumlah lebih terjangkau." },
+        ],
       };
       const productFaqs = productFaqMap[productFaqKey] || [];
       const schemaData = {
@@ -304,8 +310,8 @@ export async function generateMetadata({ params }: Props) {
 
       // Deodorant hub page — custom metadata
       if (segment === "deodorant") {
-        const title = "Jasa Maklon Deodorant Spray, Roll On & Dry Serum BPOM & Halal | Dreamlab";
-        const description = "Maklon deodorant spray, roll on, dan dry serum dengan brand sendiri. BPOM & Halal. 3 varian dalam 1 brand. MOQ fleksibel. Konsultasi gratis. Siap edar dalam 3 bulan.";
+        const title = "Jasa Maklon Deodorant Spray, Roll On, Balm & Dry Serum BPOM & Halal | Dreamlab";
+        const description = "Maklon deodorant spray, roll on, balm, dan dry serum dengan brand sendiri. BPOM & Halal. 4 varian dalam 1 brand. MOQ fleksibel. Konsultasi gratis. Siap edar dalam 3 bulan.";
         return {
           title, description, alternates: { canonical: canonicalUrl },
           robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",

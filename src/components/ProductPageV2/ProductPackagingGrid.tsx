@@ -144,6 +144,7 @@ const bodycarePackagingMap: Record<string, string[]> = {
   "deodorant-spray": ["Spray Bottle", "Custom"],
   "deodorant-roll-on": ["Roll On Bottle", "Custom"],
   "deodorant-dry-serum": ["Dropper Bottle", "Roll On Bottle", "Custom"],
+  "deodorant-balm": ["Stick Tube", "Custom"],
 };
 
 const parfumPackagingMap: Record<string, string[]> = {

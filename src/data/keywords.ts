@@ -104,6 +104,7 @@ const productKeywordsMap: Record<string, string[]> = {
   "bodycare-deodorant-spray": ["maklon deodorant spray", "jasa maklon deodorant spray", "maklon anti bau ketiak", "maklon deodorant semprot", "maklon deodorant BPOM"],
   "bodycare-deodorant-roll-on": ["maklon deodorant roll on", "jasa maklon deodorant roll on", "maklon deodorant gulung", "maklon anti bau roll on", "maklon deodorant sensitif"],
   "bodycare-deodorant-dry-serum": ["maklon deodorant dry serum", "jasa maklon deodorant dry serum", "maklon serum ketiak", "maklon deodorant korea", "maklon anti bau serum"],
+  "bodycare-deodorant-balm": ["maklon deodorant balm", "jasa maklon deodorant balm", "maklon deodorant stick", "maklon deodorant padat", "maklon anti bau balm"],
 
   "haircare-shampoo": ["maklon shampoo", "jasa maklon shampoo", "maklon sampo", "maklon shampo", "pabrik maklon shampoo", "maklon shampoo BPOM"],
   "haircare-hair-mask": ["maklon hair mask", "jasa maklon hair mask", "maklon masker rambut", "maklon hair treatment"],
@@ -298,6 +299,7 @@ const productTitleMap: Record<string, string> = {
   "bodycare-deodorant-spray": "Maklon Deodorant Spray BPOM & Halal | Dreamlab",
   "bodycare-deodorant-roll-on": "Maklon Deodorant Roll On BPOM & Halal | Dreamlab",
   "bodycare-deodorant-dry-serum": "Maklon Deodorant Dry Serum BPOM & Halal | Dreamlab",
+  "bodycare-deodorant-balm": "Maklon Deodorant Balm Stick BPOM & Halal | Dreamlab",
   "haircare-shampoo": "Jasa Maklon Shampoo BPOM & Halal | Dreamlab",
   "haircare-hair-mask": "Jasa Maklon Hair Mask BPOM & Halal | Dreamlab",
   "haircare-hair-serum": "Jasa Maklon Hair Serum BPOM & Halal | Dreamlab",
@@ -373,6 +375,7 @@ const productMetaDescriptionMap: Record<string, string> = {
   "bodycare-deodorant-spray": "Jasa maklon deodorant spray BPOM & Halal, formula eksklusif 1 klien 1 formula, anti-bau tahan lama. MOQ fleksibel, konsultasi gratis di Dreamlab.",
   "bodycare-deodorant-roll-on": "Jasa maklon deodorant roll on BPOM & Halal, formula lembut & tahan lama untuk ketiak sensitif. MOQ fleksibel, konsultasi gratis di Dreamlab.",
   "bodycare-deodorant-dry-serum": "Jasa maklon deodorant dry serum BPOM & Halal, tren Korea anti-bau tanpa lengket & cepat kering. Formula eksklusif, konsultasi gratis Dreamlab.",
+  "bodycare-deodorant-balm": "Jasa maklon deodorant balm stick padat BPOM & Halal, praktis anti-bau seharian tanpa tumpah. Formula eksklusif, konsultasi gratis Dreamlab.",
   "babycare-baby-lotion": "Jasa maklon Baby Lotion BPOM & Halal | Dreamlab",
   "babycare-baby-wash": "Jasa maklon sabun bayi baby BPOM & Halal, sabun & sampo bayi hypoallergenic. Formula custom, MOQ fleksibel. Konsultasi gratis Dreamlab",
   "babycare-baby-shampoo": "Jasa maklon sampo bayi BPOM & Halal, formula lembut & aman untuk bayi. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",

@@ -44,6 +44,13 @@ const variantCards = [
     title: "Deodorant Dry Serum",
     intro: "Maklon Deodorant Dry Serum format serum bertekstur ringan ala tren Korea — cepat kering, tidak lengket, dan membantu mencerahkan area ketiak.",
   },
+  {
+    slug: "deodorant-balm",
+    label: "Balm",
+    image: "/new asset/bodycare/deodorant-balm.webp",
+    title: "Deodorant Balm",
+    intro: "Maklon Deodorant Balm stick padat yang praktis — tidak tumpah, cocok untuk on-the-go, dan memberikan perlindungan anti-bau sepanjang hari.",
+  },
 ];
 
 const fakeProductData = {
@@ -85,7 +92,7 @@ function DeodorantHubPageInner({ categoryData }: DeodorantHubPageProps) {
               </motion.div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 xl:gap-8 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-8 w-full">
               {variantCards.map((v, index) => (
                 <motion.div
                   key={v.slug}

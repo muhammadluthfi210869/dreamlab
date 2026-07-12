@@ -718,6 +718,24 @@ const categoryFaqs: Record<string, { question: string; answer: string; }[]> = {
       answer: "Ya, format dry serum sedang menjadi tren perawatan ketiak yang berasal dari Korea. Teksturnya yang ringan, cepat kering, dan tidak lengket sangat cocok untuk iklim tropis Indonesia yang panas dan lembap."
     },
   ],
+  "bodycare-deodorant-balm": [
+    {
+      question: "Apa itu maklon deodorant balm?",
+      answer: "Maklon deodorant balm adalah layanan produksi deodorant format stick padat dengan brand Anda sendiri. Dreamlab membantu mulai dari formulasi, produksi, kemasan, hingga legalitas BPOM dan Halal."
+    },
+    {
+      question: "Apa kelebihan deodorant balm dibanding format lain?",
+      answer: "Deodorant balm memiliki tekstur padat yang praktis — tidak tumpah, tidak berantakan, dan mudah dibawa bepergian. Cocok untuk gaya hidup aktif, traveling, dan olahraga."
+    },
+    {
+      question: "Bahan apa saja yang bisa diformulasikan pada deodorant balm?",
+      answer: "Deodorant balm Dreamlab dapat diformulasikan dengan shea butter untuk melembapkan, vitamin E untuk menutrisi, serta bahan aktif anti-bau alami dan fragrance premium."
+    },
+    {
+      question: "Berapa biaya dan MOQ maklon deodorant balm?",
+      answer: "Biaya maklon deodorant balm menyesuaikan formula, kemasan, dan jumlah produksi. MOQ fleksibel sehingga brand pemula dapat memulai dari jumlah yang lebih terjangkau."
+    },
+  ],
   "decorative-lip-care": [
     {
       question: "Berapa biaya maklon lip care BPOM dan Halal?",

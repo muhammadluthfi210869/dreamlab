@@ -151,6 +151,7 @@ export default function IndividualProductPage({
       "bodycare:deodorant-spray": "Anda menentukan bahan aktif (anti-bau/antiperspirant) dan aroma deodorant spray.",
       "bodycare:deodorant-roll-on": "Anda menentukan bahan aktif (soothing/anti-bau) dan tekstur roll on.",
       "bodycare:deodorant-dry-serum": "Anda menentukan bahan aktif (pencerah/anti-bau) dan tekstur serum.",
+      "bodycare:deodorant-balm": "Anda menentukan bahan aktif dan aroma deodorant balm stick.",
       // Foot Care
       "footcare:foot-cream": "Anda menentukan bahan aktif dan tekstur foot cream.",
       "footcare:foot-scrub": "Anda menentukan jenis butiran scrub dan aroma produk.",

@@ -53,6 +53,7 @@ export const slugToCardImageMap: Record<string, Record<string, string>> = {
     "deodorant-spray": "new asset/bodycare/deodorant-spray.webp",
     "deodorant-roll-on": "new asset/bodycare/deodorant-roll-on.webp",
     "deodorant-dry-serum": "new asset/bodycare/deodorant-dry-serum.webp",
+    "deodorant-balm": "new asset/bodycare/deodorant-balm.webp",
     "whitening-soap": "new asset/bodycare/whitening-soap.webp",
     "bar-soap": "new asset/bodycare/bar-soap.webp",
     "massage-cream": "new asset/bodycare/massage-cream.webp",
