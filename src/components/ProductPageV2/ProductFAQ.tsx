@@ -642,6 +642,60 @@ const categoryFaqs: Record<string, { question: string; answer: string; }[]> = {
       answer: "Anda dapat memulai dengan konsultasi gratis bersama tim Dreamlab untuk menentukan konsep produk, formula, kemasan, hingga proses produksi dan legali"
     },
   ],
+  "bodycare-deodorant-spray": [
+    {
+      question: "Apa itu maklon deodorant spray?",
+      answer: "Maklon deodorant spray adalah layanan produksi deodorant spray dengan brand milik Anda sendiri tanpa perlu memiliki pabrik. Dreamlab membantu mulai dari formulasi, produksi, kemasan, hingga legalitas BPOM dan Halal."
+    },
+    {
+      question: "Bahan aktif apa saja yang bisa diformulasikan pada deodorant spray?",
+      answer: "Deodorant spray Dreamlab dapat diformulasikan dengan bahan aktif anti-bau (natural deo actives), antiperspirant, hingga kombinasi dengan aloe vera untuk efek menenangkan serta fragrance premium untuk aroma tahan lama."
+    },
+    {
+      question: "Berapa biaya, MOQ, dan lama proses maklon deodorant spray?",
+      answer: "Biaya maklon deodorant spray menyesuaikan formula, kemasan, dan jumlah produksi. MOQ fleksibel untuk brand pemula dengan estimasi proses sekitar 3 bulan hingga produk siap edar."
+    },
+    {
+      question: "Apakah sudah termasuk BPOM & Halal, dan bagaimana cara memulai?",
+      answer: "Ya, Dreamlab menyediakan layanan One Stop Service yang membantu pengurusan BPOM dan sertifikasi Halal. Anda dapat memulai dengan konsultasi gratis bersama tim Dreamlab via WhatsApp."
+    },
+  ],
+  "bodycare-deodorant-roll-on": [
+    {
+      question: "Apa itu maklon deodorant roll on?",
+      answer: "Maklon deodorant roll on adalah layanan produksi deodorant roll on dengan brand milik Anda sendiri tanpa perlu memiliki pabrik. Dreamlab membantu mulai dari formulasi, produksi, kemasan, hingga legalitas BPOM dan Halal."
+    },
+    {
+      question: "Apa bedanya roll on dengan deodorant spray untuk kulit sensitif?",
+      answer: "Deodorant roll on memiliki tekstur yang lebih lembut dan tidak menyebar ke udara seperti spray, sehingga lebih cocok untuk pemilik kulit sensitif. Roll on juga memberikan aplikasi yang lebih tepat dan merata pada area ketiak."
+    },
+    {
+      question: "Berapa biaya dan MOQ maklon deodorant roll on?",
+      answer: "Biaya maklon deodorant roll on menyesuaikan formula, kemasan, dan jumlah produksi. MOQ fleksibel sehingga brand pemula dapat memulai dari jumlah yang lebih terjangkau."
+    },
+    {
+      question: "Apakah maklon deodorant roll on di Dreamlab sudah termasuk BPOM dan Halal?",
+      answer: "Ya, Dreamlab menyediakan layanan One Stop Service yang membantu pengurusan BPOM dan sertifikasi Halal agar produk lebih legal dan aman dipasarkan di Indonesia."
+    },
+  ],
+  "bodycare-deodorant-dry-serum": [
+    {
+      question: "Apa itu maklon deodorant dry serum dan apa bedanya dengan deodorant biasa?",
+      answer: "Maklon deodorant dry serum adalah layanan produksi deodorant format serum dengan brand Anda sendiri. Bedanya dengan deodorant biasa, dry serum memiliki tekstur ringan seperti serum yang cepat kering, tidak lengket, dan dapat dikombinasikan dengan bahan aktif pencerah seperti niacinamide."
+    },
+    {
+      question: "Manfaat apa saja yang bisa diformulasikan pada deodorant dry serum?",
+      answer: "Deodorant dry serum Dreamlab dapat diformulasikan untuk anti-bau, mencerahkan area ketiak dengan niacinamide, melembapkan dengan hyaluronic acid, serta memberikan sensasi segar yang tahan lama."
+    },
+    {
+      question: "Berapa biaya, MOQ, dan lama proses maklon deodorant dry serum?",
+      answer: "Biaya maklon deodorant dry serum menyesuaikan formula, kemasan, dan jumlah produksi. MOQ fleksibel untuk brand pemula dengan estimasi proses sekitar 3 bulan hingga produk siap edar."
+    },
+    {
+      question: "Apakah format dry serum ini sedang tren dan cocok untuk pasar Indonesia?",
+      answer: "Ya, format dry serum sedang menjadi tren perawatan ketiak yang berasal dari Korea. Teksturnya yang ringan, cepat kering, dan tidak lengket sangat cocok untuk iklim tropis Indonesia yang panas dan lembap."
+    },
+  ],
   "decorative-lip-care": [
     {
       question: "Berapa biaya maklon lip care BPOM dan Halal?",

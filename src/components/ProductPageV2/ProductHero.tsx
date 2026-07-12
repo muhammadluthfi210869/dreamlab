@@ -95,6 +95,9 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
         "body-wash": "7",
         "body-lotion": "6",
         "body-oil": "9",
+        "deodorant-spray": "1",
+        "deodorant-roll-on": "6",
+        "deodorant-dry-serum": "9",
       },
       haircare: {
         "shampoo": "4",
@@ -363,6 +366,21 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
             smallTitle: "KATALOG MAKLON NECK CREAM",
             headline: "Jasa Maklon Neck Cream BPOM dan Halal",
             description: "Ingin punya brand neck cream sendiri? Dreamlab adalah solusi Anda untuk mengembangkan krim perawatan leher anti-aging, brightening, hingga firming untuk melengkapi rangkaian anti-aging brand Anda."
+          },
+          "deodorant-spray": {
+            smallTitle: "KATALOG MAKLON DEODORANT SPRAY",
+            headline: "Jasa Maklon Deodorant Spray BPOM dan Halal",
+            description: "Ingin punya brand deodorant spray sendiri? Dreamlab adalah solusi Anda untuk mengembangkan deodorant spray yang menjaga kesegaran ketiak seharian, cepat kering, dan tidak lengket — formula eksklusif sesuai konsep brand Anda."
+          },
+          "deodorant-roll-on": {
+            smallTitle: "KATALOG MAKLON DEODORANT ROLL ON",
+            headline: "Jasa Maklon Deodorant Roll On BPOM dan Halal",
+            description: "Ingin punya brand deodorant roll on sendiri? Dreamlab adalah solusi Anda untuk mengembangkan deodorant roll on yang lembut di kulit, cocok untuk ketiak sensitif, dan memberikan perlindungan anti-bau sepanjang hari."
+          },
+          "deodorant-dry-serum": {
+            smallTitle: "KATALOG MAKLON DEODORANT DRY SERUM",
+            headline: "Jasa Maklon Deodorant Dry Serum BPOM dan Halal",
+            description: "Ingin punya brand deodorant dry serum sendiri? Dreamlab adalah solusi Anda untuk mengembangkan deodorant format serum bertekstur ringan ala tren Korea — cepat kering, tidak lengket, dan membantu mencerahkan area ketiak."
           }
         },
         haircare: {

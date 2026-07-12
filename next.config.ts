@@ -102,11 +102,11 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://va.tawk.to https://embed.tawk.to https://analytics.tiktok.com https://connect.facebook.net https://www.clarity.ms https://googleads.g.doubleclick.net https://www.googleadservices.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://va.tawk.to https://embed.tawk.to https://analytics.tiktok.com https://connect.facebook.net https://*.clarity.ms https://googleads.g.doubleclick.net https://www.googleadservices.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",
-              "connect-src 'self' https://*.supabase.co https://dreamlab.id https://va.tawk.to wss://*.tawk.to https://analytics.google.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://analytics.tiktok.com https://connect.facebook.net https://www.clarity.ms https://www.google-analytics.com",
+              "connect-src 'self' https://*.supabase.co https://dreamlab.id https://va.tawk.to wss://*.tawk.to https://analytics.google.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://analytics.tiktok.com https://connect.facebook.net https://*.clarity.ms https://www.google-analytics.com",
               "frame-src 'self' https://www.youtube.com https://*.tawk.to",
               "base-uri 'self'",
               "form-action 'self'",
