@@ -31,7 +31,7 @@ export default function ProductPageV2({ data }: ProductPageV2Props) {
           categoryName={data.name}
         />
       ) : (
-        <ProductGrid products={data.products} categorySlug={data.slug} />
+        <ProductGrid products={data.products.filter((p: { slug: string }) => !p.slug.startsWith("deodorant-"))} categorySlug={data.slug} />
       )}
 
       {/* Packaging design grid — skip for parfum category */}
