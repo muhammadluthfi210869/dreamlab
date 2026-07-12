@@ -273,6 +273,16 @@ const nextConfig: NextConfig = {
       redirects.push({ source, destination, permanent: true });
     }
 
+    // 7. Redirect old individual deodorant product pages to consolidated hub page
+    const deodorantRedirects: Array<[string, string]> = [
+      ['/produk/bodycare/deodorant-spray', '/produk/bodycare/deodorant/'],
+      ['/produk/bodycare/deodorant-roll-on', '/produk/bodycare/deodorant/'],
+      ['/produk/bodycare/deodorant-dry-serum', '/produk/bodycare/deodorant/'],
+    ];
+    for (const [source, destination] of deodorantRedirects) {
+      redirects.push({ source, destination, permanent: true });
+    }
+
     return redirects;
   },
 };

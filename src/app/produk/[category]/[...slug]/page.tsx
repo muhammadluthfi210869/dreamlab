@@ -8,6 +8,7 @@ import ProductAbout from "@/components/ProductPageV2/ProductAbout";
 import ProductGrid from "@/components/ProductPageV2/ProductGrid";
 import SubCategoryGrid from "@/components/ProductPageV2/SubCategoryGrid";
 import IndividualProductPage from "@/components/ProductPageV2/IndividualProductPage";
+import DeodorantHubPage from "@/components/ProductPageV2/DeodorantHubPage";
 import JsonLd from "@/components/JsonLd";
 import { generateProductPageSchema } from "@/lib/schema-generator";
 import ProductPackagingGrid from "@/components/ProductPageV2/ProductPackagingGrid";
@@ -79,27 +80,43 @@ export default async function CatchAllPage({ params }: Props) {
     const productData = categoryData.products.find(p => p.slug === segment);
     if (productData) {
       const currentUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+
+      // Special handling: deodorant hub page
+      if (segment === "deodorant") {
+        const deodorantFaq = [
+          { question: "Apa itu maklon deodorant dan varian apa saja yang tersedia di Dreamlab?", answer: "Maklon deodorant adalah layanan produksi deodorant dengan brand Anda sendiri. Dreamlab menyediakan 3 varian: Deodorant Spray, Deodorant Roll On, dan Deodorant Dry Serum." },
+          { question: "Apa bedanya deodorant spray, roll on, dan dry serum?", answer: "Deodorant Spray cocok untuk daily use dengan aroma segar dan cepat kering. Deodorant Roll On memiliki tekstur lembut, cocok untuk kulit sensitif. Deodorant Dry Serum adalah format serum ringan ala Korea yang cepat kering dan tidak lengket." },
+          { question: "Berapa biaya, MOQ, dan lama proses maklon deodorant di Dreamlab?", answer: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel dengan estimasi proses sekitar 3 bulan hingga siap edar, sudah termasuk BPOM dan Halal." },
+          { question: "Apakah sudah termasuk BPOM & Halal, dan bagaimana cara memulai?", answer: "Ya, Dreamlab menyediakan layanan One Stop Service yang membantu pengurusan BPOM dan sertifikasi Halal. Mulai dengan konsultasi gratis via WhatsApp." },
+          { question: "Bisa pilih lebih dari 1 varian dalam satu brand?", answer: "Tentu. Dreamlab dapat memproduksi beberapa varian deodorant sekaligus dalam satu brand dengan formula eksklusif masing-masing." },
+        ];
+        const schemaData = {
+          url: currentUrl,
+          productName: productData.name,
+          categoryName: categoryData.name,
+          tagline: categoryData.tagline,
+          description: productData.seoParagraph,
+          heroImage: productData.heroImage,
+          breadcrumbs: [
+            ...categoryData.breadcrumb,
+            { label: productData.name, href: currentUrl },
+          ],
+          faqs: [...(categoryData.faqs || []), ...deodorantFaq],
+          moq: productData.moq,
+          productionTime: productData.productionTime,
+          certifications: productData.certifications,
+        };
+        const schema = generateProductPageSchema(schemaData);
+        return (
+          <>
+            <JsonLd data={schema} />
+            <DeodorantHubPage categoryData={categoryData} />
+          </>
+        );
+      }
+
       const productFaqKey = `${category}-${segment}`;
-      const productFaqMap: Record<string, { question: string; answer: string }[]> = {
-        "bodycare-deodorant-spray": [
-          { question: "Apa itu maklon deodorant spray?", answer: "Maklon deodorant spray adalah layanan produksi deodorant spray dengan brand Anda sendiri. Dreamlab membantu dari formulasi, produksi, kemasan, hingga legalitas BPOM dan Halal." },
-          { question: "Bahan aktif apa saja yang bisa diformulasikan pada deodorant spray?", answer: "Deodorant spray dapat diformulasikan dengan bahan aktif anti-bau (natural deo actives), antiperspirant, dan fragrance premium dengan pilihan aroma sesuai konsep brand Anda." },
-          { question: "Berapa biaya, MOQ, dan lama proses maklon deodorant spray?", answer: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel untuk brand pemula, estimasi proses sekitar 3 bulan hingga produk siap edar." },
-          { question: "Apakah sudah termasuk BPOM & Halal, dan bagaimana cara memulai?", answer: "Ya, Dreamlab menyediakan layanan One Stop Service termasuk BPOM dan Halal. Mulai dengan konsultasi gratis via WhatsApp." },
-        ],
-        "bodycare-deodorant-roll-on": [
-          { question: "Apa itu maklon deodorant roll on?", answer: "Maklon deodorant roll on adalah layanan produksi deodorant roll on dengan brand Anda sendiri, dari formulasi hingga legalitas BPOM dan Halal." },
-          { question: "Apa bedanya roll on dengan deodorant spray untuk kulit sensitif?", answer: "Roll on memiliki tekstur lebih lembut, tidak menyebar ke udara seperti spray, dan memberikan aplikasi lebih tepat — cocok untuk kulit sensitif." },
-          { question: "Berapa biaya dan MOQ maklon deodorant roll on?", answer: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel sehingga brand pemula bisa memulai dari jumlah lebih terjangkau." },
-          { question: "Apakah maklon deodorant roll on di Dreamlab sudah termasuk BPOM dan Halal?", answer: "Ya, Dreamlab menyediakan layanan One Stop Service yang membantu pengurusan BPOM dan sertifikasi Halal." },
-        ],
-        "bodycare-deodorant-dry-serum": [
-          { question: "Apa itu maklon deodorant dry serum dan apa bedanya dengan deodorant biasa?", answer: "Maklon deodorant dry serum adalah layanan produksi deodorant format serum. Bedanya dengan deodorant biasa, dry serum memiliki tekstur ringan yang cepat kering dan tidak lengket." },
-          { question: "Manfaat apa saja yang bisa diformulasikan pada deodorant dry serum?", answer: "Dry serum dapat diformulasikan untuk anti-bau, mencerahkan area ketiak dengan niacinamide, melembapkan dengan hyaluronic acid, dan memberikan sensasi segar tahan lama." },
-          { question: "Berapa biaya, MOQ, dan lama proses maklon deodorant dry serum?", answer: "Biaya menyesuaikan formula dan kemasan. MOQ fleksibel dengan estimasi proses sekitar 3 bulan hingga siap edar." },
-          { question: "Apakah format dry serum ini sedang tren dan cocok untuk pasar Indonesia?", answer: "Ya, format dry serum sedang tren dari Korea. Teksturnya yang ringan, cepat kering, dan tidak lengket sangat cocok untuk iklim tropis Indonesia." },
-        ],
-      };
+      const productFaqMap: Record<string, { question: string; answer: string }[]> = {};
       const productFaqs = productFaqMap[productFaqKey] || [];
       const schemaData = {
         url: currentUrl,
@@ -265,6 +282,23 @@ export async function generateMetadata({ params }: Props) {
     const productData = categoryData.products.find(p => p.slug === segment);
     if (productData) {
       const canonicalUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+
+      // Deodorant hub page — custom metadata
+      if (segment === "deodorant") {
+        const title = "Jasa Maklon Deodorant Spray, Roll On & Dry Serum BPOM & Halal | Dreamlab";
+        const description = "Maklon deodorant spray, roll on, dan dry serum dengan brand sendiri. BPOM & Halal. 3 varian dalam 1 brand. MOQ fleksibel. Konsultasi gratis. Siap edar dalam 3 bulan.";
+        return {
+          title, description, alternates: { canonical: canonicalUrl },
+          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          openGraph: {
+            title, description, url: canonicalUrl,
+            images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
+            locale: "id_ID", type: "website", siteName: "Dreamlab Indonesia",
+          },
+          twitter: { card: "summary_large_image", title, description, images: [productData.heroImage] },
+        };
+      }
+
       const title = getProductTitle(category, productData.slug);
       const description = getProductMetaDescription(
         productData.name, categoryData.name, productData.shortDescription,
