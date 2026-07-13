@@ -45,7 +45,6 @@ export function ThankYouRoundRobin({
 
     setSource(resolvedSource);
     fireConversion(resolvedSource);
-    trackToNexerpCRM({ source: resolvedSource, pageUrl: window.location.href, pageTitle: document.title, campaign: resolvedSource, assignedTo: assignment.name, assignedPhone: assignment.phone, routeKey });
   }, [defaultSource]);
 
   const assignment = useLeadAssignment({

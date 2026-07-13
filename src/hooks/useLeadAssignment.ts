@@ -24,7 +24,7 @@ export function useLeadAssignment({
   ttlMs,
   fetcher = getNextBusdev,
 }: UseLeadAssignmentOptions) {
-  const fallback = getFallbackBusdev();
+  const fallback = getFallbackBusdev(Date.now());
   const storageKey = buildLeadAssignmentKey(routeKey, source);
 
   const [assignment, setAssignment] = useState<LeadAssignmentRecord>(() =>

@@ -1,57 +1,46 @@
-import { NextRequest, NextResponse } from "next/server";
-import { leadPool } from "@/lib/roundRobin";
+import { NextResponse } from 'next/server';
+import { getConfiguredBusdevs, getFallbackBusdev, resolveRoundRobinIndex } from '@/lib/round-robin-config';
+import { getServiceClient } from '@/lib/supabase-server';
 
-const WA_MESSAGE =
-  "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
+const WA_MESSAGE = "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
 
-export async function GET(request: NextRequest) {
-  const campaign =
-    request.nextUrl.searchParams.get("campaign") ?? "medsos";
+export async function GET() {
+  try {
+    const supabase = getServiceClient();
 
-  const existingCs = request.cookies.get("dreamlab_cs")?.value;
-  const validIds = ["cs1", "cs2", "cs3"];
+    const { data: index, error: rpcError } = await supabase
+      .rpc('increment_rr_counter');
 
-  if (existingCs && validIds.includes(existingCs)) {
-    const existing = leadPool.getAgent(existingCs);
-    if (existing) {
-      const phone = leadPool.normalizePhoneNumber(existing.number);
-      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(WA_MESSAGE)}`;
+    if (rpcError) throw rpcError;
 
-      console.log(
-        JSON.stringify({
-          level: "lead_sticky",
-          campaign,
-          cs: { id: existing.id, name: existing.name },
-          phone: existing.number,
-          from_cookie: true,
-          timestamp: new Date().toISOString(),
-        })
-      );
+    const { data: busdevs, error: queryError } = await supabase
+      .from('busdevs')
+      .select('phone')
+      .eq('is_active', true)
+      .order('id', { ascending: true });
 
-      return NextResponse.redirect(waUrl);
-    }
+    if (queryError) throw queryError;
+
+    const pool = getConfiguredBusdevs(busdevs ?? []);
+    const phone = pool[resolveRoundRobinIndex(index, pool.length)].phone;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(WA_MESSAGE)}`;
+
+    return NextResponse.redirect(url, {
+      status: 302,
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
+  } catch (error) {
+    console.error('Round robin redirect error:', error);
+    const fallback = getFallbackBusdev(Date.now());
+    const url = `https://wa.me/${fallback.phone}?text=${encodeURIComponent(WA_MESSAGE)}`;
+
+    return NextResponse.redirect(url, {
+      status: 302,
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   }
-
-  const { agent, phone } = leadPool.next();
-  const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(WA_MESSAGE)}`;
-
-  console.log(
-    JSON.stringify({
-      level: "lead_fresh",
-      campaign,
-      cs: { id: agent.id, name: agent.name },
-      phone: agent.number,
-      from_cookie: false,
-      timestamp: new Date().toISOString(),
-    })
-  );
-
-  const response = NextResponse.redirect(waUrl);
-  response.cookies.set("dreamlab_cs", agent.id, {
-    httpOnly: false,
-    maxAge: 60 * 60 * 24 * 7,
-    path: "/",
-  });
-
-  return response;
 }

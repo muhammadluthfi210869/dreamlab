@@ -50,10 +50,11 @@ BEGIN
 END;
 $$;
 
--- 4. Seed data: 2 busdev awal
-INSERT INTO busdevs (phone, name) VALUES
-  ('6287776550657', 'Busdev 1'),
-  ('6281952417051', 'Busdev 2')
+-- 4. Seed data: 3 busdev awal
+INSERT INTO busdevs (phone, name, is_active) VALUES
+  ('6287776550657', 'Busdev 1', true),
+  ('6281952417051', 'Busdev 2', true),
+  ('6287712232389', 'Busdev 3', true)
 ON CONFLICT DO NOTHING;
 
 -- 5. RLS: izinkan anon key baca busdevs, dan panggil RPC
