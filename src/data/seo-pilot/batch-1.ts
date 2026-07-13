@@ -105,6 +105,7 @@ export const pilotBatch1Routes = [
   '/panduan/cara-menentukan-moq-produk-kosmetik',
   '/biaya-maklon-skincare',
   '/moq-maklon-kosmetik',
+  '/pabrik-kosmetik',
 ] as const;
 
 export const komponenBiayaMaklonSkincare: PilotPageData = {
@@ -901,6 +902,165 @@ export const moqMaklonKosmetikMoneyPage: PilotPageData = {
   leadForm: {
     title: 'Kirim Brief Produk',
     description: 'Kirim gambaran produk, demand awal, dan channel penjualan agar tim bisa bantu validasi MOQ yang lebih aman.',
+    submitLabel: 'Kirim Brief Produk',
+  },
+};
+
+export const pabrikKosmetikMoneyPage: PilotPageData = {
+  slug: '/pabrik-kosmetik',
+  title: 'Pabrik Kosmetik | Maklon & Produksi Kosmetik BPOM Dreamlab',
+  metaTitle: 'Pabrik Kosmetik | Maklon & Produksi Kosmetik BPOM Terbaik',
+  metaDescription:
+    'Pabrik kosmetik dengan standar CPKB Grade A, Halal MUI, dan BPOM. Jasa maklon kosmetik untuk skincare, parfum, body care, dan private label. Konsultasi gratis.',
+  canonical: 'https://dreamlab.id/pabrik-kosmetik/',
+  pageType: 'money_page',
+  seoCluster: 'pabrik_kosmetik',
+  keywordTarget: 'pabrik kosmetik',
+  publishedAt: '2026-07-13T00:00:00+07:00',
+  updatedAt: '2026-07-13T00:00:00+07:00',
+  lastUpdated: '13 Juli 2026',
+  readingTime: '7 menit baca',
+  heroHeadline: 'Pabrik Kosmetik dengan Standar CPKB Grade A & BPOM',
+  subheadline:
+    'Dreamlab adalah pabrik kosmetik terpercaya dengan fasilitas produksi modern, sertifikasi resmi, dan layanan maklon dari formulasi hingga legalitas. Siap membantu brand Anda dari skala kecil hingga besar.',
+  quickAnswers: [
+    'Dreamlab adalah pabrik kosmetik bersertifikat CPKB Grade A, Halal MUI, dan BPOM di Surabaya.',
+    'Melayani maklon skincare, body care, hair care, parfum, baby care, decorative, foot care, dan PKRT.',
+    '500+ brand sudah memproduksi produk kosmetik mereka bersama Dreamlab.',
+    'Layanan lengkap: konsultasi, formulasi custom, produksi, kemasan, hingga pengurusan BPOM.',
+  ],
+  decisionBox: {
+    eyebrow: 'Decision Box',
+    title: 'Pabrik kosmetik yang tepat untuk tahap bisnis Anda',
+    description: 'Setiap brand punya kebutuhan skala dan spesifikasi berbeda. Pastikan pabrik kosmetik yang Anda pilih sesuai dengan tahap bisnis Anda saat ini.',
+    items: [
+      'Brand pemula: cari pabrik dengan MOQ fleksibel dan layanan BPOM lengkap.',
+      'Brand berkembang: pastikan kapasitas produksi bisa scale up tanpa turun kualitas.',
+      'Brand premium: butuh R&D custom, formula eksklusif, dan kemasan premium.',
+    ],
+  },
+  sections: [
+    {
+      title: 'Mengapa memilih pabrik kosmetik bersertifikasi resmi',
+      body: [
+        'Memilih pabrik kosmetik bukan hanya soal harga per unit. Sertifikasi seperti CPKB Grade A, Halal MUI, dan BPOM adalah jaminan bahwa produk Anda diproduksi dengan standar yang diakui secara nasional. Produk kosmetik tanpa sertifikasi resmi tidak bisa mendapatkan nomor notifikasi BPOM, sehingga tidak bisa dijual di pasar Indonesia secara legal.',
+        'Dreamlab sebagai pabrik kosmetik telah memiliki semua sertifikasi yang diperlukan. Setiap batch produksi melalui quality control ketat untuk memastikan konsistensi kualitas, keamanan, dan kehalalan produk Anda.',
+      ],
+    },
+    {
+      title: 'Layanan maklon dari hulu ke hilir',
+      body: [
+        'Sebagai pabrik kosmetik terpercaya, Dreamlab menyediakan layanan lengkap mulai dari konsultasi awal, formulasi custom oleh tim R&D berpengalaman, produksi di fasilitas CPKB Grade A, pemilihan kemasan, hingga pengurusan izin BPOM dan Halal.',
+        'Pendekatan one-stop solution ini memudahkan Anda karena tidak perlu berpindah-pindah vendor. Semua proses terintegrasi dalam satu atap dengan quality control yang konsisten di setiap tahap.',
+      ],
+      bullets: [
+        'Konsultasi produk dan target market bersama tim Business Development.',
+        'Formulasi custom oleh tim R&D dengan bahan aktif berkualitas.',
+        'Produksi di pabrik kosmetik bersertifikat CPKB Grade A.',
+        'Bantuan pengurusan BPOM dan sertifikasi Halal.',
+        'Kemasan custom dengan berbagai pilihan material dan desain.',
+      ],
+    },
+    {
+      title: 'Kategori produk yang bisa diproduksi',
+      body: [
+        'Pabrik kosmetik Dreamlab mampu memproduksi berbagai kategori produk. Dari skincare seperti serum, toner, moisturizer, sunscreen, hingga body care, hair care, parfum, baby care, decorative, foot care, dan PKRT.',
+        'Setiap kategori memiliki tim spesialis yang memahami formulasi, regulasi, dan tren pasar masing-masing. Ini memastikan produk Anda tidak hanya berkualitas, tetapi juga relevan dengan kebutuhan konsumen saat ini.',
+      ],
+    },
+  ],
+  faq: [
+    {
+      question: 'Apa perbedaan pabrik kosmetik dengan jasa maklon?',
+      answer:
+        'Pabrik kosmetik memiliki fasilitas produksi sendiri, sedangkan jasa maklon bisa berupa perantara. Dreamlab adalah pabrik kosmetik dengan fasilitas CPKB Grade A yang memproduksi langsung produk Anda.',
+    },
+    {
+      question: 'Apakah pabrik kosmetik Dreamlab melayani produksi skala kecil?',
+      answer:
+        'Ya. Kami memiliki MOQ yang fleksibel untuk brand pemula, mulai dari ratusan pcs untuk beberapa kategori produk.',
+    },
+    {
+      question: 'Berapa lama proses produksi di pabrik kosmetik Dreamlab?',
+      answer:
+        'Estimasi waktu produksi bervariasi tergantung jenis produk dan kompleksitas formulasi, umumnya 4-8 minggu dari formulasi hingga produk siap distribusi.',
+    },
+    {
+      question: 'Apakah pabrik kosmetik Dreamlab membantu pengurusan BPOM?',
+      answer:
+        'Ya. Kami menyediakan pendampingan penuh untuk pengurusan notifikasi BPOM dan sertifikasi Halal sebagai bagian dari layanan pabrik kosmetik kami.',
+    },
+  ],
+  heroCtas: [
+    {
+      label: 'Konsultasi Produk',
+      href: '/thankyou/google/?source=pabrik-kosmetik-hero',
+      tone: 'primary',
+      location: 'hero',
+      message: 'Halo Dreamlab, saya ingin konsultasi produksi di pabrik kosmetik Anda.',
+    },
+    {
+      label: 'Kirim Brief Produk',
+      href: '/thankyou/google/?source=pabrik-kosmetik-hero',
+      tone: 'secondary',
+      location: 'hero',
+      message: 'Halo Dreamlab, saya ingin kirim brief produk untuk diproduksi di pabrik kosmetik Anda.',
+    },
+  ],
+  contextualCta: {
+    eyebrow: 'Mulai Produksi',
+    title: 'Siap memulai produksi di pabrik kosmetik terpercaya?',
+    description:
+      'Tim Dreamlab siap membantu Anda dari formulasi hingga produk siap jual. Konsultasi gratis untuk memahami kebutuhan brand Anda.',
+    primaryLabel: 'Konsultasi Gratis',
+    primaryMessage: 'Halo Dreamlab, saya ingin konsultasi produksi di pabrik kosmetik Anda.',
+    secondaryLabel: 'Kirim Brief',
+    secondaryMessage: 'Halo Dreamlab, saya ingin kirim brief produk.',
+  },
+  finalCta: {
+    eyebrow: 'Mulai Sekarang',
+    title: 'Wujudkan brand kosmetik Anda bersama pabrik kosmetik terpercaya',
+    description:
+      'Dari formulasi hingga legalitas, semua tersedia dalam satu atap. Mulai konsultasi gratis dan lihat sendiri kualitas pabrik kosmetik Dreamlab.',
+    primaryLabel: 'Konsultasi Gratis',
+    primaryMessage: 'Halo Dreamlab, saya ingin konsultasi produksi di pabrik kosmetik Anda.',
+    secondaryLabel: 'Kirim Brief Produk',
+    secondaryMessage: 'Halo Dreamlab, saya ingin kirim brief produk.',
+  },
+  stickyCta: {
+    primaryLabel: 'Konsultasi Gratis',
+    primaryMessage: 'Halo Dreamlab, saya ingin konsultasi produksi di pabrik kosmetik Anda.',
+    secondaryLabel: 'Kirim Brief',
+    secondaryMessage: 'Halo Dreamlab, saya ingin kirim brief produk.',
+  },
+  relatedSection: {
+    eyebrow: 'Layanan Terkait',
+    title: 'Jelajahi layanan pabrik kosmetik lainnya',
+    description: 'Lihat kategori produk dan layanan maklon yang tersedia di pabrik kosmetik Dreamlab.',
+  },
+  relatedLinks: [
+    {
+      label: 'Maklon Skincare',
+      href: '/maklon-skincare',
+      description: 'Produksi skincare dengan formulasi custom dari pabrik kosmetik terpercaya.',
+      intent: 'primary',
+    },
+    {
+      label: 'Private Label Kosmetik',
+      href: '/private-label-kosmetik',
+      description: 'Solusi private label untuk brand kosmetik yang ingin cepat launching.',
+      intent: 'secondary',
+    },
+    {
+      label: 'Biaya Maklon Skincare',
+      href: '/biaya-maklon-skincare',
+      description: 'Informasi estimasi biaya produksi di pabrik kosmetik Dreamlab.',
+      intent: 'secondary',
+    },
+  ],
+  leadForm: {
+    title: 'Mulai Produksi di Pabrik Kosmetik Dreamlab',
+    description: 'Kirim brief produk Anda dan tim kami akan menghubungi dengan penawaran yang sesuai.',
     submitLabel: 'Kirim Brief Produk',
   },
 };

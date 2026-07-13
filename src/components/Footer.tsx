@@ -49,17 +49,17 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-8 text-brand-orange">Cosmetics We Can Make</h3>
             <ul className="space-y-3 text-sm text-gray-300">
               {[
-                "Maklon Skincare/Face Care",
-                "Maklon Baby Care",
-                "Maklon Body Care",
-                "Maklon Hair Care",
-                "Maklon Decorative",
-                "Maklon Parfum",
-                "Maklon Foot Care"
+                { name: "Maklon Skincare", link: "/pabrik-kosmetik" },
+                { name: "Maklon Baby Care", link: "/maklon-baby-care" },
+                { name: "Maklon Body Care", link: "/maklon-body-care" },
+                { name: "Maklon Hair Care", link: "/produk/haircare" },
+                { name: "Maklon Parfum", link: "/pabrik-parfum" },
+                { name: "Maklon Decorative", link: "/maklon-decorative" },
+                { name: "Maklon Foot Care", link: "/maklon-foot-care" }
               ].map((item, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
                   <span className="text-gray-500 group-hover:text-brand-orange transition-colors">›</span>
-                  <Link href="#" className="hover:text-brand-orange transition-colors">{item}</Link>
+                  <Link href={item.link} className="hover:text-brand-orange transition-colors">{item.name}</Link>
                 </li>
               ))}
             </ul>
@@ -89,14 +89,16 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-8 text-brand-orange">Interesting Link</h3>
             <ul className="space-y-3 text-sm text-gray-300">
               {[
+                { name: "Pabrik Kosmetik", link: "/pabrik-kosmetik" },
+                { name: "Pabrik Parfum", link: "/pabrik-parfum" },
+                { name: "Jasa Maklon Kosmetik", link: "/jasa-maklon-kosmetik" },
+                { name: "Private Label", link: "/private-label-kosmetik" },
+                { name: "Estimasi Biaya Maklon", link: "/estimasi-biaya-maklon-kosmetik" },
                 { name: "About Dreamlab", link: "/about-us" },
                 { name: "Services", link: "/services" },
                 { name: "Panduan", link: "/panduan" },
                 { name: "News & Blog", link: "/news-blog" },
-                { name: "Our Client", link: "/our-client" },
                 { name: "Contact Us", link: "/contact-us" },
-                { name: "Terms of Service", link: "/terms-of-service" },
-                { name: "Privacy Policy", link: "/privacy-policy" }
               ].map((link, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
                   <span className="text-gray-500 group-hover:text-brand-orange transition-colors">›</span>

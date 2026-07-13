@@ -38,6 +38,19 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  openGraph: {
+    title: 'Panduan Maklon Skincare dan Kosmetik | Dreamlab',
+    description: 'Hub utama batch 1 Dreamlab untuk artikel panduan, estimasi biaya, dan validasi MOQ yang lebih siap conversion.',
+    url: 'https://dreamlab.id/panduan/',
+    siteName: 'Dreamlab',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Panduan Maklon Skincare dan Kosmetik | Dreamlab',
+    description: 'Hub utama batch 1 Dreamlab untuk artikel panduan, estimasi biaya, dan validasi MOQ yang lebih siap conversion.',
+  },
 };
 
 export default function Page() {
