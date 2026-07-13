@@ -110,7 +110,7 @@ function CtaCluster({
           message={primaryMessage}
           location="contextual_cta_primary"
           page={ctx}
-          href="/biaya-maklon-skincare/"
+          href="/thankyou/google/"
           actionType="link"
         />
         <PilotCtaButton
@@ -155,11 +155,20 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
       <PilotAttribution page={ctx} />
       <JsonLd data={schema as never} />
 
-      <section className="mx-auto max-w-6xl px-4 pb-28 pt-6 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-6xl px-4 pb-28 pt-24 sm:px-6 lg:px-8">
         <PilotBreadcrumbs
           items={[
             { label: 'Home', href: '/' },
-            { label: isArticle ? 'Panduan' : 'Biaya & MOQ', href: '/panduan/' },
+            {
+              label: isArticle
+                ? 'Panduan'
+                : page.slug.includes('biaya') || page.slug.includes('moq') || page.slug.includes('estimasi')
+                  ? 'Biaya & MOQ'
+                  : 'Layanan',
+              href: page.slug.includes('biaya') || page.slug.includes('moq') || page.slug.includes('estimasi')
+                ? '/panduan/'
+                : '/services/',
+            },
             { label: page.title, href: page.slug },
           ]}
         />
@@ -232,14 +241,14 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
             </section>
           ) : null}
 
-          <section id="decision-box" className="scroll-mt-28 rounded-[28px] border border-[#eadfcf] bg-[#111111] p-6 text-white shadow-[0_18px_50px_rgba(0,0,0,0.08)] sm:p-8">
-            <h2 className="text-2xl font-black tracking-tight">{page.decisionBox.title}</h2>
+          <section id="decision-box" className="scroll-mt-28 rounded-[28px] border border-[#eadfcf] bg-[#FFF8EE] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.04)] sm:p-8">
+            <h2 className="text-2xl font-black tracking-tight text-[#1f1f1d]">{page.decisionBox.title}</h2>
             {page.decisionBox.description ? (
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-white/75">{page.decisionBox.description}</p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-600">{page.decisionBox.description}</p>
             ) : null}
             <ul className="mt-5 grid gap-3">
               {page.decisionBox.items.map((item) => (
-                <li key={item} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-7 text-white/80">
+                <li key={item} className="rounded-2xl border border-[#eadfcf] bg-white p-4 text-sm leading-7 text-neutral-700">
                   {item}
                 </li>
               ))}
@@ -317,16 +326,16 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
             </div>
           </section>
 
-          <section className="rounded-[32px] border border-[#eadfcf] bg-[#111111] p-7 text-white shadow-[0_24px_80px_rgba(0,0,0,0.08)] sm:p-10">
-            <h2 className="text-3xl font-black tracking-tight">{page.finalCta.title}</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">{page.finalCta.description}</p>
+          <section className="rounded-[32px] border border-[#eadfcf] bg-[#FFF8EE] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.04)] sm:p-10">
+            <h2 className="text-3xl font-black tracking-tight text-[#1f1f1d]">{page.finalCta.title}</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-neutral-600">{page.finalCta.description}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <PilotCtaButton
                 label={page.finalCta.primaryLabel}
                 message={page.finalCta.primaryMessage}
                 location="final_cta_primary"
                 page={ctx}
-                href="/biaya-maklon-skincare/"
+                href="/thankyou/google/"
                 actionType="link"
                 className="inline-flex items-center justify-center rounded-full bg-[#D98A00] px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-[#D98A00]/20 transition hover:translate-y-[-1px] hover:bg-[#c97e00]"
               />
@@ -337,7 +346,7 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
                 page={ctx}
                 actionType="scroll"
                 scrollTarget="brief-form"
-                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-extrabold text-white transition hover:bg-white/15"
+                className="inline-flex items-center justify-center rounded-full border border-[#e6dac7] bg-white px-6 py-3 text-sm font-extrabold text-[#1f1f1d] transition hover:bg-[#fff8ee]"
               />
             </div>
           </section>
@@ -351,6 +360,7 @@ export default function PilotPageRenderer({ page }: PilotPageRendererProps) {
         secondaryLabel={page.stickyCta.secondaryLabel}
         secondaryMessage={page.stickyCta.secondaryMessage}
         formHref="#brief-form"
+        primaryHref="/thankyou/google/"
       />
     </main>
   );

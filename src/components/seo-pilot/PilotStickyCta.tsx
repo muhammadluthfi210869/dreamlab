@@ -25,7 +25,7 @@ export default function PilotStickyCta({
   secondaryLabel,
   secondaryMessage,
   formHref,
-  primaryHref = '/biaya-maklon-skincare/',
+  primaryHref = '/thankyou/google/',
 }: PilotStickyCtaProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#eadfcf] bg-white/96 px-3 py-3 shadow-[0_-12px_40px_rgba(0,0,0,0.08)] backdrop-blur-md md:hidden">
