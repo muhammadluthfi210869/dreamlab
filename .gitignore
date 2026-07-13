@@ -56,3 +56,4 @@ full_lint_report.txt
 
 .vercel
 worldql/
+*.bak
