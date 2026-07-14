@@ -1,46 +1,16 @@
-import { NextResponse } from 'next/server';
-import { getConfiguredBusdevs, getFallbackBusdev, resolveRoundRobinIndex } from '@/lib/round-robin-config';
-import { getServiceClient } from '@/lib/supabase-server';
+import { NextRequest, NextResponse } from 'next/server';
+import { getOrAssignAgent } from '@/lib/lead-assignment';
+import { buildWhatsAppUrl } from '@/lib/lead-routing';
+import { buildMessageForSource } from '@/lib/message-templates';
 
-const WA_MESSAGE = "Hi Dreamlab saya mengetahui dari Google Ads. Saya ingin konsultasi untuk brand saya, apakah bisa dibantu?";
+export const dynamic = 'force-dynamic';
 
-export async function GET() {
-  try {
-    const supabase = getServiceClient();
+const DEFAULT_SOURCE = 'google-ads';
 
-    const { data: index, error: rpcError } = await supabase
-      .rpc('increment_rr_counter');
-
-    if (rpcError) throw rpcError;
-
-    const { data: busdevs, error: queryError } = await supabase
-      .from('busdevs')
-      .select('phone')
-      .eq('is_active', true)
-      .order('id', { ascending: true });
-
-    if (queryError) throw queryError;
-
-    const pool = getConfiguredBusdevs(busdevs ?? []);
-    const phone = pool[resolveRoundRobinIndex(index, pool.length)].phone;
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(WA_MESSAGE)}`;
-
-    return NextResponse.redirect(url, {
-      status: 302,
-      headers: {
-        'Cache-Control': 'no-store, max-age=0',
-      },
-    });
-  } catch (error) {
-    console.error('Round robin redirect error:', error);
-    const fallback = getFallbackBusdev(Date.now());
-    const url = `https://wa.me/${fallback.phone}?text=${encodeURIComponent(WA_MESSAGE)}`;
-
-    return NextResponse.redirect(url, {
-      status: 302,
-      headers: {
-        'Cache-Control': 'no-store, max-age=0',
-      },
-    });
-  }
+export async function GET(req: NextRequest) {
+  const { agent } = await getOrAssignAgent();
+  const source = req.nextUrl.searchParams.get('source') ?? DEFAULT_SOURCE;
+  const message = buildMessageForSource(source);
+  const waUrl = buildWhatsAppUrl(agent.phone, message);
+  return NextResponse.redirect(waUrl);
 }

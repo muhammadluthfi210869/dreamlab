@@ -4,10 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle } from "lucide-react";
-import { fireConversion, trackToNexerpCRM } from "@/lib/tracking";
+import { fireConversion } from "@/lib/tracking";
 import { useLeadAssignment } from "@/hooks/useLeadAssignment";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
-import { buildMessageForSource } from "@/lib/message-templates";
 
 type ThankYouRoundRobinProps = {
   defaultSource: string;
@@ -15,14 +14,7 @@ type ThankYouRoundRobinProps = {
   description: string;
   message: string;
   messageMap?: Record<string, string>;
-  ctaLabels?: [string, string, string];
 };
-
-const DEFAULT_CTA_LABELS: [string, string, string] = [
-  "Chat Sekarang",
-  "Minta Konsultasi",
-  "Hubungi Tim",
-];
 
 export function ThankYouRoundRobin({
   defaultSource,
@@ -30,7 +22,6 @@ export function ThankYouRoundRobin({
   description,
   message,
   messageMap,
-  ctaLabels = DEFAULT_CTA_LABELS,
 }: ThankYouRoundRobinProps) {
   const [source, setSource] = useState(defaultSource);
 
@@ -40,7 +31,6 @@ export function ThankYouRoundRobin({
 
     setSource(resolvedSource);
     fireConversion(resolvedSource);
-    trackToNexerpCRM({ source: resolvedSource, pageUrl: window.location.href, pageTitle: document.title, campaign: resolvedSource, assignedTo: assignment.name, assignedPhone: assignment.phone, routeKey });
   }, [defaultSource]);
 
   const assignment = useLeadAssignment(defaultSource);
@@ -55,10 +45,6 @@ export function ThankYouRoundRobin({
     const url = buildWhatsAppUrl(assignment.phone, resolvedMessage);
     window.location.assign(url);
   }, [hasNavigated, assignment.phone, source, messageMap, message]);
-
-  const labels = ctaLabels.length === 3 ? ctaLabels : DEFAULT_CTA_LABELS;
-  const isActive = assignment.assignmentMethod === "rotation" || assignment.assignmentMethod === "sticky";
-  const isCached = assignment.assignmentMethod === "cache";
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
@@ -92,43 +78,15 @@ export function ThankYouRoundRobin({
             </p>
           </div>
 
-          <div className="space-y-4 pt-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-orange font-onest">
-              Lead masuk ke nomor yang dipilih otomatis secara round robin
-            </p>
-
-            <div className="grid gap-3 sm:grid-cols-3">
-              {labels.map((label) => (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={navigateToWhatsApp}
-                  disabled={!assignment.phone}
-                  className="btn-wa inline-flex items-center justify-center gap-2 px-5 py-4 rounded-[50px] font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>{label}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="flex flex-col items-center justify-center gap-2 pt-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500/60 animate-pulse" />
-              <span className="text-[10px] text-neutral-400 font-bold tracking-[0.2em] uppercase font-onest">
-                {assignment.loading
-                  ? "Memuat..."
-                  : isActive || isCached
-                    ? "Nomor aktif siap dihubungi via WhatsApp"
-                    : "Nomor cadangan aktif, menunggu assignment terbaru"}
-              </span>
-              <span className="text-[10px] text-neutral-400 font-bold tracking-[0.2em] uppercase font-onest">
-                Sumber: {assignment.campaignSource || source}
-              </span>
-              <span className="text-[10px] text-neutral-400 font-bold tracking-[0.2em] uppercase font-onest">
-                Nomor aktif: {assignment.phone || "—"}
-              </span>
-            </div>
-          </div>
+          <button
+            type="button"
+            onClick={navigateToWhatsApp}
+            disabled={!assignment.phone}
+            className="btn-wa inline-flex items-center justify-center gap-2 px-8 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95"
+          >
+            <MessageCircle className="w-5 h-5" />
+            <span>KONSULTASI BRAND ANDA SEKARANG</span>
+          </button>
         </div>
       </main>
 
