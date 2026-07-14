@@ -1,46 +1,21 @@
 import { NextResponse } from 'next/server';
-import { getConfiguredBusdevs, getFallbackBusdev, resolveRoundRobinIndex } from '@/lib/round-robin-config';
-import { getServiceClient } from '@/lib/supabase-server';
+import { getOrAssignAgent } from '@/lib/lead-assignment';
+import { buildWhatsAppUrl } from '@/lib/lead-routing';
+
+export const dynamic = 'force-dynamic';
 
 const WA_MSG = "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
 
 export async function GET() {
   try {
-    const supabase = getServiceClient();
-
-    const { data: index, error: rpcError } = await supabase
-      .rpc('increment_rr_counter');
-
-    if (rpcError) throw rpcError;
-
-    const { data: busdevs, error: queryError } = await supabase
-      .from('busdevs')
-      .select('phone')
-      .eq('is_active', true)
-      .order('id', { ascending: true });
-
-    if (queryError) throw queryError;
-
-    const pool = getConfiguredBusdevs(busdevs ?? []);
-    const phone = pool[resolveRoundRobinIndex(index, pool.length)].phone;
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(WA_MSG)}`;
-
+    const { agent } = await getOrAssignAgent();
+    const url = buildWhatsAppUrl(agent.phone, WA_MSG);
     return NextResponse.redirect(url, {
       status: 302,
-      headers: {
-        'Cache-Control': 'no-store, max-age=0',
-      },
+      headers: { 'Cache-Control': 'no-store, max-age=0' },
     });
   } catch (error) {
     console.error('Round robin redirect error:', error);
-    const fallback = getFallbackBusdev(Date.now());
-    const url = `https://wa.me/${fallback.phone}?text=${encodeURIComponent(WA_MSG)}`;
-
-    return NextResponse.redirect(url, {
-      status: 302,
-      headers: {
-        'Cache-Control': 'no-store, max-age=0',
-      },
-    });
+    return NextResponse.json({ error: 'Redirect failed' }, { status: 500 });
   }
 }

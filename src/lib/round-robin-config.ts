@@ -1,80 +1,55 @@
-export interface BusdevContact {
-  id: number;
-  phone: string;
-  name: string;
+/**
+
+ * round-robin-config.ts
+
+ *
+
+ * SATU-SATUNYA sumber data agent/CS untuk seluruh sistem round-robin.
+
+ * Jangan duplikasi list ini di file lain — kalau perlu tambah/kurangi CS,
+
+ * cukup edit array ini. Tidak perlu reset counter manual karena rotasi
+
+ * dihitung ulang dari `activeAgents` setiap request (lihat roundRobin.ts).
+
+ */
+
+export interface Agent {
+
+  id: string;      // identifier stabil, JANGAN diubah setelah dipakai (dipakai di cookie)
+
+  phone: string;   // format lokal, akan dinormalisasi ke format internasional saat dipakai
+
+  name?: string;
+
+  active: boolean; // set false untuk CS yang cuti/nonaktif tanpa menghapus dari array
+
 }
 
-interface SupabaseBusdevContact {
-  id?: number;
-  phone?: string | null;
-  name?: string | null;
-}
+export const AGENTS: Agent[] = [
 
-export const ROUND_ROBIN_BUSDEVS: BusdevContact[] = [
-  {
-    id: 1,
-    phone: '6287776550657',
-    name: 'Busdev 1',
-  },
-  {
-    id: 2,
-    phone: '6281952417051',
-    name: 'Busdev 2',
-  },
-  {
-    id: 3,
-    phone: '6287712232389',
-    name: 'Busdev 3',
-  },
+  { id: 'cs1', phone: '087712232389', name: 'CS 1', active: true },
+
+  { id: 'cs2', phone: '081952417051', name: 'CS 2', active: true },
+
+  { id: 'cs3', phone: '087776550657', name: 'CS 3', active: true },
+
+  // Tambah CS baru di sini kapan saja, contoh:
+
+  // { id: 'cs4', phone: '08xxxxxxxxxx', name: 'CS 4', active: true },
+
 ];
 
-export function normalizePhone(phone: string | null | undefined): string {
-  if (!phone) return '';
+export function getActiveAgents(): Agent[] {
 
-  const digits = phone.replace(/\D/g, '');
-  if (!digits) return '';
-  if (digits.startsWith('62')) return digits;
-  if (digits.startsWith('0')) return `62${digits.slice(1)}`;
+  const active = AGENTS.filter((a) => a.active);
 
-  return digits;
-}
+  if (active.length === 0) {
 
-export function getConfiguredBusdevs(overrides: SupabaseBusdevContact[] = []): BusdevContact[] {
-  const overridesByPhone = new Map(
-    overrides
-      .map((contact) => {
-        const phone = normalizePhone(contact.phone);
-        if (!phone) return null;
+    throw new Error('Tidak ada agent aktif di AGENTS config');
 
-        return [phone, contact] as const;
-      })
-      .filter((entry): entry is readonly [string, SupabaseBusdevContact] => entry !== null)
-  );
+  }
 
-  return ROUND_ROBIN_BUSDEVS.map((contact) => {
-    const match = overridesByPhone.get(contact.phone);
+  return active;
 
-    return {
-      id: match?.id ?? contact.id,
-      phone: contact.phone,
-      name: match?.name?.trim() || contact.name,
-    };
-  });
-}
-
-export function resolveRoundRobinIndex(rawIndex: unknown, total: number): number {
-  if (total <= 0) return 0;
-
-  const numericIndex = Number(rawIndex);
-  if (!Number.isFinite(numericIndex)) return 0;
-
-  const normalized = Math.trunc(numericIndex) % total;
-  return normalized >= 0 ? normalized : normalized + total;
-}
-
-export function getFallbackBusdev(rawIndex?: unknown): BusdevContact {
-  const index = rawIndex === undefined
-    ? 0
-    : resolveRoundRobinIndex(rawIndex, ROUND_ROBIN_BUSDEVS.length);
-  return ROUND_ROBIN_BUSDEVS[index];
 }

@@ -2,8 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getNextBusdev } from '@/lib/round-robin';
-import { getFallbackBusdev } from '@/lib/round-robin-config';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
 
 interface PilotCtaButtonProps {
@@ -25,13 +23,16 @@ interface PilotCtaButtonProps {
 
 export default function PilotCtaButton({ label, message, location, page, className, href, actionType = 'wa', scrollTarget }: PilotCtaButtonProps) {
   const router = useRouter();
-  const [phone, setPhone] = useState(() => getFallbackBusdev().phone);
+  const [phone, setPhone] = useState('');
 
   useEffect(() => {
     let mounted = true;
-    getNextBusdev().then((busdev) => {
-      if (mounted && busdev?.phone) setPhone(busdev.phone);
-    });
+    fetch('/api/lead-assignment')
+      .then((res) => res.json())
+      .then((data) => {
+        if (mounted && data?.phone) setPhone(data.phone);
+      })
+      .catch(() => {});
     return () => {
       mounted = false;
     };

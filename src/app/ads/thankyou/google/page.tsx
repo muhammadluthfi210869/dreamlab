@@ -1,18 +1,9 @@
 import { ThankYouRoundRobin } from "@/components/ThankYouRoundRobin";
 
-type PageProps = {
-  searchParams?: {
-    source?: string;
-  };
-};
-
-export default function ThankYouGoogle({ searchParams }: PageProps) {
-  const resolvedSource = searchParams?.source || "google-ads";
-
+export default function ThankYouGoogle() {
   return (
     <ThankYouRoundRobin
-      routeKey="ads/thankyou/google"
-      defaultSource={resolvedSource}
+      defaultSource="google-ads"
       title="Terima Kasih!"
       description="Kami sudah menerima minat Anda. Sekarang, saatnya ngobrol langsung dengan tim kami."
       message="Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi untuk brand saya, apakah bisa dibantu?"

@@ -64,12 +64,10 @@ export default function LinktreePage({ initialSource = "linktree" }: LinktreePag
     setSource(resolvedSource);
   }, [initialSource]);
 
-  const assignment = useLeadAssignment({
-    routeKey: "contact-medsos",
-    source,
-  });
+  const assignment = useLeadAssignment(source);
 
   const handleWAClick = useCallback(() => {
+    if (!assignment.phone) return;
     const msg = "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
     const url = buildWhatsAppUrl(assignment.phone, msg);
     window.location.assign(url);

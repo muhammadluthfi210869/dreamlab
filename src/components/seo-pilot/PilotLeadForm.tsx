@@ -1,8 +1,6 @@
 "use client";
 
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
-import { getNextBusdev } from '@/lib/round-robin';
-import { getFallbackBusdev } from '@/lib/round-robin-config';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
 
 interface PilotLeadFormProps {
@@ -19,7 +17,7 @@ interface PilotLeadFormProps {
 }
 
 export default function PilotLeadForm({ page, title, description, submitLabel }: PilotLeadFormProps) {
-  const [phone, setPhone] = useState(() => getFallbackBusdev().phone);
+  const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [need, setNeed] = useState('');
@@ -27,9 +25,12 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
   useEffect(() => {
     let mounted = true;
-    getNextBusdev().then((busdev) => {
-      if (mounted && busdev?.phone) setPhone(busdev.phone);
-    });
+    fetch('/api/lead-assignment')
+      .then((res) => res.json())
+      .then((data) => {
+        if (mounted && data?.phone) setPhone(data.phone);
+      })
+      .catch(() => {});
     return () => {
       mounted = false;
     };

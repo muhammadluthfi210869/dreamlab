@@ -1,66 +1,131 @@
-interface CSAgent {
-  id: string;
-  name: string;
-  number: string;
+/**
+
+ * roundRobin.ts
+
+ *
+
+ * FIX UTAMA #1: Counter round-robin disimpan di Redis (Upstash), BUKAN di
+
+ * variable in-memory (`let index = 0`). Ini penting karena Next.js di
+
+ * Vercel/serverless bisa spin up banyak instance function berbeda —
+
+ * variable in-memory akan reset ke 0 tiap cold start, jadi agent pertama
+
+ * di array (cs1) akan sering "menang" duluan. Redis INCR bersifat atomic
+
+ * dan shared across semua instance, jadi urutan rotasi konsisten walau
+
+ * request datang dari instance server yang berbeda-beda.
+
+ *
+
+ * FIX UTAMA #2: Ini SATU-SATUNYA implementasi round-robin di seluruh
+
+ * project. Sebelumnya ada dua file mirip (roundRobin.ts & round-robin.ts)
+
+ * yang jalan independen dengan counter masing-masing — itu penyebab
+
+ * distribusi ganda/tidak konsisten. Semua pemanggil (client hook, redirect
+
+ * route, dsb) HARUS import dari file ini saja.
+
+ *
+
+ * Install dulu: npm install @upstash/redis
+
+ *
+
+ * Env vars yang dibutuhkan — PENTING: karena waktu connect integration di
+
+ * Vercel dipakai Custom Prefix "UPSTASH_REDIS_REST", nama variable yang
+
+ * ke-generate BUKAN nama default UPSTASH_REDIS_REST_URL/TOKEN yang biasa
+
+ * dibaca otomatis oleh Redis.fromEnv(). Nama aslinya jadi:
+
+ *   UPSTASH_REDIS_REST_KV_REST_API_URL
+
+ *   UPSTASH_REDIS_REST_KV_REST_API_TOKEN
+
+ * Makanya di sini Redis client dibuat manual (bukan .fromEnv()) supaya
+
+ * baca dari nama variable yang benar-benar ada.
+
+ */
+
+import { Redis } from '@upstash/redis';
+
+import { Agent, getActiveAgents } from './round-robin-config';
+
+const redis = new Redis({
+
+  url: process.env.UPSTASH_REDIS_REST_KV_REST_API_URL!,
+
+  token: process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN!,
+
+});
+
+const COUNTER_KEY = 'dreamlab:leadpool:counter';
+
+/**
+
+ * Ambil agent berikutnya secara atomic & fair, berdasarkan list agent
+
+ * AKTIF saat request ini terjadi (bukan snapshot lama). Kalau ada CS baru
+
+ * ditambahkan ke config, next() otomatis ikut menghitungnya tanpa perlu
+
+ * reset apapun.
+
+ */
+
+export async function getNextAgent(): Promise<Agent> {
+
+  const activeAgents = getActiveAgents();
+
+  // Atomic increment di Redis — aman dipanggil bersamaan dari banyak
+
+  // request/instance tanpa race condition.
+
+  const count = await redis.incr(COUNTER_KEY);
+
+  const index = (count - 1) % activeAgents.length;
+
+  return activeAgents[index];
+
 }
 
-interface LeadStats {
-  [id: string]: number;
+/**
+
+ * Untuk debugging/monitoring: lihat total assignment yang sudah terjadi.
+
+ */
+
+export async function getRoundRobinStats() {
+
+  const count = (await redis.get<number>(COUNTER_KEY)) ?? 0;
+
+  return {
+
+    totalAssigned: count,
+
+    activeAgents: getActiveAgents().map((a) => a.id),
+
+  };
+
 }
 
-const CS_POOL: CSAgent[] = [
-  { id: "cs1", name: "CS 1", number: "087712232389" },
-  { id: "cs2", name: "CS 2", number: "081952417051" },
-  { id: "cs3", name: "CS 3", number: "087776550657" },
-];
+/**
 
-class RoundRobinPool {
-  private agents: CSAgent[];
-  private counter: number;
-  private stats: LeadStats;
+ * Reset manual — HANYA untuk keperluan testing/ops, jangan dipanggil
 
-  constructor(agents: CSAgent[]) {
-    this.agents = agents;
-    this.counter = 0;
-    this.stats = {};
-    for (const a of agents) {
-      this.stats[a.id] = 0;
-    }
-  }
+ * dari flow produksi otomatis.
 
-  normalizePhoneNumber(raw: string): string {
-    let s = raw.replace(/[\s\-\(\)]/g, "");
-    if (s.startsWith("+")) {
-      s = s.slice(1);
-    }
-    if (s.startsWith("0")) {
-      s = "62" + s.slice(1);
-    }
-    return s;
-  }
+ */
 
-  next(): { agent: CSAgent; phone: string } {
-    const index = this.counter % this.agents.length;
-    const agent = this.agents[index];
-    this.counter++;
-    this.stats[agent.id] = (this.stats[agent.id] ?? 0) + 1;
-    return { agent, phone: this.normalizePhoneNumber(agent.number) };
-  }
+export async function resetRoundRobinCounter() {
 
-  getAgent(id: string): CSAgent | undefined {
-    return this.agents.find((a) => a.id === id);
-  }
+  await redis.set(COUNTER_KEY, 0);
 
-  getStats(): LeadStats {
-    return { ...this.stats };
-  }
-
-  reset(): void {
-    this.counter = 0;
-    for (const id of Object.keys(this.stats)) {
-      this.stats[id] = 0;
-    }
-  }
 }
-
-export const leadPool = new RoundRobinPool(CS_POOL);
