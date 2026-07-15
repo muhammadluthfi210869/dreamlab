@@ -40,14 +40,14 @@ const fears = [
     title: 'Full Legal Support',
     desc: 'Dukungan penuh BPOM, Halal, dan CPKB Grade A.',
   },
-];
-
-const bonuses = [
   {
     icon: Gift,
     title: 'Free Desain Logo & Kemasan',
     desc: 'Dapatkan desain logo dan kemasan profesional tanpa biaya tambahan. Brand kamu siap tampil premium dari hari pertama.',
   },
+];
+
+const bonuses = [
   {
     icon: Award,
     title: 'Free Coaching Bisnis',
