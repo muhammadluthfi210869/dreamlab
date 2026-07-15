@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
-import { Calculator, Tag, TrendingUp, MessageCircle, Gift, Award, Star } from 'lucide-react';
+import { Calculator, Tag, TrendingUp, MessageCircle, Gift, Award, Star, FlaskConical, Package, ShieldCheck } from 'lucide-react';
 
 const fears = [
   {
@@ -24,6 +24,21 @@ const fears = [
     icon: MessageCircle,
     title: 'Konsultasi Brand',
     desc: 'Diskusikan konsep brand, target pasar, dan positioning dari awal — biar brand kamu lahir dengan fondasi yang kuat.',
+  },
+  {
+    icon: FlaskConical,
+    title: 'Custom Formula',
+    desc: 'Anda bisa custom formula dan tim R&D kami siap membantu riset produk impian Anda.',
+  },
+  {
+    icon: Package,
+    title: 'MOQ Fleksibel',
+    desc: 'Anda bebas menentukan MOQ fleksibel yang paling sesuai dengan kebutuhan skala bisnis Anda.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Full Legal Support',
+    desc: 'Dukungan penuh BPOM, Halal, dan CPKB Grade A.',
   },
 ];
 
@@ -145,7 +160,7 @@ export default function LandingMofBofPage() {
               di bisnisnya. Dreamlab dampingi dari hulu ke hilir.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {fears.map((item, i) => {
               const Icon = item.icon;
               return (
