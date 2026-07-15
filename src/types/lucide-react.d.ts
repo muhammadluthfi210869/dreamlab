@@ -33,6 +33,7 @@ declare module "lucide-react" {
   export const Facebook: Icon
   export const Factory: Icon
   export const FileText: Icon
+  export const Gift: Icon
   export const Filter: Icon
   export const FlaskConical: Icon
   export const Globe: Icon
