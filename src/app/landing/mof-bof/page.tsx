@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback } from 'react';
 import Image from 'next/image';
-import { MessageCircle, Sparkles, ShieldCheck, TrendingUp, Target, Tag, Megaphone } from 'lucide-react';
+import Script from 'next/script';
+import { MessageCircle, Sparkles, ShieldCheck, TrendingUp } from 'lucide-react';
 
 const testimonials = [
   {
@@ -43,18 +43,30 @@ const differentiators = [
 ];
 
 export default function LandingMofBofPage() {
-  const scrollToForm = useCallback(() => {
-    document.getElementById('form-embed')?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
-
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
-      {/* ===== HERO — full-bleed image, no box ===== */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-black">
+      {/* Script embed form Kommo */}
+      <Script
+        id="amoforms-init-1639043"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1639043",hash:"e0c06e982b3fd577ee1fa1aae0674c34",locale:"id"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
+          `,
+        }}
+      />
+      <Script
+        id="amoforms-script-1639043"
+        src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784090513"
+        strategy="afterInteractive"
+      />
+
+      {/* ============ HERO ============ */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-brand-black">
         <Image
-          src="/images/landing/dreamlab_hero_lp.png"
-          alt="Dreamlab Maklon Kosmetik — Juaranya Formula"
+          src="/images/landing/Dreamlab_Landingpage_MOF-BOF_1.jpg"
+          alt="Dreamlab - Maklon Kosmetik Juaranya Formula"
           fill
           priority
           className="object-cover object-center"
@@ -68,42 +80,27 @@ export default function LandingMofBofPage() {
               <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Maklon Kosmetik Premium</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display">
-              Mau Punya{' '}
-              <span className="text-brand-orange">Produk Impian?</span>
-              <br />
-              Dreamlab Solusinya.
+              Formula yang Sama,{' '}
+              <span className="text-brand-orange">Nggak Akan Pernah</span>{' '}
+              Bikin Brand Kamu Juara
             </h1>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
-              1 formula eksklusif untuk 1 brand. Bukan template. Bersertifikat{' '}
-              <strong className="text-white font-bold">BPOM</strong>,{' '}
+              Dreamlab bikin 1 formula eksklusif untuk 1 klien — bukan template yang dipakai ulang
+              ke brand lain. Bersertifikat <strong className="text-white font-bold">BPOM</strong>,{' '}
               <strong className="text-white font-bold">CPKB Grade A</strong>, dan{' '}
-              <strong className="text-white font-bold">Halal MUI</strong> — dari ide sampai
+              <strong className="text-white font-bold">Halal MUI</strong>, dari riset sampai
               produk siap jual.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button
-                type="button"
-                onClick={scrollToForm}
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 min-w-[240px]"
-              >
-                <MessageCircle className="w-5 h-5 shrink-0" />
-                Konsultasi Gratis Sekarang
-              </button>
-              <a
-                href="#beda"
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-md text-white border-2 border-white/30 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 hover:bg-white/20 hover:border-white/50 active:scale-95 min-w-[200px]"
-              >
-                Pelajari Dulu
-              </a>
-            </div>
+            {/* CTA = form Kommo (auto-render oleh widget — lihat catatan mode inline/popup di spec) */}
+            <div id="kommo-form-hero" className="kommo-form-container" />
           </div>
         </div>
       </section>
 
-      {/* ===== TRUST BADGE ROW ===== */}
-      <section className="bg-brand-black py-8 md:py-10">
+      {/* ============ TRUST BADGE ROW ============ */}
+      <section className="bg-brand-black py-8 md:py-10 border-t border-white/5">
         <div className="container-custom flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          <span className="text-xs md:text-sm font-bold tracking-widest text-brand-white/50 uppercase">Tersertifikasi:</span>
+          <span className="text-xs md:text-sm font-bold tracking-widest text-brand-white/50 uppercase">Tersertifikasi Resmi:</span>
           <span className="text-sm md:text-base font-black text-white tracking-wide">BPOM</span>
           <span className="w-1 h-1 rounded-full bg-brand-orange/50" />
           <span className="text-sm md:text-base font-black text-white tracking-wide">CPKB Grade A</span>
@@ -112,7 +109,7 @@ export default function LandingMofBofPage() {
         </div>
       </section>
 
-      {/* ===== STATS ROW ===== */}
+      {/* ============ STATS ROW ============ */}
       <section className="py-20 md:py-24 bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -134,7 +131,7 @@ export default function LandingMofBofPage() {
         </div>
       </section>
 
-      {/* ===== QUOTE CARDS ===== */}
+      {/* ============ QUOTE CARDS ============ */}
       <section className="py-20 md:py-24 bg-[#FAF9F6]">
         <div className="container-custom">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
@@ -164,14 +161,14 @@ export default function LandingMofBofPage() {
         </div>
       </section>
 
-      {/* ===== KENAPA BEDA ===== */}
-      <section id="beda" className="py-20 md:py-24 bg-white">
+      {/* ============ KENAPA BEDA ============ */}
+      <section className="py-20 md:py-24 bg-white">
         <div className="container-custom">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
             Kenapa Beda dari Maklon Lain
           </h2>
           <p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium">
-            Bukan cuma produksi — kamu dapet partner yang riset & develop formula khusus.
+            Bukan cuma produksi — kamu dapet partner yang riset &amp; develop formula khusus.
           </p>
           <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
             {differentiators.map((item, i) => {
@@ -192,138 +189,57 @@ export default function LandingMofBofPage() {
         </div>
       </section>
 
-      {/* ===== FORM EMBED ===== */}
-      <section id="form-embed" className="py-20 md:py-24 bg-white">
+      {/* ============ CARA KERJA ============ */}
+      <section className="py-20 md:py-24 bg-[#FAF9F6]">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <script
-              id="amoforms-init-1639043-embed"
-              dangerouslySetInnerHTML={{
-                __html: `!function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1639043",hash:"e0c06e982b3fd577ee1fa1aae0674c34",locale:"id"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");`,
-              }}
-            />
-            <script
-              id="amoforms_script_1639043"
-              async
-              charSet="utf-8"
-              src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784107897"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ===== WHY START + DREAMLAB AS PARTNER ===== */}
-      <section className="py-20 md:py-28 bg-brand-black text-brand-white relative overflow-hidden">
-        <div className="absolute top-1/2 -right-48 w-[600px] h-[600px] bg-brand-orange/[0.04] blur-[180px] rounded-full pointer-events-none" />
-        <div className="container-custom relative">
-          <div className="max-w-3xl mx-auto text-center space-y-6 mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase font-display">
-              Kenapa Harus{' '}
-              <span className="text-brand-orange">Mulai Sekarang?</span>
-            </h2>
-            <p className="text-base md:text-lg text-white/60 leading-relaxed max-w-2xl mx-auto">
-              Setiap hari ada brand baru launching. Pasar nggak nunggu kamu siap. Yang bedain
-              bukan siapa yang pertama, tapi siapa yang <strong className="text-white/90">paling siap dari segi konsep, harga, dan strategy</strong>.
-            </p>
-          </div>
-
-          <div className="text-center mb-16 md:mb-20">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/[0.04] border border-white/10 rounded-full backdrop-blur-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-brand-orange" />
-              <span className="text-[10px] md:text-xs font-bold tracking-widest text-brand-orange uppercase">Dreamlab Adalah Partner-mu</span>
-            </div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-[1.15] uppercase font-display max-w-3xl mx-auto">
-              Nggak Perlu Bingung{' '}
-              <span className="text-brand-orange">Nentuin Konsep</span>
-              <br />
-              <span className="text-white/70 text-xl md:text-2xl lg:text-3xl">Kami Bantu dari Awal Sampe Jualan</span>
-            </h3>
-            <p className="text-base text-white/50 max-w-xl mx-auto mt-6">
-              Bukan cuma produksi. Dari riset sampai go-to-market, kamu dapet pendampingan penuh.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-5 md:gap-8 max-w-5xl mx-auto mb-16">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
+            Cara Kerjanya
+          </h2>
+          <p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium">
+            4 langkah dari ide sampai produk siap jual.
+          </p>
+          <div className="max-w-2xl mx-auto">
             {[
-              {
-                icon: Target,
-                title: 'Target Market',
-                desc: 'Kami bantu identifikasi siapa konsumen ideal-mu, segmentasi, dan positioning biar brand kamu tepat sasaran dari awal.',
-              },
-              {
-                icon: Tag,
-                title: 'Harga Jual',
-                desc: 'Dari HPP, margin, sampai harga final — kami kalkulasi biar kamu kompetitif tanpa rugi. Cocok buat brand pemula maupun skala up.',
-              },
-              {
-                icon: Megaphone,
-                title: 'Strategy Marketing',
-                desc: 'Bukan cuma bikin produk. Kami arahkan channel promosi, branding, dan copy strategy biar produk kamu laku begitu launching.',
-              },
-            ].map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={i}
-                  className="group p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-brand-orange/20 transition-all duration-300 text-center space-y-5"
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center mx-auto group-hover:bg-brand-orange/20 transition-colors">
-                    <Icon className="w-7 h-7 text-brand-orange" />
-                  </div>
-                  <h4 className="text-lg font-black text-white uppercase tracking-wider font-display">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm md:text-base text-white/50 leading-relaxed">
-                    {item.desc}
-                  </p>
+              { number: 1, text: 'Isi form konsultasi gratis — ceritakan ide brand kamu' },
+              { number: 2, text: 'Tim R&D bikin formula eksklusif khusus untuk brand kamu' },
+              { number: 3, text: 'Produksi dengan standar BPOM, CPKB Grade A, Halal MUI' },
+              { number: 4, text: 'Brand kamu siap jual, lengkap dengan kemasan dan support marketing' },
+            ].map((item) => (
+              <div key={item.number} className="flex gap-5 md:gap-7 items-start pb-8 last:pb-0 relative">
+                <div className="shrink-0 relative">
+                  <span className="w-12 h-12 rounded-full bg-brand-orange text-white font-black text-lg flex items-center justify-center font-display shadow-md relative z-10">
+                    {item.number}
+                  </span>
+                  {item.number < 4 && (
+                    <div className="absolute top-12 left-1/2 -translate-x-1/2 w-px h-8 bg-brand-orange/20" />
+                  )}
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="text-center max-w-2xl mx-auto bg-white/[0.03] border border-white/[0.06] rounded-2xl p-8 md:p-10 space-y-6">
-            <p className="text-base md:text-lg text-white/60 leading-relaxed italic">
-              &ldquo;Jangan biarin konsep brand kamu cuma ada di kepala. {' '}
-              <strong className="text-white">Dreamlab adalah partner</strong> yang{' '}
-              bakal bantu kamu dari konsep,{' '}
-              target market, harga jual, strategy marketing, sampai{' '}
-              produk siap jual.&rdquo;
-            </p>
-            <button
-              type="button"
-              onClick={scrollToForm}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
-            >
-              <MessageCircle className="w-5 h-5 shrink-0" />
-              Konsultasi Gratis Sekarang
-            </button>
+                <p className="text-base md:text-lg text-neutral-600 leading-relaxed pt-3">
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== FINAL CTA ===== */}
-      <section className="py-20 md:py-28 bg-[#FAF9F6] text-brand-black relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange/[0.04] blur-[180px] rounded-full pointer-events-none" />
+      {/* ============ FINAL CTA ============ */}
+      <section className="py-20 md:py-28 bg-brand-black text-brand-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange/[0.03] blur-[180px] rounded-full pointer-events-none" />
         <div className="container-custom text-center relative space-y-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase font-display max-w-3xl mx-auto">
             Formula Kamu Belum Ada —{' '}
             <span className="text-brand-orange">Sebelum Kompetitor Duluan</span> yang Punya
           </h2>
-          <p className="text-base md:text-lg text-brand-black/50 max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto">
             Ribuan brand sudah mulai dengan konsultasi gratis. Sekarang giliran kamu.
           </p>
-          <button
-            type="button"
-            onClick={scrollToForm}
-            className="inline-flex items-center justify-center gap-3 px-12 py-6 bg-brand-orange text-white rounded-[50px] font-extrabold text-base sm:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-95 min-w-[280px]"
-          >
-            <MessageCircle className="w-6 h-6 shrink-0" />
-            Konsultasi Gratis Sekarang
-          </button>
+          {/* Form Kommo — akan auto-render di sini jika mode inline; jika popup, kosongkan dan gunakan popup trigger */}
+          <div id="kommo-form-final" className="kommo-form-container" />
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
+      {/* ============ FOOTER ============ */}
       <footer className="py-8 border-t border-neutral-200 bg-white">
         <div className="container-custom text-center space-y-1">
           <p className="text-[10px] font-bold text-brand-black/20 tracking-widest uppercase">
