@@ -49,7 +49,7 @@ const fears = [
   {
     icon: ShieldCheck,
     title: 'Full Legal Support',
-    desc: 'Dukungan penuh BPOM, Halal, dan CPKB Grade A.',
+    desc: 'Dukungan penuh BPOM, Halal, dan Uji Lab.',
   },
   {
     icon: Gift,
