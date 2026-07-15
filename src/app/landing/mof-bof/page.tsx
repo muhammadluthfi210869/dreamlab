@@ -160,21 +160,31 @@ export default function LandingMofBofPage() {
               di bisnisnya. Dreamlab dampingi dari hulu ke hilir.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
             {fears.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="group p-8 rounded-2xl bg-[#FAF9F6] border border-neutral-100 hover:border-brand-orange/20 hover:bg-brand-orange/[0.02] transition-all duration-300 space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-orange/10 flex items-center justify-center group-hover:bg-brand-orange/20 transition-colors">
-                    <Icon className="w-6 h-6 text-brand-orange" />
+                <div key={i} className="group p-5 md:p-6 rounded-xl bg-[#FAF9F6] border border-neutral-100 hover:border-brand-orange/20 hover:bg-brand-orange/[0.02] transition-all duration-300 space-y-3">
+                  <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center group-hover:bg-brand-orange/20 transition-colors">
+                    <Icon className="w-5 h-5 text-brand-orange" />
                   </div>
-                  <h3 className="text-lg font-bold text-brand-black">{item.title}</h3>
-                  <p className="text-sm md:text-base text-neutral-600 leading-relaxed">
+                  <h3 className="text-sm font-bold text-brand-black leading-snug">{item.title}</h3>
+                  <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
               );
             })}
+          </div>
+          <div className="flex justify-center mt-12">
+            <button
+              type="button"
+              onClick={scrollToForm}
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
+            >
+              <MessageCircle className="w-5 h-5 shrink-0" />
+              Konsultasi Gratis Sekarang
+            </button>
           </div>
         </div>
       </section>
