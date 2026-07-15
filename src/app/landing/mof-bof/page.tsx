@@ -116,6 +116,24 @@ export default function LandingMofBofPage() {
         </div>
       </section>
 
+      {/* ============ BEDA DARI YANG LAIN ============ */}
+      <section className="py-20 md:py-24 bg-[#FAF9F6]">
+        <div className="container-custom max-w-3xl mx-auto text-center space-y-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display">
+            Pengen Brand Skincare yang{' '}
+            <span className="text-brand-orange">Beda</span>, Bukan Cuma Versi Lain{' '}
+            dari yang Sudah Ada?
+          </h2>
+          <p className="text-base md:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+            Kebanyakan brand baru cuma beda di kemasan — isi di dalamnya sama persis dengan brand
+            lain, karena dibuat dari formula katalog yang dipakai ulang ke banyak klien. Dreamlab
+            kerja dari arah sebaliknya: tim R&amp;D riset dan racik formula baru{' '}
+            <strong>khusus untuk brand kamu</strong>. Jadi yang bikin brand kamu beda bukan cuma
+            desain kemasan — tapi apa yang sebenarnya ada di dalam produknya.
+          </p>
+        </div>
+      </section>
+
       {/* ============ TRUST BADGE ROW ============ */}
       <section className="bg-brand-black py-8 md:py-10 border-t border-white/5">
         <div className="container-custom flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
