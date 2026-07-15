@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Script from 'next/script';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { MessageCircle, Sparkles, ShieldCheck, TrendingUp } from 'lucide-react';
 
 const differentiators = [
@@ -33,20 +32,37 @@ export default function LandingMofBofPage() {
     document.getElementById('form-kommo')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
+  useEffect(() => {
+    const w = window as any;
+    const p = 'amo_forms_';
+
+    w[p + 'params'] = w[p + 'params'] || {
+      setMeta: function (p: any) {
+        this.params = (this.params || []).concat([p]);
+      },
+    };
+    w[p + 'load'] = w[p + 'load'] || function (f: any) {
+      w[p + 'load'].f = (w[p + 'load'].f || []).concat([f]);
+    };
+    w[p + 'load']({ id: '1639043', hash: 'e0c06e982b3fd577ee1fa1aae0674c34', locale: 'id' });
+    w[p + 'loaded'] = w[p + 'loaded'] || function (f: any, k: any) {
+      w[p + 'loaded'].f = (w[p + 'loaded'].f || []).concat([[f, k]]);
+    };
+
+    const existing = document.getElementById('amoforms_script_1639043');
+    if (!existing) {
+      const script = document.createElement('script');
+      script.id = 'amoforms_script_1639043';
+      script.src = 'https://forms.kommo.com/forms/assets/js/amoforms.js?1784112363';
+      script.async = true;
+      script.charset = 'utf-8';
+      document.getElementById('form-kommo')?.appendChild(script);
+    }
+  }, []);
+
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
-      {/* Init script — set params via next/script (afterInteractive) */}
-      <Script
-        id="amoforms-init-1639043"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1639043",hash:"e0c06e982b3fd577ee1fa1aae0674c34",locale:"id"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
-          `,
-        }}
-      />
-      {/* Loader script — raw <script> tag di dalam Final CTA biar Kommo render di posisi yang benar */}
 
       {/* ============ HERO ============ */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-brand-black">
@@ -184,13 +200,7 @@ export default function LandingMofBofPage() {
           <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto">
             Ribuan brand sudah mulai dengan konsultasi gratis. Sekarang giliran kamu.
           </p>
-          {/* DOM anchor + loader — Kommo widget render iframe SEBELUM script tag ini */}
-          <script
-            id="amoforms_script_1639043"
-            async
-            charSet="utf-8"
-            src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784112363"
-          />
+
         </div>
       </section>
 
