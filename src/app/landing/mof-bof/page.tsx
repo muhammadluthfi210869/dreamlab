@@ -5,21 +5,6 @@ import Script from 'next/script';
 import { useCallback } from 'react';
 import { MessageCircle, Sparkles, ShieldCheck, TrendingUp } from 'lucide-react';
 
-const testimonials = [
-  {
-    quote: 'Dulu saya coba maklon lain, formulanya standar semua. Di Dreamlab, formula serum saya beneran exclusive — nggak ada brand lain yang pakai formula yang sama.',
-    brand: '— Owner Brand Skincare Lokal',
-  },
-  {
-    quote: 'Yang bikin saya percaya Dreamlab: dari awal udah diarahin soal BPOM dan Halal, bukan janji di akhir. Produk saya lolos BPOM tanpa revisi.',
-    brand: '— Founder Brand Body Care',
-  },
-  {
-    quote: 'MOQ-nya ramah untuk brand baru. Saya bisa mulai dari quantity kecil dulu, scale up pas permintaan naik. Nggak perlu modal besar di awal.',
-    brand: '— Pemilik Brand Hair Care',
-  },
-];
-
 const differentiators = [
   {
     title: 'Formula Eksklusif, Bukan Katalog',
@@ -91,7 +76,7 @@ export default function LandingMofBofPage() {
               <strong className="text-white font-bold">CPKB Grade A</strong>, dan{' '}
               <strong className="text-white font-bold">Halal MUI</strong>.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            <div className="pt-2">
               <button
                 type="button"
                 onClick={scrollToForm}
@@ -100,12 +85,6 @@ export default function LandingMofBofPage() {
                 <MessageCircle className="w-5 h-5 shrink-0" />
                 Konsultasi Gratis Sekarang
               </button>
-              <a
-                href="#beda"
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-md text-white border-2 border-white/30 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 hover:bg-white/20 hover:border-white/50 active:scale-95 min-w-[200px]"
-              >
-                Pelajari Dulu
-              </a>
             </div>
           </div>
         </div>
@@ -158,36 +137,6 @@ export default function LandingMofBofPage() {
                   {stat.label}
                 </span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ QUOTE CARDS ============ */}
-      <section className="py-20 md:py-24 bg-[#FAF9F6]">
-        <div className="container-custom">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
-            Kata Mereka yang Sudah Jalan Bareng Dreamlab
-          </h2>
-          <p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium">
-            Brand-brand ini memilih formula eksklusif, bukan template jadi.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {testimonials.map((t, i) => (
-              <blockquote
-                key={i}
-                className="bg-white p-8 rounded-2xl border border-neutral-100 shadow-sm hover:shadow-md transition-shadow duration-300 space-y-5"
-              >
-                <svg className="w-8 h-8 text-brand-orange/20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-                <p className="text-sm md:text-base text-neutral-600 leading-relaxed italic">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <cite className="block text-xs font-bold text-brand-orange not-italic tracking-wide">
-                  {t.brand}
-                </cite>
-              </blockquote>
             ))}
           </div>
         </div>
