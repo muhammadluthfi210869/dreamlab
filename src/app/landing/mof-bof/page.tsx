@@ -51,7 +51,7 @@ export default function LandingMofBofPage() {
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
-      {/* Script embed form Kommo — pakai next/script, bukan raw <script> */}
+      {/* Init script — set params via next/script (afterInteractive) */}
       <Script
         id="amoforms-init-1639043"
         strategy="afterInteractive"
@@ -61,11 +61,7 @@ export default function LandingMofBofPage() {
           `,
         }}
       />
-      <Script
-        id="amoforms-script-1639043"
-        src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784112363"
-        strategy="afterInteractive"
-      />
+      {/* Loader script — raw <script> tag di dalam Final CTA biar Kommo render di posisi yang benar */}
 
       {/* ============ HERO ============ */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-brand-black">
@@ -82,12 +78,11 @@ export default function LandingMofBofPage() {
           <div className="max-w-2xl space-y-8">
             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Maklon Kosmetik Premium</span>
+              <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Juaranya Formula — Partner Maklon Kosmetik Premium</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display">
-              Formula Brand Kamu Harusnya{' '}
-              <span className="text-brand-orange">Cuma Ada Satu</span> —{' '}
-              Bukan Dipakai Ratusan Brand Lain
+              Formula Sendiri,{' '}
+              <span className="text-brand-orange">Bukan Formula Bersama</span>
             </h1>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
               Kalau maklon lain kasih kamu &ldquo;pilih dari katalog&rdquo;, Dreamlab riset dan
@@ -204,8 +199,10 @@ export default function LandingMofBofPage() {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
             Kenapa Beda dari Maklon Lain
           </h2>
-          <p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium">
-            Bukan cuma produksi — kamu dapet partner yang riset &amp; develop formula khusus.
+          <p className="text-sm md:text-base text-neutral-400 text-center max-w-2xl mx-auto mb-12 md:mb-16 font-medium">
+            Dreamlab bukan cuma maklon — Dreamlab itu partner yang mikirin brand kamu dari riset
+            formula sampai gimana caranya bersaing di pasar. Ini yang bikin Dreamlab jadi{' '}
+            <strong className="text-brand-orange">Juaranya Formula</strong>.
           </p>
           <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
             {differentiators.map((item, i) => {
@@ -226,40 +223,6 @@ export default function LandingMofBofPage() {
         </div>
       </section>
 
-      {/* ============ CARA KERJA ============ */}
-      <section className="py-20 md:py-24 bg-[#FAF9F6]">
-        <div className="container-custom">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
-            Cara Kerjanya
-          </h2>
-          <p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium">
-            4 langkah dari ide sampai produk siap jual.
-          </p>
-          <div className="max-w-2xl mx-auto">
-            {[
-              { number: 1, text: 'Isi form konsultasi gratis — ceritakan ide brand kamu' },
-              { number: 2, text: 'Tim R&D bikin formula eksklusif khusus untuk brand kamu' },
-              { number: 3, text: 'Produksi dengan standar BPOM, CPKB Grade A, Halal MUI' },
-              { number: 4, text: 'Brand kamu siap jual, lengkap dengan kemasan dan support marketing' },
-            ].map((item) => (
-              <div key={item.number} className="flex gap-5 md:gap-7 items-start pb-8 last:pb-0 relative">
-                <div className="shrink-0 relative">
-                  <span className="w-12 h-12 rounded-full bg-brand-orange text-white font-black text-lg flex items-center justify-center font-display shadow-md relative z-10">
-                    {item.number}
-                  </span>
-                  {item.number < 4 && (
-                    <div className="absolute top-12 left-1/2 -translate-x-1/2 w-px h-8 bg-brand-orange/20" />
-                  )}
-                </div>
-                <p className="text-base md:text-lg text-neutral-600 leading-relaxed pt-3">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ============ FINAL CTA ============ */}
       <section id="form-kommo" className="py-20 md:py-28 bg-brand-black text-brand-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange/[0.03] blur-[180px] rounded-full pointer-events-none" />
@@ -272,6 +235,13 @@ export default function LandingMofBofPage() {
           <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto">
             Ribuan brand sudah mulai dengan konsultasi gratis. Sekarang giliran kamu.
           </p>
+          {/* DOM anchor + loader — Kommo widget render iframe SEBELUM script tag ini */}
+          <script
+            id="amoforms_script_1639043"
+            async
+            charSet="utf-8"
+            src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784112363"
+          />
         </div>
       </section>
 
