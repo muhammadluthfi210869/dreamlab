@@ -257,14 +257,13 @@ export default function LandingMofBofPage() {
       </section>
 
       {/* ============ FINAL CTA ============ */}
-      <section id="form-kommo" className="py-20 md:py-28 bg-brand-black text-brand-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange/[0.03] blur-[180px] rounded-full pointer-events-none" />
+      <section id="form-kommo" className="py-20 md:py-28 bg-brand-orange text-white relative overflow-hidden">
         <div className="container-custom text-center relative space-y-8">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase font-display max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase font-display max-w-3xl mx-auto text-white">
             Siap Memulai{' '}
-            <span className="text-brand-orange">Brand Anda?</span>
+            <span className="text-white">Brand Anda?</span>
           </h2>
-          <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto">
             Isi form di bawah, tim Dreamlab akan menghubungi kamu dalam 1x24 jam untuk
             sesi konsultasi GRATIS.
           </p>
@@ -272,12 +271,12 @@ export default function LandingMofBofPage() {
       </section>
 
       {/* ============ FOOTER ============ */}
-      <footer className="py-8 border-t border-neutral-200 bg-white">
+      <footer className="py-8 bg-brand-orange border-t border-white/10">
         <div className="container-custom text-center space-y-1">
-          <p className="text-[10px] font-bold text-brand-black/20 tracking-widest uppercase">
+          <p className="text-[10px] font-bold text-white/50 tracking-widest uppercase">
             PT Karya Impian Laboratoris
           </p>
-          <p className="text-[9px] font-medium text-brand-black/20 tracking-wide uppercase">
+          <p className="text-[9px] font-medium text-white/40 tracking-wide uppercase">
             All Rights Reserved.
           </p>
         </div>
