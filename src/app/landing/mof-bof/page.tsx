@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Script from 'next/script';
+import { useCallback } from 'react';
 import { MessageCircle, Sparkles, ShieldCheck, TrendingUp } from 'lucide-react';
 
 const testimonials = [
@@ -43,23 +43,19 @@ const differentiators = [
 ];
 
 export default function LandingMofBofPage() {
+  const scrollToForm = useCallback(() => {
+    document.getElementById('form-kommo')?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 
-      {/* Script embed form Kommo */}
-      <Script
+      {/* Init script — set params, must run before amoforms.js loads */}
+      <script
         id="amoforms-init-1639043"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: `
-            !function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1639043",hash:"e0c06e982b3fd577ee1fa1aae0674c34",locale:"id"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
-          `,
+          __html: `!function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1639043",hash:"e0c06e982b3fd577ee1fa1aae0674c34",locale:"id"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");`,
         }}
-      />
-      <Script
-        id="amoforms-script-1639043"
-        src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784090513"
-        strategy="afterInteractive"
       />
 
       {/* ============ HERO ============ */}
@@ -91,8 +87,23 @@ export default function LandingMofBofPage() {
               <strong className="text-white font-bold">Halal MUI</strong>, dari riset sampai
               produk siap jual.
             </p>
-            {/* CTA = form Kommo (auto-render oleh widget — lihat catatan mode inline/popup di spec) */}
-            <div id="kommo-form-hero" className="kommo-form-container" />
+            {/* CTA scroll ke form di bawah */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 min-w-[240px]"
+              >
+                <MessageCircle className="w-5 h-5 shrink-0" />
+                Konsultasi Gratis Sekarang
+              </button>
+              <a
+                href="#beda"
+                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-md text-white border-2 border-white/30 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 hover:bg-white/20 hover:border-white/50 active:scale-95 min-w-[200px]"
+              >
+                Pelajari Dulu
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -162,7 +173,7 @@ export default function LandingMofBofPage() {
       </section>
 
       {/* ============ KENAPA BEDA ============ */}
-      <section className="py-20 md:py-24 bg-white">
+      <section id="beda" className="py-20 md:py-24 bg-white">
         <div className="container-custom">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
             Kenapa Beda dari Maklon Lain
@@ -224,7 +235,7 @@ export default function LandingMofBofPage() {
       </section>
 
       {/* ============ FINAL CTA ============ */}
-      <section className="py-20 md:py-28 bg-brand-black text-brand-white relative overflow-hidden">
+      <section id="form-kommo" className="py-20 md:py-28 bg-brand-black text-brand-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange/[0.03] blur-[180px] rounded-full pointer-events-none" />
         <div className="container-custom text-center relative space-y-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase font-display max-w-3xl mx-auto">
@@ -234,8 +245,13 @@ export default function LandingMofBofPage() {
           <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto">
             Ribuan brand sudah mulai dengan konsultasi gratis. Sekarang giliran kamu.
           </p>
-          {/* Form Kommo — akan auto-render di sini jika mode inline; jika popup, kosongkan dan gunakan popup trigger */}
-          <div id="kommo-form-final" className="kommo-form-container" />
+          {/* Script loader = tempat form akan di-render oleh widget Kommo */}
+          <script
+            id="amoforms_script_1639043"
+            async
+            charSet="utf-8"
+            src="https://forms.kommo.com/forms/assets/js/amoforms.js?1784107897"
+          />
         </div>
       </section>
 
