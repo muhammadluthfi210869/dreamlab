@@ -3,6 +3,17 @@
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 import { Calculator, Tag, TrendingUp, MessageCircle, Gift, Award, Star, FlaskConical, Package, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+};
 
 const fears = [
   {
@@ -118,22 +129,27 @@ export default function LandingMofBofPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30 pointer-events-none" />
-        <div className="container-custom relative w-full py-24 md:py-32 lg:py-40">
-          <div className="max-w-2xl space-y-8">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+        <motion.div
+          className="container-custom relative w-full py-24 md:py-32 lg:py-40"
+          initial="hidden"
+          animate="visible"
+          variants={stagger}
+        >
+          <motion.div className="max-w-2xl space-y-8" variants={fadeUp}>
+            <motion.div className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full" variants={fadeUp}>
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
               <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Dreamlab — Partner Maklon Kosmetik Premium</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display">
+            </motion.div>
+            <motion.h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display" variants={fadeUp}>
               Mulai Brand Kosmetik yang{' '}
               <span className="text-brand-orange">Tepat</span>{' '}
               Bersama Dreamlab
-            </h1>
-            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl">
+            </motion.h1>
+            <motion.p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl" variants={fadeUp}>
               Dari riset formula eksklusif hingga strategi pemasaran, kami dampingi sampai
               brand Anda siap mendominasi pasar.
-            </p>
-            <div className="pt-2">
+            </motion.p>
+            <motion.div className="pt-2" variants={fadeUp}>
               <button
                 type="button"
                 onClick={scrollToForm}
@@ -142,15 +158,21 @@ export default function LandingMofBofPage() {
                 <MessageCircle className="w-5 h-5 shrink-0" />
                 Konsultasi Gratis Sekarang
               </button>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ============ FEAR-RELIEF SECTION ============ */}
-      <section className="py-20 md:py-24 bg-white">
+      <motion.section
+        className="py-20 md:py-24 bg-white"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        variants={stagger}
+      >
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+          <motion.div className="max-w-3xl mx-auto text-center space-y-4 mb-16" variants={fadeUp}>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display">
               Takut Bisnis Skincare Gagal?{' '}
               <span className="text-brand-orange">Kami Pastikan Anda Siap Melangkah</span>
@@ -159,12 +181,12 @@ export default function LandingMofBofPage() {
               Risiko terbesar brand baru bukan karena produknya jelek — tapi karena kurang persiapan
               di bisnisnya. Dreamlab dampingi dari hulu ke hilir.
             </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+          </motion.div>
+          <motion.div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5" variants={stagger}>
             {fears.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="group p-5 md:p-6 rounded-xl bg-[#FAF9F6] border border-neutral-100 hover:border-brand-orange/20 hover:bg-brand-orange/[0.02] transition-all duration-300 space-y-3">
+                <motion.div key={i} className="group p-5 md:p-6 rounded-xl bg-[#FAF9F6] border border-neutral-100 hover:border-brand-orange/20 hover:bg-brand-orange/[0.02] transition-all duration-300 space-y-3" variants={fadeUp}>
                   <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center group-hover:bg-brand-orange/20 transition-colors">
                     <Icon className="w-5 h-5 text-brand-orange" />
                   </div>
@@ -172,11 +194,11 @@ export default function LandingMofBofPage() {
                   <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">
                     {item.desc}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
-          <div className="flex justify-center mt-12">
+          </motion.div>
+          <motion.div className="flex justify-center mt-12" variants={fadeUp}>
             <button
               type="button"
               onClick={scrollToForm}
@@ -185,14 +207,20 @@ export default function LandingMofBofPage() {
               <MessageCircle className="w-5 h-5 shrink-0" />
               Konsultasi Gratis Sekarang
             </button>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ============ BONUS SECTION ============ */}
-      <section className="py-20 md:py-24 bg-[#FAF9F6]">
+      <motion.section
+        className="py-20 md:py-24 bg-[#FAF9F6]"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        variants={stagger}
+      >
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+          <motion.div className="max-w-3xl mx-auto text-center space-y-4 mb-16" variants={fadeUp}>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display">
               Mulai Bisnis{' '}
               <span className="text-brand-orange">Tanpa Beban</span>{' '}
@@ -202,12 +230,12 @@ export default function LandingMofBofPage() {
               Setiap kerja sama maklon sudah termasuk gratis — jadi kamu bisa fokus ke strategi brand,
               bukan khawatir biaya tambahan.
             </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          </motion.div>
+          <motion.div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto" variants={stagger}>
             {bonuses.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="relative p-8 md:p-10 rounded-2xl bg-white border border-neutral-100 shadow-sm hover:shadow-md transition-shadow duration-300 space-y-5">
+                <motion.div key={i} className="relative p-8 md:p-10 rounded-2xl bg-white border border-neutral-100 shadow-sm hover:shadow-md transition-shadow duration-300 space-y-5" variants={fadeUp}>
                   <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center">
                     <Icon className="w-7 h-7 text-brand-orange" />
                   </div>
@@ -221,50 +249,63 @@ export default function LandingMofBofPage() {
                       {item.note}
                     </p>
                   )}
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ============ STATS ROW ============ */}
-      <section className="bg-brand-black py-14 md:py-16">
+      <motion.section
+        className="bg-brand-black py-14 md:py-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        variants={stagger}
+      >
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-10" variants={stagger}>
             {[
               { value: '500+', label: 'Brand sudah diproduksi' },
               { value: '1:1', label: '1 Klien = 1 Formula (bukan template)' },
               { value: '7', label: 'Kategori produk didukung' },
             ].map((stat, i) => (
-              <div key={i} className="text-center space-y-3">
+              <motion.div key={i} className="text-center space-y-3" variants={fadeUp}>
                 <span className="block text-4xl md:text-5xl lg:text-6xl font-black text-brand-orange font-display">
                   {stat.value}
                 </span>
                 <span className="block text-xs md:text-sm font-bold text-white/50 uppercase tracking-widest">
                   {stat.label}
                 </span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ============ TESTIMONIAL SECTION ============ */}
-      <section className="py-20 md:py-24 bg-white">
+      <motion.section
+        className="py-20 md:py-24 bg-white"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        variants={stagger}
+      >
         <div className="container-custom">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display">
+          <motion.h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight text-center mb-4 uppercase font-display" variants={fadeUp}>
             Apa Kata{' '}
             <span className="text-brand-orange">Klien Dreamlab</span>
-          </h2>
-          <p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium">
+          </motion.h2>
+          <motion.p className="text-sm md:text-base text-neutral-400 text-center max-w-xl mx-auto mb-12 md:mb-16 font-medium" variants={fadeUp}>
             Mereka sudah merasakan langsung pendampingan dari tim Dreamlab.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          </motion.p>
+          <motion.div className="grid md:grid-cols-3 gap-6 md:gap-8" variants={stagger}>
             {testimonials.map((t, i) => (
-              <blockquote
+              <motion.blockquote
                 key={i}
                 className="bg-[#FAF9F6] p-8 rounded-2xl border border-neutral-100 shadow-sm hover:shadow-md transition-shadow duration-300 space-y-5"
+                variants={fadeUp}
               >
                 <svg className="w-8 h-8 text-brand-orange/20" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -275,15 +316,22 @@ export default function LandingMofBofPage() {
                 <cite className="block text-xs font-bold text-brand-orange not-italic tracking-wide">
                   {t.label}
                 </cite>
-              </blockquote>
+              </motion.blockquote>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ============ FINAL CTA ============ */}
-      <section id="form-kommo" className="py-20 md:py-28 bg-brand-orange text-white relative overflow-hidden">
-        <div className="container-custom text-center relative space-y-8">
+      <motion.section
+        id="form-kommo"
+        className="py-20 md:py-28 bg-brand-orange text-white relative overflow-hidden"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        variants={stagger}
+      >
+        <motion.div className="container-custom text-center relative space-y-8" variants={fadeUp}>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase font-display max-w-3xl mx-auto text-white">
             Siap Memulai{' '}
             <span className="text-white">Brand Anda?</span>
@@ -292,8 +340,8 @@ export default function LandingMofBofPage() {
             Isi form di bawah, tim Dreamlab akan menghubungi kamu dalam 1x24 jam untuk
             sesi konsultasi GRATIS.
           </p>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* ============ FOOTER ============ */}
       <footer className="py-8 bg-brand-orange border-t border-white/10">
