@@ -3,7 +3,7 @@ import { getNextAgent, incrementAgentLeadCount } from './roundRobin';
 import { AGENTS, getActiveAgents, Agent } from './round-robin-config';
 
 const COOKIE_NAME = 'dreamlab_cs';
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
 
 export interface AssignmentResult {
   agent: Agent;
