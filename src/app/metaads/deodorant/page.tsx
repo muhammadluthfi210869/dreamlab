@@ -55,11 +55,11 @@ export default function DeodorantMetaAdsLP() {
           <motion.div className="max-w-2xl space-y-8" variants={fadeUp}>
             <motion.div className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full" variants={fadeUp}>
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Tren Olahraga 2026 — Peluang Bisnis Baru</span>
+              <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Tren Gaya Hidup Aktif Menciptakan Peluang Baru</span>
             </motion.div>
             <motion.h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display" variants={fadeUp}>
-              Maklon Deodorant{' '}
-              <span className="text-brand-orange">Custom Formula</span>
+              Bangun Brand Deodorant{' '}
+              <span className="text-brand-orange">Yang Dicari Market</span>
             </motion.h1>
             <motion.p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl" variants={fadeUp}>
               Tren olahraga dan gaya hidup aktif meningkat drastis — permintaan deodorant berbasis skincare ikut melonjak. 
