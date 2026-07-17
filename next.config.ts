@@ -108,7 +108,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",
-              "connect-src 'self' https://*.supabase.co https://dreamlab.id https://va.tawk.to wss://*.tawk.to https://analytics.google.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://analytics.tiktok.com https://connect.facebook.net https://*.clarity.ms https://www.google-analytics.com http://localhost:3002 https://nexerp.id https://api.nexerp.id https://forms.kommo.com",
+              "connect-src 'self' https://*.supabase.co https://dreamlab.id https://va.tawk.to wss://*.tawk.to https://analytics.google.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://ad.doubleclick.net https://stats.g.doubleclick.net https://analytics.tiktok.com https://connect.facebook.net https://www.facebook.com https://*.clarity.ms https://www.google-analytics.com https://www.googletagmanager.com http://localhost:3002 https://nexerp.id https://api.nexerp.id https://forms.kommo.com",
               "frame-src 'self' https://www.youtube.com https://*.tawk.to https://forms.kommo.com",
               "base-uri 'self'",
               "form-action 'self' https://forms.kommo.com",
