@@ -59,9 +59,9 @@ export default function BabyCareMetaAdsLP() {
               <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Baby Care Premium — Aman & Lembut untuk Buah Hati</span>
             </motion.div>
             <motion.h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display" variants={fadeUp}>
-              Bangun Baby Care Line{' '}
-              <span className="text-brand-orange">yang Dipercaya</span>{' '}
-              Orang Tua Indonesia
+              Bangun Brand Baby Care{' '}
+              <span className="text-brand-orange">Yang Dicari</span>{' '}
+              Orang Tua Masa Kini
             </motion.h1>
             <motion.p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl" variants={fadeUp}>
               Setiap orang tua hanya ingin yang terbaik untuk buah hatinya. Dreamlab bantu Anda
@@ -103,30 +103,10 @@ export default function BabyCareMetaAdsLP() {
             >
               Ibu muda sekarang lebih kritis. Mereka baca label, cek komposisi, dan hanya memilih
               produk yang benar-benar aman untuk kulit bayi. Paraben, pewangi sintetis, dan bahan
-              keras lainnya adalah <strong>red flag utama</strong>. Sayangnya, masih banyak produk
-              baby care di pasaran yang belum memenuhi standar keamanan ini — dan itu artinya
-              <strong> peluang besar bagi brand Anda</strong>.
+              keras lainnya adalah <strong>red flag utama</strong>. Dreamlab hadir untuk membantu
+              Anda menciptakan baby care yang memenuhi standar keamanan tertinggi.
             </motion.p>
           </div>
-          <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={stagger}
-          >
-            {[
-              { value: '87%', label: 'Ibu muda cek label produk sebelum beli' },
-              { value: '2×', label: 'Pertumbuhan pasar baby care natural (2025)' },
-              { value: '5', label: 'Varian produk: Wash, Shampoo, Lotion, Powder, Cologne' },
-              { value: '100%', label: 'Produk bebas paraben & hypoallergenic' },
-            ].map((stat, i) => (
-              <motion.div key={i} className="p-6 rounded-xl bg-[#FAF9F6] border border-neutral-100 text-center space-y-3" variants={fadeUp}>
-                <span className="block text-3xl md:text-4xl font-black text-brand-orange font-display">{stat.value}</span>
-                <span className="block text-xs md:text-sm text-neutral-500 leading-snug">{stat.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
