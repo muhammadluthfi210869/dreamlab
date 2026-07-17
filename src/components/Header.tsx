@@ -50,7 +50,21 @@ export default function Header() {
         { name: "Career", path: "/career" },
       ]
     },
-    { name: "Services", path: "/services" },
+    {
+      name: "Services",
+      path: "#",
+      dropdown: [
+        { name: "All Services", path: "/services" },
+        { name: "Pabrik Kosmetik", path: "/pabrik-kosmetik" },
+        { name: "Pabrik Parfum", path: "/pabrik-parfum" },
+        { name: "Jasa Maklon Kosmetik", path: "/jasa-maklon-kosmetik" },
+        { name: "Private Label Kosmetik", path: "/private-label-kosmetik" },
+        { name: "Estimasi Biaya Maklon", path: "/estimasi-biaya-maklon-kosmetik" },
+        { name: "Biaya Maklon Skincare", path: "/biaya-maklon-skincare" },
+        { name: "MOQ Maklon Kosmetik", path: "/moq-maklon-kosmetik" },
+        { name: "Panduan", path: "/panduan" },
+      ]
+    },
     {
       name: "Product",
       path: "#",
