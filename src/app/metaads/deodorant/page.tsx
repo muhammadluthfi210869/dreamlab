@@ -58,8 +58,8 @@ export default function DeodorantMetaAdsLP() {
               <span className="text-[10px] md:text-xs font-bold tracking-widest text-white uppercase">Tren Gaya Hidup Aktif Menciptakan Peluang Baru</span>
             </motion.div>
             <motion.h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] uppercase font-display" variants={fadeUp}>
-              Bangun Brand Deodorant{' '}
-              <span className="text-brand-orange">Yang Dicari Market</span>
+              Wujudkan Brand Deodorant{' '}
+              <span className="text-brand-orange">Dengan Custom Formula</span>
             </motion.h1>
             <motion.p className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl" variants={fadeUp}>
               Tren olahraga dan gaya hidup aktif meningkat drastis — permintaan deodorant berbasis skincare ikut melonjak. 
