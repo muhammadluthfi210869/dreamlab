@@ -80,35 +80,7 @@ export default function BabyCareMetaAdsLP() {
         </motion.div>
       </section>
 
-      {/* ============ PROBLEM ============ */}
-      <section className="py-20 md:py-24 bg-white">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <motion.h2
-              className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              Banyak Produk Bayi{' '}
-              <span className="text-brand-orange">Tidak Sepenuhnya Aman</span>
-            </motion.h2>
-            <motion.p
-              className="text-base md:text-lg text-neutral-500 leading-relaxed"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              Ibu muda sekarang lebih kritis. Mereka baca label, cek komposisi, dan hanya memilih
-              produk yang benar-benar aman untuk kulit bayi. Paraben, pewangi sintetis, dan bahan
-              keras lainnya adalah <strong>red flag utama</strong>. Dreamlab hadir untuk membantu
-              Anda menciptakan baby care yang memenuhi standar keamanan tertinggi.
-            </motion.p>
-          </div>
-        </div>
-      </section>
+
 
       {/* ============ PRODUCT SHOWCASE ============ */}
       <motion.section
