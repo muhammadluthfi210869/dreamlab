@@ -45,7 +45,7 @@ function getReadingTime(content: string) {
   return Math.max(1, Math.ceil(words / 225));
 }
 
-const PILLAR_CATEGORIES = ['Maklon Kosmetik & Skincare', 'Bisnis & Dreampreneur', 'Tips & Trick', 'Dreamlab Pedia'];
+const PILLAR_CATEGORIES = ['Tren Kosmetik', 'Dreampreneur', 'Tips Bisnis', 'Event'];
 const POSTS_PER_PAGE = 12;
 
 export default function BlogArchivePage() {

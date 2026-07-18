@@ -66,21 +66,27 @@ export function proxy(request: NextRequest) {
   const shouldNormalizeBlog = pathname === '/blog' || pathname === '/blog/';
   const categoryPaginationMatch = pathname.match(/^\/category\/([^/]+)\/page\/(\d+)\/?$/);
 
-  // 301 redirect old category slugs to new pillar categories
+  // 301 redirect old category slugs + previous pillar slugs to new pillar categories
   const CATEGORY_REDIRECTS: Record<string, string> = {
-    'maklon-kosmetik': 'maklon-kosmetik-skincare',
-    'maklon-skincare': 'maklon-kosmetik-skincare',
-    'maklon-personal-care': 'maklon-kosmetik-skincare',
-    'personal-care': 'maklon-kosmetik-skincare',
-    'maklon-bodycare': 'maklon-kosmetik-skincare',
-    'maklon-footcare': 'maklon-kosmetik-skincare',
-    'maklon-baby-care': 'maklon-kosmetik-skincare',
-    'maklon-haircare': 'maklon-kosmetik-skincare',
-    'maklon-parfum': 'maklon-kosmetik-skincare',
-    'bisnis-kosmetik': 'bisnis-dreampreneur',
-    'bisnis-skincare': 'bisnis-dreampreneur',
-    'bisnis-men-grooming': 'bisnis-dreampreneur',
-    'dreampreneur-beauty-academy': 'bisnis-dreampreneur',
+    // Legacy old categories → new pillars
+    'maklon-kosmetik': 'tren-kosmetik',
+    'maklon-skincare': 'tren-kosmetik',
+    'maklon-personal-care': 'tren-kosmetik',
+    'personal-care': 'tren-kosmetik',
+    'maklon-bodycare': 'tren-kosmetik',
+    'maklon-footcare': 'tren-kosmetik',
+    'maklon-baby-care': 'tren-kosmetik',
+    'maklon-haircare': 'tren-kosmetik',
+    'maklon-parfum': 'tren-kosmetik',
+    'bisnis-kosmetik': 'dreampreneur',
+    'bisnis-skincare': 'dreampreneur',
+    'bisnis-men-grooming': 'dreampreneur',
+    'dreampreneur-beauty-academy': 'dreampreneur',
+    // Previous pillar slugs → new pillar slugs
+    'maklon-kosmetik-skincare': 'tren-kosmetik',
+    'bisnis-dreampreneur': 'dreampreneur',
+    'tips-trick': 'tips-bisnis',
+    'dreamlab-pedia': 'tips-bisnis',
   };
   const categoryRedirectMatch = pathname.match(/^\/category\/([^/]+)\/?$/);
   const categoryRedirectTo = categoryRedirectMatch ? CATEGORY_REDIRECTS[categoryRedirectMatch[1]] : null;
