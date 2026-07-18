@@ -35,6 +35,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/career',
     '/terms-of-service',
     '/privacy-policy',
+    '/category/maklon-kosmetik-skincare',
+    '/category/bisnis-dreampreneur',
+    '/category/tips-trick',
+    '/category/dreamlab-pedia',
   ].map(route => ({
     url: `${baseUrl}${route}/`,
     lastModified: new Date(),
@@ -54,7 +58,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const categoryArticleCounts = new Map<string, number>();
   for (const article of articles) {
-    for (const category of article.categories || []) {
+    const allCats = [...(article.categories || []), ...(article.tags || [])];
+    for (const category of allCats) {
       const slug = category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-');
       categoryArticleCounts.set(slug, (categoryArticleCounts.get(slug) || 0) + 1);
     }

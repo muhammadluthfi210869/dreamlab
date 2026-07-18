@@ -576,6 +576,33 @@
     }
   },
   {
+    "source": "/category/maklon-kosmetik-skincare",
+    "destination": "/category/maklon-kosmetik-skincare/",
+    "permanent": true,
+    "_metadata": {
+      "original_title": "Maklon Kosmetik & Skincare — Produksi & Formulasi | Dreamlab",
+      "original_h1": "Maklon Kosmetik & Skincare"
+    }
+  },
+  {
+    "source": "/category/bisnis-dreampreneur",
+    "destination": "/category/bisnis-dreampreneur/",
+    "permanent": true,
+    "_metadata": {
+      "original_title": "Bisnis Kosmetik & Dreampreneur — Panduan & Inspirasi | Dreamlab",
+      "original_h1": "Bisnis & Dreampreneur"
+    }
+  },
+  {
+    "source": "/category/dreamlab-pedia",
+    "destination": "/category/dreamlab-pedia/",
+    "permanent": true,
+    "_metadata": {
+      "original_title": "Dreamlab Pedia — Ensiklopedia Kosmetik & Skincare | Dreamlab",
+      "original_h1": "Dreamlab Pedia"
+    }
+  },
+  {
     "source": "/contact-us",
     "destination": "/contact-us/",
     "permanent": true,

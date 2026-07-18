@@ -34,7 +34,9 @@ async function getCategoryArticleCount(slug: string): Promise<number> {
   if (!categoryName) return 0;
 
   const articlesList = await getArticles();
-  return articlesList.filter((a: any) => a.categories.includes(categoryName)).length;
+  return articlesList.filter((a: any) => 
+    a.categories.includes(categoryName) || (a.tags || []).includes(categoryName)
+  ).length;
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -164,11 +166,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 }
 
 export async function generateStaticParams() {
-  const articlesList = await getArticles();
-  const categories = Array.from(new Set(articlesList.flatMap((a: any) => a.categories).filter(Boolean)));
-  return categories.map(cat => ({
-    category: cat.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')
-  }));
+  const PILLARS = ['maklon-kosmetik-skincare', 'bisnis-dreampreneur', 'tips-trick', 'dreamlab-pedia'];
+  return PILLARS.map(category => ({ category }));
 }
 
 export const revalidate = 3600;

@@ -45,19 +45,19 @@ function getReadingTime(content: string) {
   return Math.max(1, Math.ceil(words / 225));
 }
 
+const PILLAR_CATEGORIES = ['Maklon Kosmetik & Skincare', 'Bisnis & Dreampreneur', 'Tips & Trick', 'Dreamlab Pedia'];
+const POSTS_PER_PAGE = 12;
+
 export default function BlogArchivePage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(9); // Initial visible articles for search grid
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredByBlog = useMemo(() => {
     return sortByDateDesc(articles.filter(a => (a.categories || []).length > 0));
   }, []);
 
-  const categories = useMemo(() => {
-    const cats = ['All', ...new Set(filteredByBlog.flatMap(a => a.categories || []).filter(Boolean))];
-    return cats;
-  }, [filteredByBlog]);
+  const categories = ['All', ...PILLAR_CATEGORIES];
 
   const filteredArticles = useMemo(() => {
     let result = filteredByBlog;
@@ -73,12 +73,31 @@ export default function BlogArchivePage() {
       result = result.filter(a => 
         a.title.toLowerCase().includes(query) || 
         (a.excerpt || '').toLowerCase().includes(query) ||
-        (a.categories || []).some(cat => cat.toLowerCase().includes(query))
+        (a.categories || []).some(cat => cat.toLowerCase().includes(query)) ||
+        (a.tags || []).some(tag => tag.toLowerCase().includes(query))
       );
     }
     
     return result;
   }, [activeCategory, searchQuery, filteredByBlog]);
+
+  const totalPages = Math.ceil(filteredArticles.length / POSTS_PER_PAGE);
+  const paginatedArticles = filteredArticles.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
+  
+  // Reset page when filter changes
+  const handleCategoryChange = (cat: string) => {
+    setActiveCategory(cat);
+    setSearchQuery('');
+    setCurrentPage(1);
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
 
   // Curated Clusters for Dashboard (Opsi A) - 4 Pillars
   // Pilar 1: Bisnis & Permodalan
@@ -208,11 +227,7 @@ export default function BlogArchivePage() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setSearchQuery(''); // Reset search when switching categories
-                  setVisibleCount(9);
-                }}
+                onClick={() => handleCategoryChange(cat)}
                 className={`relative whitespace-nowrap pb-4 text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
                   activeCategory === cat 
                     ? 'text-brand-orange scale-105 font-bold' 
@@ -235,13 +250,13 @@ export default function BlogArchivePage() {
           <input 
             type="text" 
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+onChange={(e) => handleSearch(e.target.value)}
             placeholder="Cari artikel..."
-            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-brand-orange outline-none transition-all"
-          />
-          <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400">
-            {searchQuery ? (
-              <button onClick={() => setSearchQuery('')} className="hover:text-brand-orange cursor-pointer">
+              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-brand-orange outline-none transition-all"
+            />
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400">
+              {searchQuery ? (
+                <button onClick={() => handleSearch('')} className="hover:text-brand-orange cursor-pointer">
                 <i className="ri-close-line text-lg"></i>
               </button>
             ) : (
@@ -630,10 +645,7 @@ export default function BlogArchivePage() {
                       Kami tidak dapat menemukan artikel yang cocok dengan kata kunci &ldquo;{searchQuery}&rdquo;. Coba periksa ejaan atau gunakan kata kunci lain.
                     </p>
                     <button
-                      onClick={() => {
-                        setSearchQuery('');
-                        setActiveCategory('All');
-                      }}
+                      onClick={() => handleCategoryChange('All')}
                       className="px-8 py-3.5 bg-brand-orange text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-brand-black transition-colors shadow-lg shadow-brand-orange/20 cursor-pointer"
                     >
                       Reset Filter
@@ -649,7 +661,7 @@ export default function BlogArchivePage() {
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                      {filteredArticles.slice(0, visibleCount).map((article, index) => (
+                      {paginatedArticles.map((article, index) => (
                         <article 
                           key={index}
                           className="group bg-white rounded-[32px] border border-gray-100 overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] transition-all duration-700 flex flex-col h-full"
@@ -710,16 +722,50 @@ export default function BlogArchivePage() {
                   </div>
                 )}
 
-                {/* Load More Button */}
-                {visibleCount < filteredArticles.length && (
-                  <div className="mt-16 flex justify-center">
-                    <button 
-                      onClick={() => setVisibleCount(prev => prev + 8)}
-                      className="group relative px-12 py-5 bg-brand-orange text-white font-bold rounded-xl overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(255,107,0,0.2)] cursor-pointer"
-                    >
-                      <span className="relative z-10 text-xs tracking-wider">MUAT LEBIH BANYAK</span>
-                      <div className="absolute inset-0 bg-brand-black translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                    </button>
+                {/* Numbered Pagination */}
+                {totalPages > 1 && (
+                  <div className="mt-16 flex flex-wrap justify-center items-center gap-3">
+                    {currentPage > 1 && (
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        className="px-5 py-3 rounded-xl bg-gray-50 text-[10px] font-black uppercase tracking-widest hover:bg-brand-orange hover:text-white transition-all cursor-pointer"
+                      >
+                        Previous
+                      </button>
+                    )}
+                    {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                      let pageNum: number;
+                      if (totalPages <= 5) {
+                        pageNum = i + 1;
+                      } else if (currentPage <= 3) {
+                        pageNum = i + 1;
+                      } else if (currentPage >= totalPages - 2) {
+                        pageNum = totalPages - 4 + i;
+                      } else {
+                        pageNum = currentPage - 2 + i;
+                      }
+                      return (
+                        <button
+                          key={pageNum}
+                          onClick={() => setCurrentPage(pageNum)}
+                          className={`w-11 h-11 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                            currentPage === pageNum
+                              ? 'bg-brand-orange text-white shadow-lg shadow-brand-orange/20'
+                              : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
+                          }`}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+                    {currentPage < totalPages && (
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        className="px-5 py-3 rounded-xl bg-gray-50 text-[10px] font-black uppercase tracking-widest hover:bg-brand-orange hover:text-white transition-all cursor-pointer"
+                      >
+                        Next
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
@@ -734,13 +780,13 @@ export default function BlogArchivePage() {
                     <input 
                       type="text" 
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => handleSearch(e.target.value)}
                       placeholder="Search articles..."
                       className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-brand-orange outline-none transition-all"
                     />
                     <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300">
                       {searchQuery ? (
-                        <button onClick={() => setSearchQuery('')} className="text-gray-400 hover:text-brand-orange cursor-pointer">
+                        <button onClick={() => handleSearch('')} className="text-gray-400 hover:text-brand-orange cursor-pointer">
                           <i className="ri-close-line text-lg animate-fade-in"></i>
                         </button>
                       ) : (

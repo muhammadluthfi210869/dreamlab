@@ -66,7 +66,26 @@ export function proxy(request: NextRequest) {
   const shouldNormalizeBlog = pathname === '/blog' || pathname === '/blog/';
   const categoryPaginationMatch = pathname.match(/^\/category\/([^/]+)\/page\/(\d+)\/?$/);
 
-  if (shouldForceHttps || shouldForceNonWww || shouldNormalizeDash || shouldNormalizeBlog || categoryPaginationMatch) {
+  // 301 redirect old category slugs to new pillar categories
+  const CATEGORY_REDIRECTS: Record<string, string> = {
+    'maklon-kosmetik': 'maklon-kosmetik-skincare',
+    'maklon-skincare': 'maklon-kosmetik-skincare',
+    'maklon-personal-care': 'maklon-kosmetik-skincare',
+    'personal-care': 'maklon-kosmetik-skincare',
+    'maklon-bodycare': 'maklon-kosmetik-skincare',
+    'maklon-footcare': 'maklon-kosmetik-skincare',
+    'maklon-baby-care': 'maklon-kosmetik-skincare',
+    'maklon-haircare': 'maklon-kosmetik-skincare',
+    'maklon-parfum': 'maklon-kosmetik-skincare',
+    'bisnis-kosmetik': 'bisnis-dreampreneur',
+    'bisnis-skincare': 'bisnis-dreampreneur',
+    'bisnis-men-grooming': 'bisnis-dreampreneur',
+    'dreampreneur-beauty-academy': 'bisnis-dreampreneur',
+  };
+  const categoryRedirectMatch = pathname.match(/^\/category\/([^/]+)\/?$/);
+  const categoryRedirectTo = categoryRedirectMatch ? CATEGORY_REDIRECTS[categoryRedirectMatch[1]] : null;
+
+  if (shouldForceHttps || shouldForceNonWww || shouldNormalizeDash || shouldNormalizeBlog || categoryPaginationMatch || categoryRedirectTo) {
     const canonicalUrl = new URL(nextUrl.toString());
 
     if (shouldNormalizeDash) {
@@ -79,6 +98,10 @@ export function proxy(request: NextRequest) {
 
     if (categoryPaginationMatch) {
       canonicalUrl.pathname = `/category/${categoryPaginationMatch[1]}/`;
+    }
+
+    if (categoryRedirectTo) {
+      canonicalUrl.pathname = `/category/${categoryRedirectTo}/`;
     }
 
     if (shouldForceHttps) {
