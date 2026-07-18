@@ -68,25 +68,28 @@ export function proxy(request: NextRequest) {
 
   // 301 redirect old category slugs + previous pillar slugs to new pillar categories
   const CATEGORY_REDIRECTS: Record<string, string> = {
-    // Legacy old categories → new pillars
-    'maklon-kosmetik': 'tren-kosmetik',
-    'maklon-skincare': 'tren-kosmetik',
-    'maklon-personal-care': 'tren-kosmetik',
-    'personal-care': 'tren-kosmetik',
-    'maklon-bodycare': 'tren-kosmetik',
-    'maklon-footcare': 'tren-kosmetik',
-    'maklon-baby-care': 'tren-kosmetik',
-    'maklon-haircare': 'tren-kosmetik',
-    'maklon-parfum': 'tren-kosmetik',
-    'bisnis-kosmetik': 'dreampreneur',
-    'bisnis-skincare': 'dreampreneur',
-    'bisnis-men-grooming': 'dreampreneur',
-    'dreampreneur-beauty-academy': 'dreampreneur',
+    // All legacy maklon categories → Maklon Kosmetik
+    'maklon-skincare': 'maklon-kosmetik',
+    'maklon-personal-care': 'maklon-kosmetik',
+    'personal-care': 'maklon-kosmetik',
+    'maklon-bodycare': 'maklon-kosmetik',
+    'maklon-footcare': 'maklon-kosmetik',
+    'maklon-baby-care': 'maklon-kosmetik',
+    'maklon-haircare': 'maklon-kosmetik',
+    'maklon-parfum': 'maklon-kosmetik',
+    // Bisnis Men Grooming → Maklon Kosmetik
+    'bisnis-men-grooming': 'maklon-kosmetik',
+    // Legacy bisnis categories → Panduan Bisnis Kosmetik
+    'bisnis-kosmetik': 'panduan-bisnis-kosmetik',
+    'bisnis-skincare': 'panduan-bisnis-kosmetik',
     // Previous pillar slugs → new pillar slugs
-    'maklon-kosmetik-skincare': 'tren-kosmetik',
-    'bisnis-dreampreneur': 'dreampreneur',
-    'tips-trick': 'tips-bisnis',
-    'dreamlab-pedia': 'tips-bisnis',
+    'tren-kosmetik': 'maklon-kosmetik',
+    'maklon-kosmetik-skincare': 'maklon-kosmetik',
+    'dreampreneur': 'panduan-bisnis-kosmetik',
+    'bisnis-dreampreneur': 'panduan-bisnis-kosmetik',
+    'tips-bisnis': 'panduan-bisnis-kosmetik',
+    'tips-trick': 'panduan-bisnis-kosmetik',
+    'dreamlab-pedia': 'panduan-bisnis-kosmetik',
   };
   const categoryRedirectMatch = pathname.match(/^\/category\/([^/]+)\/?$/);
   const categoryRedirectTo = categoryRedirectMatch ? CATEGORY_REDIRECTS[categoryRedirectMatch[1]] : null;

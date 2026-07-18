@@ -166,7 +166,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 }
 
 export async function generateStaticParams() {
-  const PILLARS = ['tren-kosmetik', 'dreampreneur', 'tips-bisnis', 'event'];
+  const PILLARS = ['maklon-kosmetik', 'panduan-bisnis-kosmetik', 'dreampreneur-beauty-academy', 'event'];
   return PILLARS.map(category => ({ category }));
 }
 

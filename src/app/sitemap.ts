@@ -35,9 +35,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/career',
     '/terms-of-service',
     '/privacy-policy',
-    '/category/tren-kosmetik',
-    '/category/dreampreneur',
-    '/category/tips-bisnis',
+    '/category/maklon-kosmetik',
+    '/category/panduan-bisnis-kosmetik',
+    '/category/dreampreneur-beauty-academy',
     '/category/event',
   ].map(route => ({
     url: `${baseUrl}${route}/`,

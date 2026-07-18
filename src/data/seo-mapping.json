@@ -576,30 +576,30 @@
     }
   },
   {
-    "source": "/category/tren-kosmetik",
-    "destination": "/category/tren-kosmetik/",
+    "source": "/category/maklon-kosmetik",
+    "destination": "/category/maklon-kosmetik/",
     "permanent": true,
     "_metadata": {
-      "original_title": "Tren Kosmetik — Formulasi & Produk Terbaru | Dreamlab",
-      "original_h1": "Tren Kosmetik"
+      "original_title": "Maklon Kosmetik — Produksi & Formulasi Kosmetik | Dreamlab",
+      "original_h1": "Maklon Kosmetik"
     }
   },
   {
-    "source": "/category/dreampreneur",
-    "destination": "/category/dreampreneur/",
+    "source": "/category/panduan-bisnis-kosmetik",
+    "destination": "/category/panduan-bisnis-kosmetik/",
     "permanent": true,
     "_metadata": {
-      "original_title": "Dreampreneur — Bisnis & Wirausaha Kosmetik | Dreamlab",
-      "original_h1": "Dreampreneur"
+      "original_title": "Panduan Bisnis Kosmetik — Tips & Wawasan Bisnis | Dreamlab",
+      "original_h1": "Panduan Bisnis Kosmetik"
     }
   },
   {
-    "source": "/category/tips-bisnis",
-    "destination": "/category/tips-bisnis/",
+    "source": "/category/dreampreneur-beauty-academy",
+    "destination": "/category/dreampreneur-beauty-academy/",
     "permanent": true,
     "_metadata": {
-      "original_title": "Tips Bisnis Kosmetik — Panduan & Wawasan | Dreamlab",
-      "original_h1": "Tips Bisnis Kosmetik"
+      "original_title": "Dreampreneur Beauty Academy — Edukasi & Inkubasi Brand | Dreamlab",
+      "original_h1": "Dreampreneur Beauty Academy"
     }
   },
   {
