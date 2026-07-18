@@ -55,9 +55,6 @@ export default function Header() {
       path: "#",
       dropdown: [
         { name: "All Services", path: "/services" },
-        { name: "Jasa Maklon Kosmetik", path: "/jasa-maklon-kosmetik" },
-        { name: "Private Label Kosmetik", path: "/private-label-kosmetik" },
-        { name: "Panduan", path: "/panduan" },
       ]
     },
     {
