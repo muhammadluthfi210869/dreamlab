@@ -116,13 +116,14 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               {article.excerpt}
             </p>
 
-            <div className="relative aspect-video rounded-[28px] overflow-hidden shadow-sm border border-neutral-200/40 bg-white max-w-4xl mx-auto">
+            <div className="rounded-[28px] overflow-hidden shadow-sm border border-neutral-200/40 bg-white max-w-4xl mx-auto">
               <Image
                 src={featuredImageSrc}
                 alt={article.title}
                 title={`${article.title} - Dreamlab Indonesia`}
-                fill
-                className="object-cover"
+                width={1200}
+                height={630}
+                className="w-full h-auto"
                 priority
                 unoptimized
                 sizes="(max-width: 1280px) 100vw, 896px"
