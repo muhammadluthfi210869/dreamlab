@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2a4a;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0f1a30;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D98A00;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#b87500;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8a020;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c88818;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6fa5;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#3a5f95;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bar4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6a8fc5;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#5a7fb5;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bar5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8aafd8;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#7a9fc8;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="340" rx="12" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="350" y="40" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="17" font-weight="bold">Proyeksi Pasar Deodorant Indonesia</text>
+
+  <!-- Subtitle -->
+  <text x="350" y="60" text-anchor="middle" fill="#aabbcc" font-family="Arial, sans-serif" font-size="12">Sumber: Statista Market Forecast, 2024–2028</text>
+
+  <!-- Bars - 2024 to 2028 -->
+  <!-- Y-axis labels: 0 to 800 (in millions USD) -->
+  <!-- Each bar: width 80, gap between bars 30 -->
+  <!-- Center the 5 bars: total width = 5*80 + 4*30 = 520, start = (700-520)/2 = 90 -->
+
+  <!-- 2024 - ~0.59 -->
+  <rect x="90" y="245" width="80" height="65" rx="6" fill="url(#bar1)" opacity="0.9"/>
+  <text x="130" y="235" text-anchor="middle" fill="#D98A00" font-family="Arial, sans-serif" font-size="13" font-weight="bold">$0.59B</text>
+  <text x="130" y="325" text-anchor="middle" fill="#8899aa" font-family="Arial, sans-serif" font-size="12">2024</text>
+
+  <!-- 2025 - ~0.63 -->
+  <rect x="200" y="230" width="80" height="80" rx="6" fill="url(#bar2)" opacity="0.9"/>
+  <text x="240" y="220" text-anchor="middle" fill="#e8a020" font-family="Arial, sans-serif" font-size="13" font-weight="bold">$0.63B</text>
+  <text x="240" y="325" text-anchor="middle" fill="#8899aa" font-family="Arial, sans-serif" font-size="12">2025</text>
+
+  <!-- 2026 - ~0.67 -->
+  <rect x="310" y="215" width="80" height="95" rx="6" fill="url(#bar3)" opacity="0.9"/>
+  <text x="350" y="205" text-anchor="middle" fill="#4a6fa5" font-family="Arial, sans-serif" font-size="13" font-weight="bold">$0.67B</text>
+  <text x="350" y="325" text-anchor="middle" fill="#8899aa" font-family="Arial, sans-serif" font-size="12">2026</text>
+  <!-- Arrow indicator -->
+  <text x="350" y="185" text-anchor="middle" fill="#ffcc00" font-family="Arial, sans-serif" font-size="18">▲</text>
+
+  <!-- 2027 - ~0.71 -->
+  <rect x="420" y="200" width="80" height="110" rx="6" fill="url(#bar4)" opacity="0.9"/>
+  <text x="460" y="190" text-anchor="middle" fill="#6a8fc5" font-family="Arial, sans-serif" font-size="13" font-weight="bold">$0.71B</text>
+  <text x="460" y="325" text-anchor="middle" fill="#8899aa" font-family="Arial, sans-serif" font-size="12">2027</text>
+
+  <!-- 2028 - ~0.75 -->
+  <rect x="530" y="185" width="80" height="125" rx="6" fill="url(#bar5)" opacity="0.9"/>
+  <text x="570" y="175" text-anchor="middle" fill="#8aafd8" font-family="Arial, sans-serif" font-size="13" font-weight="bold">$0.75B</text>
+  <text x="570" y="325" text-anchor="middle" fill="#8899aa" font-family="Arial, sans-serif" font-size="12">2028</text>
+
+  <!-- CAGR label -->
+  <text x="350" y="120" text-anchor="middle" fill="#ffcc00" font-family="Arial, sans-serif" font-size="22" font-weight="bold">+6,18%</text>
+  <text x="350" y="140" text-anchor="middle" fill="#aabbcc" font-family="Arial, sans-serif" font-size="11">CAGR per tahun (2024–2028)</text>
+
+  <!-- Trend line -->
+  <line x1="90" y1="135" x2="610" y2="135" stroke="#ffcc00" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+</svg>
