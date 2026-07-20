@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
   return {
     title: mapping?._metadata.original_title || `Posts by ${slug} | Dreamlab Indonesia`,
     description: mapping?._metadata.original_description || `Kumpulan artikel yang ditulis oleh ${slug} di Dreamlab Indonesia.`,
-    robots: 'noindex, follow',
+    robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     alternates: {
         canonical: `https://dreamlab.id${pathStr}/`,
     },

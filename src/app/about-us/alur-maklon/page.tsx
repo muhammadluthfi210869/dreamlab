@@ -9,6 +9,9 @@ import AlurFAQ from "@/components/AlurFAQ";
 export const metadata: Metadata = {
   title: "Alur Maklon | Dreamlab Indonesia",
   description: "Pelajari alur maklon kosmetik di Dreamlab Indonesia.",
+  alternates: {
+    canonical: "https://dreamlab.id/about-us/alur-maklon/",
+  },
 };
 
 export default function AlurMaklonPage() {

@@ -202,6 +202,19 @@ const nextConfig: NextConfig = {
       ['/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan', '/news-blog/'],
       ['/maklon-kosmetik-terbaik', '/news-blog/'],
       ['/category/bisnis-kosmetik/page/2', '/category/bisnis-kosmetik/'],
+      // GSC 404 — legacy pages no longer exist
+      ['/shop', '/produk/'],
+      ['/cart', '/'],
+      ['/my-account', '/'],
+      // GSC Crawled-Not-Indexed — legacy WordPress articles no longer in system
+      ['/ide-bisnis-kosmetik', '/news-blog/'],
+      ['/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan', '/news-blog/'],
+      ['/maklon-kosmetik-terbaik', '/news-blog/'],
+      ['/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri', '/news-blog/'],
+      ['/maklon-skinacre-lptiktok', '/produk/skincare/'],
+      // URL with special unicode dash char — redirect to clean URL
+      ['/atur‑kosmetik‑halal‑dreamlab', '/news-blog/'],
+      ['/atur‑kosmetik‑halal‑2026‑dreamlab', '/news-blog/'],
     ];
     redirects.push({
       source: '/author/admin/page/:path*',

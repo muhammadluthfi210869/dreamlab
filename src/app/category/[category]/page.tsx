@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { getSEOData } from '@/lib/seo-service';
 
 let articlesCache: any[] | null = null;
-const THIN_CATEGORY_MAX_ARTICLES = 2;
+const THIN_CATEGORY_MAX_ARTICLES = 1;
 
 async function getArticles() {
   if (articlesCache) return articlesCache;

@@ -6,6 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
       disallow: [
+        '/_next/static/',
         '/api/',
         '/admin/',
         '/wp-admin/',
@@ -21,6 +22,8 @@ export default function robots(): MetadataRoute.Robots {
         '/cms_block_cat/',
         '/post-sitemap',
         '/blog/',
+        '/feed/',
+        '/pages/',
       ],
     },
     sitemap: 'https://dreamlab.id/sitemap.xml',
