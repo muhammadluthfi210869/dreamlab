@@ -1,9 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getAgentLeadCounts, getRoundRobinStats } from '@/lib/roundRobin';
+import { isInternalRequestAuthorized } from '@/lib/internal-auth';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (!isInternalRequestAuthorized(req)) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401, headers: { 'Cache-Control': 'no-store, max-age=0' } }
+    );
+  }
+
   const counts = await getAgentLeadCounts();
   const stats = await getRoundRobinStats();
 
@@ -23,11 +31,14 @@ export async function GET() {
   const stickyServes = Math.max(0, total - stats.totalAssigned);
   const stickyRatePercent = total > 0 ? Math.round((stickyServes / total) * 1000) / 10 : 0;
 
-  return NextResponse.json({
-    totalLeads: total,
-    totalRotations: stats.totalAssigned,
-    stickyServes,
-    stickyRatePercent,
-    breakdown,
-  });
+  return NextResponse.json(
+    {
+      totalLeads: total,
+      totalRotations: stats.totalAssigned,
+      stickyServes,
+      stickyRatePercent,
+      breakdown,
+    },
+    { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+  );
 }

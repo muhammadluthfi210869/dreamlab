@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAgentLeadCounts } from '@/lib/roundRobin';
 import { getAllPipelineLeadCounts, KOMMO_PIPELINE_MAPPING } from '@/lib/kommo-client';
+import { isInternalRequestAuthorized } from '@/lib/internal-auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  if (!isInternalRequestAuthorized(req)) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401, headers: { 'Cache-Control': 'no-store, max-age=0' } }
+    );
+  }
+
   const days = Number(req.nextUrl.searchParams.get('days') ?? '30');
   const dateTo = Math.floor(Date.now() / 1000);
   const dateFrom = dateTo - days * 24 * 60 * 60;
@@ -55,14 +63,17 @@ export async function GET(req: NextRequest) {
       ? 'Data internal dan Kommo CUKUP COCOK — selisih wajar (kemungkinan ada lead yang tidak lanjut chat, atau lead dari sumber lain di Kommo).'
       : 'Data internal dan Kommo SELISIH CUKUP BESAR — perlu ditelusuri lebih lanjut, kemungkinan ada lead di luar sistem round-robin atau masalah mapping pipeline.';
 
-  return NextResponse.json({
-    rentangHari: days,
-    dibandingkanPada: new Date().toISOString(),
-    ringkasan: {
-      rataRataKecocokanPersen: Math.round(rataRataKecocokan * 10) / 10,
-      kesimpulan,
+  return NextResponse.json(
+    {
+      rentangHari: days,
+      dibandingkanPada: new Date().toISOString(),
+      ringkasan: {
+        rataRataKecocokanPersen: Math.round(rataRataKecocokan * 10) / 10,
+        kesimpulan,
+      },
+      distribusiPersentase: distribusi,
+      comparison,
     },
-    distribusiPersentase: distribusi,
-    comparison,
-  });
+    { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+  );
 }
