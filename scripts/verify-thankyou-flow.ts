@@ -32,9 +32,13 @@ function verifyComponentShell() {
     })
   );
 
+  // Komponen disederhanakan jadi 1 tombol CTA utama di commit 45db811
+  // (2026-07-15, "sederhanakan jadi 1 tombol CTA") — assertion ini
+  // sebelumnya masih ngecek 3 tombol dari desain lama, bikin verify:all
+  // selalu gagal walau komponennya sendiri sudah benar.
   const buttonCount = (html.match(/<button\b/g) || []).length;
-  assert.equal(buttonCount, 3, 'Thank you flow must render exactly 3 CTA buttons');
-  assert(html.includes('Nomor aktif'), 'Komponen harus menampilkan status nomor');
+  assert.equal(buttonCount, 1, 'Thank you flow must render exactly 1 CTA button (desain saat ini: satu tombol utama)');
+  assert(html.includes('Menyiapkan tim kami') || html.includes('Menghubungkan Anda'), 'Komponen harus menampilkan status assignment CS');
   console.log('✅ ThankYouRoundRobin render: OK');
 }
 
