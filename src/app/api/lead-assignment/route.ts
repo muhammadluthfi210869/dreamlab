@@ -64,6 +64,10 @@ export async function GET(req: NextRequest) {
 
     campaignSource,
 
+  }, {
+
+    headers: { 'Cache-Control': 'no-store, max-age=0' },
+
   });
 
 }
