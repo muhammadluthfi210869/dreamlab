@@ -36,3 +36,33 @@ Menggunakan halaman `thankyou` sebagai trigger distribusi lead WhatsApp ke 3 nom
 - Query `skip_wa=1` menonaktifkan auto redirect.
 - Query `source` dipakai untuk tracking conversion.
 - Redirect dilakukan dengan nomor yang sudah dipilih, bukan memilih ulang saat tombol diklik.
+
+## Sticky Cookie 30 Hari (PENTING untuk testing manual)
+
+Sejak commit `9862ec3` (2026-07-15), assignment CS memakai cookie
+`dreamlab_cs` yang bertahan **30 hari**. Alurnya di `getOrAssignAgent()`
+(`src/lib/lead-assignment.ts`):
+
+1. Kalau browser/device sudah punya cookie `dreamlab_cs` yang valid →
+   **selalu** dapat CS yang sama, TIDAK lewat rotasi lagi.
+2. Kalau belum ada cookie → baru ambil slot berikutnya dari rotasi Redis
+   (`getNextAgent()` di `roundRobin.ts`) dan cookie di-set.
+
+Ini disengaja (support retargeting campaign — user yang balik lagi tetap
+ketemu CS yang sama). Konsekuensinya:
+
+- **Testing manual dari browser yang sama berkali-kali TIDAK akan
+  menunjukkan rotasi** — Anda akan terus dapat CS yang sama sampai cookie
+  dihapus atau 30 hari lewat. Ini normal, bukan bug. Untuk tes rotasi
+  murni, pakai incognito/private window baru setiap kali, atau hapus
+  cookie `dreamlab_cs` sebelum tiap test.
+- Statistik di `/api/round-robin-stats` (`totalLeads`) dan
+  `/api/kommo-comparison` menghitung SEMUA assignment termasuk repeat
+  visit sticky — bisa terlihat tidak merata meski rotasi Redis di
+  baliknya (`totalRotations`) tetap adil. Field `stickyRatePercent` di
+  `/api/round-robin-stats` menunjukkan berapa persen dari total itu
+  berasal dari sticky, bukan rotasi baru.
+- Untuk simulasi yang merepresentasikan kondisi ini, jalankan
+  `npx tsx scripts/simulate-lead-distribution.ts` — script ini punya dua
+  mode: rotasi murni (tanpa cookie) dan traffic realistis (sebagian
+  visitor repeat & bawa cookie, seperti kondisi asli).
