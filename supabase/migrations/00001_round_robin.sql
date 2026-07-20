@@ -1,6 +1,16 @@
 -- =============================================
 -- Round Robin Lead Distribution — Supabase Setup
 -- =============================================
+--
+-- ⚠️ DEPRECATED (2026-07-20): Implementasi round-robin yang AKTIF sekarang
+-- pakai Redis/Upstash (lihat src/lib/roundRobin.ts, src/lib/round-robin-config.ts).
+-- Tabel busdevs/rr_counter dan fungsi increment_rr_counter() di file ini
+-- TIDAK direferensikan di manapun oleh kode aplikasi saat ini (dicek via
+-- grep di seluruh src/) — murni sisa iterasi awal. Jangan jadikan acuan
+-- saat debug round-robin; daftar CS aktif ada di AGENTS di
+-- round-robin-config.ts, bukan di tabel busdevs ini.
+-- File migration ini dibiarkan (tidak dihapus) untuk jaga histori migrasi
+-- database, bukan karena masih dipakai.
 
 -- 1. Table: busdevs — daftar busdev, fleksibel
 CREATE TABLE IF NOT EXISTS busdevs (
