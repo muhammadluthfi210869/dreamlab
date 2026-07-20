@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { getNextAgent, incrementAgentLeadCount } from './roundRobin';
-import { AGENTS, getActiveAgents, Agent } from './round-robin-config';
+import { AGENTS, pickEmergencyFallbackAgent, Agent } from './round-robin-config';
 
 const COOKIE_NAME = 'dreamlab_cs';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
@@ -24,7 +24,13 @@ export async function getOrAssignAgent(): Promise<AssignmentResult> {
 
   try {
     const agent = await getNextAgent();
-    await incrementAgentLeadCount(agent.id);
+    try {
+      await incrementAgentLeadCount(agent.id);
+    } catch (countErr) {
+      // Gagal catat statistik TIDAK BOLEH menggagalkan assignment itu
+      // sendiri — lead tetap harus disalurkan meski counternya meleset.
+      console.error('[lead-assignment] incrementAgentLeadCount gagal untuk rotation, lanjut tanpa catat:', countErr);
+    }
     cookieStore.set(COOKIE_NAME, agent.id, {
       maxAge: COOKIE_MAX_AGE,
       httpOnly: true,
@@ -34,10 +40,17 @@ export async function getOrAssignAgent(): Promise<AssignmentResult> {
     });
     return { agent, source: 'rotation' };
   } catch (err) {
-    console.error('[lead-assignment] getNextAgent gagal, pakai fallback random:', err);
-    const active = getActiveAgents();
-    const fallbackAgent = active[Math.floor(Math.random() * active.length)];
-    await incrementAgentLeadCount(fallbackAgent.id);
+    console.error('[lead-assignment] getNextAgent gagal, pakai fallback darurat:', err);
+    // pickEmergencyFallbackAgent() SELALU mengembalikan Agent selama
+    // AGENTS tidak kosong total — beda dengan getActiveAgents() yang bisa
+    // throw lagi di sini kalau semua agent kebetulan nonaktif, yang
+    // sebelumnya bikin request ini crash 500 tanpa fallback sama sekali.
+    const fallbackAgent = pickEmergencyFallbackAgent();
+    try {
+      await incrementAgentLeadCount(fallbackAgent.id);
+    } catch (countErr) {
+      console.error('[lead-assignment] incrementAgentLeadCount gagal untuk fallback, lanjut tanpa catat:', countErr);
+    }
     cookieStore.set(COOKIE_NAME, fallbackAgent.id, {
       maxAge: COOKIE_MAX_AGE,
       httpOnly: true,
