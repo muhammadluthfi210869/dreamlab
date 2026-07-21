@@ -7,6 +7,7 @@ import { getAllCategories } from '@/data/products-v2';
 import { maklonPages } from '@/data/maklon-pages';
 import { pilotBatch1Routes } from '@/data/seo-pilot/batch-1';
 import { pilotBatch2Routes } from '@/data/seo-pilot/batch-2';
+import { isIndexableSitemapPath, normalizeSeoPath } from '@/lib/seo-url-policy';
 
 interface AuditData {
   slug: string;
@@ -28,7 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about-us',
     '/about-us/alur-maklon',
     '/services',
-    '/produk',
     '/contact-us',
     '/contact-medsos',
     '/our-client',
@@ -38,7 +38,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/category/maklon-kosmetik',
     '/category/panduan-bisnis-kosmetik',
     '/category/dreampreneur-beauty-academy',
-    '/category/event',
   ].map(route => ({
     url: `${baseUrl}${route}/`,
     lastModified: new Date(),
@@ -201,7 +200,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Combine and de-duplicate by URL
   const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes, ...pilotRoutes];
-  const uniqueRoutes = Array.from(new Map(allRoutes.map(r => [r.url, r])).values());
+  const indexableRoutes = allRoutes.filter(route => {
+    const pathName = normalizeSeoPath(route.url);
+    if (!isIndexableSitemapPath(pathName)) return false;
+    if (isThinCategorySlug(pathName.replace(/^\//, ''))) return false;
+    return true;
+  });
+  const uniqueRoutes = Array.from(new Map(indexableRoutes.map(r => [r.url, r])).values());
 
   return uniqueRoutes;
 }
