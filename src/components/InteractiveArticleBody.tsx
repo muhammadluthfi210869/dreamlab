@@ -88,7 +88,23 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         }
       });
 
-      // 5. Strip span.ez-toc-section and other WP artifacts
+      // 5. Style FAQ details as accordion cards via CSS class
+      const detailsEls = doc.querySelectorAll('details');
+      detailsEls.forEach(d => {
+        d.classList.add('article-faq');
+        d.removeAttribute('style');
+        const summary = d.querySelector('summary');
+        if (summary) {
+          summary.removeAttribute('style');
+          // Remove inline marker span (CSS ::after handles it)
+          const marker = summary.querySelector('span');
+          if (marker && marker.textContent?.trim() === '+') {
+            marker.remove();
+          }
+        }
+      });
+
+      // 6. Strip span.ez-toc-section and other WP artifacts
       
       const brTags = doc.querySelectorAll('br');
       brTags.forEach((br, idx) => {
