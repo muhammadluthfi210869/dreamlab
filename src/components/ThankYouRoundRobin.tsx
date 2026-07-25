@@ -33,6 +33,10 @@ export function ThankYouRoundRobin({
 
     setSource(resolvedSource);
     fireConversion(resolvedSource);
+
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'conversion', { send_to: 'AW-10940853039/hTv7CJOs-OwaEK_WgOEo' });
+    }
   }, [defaultSource]);
 
   const assignment = useLeadAssignment(defaultSource);

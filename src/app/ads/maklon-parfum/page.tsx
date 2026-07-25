@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { CheckCircle2, ArrowRight, FlaskConical, Sparkles, Layers, ShieldCheck, Award } from "lucide-react";
@@ -25,6 +26,17 @@ export default function MaklonParfumAdsLP() {
     { title: "Diproduksi di Pabrik Berstandar CPKB GRADE A", icon: ShieldCheck },
     { title: "Legalitas Lengkap untuk Mendukung Pertumbuhan Brand", icon: Award }
   ];
+
+  useEffect(() => {
+    const ctas = document.querySelectorAll('a[href*="thankyou/metaads"]');
+    const handler = () => {
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'AddToCart', { content_name: 'Maklon Parfum', content_category: 'Landing Page Ads' });
+      }
+    };
+    ctas.forEach(el => el.addEventListener('click', handler));
+    return () => ctas.forEach(el => el.removeEventListener('click', handler));
+  }, []);
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">

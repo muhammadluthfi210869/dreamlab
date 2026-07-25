@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,6 +34,17 @@ const benefits = [
 ];
 
 export default function BabyCareMetaAdsLP() {
+  useEffect(() => {
+    const ctas = document.querySelectorAll('a[href*="thankyou/metaads"]');
+    const handler = () => {
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'AddToCart', { content_name: 'Baby Care', content_category: 'Landing Page Ads' });
+      }
+    };
+    ctas.forEach(el => el.addEventListener('click', handler));
+    return () => ctas.forEach(el => el.removeEventListener('click', handler));
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
 

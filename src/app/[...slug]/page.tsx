@@ -75,6 +75,10 @@ interface Article {
   publishDate: string;
   author: string;
   categories: string[];
+  seo?: {
+    title: string;
+    description: string;
+  };
 }
 
 interface PageProps {
@@ -102,8 +106,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
-  const title = seoData?.meta_title || (article ? article.title : 'Dreamlab');
-  const description = seoData?.meta_description || (article ? article.excerpt : 'Dreamlab - Maklon Kosmetik & Skincare Terbaik BPOM Indonesia');
+  const title = seoData?.meta_title || (article ? (article.seo?.title || article.title) : 'Dreamlab');
+  const description = seoData?.meta_description || (article ? (article.seo?.description || article.excerpt) : 'Dreamlab - Maklon Kosmetik & Skincare Terbaik BPOM Indonesia');
   const canonical = (seoData?.canonical || `https://dreamlab.id${pathStr}`).replace(/\/?$/, '/');
 
   return {
