@@ -131,8 +131,27 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           igBlocks.forEach(() => {
             try { (window as any).instgrm.Embeds.process(); } catch {}
           });
+          // Hide skeleton placeholders
+          el.querySelectorAll('.ig-skeleton').forEach(s => s.remove());
         }
       };
+
+      // Show skeleton placeholders while loading
+      igBlocks.forEach(block => {
+        if (!block.parentElement?.querySelector('.ig-skeleton')) {
+          const skeleton = document.createElement('div');
+          skeleton.className = 'ig-skeleton';
+          skeleton.innerHTML = '<div class="ig-skeleton-inner"></div>';
+          skeleton.style.cssText = 'position:absolute;inset:0;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:ig-skeleton-shimmer 1.5s infinite;border-radius:3px;z-index:1';
+          if (block.parentElement) {
+            const parent = block.parentElement;
+            if (getComputedStyle(parent).position === 'static') {
+              parent.style.position = 'relative';
+            }
+            parent.appendChild(skeleton);
+          }
+        }
+      });
 
       if ((window as any).instgrm?.Embeds) {
         processEmbeds();

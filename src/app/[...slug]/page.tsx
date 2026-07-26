@@ -160,6 +160,7 @@ export default async function DynamicPage({ params }: PageProps) {
       excerpt: articleOverride?.excerpt || article.excerpt,
       content: cleanWordPressHtml(articleOverride?.content || article.content),
     };
+    const articleFaqs = articleOverride?.faqs || [];
     const recentPosts = [...articlesList]
       .filter(a => a.slug !== article.slug && a.title)
       .sort((a, b) => {
@@ -171,7 +172,7 @@ export default async function DynamicPage({ params }: PageProps) {
     const allArticlesLight = articlesList.map(({ slug, title, categories }) => ({ slug, title, categories }));
     return (
       <main className="min-h-screen">
-        <ArticleTemplate article={cleanedArticle} recentPosts={recentPosts} allArticles={allArticlesLight} />
+        <ArticleTemplate article={cleanedArticle} recentPosts={recentPosts} allArticles={allArticlesLight} faqs={articleFaqs} />
       </main>
     );
   }

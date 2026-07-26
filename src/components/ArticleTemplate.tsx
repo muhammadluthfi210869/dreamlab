@@ -32,9 +32,10 @@ interface ArticleTemplateProps {
   article: ArticleData;
   recentPosts: ArticleData[];
   allArticles: Array<{ slug: string; title: string; categories: string[] }>;
+  faqs?: { question: string; answer: string }[];
 }
 
-const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [] }) => {
+const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [], faqs = [] }) => {
   const [copied, setCopied] = useState(false);
 
   const articleUrl = `https://dreamlab.id${article.slug.startsWith('/') ? article.slug : `/${article.slug}`}`;
@@ -72,6 +73,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
       datePublished: article.publishDate,
       author: article.author,
     },
+    faqs: faqs.length > 0 ? faqs : undefined,
   });
 
   return (

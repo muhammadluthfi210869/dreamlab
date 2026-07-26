@@ -1,0 +1,12 @@
+[eval]:7
+  "</h2>\\n<figure class=\\"wp-block-image size-large\\" style=\\"margin:40px 0;text-align:center\\"><a href=\\"/thankyou/google/\\"><img src=\\"/assets/images/blog/dreamlab_maklonkosmetik_artikel_tengah.png\\" alt=\\"Konsultasi gratis maklon parfum Dreamlab\\" style=\\"width:100%;height:auto;max-width:896px;border-radius:12px\\" width=\\"896\\" height=\\"504\\" loading=\\"lazy\\" /></a></figure>\\n<p>Kombinasi base notes yang tepat inilah yang membedakan parfum yang terasa"
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Expected ',', got 'ident'
+
+SyntaxError: missing ) after argument list
+    at makeContextifyScript (node:internal/vm:194:14)
+    at compileScript (node:internal/process/execution:420:10)
+    at evalTypeScript (node:internal/process/execution:292:22)
+    at node:internal/main/eval_string:71:3
+
+Node.js v26.5.0
