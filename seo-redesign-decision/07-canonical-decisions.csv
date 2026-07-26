@@ -1,0 +1,26 @@
+url,declared_canonical,google_canonical,content_similarity,internal_links,historical_traffic,classification,decision,priority,notes
+https://www.dreamlab.id/maklon-parfum-dreamlab/,none,https://dreamlab.id/maklon-parfum-dreamlab/,IDENTICAL,SAME,unknown,WWW_DUPLICATE,LEAVE,P2,www→non-www canonical expected
+https://www.dreamlab.id/category/maklon-bodycare/,none,https://dreamlab.id/category/maklon-bodycare/,IDENTICAL,SAME,1,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical; add to prevent www duplicate issues
+https://www.dreamlab.id/tren-brand-kosmetik-lokal-2025/,none,https://dreamlab.id/tren-brand-kosmetik-lokal-2025/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/basic-skincare-pria-wajib/,none,https://dreamlab.id/basic-skincare-pria-wajib/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/career/,none,https://dreamlab.id/career/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/,none,https://dreamlab.id/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/8-tren-kecantikan-2026-smart-formula/,none,https://dreamlab.id/8-tren-kecantikan-2026-smart-formula/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/contact-us/,none,https://dreamlab.id/contact-us/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/hair-treatment-ampoule-maklon-haircare-dreamlab/,none,https://dreamlab.id/hair-treatment-ampoule-maklon-haircare-dreamlab/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/tips-membuat-hand-sanitizer-bisnis/,none,https://dreamlab.id/tips-membuat-hand-sanitizer-bisnis/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/category/maklon-personal-care/,none,https://dreamlab.id/category/maklon-personal-care/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/perbedaan-moisturizer-gel-vs-cream/,none,https://dreamlab.id/perbedaan-moisturizer-gel-vs-cream/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/cara-membuat-deodorant-balm-custom/,none,https://dreamlab.id/cara-membuat-deodorant-balm-custom/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/cysteamine-alternatif-hydroquinone/,none,https://dreamlab.id/cysteamine-alternatif-hydroquinone/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/category/maklon-haircare/,none,https://dreamlab.id/category/maklon-haircare/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/maklon-skincare-jawa-timur-dreamlab/,none,https://dreamlab.id/maklon-skincare-jawa-timur-dreamlab/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/trend-body-care-2025-produk-viral-tiktok-shopee-dreamlab-maklon-kosmetik/,none,https://dreamlab.id/trend-body-care-2025-produk-viral-tiktok-shopee-dreamlab-maklon-kosmetik/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/news-blog/page/5/,none,https://dreamlab.id/news-blog/page/5/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical on pagination
+https://www.dreamlab.id/produk-viral-tiktok/,none,https://dreamlab.id/produk-viral-tiktok/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/jasa-maklon-parfum-moq-rendah/,none,https://dreamlab.id/jasa-maklon-parfum-moq-rendah/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/about-us/,none,https://dreamlab.id/about-us/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/our-client/,none,https://dreamlab.id/our-client/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://www.dreamlab.id/news-blog/,none,https://dreamlab.id/news-blog/,IDENTICAL,SAME,unknown,CANONICAL_MISSING,ADD_SELF_CANONICAL,P2,Missing self-canonical
+https://dreamlab.id/hair-care,https://dreamlab.id/hair-care/,https://dreamlab.id/hair-care/,IDENTICAL,SAME,unknown,TRAILING_SLASH,LEAVE,P3,Non-trailing slash → trailing slash; already canonicalized
+https://www.dreamlab.id/services,https://dreamlab.id/services/,UNKNOWN,UNKNOWN,SAME,unknown,TRAILING_SLASH,LEAVE,P3,Non-trailing slash → trailing slash

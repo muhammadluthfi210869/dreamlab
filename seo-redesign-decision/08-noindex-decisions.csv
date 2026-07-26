@@ -1,0 +1,24 @@
+url,page_type,current_robots,historical_traffic,business_value,classification,decision,priority,notes
+https://dreamlab.id/e-floating-buttons/popup-website/,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,No business value - utility component
+https://www.dreamlab.id/e-floating-buttons/popup-website/,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,www variant
+https://dreamlab.id/blog/foot-care-produk-peluang-bisnis-maklon/,blog_article,noindex,UNKNOWN,LOW,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,Check if this /blog/ path is intentionally noindexed
+https://www.dreamlab.id/blog/foot-care-produk-peluang-bisnis-maklon,blog_article,noindex,UNKNOWN,LOW,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,www variant no trailing slash
+https://www.dreamlab.id/blog/foot-care-produk-peluang-bisnis-maklon/,blog_article,noindex,UNKNOWN,LOW,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,www variant
+https://dreamlab.id/blog/pabrik-maklon-kosmetik-cpkb-grade-a/,blog_article,noindex,UNKNOWN,MEDIUM,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,Important content on /blog/ path - may need to remove noindex
+https://www.dreamlab.id/blog/pabrik-maklon-kosmetik-cpkb-grade-a,blog_article,noindex,UNKNOWN,MEDIUM,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,www variant
+https://www.dreamlab.id/blog/pabrik-maklon-kosmetik-cpkb-grade-a/,blog_article,noindex,UNKNOWN,MEDIUM,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,www variant
+https://www.dreamlab.id/$,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,URL fragment - expected
+https://www.dreamlab.id/$/,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,URL fragment
+https://www.dreamlab.id/&,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,URL fragment
+https://www.dreamlab.id/&/,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,URL fragment
+https://dreamlab.id/blog/maklon-hair-care-kesalahan-pemula/,blog_article,noindex,UNKNOWN,MEDIUM,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,/blog/ path content may need noindex removal
+https://www.dreamlab.id/blog/,blog_home,noindex,UNKNOWN,LOW,DUPLICATE_OR_CONSOLIDATION,KEEP_NOINDEX,P3,/blog/ is duplicate of /news-blog/
+https://www.dreamlab.id/blog/maklon-hair-care-kesalahan-pemula,blog_article,noindex,UNKNOWN,MEDIUM,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,www variant
+https://www.dreamlab.id/blog/maklon-hair-care-kesalahan-pemula/,blog_article,noindex,UNKNOWN,MEDIUM,ACCIDENTAL_NOINDEX_CANDIDATE,MANUAL_REVIEW,P2,www variant
+https://dreamlab.id/?s={search_term_string},search_result,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,Search result page
+https://dreamlab.id/post-sitemap.xml,sitemap,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,Old sitemap file
+https://dreamlab.id/juaranyaformula/?action=googlesitekit_auth,utility,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,Auth callback
+https://dreamlab.id/my-account/,system_page,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,WooCommerce account page
+https://dreamlab.id/cart/,system_page,noindex,0,LOW,UTILITY_PAGE,KEEP_NOINDEX,P3,WooCommerce cart page
+https://dreamlab.id/category/dreampreneur-beauty-academy/,category,noindex,2,LOW,CATEGORY_KEEP_NOINDEX,KEEP_NOINDEX,P2,Intentionally noindexed category
+https://dreamlab.id/academy-beautypreneur/,legacy,redirect+noindex,UNKNOWN,LOW,REDIRECTED_CORRECTLY,KEEP_NOINDEX,P3,Redirects to noindexed category

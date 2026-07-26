@@ -1,0 +1,160 @@
+f47a44e	2026-07-21	Muhammad Luthfi	Fix GSC sitemap indexability issues
+498d529	2026-07-20	Revita	debug: log auth check details untuk investigasi 401 di round-robin-stats
+b285eb1	2026-07-20	Revita	fix: update assertion verify-thankyou-flow ke desain 1 tombol CTA (commit 45db811)
+2d1c679	2026-07-20	Revita	docs: update .env.example dengan UPSTASH Redis, Kommo, INTERNAL_STATS_KEY
+96b9a7c	2026-07-20	Revita	chore: tambah verify:round-robin script ke verify:all (validasi konfigurasi statis)
+b2d9973	2026-07-20	Revita	fix: fallback darurat pickEmergencyFallbackAgent + error handling incrementAgentLeadCount
+72dabb0	2026-07-20	Revita	feat: proteksi /api/round-robin-stats & /api/kommo-comparison pakai INTERNAL_STATS_KEY
+5bd122f	2026-07-20	Revita	docs: dokumentasi cookie sticky round-robin dan cara testing benar
+d486d1f	2026-07-20	Revita	feat: tambah stickyServes & stickyRatePercent di round-robin-stats API
+c27165b	2026-07-20	Revita	chore: tandai migration round_robin deprecated & rewrite simulate script 2 mode
+72845e2	2026-07-20	Revita	fix: no-store cache header di lead-assignment API & hapus 5 dead redirect routes
+c702cd6	2026-07-20	Muhammad Luthfi	fix: GSC indexing issues - block _next/static, redirect legacy URLs, fix noindex/canonical
+57034a6	2026-07-19	Revita	Update FAQ question text
+55e78a2	2026-07-19	Revita	Update FAQ answer for timeline
+20c5c3d	2026-07-19	Revita	Remove one FAQ item
+70d9e92	2026-07-19	Revita	Redesign FAQ with aesthetic dropdown styling
+b27d695	2026-07-19	Revita	Change slug, add market data visualization SVG
+3e7dad7	2026-07-19	Revita	Optimize internal links, restructure article layout with H3 headings, fix content escaping
+6c6f3cf	2026-07-19	Revita	Add article: Peluang Bisnis Deodorant (pilar Maklon Kosmetik)
+f5d1dc2	2026-07-19	Revita	Remove Jasa Maklon Kosmetik, Private Label, Panduan from Services dropdown
+51e3445	2026-07-19	Revita	Make All tab show newest articles with pagination (remove dashboard clusters)
+4a55d10	2026-07-19	Revita	Restructure pillars: Maklon Kosmetik, Panduan Bisnis Kosmetik, Dreampreneur Beauty Academy, Event
+af530b0	2026-07-18	Revita	Restructure blog pillars: Tren Kosmetik, Dreampreneur, Tips Bisnis, Event
+d87ce6d	2026-07-18	Revita	Simplify Services dropdown to 4 items (hide 5 transactional pages)
+6a405d7	2026-07-18	Revita	Consolidate 12 blog categories into 4 SEO pillars
+819fe1c	2026-07-18	Revita	Optimize mobile & SEO silo: overflow-x table, responsive images, 12 internal silo links
+5e3a4d9	2026-07-18	Revita	Fix featured image cropping: use w-full h-auto instead of object-cover aspect-video
+f1bdaaf	2026-07-18	Revita	Update article: restructure content, remove selebgram/clean beauty, add product images in bullets
+6221e34	2026-07-18	Revita	New article: Rekomendasi Maklon Kosmetik Yogyakarta
+b765c23	2026-07-17	Revita	CSP: tambah ad.doubleclick.net, stats.g.doubleclick.net, www.facebook.com, www.googletagmanager.com ke connect-src
+dfbb2e5	2026-07-17	Muhammad Luthfi	fix: internal linking - header dropdown + cross-link batch pages
+327cf4e	2026-07-17	Revita	babycare: hapus section Problem (Banyak Produk Bayi Tidak Sepenuhnya Aman)
+da9688a	2026-07-17	Revita	babycare: ganti headline, hapus section peluang/stats
+4ab80f6	2026-07-17	Revita	buat landing page /metaads/babycare — emotional hook, trust, BPOM/Halal
+33a8757	2026-07-17	Muhammad Luthfi	expand: batch-2 content 2.3x richer - sections, checklist, FAQ, table, bullets
+dd6554b	2026-07-17	Revita	hero headline: Wujudkan Brand Deodorant Dengan Custom Formula
+f930736	2026-07-17	Revita	hero headline: Tren Gaya Hidup Aktif / Bangun Brand Deodorant Yang Dicari Market
+2c3e166	2026-07-17	Revita	buat landing page /metaads/deodorant — custom formula, sport trend, noindex, WA round-robin CTA
+6a8da53	2026-07-16	Revita	Full Legal Support: ganti CPKB Grade A -> Uji Lab
+508e257	2026-07-16	Revita	tambah floating WA button — arah ke scroll form
+02ccd64	2026-07-16	Revita	tambah animasi fade-up + stagger di semua section pake framer-motion
+2d696f1	2026-07-16	Revita	poin utama: UI lebih kecil/rapi + tambah button CTA
+2357ec1	2026-07-16	Revita	pindah Free Desain Logo & Kemasan ke poin utama
+0cc6d57	2026-07-16	Revita	tambah 3 value point: Custom Formula, MOQ Fleksibel, Full Legal Support
+ee951cd	2026-07-15	Revita	final CTA + footer: ubah bg hitam ke solid orange, teks putih semua
+f75b9ba	2026-07-15	Revita	perbaiki landing page: struktur baru — Hero, Fear-Relief, Bonus, Stats, Testimonial, CTA. Urgensi kuota terbatas di Free Coaching. Ikon Gift ditambah ke type declarations.
+af4deca	2026-07-15	Revita	fix: Kommo form — ganti raw script tag ke dynamic DOM injection via useEffect (React gak execute <script> di JSX)
+822e279	2026-07-15	Revita	hapus testimoni palsu, rapihkan CTA hero, buat test-kommo-form.html untuk diagnosa
+f7c96ff	2026-07-15	Revita	fix: perbaiki bug overlap teks final CTA, posisi form Kommo, hapus cara kerja, tambah positioning Juaranya Formula
+a485fae	2026-07-15	Revita	fix: ganti framing section jadi 'pengen beda dari brand lain', bukan 'takut gagal'
+73c7b2a	2026-07-15	Revita	fix: perbaiki embed form Kommo, ganti gambar hero, perbarui copy landing page MOF/BOF
+c6b1cf4	2026-07-15	Revita	landing/mof-bof: ganti next/script ke raw script tags biar form Kommo render inline, tambah CTA scroll
+757ae14	2026-07-15	Revita	feat: tambah landing page MOF/BOF untuk traffic Meta Ads dengan embed form Kommo sebagai CTA utama
+6afa2d4	2026-07-15	Revita	landing/mof-bof: replace Cara Kerjanya with Kommo form embed, update hero CTA scroll, new hero image
+17844cd	2026-07-15	Revita	feat: tambah landing page MOF/BOF untuk traffic Meta Ads dengan embed form Kommo sebagai CTA utama
+9c32e3c	2026-07-15	Revita	fix(schema): hapus Product schema dari product page — ganti ke Service schema (B2B maklon tanpa harga tetap)
+a6a90ca	2026-07-15	Revita	fix: pindahkan Microsoft Clarity ke TrackingScripts Client Component agar konsisten dengan tracking lain
+9862ec3	2026-07-15	Revita	fix: perpanjang durasi cookie sticky CS dari 7 hari ke 30 hari untuk cover retargeting campaign
+6779220	2026-07-15	Revita	fix: normalisasi nomor telepon lokal (0XXX) ke internasional (62XXX) di buildWhatsAppUrl
+5b4b27a	2026-07-15	Revita	feat: tracking per-agent lead count di Redis + endpoint /api/round-robin-stats untuk monitoring distribusi
+45db811	2026-07-15	Revita	feat: auto-redirect WA setelah 1 detik, bersihkan interface, sederhanakan jadi 1 tombol CTA, perbaiki UI
+77665b8	2026-07-15	Revita	fix: hapus auto-redirect WA, bersihkan interface dari teks debug, sederhanakan jadi 1 tombol CTA
+206600f	2026-07-15	Revita	fix: round robin lead assignment 4 halaman thank you pakai Redis atomic counter, satu pool gabungan
+1a23309	2026-07-13	Muhammad Luthfi	fix: UI perbaikan - navbar clash, dark section, CTA hardcode
+6e0cea2	2026-07-13	Muhammad Luthfi	batch-2: 5 money pages, Footer links, OG fix, sitemap, GSC baseline
+d9466d6	2026-07-13	Muhammad Luthfi	chore: remove bak file, add *.bak to gitignore
+3e16c39	2026-07-13	Muhammad Luthfi	fix: round-robin lead distribution - migrate all routes to Supabase, fix fallback, seed 3 busdev, new Supabase project
+57d3f27	2026-07-12	Revita	fix(produk): hide deodorant variants from bodycare category grid, only show hub
+84f3da9	2026-07-12	Revita	feat(produk): add deodorant balm variant - 4 varian total (balm, roll, spray, dry serum)
+49182e1	2026-07-12	Revita	fix(produk): update deodorant images to correct assets - roll bottle for Roll On, new dry serum image
+e6861b0	2026-07-12	Revita	fix(produk): restore 3 individual deodorant pages + hub catalog with Lihat Produk links
+c2b3c65	2026-07-12	Revita	feat(produk): consolidate 3 deodorant pages into 1 hub page with 3 tab variants
+cd0e32f	2026-07-12	Revita	feat(produk): tambah 3 halaman deodorant (spray, roll-on, dry serum) di kategori bodycare + packaging map + FAQ schema
+b0578be	2026-07-10	Revita	Auto update by OpenCode
+0496035	2026-07-10	Revita	Auto update by OpenCode
+655622a	2026-07-10	Revita	Auto update by OpenCode
+a5a4711	2026-07-10	Revita	Auto update by OpenCode
+a4d5715	2026-07-10	Revita	Auto update by OpenCode
+e09986f	2026-07-10	Muhammad Luthfi	Harden round robin thankyou flow
+d8ee72f	2026-07-08	Muhammad Luthfi	Refine Day 2 SEO pilot article
+9632c57	2026-07-09	Revita	Auto update by OpenCode
+85e7ac3	2026-07-09	Revita	Auto update by OpenCode
+245b52d	2026-07-09	Revita	Auto update by OpenCode
+b568b64	2026-07-09	Revita	Auto update by OpenCode
+1218798	2026-07-09	Revita	Auto update by OpenCode
+89dea19	2026-07-08	Revita	Auto update by OpenCode
+ba8468a	2026-07-08	Revita	Auto update by OpenCode
+62ae173	2026-07-08	Revita	Auto update by OpenCode
+30de0c3	2026-07-08	Revita	Auto update by OpenCode
+031bb9a	2026-07-08	Revita	Auto update by OpenCode
+8a3c0dc	2026-07-08	Revita	Auto update by OpenCode
+6a69e07	2026-07-08	Revita	feat: add google-ads thankyou page
+fba7193	2026-07-08	Revita	Auto update by OpenCode
+edc33ed	2026-07-08	Revita	Auto update by OpenCode
+723c33a	2026-07-08	Revita	Auto update by OpenCode
+94c10a2	2026-07-08	Revita	Auto update by OpenCode
+00c4094	2026-07-08	Revita	Auto update by OpenCode
+e8fbba2	2026-07-08	Revita	feat: round robin lead distribution CS + auto-redirect WA thankyou page
+89d6083	2026-07-08	Muhammad Luthfi	Refine SEO pilot batch 1 scope
+14752ff	2026-07-07	Muhammad Luthfi	Upgrade SEO pilot batch 1 pages
+430d4cb	2026-07-07	Muhammad Luthfi	Improve article layout and expand SEO overrides
+4453dd9	2026-07-07	Muhammad Luthfi	Reduce GSC crawl noise
+2681660	2026-07-06	Muhammad Luthfi	Add SEO pilot batch 1
+5d8c61c	2026-07-06	Muhammad Luthfi	perf: compress hero and section images to webp on landing pages and career page
+f347920	2026-07-06	Muhammad Luthfi	feat: migrate google ads landing pages, restore meta ads pages, and update career page
+6a87702	2026-07-06	Revita	fix: perbaiki headline encoding &amp; jadi & di artikel sunscreen
+dfb296b	2026-07-02	Revita	Auto update by OpenCode
+27ebe58	2026-07-02	Revita	Auto update by OpenCode
+ece85c8	2026-07-02	Revita	Auto update by OpenCode
+fe15333	2026-07-02	Revita	Auto update by OpenCode
+f3c286c	2026-07-02	Revita	Auto update by OpenCode
+5a2d239	2026-07-02	Revita	Auto update by OpenCode
+22298b8	2026-07-02	Revita	Auto update by OpenCode
+a86558c	2026-07-02	Revita	Auto update by OpenCode
+c90f868	2026-07-02	Revita	Auto update by OpenCode
+b822250	2026-07-02	Revita	Auto update by OpenCode
+084cd39	2026-07-02	Revita	Auto update by OpenCode
+938b0d1	2026-07-02	Revita	Auto update by OpenCode
+3d8bb67	2026-07-02	Revita	Auto update by OpenCode
+837175b	2026-07-02	Revita	Hapus file temp add_article.py
+b94082d	2026-07-02	Revita	Auto update by OpenCode
+c17e400	2026-07-02	Revita	Auto update by OpenCode
+52b1aad	2026-07-02	Revita	Auto update by OpenCode
+3520ab0	2026-07-02	Revita	Auto update by OpenCode
+6a80261	2026-07-02	Revita	Auto update by OpenCode
+a06bb3a	2026-07-02	Revita	Auto update by OpenCode
+2fb6515	2026-07-02	Revita	Auto update by OpenCode
+c6680eb	2026-07-02	Revita	Auto update by OpenCode
+504a45b	2026-07-02	Revita	Auto update by OpenCode
+e5ce701	2026-07-02	Revita	Auto update by OpenCode
+a0181d7	2026-07-02	Revita	Auto update by OpenCode
+c5066b4	2026-07-02	Revita	Auto update by OpenCode
+8e3b60f	2026-07-02	Revita	Auto update by OpenCode
+6e828b9	2026-07-01	Revita	Auto update by OpenCode
+95577f3	2026-07-01	Muhammad Luthfi	Fix homepage blog archive link
+885ce05	2026-07-01	Muhammad Luthfi	Fix broken article and footer images
+d394f90	2026-07-01	Revita	Auto update by OpenCode
+7146534	2026-07-01	Revita	Auto update by OpenCode
+000e39c	2026-07-01	Revita	Auto update by OpenCode
+cec4330	2026-07-01	Revita	Auto update by OpenCode
+e3271cb	2026-07-01	Revita	Auto update by OpenCode
+caf516a	2026-07-01	Revita	Auto update by OpenCode
+4502925	2026-07-01	Revita	Auto update by OpenCode
+e479985	2026-07-01	Revita	Auto update by OpenCode
+ced0167	2026-06-30	Muhammad Luthfi	Fix foot serum image paths
+0cc5aad	2026-06-30	Revita	Auto update by OpenCode
+e294714	2026-06-30	Revita	Auto update by OpenCode
+4e756e3	2026-06-30	Revita	Auto update by OpenCode
+16ba609	2026-06-30	Revita	Auto update by OpenCode
+f59f01c	2026-06-30	Revita	Auto update by OpenCode
+2a62d98	2026-06-30	Revita	Auto update by OpenCode
+3afcce6	2026-06-30	Revita	Auto update by OpenCode
+208274c	2026-06-30	Revita	Auto update by OpenCode
+50bbc20	2026-06-30	Revita	Auto update by OpenCode
+5dfd592	2026-06-30	Revita	Auto update by OpenCode
+5d9b608	2026-06-30	Revita	feat: add panduan-bisnis-produk-bayi article (Maklon Baby Care)
+2bf32ae	2026-06-29	Muhammad Luthfi	Fix GSC coverage cleanup and priority article quality
+7ebc698	2026-06-29	Muhammad Luthfi	fase 3: sitemap cleanup — hapus 3 sitemap spam dari GSC + filter sitemap.ts
+77405a4	2026-06-29	Muhammad Luthfi	proxy: tambah juaranyaformula, /$/, /&/ 410 patterns
+e799458	2026-06-29	Muhammad Luthfi	fase 2: fix crawled-not-indexed + proxy patterns + legacy redirects

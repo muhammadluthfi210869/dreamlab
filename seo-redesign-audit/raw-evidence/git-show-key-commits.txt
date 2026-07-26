@@ -1,0 +1,36 @@
+6e0cea2 batch-2: 5 money pages, Footer links, OG fix, sitemap, GSC baseline
+src/app/estimasi-biaya-maklon-kosmetik/page.tsx
+src/app/jasa-maklon-kosmetik/page.tsx
+src/app/pabrik-kosmetik/page.tsx
+src/app/pabrik-parfum/page.tsx
+src/app/panduan/page.tsx
+src/app/private-label-kosmetik/page.tsx
+src/app/sitemap.ts
+src/components/Footer.tsx
+src/data/seo-pilot/batch-1.ts
+src/data/seo-pilot/batch-2.ts
+
+
+---
+
+6a405d7 Consolidate 12 blog categories into 4 SEO pillars
+src/app/category/[category]/page.tsx
+src/app/news-blog/page.tsx
+src/app/news-blog/page/[num]/page.tsx
+src/app/sitemap.ts
+src/data/articles.ts
+src/data/seo-mapping.json
+src/proxy.ts
+
+
+---
+
+f47a44e Fix GSC sitemap indexability issues
+package.json
+scripts/gsc-current-audit.mjs
+scripts/gsc-live-verification.mjs
+scripts/verify-sitemap-indexability.mjs
+src/app/career/layout.tsx
+src/app/sitemap.ts
+src/lib/seo-service.ts
+src/lib/seo-url-policy.ts

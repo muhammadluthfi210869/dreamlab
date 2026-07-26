@@ -1,0 +1,20 @@
+url,http_status,in_sitemap,internal_inlinks,click_depth,publication_date,content_quality,classification,decision,priority,notes
+https://dreamlab.id/maklon-baby-care/,200,YES,unknown,3,unknown,STANDARD,ADD_INTERNAL_LINK,P2,Service page in sitemap but newly discovered; needs internal links from baby-care category
+https://dreamlab.id/maklon-baby-care/baby-2in1-wash/,200,YES,unknown,4,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page; normal discovery delay
+https://dreamlab.id/maklon-baby-care/baby-moisturizer/,200,YES,unknown,4,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page; normal discovery delay
+https://dreamlab.id/maklon-baby-care/baby-shampoo/,200,YES,unknown,4,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page; normal discovery delay
+https://dreamlab.id/maklon-baby-care/baby-cologne/,200,YES,unknown,4,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page; normal discovery delay
+https://dreamlab.id/produk/babycare/baby-cologne/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/babycare/baby-powder/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/babycare/baby-oil/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/bodycare/neck-cream/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/bodycare/soothing-gel/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/bodycare/whitening-soap/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/bodycare/bar-soap/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/bodycare/massage-cream/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/footcare/foot-soak/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/footcare/foot-anti-bacterial/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/pkrt/disinfectant-spray/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/pkrt/room-spray/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/pkrt/bar-soap-pkrt/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page
+https://dreamlab.id/produk/pkrt/herbal-soap/,200,YES,unknown,3,unknown,STANDARD,KEEP_AND_WAIT,P3,Deep product page

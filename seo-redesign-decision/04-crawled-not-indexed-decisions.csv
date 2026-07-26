@@ -1,0 +1,59 @@
+url,page_type,http_status,robots,canonical,internal_inlinks,historical_impressions,classification,decision,priority,notes
+https://www.dreamlab.id/memunculkan-keranjang-reels/,legacy_article,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_TO_RELEVANT_PAGE,P3,Already redirects to /news-blog/
+https://www.dreamlab.id/pabrik-parfum-surabaya/,legacy_article,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_TO_RELEVANT_PAGE,P0,Already redirects to /produk/parfum/ but destination needs review
+https://www.dreamlab.id/services,service,200,index,self,0,unknown,DUPLICATE_OR_CONSOLIDATION,FIX_TECHNICAL,P2,Missing trailing slash - should 301 to /services/
+https://dreamlab.id/maklon-shampoo-psoriasis-formula-juara/,article,redirect,index,external,0,unknown,LEGACY_URL,KEEP_AND_REQUEST_RECRAWL,P2,Needs indexing verification
+https://dreamlab.id/category/maklon-baby-care/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed URL - expected exclusion
+https://dreamlab.id/news-blog/page/3/,pagination,unknown,index,external,0,unknown,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Pagination page - expected exclusion
+https://dreamlab.id/news-blog/page/7/,pagination,unknown,index,external,0,unknown,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Pagination page - expected exclusion
+https://dreamlab.id/news-blog/page/2/,pagination,unknown,index,external,0,unknown,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Pagination page - expected exclusion
+https://dreamlab.id/wp-content/plugins/,system_path,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,WordPress system path
+https://dreamlab.id/?wc-ajax=%25%25endpoint%25%25,parameter,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,WooCommerce ajax parameter URL
+https://dreamlab.id/dupe-parfum-nagita-slavina-tahan-lama/,article,unknown,index,unknown,0,20,CONTENT_QUALITY_PROBLEM,KEEP_AND_REQUEST_RECRAWL,P2,"Has historical impressions (20), B2C article"
+https://dreamlab.id/search/{search_term_string}/feed/rss2/,system_feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,System search feed
+https://dreamlab.id/category/maklon-personal-care/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed URL
+https://dreamlab.id/cms_block_cat/footer-column/,system_path,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,CMS block
+https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-,article,unknown,index,unknown,0,7,CONTENT_QUALITY_PROBLEM,UPDATE_CONTENT,P2,"Truncated URL, old content, low impressions"
+https://dreamlab.id/pages/syarat-pendaftaran.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/pages/transfer-external.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/pages/cara-mendaftar.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/pages/life-cycle.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/pages/ticket-guide.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/pages/office365.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/pages/auto-provisioning.php,legacy_php,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Old PHP page
+https://dreamlab.id/potensi-bisnis-babycare/,article,unknown,index,unknown,0,7,CONTENT_QUALITY_PROBLEM,UPDATE_CONTENT,P2,"Low impressions, but has commercial intent"
+https://dreamlab.id/maklon-face-mist/,article,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_TO_RELEVANT_PAGE,P0,Critical money page redirecting to generic category
+https://dreamlab.id/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab/,article,unknown,index,unknown,0,2,CONTENT_QUALITY_PROBLEM,UPDATE_CONTENT,P3,"Old article, low impressions"
+https://dreamlab.id/category/bisnis-men-grooming/,category,redirect,index,external,0,5,LEGACY_URL,REDIRECT_DESTINATION_REVIEW,P2,Redirects to maklon-kosmetik - intent mismatch
+https://dreamlab.id/contact-form-dreamlab/,legacy_form,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_TO_RELEVANT_PAGE,P3,Already redirects to /contact-us/
+https://dreamlab.id/cms_block_cat/pop-up-form/,system_path,redirect,index,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,CMS block - expected
+https://dreamlab.id/maklon-moisturizer-bpom-dreamlab/,article,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_TO_RELEVANT_PAGE,P1,Redirects to /produk/skincare/ - too generic
+https://dreamlab.id/cms_block_cat/flying-button/,system_path,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,CMS block
+https://dreamlab.id/news-blog/page/6/,pagination,unknown,index,external,0,unknown,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Pagination
+https://dreamlab.id/product-category/uncategorized/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/author/admin/page/6/,author_pagination,unknown,index,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Author pagination
+https://dreamlab.id/category/maklon-footcare/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/dreampreneur-beauty-academy/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare/,article,unknown,index,unknown,0,4,CONTENT_QUALITY_PROBLEM,UPDATE_CONTENT,P3,Old article, low impressions
+https://dreamlab.id/hero-ingredients-2025/,article,unknown,index,unknown,0,10,CONTENT_QUALITY_PROBLEM,UPDATE_CONTENT,P2,"Has impressions (10), outdated 2025 content"
+https://dreamlab.id/flywheel-marketing-brand-skincare/,article,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_CORRECT,P3,Already redirected to /news-blog/
+https://dreamlab.id/produk-haircare-yang-sedang-tren/,article,redirect,index,external,0,unknown,LEGACY_URL,REDIRECT_CORRECT,P3,Already redirected correctly
+https://dreamlab.id/author/admin/page/2/,author_pagination,unknown,index,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Author pagination
+https://dreamlab.id/ide-bisnis-kosmetik/,article,unknown,index,unknown,0,unknown,CONTENT_QUALITY_PROBLEM,MANUAL_REVIEW,P2,Duplicate with /ide-bisnis-kosmetik-2026/
+https://dreamlab.id/wp-content/plugins/popup-maker/,system_path,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Plugin path
+https://dreamlab.id/shop/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Shop feed
+https://dreamlab.id/wp-json/pum/v1,system_path,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,REST API path
+https://dreamlab.id/category/maklon-haircare/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan/,article,unknown,index,unknown,0,unknown,CONTENT_QUALITY_PROBLEM,MANUAL_REVIEW,P2,Orphan article with no recent impressions
+https://dreamlab.id/category/bisnis-kosmetik/page/2/,category_pagination,unknown,index,external,0,unknown,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Category pagination
+https://dreamlab.id/maklon-kosmetik-terbaik/,article,unknown,index,unknown,0,unknown,DUPLICATE_OR_CONSOLIDATION,MERGE_AND_301,P2,Duplicate with /perusahaan-maklon-kosmetik/
+https://dreamlab.id/wp-content/litespeed/localres/...,system_path,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Cache path
+https://dreamlab.id/checkout/,system_page,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,WooCommerce checkout
+https://dreamlab.id/category/maklon-bodycare/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/author/admin/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/bisnis-skincare/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/dreamlabpedia/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/personal-care/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/tips-trick/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/maklon-parfum/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed
+https://dreamlab.id/category/maklon-skincare/feed/,feed,unknown,noindex,external,0,0,EXPECTED_NOT_INDEXED,LEAVE_AS_EXPECTED,P3,Feed

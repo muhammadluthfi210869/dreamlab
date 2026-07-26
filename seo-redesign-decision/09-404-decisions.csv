@@ -1,0 +1,7 @@
+url,http_status,historical_clicks,historical_impressions,backlinks,internal_links,old_content_topic,new_equivalent,business_relevance,decision,priority,notes
+https://dreamlab.id/category/event/,404,0,0,DATA_MISSING,DATA_MISSING,Event category archive,none,LOW,LEAVE_404,P3,No historical traffic, no business value
+https://dreamlab.id/dreampreneur-beauty-academy-surabaya-2026/,404,0,0,DATA_MISSING,DATA_MISSING,Academy event page,none,LOW,RETURN_410,P3,No traffic, return 410 for clarity
+https://dreamlab.id/maklon-bodycare-ads/,404,0,0,DATA_MISSING,DATA_MISSING,Ads landing page,/body-care/,LOW,LEAVE_404,P3,Ads page without traffic
+https://dreamlab.id/maklon-kosmetik-terbaik-bahasa/,404,0,0,DATA_MISSING,DATA_MISSING,Duplicate language version,/perusahaan-maklon-kosmetik/,LOW,301_TO_CLOSE_EQUIVALENT,P2,Redirect to /perusahaan-maklon-kosmetik/
+https://dreamlab.id/maklon-kosmetik-terbaik-english/,308→200 (homepage),0,0,DATA_MISSING,DATA_MISSING,English version,/,LOW,REDIRECT_DESTINATION_REVIEW,P2,Already redirects to homepage; consider redirecting to relevant EN content if exists
+https://dreamlab.id/shop/,308→200 (/produk/),0,0,DATA_MISSING,DATA_MISSING,Shop page,/produk/,LOW,REDIRECT_CORRECT,P3,Already redirects to /produk/ which works

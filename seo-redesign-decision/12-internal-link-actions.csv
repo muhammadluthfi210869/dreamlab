@@ -1,0 +1,24 @@
+source_url,target_url,current_anchor,recommended_anchor,reason,priority
+https://dreamlab.id/parfum/,https://dreamlab.id/parfum-inspired-peluang-bisnis/,NONE,Bisnis Parfum Inspired,"Add contextual link from service page to supporting article about parfum inspired business opportunity",P1
+https://dreamlab.id/parfum/,https://dreamlab.id/jasa-maklon-parfum-moq-rendah/,NONE,Maklon Parfum MOQ Rendah,"Add link to MOQ article from service page",P1
+https://dreamlab.id/parfum/,https://dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon/,NONE,Cara Buat Parfum Sendiri,"Add link to how-to article from parfum service page",P1
+https://dreamlab.id/skincare-face-care/,https://dreamlab.id/cara-hitunghpp-produk-kosmeti/,NONE,Cara Hitung HPP Kosmetik,"Add B2B commercial link from skincare page to HPP article",P1
+https://dreamlab.id/skincare-face-care/,https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/,NONE,Urutan Pabrik Skincare Terbaik,"Add authority link from skincare page",P1
+https://dreamlab.id/body-care/,https://dreamlab.id/cara-meracik-handbody-pemutih-alami/,NONE,Handbody Racikan Sendiri,"Add link from body care service to high-traffic article",P2
+https://dreamlab.id/body-care/,https://dreamlab.id/maklon-body-whitening-formula-juara/,NONE,Maklon Body Whitening,"Add commercial link from body care service page",P1
+https://dreamlab.id/services/,https://dreamlab.id/panduan/,NONE,Panduan Maklon,"Add link to guide section from services overview",P1
+https://dreamlab.id/services/,https://dreamlab.id/estimasi-biaya-maklon-kosmetik/,NONE,Estimasi Biaya Maklon,"Add conversion link from services page",P1
+https://dreamlab.id/hair-care/,https://dreamlab.id/manfaat-hair-tonic-ginseng-rambut/,NONE,Manfaat Hair Tonic Ginseng,"Add link from hair care service to hair tonic article",P2
+https://dreamlab.id/hair-care/,https://dreamlab.id/pabrik-shampoo-merek-sendiri/,NONE,Pabrik Shampoo Merek Sendiri,"Add commercial link from hair care to shampoo page",P1
+https://dreamlab.id/baby-care/,https://dreamlab.id/produk/babycare/,NONE,Produk Baby Care,"Add link from baby care service to product category",P2
+https://dreamlab.id/about-us/alur-maklon/,https://dreamlab.id/contact-us/,NONE,Konsultasi Sekarang,"Add CTA link from production flow page to contact",P1
+https://dreamlab.id/news-blog/,https://dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/,NONE,Pabrik Maklon Surabaya,"Add link from blog hub to top B2B page",P1
+https://dreamlab.id/news-blog/,https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/,NONE,Urutan Pabrik Skincare Terbaik,"Add link from blog hub to top performing article",P1
+https://dreamlab.id/panduan/,https://dreamlab.id/contact-us/,NONE,Konsultasi Gratis,"Add CTA from guide to contact page",P1
+https://dreamlab.id/produk/parfum/,https://dreamlab.id/maklon-parfum-dreamlab/,NONE,Maklon Parfum Dreamlab,"Add cross-link from product category to maklon service page",P1
+https://dreamlab.id/produk/skincare/,https://dreamlab.id/perusahaan-maklon-kosmetik/,NONE,Perusahaan Maklon Kosmetik,"Add authority link from skincare products to company page",P1
+https://dreamlab.id/category/maklon-kosmetik/,https://dreamlab.id/maklon-kosmetik-tangerang-terpercaya/,NONE,Maklon Kosmetik Tangerang,"Add location page link from category hub",P2
+https://dreamlab.id/category/maklon-kosmetik/,https://dreamlab.id/jasa-maklon-kosmetik-bandung/,NONE,Maklon Kosmetik Bandung,"Add location page link from category hub",P2
+https://dreamlab.id/pabrik-parfum-jakarta/,https://dreamlab.id/parfum/,NONE,Jasa Maklon Parfum,"Add link from location page to main service page",P1
+https://dreamlab.id/perusahaan-maklon-kosmetik/,https://dreamlab.id/services/,NONE,Layanan Maklon Lengkap,"Add link from company page to services",P1
+https://dreamlab.id/contact-medsos/,https://dreamlab.id/contact-us/,NONE,Hubungi Kami,"Add link from social contact to main contact",P2

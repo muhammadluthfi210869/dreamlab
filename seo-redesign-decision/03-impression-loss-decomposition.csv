@@ -1,0 +1,28 @@
+query_cluster,page,page_type,intent,impressions_before,impressions_after,change,position_before,position_after,clicks_before,clicks_after,probable_cause,confidence,business_impact,recommended_action
+handbody,cara-meracik-handbody-pemutih-alami,article,informational,2426,2051,-375,7.9,7.7,6,8,demand/seasonal decline,Medium,Medium (high impressions but B2C),KEEP_MONITOR content and CTR
+moisturizer,perbedaan-moisturizer-gel-vs-cream,article,informational,480,358,-122,7.4,7.4,0,1,demand/seasonal decline,Medium,Low (B2C informational),KEEP_NO_ACTION
+homepage,/,homepage,commercial,676,590,-86,11.2,10.9,47,36,ranking/demand mix,Medium,High (primary landing page),KEEP_MONITOR query performance
+parfum inspired,parfum-inspired-peluang-bisnis,article,commercial,189,140,-49,7.8,7.6,1,0,natural fluctuation,Low,Medium (B2B potential),KEEP_MONITOR
+sunscreen (www),www.dreamlab.id/produk/skincare/sunscreen/,product,commercial,47,0,-47,1.7,0,0,0,URL migration/redirect to non-www,High,Low (few clicks),REDIRECT destination check
+cysteamine,cysteamine-alternatif-hydroquinone,article,informational,127,92,-35,7.8,8.8,2,0,ranking decline + demand,Medium,Low,UPDATE_CONTENT freshness
+hair tonic,manfaat-hair-tonic-ginseng-rambut,article,informational,132,98,-34,9.5,10.5,1,0,ranking decline,Medium,Low,KEEP_MONITOR
+about-us (www),www.dreamlab.id/about-us/,about,informational,32,0,-32,9.4,0,1,0,URL migration www→non-www,High,Low (low traffic),KEEP_EXISTING_REDIRECT
+parfum malang,pabrik-parfum-malang-dreamlab,article,commercial,59,28,-31,8.7,11.7,1,1,ranking decline,Medium,Medium (location page),UPDATE_CONTENT
+surabaya kosmetik,pabrik-maklon-kosmetik-surabaya-terlengkap,article,commercial,241,211,-30,10.0,8.3,6,10,position actually improved but fewer impressions,Low,High (money page),KEEP_MONITOR (clicks up)
+produk parfum,produk/parfum/,product_category,commercial,126,96,-30,15.8,14.2,1,2,seasonal demand,Low,High (product page),KEEP_MONITOR
+parfum,cara-buat-parfum-sendiri-dengan-maklon,article,informational,96,66,-30,9.8,9.6,0,0,demand decline,Medium,Medium,KEEP_MONITOR
+lulur kopi,cara-membuat-lulur-ampas-kopi,article,informational,59,29,-30,7.1,8.6,0,0,ranking decline,Medium,Low,KEEP_MONITOR
+industri kosmetik,industri-kosmetik-indonesia-terus-tumbuh,article,informational,72,44,-28,11.2,9.8,4,3,position actually improved but value low,Low,Low (no direct commercial path),KEEP_NO_ACTION
+services,services/,service,commercial,98,70,-28,11.1,10.9,2,1,position stable impressions down,Medium,High (money page),ADD_INTERNAL_LINKS improve authority
+parfum,/parfum/,category,commercial,33,8,-25,17.9,25.1,2,0,ranking decline,Medium,High (main parfum page),FIX_INDEXABILITY check
+sunscreen,jasa-maklon-sunscreen-terbaik,article,commercial,48,24,-24,5.9,6.4,1,1,position stable impressions down,Medium,Medium,KEEP_MONITOR
+lampung,maklon-kosmetik-bpom-bandar-lampung,article,commercial,23,1,-22,6.8,1,0,0,low-value URL naturally declining,Low,Low,LEAVE_AS_EXPECTED
+sunscreen produk,produk/skincare/facial-sunscreen/,product,commercial,21,1,-20,2.4,6,0,0,product page losing visibility,Medium,Medium,FIX_INDEXABILITY and internal links
+hb dosting,cara-membuat-hb-dosting-sendiri,article,informational,417,399,-18,6.6,6.9,6,3,position stable impressions down,Medium,Low (B2C),KEEP_NO_ACTION
+minyak atsiri,produk/parfum/minyak-atsiri/,product,commercial,23,5,-18,19.9,9.4,1,0,position improved but low base,Low,Low,LEAVE_AS_EXPECTED
+halal kosmetik,atur-kosmetik-halal-dreamlab,article,informational,28,11,-17,9.3,11.5,0,0,ranking decline,Low,Low,KEEP_NO_ACTION
+brand skincare 90 hari,berapa-lama-membuat-brand-skincare-90-hari,article,informational,18,1,-17,7.0,5,0,0,low impression base noise,Low,Low,LEAVE_AS_EXPECTED
+skincare pria,basic-skincare-pria-wajib,article,informational,33,17,-16,18.8,22.6,0,0,ranking decline,Low,Low (B2C),KEEP_NO_ACTION
+all day cream,maklon-all-day-cream,article,commercial,18,2,-16,5.9,8,0,0,ranking decline,Medium,Medium,FIX_INDEXABILITY
+produk babycare,www.dreamlab.id/produk/babycare/baby-2in1-wash/,product,commercial,19,3,-16,14.6,5.3,0,0,URL migration,High,Low,redirect check
+pabrik parfum jakarta,pabrik-parfum-jakarta/,service,commercial,49,34,-15,20.6,22.2,0,1,position stable,Medium,High (money page),ADD_INTERNAL_LINKS

@@ -1,0 +1,32 @@
+url,normalized_url,source,page_type,content_type,business_intent,funnel,current_http_status,redirect_destination,redirect_hops,declared_canonical,robots,in_current_sitemap,gsc_indexing_reason,gsc_clicks_before,gsc_clicks_after,gsc_impressions_before,gsc_impressions_after,position_before,position_after,internal_inlinks,business_value,notes
+https://dreamlab.id/,https://dreamlab.id/,sitemap+livelist,homepage,landing,commercial,TOFU,200,,0,self,index,YES,indexed,47,36,676,590,11.2,10.9,58,5,Homepage
+https://dreamlab.id/services/,https://dreamlab.id/services/,sitemap+livelist,service,service-overview,commercial,MOFU,200,,0,self,index,YES,indexed,2,1,98,70,11.1,10.9,44,5,Service overview
+https://dreamlab.id/parfum/,https://dreamlab.id/parfum/,sitemap+livelist,service,category,commercial,MOFU,200,,0,self,index,YES,indexed,2,0,33,8,17.9,25.1,41,5,Critical ranking loss
+https://dreamlab.id/skincare-face-care/,https://dreamlab.id/skincare-face-care/,sitemap+livelist,service,category,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,2,0,1,0,41,4,Low visibility
+https://dreamlab.id/body-care/,https://dreamlab.id/body-care/,sitemap+livelist,service,category,commercial,MOFU,200,,0,self,index,YES,indexed,0,1,12,9,43.9,43.9,41,4,Low visibility
+https://dreamlab.id/hair-care/,https://dreamlab.id/hair-care/,sitemap+livelist,service,category,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,2,0,2.5,0,41,4,Low visibility
+https://dreamlab.id/baby-care/,https://dreamlab.id/baby-care/,sitemap+livelist,service,category,commercial,MOFU,200,,0,self,index,YES,indexed,0,1,12,9,43.8,43.9,41,4,Low visibility
+https://dreamlab.id/foot-care/,https://dreamlab.id/foot-care/,sitemap+livelist,service,category,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,0,0,0,0,41,3,Niche
+https://dreamlab.id/about-us/,https://dreamlab.id/about-us/,sitemap+livelist,about,informational,informational,TOFU,200,,0,self,index,YES,indexed,0,0,12,29,11.2,14.6,45,3,Healthy
+https://dreamlab.id/about-us/alur-maklon/,https://dreamlab.id/about-us/alur-maklon/,sitemap+livelist,service,process,commercial,MOFU,200,,0,self,index,YES,indexed,0,1,3,2,50.7,34.5,42,4,Important process page
+https://dreamlab.id/contact-us/,https://dreamlab.id/contact-us/,sitemap+livelist,contact,form,commercial,BOFU,200,,0,self,index,YES,indexed,4,4,229,222,10.7,8.1,45,5,Key conversion page
+https://dreamlab.id/contact-medsos/,https://dreamlab.id/contact-medsos/,sitemap+livelist,contact,form,commercial,BOFU,200,,0,self,index,YES,indexed,0,0,1,0,10,0,48,4,Social contact
+https://dreamlab.id/our-client/,https://dreamlab.id/our-client/,sitemap+livelist,social-proof,portfolio,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,21,15,24.8,9.3,42,4,Social proof
+https://dreamlab.id/career/,https://dreamlab.id/career/,sitemap+livelist,career,informational,informational,TOFU,200,,0,self,index,YES,indexed,1,4,42,46,9.3,9.8,43,2,Not business critical
+https://dreamlab.id/terms-of-service/,https://dreamlab.id/terms-of-service/,sitemap+livelist,legal,legal,informational,TOFU,200,,0,self,index,YES,indexed,0,0,10,3,40.3,50,42,1,Legal page
+https://dreamlab.id/privacy-policy/,https://dreamlab.id/privacy-policy/,sitemap+livelist,legal,legal,informational,TOFU,200,,0,self,index,YES,indexed,0,0,11,3,3.2,13.7,43,1,Legal page
+https://dreamlab.id/news-blog/,https://dreamlab.id/news-blog/,sitemap+livelist,blog,blog-hub,informational,TOFU,200,,0,self,index,YES,indexed,0,0,19,11,13.9,13.8,83,3,Blog hub
+https://dreamlab.id/panduan/,https://dreamlab.id/panduan/,sitemap+livelist,guide,guide,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,0,3,0,34.3,45,4,Guide section
+https://dreamlab.id/produk/skincare/,https://dreamlab.id/produk/skincare/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,27,13,12.3,22.8,51,4,Needs canonical check
+https://dreamlab.id/produk/parfum/,https://dreamlab.id/produk/parfum/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,1,2,126,96,15.8,14.2,50,5,Key category
+https://dreamlab.id/produk/bodycare/,https://dreamlab.id/produk/bodycare/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,19,13,20.9,15.1,42,4,Needs canonical check
+https://dreamlab.id/produk/haircare/,https://dreamlab.id/produk/haircare/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,7,8,26.6,51.4,42,3,Low visibility
+https://dreamlab.id/produk/babycare/,https://dreamlab.id/produk/babycare/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,3,37,47,24.4,14.1,18,4,Growing
+https://dreamlab.id/produk/decorative/,https://dreamlab.id/produk/decorative/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,6,8,4.2,23.4,14,3,Low visibility
+https://dreamlab.id/produk/footcare/,https://dreamlab.id/produk/footcare/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,2,5,18.5,59.8,14,2,Niche
+https://dreamlab.id/produk/pkrt/,https://dreamlab.id/produk/pkrt/,sitemap+livelist,product-category,product-listing,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,7,11,14,11.5,10,3,Niche but growing
+https://dreamlab.id/category/maklon-kosmetik/,https://dreamlab.id/category/maklon-kosmetik/,sitemap+livelist,category,category-hub,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,0,0,0,0,307,4,Category hub
+https://dreamlab.id/category/panduan-bisnis-kosmetik/,https://dreamlab.id/category/panduan-bisnis-kosmetik/,sitemap+livelist,category,category-hub,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,0,0,0,0,322,4,Category hub
+https://dreamlab.id/category/dreamlabpedia/,https://dreamlab.id/category/dreamlabpedia/,sitemap+livelist,category,category-hub,informational,TOFU,200,,0,self,index,YES,indexed,0,0,1,0,1,0,47,3,Category hub
+https://dreamlab.id/pabrik-parfum-jakarta/,https://dreamlab.id/pabrik-parfum-jakarta/,sitemap+livelist,location,service,commercial,MOFU,200,,0,self,index,YES,indexed,0,1,49,34,20.6,22.2,62,5,Key location page
+https://dreamlab.id/perusahaan-maklon-kosmetik/,https://dreamlab.id/perusahaan-maklon-kosmetik/,sitemap+livelist,service,company-profile,commercial,MOFU,200,,0,self,index,YES,indexed,0,0,21,26,15.0,15.0,67,5,Important company page
