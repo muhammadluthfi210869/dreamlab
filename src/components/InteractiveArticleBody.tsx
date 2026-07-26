@@ -1,17 +1,14 @@
 'use client';
- 
-import React, { useState, useEffect, useMemo } from 'react';
- 
+  
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+  
 interface InteractiveArticleBodyProps {
   htmlContent: string;
 }
- 
+  
 export default function InteractiveArticleBody({ htmlContent }: InteractiveArticleBodyProps) {
   const [isMounted, setIsMounted] = useState(false);
- 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const containerRef = useRef<HTMLDivElement>(null);
  
   // Safe client-side parsing using DOMParser
   const parsedHtml = useMemo(() => {
@@ -119,20 +116,48 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       return null;
     }
   }, [htmlContent, isMounted]);
- 
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const timer = setTimeout(() => {
+      const el = containerRef.current;
+      if (!el) return;
+      if (!el.querySelector('.instagram-media')) return;
+
+      if ((window as any).instgrm?.Embeds) {
+        (window as any).instgrm.Embeds.process();
+      } else {
+        const script = document.createElement('script');
+        script.src = '//www.instagram.com/embed.js';
+        script.async = true;
+        script.onload = () => {
+          if ((window as any).instgrm?.Embeds) {
+            (window as any).instgrm.Embeds.process();
+          }
+        };
+        document.body.appendChild(script);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [isMounted]);
+  
   // Default fallback (renders standard elementor HTML)
   if (!isMounted || !parsedHtml) {
     return (
       <div 
         className="article-content legacy-content-wrapper entry-content"
+        ref={containerRef}
         dangerouslySetInnerHTML={{ __html: htmlContent }} 
       />
     );
   }
- 
+  
   return (
     <div 
       className="article-content legacy-content-wrapper entry-content article-content-interactive"
+      ref={containerRef}
       dangerouslySetInnerHTML={{ __html: parsedHtml }} 
     />
   );
