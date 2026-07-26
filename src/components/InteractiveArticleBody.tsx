@@ -1,6 +1,7 @@
 'use client';
   
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import Script from 'next/script';
   
 interface InteractiveArticleBodyProps {
   htmlContent: string;
@@ -170,19 +171,37 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
   // Default fallback (renders standard elementor HTML)
   if (!isMounted || !parsedHtml) {
     return (
-      <div 
-        className="article-content legacy-content-wrapper entry-content"
-        ref={containerRef}
-        dangerouslySetInnerHTML={{ __html: htmlContent }} 
-      />
+      <>
+        <div 
+          className="article-content legacy-content-wrapper entry-content"
+          ref={containerRef}
+          dangerouslySetInnerHTML={{ __html: htmlContent }} 
+        />
+        <Script
+          src="//www.instagram.com/embed.js"
+          strategy="afterInteractive"
+          onLoad={() => {
+            try { (window as any).instgrm?.Embeds?.process(); } catch {}
+          }}
+        />
+      </>
     );
   }
   
   return (
-    <div 
-      className="article-content legacy-content-wrapper entry-content article-content-interactive"
-      ref={containerRef}
-      dangerouslySetInnerHTML={{ __html: parsedHtml }} 
-    />
+    <>
+      <div 
+        className="article-content legacy-content-wrapper entry-content article-content-interactive"
+        ref={containerRef}
+        dangerouslySetInnerHTML={{ __html: parsedHtml }} 
+      />
+      <Script
+        src="//www.instagram.com/embed.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          try { (window as any).instgrm?.Embeds?.process(); } catch {}
+        }}
+      />
+    </>
   );
 }
