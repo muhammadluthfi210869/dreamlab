@@ -1,6 +1,9 @@
 "use client";
 
-const NEXERP_API = process.env.NEXT_PUBLIC_NEXERP_API_URL || "http://localhost:3002";
+const NEXERP_API =
+  typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? process.env.NEXT_PUBLIC_NEXERP_API_URL || "http://localhost:3002"
+    : process.env.NEXT_PUBLIC_NEXERP_API_URL || "https://nexerp.id/api";
 
 export interface RoundRobinAgent {
   id: string;
