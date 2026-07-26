@@ -23,6 +23,7 @@ Git push ttp bisa (`git add -A && git commit -m "..." && git push origin master`
 # Article Creation Workflow
 
 Simpan prompt ini dan gunakan setiap kali bikin artikel baru.
+Gunakan `skill` tool untuk load `dreamlab-seo-article` sebelum mulai — panduan lengkap ada di `.opencode/skills/dreamlab-seo-article/SKILL.md`.
 
 ## Steps (urutan wajib)
 
