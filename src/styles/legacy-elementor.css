@@ -7,6 +7,8 @@
   color: #333;
   line-height: 1.6;
   font-family: 'Inter', sans-serif;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .legacy-content-wrapper .elementor-section {
@@ -181,6 +183,28 @@
   text-align: center;
   margin-top: 8px;
   font-style: italic;
+}
+
+.legacy-content-wrapper .wp-block-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+}
+
+.legacy-content-wrapper .wp-block-table table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.legacy-content-wrapper .wp-block-table table td,
+.legacy-content-wrapper .wp-block-table table th {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.legacy-content-wrapper .wp-block-table.has-fixed-layout table {
+  table-layout: auto;
+  width: 100%;
 }
 
 /* WordPress Core Blocks (Gutenberg) */

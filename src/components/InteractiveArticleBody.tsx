@@ -19,6 +19,10 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlContent, 'text/html');
       
+      // 0. Replace non-breaking spaces with regular spaces for mobile wrapping
+      const bodyEl = doc.body;
+      bodyEl.innerHTML = bodyEl.innerHTML.replace(/\u00a0/g, ' ').replace(/&#xa0;/g, ' ').replace(/&nbsp;/g, ' ');
+
       // 1. Remove legacy TOC containers directly from the DOM tree
       const legacyTocs = doc.querySelectorAll('[class*="ez-toc"], [id*="ez-toc"], [class*="toc"], [id*="toc"]');
       legacyTocs.forEach(el => el.remove());
@@ -175,7 +179,7 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         <div 
           className="article-content legacy-content-wrapper entry-content"
           ref={containerRef}
-          dangerouslySetInnerHTML={{ __html: htmlContent }} 
+          dangerouslySetInnerHTML={{ __html: htmlContent.replace(/\u00a0/g, ' ').replace(/&#xa0;/g, ' ').replace(/&nbsp;/g, ' ') }} 
         />
         <Script
           src="//www.instagram.com/embed.js"
