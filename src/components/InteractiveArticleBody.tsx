@@ -123,25 +123,30 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
     const timer = setTimeout(() => {
       const el = containerRef.current;
       if (!el) return;
-      if (!el.querySelector('.instagram-media')) return;
+      const igBlocks = el.querySelectorAll('.instagram-media');
+      if (!igBlocks.length) return;
+
+      const processEmbeds = () => {
+        if ((window as any).instgrm?.Embeds) {
+          igBlocks.forEach(() => {
+            try { (window as any).instgrm.Embeds.process(); } catch {}
+          });
+        }
+      };
 
       if ((window as any).instgrm?.Embeds) {
-        (window as any).instgrm.Embeds.process();
+        processEmbeds();
       } else {
         const script = document.createElement('script');
         script.src = '//www.instagram.com/embed.js';
         script.async = true;
-        script.onload = () => {
-          if ((window as any).instgrm?.Embeds) {
-            (window as any).instgrm.Embeds.process();
-          }
-        };
+        script.onload = processEmbeds;
         document.body.appendChild(script);
       }
-    }, 500);
+    }, 1000);
 
     return () => clearTimeout(timer);
-  }, [isMounted]);
+  }, [isMounted, htmlContent]);
   
   // Default fallback (renders standard elementor HTML)
   if (!isMounted || !parsedHtml) {
