@@ -26,7 +26,15 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       // 1. Remove legacy TOC containers directly from the DOM tree
       const legacyTocs = doc.querySelectorAll('[class*="ez-toc"], [id*="ez-toc"], [class*="toc"], [id*="toc"]');
       legacyTocs.forEach(el => el.remove());
- 
+
+      // 1b. Strip existing manual ToCs (Daftar Isi / Ringkasan Isi) to avoid duplicates
+      const manualTocs = doc.querySelectorAll('nav, .article-daftar-isi, .table-of-content, [class*="daftar-isi"]');
+      manualTocs.forEach(el => {
+        if (el.textContent?.includes('Daftar Isi') || el.textContent?.includes('Ringkasan Isi')) {
+          el.remove();
+        }
+      });
+
       // 2. Inject slugified ID attributes to H2 and H3 elements
       const slugify = (str: string) => {
         return str
@@ -44,7 +52,37 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           h.setAttribute('class', h.tagName.toLowerCase() === 'h2' ? 'article-h2' : 'article-h3');
         }
       });
- 
+
+      // 2b. Generate automatic Daftar Isi (Table of Contents) from all H2 headings
+      const h2Headings = doc.querySelectorAll('h2.article-h2');
+      if (h2Headings.length >= 2) {
+        const tocNav = doc.createElement('nav');
+        tocNav.className = 'article-outline';
+
+        const tocLabel = doc.createElement('p');
+        tocLabel.className = 'article-outline-label';
+        tocLabel.textContent = 'Daftar Isi';
+        tocNav.appendChild(tocLabel);
+
+        const tocList = doc.createElement('ol');
+        h2Headings.forEach(h2 => {
+          const text = h2.textContent || '';
+          const id = h2.getAttribute('id');
+          if (id && text.trim()) {
+            const li = doc.createElement('li');
+            const a = doc.createElement('a');
+            a.href = `#${id}`;
+            a.textContent = text.trim();
+            li.appendChild(a);
+            tocList.appendChild(li);
+          }
+        });
+        tocNav.appendChild(tocList);
+
+        const firstH2 = h2Headings[0];
+        firstH2.parentNode?.insertBefore(tocNav, firstH2);
+      }
+
       // 3. Clean up empty & nbsp-only paragraphs
       const allParas = doc.querySelectorAll('p');
       allParas.forEach(p => {
