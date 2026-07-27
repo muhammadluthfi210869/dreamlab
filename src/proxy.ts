@@ -21,7 +21,6 @@ const GONE_PATTERNS = [
   // Thin product sub-categories — template only, 0 traffic, 0 backlink value
   '/produk/pkrt/',
   '/produk/footcare/',
-  '/produk/babycare/',
   '/produk/decorative/',
   // Dead thankyou/landing pages — no SEO value, 0 clicks
   '/thankyou-page',
