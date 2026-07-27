@@ -337,7 +337,8 @@
   align-items: center;
 }
 
-.legacy-content-wrapper .article-cta h3 {
+.legacy-content-wrapper .article-cta h3,
+.legacy-content-wrapper .article-cta h2 {
   color: #ffffff;
   font-size: 22px;
   font-weight: 800;
