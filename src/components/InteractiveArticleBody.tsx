@@ -203,6 +203,21 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         }
       });
 
+      // 5b. Add "Pertanyaan yang Sering Diajukan" heading before FAQ section if none exists
+      const faqDetails = doc.querySelectorAll('details.article-faq');
+      if (faqDetails.length >= 2) {
+        const firstFaq = faqDetails[0];
+        const prev = firstFaq.previousElementSibling;
+        const hasFaqHeading = prev && (prev.tagName === 'H2' || prev.tagName === 'H3');
+        if (!hasFaqHeading) {
+          const faqHeading = doc.createElement('h2');
+          faqHeading.id = 'pertanyaan-yang-sering-diajukan';
+          faqHeading.className = 'article-h2';
+          faqHeading.textContent = 'Pertanyaan yang Sering Diajukan';
+          firstFaq.parentNode?.insertBefore(faqHeading, firstFaq);
+        }
+      }
+
       // 6. Strip double <br> artifacts
       const brTags = doc.querySelectorAll('br');
       brTags.forEach((br, idx) => {
