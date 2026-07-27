@@ -20,12 +20,9 @@ const GONE_PATTERNS = [
   '/juaranyaformula/',
   // Thin product sub-categories — template only, 0 traffic, 0 backlink value
   '/produk/pkrt/',
-  '/produk/footcare/',
-  '/produk/decorative/',
   // Dead thankyou/landing pages — no SEO value, 0 clicks
   '/thankyou-page',
   '/thankyoupage-google',
-  '/google-ads/',
   // Floating buttons preview page — template only, no content
   '/e-floating-buttons/',
 ];
