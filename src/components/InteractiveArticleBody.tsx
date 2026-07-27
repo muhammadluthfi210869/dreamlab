@@ -1,33 +1,46 @@
 'use client';
-  
+
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Script from 'next/script';
-  
+
 interface InteractiveArticleBodyProps {
   htmlContent: string;
 }
-  
+
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-');
+}
+
+const THANKYOU_URL = '/thankyou/google/';
+
+const CTA_TITLE = 'YUK KONSULTASI PRODUK ANDA';
+const CTA_BODY = 'Diskusikan konsep produk, HPP produk, dan strategi brand-mu bersama tim Dreamlab.';
+const CTA_BUTTON_TEXT = 'Konsultasi Gratis dengan Dreamlab';
+
 export default function InteractiveArticleBody({ htmlContent }: InteractiveArticleBodyProps) {
   const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
- 
-  // Safe client-side parsing using DOMParser
+
+  useEffect(() => { setIsMounted(true); }, []);
+
   const parsedHtml = useMemo(() => {
     if (!isMounted || typeof window === 'undefined') return null;
- 
+
     try {
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlContent, 'text/html');
-      
-      // 0. Replace non-breaking spaces with regular spaces for mobile wrapping
+
       const bodyEl = doc.body;
       bodyEl.innerHTML = bodyEl.innerHTML.replace(/\u00a0/g, ' ').replace(/&#xa0;/g, ' ').replace(/&nbsp;/g, ' ');
 
-      // 1. Remove legacy TOC containers directly from the DOM tree
+      // 1. Remove legacy TOC containers
       const legacyTocs = doc.querySelectorAll('[class*="ez-toc"], [id*="ez-toc"], [class*="toc"], [id*="toc"]');
       legacyTocs.forEach(el => el.remove());
 
-      // 1b. Strip existing manual ToCs (Daftar Isi / Ringkasan Isi) to avoid duplicates
+      // 1b. Strip manual ToCs (Daftar Isi / Ringkasan Isi) — avoid duplicates with auto ToC
       const manualTocs = doc.querySelectorAll('nav, .article-daftar-isi, .table-of-content, [class*="daftar-isi"]');
       manualTocs.forEach(el => {
         if (el.textContent?.includes('Daftar Isi') || el.textContent?.includes('Ringkasan Isi')) {
@@ -35,14 +48,14 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         }
       });
 
-      // 2. Inject slugified ID attributes to H2 and H3 elements
-      const slugify = (str: string) => {
-        return str
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-');
-      };
- 
+      // 1c. Clean up empty wrapper divs left behind by ToC stripping
+      doc.querySelectorAll('div').forEach(el => {
+        if (!el.innerHTML.trim() && !el.getAttribute('style')) {
+          el.remove();
+        }
+      });
+
+      // 2. Inject slugified IDs to H2 and H3 elements
       const headings = doc.querySelectorAll('h2, h3');
       headings.forEach(h => {
         const text = h.textContent || '';
@@ -53,8 +66,9 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         }
       });
 
-      // 2b. Generate automatic Daftar Isi (Table of Contents) from all H2 headings
+      // 2b. Generate automatic Daftar Isi from H2 headings only
       const h2Headings = doc.querySelectorAll('h2.article-h2');
+      const firstH2 = h2Headings[0];
       if (h2Headings.length >= 2) {
         const tocNav = doc.createElement('nav');
         tocNav.className = 'article-outline';
@@ -79,8 +93,39 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         });
         tocNav.appendChild(tocList);
 
-        const firstH2 = h2Headings[0];
         firstH2.parentNode?.insertBefore(tocNav, firstH2);
+      }
+
+      // 2c. Insert auto CTA right after ToC (or before first H2 if no ToC),
+      // but only if article doesn't already have an in-content CTA
+      const existingCta = doc.querySelector('.article-cta');
+      if (!existingCta) {
+        const autoCta = doc.createElement('div');
+        autoCta.className = 'article-cta';
+
+        const ctaTitle = doc.createElement('h3');
+        ctaTitle.textContent = CTA_TITLE;
+        autoCta.appendChild(ctaTitle);
+
+        const ctaBody = doc.createElement('p');
+        ctaBody.textContent = CTA_BODY;
+        autoCta.appendChild(ctaBody);
+
+        const ctaBtn = doc.createElement('a');
+        ctaBtn.href = THANKYOU_URL;
+        ctaBtn.className = 'cta-button';
+        ctaBtn.textContent = CTA_BUTTON_TEXT;
+        autoCta.appendChild(ctaBtn);
+
+        const toc = doc.querySelector('.article-outline');
+        if (toc) {
+          toc.parentNode?.insertBefore(autoCta, toc.nextSibling);
+        } else if (firstH2) {
+          firstH2.parentNode?.insertBefore(autoCta, firstH2);
+        } else {
+          const content = doc.querySelector('.elementor-widget-theme-post-content') || doc.body;
+          content.appendChild(autoCta);
+        }
       }
 
       // 3. Clean up empty & nbsp-only paragraphs
@@ -91,18 +136,17 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           p.remove();
         }
       });
- 
-      // 4. Round Robin: buat CTA & legalitas images jadi clickable → thankyou/google
-      const THANKYOU_URL = '/thankyou/google/';
 
-      // 4a. Ganti href <a> yang mengandung img → thankyou/google
+      // 4. Normalize CTA & legalitas images — make clickable → /thankyou/google/
+
+      // 4a. Rewrite <a> wrapping images → thankyou/google
       const oldAnchors = doc.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="dreamlab.id"], a[href*="thankyoupage-google"], a[href*="thankyou-page"]');
       oldAnchors.forEach(a => {
         if (!a.querySelector('img')) return;
         a.setAttribute('href', THANKYOU_URL);
       });
 
-      // 4b. Wrap img legalitas/CTA/artikel yang belum punya <a>
+      // 4b. Wrap orphan legalitas/artikel images in <a href="...">
       const unwrappedImgs = doc.querySelectorAll('img[src*="legalitas"], img[src*="artikel-mid"], img[src*="cta-wa"], img[src*="artikel-cta"]');
       unwrappedImgs.forEach(img => {
         if (img.closest('a')) return;
@@ -113,18 +157,34 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         wrapper.appendChild(img);
       });
 
-      // 4c. Redirect semua link thankyoupage-google yang rusak
+      // 4c. Fix broken thankyoupage-google links
       const brokenLinks = doc.querySelectorAll('a[href*="thankyoupage-google"], a[href*="thankyou-page"]');
       brokenLinks.forEach(a => {
-        if (a.querySelector('img')) return; // sudah ditangani di 4a
+        if (a.querySelector('img')) return;
         a.setAttribute('href', THANKYOU_URL);
       });
 
-      // 4d. Hapus figcaption yang mengandung URL rusak
+      // 4d. Remove figcaption with broken URLs
       const brokenCaptions = doc.querySelectorAll('figcaption');
       brokenCaptions.forEach(fc => {
         if (fc.textContent?.includes('thankyoupage-google') || fc.textContent?.includes('thankyou-page')) {
           fc.remove();
+        }
+      });
+
+      // 4e. Normalize inline-styled CTAs (navy-gradient with hardcoded inline styles) — use proper classes
+      const ctaDivs = doc.querySelectorAll('div.article-cta');
+      ctaDivs.forEach(el => {
+        el.removeAttribute('style');
+        el.querySelectorAll('div').forEach(d => {
+          if (!d.textContent?.trim()) d.remove();
+        });
+        el.querySelectorAll('h3, p').forEach(p => p.removeAttribute('style'));
+        const btn = el.querySelector('a[href*="thankyou"]');
+        if (btn) {
+          btn.className = 'cta-button';
+          btn.removeAttribute('style');
+          btn.setAttribute('href', THANKYOU_URL);
         }
       });
 
@@ -136,7 +196,6 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         const summary = d.querySelector('summary');
         if (summary) {
           summary.removeAttribute('style');
-          // Remove inline marker span (CSS ::after handles it)
           const marker = summary.querySelector('span');
           if (marker && marker.textContent?.trim() === '+') {
             marker.remove();
@@ -144,15 +203,14 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         }
       });
 
-      // 6. Strip span.ez-toc-section and other WP artifacts
-      
+      // 6. Strip double <br> artifacts
       const brTags = doc.querySelectorAll('br');
       brTags.forEach((br, idx) => {
         if (br.nextSibling?.nodeType === 1 && (br.nextSibling as Element).tagName === 'BR') {
           br.remove();
         }
       });
- 
+
       return doc.body.innerHTML;
     } catch (e) {
       console.error('HTML parsing error, falling back to standard rendering: ', e);
@@ -174,12 +232,10 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           igBlocks.forEach(() => {
             try { (window as any).instgrm.Embeds.process(); } catch {}
           });
-          // Hide skeleton placeholders
           el.querySelectorAll('.ig-skeleton').forEach(s => s.remove());
         }
       };
 
-      // Show skeleton placeholders while loading
       igBlocks.forEach(block => {
         if (!block.parentElement?.querySelector('.ig-skeleton')) {
           const skeleton = document.createElement('div');
@@ -209,15 +265,15 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
 
     return () => clearTimeout(timer);
   }, [isMounted, htmlContent]);
-  
-  // Default fallback (renders standard elementor HTML)
+
+  // SSR fallback — raw HTML without JS transforms
   if (!isMounted || !parsedHtml) {
     return (
       <>
-        <div 
+        <div
           className="article-content legacy-content-wrapper entry-content"
           ref={containerRef}
-          dangerouslySetInnerHTML={{ __html: htmlContent.replace(/\u00a0/g, ' ').replace(/&#xa0;/g, ' ').replace(/&nbsp;/g, ' ') }} 
+          dangerouslySetInnerHTML={{ __html: htmlContent.replace(/\u00a0/g, ' ').replace(/&#xa0;/g, ' ').replace(/&nbsp;/g, ' ') }}
         />
         <Script
           src="//www.instagram.com/embed.js"
@@ -229,13 +285,13 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       </>
     );
   }
-  
+
   return (
     <>
-      <div 
+      <div
         className="article-content legacy-content-wrapper entry-content article-content-interactive"
         ref={containerRef}
-        dangerouslySetInnerHTML={{ __html: parsedHtml }} 
+        dangerouslySetInnerHTML={{ __html: parsedHtml }}
       />
       <Script
         src="//www.instagram.com/embed.js"
