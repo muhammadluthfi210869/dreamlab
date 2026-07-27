@@ -1,5 +1,5 @@
 ﻿/**
- * GSC ADVANCED REPORT — Full coverage, performance & URL inspection
+ * GSC ZERO-CLICK AUDIT — Identifikasi & kategorisasi halaman 0 klik untuk di-410
  * Jalankan: node scripts/gsc-advanced-report.mjs
  */
 
@@ -13,6 +13,8 @@ const OUTPUT_DIR = path.join(__dirname, 'output');
 const CREDENTIALS_PATH = path.join(__dirname, 'gsc-credentials.json');
 const REPORT_FILE = path.join(OUTPUT_DIR, 'gsc-advanced-report.json');
 const SUMMARY_FILE = path.join(OUTPUT_DIR, 'GSC-ADVANCED-LAPORAN.md');
+const ZERO_CLICK_FILE = path.join(OUTPUT_DIR, 'zero-click-audit.json');
+const ZERO_CLICK_MD = path.join(OUTPUT_DIR, 'ZERO-CLICK-AUDIT.md');
 
 // Site URLs — sc-domain untuk search analytics, https:// untuk URL Inspection
 const SITE_URL = 'sc-domain:dreamlab.id';
@@ -23,7 +25,8 @@ async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function main() {
   console.log('='.repeat(70));
-  console.log('  GSC ADVANCED REPORT — dreamlab.id');
+  console.log('  🎯 ZERO-CLICK AUDIT — dreamlab.id');
+  console.log('  Level 2: Identifikasi halaman 0-klik untuk di-410');
   console.log('='.repeat(70) + '\n');
 
   // Auth
@@ -34,21 +37,21 @@ async function main() {
   const webmasters = google.webmasters({ version: 'v3', auth });
 
   // =========================================
-  // 1. GET ALL PERFORMANCE DATA
+  // 1. GET ALL PERFORMANCE DATA (90 hari)
   // =========================================
-  console.log('📊 1. Mengambil data performa pencarian...');
-  
+  console.log('📊 1. Mengambil data performa pencarian 90 hari...');
+
   const endDate = new Date(); endDate.setDate(endDate.getDate() - 1);
   const startDate = new Date(); startDate.setDate(startDate.getDate() - 90);
-  
-  const performanceData = { pages: [], totalClicks: 0, totalImpressions: 0 };
-  
+
+  const allPages = [];
+  let totalClicks = 0;
+  let totalImpressions = 0;
+
   try {
-    // Get all pages with their performance data
-    const allRows = [];
     let startRow = 0;
     const pageSize = 25000;
-    
+
     while (true) {
       const response = await webmasters.searchanalytics.query({
         siteUrl: SITE_URL,
@@ -60,421 +63,398 @@ async function main() {
           startRow: startRow,
         },
       });
-      
+
       const rows = response.data.rows || [];
       if (rows.length === 0) break;
-      
-      allRows.push(...rows);
-      console.log(`   Batch: ${startRow} - ${startRow + rows.length} (total: ${allRows.length})`);
-      
+
+      for (const row of rows) {
+        const url = row.keys?.[0] || '';
+        const slug = url.replace(/https?:\/\/dreamlab\.id/gi, '').replace(/\/$/, '') || '/';
+        allPages.push({
+          url,
+          slug,
+          clicks: row.clicks || 0,
+          impressions: row.impressions || 0,
+          ctr: row.ctr || 0,
+          avgPosition: row.position || 0,
+        });
+        totalClicks += row.clicks || 0;
+        totalImpressions += row.impressions || 0;
+      }
+
+      console.log(`   Batch: ${startRow} - ${startRow + rows.length} (total: ${allPages.length})`);
+
       if (rows.length < pageSize) break;
       startRow += pageSize;
       await sleep(200);
     }
-    
-    console.log(`   ✅ Total pages found: ${allRows.length}`);
-    
-    for (const row of allRows) {
-      const url = row.keys?.[0] || '';
-      const slug = url.replace(/https?:\/\/dreamlab\.id/gi, '').replace(/\/$/, '') || '/';
-      performanceData.pages.push({
-        url,
-        slug,
-        clicks: row.clicks || 0,
-        impressions: row.impressions || 0,
-        ctr: row.ctr ? (row.ctr * 100).toFixed(2) + '%' : '0%',
-        avgPosition: row.position ? row.position.toFixed(1) : '-',
-      });
-      performanceData.totalClicks += row.clicks || 0;
-      performanceData.totalImpressions += row.impressions || 0;
-    }
-    
-    performanceData.pages.sort((a, b) => b.impressions - a.impressions);
-    
   } catch (e) {
     console.error('   ❌ Error:', e.message);
   }
 
+  console.log(`   ✅ Total: ${allPages.length} halaman, ${totalClicks} klik, ${totalImpressions} impressions`);
+
   // =========================================
-  // 2. CHECK SITEMAPS
+  // 2. KLASIFIKASI HALAMAN
   // =========================================
-  console.log('\n🗺️  2. Memeriksa sitemaps...');
-  
-  let sitemaps = [];
-  try {
-    const response = await webmasters.sitemaps.list({ siteUrl: SITE_URL });
-    sitemaps = response.data.sitemap || [];
-    console.log(`   ✅ ${sitemaps.length} sitemap ditemukan`);
-    sitemaps.forEach(s => {
-      console.log(`      ${s.path} — ${s.contents?.length || 0} URLs (${s.errors || 0} errors)`);
-    });
-  } catch (e) {
-    console.error('   ❌ Error:', e.message);
+  console.log('\n📂 2. Mengklasifikasikan halaman...');
+
+  // Kategorisasi URL pattern
+  function categorizeUrl(slug) {
+    if (slug === '/' || slug === '') return 'homepage';
+    if (slug.startsWith('/produk/')) return 'product';
+    if (slug.startsWith('/maklon/')) return 'maklon';
+    if (slug.startsWith('/category/')) return 'category';
+    if (slug.startsWith('/news-blog/') || slug.startsWith('/news-blog')) return 'blog';
+    if (slug.startsWith('/panduan/')) return 'panduan';
+    if (slug.startsWith('/ads/')) return 'ads';
+    if (slug.startsWith('/about-us/') || slug === '/about-us') return 'about';
+    if (slug.startsWith('/contact') || slug === '/contact-us') return 'contact';
+    if (slug.startsWith('/privacy') || slug.startsWith('/terms') || slug.startsWith('/cookie')) return 'legal';
+    if (slug.startsWith('/our-client') || slug === '/our-client') return 'social-proof';
+    if (slug.startsWith('/career') || slug === '/career') return 'career';
+    if (slug.startsWith('/services') || slug === '/services') return 'services';
+    if (slug.startsWith('/thankyou')) return 'thankyou';
+    if (slug.startsWith('/metaads') || slug.startsWith('/google-ads')) return 'ads';
+    if (slug.startsWith('/author/')) return 'author';
+    if (slug.startsWith('/landing/')) return 'landing';
+    if (slug.startsWith('/parfum/')) return 'parfum-redirect';
+    if (slug.startsWith('/skincare-face-care/')) return 'skincare-redirect';
+    // Wordpress/legacy paths
+    if (slug.includes('/blog/') || slug.includes('/wp-')) return 'legacy-wp';
+    // Others are articles/blog posts
+    return 'article';
+  }
+
+  const classifiedPages = allPages.map(p => ({
+    ...p,
+    category: categorizeUrl(p.slug),
+  }));
+
+  // Group by category
+  const byCategory = {};
+  for (const p of classifiedPages) {
+    if (!byCategory[p.category]) byCategory[p.category] = { total: 0, zeroClicks: 0, pages: [] };
+    byCategory[p.category].total++;
+    byCategory[p.category].pages.push(p);
+    if (p.clicks === 0) byCategory[p.category].zeroClicks++;
+  }
+
+  console.log('\n   📋 Distribusi URL:');
+  for (const [cat, data] of Object.entries(byCategory).sort((a, b) => b[1].total - a[1].total)) {
+    console.log(`   ${cat.padEnd(20)} ${String(data.total).padStart(5)} total, ${String(data.zeroClicks).padStart(5)} zero-click (${(data.zeroClicks/data.total*100).toFixed(0)}%)`);
   }
 
   // =========================================
-  // 3. BACA DATA COVERAGE LAMA + GABUNGKAN
+  // 3. IDENTIFIKASI KANDIDAT 410
   // =========================================
-  console.log('\n📂 3. Membaca & menggabungkan data coverage...');
-  
-  const coverageFiles = fs.readdirSync(OUTPUT_DIR)
-    .filter(f => f.startsWith('gsc-coverage-') && f.endsWith('.json') && !f.includes('history'))
-    .sort().reverse();
+  console.log('\n🔍 3. Mengidentifikasi kandidat 410...');
 
-  let latestCoverage = [];
-  if (coverageFiles.length > 0) {
-    latestCoverage = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, coverageFiles[0]), 'utf-8'));
-    console.log(`   ✅ ${coverageFiles[0]}: ${latestCoverage.length} URLs`);
-  }
+  // Kategori halaman yang AMAN di-410:
+  // A. Thin product sub-categories (pkrt, footcare, babycare, decorative) — sudah ditangani
+  // B. Legacy WP paths that slipped through
+  // C. Redirect-only pages (parfum/, skincare-face-care/)
+  // D. Zero-click articles with 0 impressions (no search demand at all)
+  // E. Thankyou/landing pages
+  // F. Author pages with 0 clicks
+  // G. Empty category pages
 
-  // =========================================
-  // 4. GET URL INSPECTION FOR CRITICAL PAGES
-  // =========================================
-  console.log('\n🔍 4. Inspeksi URL bermasalah (menggunakan URL Inspection API)...');
-  
-  // Dapatkan daftar URL yang perlu diinspeksi
-  const urlsToInspect = [];
-  
-  // Dari coverage data
-  if (latestCoverage.length > 0) {
-    for (const page of latestCoverage) {
-      if (page.coverageState && 
-          page.coverageState !== 'Submitted and indexed' &&
-          page.coverageState !== 'URL is unknown to Google') {
-        urlsToInspect.push(page.url);
-      }
+  const candidates410 = [];
+  const needsContentFix = [];
+  const needsRedirectFix = [];
+  const keepAsIs = [];
+
+  for (const p of classifiedPages) {
+    if (p.clicks > 0) {
+      // Has clicks — KEEP
+      keepAsIs.push(p);
+      continue;
     }
-  }
-  
-  // Dari performance data - halaman dengan 0 clicks & impressions > 100
-  for (const page of performanceData.pages) {
-    if (page.clicks === 0 && page.impressions > 100) {
-      if (!urlsToInspect.includes(page.url)) {
-        urlsToInspect.push(page.url);
-      }
-    }
-  }
-  
-  console.log(`   ${urlsToInspect.length} URLs perlu diinspeksi`);
-  console.log('   (URL Inspection API terbatas ~2000 queries/hari, akan inspeksi top 50)');
 
-  const inspectionResults = [];
-  const topPriority = urlsToInspect.slice(0, 50);
-  
-  let successCount = 0;
-  let failCount = 0;
-  
-  for (let i = 0; i < topPriority.length; i++) {
-    const url = topPriority[i];
-    try {
-      const response = await webmasters.urlInspection.index.inspect({
-        requestBody: {
-          inspectionUrl: url,
-          siteUrl: SITE_URL_INSPECT,
-        },
-      });
-      const result = response.data.inspectionResult;
-      inspectionResults.push({
-        url,
-        coverageState: result?.indexStatusResult?.coverageState || 'Unknown',
-        indexingState: result?.indexStatusResult?.indexingState || 'Unknown',
-        crawledAs: result?.indexStatusResult?.crawledAs || 'Unknown',
-        lastCrawlTime: result?.indexStatusResult?.lastCrawlTime || 'N/A',
-        googleCanonical: result?.indexStatusResult?.googleCanonical || 'N/A',
-        userCanonical: result?.indexStatusResult?.userCanonical || 'N/A',
-        verdict: result?.verdict || 'UNKNOWN',
-      });
-      successCount++;
-      process.stdout.write(`\r   ✅ [${i + 1}/${topPriority.length}] ${url.substring(0, 60)}...`);
-      await sleep(500); // Rate limiting
-    } catch (e) {
-      failCount++;
-      process.stdout.write(`\r   ❌ [${i + 1}/${topPriority.length}] ${url.substring(0, 60)}... (${e.message.substring(0, 50)})`);
-      await sleep(500);
+    // Zero-click pages — evaluate
+
+    // Check if already handled (thin categories already in proxy.ts)
+    const isThinProduct = p.slug.match(/^\/produk\/(pkrt|footcare|babycare|decorative)/);
+    if (isThinProduct) {
+      candidates410.push({ ...p, reason: 'Thin product category (already in proxy.ts)', confidence: 'HIGH' });
+      continue;
     }
+
+    // Redirect stubs (pages that only existed to redirect)
+    if (p.slug.startsWith('/parfum/') || p.slug.startsWith('/skincare-face-care/')) {
+      candidates410.push({ ...p, reason: 'Legacy redirect stub — no content', confidence: 'HIGH' });
+      continue;
+    }
+
+    // Thankyou / landing pages — no SEO value
+    if (p.slug.startsWith('/thankyou') || p.slug.startsWith('/landing/') || p.slug.startsWith('/metaads/') || p.slug.startsWith('/google-ads/')) {
+      candidates410.push({ ...p, reason: 'Thankyou/landing/ads page — no SEO value', confidence: 'HIGH' });
+      continue;
+    }
+
+    // Author pages with 0 clicks
+    if (p.slug.startsWith('/author/')) {
+      candidates410.push({ ...p, reason: 'Author archive — 0 clicks (should noindex)', confidence: 'HIGH' });
+      continue;
+    }
+
+    // Zero-click, zero-impression articles (no search demand at all)
+    if (p.category === 'article' && p.impressions === 0) {
+      candidates410.push({ ...p, reason: 'Article with 0 impressions in 90 days — no search demand', confidence: 'HIGH' });
+      continue;
+    }
+
+    // Zero-click product pages that aren't in main categories
+    if (p.category === 'product' && p.impressions === 0) {
+      candidates410.push({ ...p, reason: 'Product page with 0 impressions — no demand', confidence: 'MEDIUM' });
+      continue;
+    }
+
+    // Legacy WP pages
+    if (p.category === 'legacy-wp') {
+      candidates410.push({ ...p, reason: 'Legacy WordPress path', confidence: 'HIGH' });
+      continue;
+    }
+
+    // Zero-click with low impressions — needs content fix or 410
+    if (p.impressions < 50) {
+      candidates410.push({ ...p, reason: `Zero clicks, ${p.impressions} impressions in 90 days — very low search demand`, confidence: 'MEDIUM' });
+      continue;
+    }
+
+    // Zero-click but has some impressions — might have potential with content fix
+    if (p.impressions >= 50) {
+      needsContentFix.push({ ...p, reason: `Zero clicks but ${p.impressions} impressions — needs content improvement`, confidence: 'LOW_410' });
+      continue;
+    }
+
+    // Default — keep
+    keepAsIs.push(p);
   }
-  console.log(`\n   ✅ ${successCount} sukses, ❌ ${failCount} gagal`);
+
+  const verified410 = candidates410.filter(c => c.confidence === 'HIGH');
+  const medium410 = candidates410.filter(c => c.confidence === 'MEDIUM');
+
+  console.log(`\n   ✅ Kandidat 410 (HIGH confidence): ${verified410.length} halaman`);
+  console.log(`   ⚠️  Kandidat 410 (MEDIUM confidence): ${medium410.length} halaman`);
+  console.log(`   📝 Butuh perbaikan konten: ${needsContentFix.length} halaman`);
+  console.log(`   ✅ Dipertahankan (ada clicks): ${keepAsIs.length} halaman`);
 
   // =========================================
-  // 5. COMPILE REPORT
+  // 4. DETAIL PER KATEGORI
   // =========================================
-  console.log('\n📝 5. Menyusun laporan lengkap...');
+  console.log('\n📋 4. Detail kandidat HIGH confidence:');
 
-  const report = {
+  const byReason = {};
+  for (const c of verified410) {
+    if (!byReason[c.reason]) byReason[c.reason] = [];
+    byReason[c.reason].push(c);
+  }
+
+  for (const [reason, pages] of Object.entries(byReason).sort((a, b) => b[1].length - a[1].length)) {
+    console.log(`   [${String(pages.length).padStart(3)}] ${reason}`);
+    // Show first 5 as sample
+    for (const p of pages.slice(0, 5)) {
+      console.log(`         ${p.slug}`);
+    }
+    if (pages.length > 5) console.log(`         ... and ${pages.length - 5} more`);
+  }
+
+  // =========================================
+  // 5. SAVE AUDIT RESULT
+  // =========================================
+  console.log('\n💾 5. Menyimpan hasil audit...');
+
+  const auditResult = {
     generated_at: new Date().toISOString(),
-    site_url: SITE_URL,
     data_period: { start: fmt(startDate), end: fmt(endDate) },
-    performance: {
-      total_pages: performanceData.pages.length,
-      total_clicks: performanceData.totalClicks,
-      total_impressions: performanceData.totalImpressions,
-      avg_ctr: performanceData.totalImpressions > 0 
-        ? (performanceData.totalClicks / performanceData.totalImpressions * 100).toFixed(2) + '%' 
-        : '0%',
+    summary: {
+      total_pages: allPages.length,
+      total_clicks: totalClicks,
+      total_impressions: totalImpressions,
+      zero_click_pages: classifiedPages.filter(p => p.clicks === 0).length,
+      high_confidence_410: verified410.length,
+      medium_confidence_410: medium410.length,
+      needs_content_fix: needsContentFix.length,
+      keep_with_clicks: keepAsIs.length,
     },
-    sitemaps: sitemaps.map(s => ({ path: s.path, urls: s.contents?.length || 0, errors: s.errors || 0 })),
-    coverage_analysis: null,
-    inspection_results: inspectionResults,
-    issues: {
-      critical: [],
-      warnings: [],
-      info: [],
-    },
-    recommendations: [],
+    high_confidence_410: verified410.map(p => ({
+      url: p.url,
+      slug: p.slug,
+      category: p.category,
+      impressions: p.impressions,
+      reason: p.reason,
+    })),
+    medium_confidence_410: medium410.map(p => ({
+      url: p.url,
+      slug: p.slug,
+      category: p.category,
+      impressions: p.impressions,
+      reason: p.reason,
+    })),
+    needs_content_fix: needsContentFix.map(p => ({
+      url: p.url,
+      slug: p.slug,
+      category: p.category,
+      impressions: p.impressions,
+      reason: p.reason,
+    })),
+    by_category: Object.fromEntries(
+      Object.entries(byCategory).map(([cat, data]) => [cat, { total: data.total, zero_clicks: data.zeroClicks }])
+    ),
   };
 
-  // Analisis coverage dari data yang ada
-  if (latestCoverage.length > 0) {
-    const states = {};
-    for (const page of latestCoverage) {
-      const state = page.coverageState || 'Unknown';
-      states[state] = (states[state] || 0) + 1;
-    }
-    
-    report.coverage_analysis = {
-      total_inspected: latestCoverage.length,
-      by_state: states,
-      passed: states['Submitted and indexed'] || 0,
-    };
-  }
-
-  // Analisis performa
-  const zeroClickPages = performanceData.pages.filter(p => p.clicks === 0);
-  const highImpNoClick = performanceData.pages.filter(p => p.clicks === 0 && p.impressions > 200);
-  const lowCtrPages = performanceData.pages.filter(p => 
-    p.clicks > 0 && p.impressions > 100 && (p.clicks / p.impressions * 100) < 0.5
-  );
-
-  if (zeroClickPages.length > 0) {
-    report.issues.warnings.push({
-      type: 'zero_clicks',
-      count: zeroClickPages.length,
-      detail: `${zeroClickPages.length} halaman mendapat 0 klik dalam 90 hari. Ini menunjukkan masalah visibilitas atau relevansi.`,
-    });
-  }
-
-  if (highImpNoClick.length > 0) {
-    report.issues.critical.push({
-      type: 'high_impressions_no_clicks',
-      count: highImpNoClick.length,
-      detail: `${highImpNoClick.length} halaman memiliki >200 impressions tapi 0 klik. Perbaiki title & meta description segera!`,
-      pages: highImpNoClick.slice(0, 20).map(p => p.url),
-    });
-  }
-
-  if (lowCtrPages.length > 0) {
-    report.issues.warnings.push({
-      type: 'low_ctr',
-      count: lowCtrPages.length,
-      detail: `${lowCtrPages.length} halaman dengan CTR < 0.5%. Optimasi title tag diperlukan.`,
-      pages: lowCtrPages.slice(0, 10).map(p => `${p.url} (CTR: ${p.ctr})`),
-    });
-  }
-
-  // Analisis URL Inspection
-  const notIndexed = inspectionResults.filter(r => 
-    r.coverageState === 'Not found (404)' || 
-    r.coverageState === 'Crawled - currently not indexed' ||
-    r.coverageState === 'Page with redirect'
-  );
-
-  if (notIndexed.length > 0) {
-    report.issues.critical.push({
-      type: 'url_inspection_issues',
-      count: notIndexed.length,
-      detail: `${notIndexed.length} dari ${inspectionResults.length} URL yang diinspeksi bermasalah.`,
-      pages: notIndexed.slice(0, 30).map(r => ({
-        url: r.url,
-        state: r.coverageState,
-        canonical: r.googleCanonical,
-        lastCrawl: r.lastCrawlTime,
-      })),
-    });
-  }
+  fs.writeFileSync(ZERO_CLICK_FILE, JSON.stringify(auditResult, null, 2));
+  console.log(`   ✅ JSON: ${ZERO_CLICK_FILE}`);
 
   // =========================================
-  // 6. REKOMENDASI
+  // 6. CREATE ACTION PLAN MD
   // =========================================
-  report.recommendations = [
-    {
-      priority: '🔥 CRITICAL #1',
-      action: 'Perbaiki 505 halaman "Di-crawl - tidak diindeks"',
-      detail: '505 halaman adalah jumlah sangat besar. Kemungkinan penyebab: (a) Konten duplikat/thin content, (b) Tidak ada internal links, (c) Halaman hasil generate otomatis (tag/category pages). Audit konten dan hapus/noindex halaman yang tidak perlu.',
-    },
-    {
-      priority: '🔥 CRITICAL #2',
-      action: 'Perbaiki 338 halaman redirect & canonical www vs non-www',
-      detail: 'Pastikan semua canonical tag mengarah ke dreamlab.id (tanpa www). Perbaiki redirect chain. Halaman seperti /maklon-parfum/ → /ads/maklon-parfum/ perlu diperbaiki.',
-    },
-    {
-      priority: '🔥 CRITICAL #3',
-      action: 'Perbaiki 26 halaman 4xx (404 + lainnya)',
-      detail: 'Buat redirect 301 untuk semua halaman 404. Periksa broken links di internal dan external.',
-    },
-    {
-      priority: '⚡ HIGH',
-      action: 'Review 73 halaman dengan tag noindex',
-      detail: 'Periksa apakah halaman-halaman ini sengaja di-noindex. Jika tidak, hapus tag noindex dan minta indexing ulang.',
-    },
-    {
-      priority: '⚡ HIGH',
-      action: 'Optimasi Title & Meta Description',
-      detail: `Ada ${highImpNoClick.length} halaman dengan impressions tinggi tapi 0 klik. Fokus optimasi halaman-halaman ini untuk meningkatkan CTR.`,
-    },
-    {
-      priority: '📈 MEDIUM',
-      action: 'Tambah indexed pages dari 172 ke 300+',
-      detail: 'Buat konten baru berkualitas, perbaiki internal linking, submit sitemap, dan minta indexing via GSC.',
-    },
-  ];
+  console.log('📝 6. Membuat action plan...');
 
-  // Save JSON
-  fs.writeFileSync(REPORT_FILE, JSON.stringify(report, null, 2));
-  console.log(`   ✅ JSON report: ${REPORT_FILE}`);
-
-  // =========================================
-  // 7. CREATE SUMMARY MD
-  // =========================================
   const md = [];
-  md.push('# 📊 GSC ADVANCED REPORT — dreamlab.id');
+  md.push('# 🎯 ZERO-CLICK AUDIT — Level 2 Action Plan');
   md.push('');
-  md.push(`**Generated:** ${report.generated_at}`);
-  md.push(`**Data Period (Performance):** ${report.data_period.start} → ${report.data_period.end}`);
+  md.push(`**Generated:** ${auditResult.generated_at}`);
+  md.push(`**Data Period:** ${auditResult.data_period.start} → ${auditResult.data_period.end}`);
   md.push('');
   md.push('---');
   md.push('');
-  md.push('## 📈 PERFORMANCE OVERVIEW');
+  md.push('## 📊 SUMMARY');
   md.push('');
-  md.push(`| Metrik | Nilai |`);
-  md.push(`|--------|-------|`);
-  md.push(`| Total Pages | ${report.performance.total_pages} |`);
-  md.push(`| Total Clicks | ${report.performance.total_clicks} |`);
-  md.push(`| Total Impressions | ${report.performance.total_impressions} |`);
-  md.push(`| Avg CTR | ${report.performance.avg_ctr} |`);
-  md.push(`| Zero-Click Pages | ${zeroClickPages.length} |`);
-  md.push(`| High Impressions (200+) No Click | ${highImpNoClick.length} |`);
+  md.push('| Metrik | Value |');
+  md.push('|--------|-------|');
+  md.push(`| Total Pages in GSC | ${auditResult.summary.total_pages} |`);
+  md.push(`| Total Clicks (90 hari) | ${auditResult.summary.total_clicks} |`);
+  md.push(`| Total Impressions (90 hari) | ${auditResult.summary.total_impressions} |`);
+  md.push(`| Zero-Click Pages | ${auditResult.summary.zero_click_pages} |`);
+  md.push(`| 🔴 HIGH Confidence 410 | ${auditResult.summary.high_confidence_410} |`);
+  md.push(`| 🟡 MEDIUM Confidence 410 | ${auditResult.summary.medium_confidence_410} |`);
+  md.push(`| 📝 Needs Content Fix | ${auditResult.summary.needs_content_fix} |`);
+  md.push(`| ✅ Keep (Has Clicks) | ${auditResult.summary.keep_with_clicks} |`);
   md.push('');
-  md.push('### 🏆 Top 10 Pages by Impressions');
+  md.push('---');
   md.push('');
-  md.push('| URL | Clicks | Impressions | CTR | Position |');
-  md.push('|-----|--------|-------------|-----|----------|');
-  for (const p of performanceData.pages.slice(0, 10)) {
-    md.push(`| ${p.slug} | ${p.clicks} | ${p.impressions} | ${p.ctr} | ${p.avgPosition} |`);
-  }
+  md.push('## 🔴 HIGH CONFIDENCE 410 CANDIDATES');
   md.push('');
-  md.push('### 🔻 Bottom 10 — High Impressions, Zero Clicks');
-  md.push('');
-  md.push('| URL | Clicks | Impressions |');
-  md.push('|-----|--------|-------------|');
-  for (const p of highImpNoClick.slice(0, 10)) {
-    md.push(`| ${p.slug} | 0 | ${p.impressions} |`);
-  }
+  md.push('Halaman-halaman ini **aman di-410** karena:');
+  md.push('- 0 klik dalam 90 hari');
+  md.push('- 0 atau sangat rendah impressions');
+  md.push('- Template/thin content tidak memiliki backlink');
+  md.push('- Tidak ada nilai SEO yang hilang');
   md.push('');
 
-  // Coverage
-  if (report.coverage_analysis) {
-    md.push('## 📊 COVERAGE (Dari 328 Sample URLs)');
+  for (const [reason, pages] of Object.entries(byReason).sort((a, b) => b[1].length - a[1].length)) {
+    md.push(`### ${reason} (${pages.length} pages)`);
     md.push('');
-    md.push('⚠️ Data ini hanya sample 328 URL. Data GSC asli menunjukkan **1.141 halaman tidak terindeks**.');
-    md.push('');
-    md.push('| Status | Sample |');
-    md.push('|--------|--------|');
-    for (const [state, count] of Object.entries(report.coverage_analysis.by_state)) {
-      md.push(`| ${state} | ${count} |`);
+    for (const p of pages) {
+      md.push(`- \`${escapeMd(p.slug)}\``);
     }
-    md.push('');
-  }
-
-  // Issues from GSC (from user's screenshot)
-  md.push('## 🔴 ALL ISSUES FROM GSC (Per 20 Juli 2026)');
-  md.push('');
-  md.push('**Total: 1.141 halaman tidak terindeks dengan benar**');
-  md.push('');
-  md.push('| # | Masalah | Jumlah | Severity | Tindakan |');
-  md.push('|---|--------|:------:|:--------:|----------|');
-  md.push('| 1 | Di-crawl - saat ini tidak diindeks | **505** | 🔴 KRITIS | Audit konten, perbaiki kualitas, internal link |');
-  md.push('| 2 | Halaman dengan pengalihan | **338** | 🔴 KRITIS | Perbaiki canonical www vs non-www |');
-  md.push('| 3 | Halaman alternatif tag kanonis tepat | **173** | 🟡 SEDANG | Review apakah sengaja |');
-  md.push('| 4 | Dikecualikan tag noindex | **73** | 🟡 SEDANG | Cek apakah sengaja di-noindex |');
-  md.push('| 5 | Tidak ditemukan (404) | **20** | 🔴 KRITIS | Redirect 301 ke halaman relevan |');
-  md.push('| 6 | Ditemukan - tidak diindeks | **19** | 🟠 TINGGI | Perbaiki kualitas konten |');
-  md.push('| 7 | Duplikat tanpa kanonis | **10** | 🟠 TINGGI | Tambah canonical tag |');
-  md.push('| 8 | Duplikat kanonis berbeda | **3** | 🟡 SEDANG | Perbaiki canonical |');
-  md.push('');
-
-  // Inspection results
-  if (inspectionResults.length > 0) {
-    md.push('## 🔍 URL INSPECTION RESULTS');
-    md.push('');
-    const failed = inspectionResults.filter(r => r.coverageState !== 'Submitted and indexed');
-    md.push(`**${failed.length} dari ${inspectionResults.length} URL bermasalah:**`);
-    md.push('');
-    for (const r of failed.slice(0, 30)) {
-      md.push(`- ❌ **${r.coverageState}** — ${r.url}`);
-      md.push(`  - Canonical Google: ${r.googleCanonical}`);
-      md.push(`  - Last crawl: ${r.lastCrawlTime}`);
-    }
-    md.push('');
-  }
-
-  // Recommendations
-  md.push('## 💡 REKOMENDASI PRIORITAS');
-  md.push('');
-  for (const rec of report.recommendations) {
-    md.push(`### ${rec.priority}: ${rec.action}`);
-    md.push('');
-    md.push(`${rec.detail}`);
     md.push('');
   }
 
   md.push('---');
   md.push('');
 
-  // Need to add service account in GSC
-  md.push('## ✅ STATUS AKSES API');
-  md.push('');
-  md.push('✅ Service account **berhasil** terhubung ke GSC!');
-  md.push(`- Email: dreamlab@sunny-idiom-499103-g6.iam.gserviceaccount.com`);
-  md.push(`- Permission: siteFullUser`);
-  md.push(`- Situs: sc-domain:dreamlab.id`);
-  md.push('');
-  md.push('📁 **Output files:**');
-  md.push(`- Laporan ini: \`scripts/output/GSC-ADVANCED-LAPORAN.md\``);
-  md.push(`- JSON report: \`scripts/output/gsc-advanced-report.json\``);
-  md.push('');
+  if (medium410.length > 0) {
+    md.push('## 🟡 MEDIUM CONFIDENCE 410 CANDIDATES');
+    md.push('');
+    md.push('Halaman-halaman ini **mungkin bisa di-410**, tapi perlu verifikasi manual:');
+    md.push('');
 
-  fs.writeFileSync(SUMMARY_FILE, md.join('\n'));
-  console.log(`   ✅ Summary: ${SUMMARY_FILE}`);
+    const medByReason = {};
+    for (const c of medium410) {
+      if (!medByReason[c.reason]) medByReason[c.reason] = [];
+      medByReason[c.reason].push(c);
+    }
+    for (const [reason, pages] of Object.entries(medByReason).sort((a, b) => b[1].length - a[1].length)) {
+      md.push(`### ${reason} (${pages.length} pages)`);
+      md.push('');
+      md.push(pages.map(p => `- \`${escapeMd(p.slug)}\``).join('\n'));
+      md.push('');
+    }
+    md.push('');
+  }
+
+  if (needsContentFix.length > 0) {
+    md.push('## 📝 NEEDS CONTENT FIX (NOT 410)');
+    md.push('');
+    md.push('Halaman-halaman ini punya impressions tapi 0 klik — lebih baik perbaiki konten daripada di-410:');
+    md.push('');
+    const fixByReason = {};
+    for (const c of needsContentFix) {
+      if (!fixByReason[c.reason]) fixByReason[c.reason] = [];
+      fixByReason[c.reason].push(c);
+    }
+    for (const [reason, pages] of Object.entries(fixByReason).sort((a, b) => b[1].length - a[1].length)) {
+      md.push(`### ${reason} (${pages.length} pages)`);
+      md.push('');
+      md.push(pages.slice(0, 20).map(p => `- \`${escapeMd(p.slug)}\` (${p.impressions} impressions)`).join('\n'));
+      if (pages.length > 20) md.push(`- ... and ${pages.length - 20} more`);
+      md.push('');
+    }
+    md.push('');
+  }
+
+  md.push('---');
+  md.push('');
+  md.push('## 📋 DISTRIBUSI BERDASARKAN KATEGORI');
+  md.push('');
+  md.push('| Kategori | Total | Zero-Click | % Zero |');
+  md.push('|----------|:----:|:----------:|:------:|');
+  for (const [cat, data] of Object.entries(byCategory).sort((a, b) => b[1].total - a[1].total)) {
+    const pct = data.total > 0 ? (data.zeroClicks / data.total * 100).toFixed(0) : '0';
+    md.push(`| ${cat} | ${data.total} | ${data.zeroClicks} | ${pct}% |`);
+  }
+  md.push('');
+  md.push('---');
+  md.push('');
+  md.push('## ✅ ACTION PLAN');
+  md.push('');
+  md.push('### Phase 2A: 410 Gone (Right Now)');
+  md.push('');
+  md.push(`1. **Add ${verified410.length} patterns to proxy.ts GONE_PATTERNS**`);
+  md.push('2. Deploy to production');
+  md.push('3. Monitor GSC coverage in 3-7 days');
+  md.push('');
+  md.push('### Phase 2B: Content Fix');
+  md.push('');
+  md.push(`1. **Improve ${needsContentFix.length} pages with thin content**`);
+  md.push('2. Add internal links from high-authority pages');
+  md.push('3. Request indexing via GSC API');
+  md.push('');
+  md.push('### Phase 2C: Medium Confidence 410');
+  md.push('');
+  md.push(`1. **Verify ${medium410.length} pages manually**`);
+  md.push('2. Check for backlinks (manually via GSC Links report)');
+  md.push('3. If no backlinks, add to 410 patterns');
+  md.push('');
+  md.push('---');
+  md.push('');
+  md.push(`📁 Output: \`scripts/output/zero-click-audit.json\``);
+
+  fs.writeFileSync(ZERO_CLICK_MD, md.join('\n'));
+  console.log(`   ✅ Action plan: ${ZERO_CLICK_MD}`);
 
   // Console summary
   console.log('\n' + '='.repeat(70));
-  console.log('  RINGKASAN');
+  console.log('  RINGKASAN AKHIR');
   console.log('='.repeat(70));
   console.log();
-  console.log('📈 PERFORMANCE:');
-  console.log(`   Pages: ${report.performance.total_pages}`);
-  console.log(`   Clicks: ${report.performance.total_clicks}`);
-  console.log(`   Impressions: ${report.performance.total_impressions}`);
-  console.log(`   CTR: ${report.performance.avg_ctr}`);
-  console.log(`   Zero-click pages: ${zeroClickPages.length}`);
-  console.log(`   High imp (200+) no click: ${highImpNoClick.length}`);
+  console.log(`📊 Total halaman: ${allPages.length}`);
+  console.log(`   Dengan clicks: ${keepAsIs.length}`);
+  console.log(`   Zero clicks:   ${classifiedPages.filter(p => p.clicks === 0).length}`);
   console.log();
-  console.log('📋 CRITICAL ISSUES:');
-  console.log('   Dari GSC (data asli):');
-  console.log('   🔴 505 Di-crawl - tidak diindeks');
-  console.log('   🔴 338 Halaman redirect');
-  console.log('   🔴 173 Canonical alternatif');
-  console.log('   🔴 73 Noindex');
-  console.log('   🔴 20 404');
-  console.log('   🔴 19 Ditemukan - tidak diindeks');
-  console.log('   🔴 10 Duplikat tanpa kanonis');
-  console.log(`   --- Total: 1.141 halaman ---`);
+  console.log(`🎯 🔴 HIGH confidence 410: ${verified410.length} halaman → langsung bisa`);
+  console.log(`🎯 🟡 MEDIUM confidence 410: ${medium410.length} halaman → verifikasi manual`);
+  console.log(`🎯 📝 Needs content fix: ${needsContentFix.length} halaman`);
   console.log();
-  console.log('🔍 URL Inspection:');
-  console.log(`   ${inspectionResults.length} URL diinspeksi`);
-  console.log(`   ${inspectionResults.filter(r => r.coverageState !== 'Submitted and indexed').length} bermasalah`);
-  console.log();
-  console.log(`📁 Full report: ${SUMMARY_FILE}`);
+  console.log(`📁 Zero-click audit: ${ZERO_CLICK_FILE}`);
+  console.log(`📁 Action plan:      ${ZERO_CLICK_MD}`);
+}
+
+function escapeMd(str) {
+  return str.replace(/[|*{}[\]()#+\-!]/g, '\\$&');
 }
 
 main().catch(err => {

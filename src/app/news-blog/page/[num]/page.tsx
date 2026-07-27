@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: BlogPaginationProps): Promise
     title: mapping?._metadata.original_title || `Blog Maklon Kosmetik & Skincare — Halaman ${num} | Dreamlab`,
     description: mapping?._metadata.original_description || `Wawasan untuk beautypreneur Indonesia, temukan tren dan cara menjadi beautypreneur. Dreamlab maklon kosmetik yang tepat untuk bisnis anda.`,
     alternates: { canonical },
-    robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    robots: 'noindex, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     other: {
       ...(parseInt(num) > 1 ? { 'prev': `https://dreamlab.id/news-blog/page/${parseInt(num) - 1}/` } : {}),
       ...(parseInt(num) < totalPages ? { 'next': `https://dreamlab.id/news-blog/page/${parseInt(num) + 1}/` } : {}),

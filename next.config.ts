@@ -159,6 +159,7 @@ const nextConfig: NextConfig = {
 
     // 3c. Redirect legacy WordPress / soft-404 pages that don't exist in Next.js
     // These preserve SEO equity from old site structure + fix GSC 404 errors
+    // NOTE: With trailingSlash: true, source patterns match BOTH with and without trailing slash
     const legacyRedirects: Array<[string, string]> = [
       ['/thankyoupage-google', '/'],
       ['/contact-form-dreamlab', '/contact-us/'],
@@ -182,7 +183,7 @@ const nextConfig: NextConfig = {
       ['/perbedaan-moisturizer-gel-vs-cream/dreamlab{/}?', '/perbedaan-moisturizer-gel-vs-cream/'],
       ['/category/bisnis-kosmetik/page/4', '/category/bisnis-kosmetik/'],
       ['/news-blog/page/8', '/news-blog/'],
-      // GSC Crawled Not Indexed — legacy content → 410 or redirect
+      // GSC Crawled Not Indexed — legacy content → redirect to canonical
       ['/memunculkan-keranjang-reels', '/news-blog/'],
       ['/pabrik-parfum-surabaya', '/produk/parfum/'],
       ['/maklon-shampoo-psoriasis-formula-juara', '/produk/haircare/'],
@@ -206,12 +207,6 @@ const nextConfig: NextConfig = {
       ['/shop', '/produk/'],
       ['/cart', '/'],
       ['/my-account', '/'],
-      // GSC Crawled-Not-Indexed — legacy WordPress articles no longer in system
-      ['/ide-bisnis-kosmetik', '/news-blog/'],
-      ['/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan', '/news-blog/'],
-      ['/maklon-kosmetik-terbaik', '/news-blog/'],
-      ['/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri', '/news-blog/'],
-      ['/maklon-skinacre-lptiktok', '/produk/skincare/'],
       // URL with special unicode dash char — redirect to clean URL
       ['/atur‑kosmetik‑halal‑dreamlab', '/news-blog/'],
       ['/atur‑kosmetik‑halal‑2026‑dreamlab', '/news-blog/'],
@@ -222,7 +217,21 @@ const nextConfig: NextConfig = {
       permanent: true,
     });
     for (const [source, destination] of legacyRedirects) {
+      // Push both trailing slash and non-trailing slash versions for chain-free redirects
       redirects.push({ source, destination, permanent: true });
+      const sourceWithSlash = source.endsWith('/') ? source : `${source}/`;
+      if (sourceWithSlash !== source && !source.includes('*')) {
+        redirects.push({ source: sourceWithSlash, destination, permanent: true });
+      }
+    }
+
+    // Helper to add redirect with both trailing slash variants to prevent chains
+    function addRedirect(source: string, destination: string) {
+      redirects.push({ source, destination, permanent: true });
+      // Add trailing slash variant if not already present, to prevent Next.js trailingSlash:true chain
+      if (!source.endsWith('/') && !source.includes('*') && !source.includes('{') && !source.includes('?')) {
+        redirects.push({ source: `${source}/`, destination, permanent: true });
+      }
     }
 
     // Note: Author and pagination routes are now handled by dedicated route handlers:
@@ -255,9 +264,6 @@ const nextConfig: NextConfig = {
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
     ];
-    for (const [source, destination] of adsRedirects) {
-      redirects.push({ source, destination, permanent: true });
-    }
 
     // 6. Preserve existing WordPress 301 redirects (old slugs → new slugs)
     // These were captured from the live site crawl — maintaining them preserves backlink equity
@@ -285,7 +291,13 @@ const nextConfig: NextConfig = {
       ['/rincian-biaya-produksi-serum', '/rincian-biaya-produksi-serum-wajah/'],
     ];
     for (const [source, destination] of wordpressRedirects) {
-      redirects.push({ source, destination, permanent: true });
+      addRedirect(source, destination);
+    }
+    for (const [source, destination] of categoryToSiloRedirects) {
+      addRedirect(source, destination);
+    }
+    for (const [source, destination] of adsRedirects) {
+      addRedirect(source, destination);
     }
 
     return redirects;

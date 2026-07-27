@@ -18,6 +18,17 @@ const GONE_PATTERNS = [
   '/post-sitemap',
   '/search/',
   '/juaranyaformula/',
+  // Thin product sub-categories — template only, 0 traffic, 0 backlink value
+  '/produk/pkrt/',
+  '/produk/footcare/',
+  '/produk/babycare/',
+  '/produk/decorative/',
+  // Dead thankyou/landing pages — no SEO value, 0 clicks
+  '/thankyou-page',
+  '/thankyoupage-google',
+  '/google-ads/',
+  // Floating buttons preview page — template only, no content
+  '/e-floating-buttons/',
 ];
 
 const GONE_EXACT = [
@@ -125,7 +136,7 @@ export function proxy(request: NextRequest) {
       canonicalUrl.pathname = `${canonicalUrl.pathname}/`;
     }
 
-    return NextResponse.redirect(canonicalUrl, 308);
+    return NextResponse.redirect(canonicalUrl, 301);
   }
 
   return NextResponse.next();

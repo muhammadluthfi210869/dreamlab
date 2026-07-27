@@ -107,7 +107,12 @@ const noindexOnlyPaths = [
   '/google-ads',
   '/landing',
   '/author/admin/page',
+  '/author/admin',
   '/news-blog/page',
+  '/produk/pkrt',
+  '/produk/footcare',
+  '/produk/babycare',
+  '/produk/decorative',
 ];
 
 export function normalizeSeoPath(input: string): string {

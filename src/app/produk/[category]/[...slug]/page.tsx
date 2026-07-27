@@ -266,6 +266,13 @@ export async function generateStaticParams() {
   return [...subCategoryParams, ...subCategoryProductParams, ...flatProductParams, ...topLevelProductParams];
 }
 
+// Thin product categories that should not be indexed (template content only)
+const THIN_CATEGORIES = new Set(['pkrt', 'footcare', 'babycare', 'decorative']);
+
+function shouldNoindexCategory(category: string): boolean {
+  return THIN_CATEGORIES.has(category);
+}
+
 export async function generateMetadata({ params }: Props) {
   const { category, slug } = await params;
   const categoryData = getProductDataV2(category);
@@ -275,6 +282,10 @@ export async function generateMetadata({ params }: Props) {
   }
 
   const hasSubCategories = categoryData.subCategories && categoryData.subCategories.length > 0;
+  const isThinCategory = shouldNoindexCategory(category);
+  const robotsDirective = isThinCategory
+    ? "noindex, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   // Single segment
   if (slug.length === 1) {
@@ -292,7 +303,7 @@ export async function generateMetadata({ params }: Props) {
           title,
           description,
           alternates: { canonical: canonicalUrl },
-          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          robots: robotsDirective,
           openGraph: {
             title, description, url: canonicalUrl,
             images: [{ url: subData.heroImage, width: 1200, height: 630, alt: title }],
@@ -314,7 +325,7 @@ export async function generateMetadata({ params }: Props) {
         const description = "Maklon deodorant spray, roll on, balm, dan dry serum dengan brand sendiri. BPOM & Halal. 4 varian dalam 1 brand. MOQ fleksibel. Konsultasi gratis. Siap edar dalam 3 bulan.";
         return {
           title, description, alternates: { canonical: canonicalUrl },
-          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          robots: robotsDirective,
           openGraph: {
             title, description, url: canonicalUrl,
             images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
@@ -332,7 +343,7 @@ export async function generateMetadata({ params }: Props) {
       );
       return {
         title, description, alternates: { canonical: canonicalUrl },
-        robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+        robots: robotsDirective,
         openGraph: {
           title, description, url: canonicalUrl,
           images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],
@@ -359,7 +370,7 @@ export async function generateMetadata({ params }: Props) {
         );
         return {
           title, description, alternates: { canonical: canonicalUrl },
-          robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          robots: robotsDirective,
           openGraph: {
             title, description, url: canonicalUrl,
             images: [{ url: productData.heroImage, width: 1200, height: 630, alt: title }],

@@ -160,36 +160,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
 
   // 4. Product Pages (V2 - Individual Product Pages)
+  const THIN_PRODUCT_CATEGORIES = new Set(['pkrt', 'footcare', 'babycare', 'decorative']);
   const categories = getAllCategories();
   const productRoutes: MetadataRoute.Sitemap = [];
-  
+
   for (const category of categories) {
-    // Add category page
-    productRoutes.push({
-      url: `${baseUrl}/produk/${category.slug}/`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    });
-    
-    // Add individual product pages
-    for (const product of category.products) {
+    const isThinCategory = THIN_PRODUCT_CATEGORIES.has(category.slug);
+
+    // Add category page (only if NOT thin)
+    if (!isThinCategory) {
       productRoutes.push({
-        url: `${baseUrl}/produk/${category.slug}/${product.slug}/`,
+        url: `${baseUrl}/produk/${category.slug}/`,
         lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
       });
+    }
+
+    // Add individual product pages (only if NOT thin)
+    if (!isThinCategory) {
+      for (const product of category.products) {
+        productRoutes.push({
+          url: `${baseUrl}/produk/${category.slug}/${product.slug}/`,
+          lastModified: new Date(),
+          changeFrequency: 'monthly' as const,
+          priority: 0.7,
+        });
+      }
     }
   }
 
-  // 5. Maklon Pages (silent SEO workhorse — ~80 service location pages)
-  const maklonRoutes: MetadataRoute.Sitemap = maklonPages.map(mp => ({
-    url: `${baseUrl}${mp.path.replace(/\/?$/, '/')}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.75,
-  }));
+  // 5. Maklon Pages — filtered by content quality (exclude thin pages without proper content)
+  const maklonRoutes: MetadataRoute.Sitemap = maklonPages
+    .filter(mp => {
+      // Only include pages with actual content sections (not just template)
+      return mp.sections && mp.sections.length >= 3;
+    })
+    .map(mp => ({
+      url: `${baseUrl}${mp.path.replace(/\/?$/, '/')}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.75,
+    }));
 
   const pilotRoutes: MetadataRoute.Sitemap = [...pilotBatch1Routes, ...pilotBatch2Routes].map(route => ({
     url: `${baseUrl}${route.replace(/\/?$/, '/')}`,

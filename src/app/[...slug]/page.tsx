@@ -108,18 +108,28 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
   const title = seoData?.meta_title || (article ? (article.seo?.title || article.title) : 'Dreamlab');
   const description = seoData?.meta_description || (article ? (article.seo?.description || article.excerpt) : 'Dreamlab - Maklon Kosmetik & Skincare Terbaik BPOM Indonesia');
-  const canonical = (seoData?.canonical || `https://dreamlab.id${pathStr}`).replace(/\/?$/, '/');
+
+  // Canonical MUST always point to the content's PRIMARY URL, not the requested path.
+  // When an article is matched, use its canonical slug regardless of the request URL.
+  // This prevents "alternate canonical" errors when Google discovers the same content at different paths.
+  let canonicalUrl: string;
+  if (article) {
+    const articleSlug = `/${article.slug.replace(/^\//, '').replace(/\/$/, '')}`;
+    canonicalUrl = (seoData?.canonical || `https://dreamlab.id${articleSlug}`).replace(/\/?$/, '/');
+  } else {
+    canonicalUrl = (seoData?.canonical || `https://dreamlab.id${pathStr}`).replace(/\/?$/, '/');
+  }
 
   return {
     title,
     description,
     keywords: getMetaKeywords(categorySlug, resolvedParams.slug?.[1] || ''),
-    alternates: { canonical },
+    alternates: { canonical: canonicalUrl },
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: canonicalUrl,
       siteName: 'Dreamlab',
       locale: 'id_ID',
       type: article ? 'article' : 'website',

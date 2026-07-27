@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getProductDataV2 } from "@/data/products-v2";
 import { getCategoryTitle, getCategoryMetaDescription } from "@/data/keywords";
 import { ProductPageV2 } from "@/components/ProductPageV2";
+import JsonLd from "@/components/JsonLd";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -15,7 +16,50 @@ export default async function CategoryPage({ params }: Props) {
     notFound();
   }
 
-  return <ProductPageV2 data={data} />;
+  // Schema for product category page
+  const categorySchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://dreamlab.id/#organization',
+        name: 'Dreamlab Indonesia',
+        url: 'https://dreamlab.id/',
+      },
+      {
+        '@type': 'CollectionPage',
+        '@id': `https://dreamlab.id/produk/${category}/#webpage`,
+        url: `https://dreamlab.id/produk/${category}/`,
+        name: `Jasa Maklon ${data.name} BPOM & Halal | Dreamlab`,
+        description: data.description,
+        isPartOf: { '@id': 'https://dreamlab.id/#website' },
+        breadcrumb: { '@id': `https://dreamlab.id/produk/${category}/#breadcrumb` },
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: (data.subCategories || data.products || []).map((item: { name: string }, i: number) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: item.name || '',
+          })),
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `https://dreamlab.id/produk/${category}/#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dreamlab.id/' },
+          { '@type': 'ListItem', position: 2, name: data.name },
+        ],
+      },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={categorySchema} />
+      <ProductPageV2 data={data} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
