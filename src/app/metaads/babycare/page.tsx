@@ -82,7 +82,7 @@ export default function BabyCareMetaAdsLP() {
             </motion.p>
             <motion.div className="flex flex-col sm:flex-row gap-4 pt-2" variants={fadeUp}>
               <Link
-                href="https://dreamlab.id/ads/thankyou/metaads/"
+                href="/ads/thankyou/metaads/?source=meta-babycare"
                 className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
               >
                 Konsultasi Gratis Sekarang
@@ -209,7 +209,7 @@ export default function BabyCareMetaAdsLP() {
             legalitas, hingga strategi masuk pasar ibu muda Indonesia.
           </p>
           <Link
-            href="https://dreamlab.id/ads/thankyou/metaads/"
+            href="/ads/thankyou/metaads/?source=meta-babycare"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
           >
             Konsultasi Gratis Sekarang

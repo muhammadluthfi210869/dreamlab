@@ -7,6 +7,10 @@ const WA_MSGS: Record<string, string> = {
     "Halo Dreamlab, saya lihat iklan di meta ads skincare dan ingin konsultasi buat brand skincare saya. Bisa dibantu?",
   "meta-haircare":
     "Halo Dreamlab, saya lihat iklan di meta ads haircare dan ingin konsultasi buat brand haircare saya. Bisa dibantu?",
+  "meta-deodorant":
+    "Halo Dreamlab, saya lihat iklan di meta ads deodorant dan ingin konsultasi buat brand deodorant saya. Bisa dibantu?",
+  "meta-babycare":
+    "Halo Dreamlab, saya lihat iklan di meta ads baby care dan ingin konsultasi buat brand baby care saya. Bisa dibantu?",
 };
 
 export default function ThankYouMetaAds() {

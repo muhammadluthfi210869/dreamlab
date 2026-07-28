@@ -145,6 +145,19 @@ git push origin master
 ## Blockers
 - 🚫 **Deploy ke dreamlab.id**: Vercel token dari dashboard dreamlabid team blm ada. Bisa deploy manual dari GitHub → Vercel dashboard.
 - 🚫 **Indexing API**: Service account (`dreamlab-gsc@dreamlab-site.iam.gserviceaccount.com`) bukan URL owner — harus ditambahkan di GSC Settings → Users and permissions.
+
+## Latest SEO Audit — Old WordPress URL Remnants
+
+### Completed (commit [hash])
+1. **`Footer.tsx`**: 8 old URLs (`/pabrik-kosmetik`, `/maklon-baby-care`, etc.) → `/produk/` equivalents
+2. **`articles.ts`**: ~15 hardcoded inbound links (`/skincare-face-care/`, `/body-care/`, etc.) → `/produk/` equivalents  
+3. **`next.config.ts`**: `categoryToSiloRedirects` updated from `/maklon-*`/`/ads/` → `/produk/` paths
+4. **`proxy.ts`**: Added `LEGACY_PATH_REDIRECTS` (14 entries) with 301 redirects
+5. **`seo-pilot/batch-1.ts` & `batch-2.ts`**: Removed `/pabrik-kosmetik` and `/pabrik-parfum` from routes, updated all `relatedLinks` hrefs
+6. **Deleted**: `src/app/pabrik-kosmetik/page.tsx` and `src/app/pabrik-parfum/page.tsx` (replaced by 301 redirects)
+7. All 14 redirects verified: return 301/308 with correct Location header
+8. All 7 destination `/produk/` pages verified: return 200 (except `/pkrt/` — 410, intentional thin category)
+- Build: 577 pages, 0 errors
 - 🚫 **Google recrawl**: Semua fix butuh deploy dulu, lalu Google butuh 1-4 minggu untuk recrawl.
 
 ## Post-Deploy Checklist

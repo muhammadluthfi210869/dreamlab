@@ -79,7 +79,7 @@ export default function DeodorantMetaAdsLP() {
             </motion.p>
             <motion.div className="flex flex-col sm:flex-row gap-4 pt-2" variants={fadeUp}>
               <Link
-                href="https://dreamlab.id/ads/thankyou/metaads/"
+                href="/ads/thankyou/metaads/?source=meta-deodorant"
                 className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
@@ -255,7 +255,7 @@ export default function DeodorantMetaAdsLP() {
             sampai strategi go-to-market. Isi form sekarang, tim kami akan menghubungi dalam 1x24 jam.
           </p>
           <Link
-            href="https://dreamlab.id/ads/thankyou/metaads/"
+            href="/ads/thankyou/metaads/?source=meta-deodorant"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
           >
             <MessageCircle className="w-5 h-5 shrink-0" />
