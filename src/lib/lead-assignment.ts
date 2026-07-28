@@ -1,8 +1,9 @@
 import { cookies } from 'next/headers';
-import { getNextAgent, incrementAgentLeadCount } from './roundRobin';
+import { getNextAgent, getNextMetaAgent, incrementAgentLeadCount } from './roundRobin';
 import { AGENTS, pickEmergencyFallbackAgent, Agent } from './round-robin-config';
 
 const COOKIE_NAME = 'dreamlab_cs';
+const META_COOKIE_NAME = 'dreamlab_cs_meta';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
 
 export interface AssignmentResult {
@@ -10,9 +11,15 @@ export interface AssignmentResult {
   source: 'sticky' | 'rotation' | 'fallback';
 }
 
-export async function getOrAssignAgent(): Promise<AssignmentResult> {
+function isMetaSource(campaignSource?: string | null): boolean {
+  return !!campaignSource && campaignSource.startsWith('meta-');
+}
+
+export async function getOrAssignAgent(campaignSource?: string | null): Promise<AssignmentResult> {
+  const isMeta = isMetaSource(campaignSource);
+  const cookieName = isMeta ? META_COOKIE_NAME : COOKIE_NAME;
   const cookieStore = await cookies();
-  const existingId = cookieStore.get(COOKIE_NAME)?.value;
+  const existingId = cookieStore.get(cookieName)?.value;
 
   if (existingId) {
     const stickyAgent = AGENTS.find((a) => a.id === existingId && a.active);
@@ -23,15 +30,13 @@ export async function getOrAssignAgent(): Promise<AssignmentResult> {
   }
 
   try {
-    const agent = await getNextAgent();
+    const agent = isMeta ? await getNextMetaAgent() : await getNextAgent();
     try {
       await incrementAgentLeadCount(agent.id);
     } catch (countErr) {
-      // Gagal catat statistik TIDAK BOLEH menggagalkan assignment itu
-      // sendiri — lead tetap harus disalurkan meski counternya meleset.
       console.error('[lead-assignment] incrementAgentLeadCount gagal untuk rotation, lanjut tanpa catat:', countErr);
     }
-    cookieStore.set(COOKIE_NAME, agent.id, {
+    cookieStore.set(cookieName, agent.id, {
       maxAge: COOKIE_MAX_AGE,
       httpOnly: true,
       secure: true,
@@ -41,17 +46,13 @@ export async function getOrAssignAgent(): Promise<AssignmentResult> {
     return { agent, source: 'rotation' };
   } catch (err) {
     console.error('[lead-assignment] getNextAgent gagal, pakai fallback darurat:', err);
-    // pickEmergencyFallbackAgent() SELALU mengembalikan Agent selama
-    // AGENTS tidak kosong total — beda dengan getActiveAgents() yang bisa
-    // throw lagi di sini kalau semua agent kebetulan nonaktif, yang
-    // sebelumnya bikin request ini crash 500 tanpa fallback sama sekali.
     const fallbackAgent = pickEmergencyFallbackAgent();
     try {
       await incrementAgentLeadCount(fallbackAgent.id);
     } catch (countErr) {
       console.error('[lead-assignment] incrementAgentLeadCount gagal untuk fallback, lanjut tanpa catat:', countErr);
     }
-    cookieStore.set(COOKIE_NAME, fallbackAgent.id, {
+    cookieStore.set(cookieName, fallbackAgent.id, {
       maxAge: COOKIE_MAX_AGE,
       httpOnly: true,
       secure: true,

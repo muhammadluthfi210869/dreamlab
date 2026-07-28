@@ -7,18 +7,30 @@ const redis = new Redis({
 });
 
 const COUNTER_KEY = 'dreamlab:leadpool:counter';
+const META_COUNTER_KEY = 'dreamlab:leadpool:meta:counter';
 
-export async function getNextAgent(): Promise<Agent> {
+function pickAgent(count: number): Agent {
   const activeAgents = getActiveAgents();
-  const count = await redis.incr(COUNTER_KEY);
   const index = (count - 1) % activeAgents.length;
   return activeAgents[index];
 }
 
+export async function getNextAgent(): Promise<Agent> {
+  const count = await redis.incr(COUNTER_KEY);
+  return pickAgent(count);
+}
+
+export async function getNextMetaAgent(): Promise<Agent> {
+  const count = await redis.incr(META_COUNTER_KEY);
+  return pickAgent(count);
+}
+
 export async function getRoundRobinStats() {
   const count = (await redis.get<number>(COUNTER_KEY)) ?? 0;
+  const metaCount = (await redis.get<number>(META_COUNTER_KEY)) ?? 0;
   return {
     totalAssigned: count,
+    metaAssigned: metaCount,
     activeAgents: getActiveAgents().map((a) => a.id),
   };
 }

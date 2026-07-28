@@ -50,9 +50,8 @@ export const dynamic = 'force-dynamic'; // jangan di-cache oleh Next.js/CDN
 
 export async function GET(req: NextRequest) {
 
-  const { agent, source: assignmentMethod } = await getOrAssignAgent();
-
   const campaignSource = req.nextUrl.searchParams.get('campaignSource');
+  const { agent, source: assignmentMethod } = await getOrAssignAgent(campaignSource);
 
   return NextResponse.json({
 
