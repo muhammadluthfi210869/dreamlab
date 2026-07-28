@@ -195,11 +195,10 @@ for (const section of sections) {
 
 // CTA section
 html += `
-<div style="text-align:center;margin:48px 0;padding:40px 24px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border-radius:16px">
-<h3 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 12px 0">Konsultasikan Konsep Aroma Parfum Brand Kamu</h3>
-<p style="color:rgba(255,255,255,0.85);font-size:16px;max-width:600px;margin:0 auto 28px auto">Tahu tren aromanya adalah langkah awal — meraciknya jadi formula yang benar-benar sesuai karakter brand kamu adalah langkah berikutnya. Kamu bisa mulai dengan konsultasi gratis bersama tim Dreamlab maklon kosmetik untuk konsep parfum dan dapatkan sampelnya.</p>
-<a href="/thankyou/google/" style="display:inline-block;background:#D98A00;color:#ffffff;padding:16px 40px;border-radius:50px;font-weight:800;font-size:18px;text-decoration:none;box-shadow:0 8px 24px rgba(217,138,0,0.35);transition:all 0.3s ease">Konsultasi Gratis Sekarang</a>
-<p style="color:rgba(255,255,255,0.65);font-size:13px;margin-top:16px">Diskusikan HPP, formula, dan strategi brand parfum-mu tanpa komitmen awal.</p>
+<div class="article-cta">
+<h3>Konsultasikan Konsep Aroma Parfum Brand Kamu</h3>
+<p>Tahu tren aromanya adalah langkah awal — meraciknya jadi formula yang benar-benar sesuai karakter brand kamu adalah langkah berikutnya. Kamu bisa mulai dengan konsultasi gratis bersama tim Dreamlab maklon kosmetik untuk konsep parfum dan dapatkan sampelnya.</p>
+<a href="/thankyou/google/" class="cta-button">Konsultasi Gratis Sekarang</a>
 </div>`;
 
 html += '\n\t\t\t\t</div>';

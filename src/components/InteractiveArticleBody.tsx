@@ -212,13 +212,21 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         el.querySelectorAll('div').forEach(d => {
           if (!d.textContent?.trim()) d.remove();
         });
-        el.querySelectorAll('h3, p').forEach(p => p.removeAttribute('style'));
+        el.querySelectorAll('h3, h2, p').forEach(e => {
+          e.removeAttribute('style');
+        });
         const btn = el.querySelector('a[href*="thankyou"]');
         if (btn) {
           btn.className = 'cta-button';
           btn.removeAttribute('style');
           btn.setAttribute('href', THANKYOU_URL);
         }
+        const otherLinks = el.querySelectorAll('a:not([href*="thankyou"])');
+        otherLinks.forEach(a => {
+          a.classList.add('cta-button');
+          a.removeAttribute('style');
+          a.setAttribute('href', THANKYOU_URL);
+        });
       });
 
       // 5. Style FAQ details as accordion cards via CSS class

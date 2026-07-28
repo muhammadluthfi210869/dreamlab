@@ -28,10 +28,10 @@ const content = esc(`<div class="elementor-element elementor-element-4cdeffb8 el
 <p>Tahu tren aromanya saja belum cukup — hasil akhirnya tetap bergantung pada seberapa presisi formula itu diterjemahkan sesuai target market dan positioning brand kamu. Di sinilah peran Dreamlab maklon kosmetik: membantu menentukan konsep parfum berdasarkan market insight, target konsumen, hingga positioning brand, bukan cuma sekadar mencampur notes yang lagi tren.</p>
 <p>Lewat filosofi <strong>Juaranya Formula</strong> dan pendekatan <strong>1 Klien 1 Formula</strong>, setiap brand mendapat racikan notes yang disesuaikan dengan karakter brand-nya sendiri — bukan formula generik yang dipakai berulang ke banyak klien. Ditambah legalitas lengkap (BPOM RI, Halal MUI, HKI), parfum yang kamu kembangkan bukan cuma wangi sesuai tren, tapi juga siap dijual secara resmi.</p>
 <p>Baca juga: <a href="https://dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon/" style="color:#4a6fa5" target="_blank">biaya maklon parfum MOQ kecil</a> untuk estimasi budget, dan <a href="https://dreamlab.id/rekomendasi-maklon-kosmetik-terbaik-dreamlab/" style="color:#4a6fa5" target="_blank">rekomendasi maklon kosmetik terbaik</a> untuk referensi partner produksi.</p>
-<div style="text-align:center;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:48px 24px;border-radius:20px;margin:48px 0;box-shadow:0 12px 40px rgba(0,0,0,0.15)">
-<h3 style="color:#fff;font-size:26px;font-weight:800;margin:0 0 12px 0">Konsultasikan Konsep Aroma Parfum Brand Kamu</h3>
-<p style="color:#a0aec0;font-size:15px;margin:0 auto 24px auto;max-width:500px;line-height:1.6">Tahu tren aromanya adalah langkah awal — meraciknya jadi formula yang benar-benar sesuai karakter brand kamu adalah langkah berikutnya. Kamu bisa mulai dengan konsultasi gratis bersama tim Dreamlab maklon kosmetik untuk konsep parfum dan dapatkan sampelnya.</p>
-<a href="/thankyou/google/" style="display:inline-block;background:#D98A00;color:#fff;padding:16px 40px;border-radius:50px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 8px 24px rgba(217,138,0,0.35);transition:all 0.3s ease">Konsultasi Gratis Sekarang</a>
+<div class="article-cta">
+<h3>Konsultasikan Konsep Aroma Parfum Brand Kamu</h3>
+<p>Tahu tren aromanya adalah langkah awal — meraciknya jadi formula yang benar-benar sesuai karakter brand kamu adalah langkah berikutnya. Kamu bisa mulai dengan konsultasi gratis bersama tim Dreamlab maklon kosmetik untuk konsep parfum dan dapatkan sampelnya.</p>
+<a href="/thankyou/google/" class="cta-button">Konsultasi Gratis Sekarang</a>
 </div>
 <h2 id="pertanyaan-yang-sering-diajukan">Pertanyaan yang Sering Diajukan</h2>
 <details>
