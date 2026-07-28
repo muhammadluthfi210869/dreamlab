@@ -48,7 +48,8 @@ function convertInlineCtaToClass(raw: string): string {
     const tag = raw.slice(openIdx, tagEnd + 1);
     if (/style="[^"]*1a1a2e/i.test(tag)) {
       out.push(raw.slice(i, openIdx));
-      out.push('<div class="article-cta">');
+      // ADD class="article-cta" while keeping inline style for client-side step 2b2 detection
+      out.push(tag.replace('<div', '<div class="article-cta"'));
       const contentStart = tagEnd + 1;
       let depth = 1;
       let pos = contentStart;
