@@ -135,6 +135,22 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(canonicalUrl, 301);
   }
 
+  // 301 redirect legacy /produk/decorative/ URLs (old make-up subcategories) → /produk/decorative/make-up/
+  const DECORATIVE_REDIRECTS: Record<string, string> = {
+    '/produk/decorative/foundation': '/produk/decorative/make-up/',
+    '/produk/decorative/foundation/': '/produk/decorative/make-up/',
+    '/produk/decorative/face-primer': '/produk/decorative/make-up/',
+    '/produk/decorative/face-primer/': '/produk/decorative/make-up/',
+    '/produk/decorative/bb-cream': '/produk/decorative/make-up/',
+    '/produk/decorative/bb-cream/': '/produk/decorative/make-up/',
+  };
+  const decorativeRedirect = DECORATIVE_REDIRECTS[pathname];
+  if (decorativeRedirect) {
+    const canonicalUrl = new URL(nextUrl.toString());
+    canonicalUrl.pathname = decorativeRedirect;
+    return NextResponse.redirect(canonicalUrl, 301);
+  }
+
   return NextResponse.next();
 }
 
