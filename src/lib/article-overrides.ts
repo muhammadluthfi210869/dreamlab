@@ -303,6 +303,28 @@ const articleOverrides: Record<string, ArticleOverride> = {
       }
     ]
   },
+  '/jasa-maklon-kosmetik-di-jember': {
+    excerpt: 'Mau bikin brand kosmetik dari Jember? Dreamlab maklon kosmetik bantu dari riset formula, BPOM, sampai produk jadi. Konsultasi gratis sekarang.',
+    content: '',
+    faqs: [
+      {
+        question: 'Untuk langkah awal, apa yang harus dilakukan?',
+        answer: 'Mulai dari konsultasi gratis. Sampaikan ide brand, target pasar, dan budget ke tim Dreamlab.'
+      },
+      {
+        question: 'Berapa lama proses pembuatan sample?',
+        answer: 'Sekitar 90 hari atau 3 bulan, mencakup riset formula, sampel, revisi, sampai disetujui.'
+      },
+      {
+        question: 'Berapa biaya untuk membuat sample di Dreamlab?',
+        answer: 'Tergantung formulasi, kemasan, dan MOQ. Detail biaya baru dihitung setelah konsultasi.'
+      },
+      {
+        question: 'Berapa MOQ di Dreamlab?',
+        answer: 'Fleksibel, bisa mulai dari volume kecil untuk uji pasar dan naik bertahap sesuai repeat order.'
+      }
+    ]
+  },
 };
 
 export function getArticleOverride(slug: string): ArticleOverride | null {
