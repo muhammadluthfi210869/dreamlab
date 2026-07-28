@@ -49,7 +49,7 @@ export default function WhyChooseUsV2() {
             Mengapa Brand Besar Memilih <span className="italic text-gray-400">Dreamlab?</span>
           </h2>
           
-          <p className="text-sm text-gray-500 font-poppins leading-relaxed max-w-sm mb-12">
+          <p className="text-sm text-gray-500 font-onest leading-relaxed max-w-sm mb-12">
             Kami bukan sekadar pabrik. Kami adalah akselerator bisnis parfum Anda, menggabungkan seni penciuman dengan presisi manufaktur kelas dunia.
           </p>
 
@@ -96,7 +96,7 @@ export default function WhyChooseUsV2() {
                 <h3 className="text-lg font-black text-[#212120] mb-3 tracking-tight">
                   {feature.title}
                 </h3>
-                <p className="text-xs text-gray-400 font-poppins leading-relaxed max-w-[200px]">
+                <p className="text-xs text-gray-400 font-onest leading-relaxed max-w-[200px]">
                   {feature.description}
                 </p>
                 

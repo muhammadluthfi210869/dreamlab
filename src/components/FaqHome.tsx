@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   ChevronDown, 
   HelpCircle 
 } from "lucide-react";
 
-// Elite Custom Easing Curve (Apple / Tom Ford Premium Ease-Out)
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
 export default function FaqHome() {
@@ -78,46 +77,29 @@ export default function FaqHome() {
                       </h4>
                     </div>
 
-                    {/* Hardware-Accelerated Chevron circle indicator */}
-                    <motion.div 
-                      animate={{ 
-                        rotate: isOpen ? 180 : 0,
-                        scale: isOpen ? 1.05 : 1,
-                        borderColor: isOpen ? "rgba(246, 145, 30, 0.3)" : "rgba(229, 229, 229, 1)",
-                        backgroundColor: isOpen ? "rgba(246, 145, 30, 0.05)" : "rgba(250, 250, 250, 1)",
-                        color: isOpen ? "#F6911E" : "#A3A3A3"
-                      }}
-                      transition={{ duration: 0.4, ease: premiumEase }}
-                      className="size-8 rounded-full border flex items-center justify-center flex-shrink-0 shadow-inner group-hover:border-brand-orange/40 group-hover:text-brand-orange"
+                    <div 
+                      className={`size-8 rounded-full border flex items-center justify-center flex-shrink-0 shadow-inner transition-all duration-300 group-hover:border-brand-orange/40 group-hover:text-brand-orange ${
+                        isOpen 
+                          ? "rotate-180 scale-105 border-brand-orange/30 bg-brand-orange/5 text-brand-orange" 
+                          : "border-neutral-200 bg-neutral-50 text-neutral-400"
+                      }`}
                     >
                       <ChevronDown className="size-4" />
-                    </motion.div>
+                    </div>
                   </button>
 
-                  {/* Body Collapsible */}
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.45, ease: premiumEase }}
-                        className="overflow-hidden"
-                      >
-                        {/* Gliding dissolve answer panel */}
-                        <motion.div 
-                          initial={{ y: -8, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.4, delay: 0.05, ease: premiumEase }}
-                          className="pl-9 pt-4 pb-2 text-xs md:text-sm text-neutral-500 leading-relaxed font-normal max-w-[95%]"
-                        >
-                          {/* Sleek separator line */}
-                          <div className="w-8 h-[2px] bg-brand-orange/20 mb-4 rounded-full" />
-                          {item.answer}
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <div
+                    className={`grid transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="pl-9 pt-4 pb-2 text-xs md:text-sm text-neutral-500 leading-relaxed font-normal max-w-[95%]">
+                        <div className="w-8 h-[2px] bg-brand-orange/20 mb-4 rounded-full" />
+                        {item.answer}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}

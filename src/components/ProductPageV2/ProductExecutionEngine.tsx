@@ -24,7 +24,7 @@ export default function ProductExecutionEngine() {
               {points.map((point, i) => (
                 <div key={i} className="space-y-3">
                   <h4 className="font-onest text-sm lg:text-base font-black text-[#212120] uppercase tracking-tight">{point.title}</h4>
-                  <p className="font-poppins text-xs lg:text-sm text-[#212120]/60 leading-relaxed">{point.desc}</p>
+                  <p className="font-onest text-xs lg:text-sm text-[#212120]/60 leading-relaxed">{point.desc}</p>
                 </div>
               ))}
             </div>

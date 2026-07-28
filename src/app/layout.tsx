@@ -1,4 +1,4 @@
-import { Viga, Onest, Poppins } from "next/font/google";
+import { Viga, Onest } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -19,12 +19,6 @@ const onest = Onest({
   subsets: ["latin"],
   variable: "--font-onest",
   weight: ["400", "600", "700"],
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -58,18 +52,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${viga.variable} ${onest.variable} ${poppins.variable}`}>
+    <html lang="id" className={`${viga.variable} ${onest.variable}`}>
       <body className="font-sans antialiased text-brand-black selection:bg-brand-orange selection:text-white">
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preload" href="/new%20asset/background-visual-hero-section/home-page.webp" as="image" fetchPriority="high" imageSrcSet="/new%20asset/background-visual-hero-section/home-page.webp 1920w" imageSizes="100vw" />
         <SpeculationRules />
         <OrganizationSchema />
         <TrackingScripts />
 
         {/* TikTok Pixel */}
-        <Script id="tiktok-pixel" strategy="afterInteractive">
+        <Script id="tiktok-pixel" strategy="lazyOnload">
           {`!function (w, d, t) {
             w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
             ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};

@@ -102,7 +102,7 @@ export default function ProductGrid() {
                   </h3>
                   
                   {/* The UVP Sentence */}
-                  <p className="text-[10px] lg:text-[11px] font-poppins text-[#212120]/60 leading-relaxed max-w-[90%]">
+                  <p className="text-[10px] lg:text-[11px] font-onest text-[#212120]/60 leading-relaxed max-w-[90%]">
                     {product.uvp.split(product.highlight)[0]}
                     <span className="font-black text-brand-orange">{product.highlight}</span>
                     {product.uvp.split(product.highlight)[1]}

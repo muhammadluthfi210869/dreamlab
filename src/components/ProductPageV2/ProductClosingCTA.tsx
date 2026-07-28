@@ -12,7 +12,7 @@ export default function ProductClosingCTA() {
           <h2 className="font-display text-[38px] md:text-[52px] lg:text-[80px] font-normal text-white uppercase tracking-tight leading-[1.05]">
             Waktunya Menguji <br /><span className="text-brand-orange">Visi Anda.</span>
           </h2>
-          <p className="font-poppins text-lg lg:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-onest text-lg lg:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
             Jadwalkan pembuatan sampel (prototipe) untuk Anda tes dan evaluasi secara personal sebelum melangkah ke tahap produksi massal.
           </p>
           <Link href="/thankyou/google/" className="inline-block bg-brand-orange text-white font-bold py-6 px-16 rounded-2xl shadow-xl hover:-translate-y-2 transition-all">

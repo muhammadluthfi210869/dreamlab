@@ -23,14 +23,14 @@ export default function ProductMarketPotential() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
             <div className="group space-y-8 p-10 bg-[#FDFDFC] rounded-[2.5rem] border border-gray-100 transition-all duration-700 hover:shadow-[0_30px_70px_rgba(246,145,30,0.1)] hover:-translate-y-2">
               <h3 className="font-onest text-2xl lg:text-3xl font-black text-[#212120] uppercase tracking-tight">Permintaan Pasar <br />Tertinggi</h3>
-              <p className="font-poppins text-base lg:text-lg text-[#212120]/70 leading-relaxed">
+              <p className="font-onest text-base lg:text-lg text-[#212120]/70 leading-relaxed">
                 Konsumen modern mencari parfum yang tahan seharian untuk bekerja, menjadikan EDP sebagai kategori dengan perputaran penjualan tertinggi.
               </p>
               <div className="w-12 h-[2px] bg-brand-orange/20 group-hover:w-full group-hover:bg-brand-orange transition-all duration-700" />
             </div>
             <div className="group space-y-8 p-10 bg-[#FDFDFC] rounded-[2.5rem] border border-gray-100 transition-all duration-700 hover:shadow-[0_30px_70px_rgba(246,145,30,0.1)] hover:-translate-y-2">
               <h3 className="font-onest text-2xl lg:text-3xl font-black text-[#212120] uppercase tracking-tight">Titik Margin <br />Paling Optimal</h3>
-              <p className="font-poppins text-base lg:text-lg text-[#212120]/70 leading-relaxed">
+              <p className="font-onest text-base lg:text-lg text-[#212120]/70 leading-relaxed">
                 Biaya produksi yang terukur memberikan Anda fleksibilitas untuk masuk ke rentang harga jual menengah hingga premium dengan margin yang tebal.
               </p>
               <div className="w-12 h-[2px] bg-brand-orange/20 group-hover:w-full group-hover:bg-brand-orange transition-all duration-700" />
