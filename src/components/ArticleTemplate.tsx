@@ -35,6 +35,55 @@ interface ArticleTemplateProps {
   faqs?: { question: string; answer: string }[];
 }
 
+/** Convert inline-styled #1a1a2e gradient CTAs to shared .article-cta class at SSR time.
+ *  Handles both flat CTAs and ones with nested decorative divs (depth-counting). */
+function convertInlineCtaToClass(raw: string): string {
+  const out: string[] = [];
+  let i = 0;
+  while (i < raw.length) {
+    const openIdx = raw.indexOf('<div', i);
+    if (openIdx === -1) { out.push(raw.slice(i)); break; }
+    const tagEnd = raw.indexOf('>', openIdx);
+    if (tagEnd === -1) { out.push(raw.slice(i)); break; }
+    const tag = raw.slice(openIdx, tagEnd + 1);
+    if (/style="[^"]*1a1a2e/i.test(tag)) {
+      out.push(raw.slice(i, openIdx));
+      out.push('<div class="article-cta">');
+      const contentStart = tagEnd + 1;
+      let depth = 1;
+      let pos = contentStart;
+      while (depth > 0 && pos < raw.length) {
+        const nextOpen = raw.indexOf('<div', pos);
+        const nextClose = raw.indexOf('</div>', pos);
+        if (nextClose === -1) break;
+        if (nextOpen !== -1 && nextOpen < nextClose) {
+          depth++;
+          pos = nextOpen + 5;
+        } else {
+          depth--;
+          if (depth === 0) {
+            let inner = raw.slice(contentStart, nextClose)
+              .replace(/ style="[^"]*"/gi, '')
+              .replace(/<div\s*><\/div>/gi, '')
+              .replace(/<div style="position:absolute[^"]*"[^>]*><\/div>/gi, '')
+              .replace(/<a\s+href=/gi, '<a class="cta-button" href=');
+            out.push(inner);
+            out.push('</div>');
+            pos = nextClose + 6;
+            break;
+          }
+          pos = nextClose + 6;
+        }
+      }
+      i = pos;
+    } else {
+      out.push(raw.slice(i, openIdx + 1));
+      i = openIdx + 1;
+    }
+  }
+  return out.join('');
+}
+
 const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [], faqs = [] }) => {
   const [copied, setCopied] = useState(false);
 
@@ -138,7 +187,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               <div className="bg-white border border-neutral-200/50 p-6 md:p-10 lg:p-12 rounded-[28px] text-brand-black shadow-sm font-sans text-base leading-relaxed max-w-4xl mx-auto xl:max-w-none">
                 <InteractiveArticleBody
                   htmlContent={
-                    article.content
+                    convertInlineCtaToClass(article.content)
                       .replace(/https?:\/\/dreamlab\.id\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
                       .replace(/\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
                       .replace(/bv-data-src=/gi, 'data-src=')
