@@ -84,12 +84,14 @@ export default function ServicesPageHero({ description }: ServicesPageHeroProps)
               {/* Vira Portrait Image inside premium circular frame */}
               <div className="absolute inset-0 z-10 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                 <Image
-                  src="/new asset/people/Busdev-dreamlab.png"
+                  src="/new asset/people/vira.webp"
                   alt="Vira - Dreamlab Team"
                   title={getImageTitle("/new%20asset/people/vira.webp")}
                   fill
                   className="object-cover hover:scale-[1.02] transition-transform duration-500"
                   priority
+                  fetchPriority="high"
+                  decoding="sync"
                   sizes="(max-width: 768px) 240px, (max-width: 1024px) 320px, 380px"
                 />
               </div>

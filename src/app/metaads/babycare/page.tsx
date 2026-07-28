@@ -56,6 +56,8 @@ export default function BabyCareMetaAdsLP() {
           alt="Maklon Baby Care Premium"
           fill
           priority
+          fetchPriority="high"
+          decoding="sync"
           className="object-cover object-center"
           sizes="100vw"
         />

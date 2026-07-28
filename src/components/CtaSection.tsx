@@ -32,7 +32,6 @@ export default function CtaSection({
           alt="Dreamlab Cosmetics Showcase"
           title={getImageTitle("/new asset/new-icon-packing-design/sampul-web-2.webp")}
           fill
-          unoptimized={true}
           priority={true}
           className="object-cover object-[78%_center] sm:object-[82%_center] md:object-[86%_center] lg:object-[88%_center] xl:object-[92%_center]"
         />

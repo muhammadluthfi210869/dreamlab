@@ -55,6 +55,8 @@ export default function DeodorantMetaAdsLP() {
           alt="Maklon Deodorant Custom Formula"
           fill
           priority
+          fetchPriority="high"
+          decoding="sync"
           className="object-cover object-center scale-110"
           sizes="100vw"
         />

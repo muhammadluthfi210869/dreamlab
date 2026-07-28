@@ -25,6 +25,8 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
           title="Jasa Maklon Kosmetik BPOM Halal — Dreamlab Indonesia"
           fill
           priority
+          fetchPriority="high"
+          decoding="sync"
           className="object-cover"
           sizes="100vw"
         />
