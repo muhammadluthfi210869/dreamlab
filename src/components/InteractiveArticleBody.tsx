@@ -43,7 +43,8 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       // 1b. Strip manual ToCs (Daftar Isi / Ringkasan Isi) — avoid duplicates with auto ToC
       const manualTocs = doc.querySelectorAll('nav, .article-daftar-isi, .table-of-content, [class*="daftar-isi"]');
       manualTocs.forEach(el => {
-        if (el.textContent?.includes('Daftar Isi') || el.textContent?.includes('Ringkasan Isi')) {
+        const text = el.textContent?.toLowerCase() || '';
+        if (text.includes('daftar isi') || text.includes('ringkasan isi')) {
           el.remove();
         }
       });
