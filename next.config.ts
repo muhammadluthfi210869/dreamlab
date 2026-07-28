@@ -239,18 +239,18 @@ const nextConfig: NextConfig = {
     // - /news-blog/page/[num]/  → src/app/news-blog/page/[num]/page.tsx
     // These should NOT be redirected to preserve content and SEO equity.
 
-    // 4. Category → Silo redirects: Old WordPress category pages redirect to new silo pages
+    // 4. Category → Silo redirects: Old WordPress category pages redirect to /produk/[category]/
     // These preserve SEO equity from the old site structure
     const categoryToSiloRedirects: Array<[string, string]> = [
-      ['/skincare-face-care', '/maklon-skincare/'],
-      ['/body-care', '/maklon-body-care/'],
-      ['/baby-care', '/maklon-baby-care/'],
-      ['/foot-care', '/maklon-foot-care/'],
-      ['/hair-care', '/ads/maklon-hair-care/'],
-      ['/parfum', '/ads/maklon-parfum/'],
-      ['/maklon-haircare', '/ads/maklon-hair-care/'],
-      ['/decorative', '/maklon-decorative/'],
-      ['/pkrt', '/maklon-pkrt/'],
+      ['/skincare-face-care', '/produk/skincare/'],
+      ['/body-care', '/produk/bodycare/'],
+      ['/baby-care', '/produk/babycare/'],
+      ['/foot-care', '/produk/footcare/'],
+      ['/hair-care', '/produk/haircare/'],
+      ['/parfum', '/produk/parfum/'],
+      ['/maklon-haircare', '/produk/haircare/'],
+      ['/decorative', '/produk/decorative/'],
+      ['/pkrt', '/produk/pkrt/'],
       ['/product', '/services/'],
     ];
 

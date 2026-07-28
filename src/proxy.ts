@@ -151,6 +151,44 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(canonicalUrl, 301);
   }
 
+  // 301 redirect legacy WordPress-to-Next.js migration paths → /produk/[category]/
+  const LEGACY_PATH_REDIRECTS: Record<string, string> = {
+    '/skincare-face-care': '/produk/skincare/',
+    '/skincare-face-care/': '/produk/skincare/',
+    '/body-care': '/produk/bodycare/',
+    '/body-care/': '/produk/bodycare/',
+    '/baby-care': '/produk/babycare/',
+    '/baby-care/': '/produk/babycare/',
+    '/foot-care': '/produk/footcare/',
+    '/foot-care/': '/produk/footcare/',
+    '/hair-care': '/produk/haircare/',
+    '/hair-care/': '/produk/haircare/',
+    '/parfum': '/produk/parfum/',
+    '/parfum/': '/produk/parfum/',
+    '/decorative': '/produk/decorative/',
+    '/decorative/': '/produk/decorative/',
+    '/pkrt': '/produk/pkrt/',
+    '/pkrt/': '/produk/pkrt/',
+    '/pabrik-kosmetik': '/produk/skincare/',
+    '/pabrik-kosmetik/': '/produk/skincare/',
+    '/pabrik-parfum': '/produk/parfum/',
+    '/pabrik-parfum/': '/produk/parfum/',
+    '/maklon-baby-care': '/produk/babycare/',
+    '/maklon-baby-care/': '/produk/babycare/',
+    '/maklon-body-care': '/produk/bodycare/',
+    '/maklon-body-care/': '/produk/bodycare/',
+    '/maklon-decorative': '/produk/decorative/',
+    '/maklon-decorative/': '/produk/decorative/',
+    '/maklon-foot-care': '/produk/footcare/',
+    '/maklon-foot-care/': '/produk/footcare/',
+  };
+  const legacyRedirect = LEGACY_PATH_REDIRECTS[pathname];
+  if (legacyRedirect) {
+    const canonicalUrl = new URL(nextUrl.toString());
+    canonicalUrl.pathname = legacyRedirect;
+    return NextResponse.redirect(canonicalUrl, 301);
+  }
+
   return NextResponse.next();
 }
 

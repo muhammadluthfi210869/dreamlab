@@ -105,7 +105,6 @@ export const pilotBatch1Routes = [
   '/panduan/cara-menentukan-moq-produk-kosmetik',
   '/biaya-maklon-skincare',
   '/moq-maklon-kosmetik',
-  '/pabrik-kosmetik',
 ] as const;
 
 export const komponenBiayaMaklonSkincare: PilotPageData = {
@@ -1041,7 +1040,7 @@ export const pabrikKosmetikMoneyPage: PilotPageData = {
   relatedLinks: [
     {
       label: 'Pabrik Parfum',
-      href: '/pabrik-parfum',
+      href: '/produk/parfum/',
       description: 'Pabrik parfum dengan layanan custom aroma dan produksi EDP, body mist, roll on.',
       intent: 'primary',
     },

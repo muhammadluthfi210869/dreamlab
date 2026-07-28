@@ -1,7 +1,6 @@
 import type { PilotPageData } from './batch-1';
 
 export const pilotBatch2Routes = [
-  '/pabrik-parfum',
   '/jasa-maklon-kosmetik',
   '/private-label-kosmetik',
   '/estimasi-biaya-maklon-kosmetik',
@@ -200,7 +199,7 @@ export const pabrikParfumMoneyPage: PilotPageData = {
   relatedLinks: [
     {
       label: 'Pabrik Kosmetik',
-      href: '/pabrik-kosmetik',
+      href: '/produk/skincare/',
       description: 'Pabrik kosmetik CPKB Grade A untuk produksi skincare, bodycare, dan haircare brand Anda.',
       intent: 'primary',
     },
@@ -425,13 +424,13 @@ export const jasaMaklonKosmetikMoneyPage: PilotPageData = {
   relatedLinks: [
     {
       label: 'Pabrik Kosmetik',
-      href: '/pabrik-kosmetik',
+      href: '/produk/skincare/',
       description: 'Informasi fasilitas dan sertifikasi pabrik kosmetik CPKB Grade A Dreamlab.',
       intent: 'primary',
     },
     {
       label: 'Pabrik Parfum',
-      href: '/pabrik-parfum',
+      href: '/produk/parfum/',
       description: 'Layanan produksi parfum EDP, body mist, roll on dengan custom aroma.',
       intent: 'primary',
     },
@@ -653,13 +652,13 @@ export const privateLabelKosmetikMoneyPage: PilotPageData = {
     },
     {
       label: 'Pabrik Kosmetik',
-      href: '/pabrik-kosmetik',
+      href: '/produk/skincare/',
       description: 'Informasi fasilitas dan sertifikasi pabrik kosmetik CPKB Grade A.',
       intent: 'primary',
     },
     {
       label: 'Pabrik Parfum',
-      href: '/pabrik-parfum',
+      href: '/produk/parfum/',
       description: 'Pabrik parfum dengan layanan custom aroma dan produksi EDP, body mist.',
       intent: 'secondary',
     },
@@ -874,13 +873,13 @@ export const estimasiBiayaMaklonMoneyPage: PilotPageData = {
   relatedLinks: [
     {
       label: 'Pabrik Kosmetik',
-      href: '/pabrik-kosmetik',
+      href: '/produk/skincare/',
       description: 'Info fasilitas dan sertifikasi pabrik kosmetik CPKB Grade A Dreamlab.',
       intent: 'primary',
     },
     {
       label: 'Pabrik Parfum',
-      href: '/pabrik-parfum',
+      href: '/produk/parfum/',
       description: 'Pabrik parfum dengan layanan custom aroma dan produksi berbagai format.',
       intent: 'primary',
     },

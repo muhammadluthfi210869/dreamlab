@@ -49,13 +49,13 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-8 text-brand-orange">Cosmetics We Can Make</h3>
             <ul className="space-y-3 text-sm text-gray-300">
               {[
-                { name: "Maklon Skincare", link: "/pabrik-kosmetik" },
-                { name: "Maklon Baby Care", link: "/maklon-baby-care" },
-                { name: "Maklon Body Care", link: "/maklon-body-care" },
-                { name: "Maklon Hair Care", link: "/produk/haircare" },
-                { name: "Maklon Parfum", link: "/pabrik-parfum" },
-                { name: "Maklon Decorative", link: "/maklon-decorative" },
-                { name: "Maklon Foot Care", link: "/maklon-foot-care" }
+                { name: "Maklon Skincare", link: "/produk/skincare/" },
+                { name: "Maklon Baby Care", link: "/produk/babycare/" },
+                { name: "Maklon Body Care", link: "/produk/bodycare/" },
+                { name: "Maklon Hair Care", link: "/produk/haircare/" },
+                { name: "Maklon Parfum", link: "/produk/parfum/" },
+                { name: "Maklon Decorative", link: "/produk/decorative/" },
+                { name: "Maklon Foot Care", link: "/produk/footcare/" }
               ].map((item, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
                   <span className="text-gray-500 group-hover:text-brand-orange transition-colors">›</span>
@@ -89,8 +89,8 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-8 text-brand-orange">Interesting Link</h3>
             <ul className="space-y-3 text-sm text-gray-300">
               {[
-                { name: "Pabrik Kosmetik", link: "/pabrik-kosmetik" },
-                { name: "Pabrik Parfum", link: "/pabrik-parfum" },
+                { name: "Pabrik Kosmetik", link: "/produk/skincare/" },
+                { name: "Pabrik Parfum", link: "/produk/parfum/" },
                 { name: "Jasa Maklon Kosmetik", link: "/jasa-maklon-kosmetik" },
                 { name: "Private Label", link: "/private-label-kosmetik" },
                 { name: "Estimasi Biaya Maklon", link: "/estimasi-biaya-maklon-kosmetik" },
