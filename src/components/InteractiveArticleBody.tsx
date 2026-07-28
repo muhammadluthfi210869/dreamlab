@@ -96,6 +96,38 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         firstH2.parentNode?.insertBefore(tocNav, firstH2);
       }
 
+      // 2b2. Convert inline-styled navy gradient CTAs to shared .article-cta class
+      // Must run before auto-CTA check to avoid duplicates + ensure CSS centering
+      const inlineCtas = doc.querySelectorAll('div[style*="1a1a2e"]');
+      inlineCtas.forEach(el => {
+        const btn = el.querySelector('a');
+        if (!btn) return;
+        const textParts: string[] = [];
+        const h3El = el.querySelector('h3');
+        if (h3El) {
+          const txt = h3El.textContent?.trim();
+          if (txt) textParts.push(txt);
+        }
+        el.querySelectorAll('p').forEach(p => {
+          const txt = p.textContent?.trim();
+          if (txt) textParts.push(txt);
+        });
+        const cta = doc.createElement('div');
+        cta.className = 'article-cta';
+        const title = doc.createElement('h3');
+        title.textContent = textParts[0] || 'Konsultasi Gratis dengan Dreamlab';
+        cta.appendChild(title);
+        const body = doc.createElement('p');
+        body.textContent = textParts.slice(1).join(' ') || 'Diskusikan konsep produk bersama tim Dreamlab.';
+        cta.appendChild(body);
+        const a = doc.createElement('a');
+        a.href = btn.getAttribute('href') || THANKYOU_URL;
+        a.className = 'cta-button';
+        a.textContent = btn.textContent?.trim() || 'Konsultasi Gratis Sekarang';
+        cta.appendChild(a);
+        el.parentNode?.replaceChild(cta, el);
+      });
+
       // 2c. Insert auto CTA right after ToC (or before first H2 if no ToC),
       // but only if article doesn't already have an in-content CTA
       const existingCta = doc.querySelector('.article-cta');
