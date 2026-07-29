@@ -1,25 +1,36 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { MessageCircle } from "lucide-react";
+import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
 
 export default function FloatingWhatsApp() {
-  const handleClick = useCallback(() => {
-    const pageTitle = document.title || "Dreamlab";
-    const pageUrl = window.location.href;
+  const [loading, setLoading] = useState(false);
 
-    let context = "produk kosmetik";
-    if (pageUrl.includes("/maklon/")) context = "jasa maklon";
-    else if (pageUrl.includes("/produk/skincare")) context = "produk skincare";
-    else if (pageUrl.includes("/produk/parfum")) context = "produk parfum";
-    else if (pageUrl.includes("/about-us")) context = "profil perusahaan";
+  const handleClick = useCallback(async () => {
+    if (loading) return;
+    setLoading(true);
 
-    const message = encodeURIComponent(
-      `Halo Dreamlab! Saya ingin tahu lebih lanjut tentang ${context}. Bisa dibantu?`
-    );
+    try {
+      const agent = await getNextRoundRobinAgent();
+      const trackData: any = {
+        intent: document.title || "produk kosmetik",
+        pageUrl: window.location.href,
+        pageTitle: document.title || "",
+        referrer: document.referrer || undefined,
+      };
 
-    window.open(`https://wa.me/6285179450990?text=${message}`, "_blank");
-  }, []);
+      const { trackingCode } = await trackLead(trackData);
+      const text = encodeURIComponent(`Halo ${agent.name}! Saya tertarik dengan produk kosmetik. [${trackingCode}]`);
+
+      window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
+    } catch (err) {
+      console.error("RR failed, fallback:", err);
+      window.open("https://wa.me/6285179450990?text=Halo%20Dreamlab!", "_blank");
+    } finally {
+      setLoading(false);
+    }
+  }, [loading]);
 
   return (
     <div className="fixed bottom-8 right-8 z-50 wa-float">

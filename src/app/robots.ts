@@ -24,6 +24,8 @@ export default function robots(): MetadataRoute.Robots {
         '/blog/',
         '/feed/',
         '/pages/',
+        // Thankyou pages are for lead tracking — disallow Google from indexing
+        // NOTE: NOT in proxy.ts GONE_PATTERNS (they must return 200 for JS tracking)
         '/thankyou/',
         '/thankyou-page',
         '/thankyoupage-google',
@@ -35,8 +37,6 @@ export default function robots(): MetadataRoute.Robots {
         '/author/admin/',
         '/e-floating-buttons/',
         '/.help/dhl/',
-        // Additional dead patterns (410 via proxy.ts)
-        '/landing/',
         // Legacy thin product categories (return 410 via proxy.ts)
         '/produk/pkrt/',
         '/produk/footcare/',

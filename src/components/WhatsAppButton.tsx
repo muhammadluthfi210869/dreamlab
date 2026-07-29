@@ -1,38 +1,57 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
 
 /**
- * Global floating WhatsApp button with page-aware pre-fill message.
- * Extracts page context (title, category) to personalize the WhatsApp message,
- * increasing lead conversion rate vs generic messages.
- * FIXED: Previously linked to /thankyou/google/ which returned 410 (dead page).
+ * Global floating WhatsApp button with round-robin agent assignment + lead tracking.
+ * Uses page-aware context to personalize the tracking data.
  */
 export default function WhatsAppButton() {
-  const handleClick = useCallback(() => {
-    const pageTitle = document.title || "Dreamlab Maklon Kosmetik";
-    const pageUrl = window.location.href;
+  const [loading, setLoading] = useState(false);
 
-    // Extract service/category from URL for contextual messaging
-    let context = "produk Dreamlab";
-    if (pageUrl.includes("/maklon/")) context = "jasa maklon kosmetik";
-    else if (pageUrl.includes("/produk/")) context = "produk kosmetik";
-    else if (pageUrl.includes("/category/")) context = "informasi maklon";
-    else if (pageUrl.includes("/about-us")) context = "profil perusahaan";
-    else if (pageUrl.includes("/services")) context = "layanan maklon";
+  const handleClick = useCallback(async () => {
+    if (loading) return;
+    setLoading(true);
 
-    const message = encodeURIComponent(
-      `Halo Dreamlab! Saya tertarik dengan ${context}. Bisa konsultasi? (${pageTitle})`
-    );
+    try {
+      const agent = await getNextRoundRobinAgent();
+      const pageUrl = window.location.href;
+      const pageTitle = document.title;
 
-    window.open(`https://wa.me/6285179450990?text=${message}`, "_blank");
-  }, []);
+      const trackData: any = {
+        intent: pageTitle || "produk Dreamlab",
+        pageUrl,
+        pageTitle: pageTitle || "",
+        referrer: document.referrer || undefined,
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const us = params.get("utm_source");
+      const um = params.get("utm_medium");
+      const uc = params.get("utm_campaign");
+      if (us) trackData.utmSource = us;
+      if (um) trackData.utmMedium = um;
+      if (uc) trackData.utmCampaign = uc;
+
+      const { trackingCode } = await trackLead(trackData);
+      const text = encodeURIComponent(`Halo ${agent.name}! Saya tertarik dengan produk Dreamlab. [${trackingCode}]`);
+
+      window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
+    } catch (err) {
+      console.error("RR failed, fallback:", err);
+      window.open("https://wa.me/6285179450990?text=Halo%20Dreamlab!", "_blank");
+    } finally {
+      setLoading(false);
+    }
+  }, [loading]);
 
   return (
     <button
       onClick={handleClick}
+      disabled={loading}
       className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300 flex items-center justify-center group cursor-pointer border-0"
-      aria-label="Contact via WhatsApp"
+      aria-label="Konsultasi Gratis via WhatsApp"
     >
       <svg
         viewBox="0 0 24 24"
