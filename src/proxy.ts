@@ -23,6 +23,10 @@ const GONE_PATTERNS = [
   // Dead thankyou/landing pages — no SEO value, 0 clicks
   '/thankyou-page',
   '/thankyoupage-google',
+  // Legacy thankyou/landing patterns (already in robots.txt + seo-url-policy noindex)
+  '/thankyou/',
+  '/thankyou-medsos/',
+  '/landing/',
   // Floating buttons preview page — template only, no content
   '/e-floating-buttons/',
 ];

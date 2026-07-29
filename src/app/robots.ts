@@ -35,6 +35,8 @@ export default function robots(): MetadataRoute.Robots {
         '/author/admin/',
         '/e-floating-buttons/',
         '/.help/dhl/',
+        // Additional dead patterns (410 via proxy.ts)
+        '/landing/',
         // Legacy thin product categories (return 410 via proxy.ts)
         '/produk/pkrt/',
         '/produk/footcare/',

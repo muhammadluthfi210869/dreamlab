@@ -73,6 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'post-sitemap', 'search/', 'juaranyaformula/',
     'produk/pkrt/', 'produk/footcare/', 'produk/babycare/', 'produk/decorative/',
     'thankyou-page', 'thankyoupage-google', 'google-ads/', 'e-floating-buttons/',
+    'thankyou/', 'thankyou-medsos/', 'landing/',
   ];
 
   function isSlugInCurrentSite(slug: string): boolean {
