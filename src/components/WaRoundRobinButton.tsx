@@ -39,6 +39,8 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
         pageUrl: window.location.href,
         pageTitle: document.title,
         referrer: document.referrer || undefined,
+        assignedName: agent.name,
+        assignedPhone: agent.phoneNumber,
         ...device,
       };
 
@@ -55,8 +57,10 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {
-      console.error("RR failed, fallback:", err);
-      window.open("https://wa.me/6285179450990?text=Halo%20Dreamlab!", "_blank");
+      // Round-robin gagal → jangan buka WA ke nomor fallback
+      // Agar distribusi lead tetap akurat, lebih baik user klik ulang
+      console.error("RR failed, no fallback:", err);
+      alert("Maaf, sistem sedang sibuk. Silakan klik lagi.");
     } finally {
       setLoading(false);
     }

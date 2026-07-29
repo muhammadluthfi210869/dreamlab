@@ -18,6 +18,8 @@ export default function FloatingWhatsApp() {
         pageUrl: window.location.href,
         pageTitle: document.title || "",
         referrer: document.referrer || undefined,
+        assignedName: agent.name,
+        assignedPhone: agent.phoneNumber,
       };
 
       const { trackingCode } = await trackLead(trackData);
@@ -25,8 +27,9 @@ export default function FloatingWhatsApp() {
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {
-      console.error("RR failed, fallback:", err);
-      window.open("https://wa.me/6285179450990?text=Halo%20Dreamlab!", "_blank");
+      // Round-robin gagal → jangan buka WA ke nomor fallback
+      console.error("RR failed, no fallback:", err);
+      alert("Maaf, sistem sedang sibuk. Silakan klik lagi.");
     } finally {
       setLoading(false);
     }

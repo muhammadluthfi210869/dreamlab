@@ -1,1 +1,9 @@
 .agents/
+.next/
+node_modules/
+dist/
+.env.local
+*.log
+scripts/gsc-credentials.json
+sunny-idiom-*.json
+tsconfig.tsbuildinfo

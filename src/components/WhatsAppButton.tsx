@@ -24,6 +24,8 @@ export default function WhatsAppButton() {
         pageUrl,
         pageTitle: pageTitle || "",
         referrer: document.referrer || undefined,
+        assignedName: agent.name,
+        assignedPhone: agent.phoneNumber,
       };
 
       const params = new URLSearchParams(window.location.search);
@@ -39,8 +41,9 @@ export default function WhatsAppButton() {
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {
-      console.error("RR failed, fallback:", err);
-      window.open("https://wa.me/6285179450990?text=Halo%20Dreamlab!", "_blank");
+      // Round-robin gagal → jangan buka WA ke nomor fallback
+      console.error("RR failed, no fallback:", err);
+      alert("Maaf, sistem sedang sibuk. Silakan klik lagi.");
     } finally {
       setLoading(false);
     }

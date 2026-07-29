@@ -33,6 +33,8 @@ export async function trackLead(data: {
   deviceType?: string;
   browser?: string;
   sessionId?: string;
+  assignedName?: string;
+  assignedPhone?: string;
 }): Promise<{ trackingCode: string; waUrl: string }> {
   const res = await fetch(`${NEXERP_API}/lead-capture/track`, {
     method: "POST",
