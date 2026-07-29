@@ -16,6 +16,7 @@ import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
 import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
+import WaRoundRobinButton from './WaRoundRobinButton';
 
 interface ArticleData {
   slug: string;
@@ -249,6 +250,23 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
 
               <div className="max-w-4xl mx-auto xl:max-w-none">
                 <RelatedLinks currentSlug={article.slug} categories={article.categories} allArticles={allArticles} />
+              </div>
+
+              {/* Bottom CTA — convert readers who finished the article */}
+              <div className="bg-gradient-to-br from-brand/5 via-brand/10 to-brand/5 rounded-[28px] p-8 md:p-12 border border-brand/20 text-center max-w-4xl mx-auto xl:max-w-none mt-8">
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-brand-black mb-3">
+                  Siap Mulai Brand Kosmetik Anda?
+                </h3>
+                <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+                  Konsultasikan gratis dengan tim Dreamlab. Dapatkan formulasi eksklusif,
+                  pendampingan BPOM, dan solusi produksi untuk brand Anda.
+                </p>
+                <WaRoundRobinButton
+                  message={`Halo Dreamlab, saya baru saja baca artikel "${article.title}" dan tertarik untuk konsultasi maklon.`}
+                  className="bg-brand hover:bg-brand-dark text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-brand/20 hover:shadow-2xl transition-all"
+                >
+                  Konsultasi Gratis Sekarang
+                </WaRoundRobinButton>
               </div>
             </div>
 
