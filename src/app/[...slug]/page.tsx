@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { getSEOData, getAllSlugs } from '@/lib/seo-service';
+import { getSEOData } from '@/lib/seo-service';
 import { cleanWordPressHtml } from '@/lib/clean-html';
 import { getArticleOverride } from '@/lib/article-overrides';
 import { generatePageSchema } from '@/lib/schema-generator';
@@ -120,12 +120,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     canonicalUrl = (seoData?.canonical || `https://dreamlab.id${pathStr}`).replace(/\/?$/, '/');
   }
 
+  // Detect thin programmatic pages — pages from CSV audit that lack substantive content.
+  // These should be noindex to prevent "crawled-not-indexed" bloat in GSC.
+  // A page is "thin" if it's NOT an article AND NOT a rich maklon page AND has no data table or FAQ content.
+  // NOTE: Articles are NOT auto-noindexed based on word count alone — per review guidance,
+  // thin articles should be audited manually for search intent, not automatically excluded.
+  const isArticle = !!article;
+  const isRichMaklon = !!maklonPage;
+  const hasDataTable = seoData?.data_table_json && seoData.data_table_json.length > 2;
+  const hasFaqs = seoData?.faq_json && seoData.faq_json.length > 1;
+  const isThinProgrammatic = !isArticle && !isRichMaklon && !hasDataTable && !hasFaqs;
+
+  const robots = isThinProgrammatic
+    ? 'noindex, follow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+
   return {
     title,
     description,
     keywords: getMetaKeywords(categorySlug, resolvedParams.slug?.[1] || ''),
     alternates: { canonical: canonicalUrl },
-    robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    robots,
     openGraph: {
       title,
       description,
@@ -411,30 +426,17 @@ export default async function DynamicPage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const slugs = getAllSlugs();
-  
-  const isValidSlug = (s: string) => {
-    if (!s || s === '/' || s.startsWith('http')) return false;
-    if (s.length > 200) return false;
-    if (s.includes('%20') || s.includes(' ') || s.includes(':')) return false;
-    return true;
-  };
-
-  const params = slugs.filter(isValidSlug).map(s => ({
-    slug: s.replace(/^\//, '').replace(/\/$/, '').split('/').filter(Boolean)
-  }));
-
-  // Add article slugs - lazy load
+  // HANYA generate static params untuk artikel asli dengan konten substantif.
+  // Halaman programmatic dari CSV audit TIDAK di-pre-build untuk mengurangi
+  // jumlah halaman yang diekspos ke Google ("crawled-not-indexed" bloat).
+  // Halaman tersebut tetap bisa diakses via ISR (revalidate: 3600).
   const articlesList = await getArticles();
-  const articleParams = articlesList.map(a => ({
-    slug: a.slug.replace(/^\//, '').replace(/\/$/, '').split('/').filter(Boolean)
-  }));
 
-  const allParams = [...params, ...articleParams];
-  // Deduplicate
-  const uniqueParams = Array.from(new Map(allParams.map(p => [p.slug.join('/'), p])).values());
-
-  return uniqueParams;
+  return articlesList
+    .filter(a => a.slug && a.content && a.content.trim().length > 200)
+    .map(a => ({
+      slug: a.slug.replace(/^\//, '').replace(/\/$/, '').split('/').filter(Boolean)
+    }));
 }
 
 // ISR: Regenerate halaman setiap 1 jam untuk konten fresh tanpa full rebuild

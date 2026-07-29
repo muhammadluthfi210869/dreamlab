@@ -46,9 +46,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Known slug patterns that exist in the current app (safelist for CSV audit slugs)
+  // NOTE: 'ads/' intentionally excluded — ads/thankyou pages have zero SEO value
   const validRoutePrefixes = [
     'category/', 'produk/', 'maklon/',
-    'news-blog/', 'about-us/', 'ads/',
+    'news-blog/', 'about-us/',
   ];
   const knownArticleSlugs = new Set(
     articles
@@ -63,11 +64,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       categoryArticleCounts.set(slug, (categoryArticleCounts.get(slug) || 0) + 1);
     }
   }
+  // Proxy caught patterns — MUST match proxy.ts GONE_PATTERNS exactly.
+  // URLs matching these patterns return 410 Gone and must NOT appear in sitemap.
   const proxyPrefixes = [
-    'wp-content/', 'wp-admin/', 'wp-json/', '.help/dhl/',
-    'product-category/', 'shop/', 'cms_block_cat/', 'cgi-sys/',
+    '.help/dhl/', 'wp-content/', 'wp-admin/', 'wp-json/',
+    'pages/', 'product-category/', 'shop/', 'cms_block_cat/', 'cgi-sys/',
     'checkout/', 'cart/', 'my-account/', 'blog/',
     'post-sitemap', 'search/', 'juaranyaformula/',
+    'produk/pkrt/', 'produk/footcare/', 'produk/babycare/', 'produk/decorative/',
+    'thankyou-page', 'thankyoupage-google', 'google-ads/', 'e-floating-buttons/',
   ];
 
   function isSlugInCurrentSite(slug: string): boolean {
@@ -144,9 +149,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     console.error('Sitemap: Failed to load audit CSV', e);
   }
 
-  // 3. Current Articles
+  // Helper: rough word count stripping HTML tags
+  function getWordCount(html: string): number {
+    return html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  }
+
+  const MIN_ARTICLE_WORDS = 200;
+
+  // 3. Current Articles — filtered by content substance
+  // Per review data: no articles < 200 words exist; 22 articles 200-499 need manual audit.
+  // Filter hanya untuk artikel dengan konten sangat minimal (< MIN_ARTICLE_WORDS kata).
   const articleRoutes = articles
     .filter(a => a.slug)
+    .filter(a => {
+      if (!a.content || a.content.trim().length < 100) return false;
+      const wordCount = getWordCount(a.content);
+      return wordCount >= MIN_ARTICLE_WORDS;
+    })
     .map(article => {
       const slug = article.slug.replace(/^\/+/, '').replace(/\/+$/, '');
       const isPriorityRecrawl = priorityRecrawlSlugs.has(slug);
