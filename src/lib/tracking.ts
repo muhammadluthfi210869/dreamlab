@@ -1,4 +1,4 @@
-import { GTM_ID, GA4_ID, META_PIXEL_ID, TIKTOK_PIXEL_ID } from "@/components/TrackingScripts";
+import { GTM_ID, GA4_ID } from "@/components/TrackingScripts";
 
 /** URL ERP API — ganti di .env.local untuk production */
 const NEXERP_API_URL = process.env.NEXT_PUBLIC_NEXERP_API_URL || "http://localhost:3002";

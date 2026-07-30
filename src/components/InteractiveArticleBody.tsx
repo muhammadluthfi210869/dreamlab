@@ -333,7 +333,7 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         />
         <Script
           src="//www.instagram.com/embed.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           onLoad={() => {
             try { (window as any).instgrm?.Embeds?.process(); } catch {}
           }}
@@ -351,7 +351,7 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       />
       <Script
         src="//www.instagram.com/embed.js"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         onLoad={() => {
           try { (window as any).instgrm?.Embeds?.process(); } catch {}
         }}

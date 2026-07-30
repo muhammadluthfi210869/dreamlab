@@ -163,9 +163,10 @@ function ServiceItemsCarousel({ category }: { category: ServiceCategory }) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
-    if (carouselRef.current) {
-      const scrollAmount = carouselRef.current.offsetWidth * 0.8;
-      carouselRef.current.scrollBy({
+    const el = carouselRef.current;
+    if (el) {
+      const scrollAmount = el.offsetWidth * 0.8;
+      el.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
       });

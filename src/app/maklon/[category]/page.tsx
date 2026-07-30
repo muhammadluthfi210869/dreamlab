@@ -195,13 +195,6 @@ export default async function MaklonCategoryPage({ params }: Props) {
         provider: { '@id': 'https://dreamlab.id/#organization' },
         serviceType: 'Kontrak Manufaktur Kosmetik',
         areaServed: 'Indonesia',
-        offers: {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: `Maklon ${pageName}`,
-          },
-        },
         ...(maklonPage.certifications ? {
           hasCertification: maklonPage.certifications.map((c: string) => ({
             '@type': 'Certification',
