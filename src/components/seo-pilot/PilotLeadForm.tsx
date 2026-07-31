@@ -2,6 +2,8 @@
 
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
+import { getNextRoundRobinAgent, trackLead } from '@/lib/lead-capture';
+import { getLeadSource } from '@/lib/lead-source';
 
 interface PilotLeadFormProps {
   page: {
@@ -18,6 +20,7 @@ interface PilotLeadFormProps {
 
 export default function PilotLeadForm({ page, title, description, submitLabel }: PilotLeadFormProps) {
   const [phone, setPhone] = useState('');
+  const [agent, setAgent] = useState<{ name: string; phoneNumber: string } | null>(null);
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [need, setNeed] = useState('');
@@ -25,10 +28,12 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
   useEffect(() => {
     let mounted = true;
-    fetch('/api/lead-assignment')
-      .then((res) => res.json())
-      .then((data) => {
-        if (mounted && data?.phone) setPhone(data.phone);
+    getNextRoundRobinAgent()
+      .then((a) => {
+        if (mounted) {
+          setAgent(a);
+          setPhone(a.phoneNumber);
+        }
       })
       .catch(() => {});
     return () => {
@@ -54,6 +59,17 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
     const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     const payload = resolvePilotPayload('lead_form', page);
+
+    // Catat lead ke DB dengan source berdasarkan letak halaman (money pages = organik)
+    trackLead({
+      source: getLeadSource(window.location.pathname),
+      intent: 'kirim brief produk',
+      pageUrl: window.location.href,
+      pageTitle: document.title,
+      referrer: document.referrer || undefined,
+      assignedName: agent?.name,
+      assignedPhone: agent?.phoneNumber,
+    }).catch(() => {});
 
     pushPilotEvent('form_submit', {
       ...payload,

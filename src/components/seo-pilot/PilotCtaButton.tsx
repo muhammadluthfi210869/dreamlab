@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
+import { getNextRoundRobinAgent, trackLead } from '@/lib/lead-capture';
+import { getLeadSource } from '@/lib/lead-source';
 
 interface PilotCtaButtonProps {
   label: string;
@@ -24,13 +26,16 @@ interface PilotCtaButtonProps {
 export default function PilotCtaButton({ label, message, location, page, className, href, actionType = 'wa', scrollTarget }: PilotCtaButtonProps) {
   const router = useRouter();
   const [phone, setPhone] = useState('');
+  const [agent, setAgent] = useState<{ name: string; phoneNumber: string } | null>(null);
 
   useEffect(() => {
     let mounted = true;
-    fetch('/api/lead-assignment')
-      .then((res) => res.json())
-      .then((data) => {
-        if (mounted && data?.phone) setPhone(data.phone);
+    getNextRoundRobinAgent()
+      .then((a) => {
+        if (mounted) {
+          setAgent(a);
+          setPhone(a.phoneNumber);
+        }
       })
       .catch(() => {});
     return () => {
@@ -69,6 +74,17 @@ export default function PilotCtaButton({ label, message, location, page, classNa
         target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
+
+      // Catat lead ke DB dengan source berdasarkan letak halaman
+      trackLead({
+        source: getLeadSource(window.location.pathname),
+        intent: message || label || 'produk Dreamlab',
+        pageUrl: window.location.href,
+        pageTitle: document.title,
+        referrer: document.referrer || undefined,
+        assignedName: agent?.name,
+        assignedPhone: agent?.phoneNumber,
+      }).catch(() => {});
 
       window.open(url, '_blank', 'noopener,noreferrer');
       return;
