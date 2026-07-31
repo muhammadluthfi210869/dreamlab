@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
-import { buildWaMessage } from "@/lib/wa-message";
+import { buildChannelPrefixedMessage, buildWaMessage } from "@/lib/wa-message";
 import { getLeadSource } from "@/lib/lead-source";
 
 interface WaRoundRobinButtonProps {
@@ -57,9 +57,11 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
       if (uc) trackData.utmCampaign = uc;
 
       await trackLead(trackData);
-      // Pesan bersih: kalau `message` prop sudah kalimat utuh, pakai itu;
-      // kalau tidak, bangun dari konteks (tanpa tracking code).
-      const text = encodeURIComponent(message ? message : buildWaMessage(intent));
+      // Pesan menyebut channel sumber: pesan custom di-prefix channel,
+      // default dari buildWaMessage yang otomatis menyertakan channel.
+      const text = encodeURIComponent(
+        message ? buildChannelPrefixedMessage(message) : buildWaMessage(intent)
+      );
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
 import { getNextRoundRobinAgent, trackLead } from '@/lib/lead-capture';
 import { getLeadSource } from '@/lib/lead-source';
+import { buildChannelPrefixedMessage } from '@/lib/wa-message';
 
 interface PilotCtaButtonProps {
   label: string;
@@ -45,7 +46,10 @@ export default function PilotCtaButton({ label, message, location, page, classNa
 
   const url = useMemo(() => {
     if (!phone) return '';
-    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    // Pesan menyebut channel sumber (money pages = organik → Google)
+    const source = typeof window !== 'undefined' ? getLeadSource(window.location.pathname) : 'organic';
+    const waText = buildChannelPrefixedMessage(message, source);
+    return `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
   }, [phone, message]);
 
   const handleClick = () => {

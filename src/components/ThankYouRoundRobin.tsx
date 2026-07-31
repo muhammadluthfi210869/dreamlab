@@ -34,8 +34,9 @@ export function ThankYouRoundRobin({
   // Pesan trigger per channel (dari git sebelumnya), contoh:
   // "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi..."
   // messageMap untuk source spesifik (mis. meta-parfum, meta-skincare).
+  // Fallback buildWaMessage ikut channel hasil resolve (source state).
   const resolvedMessage =
-    messageMap?.[source] || message || buildWaMessage("produk kosmetik");
+    messageMap?.[source] || message || buildWaMessage("produk kosmetik", source);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

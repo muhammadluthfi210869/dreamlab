@@ -15,7 +15,8 @@ export async function GET(req: NextRequest) {
   try {
     const visitorId = getOrCreateVisitorId(req);
     const agent = await getNextAgentFromDb(visitorId);
-    const url = buildWhatsAppUrl(agent.phoneNumber, buildWaMessage('jasa maklon kosmetik'));
+    // Link bio/QR/linktree = channel media sosial
+    const url = buildWhatsAppUrl(agent.phoneNumber, buildWaMessage('jasa maklon kosmetik', 'medsos'));
 
     const res = NextResponse.redirect(url, {
       status: 302,

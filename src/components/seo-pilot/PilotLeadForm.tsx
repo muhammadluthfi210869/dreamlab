@@ -4,6 +4,7 @@ import { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
 import { getNextRoundRobinAgent, trackLead } from '@/lib/lead-capture';
 import { getLeadSource } from '@/lib/lead-source';
+import { getPageChannelLabel } from '@/lib/wa-message';
 
 interface PilotLeadFormProps {
   page: {
@@ -43,7 +44,7 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
   const message = useMemo(() => {
     const lines = [
-      'Halo Dreamlab, saya ingin kirim brief produk.',
+      `Hi Dreamlab, saya mengetahui dari ${getPageChannelLabel()} dan ingin kirim brief produk.`,
       name ? `Nama: ${name}` : null,
       brand ? `Brand: ${brand}` : null,
       need ? `Kebutuhan: ${need}` : null,

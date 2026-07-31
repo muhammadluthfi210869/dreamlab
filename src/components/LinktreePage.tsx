@@ -94,7 +94,8 @@ export default function LinktreePage({ initialSource = "linktree" }: LinktreePag
       assignedName: agent.name,
       assignedPhone: agent.phoneNumber,
     }).catch(() => {});
-    const msg = buildWaMessage("jasa maklon kosmetik");
+    // Linktree/medsos: pesan otomatis menyebut "media sosial" sebagai channel
+    const msg = buildWaMessage("jasa maklon kosmetik", "medsos");
     const url = buildWhatsAppUrl(agent.phoneNumber, msg);
     window.location.assign(url);
   }, [agent, source]);
