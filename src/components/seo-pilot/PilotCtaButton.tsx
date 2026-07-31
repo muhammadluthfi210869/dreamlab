@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
-import { getNextRoundRobinAgent, trackLead } from '@/lib/lead-capture';
 import { getLeadSource } from '@/lib/lead-source';
-import { buildChannelPrefixedMessage } from '@/lib/wa-message';
+import { buildThankyouUrl } from '@/lib/lead-routing';
 
 interface PilotCtaButtonProps {
   label: string;
@@ -26,37 +25,17 @@ interface PilotCtaButtonProps {
 
 export default function PilotCtaButton({ label, message, location, page, className, href, actionType = 'wa', scrollTarget }: PilotCtaButtonProps) {
   const router = useRouter();
-  const [phone, setPhone] = useState('');
-  const [agent, setAgent] = useState<{ name: string; phoneNumber: string } | null>(null);
 
-  useEffect(() => {
-    let mounted = true;
-    getNextRoundRobinAgent()
-      .then((a) => {
-        if (mounted) {
-          setAgent(a);
-          setPhone(a.phoneNumber);
-        }
-      })
-      .catch(() => {});
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  const url = useMemo(() => {
-    if (!phone) return '';
-    // Pesan menyebut channel sumber (money pages = organik → Google)
-    const source = typeof window !== 'undefined' ? getLeadSource(window.location.pathname) : 'organic';
-    const waText = buildChannelPrefixedMessage(message, source);
-    return `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
-  }, [phone, message]);
-
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     const payload = resolvePilotPayload(location, page);
+    // actionType 'wa' → halaman thankyou sesuai channel; atribusi & conversion
+    // dicatat di thankyou, lalu auto-redirect ke WA dengan pesan yang menyebut channel.
+    const source = typeof window !== 'undefined' ? getLeadSource(window.location.pathname) : 'organic';
+    const thankyouUrl = buildThankyouUrl({ source, msg: message });
+
     const ctaUrl =
       actionType === 'wa'
-        ? url
+        ? thankyouUrl
         : actionType === 'link'
           ? href || '/biaya-maklon-skincare/'
           : `#${scrollTarget || 'brief-form'}`;
@@ -73,24 +52,7 @@ export default function PilotCtaButton({ label, message, location, page, classNa
         cta_label: label,
         cta_url: ctaUrl,
       });
-      if (!phone) {
-        const target = document.getElementById(scrollTarget || 'brief-form');
-        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-
-      // Catat lead ke DB dengan source berdasarkan letak halaman
-      trackLead({
-        source: getLeadSource(window.location.pathname),
-        intent: message || label || 'produk Dreamlab',
-        pageUrl: window.location.href,
-        pageTitle: document.title,
-        referrer: document.referrer || undefined,
-        assignedName: agent?.name,
-        assignedPhone: agent?.phoneNumber,
-      }).catch(() => {});
-
-      window.open(url, '_blank', 'noopener,noreferrer');
+      window.location.assign(thankyouUrl);
       return;
     }
 
@@ -101,7 +63,7 @@ export default function PilotCtaButton({ label, message, location, page, classNa
 
     const target = document.getElementById(scrollTarget || 'brief-form');
     target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+  }, [actionType, href, label, location, message, page, router, scrollTarget]);
 
   return (
     <button

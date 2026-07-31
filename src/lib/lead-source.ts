@@ -33,8 +33,9 @@ export function getLeadSource(pathname?: string): string {
     return 'google-ads';
   }
 
-  // Meta Ads (halaman /ads/thankyou/metaads, /metaads, /produk/metaads, dst.)
-  if (p.includes('meta')) {
+  // Meta Ads (halaman /ads/thankyou/metaads, /metaads, /produk/metaads,
+  // dan landing /ads/maklon-* yang CTA-nya memakai source=meta-*, dst.)
+  if (p.includes('meta') || p.startsWith('/ads/maklon-')) {
     return 'metaads';
   }
 

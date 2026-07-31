@@ -1,61 +1,26 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
-import { buildWaMessage, getPageContext } from "@/lib/wa-message";
+import { useCallback } from "react";
+import { buildThankyouUrl } from "@/lib/lead-routing";
+import { getPageContext } from "@/lib/wa-message";
 import { getLeadSource } from "@/lib/lead-source";
 
 /**
- * Global floating WhatsApp button with round-robin agent assignment + lead tracking.
- * Uses page-aware context to personalize the tracking data.
+ * Global floating WhatsApp button.
+ * Semua klik → halaman thankyou sesuai channel (organik → /thankyou/google/),
+ * yang mencatat atribusi + fire conversion, lalu auto-redirect ke WhatsApp
+ * dengan pesan yang menyebut channel sumber.
  */
 export default function WhatsAppButton() {
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = useCallback(async () => {
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      const agent = await getNextRoundRobinAgent();
-      const pageUrl = window.location.href;
-      const pageTitle = document.title;
-
-      const params = new URLSearchParams(window.location.search);
-      const us = params.get("utm_source");
-      const um = params.get("utm_medium");
-      const uc = params.get("utm_campaign");
-
-      const trackData: any = {
-        intent: pageTitle || "produk Dreamlab",
-        source: getLeadSource(window.location.pathname),
-        pageUrl,
-        pageTitle: pageTitle || "",
-        referrer: document.referrer || undefined,
-        assignedName: agent.name,
-        assignedPhone: agent.phoneNumber,
-      };
-      if (us) trackData.utmSource = us;
-      if (um) trackData.utmMedium = um;
-      if (uc) trackData.utmCampaign = uc;
-
-      await trackLead(trackData);
-      const text = encodeURIComponent(buildWaMessage(getPageContext(pageUrl)));
-
-      window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
-    } catch (err) {
-      // Round-robin gagal → jangan buka WA ke nomor fallback
-      console.error("RR failed, no fallback:", err);
-      alert("Maaf, sistem sedang sibuk. Silakan klik lagi.");
-    } finally {
-      setLoading(false);
-    }
-  }, [loading]);
+  const handleClick = useCallback(() => {
+    const source = getLeadSource(window.location.pathname);
+    const ctx = getPageContext(window.location.href);
+    window.location.assign(buildThankyouUrl({ source, ctx }));
+  }, []);
 
   return (
     <button
       onClick={handleClick}
-      disabled={loading}
       className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300 flex items-center justify-center group cursor-pointer border-0"
       aria-label="Konsultasi Gratis via WhatsApp"
     >

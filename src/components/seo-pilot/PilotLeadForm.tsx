@@ -1,10 +1,9 @@
 "use client";
 
-import { type FormEvent, useEffect, useMemo, useState } from 'react';
+import { type FormEvent, useMemo, useState } from 'react';
 import { pushPilotEvent, resolvePilotPayload } from '@/lib/seo-pilot/tracking';
-import { getNextRoundRobinAgent, trackLead } from '@/lib/lead-capture';
 import { getLeadSource } from '@/lib/lead-source';
-import { getPageChannelLabel } from '@/lib/wa-message';
+import { buildThankyouUrl } from '@/lib/lead-routing';
 
 interface PilotLeadFormProps {
   page: {
@@ -20,31 +19,16 @@ interface PilotLeadFormProps {
 }
 
 export default function PilotLeadForm({ page, title, description, submitLabel }: PilotLeadFormProps) {
-  const [phone, setPhone] = useState('');
-  const [agent, setAgent] = useState<{ name: string; phoneNumber: string } | null>(null);
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [need, setNeed] = useState('');
   const [timeline, setTimeline] = useState('');
 
-  useEffect(() => {
-    let mounted = true;
-    getNextRoundRobinAgent()
-      .then((a) => {
-        if (mounted) {
-          setAgent(a);
-          setPhone(a.phoneNumber);
-        }
-      })
-      .catch(() => {});
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
   const message = useMemo(() => {
+    // Baris pertama BUKAN sapaan/channel — halaman thankyou akan menambahkan
+    // "Hi Dreamlab, saya mengetahui dari {channel}." secara otomatis.
     const lines = [
-      `Hi Dreamlab, saya mengetahui dari ${getPageChannelLabel()} dan ingin kirim brief produk.`,
+      'saya ingin kirim brief produk.',
       name ? `Nama: ${name}` : null,
       brand ? `Brand: ${brand}` : null,
       need ? `Kebutuhan: ${need}` : null,
@@ -56,21 +40,10 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!phone) return;
 
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const source = getLeadSource(window.location.pathname);
+    const thankyouUrl = buildThankyouUrl({ source, msg: message });
     const payload = resolvePilotPayload('lead_form', page);
-
-    // Catat lead ke DB dengan source berdasarkan letak halaman (money pages = organik)
-    trackLead({
-      source: getLeadSource(window.location.pathname),
-      intent: 'kirim brief produk',
-      pageUrl: window.location.href,
-      pageTitle: document.title,
-      referrer: document.referrer || undefined,
-      assignedName: agent?.name,
-      assignedPhone: agent?.phoneNumber,
-    }).catch(() => {});
 
     pushPilotEvent('form_submit', {
       ...payload,
@@ -82,22 +55,24 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
         need,
         timeline,
       },
-      form_target: whatsappUrl,
+      form_target: thankyouUrl,
     });
 
     pushPilotEvent('cta_click', {
       ...payload,
       cta_label: submitLabel,
-      cta_url: whatsappUrl,
+      cta_url: thankyouUrl,
     });
 
     pushPilotEvent('wa_click', {
       ...payload,
       cta_label: submitLabel,
-      cta_url: whatsappUrl,
+      cta_url: thankyouUrl,
     });
 
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    // Submit → halaman thankyou sesuai channel; atribusi & conversion tercatat
+    // di sana, lalu auto-redirect ke WhatsApp dengan pesan brief.
+    window.location.assign(thankyouUrl);
   };
 
   return (
@@ -152,7 +127,6 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
 
         <button
           type="submit"
-          disabled={!phone}
           className="inline-flex items-center justify-center rounded-full bg-[#D98A00] px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-[#D98A00]/20 transition hover:translate-y-[-1px] hover:bg-[#c97e00] sm:w-fit"
         >
           {submitLabel}

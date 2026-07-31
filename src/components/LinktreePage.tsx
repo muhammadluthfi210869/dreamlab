@@ -1,16 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
-import { buildWhatsAppUrl } from "@/lib/lead-routing";
-import { buildWaMessage } from "@/lib/wa-message";
-import { normalizeLeadSource } from "@/lib/lead-source";
 
-const premiumEase = [0.16, 1, 0.3, 1] as any;
+const premiumEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const categories = [
   {
@@ -58,47 +54,13 @@ type LinktreePageProps = {
 };
 
 export default function LinktreePage({ initialSource = "linktree" }: LinktreePageProps) {
-  const [source, setSource] = useState(initialSource);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const resolvedSource = params.get("source") || initialSource;
-    setSource(resolvedSource);
-  }, [initialSource]);
-
-  const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    getNextRoundRobinAgent()
-      .then((a) => {
-        if (!cancelled) setAgent(a);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const handleWAClick = useCallback(() => {
-    if (!agent) return;
-    const params = new URLSearchParams(window.location.search);
-    trackLead({
-      source: normalizeLeadSource("medsos"),
-      intent: "konsultasi maklon",
-      pageUrl: window.location.href,
-      pageTitle: document.title,
-      utmSource: params.get('utm_source') || undefined,
-      utmMedium: params.get('utm_medium') || undefined,
-      utmCampaign: params.get('utm_campaign') || undefined,
-      assignedName: agent.name,
-      assignedPhone: agent.phoneNumber,
-    }).catch(() => {});
-    // Linktree/medsos: pesan otomatis menyebut "media sosial" sebagai channel
-    const msg = buildWaMessage("jasa maklon kosmetik", "medsos");
-    const url = buildWhatsAppUrl(agent.phoneNumber, msg);
-    window.location.assign(url);
-  }, [agent, source]);
+    // Media sosial → halaman thankyou medsos dulu (atribusi + conversion),
+    // lalu auto-redirect ke WhatsApp dengan pesan channel "media sosial".
+    // Source param (mis. ?source=linktree) diteruskan agar varian tercatat.
+    const qs = initialSource && initialSource !== "linktree" ? `?source=${initialSource}` : "";
+    window.location.assign(`/thankyou-medsos/${qs}`);
+  }, [initialSource]);
 
   const containerVariants = {
     hidden: { opacity: 0 },

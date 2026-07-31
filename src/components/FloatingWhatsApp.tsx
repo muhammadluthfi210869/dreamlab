@@ -1,52 +1,18 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { MessageCircle } from "lucide-react";
-import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
-import { buildWaMessage, getPageContext } from "@/lib/wa-message";
+import { buildThankyouUrl } from "@/lib/lead-routing";
+import { getPageContext } from "@/lib/wa-message";
 import { getLeadSource } from "@/lib/lead-source";
 
 export default function FloatingWhatsApp() {
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = useCallback(async () => {
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      const agent = await getNextRoundRobinAgent();
-      const pageUrl = window.location.href;
-
-      const params = new URLSearchParams(window.location.search);
-      const us = params.get("utm_source");
-      const um = params.get("utm_medium");
-      const uc = params.get("utm_campaign");
-
-      const trackData: any = {
-        intent: document.title || "produk kosmetik",
-        source: getLeadSource(window.location.pathname),
-        pageUrl,
-        pageTitle: document.title || "",
-        referrer: document.referrer || undefined,
-        assignedName: agent.name,
-        assignedPhone: agent.phoneNumber,
-      };
-      if (us) trackData.utmSource = us;
-      if (um) trackData.utmMedium = um;
-      if (uc) trackData.utmCampaign = uc;
-
-      await trackLead(trackData);
-      const text = encodeURIComponent(buildWaMessage(getPageContext(pageUrl)));
-
-      window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
-    } catch (err) {
-      // Round-robin gagal → jangan buka WA ke nomor fallback
-      console.error("RR failed, no fallback:", err);
-      alert("Maaf, sistem sedang sibuk. Silakan klik lagi.");
-    } finally {
-      setLoading(false);
-    }
-  }, [loading]);
+  const handleClick = useCallback(() => {
+    const source = getLeadSource(window.location.pathname);
+    const ctx = getPageContext(window.location.href);
+    // Semua klik → halaman thankyou sesuai channel, lalu auto-redirect ke WA
+    window.location.assign(buildThankyouUrl({ source, ctx }));
+  }, []);
 
   return (
     <div className="fixed bottom-8 right-8 z-50 wa-float">

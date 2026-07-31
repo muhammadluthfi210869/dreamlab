@@ -1,8 +1,7 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
-import { buildChannelPrefixedMessage, buildWaMessage } from "@/lib/wa-message";
+import { useCallback } from "react";
+import { buildThankyouUrl } from "@/lib/lead-routing";
 import { getLeadSource } from "@/lib/lead-source";
 
 interface WaRoundRobinButtonProps {
@@ -11,76 +10,19 @@ interface WaRoundRobinButtonProps {
   children?: React.ReactNode;
 }
 
-function getDeviceInfo() {
-  if (typeof window === "undefined") return { deviceType: "unknown", browser: "unknown" };
-  const ua = navigator.userAgent;
-  return {
-    deviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ? "mobile" : "desktop",
-    browser: ua.includes("Chrome") ? "chrome" : ua.includes("Firefox") ? "firefox" : "unknown",
-  };
-}
-
 /**
- * WhatsApp button with round-robin agent assignment + lead tracking.
- * Uses page-aware pre-fill message from the `message` prop or defaults to page context.
+ * WhatsApp CTA button.
+ * Semua klik → halaman thankyou sesuai channel (organik → /thankyou/google/),
+ * custom message (mis. judul artikel) dikirim via ?msg= lalu di-prefix channel
+ * oleh halaman thankyou; atribusi & conversion dicatat di halaman thankyou,
+ * kemudian auto-redirect ke WhatsApp.
  */
 export default function WaRoundRobinButton({ message, className, children }: WaRoundRobinButtonProps) {
-  const [loading, setLoading] = useState(false);
+  const handleClick = useCallback(() => {
+    const source = getLeadSource(window.location.pathname);
+    const msg = message || document.title || "produk Dreamlab";
+    window.location.assign(buildThankyouUrl({ source, msg }));
+  }, [message]);
 
-  const handleClick = useCallback(async () => {
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      const agent = await getNextRoundRobinAgent();
-      const device = getDeviceInfo();
-
-      const intent = message || document.title || "produk Dreamlab";
-
-      const params = new URLSearchParams(window.location.search);
-      const us = params.get("utm_source");
-      const um = params.get("utm_medium");
-      const uc = params.get("utm_campaign");
-
-      const trackData: any = {
-        intent: intent,
-        source: getLeadSource(window.location.pathname),
-        pageUrl: window.location.href,
-        pageTitle: document.title,
-        referrer: document.referrer || undefined,
-        assignedName: agent.name,
-        assignedPhone: agent.phoneNumber,
-        ...device,
-      };
-      if (us) trackData.utmSource = us;
-      if (um) trackData.utmMedium = um;
-      if (uc) trackData.utmCampaign = uc;
-
-      await trackLead(trackData);
-      // Pesan menyebut channel sumber: pesan custom di-prefix channel,
-      // default dari buildWaMessage yang otomatis menyertakan channel.
-      const text = encodeURIComponent(
-        message ? buildChannelPrefixedMessage(message) : buildWaMessage(intent)
-      );
-
-      window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
-    } catch (err) {
-      // Round-robin gagal → jangan buka WA ke nomor fallback
-      // Agar distribusi lead tetap akurat, lebih baik user klik ulang
-      console.error("RR failed, no fallback:", err);
-      alert("Maaf, sistem sedang sibuk. Silakan klik lagi.");
-    } finally {
-      setLoading(false);
-    }
-  }, [message, loading]);
-
-  return (
-    <button
-      onClick={handleClick}
-      disabled={loading}
-      className={className}
-    >
-      {loading ? "Memproses..." : children}
-    </button>
-  );
+  return <button onClick={handleClick} className={className}>{children}</button>;
 }

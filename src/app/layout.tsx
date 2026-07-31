@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import AttributionForwarder from "@/components/AttributionForwarder";
 import { TrackingScripts, GTMNoScript } from "@/components/TrackingScripts";
 import { PixelsOnInteraction } from "@/components/PixelsOnInteraction";
 import OrganizationSchema from "@/components/OrganizationSchema";
@@ -59,6 +60,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <TrackingScripts />
         <PixelsOnInteraction />
+        <AttributionForwarder />
 
         <div id="page" className="site">
           <Header />

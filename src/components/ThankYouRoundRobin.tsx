@@ -7,7 +7,7 @@ import { CheckCircle2, MessageCircle } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
 import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
-import { buildWaMessage } from "@/lib/wa-message";
+import { buildChannelPrefixedMessage, buildWaMessage } from "@/lib/wa-message";
 import { normalizeLeadSource } from "@/lib/lead-source";
 
 type ThankYouRoundRobinProps = {
@@ -35,8 +35,26 @@ export function ThankYouRoundRobin({
   // "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi..."
   // messageMap untuk source spesifik (mis. meta-parfum, meta-skincare).
   // Fallback buildWaMessage ikut channel hasil resolve (source state).
-  const resolvedMessage =
-    messageMap?.[source] || message || buildWaMessage("produk kosmetik", source);
+  //
+  // CTA (floating/button) bisa mengirim:
+  //  - ?msg= → custom message lengkap, di-prefix channel otomatis
+  //  - ?ctx= → konteks produk utk buildWaMessage (mis. "produk parfum")
+  const qs =
+    typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const qMsg = qs.get("msg");
+  const qCtx = qs.get("ctx");
+  // Urutan prioritas pesan:
+  //  1. ?msg=  → custom message dari CTA (artikel/brief form), di-prefix channel
+  //  2. messageMap → pesan produk-spesifik (mis. meta-parfum dari landing CTA)
+  //  3. ?ctx=  → konteks produk dari floating button (mis. "produk skincare")
+  //  4. message prop / generic
+  const resolvedMessage = qMsg
+    ? buildChannelPrefixedMessage(qMsg, source)
+    : messageMap?.[source]
+      ? messageMap[source]
+      : qCtx
+        ? buildWaMessage(qCtx, source)
+        : message || buildWaMessage("produk kosmetik", source);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -45,7 +63,10 @@ export function ThankYouRoundRobin({
     setSource(resolvedSource);
     fireConversion(resolvedSource);
 
-    if (typeof (window as any).gtag === 'function') {
+    // Google Ads conversion hanya untuk channel google-ads (jangan polusi data
+    // konversi Ads dari traffic organik / medsos / meta). gclid terbaca otomatis
+    // oleh gtag dari URL thankyou yang sudah meneruskan param gclid.
+    if (normalizeLeadSource(resolvedSource) === 'google-ads' && typeof (window as any).gtag === 'function') {
       (window as any).gtag('event', 'conversion', { send_to: 'AW-10940853039/hTv7CJOs-OwaEK_WgOEo' });
     }
   }, [defaultSource]);

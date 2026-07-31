@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { ThankYouRoundRobin } from "@/components/ThankYouRoundRobin";
+import { buildWaMessage } from "@/lib/wa-message";
 
 export const metadata: Metadata = {
   alternates: {
@@ -8,16 +9,11 @@ export const metadata: Metadata = {
 };
 
 const WA_MSGS: Record<string, string> = {
-  "meta-parfum":
-    "Halo Dreamlab, saya lihat iklan di meta ads parfum dan ingin konsultasi buat brand parfum saya. Bisa dibantu?",
-  "meta-skincare":
-    "Halo Dreamlab, saya lihat iklan di meta ads skincare dan ingin konsultasi buat brand skincare saya. Bisa dibantu?",
-  "meta-haircare":
-    "Halo Dreamlab, saya lihat iklan di meta ads haircare dan ingin konsultasi buat brand haircare saya. Bisa dibantu?",
-  "meta-deodorant":
-    "Halo Dreamlab, saya lihat iklan di meta ads deodorant dan ingin konsultasi buat brand deodorant saya. Bisa dibantu?",
-  "meta-babycare":
-    "Halo Dreamlab, saya lihat iklan di meta ads baby care dan ingin konsultasi buat brand baby care saya. Bisa dibantu?",
+  "meta-parfum": buildWaMessage("produk parfum", "metaads"),
+  "meta-skincare": buildWaMessage("produk skincare", "metaads"),
+  "meta-haircare": buildWaMessage("produk haircare", "metaads"),
+  "meta-deodorant": buildWaMessage("produk deodorant", "metaads"),
+  "meta-babycare": buildWaMessage("produk baby care", "metaads"),
 };
 
 export default function ThankYouMetaAds() {
@@ -26,7 +22,7 @@ export default function ThankYouMetaAds() {
       defaultSource="metaads"
       title="Terima Kasih!"
       description="Kami sudah menerima minat Anda. Sekarang, saatnya ngobrol langsung dengan tim kami."
-      message="Halo Dreamlab, saya lihat iklan di meta ads dan ingin konsultasi buat brand saya. Bisa dibantu?"
+      message={buildWaMessage("produk kosmetik", "metaads")}
       messageMap={WA_MSGS}
     />
   );

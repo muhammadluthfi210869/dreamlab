@@ -1,24 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getNextAgentFromDb } from '@/lib/round-robin-db';
-import { buildWhatsAppUrl } from '@/lib/lead-routing';
-import { buildWaMessage } from '@/lib/wa-message';
 import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/round-robin/redirect
- * Redirect langsung ke WhatsApp dengan CS dari round-robin (sticky).
- * Dipakai untuk link bio/QR/linktree.
+ * Dipakai untuk link bio/QR/linktree (channel media sosial).
+ * Redirect ke halaman thankyou medsos dulu — di sana atribusi + conversion
+ * dicatat, lalu auto-redirect ke WhatsApp (sticky round-robin) dengan pesan
+ * yang menyebut "media sosial" sebagai channel sumber.
  */
 export async function GET(req: NextRequest) {
   try {
     const visitorId = getOrCreateVisitorId(req);
-    const agent = await getNextAgentFromDb(visitorId);
-    // Link bio/QR/linktree = channel media sosial
-    const url = buildWhatsAppUrl(agent.phoneNumber, buildWaMessage('jasa maklon kosmetik', 'medsos'));
 
-    const res = NextResponse.redirect(url, {
+    const res = NextResponse.redirect('/thankyou-medsos/', {
       status: 302,
       headers: { 'Cache-Control': 'no-store, max-age=0' },
     });
