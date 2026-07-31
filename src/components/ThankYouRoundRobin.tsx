@@ -21,12 +21,20 @@ export function ThankYouRoundRobin({
   defaultSource,
   title,
   description,
+  message,
+  messageMap,
 }: ThankYouRoundRobinProps) {
   const [source, setSource] = useState(defaultSource);
   const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
   const [loading, setLoading] = useState(true);
   const [navigated, setNavigated] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Pesan trigger per channel (dari git sebelumnya), contoh:
+  // "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi..."
+  // messageMap untuk source spesifik (mis. meta-parfum, meta-skincare).
+  const resolvedMessage =
+    messageMap?.[source] || message || buildWaMessage("produk kosmetik");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -80,9 +88,9 @@ export function ThankYouRoundRobin({
       assignedPhone: agent.phoneNumber,
     }).catch(() => {});
 
-    const url = buildWhatsAppUrl(agent.phoneNumber, buildWaMessage("produk kosmetik"));
+    const url = buildWhatsAppUrl(agent.phoneNumber, resolvedMessage);
     window.location.href = url;
-  }, [agent, navigated, source, title]);
+  }, [agent, navigated, source, title, resolvedMessage]);
 
   useEffect(() => {
     if (!agent || navigated) return;
