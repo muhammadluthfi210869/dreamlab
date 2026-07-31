@@ -49,6 +49,9 @@ services:
       POOL_MODE: transaction
       MAX_CLIENT_CONN: 1000
       DEFAULT_POOL_SIZE: 20
+      # app (src/lib/db.ts) mengirim statement_timeout sebagai startup
+      # parameter — wajib di-ignore kalau tidak koneksi ditolak pgbouncer.
+      IGNORE_STARTUP_PARAMETERS: "extra_float_digits, statement_timeout"
     ports:
       - "0.0.0.0:6432:5432"     # Vercel akses lewat port ini
     depends_on:

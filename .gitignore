@@ -7,3 +7,9 @@ dist/
 scripts/gsc-credentials.json
 sunny-idiom-*.json
 tsconfig.tsbuildinfo
+
+# Password DB production (jangan pernah di-commit)
+infra/lead-db/.env.production.local
+
+# Next.js generated types
+next-env.d.ts

@@ -66,6 +66,7 @@ const categoryMappings: Record<string, string> = {
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  output: 'standalone', // self-host di VPS tanpa Vercel (proses Node murni)
   images: {
     remotePatterns: [
       {
