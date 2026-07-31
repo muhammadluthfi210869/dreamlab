@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { useLeadAssignment } from "@/hooks/useLeadAssignment";
+import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
+import { buildWaMessage } from "@/lib/wa-message";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -64,14 +65,38 @@ export default function LinktreePage({ initialSource = "linktree" }: LinktreePag
     setSource(resolvedSource);
   }, [initialSource]);
 
-  const assignment = useLeadAssignment(source);
+  const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getNextRoundRobinAgent()
+      .then((a) => {
+        if (!cancelled) setAgent(a);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleWAClick = useCallback(() => {
-    if (!assignment.phone) return;
-    const msg = "Halo Dreamlab, saya ingin konsultasi maklon. Bisa dibantu?";
-    const url = buildWhatsAppUrl(assignment.phone, msg);
+    if (!agent) return;
+    const params = new URLSearchParams(window.location.search);
+    trackLead({
+      source,
+      intent: "konsultasi maklon",
+      pageUrl: window.location.href,
+      pageTitle: document.title,
+      utmSource: params.get('utm_source') || undefined,
+      utmMedium: params.get('utm_medium') || undefined,
+      utmCampaign: params.get('utm_campaign') || undefined,
+      assignedName: agent.name,
+      assignedPhone: agent.phoneNumber,
+    }).catch(() => {});
+    const msg = buildWaMessage("jasa maklon kosmetik");
+    const url = buildWhatsAppUrl(agent.phoneNumber, msg);
     window.location.assign(url);
-  }, [assignment.phone]);
+  }, [agent, source]);
 
   const containerVariants = {
     hidden: { opacity: 0 },

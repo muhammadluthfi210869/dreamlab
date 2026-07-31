@@ -74,6 +74,7 @@ export async function getNextRoundRobinAgent(): Promise<RoundRobinAgent> {
 
 export interface TrackLeadData {
   intent?: string;
+  source?: string; // channel: organic | google-ads | metaads | medsos | direct | wa-button
   pageUrl?: string;
   pageTitle?: string;
   referrer?: string;

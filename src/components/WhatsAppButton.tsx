@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
+import { buildWaMessage, getPageContext } from "@/lib/wa-message";
 
 /**
  * Global floating WhatsApp button with round-robin agent assignment + lead tracking.
@@ -19,25 +20,26 @@ export default function WhatsAppButton() {
       const pageUrl = window.location.href;
       const pageTitle = document.title;
 
+      const params = new URLSearchParams(window.location.search);
+      const us = params.get("utm_source");
+      const um = params.get("utm_medium");
+      const uc = params.get("utm_campaign");
+
       const trackData: any = {
         intent: pageTitle || "produk Dreamlab",
+        source: us || "wa-button",
         pageUrl,
         pageTitle: pageTitle || "",
         referrer: document.referrer || undefined,
         assignedName: agent.name,
         assignedPhone: agent.phoneNumber,
       };
-
-      const params = new URLSearchParams(window.location.search);
-      const us = params.get("utm_source");
-      const um = params.get("utm_medium");
-      const uc = params.get("utm_campaign");
       if (us) trackData.utmSource = us;
       if (um) trackData.utmMedium = um;
       if (uc) trackData.utmCampaign = uc;
 
-      const { trackingCode } = await trackLead(trackData);
-      const text = encodeURIComponent(`Halo ${agent.name}! Saya tertarik dengan produk Dreamlab. [${trackingCode}]`);
+      await trackLead(trackData);
+      const text = encodeURIComponent(buildWaMessage(getPageContext(pageUrl)));
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {

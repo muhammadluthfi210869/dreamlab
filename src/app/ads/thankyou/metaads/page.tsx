@@ -23,7 +23,7 @@ const WA_MSGS: Record<string, string> = {
 export default function ThankYouMetaAds() {
   return (
     <ThankYouRoundRobin
-      defaultSource="direct"
+      defaultSource="metaads"
       title="Terima Kasih!"
       description="Kami sudah menerima minat Anda. Sekarang, saatnya ngobrol langsung dengan tim kami."
       message="Halo Dreamlab, saya lihat iklan di meta ads dan ingin konsultasi buat brand saya. Bisa dibantu?"

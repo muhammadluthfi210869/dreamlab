@@ -5,14 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
-import { useLeadAssignment } from "@/hooks/useLeadAssignment";
+import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
+import { buildWaMessage } from "@/lib/wa-message";
 
 type ThankYouRoundRobinProps = {
   defaultSource: string;
   title: string;
   description: string;
-  message: string;
+  message?: string;
   messageMap?: Record<string, string>;
 };
 
@@ -20,10 +21,10 @@ export function ThankYouRoundRobin({
   defaultSource,
   title,
   description,
-  message,
-  messageMap,
 }: ThankYouRoundRobinProps) {
   const [source, setSource] = useState(defaultSource);
+  const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
+  const [loading, setLoading] = useState(true);
   const [navigated, setNavigated] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -39,23 +40,52 @@ export function ThankYouRoundRobin({
     }
   }, [defaultSource]);
 
-  const assignment = useLeadAssignment(defaultSource);
-
-  const resolvedMessage = messageMap?.[source] || message;
+  // Satu sumber assignment: PostgreSQL (sticky) — 1 visitor = 1 CS
+  useEffect(() => {
+    let cancelled = false;
+    getNextRoundRobinAgent()
+      .then((a) => {
+        if (!cancelled) {
+          setAgent(a);
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const redirectToWhatsApp = useCallback(() => {
-    if (!assignment.phone || navigated) return;
+    if (!agent || navigated) return;
     setNavigated(true);
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    const url = buildWhatsAppUrl(assignment.phone, resolvedMessage);
+
+    // Catat lead ke DB (fire-and-forget) dengan source channel yang rapi
+    const params = new URLSearchParams(window.location.search);
+    trackLead({
+      source,
+      intent: title,
+      pageUrl: window.location.href,
+      pageTitle: document.title,
+      utmSource: params.get('utm_source') || undefined,
+      utmMedium: params.get('utm_medium') || undefined,
+      utmCampaign: params.get('utm_campaign') || undefined,
+      assignedName: agent.name,
+      assignedPhone: agent.phoneNumber,
+    }).catch(() => {});
+
+    const url = buildWhatsAppUrl(agent.phoneNumber, buildWaMessage("produk kosmetik"));
     window.location.href = url;
-  }, [assignment.phone, navigated, resolvedMessage]);
+  }, [agent, navigated, source, title]);
 
   useEffect(() => {
-    if (!assignment.phone || navigated) return;
+    if (!agent || navigated) return;
 
     timerRef.current = setTimeout(() => {
       redirectToWhatsApp();
@@ -67,9 +97,9 @@ export function ThankYouRoundRobin({
         timerRef.current = null;
       }
     };
-  }, [assignment.phone, navigated, redirectToWhatsApp]);
+  }, [agent, navigated, redirectToWhatsApp]);
 
-  const isReady = Boolean(assignment.phone) && !navigated;
+  const isReady = Boolean(agent) && !navigated;
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
@@ -114,7 +144,7 @@ export function ThankYouRoundRobin({
               <span>KONSULTASI BRAND ANDA SEKARANG</span>
             </button>
 
-            {assignment.loading && (
+            {loading && (
               <p className="text-xs text-neutral-400 font-medium animate-pulse">
                 Menyiapkan tim kami...
               </p>

@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
+import { buildWaMessage, getPageContext } from "@/lib/wa-message";
 
 export default function FloatingWhatsApp() {
   const [loading, setLoading] = useState(false);
@@ -13,17 +14,28 @@ export default function FloatingWhatsApp() {
 
     try {
       const agent = await getNextRoundRobinAgent();
+      const pageUrl = window.location.href;
+
+      const params = new URLSearchParams(window.location.search);
+      const us = params.get("utm_source");
+      const um = params.get("utm_medium");
+      const uc = params.get("utm_campaign");
+
       const trackData: any = {
         intent: document.title || "produk kosmetik",
-        pageUrl: window.location.href,
+        source: us || "wa-button",
+        pageUrl,
         pageTitle: document.title || "",
         referrer: document.referrer || undefined,
         assignedName: agent.name,
         assignedPhone: agent.phoneNumber,
       };
+      if (us) trackData.utmSource = us;
+      if (um) trackData.utmMedium = um;
+      if (uc) trackData.utmCampaign = uc;
 
-      const { trackingCode } = await trackLead(trackData);
-      const text = encodeURIComponent(`Halo ${agent.name}! Saya tertarik dengan produk kosmetik. [${trackingCode}]`);
+      await trackLead(trackData);
+      const text = encodeURIComponent(buildWaMessage(getPageContext(pageUrl)));
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {

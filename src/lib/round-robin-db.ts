@@ -6,9 +6,10 @@ import pool from './db';
  * Sumber kebenaran baru untuk distribusi lead: PostgreSQL dedicated
  * (database `dreamlab`), TERPISAH dari server ERP.
  *
- * - getNextAgentFromDb() → ambil CS berikutnya via increment_rr_counter()
- * - insertLead()          → simpan lead ke tabel `leads` + return tracking code
- * - normalizePhone()      → ubah format lokal (0xxx) jadi internasional (628xx)
+ * - getNextAgentFromDb(visitorId) → ambil CS (sticky: 1 visitor = 1 CS,
+ *     counter hanya maju untuk visitor BARU) via RPC assign_next_agent()
+ * - insertLead()                  → simpan lead ke tabel `leads` + dedup
+ * - normalizePhone()              → ubah format lokal (0xxx) jadi internasional (628xx)
  */
 
 export interface DbAgent {
@@ -35,39 +36,41 @@ function generateTrackingCode(): string {
   return `DL-${ymd}-${rand}`;
 }
 
-/** Ambil CS berikutnya secara atomik (round-robin). */
-export async function getNextAgentFromDb(): Promise<DbAgent> {
+/**
+ * Ambil CS berikutnya secara atomik.
+ *
+ * Sticky: kalau `visitorId` sudah punya assignment aktif di
+ * visitor_assignments, dikembalikan CS yang SAMA tanpa memajukan counter.
+ * Hanya visitor BARU yang memajukan counter rotasi.
+ *
+ * `visitorId` null/'' → tetap rotasi biasa (tanpa sticky) sebagai fallback.
+ */
+export async function getNextAgentFromDb(visitorId?: string | null): Promise<DbAgent> {
   const client = await pool.connect();
   try {
-    await client.query('BEGIN');
-
-    const rpc = await client.query<{ idx: number }>('SELECT increment_rr_counter() AS idx');
-    const idx = Number(rpc.rows[0]?.idx ?? 0);
-
-    const res = await client.query<{ id: number; phone: string; name: string }>(
-      `SELECT id, phone, name
-         FROM busdevs
-        WHERE is_active = true
-        ORDER BY id
-        LIMIT 1 OFFSET $1`,
-      [idx]
+    const res = await client.query<{
+      agent_id: number;
+      agent_name: string;
+      agent_phone: string;
+      order_index: number;
+    }>(
+      `SELECT agent_id, agent_name, agent_phone, order_index
+         FROM assign_next_agent($1)`,
+      [visitorId || null]
     );
 
-    if (res.rows.length === 0) {
-      throw new Error('Tidak ada busdev aktif di tabel busdevs');
+    const row = res.rows[0];
+    if (!row) {
+      throw new Error('assign_next_agent tidak mengembalikan agent');
     }
 
-    await client.query('COMMIT');
-
-    const row = res.rows[0];
     return {
-      id: String(row.id),
-      name: row.name || `CS ${row.id}`,
-      phoneNumber: normalizePhone(row.phone),
-      orderIndex: idx,
+      id: String(row.agent_id),
+      name: row.agent_name || `CS ${row.agent_id}`,
+      phoneNumber: normalizePhone(row.agent_phone),
+      orderIndex: row.order_index,
     };
   } catch (err) {
-    await client.query('ROLLBACK').catch(() => {});
     throw err;
   } finally {
     client.release();
@@ -76,6 +79,8 @@ export async function getNextAgentFromDb(): Promise<DbAgent> {
 
 export interface LeadInput {
   intent?: string;
+  source?: string; // channel: organic | google-ads | metaads | medsos | direct | wa-button
+  visitorId?: string | null; // identitas visitor (untuk sticky + dedup)
   pageUrl?: string;
   pageTitle?: string;
   referrer?: string;
@@ -105,17 +110,40 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
     ? `https://wa.me/${normalizePhone(data.assignedPhone)}`
     : '';
 
+  const vid = data.visitorId || null;
+
+  // Dedup: visitor yang SAMA konversi lagi dalam 2 menit (double-click,
+  // re-render, navigasi cepat) → jangan buat lead baru, balas kode lama.
+  if (vid) {
+    const existing = await pool.query<{ tracking_code: string }>(
+      `SELECT tracking_code
+         FROM leads
+        WHERE visitor_id = $1
+          AND created_at > NOW() - INTERVAL '2 minutes'
+        ORDER BY id DESC
+        LIMIT 1`,
+      [vid]
+    );
+    if (existing.rows[0]) {
+      await pool.query(
+        `UPDATE leads SET visit_count = visit_count + 1 WHERE tracking_code = $1`,
+        [existing.rows[0].tracking_code]
+      );
+      return { trackingCode: existing.rows[0].tracking_code, waUrl };
+    }
+  }
+
   await pool.query(
     `INSERT INTO leads
        (tracking_code, assigned_to, assigned_phone, source, page_url, page_title,
         referrer, utm_source, utm_medium, utm_campaign, device_type, browser,
-        session_id, intent, nama, perusahaan, hp, produk)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)`,
+        session_id, intent, visitor_id, visit_count, nama, perusahaan, hp, produk)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`,
     [
       trackingCode,
       data.assignedName ?? null,
       data.assignedPhone ? normalizePhone(data.assignedPhone) : null,
-      data.intent ?? null,
+      data.source ?? 'direct',
       data.pageUrl ?? null,
       data.pageTitle ?? null,
       data.referrer ?? null,
@@ -126,6 +154,8 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
       data.browser ?? null,
       data.sessionId ?? null,
       data.intent ?? null,
+      vid,
+      1, // visit_count
       data.nama ?? null,
       data.perusahaan ?? null,
       data.hp ?? null,

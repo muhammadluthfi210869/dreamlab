@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
+import { buildWaMessage } from "@/lib/wa-message";
 
 interface WaRoundRobinButtonProps {
   message?: string;
@@ -34,8 +35,15 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
       const device = getDeviceInfo();
 
       const intent = message || document.title || "produk Dreamlab";
+
+      const params = new URLSearchParams(window.location.search);
+      const us = params.get("utm_source");
+      const um = params.get("utm_medium");
+      const uc = params.get("utm_campaign");
+
       const trackData: any = {
         intent: intent,
+        source: us || "wa-button",
         pageUrl: window.location.href,
         pageTitle: document.title,
         referrer: document.referrer || undefined,
@@ -43,17 +51,14 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
         assignedPhone: agent.phoneNumber,
         ...device,
       };
-
-      const params = new URLSearchParams(window.location.search);
-      const us = params.get("utm_source");
-      const um = params.get("utm_medium");
-      const uc = params.get("utm_campaign");
       if (us) trackData.utmSource = us;
       if (um) trackData.utmMedium = um;
       if (uc) trackData.utmCampaign = uc;
 
-      const { trackingCode } = await trackLead(trackData);
-      const text = encodeURIComponent(`${intent} [Ref: ${trackingCode}]`);
+      await trackLead(trackData);
+      // Pesan bersih: kalau `message` prop sudah kalimat utuh, pakai itu;
+      // kalau tidak, bangun dari konteks (tanpa tracking code).
+      const text = encodeURIComponent(message ? message : buildWaMessage(intent));
 
       window.open(`https://wa.me/${agent.phoneNumber}?text=${text}`, "_blank");
     } catch (err) {

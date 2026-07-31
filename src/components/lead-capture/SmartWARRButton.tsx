@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
+import { buildWaMessage } from "@/lib/wa-message";
 
 function getSessionId(): string {
   if (typeof window === "undefined") return "";
@@ -47,24 +48,26 @@ export default function SmartWARRButton({ intent, label = "Konsultasi Gratis via
 
       const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
 
+      const us = params.get("utm_source");
+      const um = params.get("utm_medium");
+      const uc = params.get("utm_campaign");
+
       const trackData: any = {
         intent: intent || document.title,
+        source: us || "wa-button",
         pageUrl: window.location.href,
         pageTitle: document.title,
         referrer: document.referrer || undefined,
         sessionId,
         ...device,
       };
-      const us = params.get("utm_source");
-      const um = params.get("utm_medium");
-      const uc = params.get("utm_campaign");
       if (us) trackData.utmSource = us;
       if (um) trackData.utmMedium = um;
       if (uc) trackData.utmCampaign = uc;
 
       const { trackingCode } = await trackLead(trackData);
 
-      const text = encodeURIComponent(`Halo ${agent.name}! Saya tertarik dengan ${intent || "produk DreamLab"}. [Kode: ${trackingCode}]`);
+      const text = encodeURIComponent(buildWaMessage(intent || "produk Dreamlab"));
 
       try {
         const history = JSON.parse(localStorage.getItem("dl_wa_click") || "[]");
