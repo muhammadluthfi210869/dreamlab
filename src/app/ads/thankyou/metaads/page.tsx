@@ -1,4 +1,11 @@
+import { Metadata } from 'next';
 import { ThankYouRoundRobin } from "@/components/ThankYouRoundRobin";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://dreamlab.id/ads/thankyou/metaads/',
+  },
+};
 
 const WA_MSGS: Record<string, string> = {
   "meta-parfum":

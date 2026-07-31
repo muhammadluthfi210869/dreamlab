@@ -39,9 +39,6 @@ export default function robots(): MetadataRoute.Robots {
         '/.help/dhl/',
         // Legacy thin product categories (return 410 via proxy.ts)
         '/produk/pkrt/',
-        '/produk/footcare/',
-        '/produk/babycare/',
-        '/produk/decorative/',
         // Legacy redirect slugs (301 to new URLs via proxy.ts)
         '/maklon-skincare/',
         '/maklon-bodycare/',

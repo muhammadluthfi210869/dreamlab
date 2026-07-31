@@ -71,9 +71,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'pages/', 'product-category/', 'shop/', 'cms_block_cat/', 'cgi-sys/',
     'checkout/', 'cart/', 'my-account/', 'blog/',
     'post-sitemap', 'search/', 'juaranyaformula/',
-    'produk/pkrt/', 'produk/footcare/', 'produk/babycare/', 'produk/decorative/',
+    'produk/pkrt/',
     'thankyou-page', 'thankyoupage-google', 'google-ads/', 'e-floating-buttons/',
     'thankyou/', 'thankyou-medsos/', 'landing/',
+    // Maklon legacy redirects (301 to /produk/*/ via proxy.ts LEGACY_PATH_REDIRECTS)
+    'maklon-body-care/', 'maklon-baby-care/', 'maklon-decorative/', 'maklon-foot-care/',
   ];
 
   function isSlugInCurrentSite(slug: string): boolean {
@@ -180,7 +182,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
 
   // 4. Product Pages (V2 - Individual Product Pages)
-  const THIN_PRODUCT_CATEGORIES = new Set(['pkrt', 'footcare', 'babycare', 'decorative']);
+  const THIN_PRODUCT_CATEGORIES = new Set(['pkrt']);
   const categories = getAllCategories();
   const productRoutes: MetadataRoute.Sitemap = [];
 
@@ -211,8 +213,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   // 5. Maklon Pages — filtered by content quality (exclude thin pages without proper content)
+  // Known parent paths that return 301 via proxy.ts LEGACY_PATH_REDIRECTS — must NOT appear in sitemap
+  const MAKLON_REDIRECTING_PARENTS = new Set([
+    '/maklon-body-care/',
+    '/maklon-baby-care/',
+    '/maklon-decorative/',
+    '/maklon-foot-care/',
+  ]);
   const maklonRoutes: MetadataRoute.Sitemap = maklonPages
     .filter(mp => {
+      // Exclude known redirecting parent pages (return 301 via proxy.ts)
+      if (MAKLON_REDIRECTING_PARENTS.has(mp.path)) return false;
       // Only include pages with actual content sections (not just template)
       return mp.sections && mp.sections.length >= 3;
     })

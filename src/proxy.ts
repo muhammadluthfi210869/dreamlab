@@ -27,6 +27,8 @@ const GONE_PATTERNS = [
   '/landing/',
   // Floating buttons preview page — template only, no content
   '/e-floating-buttons/',
+  // Orphaned pagination pages (/page/2/, /page/8/) — zero SEO value, conflicting robots meta
+  '/page/',
 ];
 
 const GONE_EXACT = [
