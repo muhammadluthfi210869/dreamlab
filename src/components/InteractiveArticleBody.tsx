@@ -172,8 +172,20 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
 
       // 4. Normalize CTA & legalitas images — make clickable → /thankyou/google/
 
-      // 4a. Rewrite <a> wrapping images → thankyou/google
-      const oldAnchors = doc.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="dreamlab.id"], a[href*="thankyoupage-google"], a[href*="thankyou-page"]');
+      // 4a. Rewrite SEMUA anchor WhatsApp legacy (wa.me/api.whatsapp) dan link
+      //     thankyou rusak → /thankyou/google/. Baik yang membungkus gambar
+      //     MAUPUN link teks (mis. "YUK KONSULTASI SEKARANG") — wajib lewat
+      //     thankyou dulu supaya trackLead/Kommo tercatat.
+      const legacyWaAnchors = doc.querySelectorAll(
+        'a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="wa.link"], a[href*="thankyoupage-google"], a[href*="thankyou-page"]'
+      );
+      legacyWaAnchors.forEach(a => {
+        a.setAttribute('href', THANKYOU_URL);
+      });
+
+      // 4a2. <a> membungkus gambar dengan href internal dreamlab.id → thankyou/google
+      //      (link teks internal dreamlab.id dibiarkan sebagai navigasi antar artikel).
+      const oldAnchors = doc.querySelectorAll('a[href*="dreamlab.id"]');
       oldAnchors.forEach(a => {
         if (!a.querySelector('img')) return;
         a.setAttribute('href', THANKYOU_URL);
