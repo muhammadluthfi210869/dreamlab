@@ -1,0 +1,3 @@
+# Pastikan script shell selalu LF di semua platform (penting untuk server Linux)
+*.sh text eol=lf
+*.bash text eol=lf

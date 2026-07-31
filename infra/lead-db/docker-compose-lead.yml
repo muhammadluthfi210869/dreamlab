@@ -1,0 +1,59 @@
+# ═══════════════════════════════════════════════════════════
+#  Dreamlab Lead DB — Project TERPISAH dari ERP
+# ═══════════════════════════════════════════════════════════
+#  Tujuan: PostgreSQL dedicated untuk lead site (round-robin &
+#  lead capture), jalan di VPS yang sama dengan ERP tapi FULL
+#  terisolasi (container, volume, dan project compose beda).
+#
+#  Deploy (di server):
+#    cp .env.production.example .env   # lalu isi password kuat
+#    docker compose -f docker-compose-lead.yml up -d --build
+#
+#  Push ERP (deploy.sh di /opt/nexerp) TIDAK menyentuh project ini,
+#  dan sebaliknya — karena ini project compose yang berbeda.
+# ═══════════════════════════════════════════════════════════
+
+name: dreamlab-lead
+
+services:
+  # ── Database lead (terpisah dari DB ERP) ──────────────────
+  db-lead:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${LEAD_DB_USER:-dreamlab1}
+      POSTGRES_PASSWORD: ${LEAD_DB_PASSWORD:?LEAD_DB_PASSWORD wajib diisi di .env}
+      POSTGRES_DB: ${LEAD_DB_NAME:-dreamlab}
+    volumes:
+      - lead_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5433:5432"   # hanya bisa diakses dari server (maintenance)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${LEAD_DB_USER:-dreamlab1} -d ${LEAD_DB_NAME:-dreamlab}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── PgBouncer — jembatan ke Vercel (WAJIB untuk traffic tinggi) ──
+  # Vercel serverless membuka banyak koneksi → tanpa pooler bisa habis.
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    restart: always
+    environment:
+      DB_HOST: db-lead
+      DB_PORT: 5432
+      DB_USER: ${LEAD_DB_USER:-dreamlab1}
+      DB_PASSWORD: ${LEAD_DB_PASSWORD:?LEAD_DB_PASSWORD wajib diisi di .env}
+      DB_NAME: ${LEAD_DB_NAME:-dreamlab}
+      AUTH_TYPE: scram-sha-256
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 1000
+      DEFAULT_POOL_SIZE: 20
+    ports:
+      - "0.0.0.0:6432:5432"     # Vercel akses lewat port ini
+    depends_on:
+      db-lead:
+        condition: service_healthy
+
+volumes:
+  lead_postgres_data:
