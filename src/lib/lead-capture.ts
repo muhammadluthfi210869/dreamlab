@@ -33,14 +33,41 @@ function normalizePhone(phone: string): string {
 }
 
 const FALLBACK_COUNTER_KEY = "dreamlab_wa_fallback_index";
+const CLIENT_VID_KEY = "dreamlab_vid_client";
+
+/**
+ * Visitor ID dari sisi client (localStorage, stabil antar klik/halaman).
+ * Dikirim ke server sebagai ?vid= → mencegah race double-click ketika
+ * cookie belum sempat ter-set. Server tetap prioritas cookie kalau sudah ada.
+ */
+function getClientVisitorId(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    let vid = localStorage.getItem(CLIENT_VID_KEY);
+    if (!vid) {
+      vid =
+        (window.crypto && typeof window.crypto.randomUUID === "function"
+          ? window.crypto.randomUUID()
+          : "v_" + Math.random().toString(36).slice(2) + Date.now().toString(36));
+      localStorage.setItem(CLIENT_VID_KEY, vid);
+    }
+    return vid;
+  } catch {
+    return "";
+  }
+}
 
 /** Ambil CS berikutnya. Prioritas: PostgreSQL (internal) → fallback AGENTS. */
 export async function getNextRoundRobinAgent(): Promise<RoundRobinAgent> {
   try {
-    const res = await fetch("/api/lead-capture/next", {
-      cache: "no-store",
-      headers: { "Content-Type": "application/json" },
-    });
+    const vid = getClientVisitorId();
+    const res = await fetch(
+      `/api/lead-capture/next${vid ? `?vid=${encodeURIComponent(vid)}` : ""}`,
+      {
+        cache: "no-store",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     if (!res.ok) throw new Error("lead-capture/next " + res.statusText);
     const data = await res.json();
     return {
@@ -92,10 +119,11 @@ export async function trackLead(
   data: TrackLeadData
 ): Promise<{ trackingCode: string; waUrl: string }> {
   try {
+    const vid = getClientVisitorId();
     const res = await fetch("/api/lead-capture/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(vid ? { ...data, visitorId: vid } : data),
     });
     if (!res.ok) throw new Error("lead-capture/track " + res.statusText);
     return await res.json();

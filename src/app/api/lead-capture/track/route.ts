@@ -12,7 +12,8 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
-    const visitorId = getOrCreateVisitorId(req);
+    const bodyVid = typeof body.visitorId === 'string' && body.visitorId.length > 5 ? body.visitorId : null;
+    const visitorId = bodyVid || getOrCreateVisitorId(req);
 
     const result = await insertLead({
       intent: body.intent,
