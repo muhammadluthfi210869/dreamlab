@@ -8,6 +8,7 @@ import { fireConversion } from "@/lib/tracking";
 import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
 import { buildWaMessage } from "@/lib/wa-message";
+import { normalizeLeadSource } from "@/lib/lead-source";
 
 type ThankYouRoundRobinProps = {
   defaultSource: string;
@@ -77,7 +78,7 @@ export function ThankYouRoundRobin({
     // Catat lead ke DB (fire-and-forget) dengan source channel yang rapi
     const params = new URLSearchParams(window.location.search);
     trackLead({
-      source,
+      source: normalizeLeadSource(source),
       intent: title,
       pageUrl: window.location.href,
       pageTitle: document.title,

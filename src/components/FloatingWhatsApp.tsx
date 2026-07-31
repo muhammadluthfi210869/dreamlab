@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
 import { buildWaMessage, getPageContext } from "@/lib/wa-message";
+import { getLeadSource } from "@/lib/lead-source";
 
 export default function FloatingWhatsApp() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function FloatingWhatsApp() {
 
       const trackData: any = {
         intent: document.title || "produk kosmetik",
-        source: us || "wa-button",
+        source: getLeadSource(window.location.pathname),
         pageUrl,
         pageTitle: document.title || "",
         referrer: document.referrer || undefined,

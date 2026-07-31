@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
 import { buildWaMessage } from "@/lib/wa-message";
+import { getLeadSource } from "@/lib/lead-source";
 
 interface WaRoundRobinButtonProps {
   message?: string;
@@ -43,7 +44,7 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
 
       const trackData: any = {
         intent: intent,
-        source: us || "wa-button",
+        source: getLeadSource(window.location.pathname),
         pageUrl: window.location.href,
         pageTitle: document.title,
         referrer: document.referrer || undefined,

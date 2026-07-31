@@ -8,6 +8,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
 import { buildWaMessage } from "@/lib/wa-message";
+import { normalizeLeadSource } from "@/lib/lead-source";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -83,7 +84,7 @@ export default function LinktreePage({ initialSource = "linktree" }: LinktreePag
     if (!agent) return;
     const params = new URLSearchParams(window.location.search);
     trackLead({
-      source,
+      source: normalizeLeadSource("medsos"),
       intent: "konsultasi maklon",
       pageUrl: window.location.href,
       pageTitle: document.title,

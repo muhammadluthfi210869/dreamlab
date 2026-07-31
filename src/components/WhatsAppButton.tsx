@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
 import { buildWaMessage, getPageContext } from "@/lib/wa-message";
+import { getLeadSource } from "@/lib/lead-source";
 
 /**
  * Global floating WhatsApp button with round-robin agent assignment + lead tracking.
@@ -27,7 +28,7 @@ export default function WhatsAppButton() {
 
       const trackData: any = {
         intent: pageTitle || "produk Dreamlab",
-        source: us || "wa-button",
+        source: getLeadSource(window.location.pathname),
         pageUrl,
         pageTitle: pageTitle || "",
         referrer: document.referrer || undefined,

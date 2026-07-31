@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { getNextRoundRobinAgent, trackLead } from "@/lib/lead-capture";
 import { buildWaMessage } from "@/lib/wa-message";
+import { getLeadSource } from "@/lib/lead-source";
 
 function getSessionId(): string {
   if (typeof window === "undefined") return "";
@@ -54,7 +55,7 @@ export default function SmartWARRButton({ intent, label = "Konsultasi Gratis via
 
       const trackData: any = {
         intent: intent || document.title,
-        source: us || "wa-button",
+        source: getLeadSource(window.location.pathname),
         pageUrl: window.location.href,
         pageTitle: document.title,
         referrer: document.referrer || undefined,
