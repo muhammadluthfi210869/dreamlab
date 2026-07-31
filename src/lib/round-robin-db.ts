@@ -112,17 +112,24 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
 
   const vid = data.visitorId || null;
 
-  // Dedup: visitor yang SAMA konversi lagi dalam 2 menit (double-click,
-  // re-render, navigasi cepat) → jangan buat lead baru, balas kode lama.
+  // Dedup selektif: visitor yang SAMA konversi lagi dalam 2 menit dengan
+  // intent ATAU halaman yang SAMA (double-click, re-render, navigasi cepat)
+  // → jangan buat lead baru, balas kode lama.
+  // Visitor yang sama tapi produk/halaman BEDA → tetap dicatat sebagai lead baru
+  // (tidak ada lead yang hilang), dan sticky memastikan tetap ke CS yang sama.
   if (vid) {
     const existing = await pool.query<{ tracking_code: string }>(
       `SELECT tracking_code
          FROM leads
         WHERE visitor_id = $1
           AND created_at > NOW() - INTERVAL '2 minutes'
+          AND (
+            COALESCE(intent, '') = COALESCE($2, '')
+            OR COALESCE(page_url, '') = COALESCE($3, '')
+          )
         ORDER BY id DESC
         LIMIT 1`,
-      [vid]
+      [vid, data.intent || '', data.pageUrl || '']
     );
     if (existing.rows[0]) {
       await pool.query(
@@ -164,4 +171,38 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
   );
 
   return { trackingCode, waUrl };
+}
+
+export interface DbLeadStats {
+  countsByAgentId: Record<string, number>; // busdev id -> jumlah lead
+  totalLeads: number;
+  totalRotations: number; // jumlah visitor unik yang pernah di-assign
+}
+
+/** Statistik dari DB (pengganti Redis lama yang sudah stale). */
+export async function getDbLeadStats(): Promise<DbLeadStats> {
+  const agentRes = await pool.query<{ agent_id: string; count: number }>(
+    `SELECT COALESCE(b.id::text, 'unknown') AS agent_id, count(l.id)::int AS count
+       FROM leads l
+       LEFT JOIN busdevs b ON b.name = l.assigned_to
+      GROUP BY COALESCE(b.id::text, 'unknown')
+      ORDER BY agent_id`
+  );
+  const countsByAgentId: Record<string, number> = {};
+  for (const r of agentRes.rows) {
+    countsByAgentId[r.agent_id] = Number(r.count);
+  }
+
+  const totalRes = await pool.query<{ total: number }>(
+    `SELECT count(*)::int AS total FROM leads`
+  );
+  const rotRes = await pool.query<{ n: number }>(
+    `SELECT count(*)::int AS n FROM visitor_assignments`
+  );
+
+  return {
+    countsByAgentId,
+    totalLeads: Number(totalRes.rows[0]?.total ?? 0),
+    totalRotations: Number(rotRes.rows[0]?.n ?? 0),
+  };
 }

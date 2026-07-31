@@ -2,25 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getNextAgentFromDb } from '@/lib/round-robin-db';
 import { buildWhatsAppUrl } from '@/lib/lead-routing';
 import { buildWaMessage } from '@/lib/wa-message';
+import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
-
-const VISITOR_COOKIE = 'dreamlab_vid';
 
 /**
  * GET /api/round-robin/redirect
  * Redirect langsung ke WhatsApp dengan CS dari round-robin (sticky).
- * Dipakai untuk link bio/QR/linktree. Set cookie visitor supaya konsisten
- * dengan tombol WA lain di situs.
+ * Dipakai untuk link bio/QR/linktree.
  */
 export async function GET(req: NextRequest) {
   try {
-    let visitorId = req.cookies.get(VISITOR_COOKIE)?.value || null;
-    const isNew = !visitorId;
-    if (!visitorId) {
-      visitorId = crypto.randomUUID();
-    }
-
+    const visitorId = getOrCreateVisitorId(req);
     const agent = await getNextAgentFromDb(visitorId);
     const url = buildWhatsAppUrl(agent.phoneNumber, buildWaMessage('jasa maklon kosmetik'));
 
@@ -29,15 +22,7 @@ export async function GET(req: NextRequest) {
       headers: { 'Cache-Control': 'no-store, max-age=0' },
     });
 
-    if (isNew) {
-      res.cookies.set(VISITOR_COOKIE, visitorId, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
-        maxAge: 60 * 60 * 24 * 365,
-      });
-    }
+    setVisitorCookieIfNew(res, req, visitorId);
 
     return res;
   } catch (error) {

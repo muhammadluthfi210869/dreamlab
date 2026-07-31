@@ -1,20 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { insertLead } from '@/lib/round-robin-db';
+import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
-
-const VISITOR_COOKIE = 'dreamlab_vid';
 
 /**
  * POST /api/lead-capture/track
  * Simpan lead ke PostgreSQL dedicated (tabel `leads`), TERPISAH dari ERP.
- * Menyimpan `visitor_id` (dari cookie) + `source` (channel) untuk dedup
- * dan atribusi channel yang konsisten.
+ * Menyimpan visitor_id (dari cookie) + source (channel) untuk sticky/dedup.
  */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
-    const visitorId = req.cookies.get(VISITOR_COOKIE)?.value || body.visitorId || null;
+    const visitorId = getOrCreateVisitorId(req);
 
     const result = await insertLead({
       intent: body.intent,
@@ -37,10 +35,14 @@ export async function POST(req: NextRequest) {
       produk: body.produk,
     });
 
-    return NextResponse.json(
+    const res = NextResponse.json(
       { trackingCode: result.trackingCode, waUrl: result.waUrl },
       { headers: { 'Cache-Control': 'no-store, max-age=0' } }
     );
+
+    setVisitorCookieIfNew(res, req, visitorId);
+
+    return res;
   } catch (err) {
     console.error('[lead-capture/track] Gagal simpan lead:', err);
     return NextResponse.json({ error: 'Track failed' }, { status: 500 });

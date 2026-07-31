@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAgentLeadCounts } from '@/lib/roundRobin';
+import { getDbLeadStats } from '@/lib/round-robin-db';
 import { getAllPipelineLeadCounts, KOMMO_PIPELINE_MAPPING } from '@/lib/kommo-client';
 import { isInternalRequestAuthorized } from '@/lib/internal-auth';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * GET /api/kommo-comparison
+ * Bandingkan jumlah lead internal (PostgreSQL) vs lead di pipeline Kommo.
+ * CATATAN: mapping pipeline (Jessica/Annisa/Ami) harus diverifikasi tim —
+ * hanya 3 pipeline yang terdaftar; 4 CS baru (Bu Irma dkk) belum ada.
+ */
 export async function GET(req: NextRequest) {
   if (!isInternalRequestAuthorized(req)) {
     return NextResponse.json(
@@ -17,10 +23,12 @@ export async function GET(req: NextRequest) {
   const dateTo = Math.floor(Date.now() / 1000);
   const dateFrom = dateTo - days * 24 * 60 * 60;
 
-  const [internalCounts, kommoCounts] = await Promise.all([
-    getAgentLeadCounts(),
+  const [stats, kommoCounts] = await Promise.all([
+    getDbLeadStats(),
     getAllPipelineLeadCounts(dateFrom, dateTo),
   ]);
+
+  const internalCounts = stats.countsByAgentId;
 
   const comparison = KOMMO_PIPELINE_MAPPING.map((mapping) => {
     const internal = internalCounts[mapping.agentId] ?? 0;
@@ -52,27 +60,35 @@ export async function GET(req: NextRequest) {
       totalKommo > 0 && c.kommoCount !== null ? Math.round((c.kommoCount / totalKommo) * 1000) / 10 : null,
   }));
 
-  const rataRataKecocokan =
-    comparison.filter((c) => c.kecocokanPersen !== null).reduce((sum, c) => sum + (c.kecocokanPersen ?? 0), 0) /
-    (comparison.filter((c) => c.kecocokanPersen !== null).length || 1);
+  const rataRataKecocokan = (() => {
+    const vals: number[] = comparison
+      .filter((c) => c.kecocokanPersen !== null)
+      .map((c) => c.kecocokanPersen as number);
+    if (vals.length === 0) return null;
+    const sum = vals.reduce((acc, v) => acc + v, 0);
+    return Math.round((sum / vals.length) * 10) / 10;
+  })();
 
   const kesimpulan =
-    rataRataKecocokan >= 90
+    rataRataKecocokan === null
+      ? 'Belum ada data pembanding.'
+      : rataRataKecocokan >= 90
       ? 'Data internal dan Kommo SANGAT COCOK — round-robin terbukti akurat.'
-      : rataRataKecocokan >= 75
+      : rataRataKecocokan >= 70
       ? 'Data internal dan Kommo CUKUP COCOK — selisih wajar (kemungkinan ada lead yang tidak lanjut chat, atau lead dari sumber lain di Kommo).'
       : 'Data internal dan Kommo SELISIH CUKUP BESAR — perlu ditelusuri lebih lanjut, kemungkinan ada lead di luar sistem round-robin atau masalah mapping pipeline.';
 
   return NextResponse.json(
     {
-      rentangHari: days,
-      dibandingkanPada: new Date().toISOString(),
-      ringkasan: {
-        rataRataKecocokanPersen: Math.round(rataRataKecocokan * 10) / 10,
-        kesimpulan,
-      },
-      distribusiPersentase: distribusi,
+      days,
+      totalInternal,
+      totalKommo,
+      rataRataKecocokan,
+      kesimpulan,
       comparison,
+      distribusi,
+      catatan:
+        'Internal count dari PostgreSQL (tabel leads). Mapping pipeline Kommo hanya 3 CS (Jessica/Annisa/Ami) — verifikasi dengan tim.',
     },
     { headers: { 'Cache-Control': 'no-store, max-age=0' } }
   );

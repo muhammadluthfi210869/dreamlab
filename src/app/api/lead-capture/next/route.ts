@@ -1,29 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getNextAgentFromDb } from '@/lib/round-robin-db';
+import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
-
-export const VISITOR_COOKIE = 'dreamlab_vid';
 
 /**
  * GET /api/lead-capture/next
  * Ambil CS berikutnya (round-robin + sticky) dari PostgreSQL dedicated.
- *
- * Sticky: kalau visitor sudah punya cookie `dreamlab_vid`, dikembalikan CS
- * yang SAMA (tidak memajukan counter) → 1 visitor = 1 CS, mencegah lead
- * redundan masuk ke 2 CS berbeda. Counter hanya maju untuk visitor BARU.
- *
- * Format response disamakan dengan ERP lama supaya komponen tombol WA
- * tidak perlu diubah: { id, name, phoneNumber, orderIndex }
+ * 1 visitor = 1 CS — counter hanya maju untuk visitor BARU.
+ * Response disamakan dengan ERP lama: { id, name, phoneNumber, orderIndex }
  */
 export async function GET(req: NextRequest) {
   try {
-    let visitorId = req.cookies.get(VISITOR_COOKIE)?.value || null;
-    const isNew = !visitorId;
-    if (!visitorId) {
-      visitorId = crypto.randomUUID();
-    }
-
+    const visitorId = getOrCreateVisitorId(req);
     const agent = await getNextAgentFromDb(visitorId);
 
     const res = NextResponse.json(
@@ -36,15 +25,7 @@ export async function GET(req: NextRequest) {
       { headers: { 'Cache-Control': 'no-store, max-age=0' } }
     );
 
-    if (isNew) {
-      res.cookies.set(VISITOR_COOKIE, visitorId, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
-        maxAge: 60 * 60 * 24 * 365, // 1 tahun
-      });
-    }
+    setVisitorCookieIfNew(res, req, visitorId);
 
     return res;
   } catch (err) {

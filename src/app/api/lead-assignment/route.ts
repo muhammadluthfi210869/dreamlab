@@ -1,72 +1,36 @@
-/**
-
- * src/app/api/lead-assignment/route.ts
-
- *
-
- * Endpoint tunggal yang dipanggil oleh useLeadAssignment() (client hook)
-
- * untuk menampilkan nomor CS di halaman thank you — dipakai bareng oleh
-
- * SEMUA 4 halaman (metaads, google ads, medsos, organic).
-
- *
-
- * PENTING #1: endpoint ini dan redirect route WA SAMA-SAMA memanggil
-
- * getOrAssignAgent() dari lead-assignment.ts. Karena cookie dicek duluan
-
- * di sana, memanggil endpoint ini untuk "preview" nomor TIDAK akan
-
- * menghabiskan slot rotasi ekstra saat user benar-benar klik tombol WA
-
- * setelahnya — keduanya akan dapat CS yang sama (dari cookie yang sama).
-
- *
-
- * PENTING #2: endpoint ini menerima query param ?campaignSource= dari
-
- * client SEMATA-MATA untuk ditampilkan balik ke layar ("Sumber: X").
-
- * Parameter ini TIDAK mempengaruhi CS mana yang dipilih — assignment
-
- * tetap dari satu pool gabungan yang sama.
-
- *
-
- * Nama field response sengaja dipisah biar tidak ambigu:
-
- * - assignmentMethod = cara CS ini didapat ('sticky' | 'rotation' | 'fallback')
-
- * - campaignSource   = dari halaman/campaign mana lead ini datang
-
- */
-
 import { NextRequest, NextResponse } from 'next/server';
+import { getNextAgentFromDb } from '@/lib/round-robin-db';
+import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
-import { getOrAssignAgent } from '@/lib/lead-assignment';
+export const dynamic = 'force-dynamic';
 
-export const dynamic = 'force-dynamic'; // jangan di-cache oleh Next.js/CDN
-
+/**
+ * GET /api/lead-assignment
+ * Endpoint legacy (dipakai halaman thankyou lama / linktree). Sekarang
+ * diarahkan ke sistem baru (PostgreSQL + sticky) supaya hasilnya konsisten
+ * dengan semua trigger lain. Response shape tetap dipertahankan.
+ */
 export async function GET(req: NextRequest) {
+  try {
+    const campaignSource = req.nextUrl.searchParams.get('campaignSource');
+    const visitorId = getOrCreateVisitorId(req);
+    const agent = await getNextAgentFromDb(visitorId);
 
-  const campaignSource = req.nextUrl.searchParams.get('campaignSource');
-  const { agent, source: assignmentMethod } = await getOrAssignAgent(campaignSource);
+    const res = NextResponse.json(
+      {
+        phone: agent.phoneNumber,
+        agentId: agent.id,
+        assignmentMethod: 'db',
+        campaignSource,
+      },
+      { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+    );
 
-  return NextResponse.json({
+    setVisitorCookieIfNew(res, req, visitorId);
 
-    phone: agent.phone,
-
-    agentId: agent.id,
-
-    assignmentMethod,
-
-    campaignSource,
-
-  }, {
-
-    headers: { 'Cache-Control': 'no-store, max-age=0' },
-
-  });
-
+    return res;
+  } catch (error) {
+    console.error('Lead assignment error:', error);
+    return NextResponse.json({ error: 'Assignment failed' }, { status: 500 });
+  }
 }

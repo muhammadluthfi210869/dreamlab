@@ -62,9 +62,9 @@ export interface PipelineMapping {
 }
 
 export const KOMMO_PIPELINE_MAPPING: PipelineMapping[] = [
-  { agentId: 'cs1', agentName: 'Jessica', pipelineId: 14079143 },
-  { agentId: 'cs2', agentName: 'Annisa', pipelineId: 11175859 },
-  { agentId: 'cs3', agentName: 'Ami', pipelineId: 13616255 },
+  { agentId: '1', agentName: 'Jessica', pipelineId: 14079143 },
+  { agentId: '2', agentName: 'Annisa', pipelineId: 11175859 },
+  { agentId: '3', agentName: 'Ami', pipelineId: 13616255 },
 ];
 
 export async function getAllPipelineLeadCounts(
