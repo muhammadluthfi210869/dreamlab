@@ -14,13 +14,13 @@ Vercel (serverless, Next.js)
    │  src/lib/round-robin-db.ts
    ▼
 PostgreSQL dedicated `dreamlab`  ← TERPISAH dari server ERP
-   ├─ busdevs      (7 nomor CS)
+   ├─ busdevs      (6 nomor CS)
    ├─ rr_counter   (rotasi atomik)
    └─ leads        (histori lead + tracking code)
 ```
 
 - Tombol WA **tidak lagi** bergantung pada server ERP (nexerp.id).
-- Kalau DB error → klien otomatis fallback ke 7 nomor (WA tetap terbuka).
+- Kalau DB error → klien otomatis fallback ke 6 nomor (WA tetap terbuka).
 - Sinkron ke ERP/Kommo tetap berjalan best-effort (fire-and-forget).
 
 ---
@@ -214,7 +214,7 @@ curl -s -X POST https://dreamlab.id/api/lead-capture/track \
 #    SELECT * FROM leads ORDER BY id DESC LIMIT 5;
 ```
 
-- Tombol WA di halaman mana pun → harus langsung buka wa.me ke salah satu dari 7 nomor.
+- Tombol WA di halaman mana pun → harus langsung buka wa.me ke salah satu dari 6 nomor.
 - Matikan server ERP sementara → tombol WA **tetap jalan** (ini tujuan utamanya).
 
 ---

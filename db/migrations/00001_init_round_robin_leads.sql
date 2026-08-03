@@ -4,7 +4,7 @@
 -- Host: localhost:5433 (PG17) — production nanti host terpisah
 --
 -- Tujuan:
---   1. busdevs      → daftar CS (7 nomor WhatsApp aktif)
+--   1. busdevs      → daftar CS (6 nomor WhatsApp aktif)
 --   2. rr_counter   → counter round-robin (1 baris, atomik)
 --   3. increment_rr_counter() → RPC pengambilan slot berikutnya
 --   4. leads        → histori semua lead (pengganti tracking ERP)
@@ -26,14 +26,13 @@ CREATE TABLE IF NOT EXISTS busdevs (
 -- Unique index: nomor tidak boleh dobel
 CREATE UNIQUE INDEX IF NOT EXISTS idx_busdevs_phone ON busdevs (phone);
 
--- Seed 7 CS aktif
+-- Seed 6 CS aktif (Bu Dilla sudah dihapus total — lihat 00003_remove_bu_dilla.sql)
 INSERT INTO busdevs (phone, name, is_active) VALUES
   ('087712232389', 'CS 1',     true),
   ('081952417051', 'CS 2',     true),
   ('087776550657', 'CS 3',     true),
   ('085133188827', 'Bu Irma',  true),
   ('087867029842', 'Pak Zaki', true),
-  ('087702232389', 'Bu Dilla', true),
   ('087766466927', 'Pak Bagir', true)
 ON CONFLICT (phone) DO NOTHING;
 

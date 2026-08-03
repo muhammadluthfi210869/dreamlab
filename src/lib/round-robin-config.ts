@@ -38,8 +38,6 @@ export const AGENTS: Agent[] = [
 
   { id: 'zaki', phone: '087867029842', name: 'Pak Zaki', active: true },
 
-  { id: 'dilla', phone: '087702232389', name: 'Bu Dilla', active: true },
-
   { id: 'bagir', phone: '087766466927', name: 'Pak Bagir', active: true },
 
   // Tambah CS baru di sini kapan saja, contoh:

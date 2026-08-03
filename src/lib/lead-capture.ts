@@ -11,7 +11,7 @@ import { AGENTS } from "./round-robin-config";
  *   - POST /api/lead-capture/track → simpan lead ke PostgreSQL dedicated
  *
  * Anti-gagal (resilience):
- *   - Kalau /next gagal → fallback ke daftar AGENTS (7 CS) via localStorage
+ *   - Kalau /next gagal → fallback ke daftar AGENTS (6 CS) via localStorage
  *     round-robin, supaya tombol WA TETAP terbuka.
  *   - Kalau /track gagal → generate kode lokal (LOCAL-...) supaya chat tetap
  *     jalan; lead tidak memblokir pengalaman user.
