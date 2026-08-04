@@ -241,8 +241,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  // 7. English Routes (/en/) — versi English dari halaman utama
+  const enRoutes: MetadataRoute.Sitemap = [
+    '/en',
+    '/en/produk',
+    '/en/about-us',
+    '/en/services',
+    '/en/our-client',
+    '/en/contact-us',
+  ].map(route => ({
+    url: `${baseUrl}${route.replace(/\/?$/, '/')}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   // Combine and de-duplicate by URL
-  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes, ...pilotRoutes];
+  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes, ...pilotRoutes, ...enRoutes];
   const indexableRoutes = allRoutes.filter(route => {
     const pathName = normalizeSeoPath(route.url);
     if (!isIndexableSitemapPath(pathName)) return false;

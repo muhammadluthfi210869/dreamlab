@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getSEOData } from "@/lib/seo-service";
 import { getMetaKeywords } from "@/data/keywords";
+import { buildAlternates } from "@/lib/seo-lang";
 import dynamic from "next/dynamic";
 import { resolveArticleImageSrc } from "@/lib/asset-paths";
 
@@ -67,9 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
       : { absolute: "Dreamlab | Maklon Kosmetik & Parfum BPOM Terbaik - Wujudkan Brand Impian Anda" },
     description: seoData?.meta_description || "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 500+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
     keywords: getMetaKeywords(''),
-    alternates: {
-      canonical: seoData?.canonical || "https://dreamlab.id/",
-    },
+    alternates: buildAlternates("/"),
   };
 }
 

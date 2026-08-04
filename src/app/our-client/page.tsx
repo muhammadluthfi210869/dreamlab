@@ -5,13 +5,12 @@ import Testimonials from "@/components/Testimonials";
 import CtaSection from "@/components/CtaSection";
 import { homepageData } from "@/data/homepage";
 import { PageSchema } from "@/components/PageSchema";
+import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
   title: "DREAMLAB | Berikut 500++ Client Percaya produksi di Dreamlab",
   description: "Lihat brand-brand kosmetik & skincare yang sudah bekerja sama dengan Dreamlab.Jadi bagian dari mereka dan menjadi partner kami.",
-  alternates: {
-    canonical: 'https://dreamlab.id/our-client/',
-  },
+  alternates: buildAlternates("/our-client/"),
   openGraph: {
     title: "DREAMLAB | Berikut 500++ Client Percaya produksi di Dreamlab",
     description: "Lihat brand-brand kosmetik & skincare yang sudah bekerja sama dengan Dreamlab.",

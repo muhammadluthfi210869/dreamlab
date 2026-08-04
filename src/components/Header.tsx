@@ -6,6 +6,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Search } from "lucide-react";
 import { getImageTitle } from "@/lib/image-utils";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Header() {
   const pathname = usePathname();
@@ -143,6 +144,7 @@ export default function Header() {
           {menuItems.map(renderNavItem)}
         </nav>
         <div className="flex items-center gap-3 shrink-0">
+          <LanguageSwitcher />
           <button className="hidden lg:flex w-12 h-12 rounded-full bg-brand-orange items-center justify-center text-white shadow-lg transition-all hover:bg-black hover:scale-110 active:scale-90">
             <Search className="w-5 h-5 stroke-[3]" />
           </button>
@@ -209,6 +211,10 @@ export default function Header() {
             >
               Consult Now
             </Link>
+          </div>
+
+          <div className="pt-4 flex justify-center">
+            <LanguageSwitcher />
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
 import { Viga, Onest } from "next/font/google";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -47,13 +48,19 @@ export const metadata: Metadata = {
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Deteksi bahasa dari pathname yang diteruskan proxy.ts (x-dreamlab-path).
+  // Halaman /en/... → lang="en", selainnya → lang="id".
+  const h = await headers();
+  const pathname = h.get("x-dreamlab-path") || "/";
+  const lang = pathname.startsWith("/en") ? "en" : "id";
+
   return (
-    <html lang="id" className={`${viga.variable} ${onest.variable}`}>
+    <html lang={lang} className={`${viga.variable} ${onest.variable}`}>
       <body className="font-sans antialiased text-brand-black selection:bg-brand-orange selection:text-white">
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <SpeculationRules />

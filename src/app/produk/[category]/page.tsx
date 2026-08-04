@@ -3,6 +3,7 @@ import { getProductDataV2 } from "@/data/products-v2";
 import { getCategoryTitle, getCategoryMetaDescription } from "@/data/keywords";
 import { ProductPageV2 } from "@/components/ProductPageV2";
 import JsonLd from "@/components/JsonLd";
+import { buildAlternates } from "@/lib/seo-lang";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -93,7 +94,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title,
     description,
-    alternates: { canonical: canonicalUrl },
+    alternates: buildAlternates(`/produk/${category}/`),
     robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     openGraph: {
       title,

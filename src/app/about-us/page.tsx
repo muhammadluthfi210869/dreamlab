@@ -2,13 +2,12 @@ import { Metadata } from 'next';
 import { aboutData } from "@/data/about-us";
 import CompanyProfileWrapper from "@/components/CompanyProfileWrapper";
 import { PageSchema } from "@/components/PageSchema";
+import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
   title: "Dreamlab | Jasa Maklon Skincare & Parfum BPOM Indonesia",
   description: "Dreamlab adalah pabrik maklon kosmetik di Surabaya yang sudah dipercaya sejak 1989. Kami menyediakan One-Stop Maklon Service: konsultasi bisnis, formulasi custom oleh tim R&D, desain kemasan.",
-  alternates: {
-    canonical: 'https://dreamlab.id/about-us/',
-  },
+  alternates: buildAlternates("/about-us/"),
   openGraph: {
     title: "Dreamlab | Jasa Maklon Skincare & Parfum BPOM Indonesia",
     description: "Dreamlab adalah pabrik maklon kosmetik di Surabaya yang sudah dipercaya sejak 1989. Kami menyediakan One-Stop Maklon Service.",

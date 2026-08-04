@@ -233,7 +233,13 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(canonicalUrl, 301);
   }
 
-  return NextResponse.next();
+  // Teruskan pathname sebagai request header supaya root layout bisa
+  // menentukan <html lang> yang benar (id/en) saat SSR. Ini penting
+  // untuk halaman English /en/... supaya output HTML awal sudah
+  // lang="en" (bukan hanya setelah hydration).
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-dreamlab-path", pathname);
+  return NextResponse.next({ request: { headers: requestHeaders } });
 }
 
 export const config = {

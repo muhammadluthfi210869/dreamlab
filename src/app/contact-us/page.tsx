@@ -2,13 +2,12 @@ import { Metadata } from 'next';
 import { ContactHero, LocationDetails, ContactFAQ } from "@/components/ContactSections";
 import CtaSection from "@/components/CtaSection";
 import { PageSchema } from "@/components/PageSchema";
+import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
   title: "DREAMLAB | Jasa Maklon Kosmetik Surabaya Jawa Timur",
   description: "Konsultasi Gratis. Pabrik kosmetik Terlengkap Jawa Timur. Mulai brand kosmetik & skincare-mu sekarang. Wujudkan Bisinis Skincaremu Sekarang",
-  alternates: {
-    canonical: 'https://dreamlab.id/contact-us/',
-  },
+  alternates: buildAlternates("/contact-us/"),
   openGraph: {
     title: "DREAMLAB | Jasa Maklon Kosmetik Surabaya Jawa Timur",
     description: "Konsultasi Gratis. Pabrik kosmetik Terlengkap Jawa Timur. Mulai brand kosmetik & skincare-mu sekarang.",

@@ -3,13 +3,12 @@ import { servicesEditorialData } from "@/data/services-editorial";
 import ServicesPageHero from "@/components/ServicesPageHero";
 import ServicesWrapper from "@/components/ServicesWrapper";
 import { PageSchema } from "@/components/PageSchema";
+import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
   title: "DREAMLAB | Layanan Pabrik Kosmetik Private Label Terlengkap",
   description: "Jasa maklon kosmetik lengkap: skincare, body care, hair care, parfum, decorative, baby care, foot care, PKRT. BPOM, CPKB, Halal MUI.",
-  alternates: {
-    canonical: 'https://dreamlab.id/services/',
-  },
+  alternates: buildAlternates("/services/"),
   openGraph: {
     title: "DREAMLAB | Layanan Pabrik Kosmetik Private Label Terlengkap",
     description: "Jasa maklon kosmetik lengkap: skincare, body care, hair care, parfum, decorative, baby care, foot care, PKRT. BPOM, CPKB, Halal MUI.",
