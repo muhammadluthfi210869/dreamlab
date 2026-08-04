@@ -1,12 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
+import { headers } from "next/headers";
 import { FaFacebookF, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
-import { MdLocationOn, MdEmail, MdSchedule } from "react-icons/md";
-import { getImageAlt, getImageTitle } from "@/lib/image-utils";
+import { getImageTitle } from "@/lib/image-utils";
 import { resolveArticleImageSrc } from "@/lib/asset-paths";
+import { localizeHref } from "@/lib/seo-lang";
 
-export default function Footer() {
+export default async function Footer() {
   const currentYear = new Date().getFullYear();
+  // Deteksi bahasa dari proxy.ts (x-dreamlab-path) → link footer ikut bahasa
+  const h = await headers();
+  const pathname = h.get("x-dreamlab-path") || "/";
+  const isEn = pathname.startsWith("/en");
+  const L = (p: string) => localizeHref(p, isEn);
 
   return (
     <footer className="bg-[#1A1A1A] text-white pt-20 pb-10">
@@ -59,7 +65,7 @@ export default function Footer() {
               ].map((item, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
                   <span className="text-gray-500 group-hover:text-brand-orange transition-colors">›</span>
-                  <Link href={item.link} className="hover:text-brand-orange transition-colors">{item.name}</Link>
+                  <Link href={L(item.link)} className="hover:text-brand-orange transition-colors">{item.name}</Link>
                 </li>
               ))}
             </ul>
@@ -102,7 +108,7 @@ export default function Footer() {
               ].map((link, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
                   <span className="text-gray-500 group-hover:text-brand-orange transition-colors">›</span>
-                  <Link href={link.link} className="hover:text-brand-orange transition-colors">{link.name}</Link>
+                  <Link href={L(link.link)} className="hover:text-brand-orange transition-colors">{link.name}</Link>
                 </li>
               ))}
             </ul>

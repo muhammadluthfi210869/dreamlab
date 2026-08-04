@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Search } from "lucide-react";
 import { getImageTitle } from "@/lib/image-utils";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { isEnPath, localizeHref } from "@/lib/seo-lang";
 
 export default function Header() {
   const pathname = usePathname();
@@ -20,24 +21,28 @@ export default function Header() {
 
   const cleanPathname = normalizePath(pathname || "");
 
+  // Deteksi bahasa: halaman /en/... → nav menunjuk ke versi English
+  const isEn = isEnPath(cleanPathname);
+  const localHref = (p: string) => localizeHref(p, isEn);
+
   // Fungsi komprehensif untuk mendeteksi rute aktif
   const checkIsActive = (path: string, dropdown?: Array<{ path: string }>) => {
-    const cleanItemPath = normalizePath(path);
-    
+    const cleanItemPath = normalizePath(localizeHref(path, isEn));
+
     if (cleanItemPath === "#") {
       if (dropdown) {
         return dropdown.some(subItem => {
-          const cleanSubItemPath = normalizePath(subItem.path);
+          const cleanSubItemPath = normalizePath(localizeHref(subItem.path, isEn));
           return cleanPathname === cleanSubItemPath || cleanPathname.startsWith(cleanSubItemPath + "/");
         });
       }
       return false;
     }
-    
+
     if (cleanItemPath === "/") {
       return cleanPathname === "/";
     }
-    
+
     return cleanPathname === cleanItemPath || cleanPathname.startsWith(cleanItemPath + "/");
   };
 
@@ -85,7 +90,7 @@ export default function Header() {
         className="relative group h-full flex items-center"
       >
         <Link
-          href={item.path}
+          href={localHref(item.path)}
           className={`flex items-center gap-1 text-[13px] font-bold tracking-[0.1em] font-onest uppercase transition-all duration-200 border-b-2 pb-1 outline-none focus-visible:outline-none
             ${isActive
               ? "text-brand-orange border-brand-orange"
@@ -104,12 +109,12 @@ export default function Header() {
               <ul className="py-2">
                 {item.dropdown.map((subItem) => {
                   const isSubActive =
-                    cleanPathname === normalizePath(subItem.path) ||
-                    cleanPathname.startsWith(normalizePath(subItem.path) + "/");
+                    cleanPathname === normalizePath(localHref(subItem.path)) ||
+                    cleanPathname.startsWith(normalizePath(localHref(subItem.path)) + "/");
                   return (
                     <li key={subItem.name}>
                       <Link
-                        href={subItem.path}
+                        href={localHref(subItem.path)}
                         className={`block px-8 py-3.5 text-[11px] font-bold hover:bg-gray-50 transition-all uppercase tracking-[0.15em] font-onest border-b border-gray-50 last:border-none cursor-pointer
                           ${isSubActive ? "text-brand-orange" : "text-brand-black/70 hover:text-brand-orange"}`}
                       >
@@ -129,7 +134,7 @@ export default function Header() {
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">
       <div className="max-w-[1240px] mx-auto 2xl:ml-28 2xl:mr-0 px-6 lg:px-8 flex items-center justify-between h-22 md:h-28">
-        <Link href="/" className="flex items-center shrink-0 group transition-transform duration-300">
+        <Link href={localHref("/")} className="flex items-center shrink-0 group transition-transform duration-300">
           <Image
             src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
             alt="Dreamlab Logo"
@@ -174,11 +179,11 @@ export default function Header() {
                     </div>
                     <div className="pl-4 space-y-5 border-l-2 border-brand-orange/10">
                       {item.dropdown.map((subItem) => {
-                        const isSubActive = cleanPathname === normalizePath(subItem.path) || cleanPathname.startsWith(normalizePath(subItem.path) + "/");
+                        const isSubActive = cleanPathname === normalizePath(localHref(subItem.path)) || cleanPathname.startsWith(normalizePath(localHref(subItem.path)) + "/");
                         return (
                           <Link
                             key={subItem.name}
-                            href={subItem.path}
+                            href={localHref(subItem.path)}
                             className={`block text-[14px] font-bold uppercase tracking-[0.15em] transition-colors
                               ${isSubActive ? 'text-brand-orange' : 'text-brand-black/80 hover:text-brand-orange'}`}
                             onClick={() => setIsMenuOpen(false)}
@@ -191,7 +196,7 @@ export default function Header() {
                   </div>
                 ) : (
                   <Link
-                    href={item.path}
+                    href={localHref(item.path)}
                     className={`block text-[16px] font-black uppercase tracking-[0.2em] font-onest transition-colors
                       ${isActive ? 'text-brand-orange' : 'text-brand-black hover:text-brand-orange'}`}
                     onClick={() => setIsMenuOpen(false)}
@@ -205,7 +210,7 @@ export default function Header() {
 
           <div className="pt-6">
             <Link
-              href="/contact-us"
+              href={localHref("/contact-us")}
               className="btn-dreamlab w-full text-center"
               onClick={() => setIsMenuOpen(false)}
             >

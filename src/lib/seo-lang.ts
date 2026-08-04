@@ -86,3 +86,15 @@ export function buildAlternates(currentPath: string) {
 export function hasEnVersion(path: string): boolean {
   return getEnPath(path) !== null;
 }
+
+/**
+ * Ubah href supaya sesuai bahasa saat ini.
+ * - isEn=true & path punya versi EN -> prefix /en (mis. /about-us -> /en/about-us/)
+ * - selainnya -> biarkan path asli (fallback ke halaman Indonesia)
+ */
+export function localizeHref(path: string, isEn: boolean): string {
+  if (!isEn) return path;
+  if (path === "/") return "/en/";
+  const enPath = getEnPath(path);
+  return enPath || path;
+}

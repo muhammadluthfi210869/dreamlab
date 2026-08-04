@@ -1,5 +1,24 @@
 import type { Metadata } from "next";
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Dreamlab",
+  url: "https://dreamlab.id/en/",
+  description:
+    "Indonesian certified cosmetic contract manufacturer: skincare, body care, hair care, perfume, decorative & baby care.",
+  areaServed: "Worldwide",
+  sameAs: ["https://www.instagram.com/dreamlab_official"],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Dreamlab",
+  url: "https://dreamlab.id/en/",
+  inLanguage: "en",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://dreamlab.id/en"),
   title: {
@@ -28,5 +47,18 @@ export const metadata: Metadata = {
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      {/* JSON-LD English (Organization + WebSite) untuk semua halaman /en/ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      {children}
+    </>
+  );
 }
