@@ -20,7 +20,6 @@ import { toCanonicalUrl, normalizeSeoPath } from './seo-url-policy';
 /** Halaman yang SUDAH punya versi English (/en/...). */
 export const EN_TRANSLATED_PATHS = new Set<string>([
   '/',
-  '/produk',
   '/about-us',
   '/services',
   '/our-client',
@@ -89,5 +88,9 @@ export function localizeHref(path: string, isEn: boolean): string {
   if (!isEn) return path;
   if (path === "/") return "/en/";
   const enPath = getEnPath(path);
-  return enPath || path;
+  if (enPath) return enPath;
+  // Kategori produk (/produk/...) belum punya halaman English -> arahkan ke
+  // katalog English (/en/produk/) agar pengunjung tetap berada di konten English.
+  if (/^\/produk(\/|$)/.test(path)) return "/en/produk/";
+  return path;
 }

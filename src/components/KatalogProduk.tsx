@@ -5,10 +5,10 @@ import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { getImageAlt, getImageTitle } from "@/lib/image-utils";
+import { getImageTitle } from "@/lib/image-utils";
 
 interface KatalogProps {
-  title: string;
+  title?: string;
   categories?: {
     id: string;
     name: string;
@@ -84,7 +84,7 @@ const visualCategories = [
 // Elite Custom Easing Curve (Apple / Tom Ford Premium Ease-Out)
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
-export default function KatalogProduk({ title, content }: KatalogProps) {
+export default function KatalogProduk({ content }: KatalogProps) {
   const categories = content?.categories || visualCategories;
   
   // Container stagger animation variants

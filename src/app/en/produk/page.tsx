@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { buildAlternates } from "@/lib/seo-lang";
 import KatalogProduk from "@/components/KatalogProduk";
 import CtaSection from "@/components/CtaSection";
-import { homepageDataEn, ctaContentEn } from "@/data/en/site";
+import { catalogContentEn, ctaContentEn } from "@/data/en/site";
 
 export const metadata: Metadata = {
   // Versi Indonesia tidak memiliki halaman /produk/ (hanya /produk/[kategori]),
@@ -12,7 +11,9 @@ export const metadata: Metadata = {
   },
   description:
     "Cosmetic manufacturing (maklon) product catalog: skincare, body care, hair care, decorative, baby care, perfume, foot care, and PKRT. BPOM, CPKB, Halal MUI.",
-  alternates: buildAlternates("/en/produk/"),
+  // /en/produk/ tidak punya pasangan halaman Indonesia (tidak ada /produk/ di ID),
+  // jadi cukup canonical saja — tanpa hreflang (mencegah hreflang-to-404).
+  alternates: { canonical: "https://dreamlab.id/en/produk/" },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -26,13 +27,11 @@ export const metadata: Metadata = {
 };
 
 export default function EnProdukPage() {
-  const { katalog } = homepageDataEn;
-
   return (
     <main className="min-h-screen bg-brand-white">
-      {/* Katalog produk — komponen KatalogProduk (bentuk title+categories) yang sama persis
-          dengan katalog produk di halaman home Indonesia */}
-      <KatalogProduk title={katalog.title} categories={katalog.categories} />
+      {/* Katalog produk — komponen KatalogProduk yang sama persis dengan home
+          Indonesia, diisi konten English (visual categories) */}
+      <KatalogProduk content={catalogContentEn} />
 
       {/* CTA */}
       <CtaSection {...ctaContentEn} />

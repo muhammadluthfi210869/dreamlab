@@ -23,7 +23,7 @@ export default async function Footer() {
             <Image
               src={resolveArticleImageSrc("/assets/images/LOGO-DREAMLAB-1-white.webp")}
               alt="Dreamlab Logo"
-              title={getImageTitle("/assets/images/LOGO-DREAMLAB-1-white.webp")}
+              title={isEn ? "Dreamlab Logo" : getImageTitle("/assets/images/LOGO-DREAMLAB-1-white.webp")}
               width={220}
               height={70}
               className="h-16 w-auto"

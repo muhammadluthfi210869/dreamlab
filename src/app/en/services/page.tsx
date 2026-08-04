@@ -45,6 +45,9 @@ export default function EnServicesPage() {
         title={hero.title}
         description={hero.description}
         backgroundImage={hero.backgroundImage}
+        subtitle={hero.subtitle}
+        primaryCta={hero.primaryCta}
+        secondaryCta={hero.secondaryCta}
       />
       <ServicesWrapper content={servicesWrapperContentEn} />
     </main>

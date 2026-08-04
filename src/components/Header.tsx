@@ -138,7 +138,7 @@ export default function Header() {
           <Image
             src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
             alt="Dreamlab Logo"
-            title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
+            title={isEn ? "Dreamlab - Cosmetic Manufacturing" : getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
             width={240}
             height={78}
             className="h-16 md:h-20 xl:h-24 w-auto object-contain"

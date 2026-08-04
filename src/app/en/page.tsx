@@ -20,6 +20,8 @@ import {
   advantagesContentEn,
   faqHomeContentEn,
   ctaContentEn,
+  catalogContentEn,
+  homeBlogContentEn,
 } from "@/data/en/site";
 
 export const metadata: Metadata = {
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export default function EnHome() {
-  const { hero, trustedBrands, katalog, media, blog } = homepageDataEn;
+  const { hero, trustedBrands, media, blog } = homepageDataEn;
 
   return (
     <main className="min-h-screen bg-brand-white">
@@ -62,8 +64,9 @@ export default function EnHome() {
       {/* 1.5. TRUST BAR */}
       <ProductTrustBar items={trustBarContentEn} />
 
-      {/* 2. KATALOG PRODUK — bentuk title+categories, sama persis dengan home Indonesia */}
-      <KatalogProduk title={katalog.title} categories={katalog.categories} />
+      {/* 2. KATALOG PRODUK — komponen sama persis dengan home Indonesia, diisi
+          konten English (visual categories) supaya tidak memakai teks default ID. */}
+      <KatalogProduk content={catalogContentEn} />
 
       {/* 2.3. BRAND SHOWCASE */}
       <BrandShowcaseSection content={brandShowcaseContentEn} />
@@ -114,8 +117,14 @@ export default function EnHome() {
         </div>
       </section>
 
-      {/* 10. BLOG SECTION (posts kosong -> tidak dirender, karena artikel belum ada versi EN) */}
-      <BlogSection title={blog.title} posts={[]} />
+      {/* 10. BLOG SECTION — setara spotlight posts di home Indonesia (kartu English
+          menautkan ke artikel asli yang masih berbahasa Indonesia) */}
+      <BlogSection
+        title={blog.title}
+        posts={homeBlogContentEn.posts}
+        seeAllText={homeBlogContentEn.seeAllText}
+        readMoreText={homeBlogContentEn.readMoreText}
+      />
     </main>
   );
 }

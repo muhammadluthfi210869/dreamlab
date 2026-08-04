@@ -18,12 +18,19 @@ interface BlogPost {
 interface BlogSectionProps {
   title: string;
   posts: BlogPost[];
+  seeAllText?: string;
+  readMoreText?: string;
 }
 
 // Elite Custom Easing Curve (Apple / Tom Ford Premium Ease-Out)
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
-const BlogSection: React.FC<BlogSectionProps> = ({ title, posts }) => {
+const BlogSection: React.FC<BlogSectionProps> = ({
+  title,
+  posts,
+  seeAllText = "Lihat Semua Artikel",
+  readMoreText = "BACA SELENGKAPNYA",
+}) => {
 
   // Stagger Container
   const containerVariants: Variants = {
@@ -78,7 +85,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ title, posts }) => {
             href="/news-blog"
             className="hidden md:flex items-center gap-3 text-brand-black font-black uppercase tracking-widest text-sm hover:text-brand-orange transition-all hover:translate-x-1"
           >
-            Lihat Semua Artikel
+            {seeAllText}
             <ArrowRight size={16} className="text-brand-orange" />
           </Link>
         </motion.div>
@@ -136,7 +143,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ title, posts }) => {
                     href={post.link}
                     className="inline-flex items-center gap-3 text-brand-orange font-black uppercase tracking-widest text-xs group/link"
                   >
-                    BACA SELENGKAPNYA
+                    {readMoreText}
                     <span className="group-hover/link:translate-x-2 transition-transform">→</span>
                   </Link>
                 </div>

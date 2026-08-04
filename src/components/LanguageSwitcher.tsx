@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { normalizeSeoPath } from "@/lib/seo-url-policy";
-import { getEnPath, isEnPath } from "@/lib/seo-lang";
+import { EN_TRANSLATED_PATHS, getEnPath, isEnPath } from "@/lib/seo-lang";
 
 /**
  * LanguageSwitcher — tombol EN/ID di header.
@@ -22,7 +22,10 @@ export default function LanguageSwitcher() {
   let title: string;
 
   if (isEn) {
-    href = normalized.replace(/^\/en/, "") || "/";
+    // Versi Indonesia harus benar-benar ada; kalau tidak, fallback ke home ID
+    // (mis. /en/produk/ -> "/produk" tidak ada di situs ID -> arahkan ke "/").
+    const idPath = normalized.replace(/^\/en/, "") || "/";
+    href = EN_TRANSLATED_PATHS.has(idPath) ? idPath : "/";
     label = "ID";
     title = "Bahasa Indonesia";
   } else {

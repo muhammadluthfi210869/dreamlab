@@ -314,6 +314,9 @@ export const servicesEditorialDataEn = {
     ...servicesEditorialData.hero,
     title: "One Stop Manufacturing Services Solution for Your Brand",
     description: "Free brand concept consultation - Custom formula - Custom logo & packaging design - Legality handling - Free digital marketing support",
+    subtitle: "From Idea to Ready to Sell",
+    primaryCta: "Start Free Consultation",
+    secondaryCta: "See How It Works",
   },
 };
 
@@ -440,4 +443,33 @@ export const clientContentEn = {
 export const ctaContentEn = {
   title: "Create Your Dream Cosmetic Brand in 3 Months",
   buttonText: "CONSULT TODAY !",
+};
+
+// Versi English dari section blog home (setara spotlight posts di home Indonesia).
+// Artikel aslinya tetap berbahasa Indonesia, jadi kartu ini menampilkan terjemahan
+// judul/excerpt dan menautkan ke halaman artikel yang sama.
+export const homeBlogContentEn = {
+  title: "Discover Beauty Business Insights",
+  seeAllText: "View All Articles",
+  readMoreText: "READ MORE",
+  posts: [
+    {
+      title: "Build Your Own Perfume Brand: Complete Cost Breakdown & Requirements",
+      date: "January 26, 2026",
+      category: "Cosmetic Manufacturing",
+      image: "/assets/images/blog/803584-1.webp",
+      excerpt:
+        "Want to create your own perfume brand? See the perfume manufacturing cost breakdown, requirements, and capital estimate. Dreamlab is ready to help with small MOQ and free BPOM.",
+      link: "/biaya-maklon-parfum-moq-kecil/",
+    },
+    {
+      title: "Glow Glasskin Skincare Business Innovation: Hydroquinone-Level Effect",
+      date: "December 17, 2025",
+      category: "Cosmetic Business Guide",
+      image: "/assets/images/blog/Sampul-WEB-1.webp",
+      excerpt:
+        "Build a Glow Glasskin skincare business with a hydroquinone-equivalent effect using the safe and BPOM-approved Cystamine formula.",
+      link: "/bisnis-skincare-glow-glasskin-cystamine/",
+    },
+  ],
 };
