@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,12 +8,21 @@ import { ArrowRight } from "lucide-react";
 import { getImageTitle } from "@/lib/image-utils";
 
 interface ServicesPageHeroProps {
-  title: string;
+  title: string | ReactNode;
   description: string;
   backgroundImage?: string;
+  subtitle?: string;
+  primaryCta?: string;
+  secondaryCta?: string;
 }
 
-export default function ServicesPageHero({ description }: ServicesPageHeroProps) {
+export default function ServicesPageHero({
+  title,
+  description,
+  subtitle = "Dari Ide Sampai Siap Jual",
+  primaryCta = "Mulai Konsultasi Gratis",
+  secondaryCta = "Pelajari Alur Kerja",
+}: ServicesPageHeroProps) {
 
   return (
     <section className="relative w-full lg:h-[calc(100vh-80px)] lg:max-h-[820px] lg:min-h-[640px] flex items-center overflow-hidden bg-white pt-28 md:pt-36 lg:pt-32 pb-10 lg:pb-0">
@@ -39,10 +49,10 @@ export default function ServicesPageHero({ description }: ServicesPageHeroProps)
               <h1 
                 className="text-brand-black text-[32px] sm:text-[44px] md:text-[52px] lg:text-[54px] xl:text-[62px] font-display font-normal leading-[1.1] tracking-tight uppercase"
               >
-                Solusi <span className="text-brand-orange font-bold italic">One-Stop</span> <br className="hidden sm:inline" /> Maklon Services
+                {title || <>Solusi <span className="text-brand-orange font-bold italic">One-Stop</span> <br className="hidden sm:inline" /> Maklon Services</>}
               </h1>
               <p className="text-brand-orange text-lg md:text-xl font-bold font-onest tracking-wide">
-                Dari Ide Sampai Siap Jual
+                {subtitle}
               </p>
             </div>
 
@@ -57,14 +67,14 @@ export default function ServicesPageHero({ description }: ServicesPageHeroProps)
                 href="/thankyou/google/"
                 className="inline-flex items-center justify-center gap-3 bg-brand-orange text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/25"
               >
-                Mulai Konsultasi Gratis
+                {primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="#strategic-partnership"
                 className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 text-neutral-800 font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:border-brand-orange hover:text-brand-orange transition-all duration-300"
               >
-                Pelajari Alur Kerja
+                {secondaryCta}
               </Link>
             </div>
           </motion.div>

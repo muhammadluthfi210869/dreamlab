@@ -1,7 +1,13 @@
 import React from 'react';
+import { headers } from 'next/headers';
 import JsonLd from './JsonLd';
 
-export default function OrganizationSchema() {
+export default async function OrganizationSchema() {
+  // Deteksi bahasa dari proxy.ts (x-dreamlab-path) — /en/ pakai English, selainnya Indonesian.
+  const h = await headers();
+  const pathname = h.get("x-dreamlab-path") || "/";
+  const isEn = pathname.startsWith("/en");
+
   const organizationData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -18,8 +24,8 @@ export default function OrganizationSchema() {
       "@type": "ContactPoint",
       "telephone": "+62-881-0272-40339",
       "contactType": "customer service",
-      "areaServed": "ID",
-      "availableLanguage": "Indonesian"
+      "areaServed": isEn ? "Worldwide" : "ID",
+      "availableLanguage": isEn ? "English" : "Indonesian"
     }
   };
 

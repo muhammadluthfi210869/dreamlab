@@ -12,9 +12,10 @@ export interface USPItem {
 
 interface ProductTrustBarProps {
   usps?: USPItem[];
+  items?: { title: string; description: string }[];
 }
 
-export default function ProductTrustBar({ usps }: ProductTrustBarProps) {
+export default function ProductTrustBar({ usps, items: textItems }: ProductTrustBarProps) {
   // Data USP Dreamlab default yang world-class
   const defaultUSPs: USPItem[] = [
     {
@@ -39,7 +40,13 @@ export default function ProductTrustBar({ usps }: ProductTrustBarProps) {
     },
   ];
 
-  const items = usps || defaultUSPs;
+  const items = usps || (textItems
+    ? defaultUSPs.map((usp, index) => ({
+        ...usp,
+        title: textItems[index]?.title || usp.title,
+        description: textItems[index]?.description || usp.description,
+      }))
+    : defaultUSPs);
 
   return (
     <section className="relative z-30 bg-transparent -mt-12 md:-mt-16 lg:-mt-20 overflow-visible py-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { 
   MapPin, 
   Clock, 
@@ -17,7 +17,35 @@ import { VIEWPORT_ONCE, fadeInUp, staggerContainer, staggerItemUp } from "@/lib/
 
 const premiumEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
-export function ContactHero() {
+interface ContactContent {
+  hero?: {
+    title: ReactNode;
+    description: string;
+    cta: string;
+    imageAlt: string;
+  };
+  locationsHeader?: {
+    eyebrow: string;
+    title: ReactNode;
+    description: string;
+  };
+  locations?: {
+    title: string;
+    address: string;
+    maps: string;
+    type: string;
+    hours: string;
+  }[];
+  mapsButton?: string;
+  faq?: {
+    eyebrow: string;
+    title: ReactNode;
+    description: string;
+    items: { question: string; answer: string }[];
+  };
+}
+
+export function ContactHero({ content }: { content?: ContactContent["hero"] }) {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-[#FAF9F6] overflow-hidden">
       {/* Background ambient lighting */}
@@ -40,8 +68,8 @@ export function ContactHero() {
                 transition={{ duration: 0.8, ease: premiumEase }}
                 className="text-brand-black text-[38px] sm:text-[46px] md:text-[52px] lg:text-[60px] font-display font-normal leading-[1.08] tracking-tight uppercase"
               >
-                Wujudkan <br />
-                <span className="text-brand-orange font-bold italic">Brand Impian Anda</span>
+                {content?.title || <>Wujudkan <br />
+                <span className="text-brand-orange font-bold italic">Brand Impian Anda</span></>}
               </motion.h1>
               
               <motion.p 
@@ -50,7 +78,7 @@ export function ContactHero() {
                 transition={{ delay: 0.1, duration: 0.8 }}
                 className="text-neutral-500 text-sm sm:text-base md:text-lg leading-relaxed font-sans max-w-xl"
               >
-                Dreamlab adalah mitra maklon terpercaya di Jawa Timur yang siap mendampingi Anda di setiap langkah pembuatan produk maklon kosmetik, skincare, bodycare, dan parfum.
+                {content?.description || "Dreamlab adalah mitra maklon terpercaya di Jawa Timur yang siap mendampingi Anda di setiap langkah pembuatan produk maklon kosmetik, skincare, bodycare, dan parfum."}
               </motion.p>
             </div>
 
@@ -65,7 +93,7 @@ export function ContactHero() {
                 href="/thankyou/google/"
                 className="inline-flex items-center gap-3 bg-brand-orange hover:bg-neutral-950 text-white px-10 py-5 rounded-2xl font-onest font-extrabold uppercase tracking-wider text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:shadow-neutral-950/15 group"
               >
-                <span>Mulai Konsultasi Gratis</span>
+                <span>{content?.cta || "Mulai Konsultasi Gratis"}</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
@@ -81,7 +109,7 @@ export function ContactHero() {
             >
               <Image 
                 src="/assets/images/medium-shot-korean-woman-posing-with-serum-bottle.webp"
-                alt="Wujudkan Brand Kosmetik Impian Anda"
+                alt={content?.imageAlt || "Wujudkan Brand Kosmetik Impian Anda"}
                 title={getImageTitle("/assets/images/medium-shot-korean-woman-posing-with-serum-bottle.webp")}
                 fill
                 className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
@@ -97,8 +125,8 @@ export function ContactHero() {
   );
 }
 
-export function LocationDetails() {
-  const locations = [
+export function LocationDetails({ content }: { content?: ContactContent }) {
+  const locations = (content?.locations || [
     {
       title: "Kantor Pemasaran Surabaya",
       address: "Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan, Surabaya, Jawa Timur 60256",
@@ -115,7 +143,10 @@ export function LocationDetails() {
       hours: "Senin - Sabtu | 08:00 - 16:00 WIB",
       icon: <Factory className="w-5 h-5 text-brand-orange" />
     }
-  ];
+  ]).map((location, index) => ({
+    ...location,
+    icon: index === 0 ? <Clock className="w-5 h-5 text-brand-orange" /> : <Factory className="w-5 h-5 text-brand-orange" />,
+  }));
 
   return (
     <section className="py-24 md:py-28 bg-[#FAF9F6] relative border-t border-b border-neutral-200/50">
@@ -124,13 +155,13 @@ export function LocationDetails() {
         {/* Section Title */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
           <span className="text-brand-orange font-bold text-[10px] uppercase tracking-[0.25em] font-onest border-b border-brand-orange/20 pb-1">
-            Lokasi Kami
+            {content?.locationsHeader?.eyebrow || "Lokasi Kami"}
           </span>
           <h2 className="text-3xl md:text-4xl font-display font-normal text-brand-black leading-tight uppercase tracking-tight">
-            Kunjungi Kantor <span className="text-brand-orange font-bold italic">& Pabrik Kami</span>
+            {content?.locationsHeader?.title || <>Kunjungi Kantor <span className="text-brand-orange font-bold italic">& Pabrik Kami</span></>}
           </h2>
           <p className="text-neutral-500 text-sm font-sans">
-            Kami menyambut hangat kedatangan Anda untuk konsultasi offline langsung dengan tim bisnis kami.
+            {content?.locationsHeader?.description || "Kami menyambut hangat kedatangan Anda untuk konsultasi offline langsung dengan tim bisnis kami."}
           </p>
         </div>
 
@@ -185,7 +216,7 @@ export function LocationDetails() {
                 className="mt-8 inline-flex items-center justify-center gap-2.5 bg-neutral-950 hover:bg-brand-orange text-white px-6 py-4 rounded-xl font-onest font-extrabold uppercase tracking-wider text-xs transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] w-fit shadow-md shadow-neutral-900/10 hover:shadow-brand-orange/15 group/btn"
               >
                 <MapPin className="w-4 h-4 group-hover/btn:translate-y-[-1px] transition-transform" />
-                <span>Petunjuk Arah Maps</span>
+                <span>{content?.mapsButton || "Petunjuk Arah Maps"}</span>
               </Link>
             </motion.div>
           ))}
@@ -196,8 +227,8 @@ export function LocationDetails() {
   );
 }
 
-export function ContactFAQ() {
-  const faqs = [
+export function ContactFAQ({ content }: { content?: ContactContent["faq"] }) {
+  const faqs = content?.items || [
     {
       question: "Berapa modal awal (MOQ) untuk membuat brand kosmetik sendiri?",
       answer: "Dreamlab menerapkan MOQ (Minimum Order Quantity) yang bersahabat dan fleksibel. Kami berkomitmen mendukung wirausaha baru dari skala mikro hingga besar, dengan program khusus yang memungkinkan peluncuran produk kosmetik tanpa modal miliaran rupiah."
@@ -245,14 +276,14 @@ export function ContactFAQ() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-brand-orange/5 border border-brand-orange/15 rounded-full">
             <HelpCircle className="w-3.5 h-3.5 text-brand-orange" />
             <span className="text-[10px] font-bold tracking-widest text-brand-orange uppercase font-onest">
-              Tanya Jawab Maklon
+              {content?.eyebrow || "Tanya Jawab Maklon"}
             </span>
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-normal text-brand-black leading-tight uppercase tracking-tight">
-            Kenali Proses Maklon <span className="text-brand-orange font-bold italic">Lebih Jauh</span>
+            {content?.title || <>Kenali Proses Maklon <span className="text-brand-orange font-bold italic">Lebih Jauh</span></>}
           </h2>
           <p className="text-neutral-500 text-sm max-w-xl mx-auto font-sans leading-relaxed">
-            Dapatkan jawaban cepat untuk pertanyaan umum mengenai modal awal, regulasi BPOM, kepemilikan formula, dan alur pengerjaan.
+            {content?.description || "Dapatkan jawaban cepat untuk pertanyaan umum mengenai modal awal, regulasi BPOM, kepemilikan formula, dan alur pengerjaan."}
           </p>
         </motion.div>
         

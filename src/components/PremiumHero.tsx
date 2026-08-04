@@ -14,6 +14,10 @@ interface HeroProps {
 }
 
 export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaLink }: HeroProps) {
+  const titleLines = title.split("&").length === 2 && title.includes("Trusted")
+    ? ["Trusted Cosmetic", "& Skincare Manufacturing", "Services in Indonesia"]
+    : null;
+
   return (
     <section className="relative w-full min-h-screen overflow-hidden flex items-center pt-24 lg:pt-0">
 
@@ -22,7 +26,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
         <Image
           src="/new asset/background-visual-hero-section/home-page.webp"
           alt="Dreamlab Indonesia Premium Hero Visual"
-          title="Jasa Maklon Kosmetik BPOM Halal — Dreamlab Indonesia"
+          title={`${title} - Dreamlab Indonesia`}
           fill
           priority
           fetchPriority="high"
@@ -51,13 +55,13 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
 
           <h1 className="hero-fade-in" style={{ animationDelay: "0.35s" }}>
             <span className="block text-brand-orange text-[32px] md:text-[46px] lg:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
-              Jasa Maklon
+              {titleLines?.[0] || "Jasa Maklon"}
             </span>
             <span className="block text-brand-orange italic font-normal text-[32px] md:text-[46px] lg:text-[60px] leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
-              Skincare & Kosmetik
+              {titleLines?.[1] || "Skincare & Kosmetik"}
             </span>
             <span className="block text-brand-black text-[32px] md:text-[46px] lg:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
-              Terpercaya Indonesia
+              {titleLines?.[2] || "Terpercaya Indonesia"}
             </span>
           </h1>
 
@@ -68,7 +72,11 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
                 if (!trimmed) return null;
                 return (
                   <p key={idx} className="mb-3 last:mb-0">
-                    {trimmed.includes('FORMULA YANG KUAT') ? (
+                    {trimmed.includes('A STRONG FORMULA') ? (
+                      <>Behind every great brand is <span className="font-bold text-neutral-800 border-b border-brand-orange/30 pb-0.5">A STRONG FORMULA</span></>
+                    ) : trimmed.includes('THE CHAMPION OF FORMULAS') ? (
+                      <>A trusted manufacturing solution for <span className="font-bold text-brand-orange uppercase tracking-wider font-helvetica">THE CHAMPION OF FORMULAS</span></>
+                    ) : trimmed.includes('FORMULA YANG KUAT') ? (
                       <>Di balik setiap brand hebat ada <span className="font-bold text-neutral-800 border-b border-brand-orange/30 pb-0.5">FORMULA YANG KUAT</span></>
                     ) : trimmed.includes('JUARANYA FORMULA') ? (
                       <>Solusi Maklon terpercaya untuk <span className="font-bold text-brand-orange uppercase tracking-wider font-helvetica">JUARANYA FORMULA</span></>
@@ -88,7 +96,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
                     target={ctaLink.startsWith("http") ? "_blank" : undefined}
                     className="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-xs md:text-sm font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-neutral-900 transition-all duration-300 inline-flex items-center justify-center gap-3 group"
                   >
-                    <span>FREE KONSULTASI BISNIS</span>
+                    <span>{ctaText || "FREE KONSULTASI BISNIS"}</span>
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand-orange transition-colors">
                       <ArrowRight className="w-3 h-3" />
                     </div>
@@ -98,7 +106,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
                     href="/thankyou/google/"
                     className="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-xs md:text-sm font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-neutral-900 transition-all duration-300 inline-flex items-center justify-center gap-3 group"
                   >
-                    <span>FREE KONSULTASI BISNIS</span>
+                    <span>{ctaText || "FREE KONSULTASI BISNIS"}</span>
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-brand-orange transition-colors">
                       <ArrowRight className="w-3 h-3" />
                     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ComponentProps, ReactNode } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { HeartHandshake, ShieldCheck, Headphones, BadgeCheck } from "lucide-react";
@@ -11,7 +12,40 @@ import { getImageTitle } from "@/lib/image-utils";
 
 const premiumEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
-export default function ServicesWrapper() {
+interface ServicesWrapperProps {
+  content?: {
+    eyebrow: string;
+    title: ReactNode;
+    cards: { title: string; description: string }[];
+    advantagesTitle: string;
+    advantagesContent?: ComponentProps<typeof AdvantagesGrid>["content"];
+    cta?: ComponentProps<typeof CtaSection>;
+  };
+}
+
+const defaultCards = [
+  {
+    title: "One Stop Service",
+    description: "Layanan mencakup merek dagang, desain kemasan, BPOM, dan sertifikasi HALAL.",
+  },
+  {
+    title: "Quality is Number 1",
+    description: "Didukung tim R&D ahli, kami menghadirkan produk custom dan ready stock berkualitas.",
+  },
+  {
+    title: "After Sales",
+    description: "Kami berkomitmen pada kualitas dengan harga produksi yang bersaing untuk mendukung pertumbuhan brand Anda.",
+  },
+  {
+    title: "Bersertifikat",
+    description: "Produk terjamin aman dan legal dengan standar BPOM RI, CPKB Grade A, dan Halal MUI.",
+  },
+];
+
+export default function ServicesWrapper({ content }: ServicesWrapperProps) {
+  const cards = content?.cards || defaultCards;
+  const icons = [HeartHandshake, ShieldCheck, Headphones, BadgeCheck];
+
   return (
     <div className="w-full relative overflow-hidden bg-[#FAF9F6] text-[#1C1C1C] font-sans antialiased">
       
@@ -29,10 +63,10 @@ export default function ServicesWrapper() {
             className="space-y-4 animate-fadeIn mb-16 text-center flex flex-col items-center"
           >
             <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-brand-orange block">
-              [ LAYANAN PREMIUM ]
+              {content?.eyebrow || "[ LAYANAN PREMIUM ]"}
             </span>
             <h2 className="text-3xl md:text-5xl lg:text-[45px] font-extrabold font-display leading-[1.15] text-neutral-900 tracking-tight uppercase max-w-3xl mx-auto">
-              Tempat Terbaik Untuk <span className="text-brand-orange italic font-normal">Mewujudkan</span> Brand Impian Anda
+              {content?.title || <>Tempat Terbaik Untuk <span className="text-brand-orange italic font-normal">Mewujudkan</span> Brand Impian Anda</>}
             </h2>
             <div className="w-16 h-1 bg-brand-orange mt-6 rounded-full" />
           </motion.div>
@@ -65,77 +99,28 @@ export default function ServicesWrapper() {
             <div className="lg:col-span-7">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                {/* Card 1: One Stop Service */}
-                <motion.div 
-                  whileHover={{ y: -4 }}
-                  className="flex gap-4 bg-white border border-neutral-200/50 rounded-3xl p-5 shadow-sm hover:shadow-md hover:border-brand-orange/20 transition-all duration-300 group"
-                >
-                  <div className="w-12 h-12 bg-brand-orange/5 border border-brand-orange/10 rounded-2xl flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
-                    <HeartHandshake className="w-5.5 h-5.5 stroke-[1.5]" />
-                  </div>
-                  <div className="space-y-1.5 pt-0.5">
-                    <h3 className="text-sm md:text-base font-extrabold font-onest text-neutral-800 uppercase tracking-wide">
-                      One Stop Service
-                    </h3>
-                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                      Layanan mencakup merek dagang, desain kemasan, BPOM, dan sertifikasi HALAL.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Card 2: Quality is Number 1 */}
-                <motion.div 
-                  whileHover={{ y: -4 }}
-                  className="flex gap-4 bg-white border border-neutral-200/50 rounded-3xl p-5 shadow-sm hover:shadow-md hover:border-brand-orange/20 transition-all duration-300 group"
-                >
-                  <div className="w-12 h-12 bg-brand-orange/5 border border-brand-orange/10 rounded-2xl flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
-                    <ShieldCheck className="w-5.5 h-5.5 stroke-[1.5]" />
-                  </div>
-                  <div className="space-y-1.5 pt-0.5">
-                    <h3 className="text-sm md:text-base font-extrabold font-onest text-neutral-800 uppercase tracking-wide">
-                      Quality is Number 1
-                    </h3>
-                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                      Didukung tim R&D ahli, kami menghadirkan produk custom dan ready stock berkualitas.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Card 3: After Sales */}
-                <motion.div 
-                  whileHover={{ y: -4 }}
-                  className="flex gap-4 bg-white border border-neutral-200/50 rounded-3xl p-5 shadow-sm hover:shadow-md hover:border-brand-orange/20 transition-all duration-300 group"
-                >
-                  <div className="w-12 h-12 bg-brand-orange/5 border border-brand-orange/10 rounded-2xl flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Headphones className="w-5.5 h-5.5 stroke-[1.5]" />
-                  </div>
-                  <div className="space-y-1.5 pt-0.5">
-                    <h3 className="text-sm md:text-base font-extrabold font-onest text-neutral-800 uppercase tracking-wide">
-                      After Sales
-                    </h3>
-                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                      Kami berkomitmen pada kualitas dengan harga produksi yang bersaing untuk mendukung pertumbuhan brand Anda.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Card 4: Bersertifikat */}
-                <motion.div 
-                  whileHover={{ y: -4 }}
-                  className="flex gap-4 bg-white border border-neutral-200/50 rounded-3xl p-5 shadow-sm hover:shadow-md hover:border-brand-orange/20 transition-all duration-300 group"
-                >
-                  <div className="w-12 h-12 bg-brand-orange/5 border border-brand-orange/10 rounded-2xl flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
-                    <BadgeCheck className="w-5.5 h-5.5 stroke-[1.5]" />
-                  </div>
-                  <div className="space-y-1.5 pt-0.5">
-                    <h3 className="text-sm md:text-base font-extrabold font-onest text-neutral-800 uppercase tracking-wide">
-                      Bersertifikat
-                    </h3>
-                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                      Produk terjamin aman dan legal dengan standar BPOM RI, CPKB Grade A, dan Halal MUI.
-                    </p>
-                  </div>
-                </motion.div>
+                {cards.map((card, index) => {
+                  const Icon = icons[index] || HeartHandshake;
+                  return (
+                    <motion.div
+                      key={card.title}
+                      whileHover={{ y: -4 }}
+                      className="flex gap-4 bg-white border border-neutral-200/50 rounded-3xl p-5 shadow-sm hover:shadow-md hover:border-brand-orange/20 transition-all duration-300 group"
+                    >
+                      <div className="w-12 h-12 bg-brand-orange/5 border border-brand-orange/10 rounded-2xl flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
+                        <Icon className="w-5.5 h-5.5 stroke-[1.5]" />
+                      </div>
+                      <div className="space-y-1.5 pt-0.5">
+                        <h3 className="text-sm md:text-base font-extrabold font-onest text-neutral-800 uppercase tracking-wide">
+                          {card.title}
+                        </h3>
+                        <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
+                          {card.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
                 
               </div>
             </div>
@@ -145,13 +130,16 @@ export default function ServicesWrapper() {
       </section>
 
       {/* SECTION 2: 8 KEUNTUNGAN MAKLON */}
-      <AdvantagesGrid title="8 Keuntungan Maklon" />
+      <AdvantagesGrid
+        title={content?.advantagesTitle || "8 Keuntungan Maklon"}
+        content={content?.advantagesContent}
+      />
 
       {/* SECTION 3: DI PERCAYA 150+ BRAND (LOGO SCROLL) */}
       <LogoScroll logos={aboutData.partnerLogos} />
 
       {/* SECTION 4: FINAL CTA */}
-      <CtaSection />
+      <CtaSection {...content?.cta} />
 
     </div>
   );

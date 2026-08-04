@@ -9,10 +9,17 @@ import {
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
-export default function FaqHome() {
+interface FaqHomeProps {
+  content?: {
+    title: React.ReactNode;
+    items: { question: string; answer: string }[];
+  };
+}
+
+export default function FaqHome({ content }: FaqHomeProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqItems = [
+  const faqItems = content?.items || [
     {
       question: "Bagaimana Dreamlab menjamin eksklusivitas formula produk saya?",
       answer: "Setiap formula yang diramu oleh tim R&D in-house kami bersifat 100% eksklusif dan terikat kontrak perlindungan hukum (NDA). Kami menerapkan kebijakan ketat: satu formula khusus dirancang hanya untuk satu mitra brand. Dreamlab menjamin tidak ada kloning formula atau penggunaan resep yang sama untuk kompetitor Anda di pasar."
@@ -44,7 +51,7 @@ export default function FaqHome() {
         {/* Centered Heading */}
         <div className="text-center mb-10 md:mb-14">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-display font-normal text-brand-black tracking-tight uppercase">
-            Ketahui Lebih Lanjut Maklon <span className="text-brand-orange font-bold">Kosmetik</span> Dreamlab
+            {content?.title || <>Ketahui Lebih Lanjut Maklon <span className="text-brand-orange font-bold">Kosmetik</span> Dreamlab</>}
           </h2>
           <div className="w-16 h-1 bg-brand-orange mx-auto mt-4 rounded-full" />
         </div>

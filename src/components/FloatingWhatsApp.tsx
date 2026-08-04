@@ -2,11 +2,15 @@
 
 import { useCallback } from "react";
 import { MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { buildThankyouUrl } from "@/lib/lead-routing";
 import { getPageContext } from "@/lib/wa-message";
 import { getLeadSource } from "@/lib/lead-source";
 
 export default function FloatingWhatsApp() {
+  const pathname = usePathname();
+  const isEn = pathname?.startsWith("/en");
+
   const handleClick = useCallback(() => {
     const source = getLeadSource(window.location.pathname);
     const ctx = getPageContext(window.location.href);
@@ -24,7 +28,7 @@ export default function FloatingWhatsApp() {
         <MessageCircle className="w-8 h-8 fill-current" />
 
         <span className="absolute right-20 bg-white text-brand-black px-4 py-2 rounded-lg text-sm font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-gray-100">
-          Konsultasi Gratis
+          {isEn ? "Free Consultation" : "Konsultasi Gratis"}
         </span>
       </button>
       <style>{`

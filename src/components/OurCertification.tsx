@@ -4,7 +4,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
 
-export default function OurCertification() {
+interface OurCertificationProps {
+  alt?: string;
+  title?: string;
+}
+
+export default function OurCertification({
+  alt = "Sertifikasi Resmi Dreamlab CPKB BPOM Halal Kemenkumham",
+  title,
+}: OurCertificationProps) {
   return (
     <section className="w-full bg-[#FAF9F5] overflow-hidden leading-none select-none">
       <motion.div
@@ -16,8 +24,8 @@ export default function OurCertification() {
       >
         <Image
           src="/new asset/banner-bawah.webp"
-          alt="Sertifikasi Resmi Dreamlab CPKB BPOM Halal Kemenkumham"
-          title={getImageTitle("/new asset/banner-bawah.webp")}
+          alt={alt}
+          title={title || getImageTitle("/new asset/banner-bawah.webp")}
           width={1920}
           height={800}
           className="w-full h-auto object-contain block"

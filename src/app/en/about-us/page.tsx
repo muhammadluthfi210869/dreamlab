@@ -1,126 +1,50 @@
 import type { Metadata } from "next";
+import { PageSchema } from "@/components/PageSchema";
+import CompanyProfileWrapper from "@/components/CompanyProfileWrapper";
 import { buildAlternates } from "@/lib/seo-lang";
+import { aboutDataEn, aboutSectionContentEn, ctaContentEn } from "@/data/en/site";
 
 export const metadata: Metadata = {
-  title: "Certified Cosmetic Contract Manufacturer Since 1989",
+  // Terjemahan setia dari metadata halaman About Us Indonesia.
+  title: {
+    absolute: "Dreamlab | Skincare & Perfume Manufacturing Services BPOM Indonesia",
+  },
   description:
-    "Dreamlab is a certified Indonesian cosmetic contract manufacturer trusted since 1989. CPKB Grade A factory, licensed pharmacists, and full BPOM & Halal registration for private label & OEM/ODM brands.",
+    "Dreamlab is a cosmetic manufacturing (maklon) factory in Surabaya trusted since 1989. We provide One-Stop Manufacturing Service: business consultation, custom formulation by the R&D team, packaging design.",
   alternates: buildAlternates("/en/about-us/"),
   openGraph: {
-    title: "Certified Cosmetic Contract Manufacturer Since 1989 | Dreamlab",
-    description:
-      "Since 1989, a trusted cosmetic contract manufacturer — CPKB Grade A factory, licensed pharmacists, and full BPOM & Halal registration.",
-    url: "https://dreamlab.id/en/about-us/",
-    siteName: "Dreamlab",
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    siteName: "Dreamlab",
+    title: "Dreamlab | Skincare & Perfume Manufacturing Services BPOM Indonesia",
+    description:
+      "Dreamlab is a cosmetic manufacturing (maklon) factory in Surabaya trusted since 1989. We provide One-Stop Manufacturing Service.",
+    url: "https://dreamlab.id/en/about-us/",
   },
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
 };
 
-const steps = [
-  {
-    step: "01",
-    title: "Consultation & Product Planning",
-    desc: "We discuss your brand concept, target market, product type, and budget — then map your manufacturing roadmap.",
-  },
-  {
-    step: "02",
-    title: "R&D & Custom Formulation",
-    desc: "Our licensed pharmacists develop an exclusive formula with high-quality active ingredients, tested to your brief.",
-  },
-  {
-    step: "03",
-    title: "Certified Production & Compliance",
-    desc: "Mass production at our CPKB Grade A facility with BPOM & Halal registration handled simultaneously.",
-  },
-  {
-    step: "04",
-    title: "Launch & After-Sales Support",
-    desc: "Ongoing support after launch: reformulation, quality assurance, and scale-up as your brand grows.",
-  },
-];
-
 export default function EnAboutPage() {
   return (
-    <main className="min-h-screen bg-brand-white pt-28 md:pt-36">
-      {/* HERO */}
-      <section className="px-6 lg:px-8 py-12 md:py-16 text-center max-w-4xl mx-auto">
-        <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#b06f00]">About Us — Cosmetic Factory Indonesia</p>
-        <h1 className="mt-4 text-4xl md:text-5xl font-black tracking-tight text-[#1f1f1d]">
-          Certified Cosmetic Manufacturer in Indonesia Since 1989
-        </h1>
-        <p className="mt-5 text-base md:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-          From idea to market-ready in as little as 3 months. Exclusive OEM/ODM formulation, certified
-          CPKB production, and BPOM &amp; Halal registration handled by one trusted partner.
-        </p>
-      </section>
-
-      {/* CERTIFICATIONS */}
-      <section className="px-6 lg:px-8 pb-12 max-w-5xl mx-auto">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-[24px] border border-[#eadfcf] bg-white p-8">
-            <div className="inline-flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/10 text-xl">🛡️</span>
-              <h2 className="text-lg font-black text-[#1f1f1d]">CPKB Grade A Certified Factory</h2>
-            </div>
-            <p className="mt-3 text-sm text-neutral-600 leading-relaxed">
-              No. CPKB/2023/18260-A — international-standard hygiene for cosmetic production, ensuring
-              safe and consistent quality for every batch.
-            </p>
-          </div>
-          <div className="rounded-[24px] border border-[#eadfcf] bg-white p-8">
-            <div className="inline-flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/10 text-xl">✅</span>
-              <h2 className="text-lg font-black text-[#1f1f1d]">BPOM RI &amp; Halal Certified Manufacturer</h2>
-            </div>
-            <p className="mt-3 text-sm text-neutral-600 leading-relaxed">
-              Active BPOM registration verification — every product is officially listed and fully
-              compliant, with Halal MUI certification.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 4 STEPS */}
-      <section className="px-6 lg:px-8 pb-14 max-w-5xl mx-auto">
-        <h2 className="text-center text-3xl font-black tracking-tight text-[#1f1f1d]">
-          How OEM/ODM Manufacturing Works
-        </h2>
-        <p className="mt-3 text-center text-sm text-neutral-500">
-          Four simple steps from consultation to market-ready product.
-        </p>
-        <div className="mt-8 grid gap-5 md:grid-cols-4">
-          {steps.map((s) => (
-            <div key={s.step} className="rounded-[24px] border border-[#eadfcf] bg-white p-6">
-              <span className="text-4xl font-black text-brand-orange/30">{s.step}</span>
-              <h3 className="mt-3 text-base font-black text-[#1f1f1d]">{s.title}</h3>
-              <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="px-6 lg:px-8 pb-16">
-        <div className="mx-auto max-w-5xl rounded-[32px] bg-brand-orange p-8 md:p-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-white">
-            Ready to Start Your OEM/ODM Project?
-          </h2>
-          <p className="mt-4 mx-auto max-w-2xl text-sm md:text-base text-white/90">
-            Request a free formula sample, schedule a factory visit, or consult with our R&amp;D
-            pharmacists about your product idea.
-          </p>
-          <div className="mt-6">
-            <a
-              href="https://api.whatsapp.com/send/?phone=6287712232389&text=Hi%20Dreamlab%2C%20I%20want%20to%20build%20my%20cosmetic%20brand"
-              className="inline-flex items-center rounded-full bg-white px-8 py-4 text-sm font-extrabold uppercase tracking-wider text-[#b06f00] shadow-lg hover:bg-black hover:text-white"
-            >
-              Start Free Consultation
-            </a>
-          </div>
-        </div>
-      </section>
+    <main className="min-h-screen bg-brand-white">
+      <PageSchema
+        url="https://dreamlab.id/en/about-us/"
+        title="About Dreamlab | Skincare & Parfum Manufacturing BPOM"
+        description="Dreamlab is a cosmetic manufacturing (maklon) factory in Surabaya trusted since 1989."
+        h1="About Dreamlab"
+        type="service"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "About Us" },
+        ]}
+      />
+      {/* CompanyProfileWrapper — komponen yang sama persis dengan versi Indonesia,
+          diisi data English + konten English. */}
+      <CompanyProfileWrapper
+        data={aboutDataEn}
+        cta={ctaContentEn}
+        content={aboutSectionContentEn}
+      />
     </main>
   );
 }

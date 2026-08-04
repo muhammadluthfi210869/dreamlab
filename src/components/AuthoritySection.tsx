@@ -9,6 +9,12 @@ import { getImageTitle } from "@/lib/image-utils";
 
 interface AuthoritySectionProps {
   data: AuthoritySectionData;
+  content?: {
+    eyebrow: string;
+    productsDevelopedLabel: string;
+    certifiedFacility: string;
+    innovationText: string;
+  };
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -17,7 +23,7 @@ const iconMap: Record<string, React.ReactNode> = {
   award: <Award className="w-6 h-6" />
 };
 
-export default function AuthoritySection({ data }: AuthoritySectionProps) {
+export default function AuthoritySection({ data, content }: AuthoritySectionProps) {
   const [mainImg, secondaryImg, tertiaryImg] = data.images;
 
   return (
@@ -35,7 +41,7 @@ export default function AuthoritySection({ data }: AuthoritySectionProps) {
             {/* Elegant Brand Eyebrow */}
             <div className="inline-flex items-center gap-2">
               <span className="text-brand-orange font-bold text-[11px] uppercase tracking-[0.2em] border-b-2 border-brand-orange/30 pb-1 font-onest">
-                Otoritas & Sertifikasi
+                {content?.eyebrow || "Otoritas & Sertifikasi"}
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
             </div>
@@ -139,15 +145,15 @@ export default function AuthoritySection({ data }: AuthoritySectionProps) {
               {/* Top Right: Portfolio Numbers Card */}
               <div className="col-span-5 bg-brand-black border border-brand-orange/15 rounded-[24px] p-5 flex flex-col justify-center items-center text-center shadow-xl text-white">
                 <span className="text-3xl md:text-4xl font-extrabold font-onest text-white leading-none tracking-tight">1.000+</span>
-                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-orange mt-2 leading-tight">Produk Dikembangkan</span>
-                  <p className="text-[9px] text-white/50 mt-2 leading-tight">Fasilitas produksi bersertifikat CPKB Grade A</p>
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-orange mt-2 leading-tight">{content?.productsDevelopedLabel || "Produk Dikembangkan"}</span>
+                  <p className="text-[9px] text-white/50 mt-2 leading-tight">{content?.certifiedFacility || "Fasilitas produksi bersertifikat CPKB Grade A"}</p>
               </div>
 
               {/* Bottom Left: World Class Innovation Card */}
               <div className="col-span-5 bg-brand-orange rounded-[24px] p-5 flex flex-col justify-center items-center text-center shadow-xl text-white">
                 <span className="text-3xl md:text-4xl font-extrabold font-onest text-white leading-none tracking-tight">World Class</span>
                 <span className="text-[10px] md:text-xs font-extrabold uppercase tracking-wider leading-tight">Innovation</span>
-                <p className="text-[9px] text-white/70 mt-2 leading-tight">500+ formulasi untuk brand di 15+ negara</p>
+                <p className="text-[9px] text-white/70 mt-2 leading-tight">{content?.innovationText || "500+ formulasi untuk brand di 15+ negara"}</p>
               </div>
 
               {/* Bottom Right: Secondary Collage Image (Formulation / Apoteker) */}

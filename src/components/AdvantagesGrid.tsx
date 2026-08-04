@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useInView } from "@/lib/use-in-view";
 import { 
   Sparkles, 
@@ -16,6 +17,12 @@ interface AdvantagesProps {
   title: string;
   items?: { title: string; desc: string; icon: string }[];
   hideCertification?: boolean;
+  content?: {
+    eyebrow: string;
+    title: ReactNode;
+    description: string;
+    points: { index: string; title: string; desc: string }[];
+  };
 }
 
 const bentoPoints = [
@@ -73,7 +80,7 @@ const bentoPoints = [
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
 interface AdvantageCardProps {
-  point: typeof bentoPoints[0];
+  point: typeof bentoPoints[0] | (typeof bentoPoints[0] & { icon?: typeof Sparkles });
   idx: number;
 }
 
@@ -112,7 +119,7 @@ function AdvantageCard({ point, idx }: AdvantageCardProps) {
   );
 }
 
-function HeaderSection() {
+function HeaderSection({ content }: { content?: AdvantagesProps["content"] }) {
   const { ref, isInView } = useInView();
 
   return (
@@ -123,20 +130,27 @@ function HeaderSection() {
       }`}
     >
       <span className="text-[9px] font-bold tracking-[0.3em] text-brand-orange uppercase bg-brand-orange/5 px-4 py-1.2 rounded-full inline-block mb-3 border border-brand-orange/10">
-        Dreamlab Advantages
+        {content?.eyebrow || "Dreamlab Advantages"}
       </span>
       <h2 className="text-3xl md:text-4xl lg:text-[42px] font-normal font-display tracking-tight text-brand-black mb-3 uppercase">
-        8 Keuntungan <span className="text-brand-orange font-bold">Maklon di Dreamlab</span>
+        {content?.title || <>8 Keuntungan <span className="text-brand-orange font-bold">Maklon di Dreamlab</span></>}
       </h2>
       <div className="h-[1.5px] w-12 bg-brand-orange/40 mx-auto mb-3" />
       <p className="text-gray-500 font-sans text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-        Komitmen Dreamlab untuk menghadirkan solusi manufaktur kosmetik hulu ke hilir yang komprehensif, eksklusif, dan berkualitas dunia.
+        {content?.description || "Komitmen Dreamlab untuk menghadirkan solusi manufaktur kosmetik hulu ke hilir yang komprehensif, eksklusif, dan berkualitas dunia."}
       </p>
     </div>
   );
 }
 
-export default function AdvantagesGrid({ title }: AdvantagesProps) {
+export default function AdvantagesGrid({ title, content }: AdvantagesProps) {
+  const points = content?.points
+    ? content.points.map((point, idx) => ({
+        ...point,
+        icon: bentoPoints[idx]?.icon || Sparkles,
+      }))
+    : bentoPoints;
+
   return (
     <section className="py-14 md:py-16 lg:py-20 bg-[#FAF9F5] relative overflow-hidden flex items-center min-h-[85vh]">
       {/* Subtle luxury brand glowing ambiance */}
@@ -146,11 +160,11 @@ export default function AdvantagesGrid({ title }: AdvantagesProps) {
       <div className="container-custom relative z-10 w-full">
         
         {/* Centered Header Section */}
-        <HeaderSection />
+        <HeaderSection content={content} />
 
         {/* Seamless Luxury 4x2 Editorial Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-gray-200/60 rounded-[2rem] overflow-hidden border border-gray-200/60 shadow-[0_20px_50px_rgba(0,0,0,0.015)]">
-          {bentoPoints.map((point, idx) => (
+          {points.map((point, idx) => (
             <AdvantageCard
               key={point.index}
               point={point}

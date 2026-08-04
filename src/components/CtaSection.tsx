@@ -9,11 +9,13 @@ import { VIEWPORT_ONCE, fadeInLeft, fadeIn, staggerContainer } from "@/lib/anima
 interface CtaSectionProps {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
+  buttonText?: string;
 }
 
 export default function CtaSection({ 
   title = "Wujudkan Brand Kosmetik Impian Anda dalam 3 Bulan",
-  subtitle
+  subtitle,
+  buttonText = "KONSULTASI HARI INI !"
 }: CtaSectionProps) {
 
   return (
@@ -69,7 +71,7 @@ export default function CtaSection({
                 href="/thankyou/google/"
                 className="inline-flex items-center justify-center bg-[#F39200] hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-extrabold text-sm md:text-base lg:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl shadow-[#F39200]/15 w-fit"
               >
-                KONSULTASI HARI INI !
+                {buttonText}
               </Link>
             </div>
           </motion.div>

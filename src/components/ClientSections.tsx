@@ -7,7 +7,18 @@ import { clientLogos } from "@/data/clients";
 import { getImageAlt, getImageTitle } from "@/lib/image-utils";
 import { VIEWPORT_ONCE, fadeInUp, staggerContainer } from "@/lib/animations";
 
-export const PartnerTrustSection = () => {
+interface PartnerTrustSectionProps {
+  content?: {
+    eyebrow: string;
+    title: React.ReactNode;
+    description: string;
+    logos: typeof clientLogos;
+  };
+}
+
+export const PartnerTrustSection = ({ content }: PartnerTrustSectionProps) => {
+  const logos = content?.logos || clientLogos;
+
   return (
     <section className="relative w-full overflow-hidden bg-white pt-24 pb-20">
       {/* Background Blurs for Premium Aesthetics */}
@@ -30,7 +41,7 @@ export const PartnerTrustSection = () => {
           className="inline-flex items-center gap-2.5 mb-4"
         >
           <span className="text-brand-orange font-bold text-[11px] uppercase tracking-[0.25em] border-b-2 border-brand-orange/30 pb-1 font-onest">
-            Trusted Partners
+            {content?.eyebrow || "Trusted Partners"}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
         </motion.div>
@@ -40,8 +51,8 @@ export const PartnerTrustSection = () => {
           variants={fadeInUp(0.8, 0.05, 20)}
           className="text-3xl md:text-5xl lg:text-6xl font-display font-normal text-brand-black leading-tight uppercase tracking-tight mb-8"
         >
-          Bangun Brand Kosmetik Anda dengan <br className="hidden md:inline" />
-          <span className="text-brand-orange font-bold italic">Partner Terpercaya</span>
+          {content?.title || <>Bangun Brand Kosmetik Anda dengan <br className="hidden md:inline" />
+          <span className="text-brand-orange font-bold italic">Partner Terpercaya</span></>}
         </motion.h2>
 
         {/* Description */}
@@ -49,8 +60,7 @@ export const PartnerTrustSection = () => {
           variants={fadeInUp(0.8, 0.1, 20)}
           className="text-neutral-500 max-w-4xl mx-auto text-sm md:text-base leading-relaxed font-helvetica"
         >
-          Lebih dari 5.000 Brand Telah Memilih Dreamlab Sebagai Maklon Kosmetik Utama Mereka. Kepuasan Anda adalah prioritas utama kami. 
-          Dreamlab berkomitmen untuk menghadirkan produk berkualitas, serta layanan purna jual (after-sales service) yang profesional and memuaskan.
+          {content?.description || "Lebih dari 5.000 Brand Telah Memilih Dreamlab Sebagai Maklon Kosmetik Utama Mereka. Kepuasan Anda adalah prioritas utama kami. Dreamlab berkomitmen untuk menghadirkan produk berkualitas, serta layanan purna jual (after-sales service) yang profesional and memuaskan."}
         </motion.p>
       </motion.div>
 
@@ -73,7 +83,7 @@ export const PartnerTrustSection = () => {
         >
           {/* Set 1 */}
           <div className="flex space-x-20 md:space-x-32 items-center px-10 md:px-20">
-            {clientLogos.map((logo, idx) => (
+            {logos.map((logo, idx) => (
               <div
                 key={`trust-set1-${idx}`}
                 className="relative w-48 h-28 md:w-64 md:h-36 flex-shrink-0 flex items-center justify-center transition-transform duration-500 hover:scale-105"
@@ -92,7 +102,7 @@ export const PartnerTrustSection = () => {
           </div>
           {/* Set 2 */}
           <div className="flex space-x-20 md:space-x-32 items-center px-10 md:px-20">
-            {clientLogos.map((logo, idx) => (
+            {logos.map((logo, idx) => (
               <div
                 key={`trust-set2-${idx}`}
                 className="relative w-48 h-28 md:w-64 md:h-36 flex-shrink-0 flex items-center justify-center transition-transform duration-500 hover:scale-105"

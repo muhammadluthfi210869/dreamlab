@@ -9,9 +9,16 @@ import { getImageTitle } from "@/lib/image-utils";
 
 interface AfterSalesSectionProps {
   data: AfterSalesSectionData;
+  content?: {
+    eyebrow: string;
+    title: React.ReactNode;
+    imageAlt: string;
+    cards: { title: string; description: string }[];
+    cta: string;
+  };
 }
 
-export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
+export default function AfterSalesSection({ data, content }: AfterSalesSectionProps) {
   // Gunakan dsc00997.webp sebagai visual utama (indeks ke-0 di data.images)
   const mainImg = data.images[0] || "/new%20asset/people/dsc00997.webp";
 
@@ -32,10 +39,10 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
           className="space-y-4 animate-fadeIn mb-16 text-center flex flex-col items-center"
         >
           <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-brand-orange block">
-            [ LAYANAN PREMIUM ]
+            {content?.eyebrow || "[ LAYANAN PREMIUM ]"}
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-[45px] font-extrabold font-display leading-[1.15] text-neutral-900 tracking-tight uppercase max-w-3xl mx-auto">
-            Layanan <span className="text-brand-orange italic font-normal">Maklon Kosmetik</span> Terlengkap, Dari Nol Sampai Siap di Market
+            {content?.title || <>Layanan <span className="text-brand-orange italic font-normal">Maklon Kosmetik</span> Terlengkap, Dari Nol Sampai Siap di Market</>}
           </h2>
           <div className="w-16 h-1 bg-brand-orange rounded-full" />
         </motion.div>
@@ -53,7 +60,7 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
             <div className="relative w-full max-w-[480px] aspect-[4/3] rounded-[32px] overflow-hidden shadow-2xl border-4 border-white/60 group">
               <Image
                 src={mainImg}
-                alt="Dreamlab Maklon Kosmetik Terlengkap"
+                alt={content?.imageAlt || "Dreamlab Maklon Kosmetik Terlengkap"}
                 title={getImageTitle(mainImg)}
                 fill
                 className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
@@ -89,7 +96,7 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
                     One Stop Service
                   </h3>
                   <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                    Layanan mencakup merek dagang, desain kemasan, BPOM, dan sertifikasi HALAL.
+                    {content?.cards[0]?.description || "Layanan mencakup merek dagang, desain kemasan, BPOM, dan sertifikasi HALAL."}
                   </p>
                 </div>
               </motion.div>
@@ -107,7 +114,7 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
                     Quality Is Number 1
                   </h3>
                   <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                    Didukung tim R&D ahli, kami menghadirkan produk custom dan ready stock berkualitas.
+                    {content?.cards[1]?.description || "Didukung tim R&D ahli, kami menghadirkan produk custom dan ready stock berkualitas."}
                   </p>
                 </div>
               </motion.div>
@@ -125,7 +132,7 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
                     After Sales
                   </h3>
                   <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                    Kami berkomitmen pada kualitas dengan harga produksi yang bersaing untuk mendukung pertumbuhan brand Anda.
+                    {content?.cards[2]?.description || "Kami berkomitmen pada kualitas dengan harga produksi yang bersaing untuk mendukung pertumbuhan brand Anda."}
                   </p>
                 </div>
               </motion.div>
@@ -140,10 +147,10 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
                 </div>
                 <div className="space-y-1.5 pt-0.5">
                   <h3 className="text-sm md:text-base font-extrabold font-onest text-neutral-800 uppercase tracking-wide">
-                    Bersertifikat
+                    {content?.cards[3]?.title || "Bersertifikat"}
                   </h3>
                   <p className="text-neutral-500 text-xs md:text-sm leading-relaxed">
-                    Produk terjamin aman dan legal dengan standar BPOM RI, CPKB Grade A, dan Halal MUI.
+                    {content?.cards[3]?.description || "Produk terjamin aman dan legal dengan standar BPOM RI, CPKB Grade A, dan Halal MUI."}
                   </p>
                 </div>
               </motion.div>
@@ -156,7 +163,7 @@ export default function AfterSalesSection({ data }: AfterSalesSectionProps) {
                 href="/thankyou/google/"
                 className="bg-brand-orange hover:bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-xl transition-all duration-300 group inline-flex items-center gap-2.5 shadow-lg shadow-brand-orange/15 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>Mulai Maklon Sekarang</span>
+                <span>{content?.cta || "Mulai Maklon Sekarang"}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

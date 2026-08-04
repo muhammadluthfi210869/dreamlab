@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Dreamlab",
-  url: "https://dreamlab.id/en/",
-  description:
-    "Private label & OEM/ODM cosmetic contract manufacturer in Indonesia: skincare, body care, hair care, perfume, decorative & baby care with BPOM, CPKB & Halal certification.",
-  areaServed: "Worldwide",
-  sameAs: ["https://www.instagram.com/dreamlab_official"],
-};
-
+// WebSite schema English (Organization di-handle oleh OrganizationSchema bilingual di root layout)
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -22,11 +12,12 @@ const websiteSchema = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://dreamlab.id/en"),
   title: {
-    default: "Private Label Cosmetic & Skincare Manufacturer Indonesia",
+    // Default fallback — terjemahan setia dari title root Indonesia.
+    default: "Dreamlab | Best BPOM Cosmetic & Parfum Manufacturer Indonesia",
     template: "%s | Dreamlab",
   },
   description:
-    "Dreamlab is a certified private label cosmetic manufacturer in Indonesia. OEM/ODM skincare, body care, hair care, perfume, decorative & baby care contract manufacturing with BPOM, CPKB & Halal certification.",
+    "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 500+ brands have trusted their formulation & production with us.",
   alternates: {
     languages: {
       "id-ID": "https://dreamlab.id/",
@@ -38,9 +29,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Dreamlab",
-    title: "Private Label Cosmetic & Skincare Manufacturer Indonesia | Dreamlab",
+    title: "Dreamlab | Best BPOM Cosmetic & Parfum Manufacturer Indonesia",
     description:
-      "Certified cosmetic contract manufacturing in Indonesia: private label & OEM/ODM skincare, body care, hair care, perfume, decorative & baby care with BPOM, CPKB & Halal certification.",
+      "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya.",
     url: "https://dreamlab.id/en/",
   },
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -49,11 +40,6 @@ export const metadata: Metadata = {
 export default function EnLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* JSON-LD English (Organization + WebSite) untuk semua halaman /en/ */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}

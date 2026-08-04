@@ -75,9 +75,18 @@ const premiumEase = [0.16, 1, 0.3, 1] as any;
 
 interface AlurMaklonTimelineProps {
   hideHeader?: boolean;
+  content?: {
+    eyebrow: string;
+    title: string;
+    steps: { id: string; title: string; description: string }[];
+  };
 }
 
-export default function AlurMaklonTimeline({ hideHeader = false }: AlurMaklonTimelineProps) {
+export default function AlurMaklonTimeline({ hideHeader = false, content }: AlurMaklonTimelineProps) {
+  const timelineSteps = content?.steps
+    ? content.steps.map((step, index) => ({ ...step, icon: steps[index]?.icon || MessageSquare }))
+    : steps;
+
   return (
     <section className={`relative w-full overflow-hidden ${hideHeader ? "py-8" : "py-16 md:py-24 bg-white"}`}>
       {/* Decorative Soft Background Blurs */}
@@ -92,11 +101,11 @@ export default function AlurMaklonTimeline({ hideHeader = false }: AlurMaklonTim
             <div className="inline-flex items-center gap-2.5 px-3 py-1 bg-brand-orange/5 border border-brand-orange/15 rounded-full">
               <span className="size-2 rounded-full bg-brand-orange animate-pulse" />
               <span className="text-[10px] font-bold tracking-widest text-brand-orange uppercase">
-                tahapan praktis dan mudah untuk brand kosmetik anda
+                {content?.eyebrow || "tahapan praktis dan mudah untuk brand kosmetik anda"}
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-normal text-brand-black leading-tight uppercase">
-              PROSES MAKLON
+              {content?.title || "PROSES MAKLON"}
             </h2>
           </div>
         )}
@@ -109,7 +118,7 @@ export default function AlurMaklonTimeline({ hideHeader = false }: AlurMaklonTim
           </div>
 
           <div className="grid grid-cols-8 gap-4 w-full">
-            {steps.map((step, idx) => {
+            {timelineSteps.map((step, idx) => {
               const IconComponent = step.icon;
               return (
                 <motion.div
@@ -160,7 +169,7 @@ export default function AlurMaklonTimeline({ hideHeader = false }: AlurMaklonTim
           </div>
 
           <div className="flex flex-col gap-10 md:gap-12">
-            {steps.map((step, idx) => {
+            {timelineSteps.map((step, idx) => {
               const IconComponent = step.icon;
               return (
                 <motion.div

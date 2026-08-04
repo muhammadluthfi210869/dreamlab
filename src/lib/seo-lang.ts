@@ -21,13 +21,6 @@ import { toCanonicalUrl, normalizeSeoPath } from './seo-url-policy';
 export const EN_TRANSLATED_PATHS = new Set<string>([
   '/',
   '/produk',
-  '/produk/skincare',
-  '/produk/bodycare',
-  '/produk/babycare',
-  '/produk/haircare',
-  '/produk/decorative',
-  '/produk/parfum',
-  '/produk/footcare',
   '/about-us',
   '/services',
   '/our-client',

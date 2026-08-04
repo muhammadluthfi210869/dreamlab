@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +14,12 @@ interface KatalogProps {
     name: string;
     items: { name: string; src: string }[];
   }[];
+  content?: {
+    eyebrow: string;
+    title: ReactNode;
+    description: string;
+    categories: typeof visualCategories;
+  };
 }
 
 const visualCategories = [
@@ -77,7 +84,8 @@ const visualCategories = [
 // Elite Custom Easing Curve (Apple / Tom Ford Premium Ease-Out)
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
-export default function KatalogProduk({ title }: KatalogProps) {
+export default function KatalogProduk({ title, content }: KatalogProps) {
+  const categories = content?.categories || visualCategories;
   
   // Container stagger animation variants
   const containerVariants: Variants = {
@@ -122,14 +130,14 @@ export default function KatalogProduk({ title }: KatalogProps) {
           className="max-w-3xl mx-auto text-center mb-16 lg:mb-20"
         >
           <span className="text-[11px] font-bold tracking-[0.2em] text-brand-orange uppercase bg-brand-orange/10 px-4 py-1.5 rounded-full inline-block mb-4 shadow-sm border border-brand-orange/10">
-            Formulasi Eksklusif & CPKB Grade A
+            {content?.eyebrow || "Formulasi Eksklusif & CPKB Grade A"}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold font-display tracking-tight text-brand-black mb-6 uppercase">
-            Katalog Layanan <span className="text-brand-orange">Maklon Premium</span>
+            {content?.title || <>Katalog Layanan <span className="text-brand-orange">Maklon Premium</span></>}
           </h2>
           <div className="h-[2px] w-20 bg-brand-orange/40 mx-auto mb-6 rounded-full" />
           <p className="text-sm md:text-base text-gray-600 leading-relaxed font-medium">
-            Dari formulasi riset laboratorium (R&D) kustom, visualisasi desain branding eksklusif, hingga pendaftaran legalitas resmi BPOM, Halal, & HKI — kami mewujudkan brand kecantikan juara Anda tanpa batas.
+            {content?.description || "Dari formulasi riset laboratorium (R&D) kustom, visualisasi desain branding eksklusif, hingga pendaftaran legalitas resmi BPOM, Halal, & HKI - kami mewujudkan brand kecantikan juara Anda tanpa batas."}
           </p>
         </motion.div>
 
@@ -141,7 +149,7 @@ export default function KatalogProduk({ title }: KatalogProps) {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
         >
-          {visualCategories.map((category) => (
+          {categories.map((category) => (
             <Link 
               key={category.id}
               href={category.link}
@@ -159,8 +167,8 @@ export default function KatalogProduk({ title }: KatalogProps) {
                 {/* Background Product Image - slow Focusing zoom on hover */}
                 <Image
                   src={category.image}
-                  alt={`Maklon ${category.name}`}
-                  title={getImageTitle(category.image)}
+                  alt={content ? `${category.name} manufacturing service` : `Maklon ${category.name}`}
+                  title={content ? `${category.name} manufacturing service - Dreamlab` : getImageTitle(category.image)}
                   fill
                   className="object-cover transition-transform duration-1000 ease-out group-hover:scale-108"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
