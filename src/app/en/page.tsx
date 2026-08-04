@@ -2,31 +2,33 @@ import type { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
-  title: "Dreamlab | Cosmetic & Skincare Contract Manufacturer Indonesia",
+  // Catatan: title.template di /en/layout.tsx tidak berlaku untuk halaman di segment
+  // yang sama (home), jadi brand "| Dreamlab" ditambahkan manual di sini.
+  title: "Private Label Cosmetic Manufacturer Indonesia | Dreamlab",
   description:
-    "Dreamlab is Indonesia's trusted cosmetic contract manufacturer (maklon). BPOM certified, CPKB Grade A & Halal. 500+ brands trust our private label production.",
+    "Dreamlab is a certified cosmetic contract manufacturer in Indonesia. Private label & OEM/ODM skincare, body care, hair care & perfume production with exclusive formulations, flexible MOQ, BPOM, CPKB Grade A & Halal certification.",
   alternates: buildAlternates("/en/"),
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "Dreamlab",
-    title: "Dreamlab | Cosmetic & Skincare Contract Manufacturer Indonesia",
+    title: "Private Label Cosmetic Manufacturer Indonesia | Dreamlab",
     description:
-      "Certified BPOM, CPKB Grade A & Halal. 500+ brands trust our private label cosmetic production in Indonesia.",
+      "Certified BPOM, CPKB Grade A & Halal. 500+ brands trust our private label & OEM/ODM cosmetic production in Indonesia.",
     url: "https://dreamlab.id/en/",
   },
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
 };
 
 const advantages = [
-  { title: "Competitive Pricing", desc: "HPP (cost of goods) that adapts to your needs." },
-  { title: "Innovative Formulas", desc: "Young, highly innovative R&D team." },
-  { title: "Creative Design", desc: "A creative design team ready to visualize your brand." },
-  { title: "Strong Branding", desc: "Build a strong identity so your brand is easily recognized." },
-  { title: "Digital Marketing", desc: "Reach your target audience more effectively & efficiently." },
-  { title: "Exclusive Formula", desc: "1 client, 1 formula. Make your dream formula and stand out." },
-  { title: "Product Formulation", desc: "Highly innovative young R&D team." },
-  { title: "Flexible MOQ", desc: "MOQ tailored to your client's needs." },
+  { title: "Cost-Effective Production", desc: "Competitive unit pricing with full HPP (cost of goods) transparency to protect your margins." },
+  { title: "In-House R&D & ODM", desc: "A young, highly innovative formulation team develops exclusive, custom formulas for your brand." },
+  { title: "Custom Packaging Design", desc: "A creative design team ready to visualize your brand identity across packaging & labels." },
+  { title: "Strong Branding", desc: "Build a strong identity so your brand is easily recognized on shelf and online." },
+  { title: "Digital Marketing Support", desc: "Reach your target audience more effectively & efficiently with our free marketing guidance." },
+  { title: "Exclusive Formulas", desc: "1 client, 1 formula. Your custom formula is never shared with other brands." },
+  { title: "Licensed Pharmacist Formulators", desc: "STRA-registered pharmacists formulate and oversee every product for safety & quality." },
+  { title: "Flexible MOQ", desc: "Minimum order quantities tailored to your budget so you can start small and scale up." },
 ];
 
 const catalog = [
@@ -44,21 +46,22 @@ export default function EnHome() {
       <section className="bg-[#F1E9DA] px-6 lg:px-8 py-16 md:py-24">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-[11px] font-black uppercase tracking-[0.35em] text-[#b06f00]">
-            Indonesia&apos;s Trusted Contract Manufacturer
+            Indonesia&apos;s Trusted Private Label Cosmetic Manufacturer
           </p>
           <h1 className="mt-5 text-4xl md:text-6xl font-black tracking-tight text-[#1f1f1d] leading-[1.05]">
-            Behind Every Great Brand is a Powerful Formula
+            Private Label Cosmetic Manufacturing in Indonesia
           </h1>
           <p className="mt-6 text-base md:text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-            Trusted cosmetic &amp; skincare manufacturing (maklon) for brands that want a winning
-            formula — certified, scalable, and market-ready.
+            Dreamlab is a certified cosmetic contract manufacturer (OEM/ODM) trusted by 500+ brands.
+            Exclusive formulations, flexible MOQ, and full BPOM, CPKB &amp; Halal registration — handled
+            end-to-end for your brand.
           </p>
           <div className="mt-8">
             <a
-              href="https://api.whatsapp.com/send/?phone=6287712232389&text=Hi%20Dreamlab%2C%20I%20want%20a%20free%20formula%20consultation"
+              href="https://api.whatsapp.com/send/?phone=6287712232389&text=Hi%20Dreamlab%2C%20I%20want%20a%20free%20formulation%20quote"
               className="btn-wa inline-flex items-center rounded-full bg-[#25d366] px-8 py-4 text-sm font-extrabold uppercase tracking-wider text-white shadow-lg hover:bg-[#1da851]"
             >
-              Free Formula Consultation
+              Get a Free Formulation Quote
             </a>
           </div>
         </div>
@@ -83,7 +86,7 @@ export default function EnHome() {
       {/* CATALOG */}
       <section className="px-6 lg:px-8 py-14 bg-white">
         <h2 className="text-center text-3xl md:text-4xl font-black tracking-tight text-[#1f1f1d]">
-          Our Manufacturing Catalog
+          Our Private Label Manufacturing Catalog
         </h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto">
           {catalog.map((c) => (
@@ -104,7 +107,7 @@ export default function EnHome() {
       {/* ADVANTAGES */}
       <section className="px-6 lg:px-8 py-14 bg-[#FAF9F6]">
         <h2 className="text-center text-3xl md:text-4xl font-black tracking-tight text-[#1f1f1d]">
-          8 Advantages of Manufacturing with Dreamlab
+          8 Reasons to Choose Dreamlab as Your Cosmetic Manufacturer
         </h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           {advantages.map((a) => (
@@ -140,18 +143,18 @@ export default function EnHome() {
       <section className="px-6 lg:px-8 py-16 bg-brand-orange">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-black tracking-tight text-white">
-            Ready to Build Your Brand?
+            Ready to Launch Your Own Cosmetic Brand?
           </h2>
           <p className="mt-4 text-sm md:text-base text-white/90 max-w-2xl mx-auto">
             Start with a free consultation. From exclusive formulation to certified production and
-            legal registration — one partner, everything handled.
+            BPOM &amp; Halal registration — one partner, everything handled.
           </p>
           <div className="mt-7">
             <a
               href="https://api.whatsapp.com/send/?phone=6287712232389&text=Hi%20Dreamlab%2C%20I%20want%20to%20start%20my%20brand"
               className="inline-flex items-center rounded-full bg-white px-8 py-4 text-sm font-extrabold uppercase tracking-wider text-[#b06f00] shadow-lg hover:bg-black hover:text-white"
             >
-              Consult Now
+              Request a Free Quote
             </a>
           </div>
         </div>

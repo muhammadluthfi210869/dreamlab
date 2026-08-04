@@ -6,7 +6,7 @@ const organizationSchema = {
   name: "Dreamlab",
   url: "https://dreamlab.id/en/",
   description:
-    "Indonesian certified cosmetic contract manufacturer: skincare, body care, hair care, perfume, decorative & baby care.",
+    "Private label & OEM/ODM cosmetic contract manufacturer in Indonesia: skincare, body care, hair care, perfume, decorative & baby care with BPOM, CPKB & Halal certification.",
   areaServed: "Worldwide",
   sameAs: ["https://www.instagram.com/dreamlab_official"],
 };
@@ -22,11 +22,11 @@ const websiteSchema = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://dreamlab.id/en"),
   title: {
-    default: "Dreamlab | Cosmetic & Skincare Manufacturing (Maklon) - Build Your Brand",
+    default: "Private Label Cosmetic & Skincare Manufacturer Indonesia",
     template: "%s | Dreamlab",
   },
   description:
-    "Dreamlab is a certified cosmetic contract manufacturer (maklon) in Indonesia: skincare, body care, hair care, perfume, decorative & baby care with BPOM, CPKB & Halal certification.",
+    "Dreamlab is a certified private label cosmetic manufacturer in Indonesia. OEM/ODM skincare, body care, hair care, perfume, decorative & baby care contract manufacturing with BPOM, CPKB & Halal certification.",
   alternates: {
     languages: {
       "id-ID": "https://dreamlab.id/",
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Dreamlab",
-    title: "Dreamlab | Cosmetic & Skincare Manufacturing (Maklon) - Build Your Brand",
+    title: "Private Label Cosmetic & Skincare Manufacturer Indonesia | Dreamlab",
     description:
-      "Dreamlab is a certified cosmetic contract manufacturer in Indonesia: skincare, body care, hair care, perfume, decorative & baby care.",
+      "Certified cosmetic contract manufacturing in Indonesia: private label & OEM/ODM skincare, body care, hair care, perfume, decorative & baby care with BPOM, CPKB & Halal certification.",
     url: "https://dreamlab.id/en/",
   },
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",

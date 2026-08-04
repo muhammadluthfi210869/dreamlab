@@ -30,7 +30,9 @@ export default async function Footer() {
               unoptimized
             />
             <p className="text-gray-400 text-sm leading-relaxed">
-              Dreamlab Cosmetics adalah manufaktur kosmetik berkualitas tinggi yang menggabungkan tren kecantikan Eropa dan Korea melalui konsep Natural Mix
+              {isEn
+                ? "Dreamlab Cosmetics is a high-quality cosmetic contract manufacturer combining European and Korean beauty trends through our Natural Mix concept."
+                : "Dreamlab Cosmetics adalah manufaktur kosmetik berkualitas tinggi yang menggabungkan tren kecantikan Eropa dan Korea melalui konsep Natural Mix"}
             </p>
             <div className="flex space-x-3">
               {[
@@ -55,13 +57,13 @@ export default async function Footer() {
             <h3 className="text-lg font-bold mb-8 text-brand-orange">Cosmetics We Can Make</h3>
             <ul className="space-y-3 text-sm text-gray-300">
               {[
-                { name: "Maklon Skincare", link: "/produk/skincare/" },
-                { name: "Maklon Baby Care", link: "/produk/babycare/" },
-                { name: "Maklon Body Care", link: "/produk/bodycare/" },
-                { name: "Maklon Hair Care", link: "/produk/haircare/" },
-                { name: "Maklon Parfum", link: "/produk/parfum/" },
-                { name: "Maklon Decorative", link: "/produk/decorative/" },
-                { name: "Maklon Foot Care", link: "/produk/footcare/" }
+                { name: isEn ? "Skincare Manufacturing" : "Maklon Skincare", link: "/produk/skincare/" },
+                { name: isEn ? "Baby Care Manufacturing" : "Maklon Baby Care", link: "/produk/babycare/" },
+                { name: isEn ? "Body Care Manufacturing" : "Maklon Body Care", link: "/produk/bodycare/" },
+                { name: isEn ? "Hair Care Manufacturing" : "Maklon Hair Care", link: "/produk/haircare/" },
+                { name: isEn ? "Fragrance Manufacturing" : "Maklon Parfum", link: "/produk/parfum/" },
+                { name: isEn ? "Color Cosmetics Manufacturing" : "Maklon Decorative", link: "/produk/decorative/" },
+                { name: isEn ? "Foot Care Manufacturing" : "Maklon Foot Care", link: "/produk/footcare/" }
               ].map((item, i) => (
                 <li key={i} className="flex items-center space-x-2 group">
                   <span className="text-gray-500 group-hover:text-brand-orange transition-colors">›</span>
@@ -85,24 +87,24 @@ export default async function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <span className="text-gray-500">›</span>
-                <Link href="#" className="hover:text-brand-orange transition-colors">Jadwalkan Pertemuan</Link>
+                <Link href="#" className="hover:text-brand-orange transition-colors">{isEn ? "Schedule a Meeting" : "Jadwalkan Pertemuan"}</Link>
               </li>
             </ul>
           </div>
 
           {/* Column 4: Interesting Link */}
           <div>
-            <h3 className="text-lg font-bold mb-8 text-brand-orange">Interesting Link</h3>
+            <h3 className="text-lg font-bold mb-8 text-brand-orange">Interesting Link{isEn ? "s" : ""}</h3>
             <ul className="space-y-3 text-sm text-gray-300">
               {[
-                { name: "Pabrik Kosmetik", link: "/produk/skincare/" },
-                { name: "Pabrik Parfum", link: "/produk/parfum/" },
-                { name: "Jasa Maklon Kosmetik", link: "/jasa-maklon-kosmetik" },
-                { name: "Private Label", link: "/private-label-kosmetik" },
-                { name: "Estimasi Biaya Maklon", link: "/estimasi-biaya-maklon-kosmetik" },
+                { name: isEn ? "Cosmetic Factory" : "Pabrik Kosmetik", link: "/produk/skincare/" },
+                { name: isEn ? "Perfume Factory" : "Pabrik Parfum", link: "/produk/parfum/" },
+                { name: isEn ? "Cosmetic Manufacturing Services" : "Jasa Maklon Kosmetik", link: "/jasa-maklon-kosmetik" },
+                { name: isEn ? "Private Label Cosmetics" : "Private Label", link: "/private-label-kosmetik" },
+                { name: isEn ? "Manufacturing Cost Estimate" : "Estimasi Biaya Maklon", link: "/estimasi-biaya-maklon-kosmetik" },
                 { name: "About Dreamlab", link: "/about-us" },
                 { name: "Services", link: "/services" },
-                { name: "Panduan", link: "/panduan" },
+                { name: isEn ? "Guide" : "Panduan", link: "/panduan" },
                 { name: "News & Blog", link: "/news-blog" },
                 { name: "Contact Us", link: "/contact-us" },
               ].map((link, i) => (
