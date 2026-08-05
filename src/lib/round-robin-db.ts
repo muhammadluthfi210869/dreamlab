@@ -113,10 +113,14 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
   const vid = data.visitorId || null;
 
   // Dedup selektif: visitor yang SAMA konversi lagi dalam 2 menit dengan
-  // intent ATAU halaman yang SAMA (double-click, re-render, navigasi cepat)
-  // → jangan buat lead baru, balas kode lama.
-  // Visitor yang sama tapi produk/halaman BEDA → tetap dicatat sebagai lead baru
-  // (tidak ada lead yang hilang), dan sticky memastikan tetap ke CS yang sama.
+  // intent ATAU halaman yang SAMA → balas kode lama (double-click, re-render,
+  // navigasi cepat), jangan bikin lead baru.
+  // PENTING: hanya dedup kalau nilai pembanding ($2 intent / $3 page_url)
+  // tidak kosong. Kalau kedua-duanya kosong, JANGAN dedup — kalau tidak,
+  // visitor yang menanyakan produk BEDA (tanpa data page_url) salah
+  // dianggap kunjungan ulang dan lead-nya HILANG (data loss).
+  // Visitor yang sama tapi produk/halaman BEDA → lead baru, sticky tetap
+  // memastikan CS yang sama.
   if (vid) {
     const existing = await pool.query<{ tracking_code: string }>(
       `SELECT tracking_code
@@ -124,8 +128,9 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
         WHERE visitor_id = $1
           AND created_at > NOW() - INTERVAL '2 minutes'
           AND (
-            COALESCE(intent, '') = COALESCE($2, '')
-            OR COALESCE(page_url, '') = COALESCE($3, '')
+            (COALESCE($2, '') <> '' AND COALESCE(intent, '') = $2)
+            OR
+            (COALESCE($3, '') <> '' AND COALESCE(page_url, '') = $3)
           )
         ORDER BY id DESC
         LIMIT 1`,

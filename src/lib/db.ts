@@ -25,11 +25,19 @@ function buildPool() {
   const sslMode = u.searchParams.get('sslmode') ?? '';
 
   let ssl;
-  if (sslMode === 'require' || sslMode === 'prefer') {
+  if (sslMode === 'require') {
+    // require = WAJIB SSL. Kalau server tidak punya TLS (mis. PgBouncer
+    // tanpa cert), koneksi memang akan gagal — ini sesuai semantik require.
     ssl = { rejectUnauthorized: false };
   } else if (sslMode === 'verify-ca' || sslMode === 'verify-full') {
     ssl = { rejectUnauthorized: true };
   }
+  // NOTE: `prefer`, `disable`, dan tanpa sslmode → TANPA SSL.
+  // node-postgres TIDAK punya mode 'prefer' (try-SSL-lalu-fallback).
+  // Kalau kita set ssl objek utk 'prefer', node-postgres MEMAKSA SSL dan
+  // GAGAL ke server tanpa TLS (PgBouncer produksi tidak punya cert).
+  // Karena server produksi (PgBouncer di depan PG17) memang tanpa TLS,
+  // 'prefer' diperlakukan sebagai plaintext (= hasil fallback yang benar).
 
   const poolMax = Number(process.env.DATABASE_POOL_MAX ?? 5);
 
