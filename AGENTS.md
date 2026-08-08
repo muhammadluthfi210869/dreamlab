@@ -85,6 +85,11 @@ Gunakan `skill` tool untuk load `dreamlab-seo-article` sebelum mulai — panduan
 - Slug: URL friendly
 
 ### 9. Git
+> **Sebelum commit:** setelah update `src/data/articles.ts`, wajib generate ulang meta ringan untuk blog archive:
+> ```bash
+> node scripts/gen-articles-meta.mjs
+> ```
+> Ini mengatur `src/data/articles-meta.ts` (tanpa konten HTML) yang dipakai halaman `/news-blog` — jangan di-skip supaya artikel baru muncul && bundle tetap kecil.
 ```bash
 git add .
 git commit -m "Auto update by OpenCode"

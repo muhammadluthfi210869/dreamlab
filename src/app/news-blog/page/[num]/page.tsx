@@ -78,6 +78,8 @@ export default async function BlogPaginationPage({ params }: BlogPaginationProps
             fill 
             className="object-cover opacity-30"
             priority
+            quality={40}
+            sizes="100vw"
           />
         </div>
         <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-orange/10 skew-x-[-20deg] translate-x-32"></div>

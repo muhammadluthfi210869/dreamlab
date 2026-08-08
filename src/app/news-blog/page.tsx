@@ -3,11 +3,11 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { articles, Article } from '@/data/articles';
+import { articlesMeta, ArticleMeta } from '@/data/articles-meta';
 
 const MONTHS_ID = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'];
 
-function sortByDateDesc(list: Article[]) {
+function sortByDateDesc(list: ArticleMeta[]) {
   return [...list].sort((a, b) => {
     const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
     const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
@@ -39,10 +39,8 @@ function formatDate(dateStr: string) {
   }
 }
 
-function getReadingTime(content: string) {
-  if (!content) return 1;
-  const words = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
-  return Math.max(1, Math.ceil(words / 225));
+function getReadingTime(article: { readingMinutes: number }) {
+  return Math.max(1, article.readingMinutes || 1);
 }
 
 const PILLAR_CATEGORIES = ['Maklon Kosmetik', 'Panduan Bisnis Kosmetik', 'Dreampreneur Beauty Academy', 'Event'];
@@ -54,7 +52,7 @@ export default function BlogArchivePage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredByBlog = useMemo(() => {
-    return sortByDateDesc(articles.filter(a => (a.categories || []).length > 0));
+    return sortByDateDesc(articlesMeta.filter(a => (a.categories || []).length > 0));
   }, []);
 
   const categories = ['All', ...PILLAR_CATEGORIES];
@@ -110,6 +108,8 @@ export default function BlogArchivePage() {
             fill 
             className="object-cover opacity-30"
             priority
+            quality={40}
+            sizes="100vw"
           />
         </div>
         <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-orange/10 skew-x-[-20deg] translate-x-32"></div>
@@ -239,7 +239,7 @@ onChange={(e) => handleSearch(e.target.value)}
                             <div className="flex items-center gap-3 mb-4 text-[10px] font-black uppercase tracking-widest text-brand-black/40">
                               <span className="text-brand-orange">{article.categories?.[0] || 'Uncategorized'}</span>
                               <span>•</span>
-                              <span>{getReadingTime(article.content)} Min Read</span>
+                              <span>{getReadingTime(article)} Min Read</span>
                             </div>
                             
                             <h3 className="text-xl md:text-2xl font-viga font-normal text-brand-black leading-tight mb-4 group-hover:text-brand-orange transition-colors">
@@ -350,7 +350,7 @@ onChange={(e) => handleSearch(e.target.value)}
                 <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm">
                   <h4 className="text-sm font-black uppercase tracking-widest mb-8 border-b border-gray-100 pb-4">Latest Insights</h4>
                   <div className="space-y-8">
-                    {sortByDateDesc(articles).slice(0, 5).map((a, i) => (
+                    {sortByDateDesc(articlesMeta).slice(0, 5).map((a, i) => (
                       <Link href={`${a.slug}`} key={i} className="flex gap-4 group">
                         <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 bg-[#FAF9F6]">
                           <Image 
@@ -368,7 +368,7 @@ onChange={(e) => handleSearch(e.target.value)}
                           <div className="flex items-center gap-2 mt-1.5 text-[9px] text-gray-400 font-bold uppercase">
                             <span>{a.publishDate ? formatDate(a.publishDate).month + ' ' + formatDate(a.publishDate).day : 'JAN 1'}</span>
                             <span>•</span>
-                            <span>{getReadingTime(a.content)} MIN READ</span>
+                            <span>{getReadingTime(a)} MIN READ</span>
                           </div>
                         </div>
                       </Link>
