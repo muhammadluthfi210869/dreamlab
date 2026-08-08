@@ -30,7 +30,7 @@
     --bg:#f4f9fd; --white:#ffffff; --ink:#0b2540; --muted:#4c6178;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.5;}
+  body{font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; overflow-x:hidden;}
   img{max-width:100%; display:block;}
   a{text-decoration:none;}
   .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
@@ -49,31 +49,30 @@
 
   /* HERO */
   header.hero{
-    background:linear-gradient(180deg, #1a8fe0 0%, #0d6fb8 55%, #f5821f 100%);
+    background:linear-gradient(180deg, #1a8fe0 0%, #0d6fb8 45%, #f5821f 100%);
     color:#fff; padding:26px 0 70px; text-align:center; position:relative; overflow:hidden;
   }
   header.hero::before{
     content:""; position:absolute; inset:0; pointer-events:none;
-    background:repeating-linear-gradient(-35deg, rgba(255,255,255,.10) 0 26px, rgba(224,52,42,.16) 26px 52px, transparent 52px 90px);
+    background:repeating-linear-gradient(-35deg, rgba(255,255,255,.10) 0 26px, rgba(245,130,31,.18) 26px 52px, transparent 52px 90px);
     opacity:.6;
   }
   .flag-ribbon{
     position:absolute; left:-10%; top:38px; width:120%; height:34px;
-    background:linear-gradient(90deg, #fff 0%, #fff 33%, var(--red) 33%, var(--red) 66%, #fff 66%, #fff 100%);
+    background:linear-gradient(90deg, #fff 0%, #fff 33%, #f5821f 33%, #f5821f 66%, #fff 66%, #fff 100%);
     transform:rotate(-4deg); box-shadow:0 6px 18px rgba(0,0,0,.2); opacity:.9;
   }
-  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:30px; position:relative; z-index:2;}
-  .logo{font-weight:900; font-size:20px; letter-spacing:.5px;}
-  .logo span{display:block; font-size:10px; font-weight:400; opacity:.85;}
+  .topbar{display:flex; align-items:center; justify-content:center; margin-bottom:30px; position:relative; z-index:2;}
   .merdeka-tag{
     display:inline-block; font-family:Arial, sans-serif; font-weight:900; font-style:italic;
-    background:#fff; color:var(--red); padding:4px 18px; border-radius:20px; font-size:14px;
+    background:var(--orange); color:#fff; padding:4px 18px; border-radius:20px; font-size:14px;
     box-shadow:0 4px 10px rgba(0,0,0,.15); position:relative; z-index:2; margin-bottom:10px;
   }
   header.hero h1{font-size:clamp(28px,5vw,46px); font-weight:900; line-height:1.15; margin:16px auto 10px; max-width:820px; text-shadow:0 4px 14px rgba(0,0,0,.15); position:relative; z-index:2;}
-  header.hero h1 .hl{color:#fff; background:var(--red); padding:2px 12px; border-radius:8px; display:inline-block; margin-top:6px; border:2px solid #fff;}
+  header.hero h1 .hl{color:#fff; background:linear-gradient(135deg,var(--orange),var(--red)); padding:2px 12px; border-radius:8px; display:inline-block; margin-top:6px; border:2px solid #fff;}
   header.hero p.sub{font-size:clamp(15px,2.4vw,19px); max-width:640px; margin:0 auto 26px; opacity:.95; position:relative; z-index:2;}
   .hero-cta{margin-top:8px; position:relative; z-index:2;}
+  .hero-cta .btn-wa{background:var(--orange); box-shadow:0 8px 20px rgba(245,130,31,.45);}
   .hero-note{margin-top:14px; font-size:13px; opacity:.9; position:relative; z-index:2;}
 
   .moq-anchor{
@@ -184,6 +183,7 @@
   @media(max-width:900px){
     .trust .wrap, .packages, .steps{grid-template-columns:1fr 1fr;}
     .trust .wrap{grid-template-columns:repeat(2,1fr);}
+    .merdeka-grid{grid-template-columns:1fr 1fr;}
   }
   @media(max-width:600px){
     .trust .wrap{grid-template-columns:1fr 1fr;}
@@ -191,6 +191,16 @@
     .packages{grid-template-columns:1fr;}
     .steps{grid-template-columns:1fr 1fr;}
     .bonus{flex-direction:column;}
+    .merdeka-grid{grid-template-columns:1fr;}
+    .moq-anchor{flex-direction:column; gap:10px; text-align:center; padding:16px 18px;}
+    .moq-anchor .arrow{transform:rotate(90deg);}
+    .topbar{flex-wrap:wrap; gap:8px;}
+    header.hero h1 .hl{display:inline;}
+    .hero-cta .btn-wa{width:100%; max-width:340px;}
+    .sticky-wa{width:calc(100% - 32px); left:16px; right:16px; transform:none; justify-content:center;}
+    section{padding:44px 0;}
+    .badge{font-size:11px; padding:5px 12px;}
+    .pkg-img{width:calc(100% + 40px); margin:-26px -20px 14px;}
   }
 </style>
 </head>
@@ -200,7 +210,6 @@
   <div class="flag-ribbon"></div>
   <div class="wrap">
     <div class="topbar">
-      <div class="logo">DREAM LAB<span>Cosmetics Laboratory</span></div>
       <span class="badge">🇮🇩 HUT RI KE-81 · Indonesia Berdaulat, Adil & Makmur</span>
     </div>
     <div class="merdeka-tag">MERDEKA!! 🎉</div><br>
