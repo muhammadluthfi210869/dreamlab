@@ -6,6 +6,7 @@ import { getSEOData } from '@/lib/seo-service';
 import { cleanWordPressHtml } from '@/lib/clean-html';
 import { getArticleOverride } from '@/lib/article-overrides';
 import { generatePageSchema } from '@/lib/schema-generator';
+import { optimizeArticleImages } from '@/lib/article-image-optimizer';
 import { getMaklonPage } from '@/data/maklon-pages';
 import { getMaklonFAQ } from '@/data/maklon-faq';
 import { getMetaKeywords } from '@/data/keywords';
@@ -183,7 +184,7 @@ export default async function DynamicPage({ params }: PageProps) {
     const cleanedArticle = {
       ...article,
       excerpt: articleOverride?.excerpt || article.excerpt,
-      content: cleanWordPressHtml(articleOverride?.content || article.content),
+      content: optimizeArticleImages(cleanWordPressHtml(articleOverride?.content || article.content)),
     };
     const articleFaqs = articleOverride?.faqs || [];
     const recentPosts = [...articlesList]

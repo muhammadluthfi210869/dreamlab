@@ -86,6 +86,18 @@ function convertInlineCtaToClass(raw: string): string {
   return out.join('');
 }
 
+/** Strip srcset/sizes warisan WordPress HANYA pada <img> biasa (bukan /_next/image),
+ *  supaya atribut responsif yang kita inject di SSR tetap dipertahankan. */
+function stripLegacySrcsetSizes(html: string): string {
+  return html.replace(
+    /<img\b[^>]*>/gi,
+    (tag: string) =>
+      tag.includes("/_next/image")
+        ? tag
+        : tag.replace(/srcset="[^"]*"/gi, "").replace(/sizes="[^"]*"/gi, "")
+  );
+}
+
 const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [], faqs = [] }) => {
   const [copied, setCopied] = useState(false);
 
@@ -188,21 +200,21 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
             <div className="space-y-6 min-w-0">
               <div className="bg-white border border-neutral-200/50 p-6 md:p-10 lg:p-12 rounded-[28px] text-brand-black shadow-sm font-sans text-base leading-relaxed max-w-4xl mx-auto xl:max-w-none">
                 <InteractiveArticleBody
-                  htmlContent={
-                    convertInlineCtaToClass(article.content)
-                      .replace(/https?:\/\/dreamlab\.id\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
-                      .replace(/\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
-                      .replace(/bv-data-src=/gi, 'data-src=')
-                      .replace(/src="data:image\/svg\+xml[^"]*"/gi, '')
-                      .replace(/data-src=/gi, 'src=')
-                      .replace(/srcset="[^"]*"/g, '')
-                      .replace(/<img\s/gi, '<img loading="lazy" ')
-                      .replace(/loading="lazy"\s+loading="lazy"/gi, 'loading="lazy"')
-                      .replace(/bv-data-srcset="[^"]*"/g, '')
-                      .replace(/sizes="[^"]*"/g, '')
-                      .replace(/data-id="[^"]*"/g, '')
-                      .replace(/|[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA00}-\u{1FA6F}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}]/gu, '')
-                      .replace(/\s{3,}/g, ' ')
+htmlContent={
+                    stripLegacySrcsetSizes(
+                      convertInlineCtaToClass(article.content)
+                        .replace(/https?:\/\/dreamlab\.id\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
+                        .replace(/\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
+                        .replace(/bv-data-src=/gi, 'data-src=')
+                        .replace(/src="data:image\/svg\+xml[^"]*"/gi, '')
+                        .replace(/data-src=/gi, 'src=')
+                        .replace(/<img\s/gi, '<img loading="lazy" ')
+                        .replace(/loading="lazy"\s+loading="lazy"/gi, 'loading="lazy"')
+                        .replace(/bv-data-srcset="[^"]*"/g, '')
+                        .replace(/data-id="[^"]*"/g, '')
+                        .replace(/|[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA00}-\u{1FA6F}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}]/gu, '')
+                        .replace(/\s{3,}/g, ' ')
+                    )
                   }
                 />
 
