@@ -103,7 +103,7 @@ export function getLocalImageDims(src: string): Dims | null {
 }
 
 function imageUrl(src: string, w: number): string {
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${QUALITY}`;
+  return `/_next/image/?url=${encodeURIComponent(src)}&w=${w}&q=${QUALITY}`;
 }
 
 function imageSrcset(src: string): string {
