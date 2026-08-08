@@ -1,0 +1,378 @@
+<!--
+  CATATAN UNTUK REVITA (hapus komentar ini sebelum publish):
+  1. Ganti semua "62XXXXXXXXXX" dengan nomor WhatsApp Dreamlab yang aktif.
+  2. Ganti [INSERT: jumlah brand yang sudah dibantu Dreamlab] jika ada angka real -- jangan biarkan kosong di produksi.
+  3. Ganti [INSERT: berapa hari proses produksi rata-rata] dengan angka real dari tim produksi.
+  4. Semua klaim lain (FREE desain, BPOM, kuota 8 orang, MOQ 200, potongan 1,7%) diambil langsung dari 3 flyer yang dikirim.
+  5. Paket Kidscare pakai flyer/gambar promo-skincare-bodycare.png (Hair Spray + Face & Body Cream + Cologne) -- ini memang lini kidscare/baby, bukan skincare dewasa.
+  6. Semua tombol CTA sekarang mengarah ke https://dreamlab.id/ads/thankyou/... (pola round robin yang sudah kamu punya), BUKAN wa.me langsung. Cek dengan tim dev/ads:
+     a) Apakah param query "?msg=Ambil+Promo+Kemerdekaan" itu nama param yang benar buat script round robin kamu, atau harus diganti (misal jadi "?message=" atau lewat UTM lain).
+     b) Apakah slug per paket (promo-kemerdekaan-kidscare, -haircare-growth, -haircare-smooth, -parfum) sudah terdaftar di sistem round robin, atau perlu dibikinkan dulu di backend.
+     c) Ganti canonical URL & og:url/og:image di bawah dengan domain final setelah deploy ke Vercel.
+-->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promo Kemerdekaan Dreamlab — Merdeka dari MOQ Tinggi, Mulai dari 200 Set</title>
+<meta name="description" content="Promo 1 tahun sekali bareng HUT RI Ke-81. MOQ turun jadi 200 set, GRATIS desain logo & kemasan, foto produk, dan pengurusan BPOM. Hanya untuk 8 orang pertama per kategori.">
+<link rel="canonical" href="https://promo-kemerdekaan.dreamlab.id/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Promo Kemerdekaan Dreamlab — Merdeka dari MOQ Tinggi">
+<meta property="og:description" content="MOQ turun jadi 200 set, GRATIS desain logo & kemasan, foto produk, dan pengurusan BPOM. Promo 1 tahun sekali, hanya untuk 8 orang pertama per kategori.">
+<meta property="og:url" content="https://promo-kemerdekaan.dreamlab.id/">
+<meta property="og:image" content="https://promo-kemerdekaan.dreamlab.id/assets/promo-skincare-bodycare.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --blue:#0d6fb8; --blue-dark:#054a80; --orange:#f5821f; --red:#e0342a;
+    --bg:#f4f9fd; --white:#ffffff; --ink:#0b2540; --muted:#4c6178;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.5;}
+  img{max-width:100%; display:block;}
+  a{text-decoration:none;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  .btn-wa{
+    display:inline-block; background:var(--red); color:#fff; font-weight:800;
+    padding:16px 30px; border-radius:50px; font-size:17px; box-shadow:0 8px 20px rgba(224,52,42,.35);
+    transition:transform .15s ease;
+  }
+  .btn-wa:hover{ transform:translateY(-2px); }
+  .btn-wa.small{ padding:12px 22px; font-size:14px; }
+  .badge{
+    display:inline-block; background:#fff; color:var(--red); font-weight:800;
+    padding:6px 16px; border-radius:30px; font-size:13px; letter-spacing:.5px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+  }
+
+  /* HERO */
+  header.hero{
+    background:linear-gradient(180deg, #1a8fe0 0%, #0d6fb8 55%, #f5821f 100%);
+    color:#fff; padding:26px 0 70px; text-align:center; position:relative; overflow:hidden;
+  }
+  header.hero::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(-35deg, rgba(255,255,255,.10) 0 26px, rgba(224,52,42,.16) 26px 52px, transparent 52px 90px);
+    opacity:.6;
+  }
+  .flag-ribbon{
+    position:absolute; left:-10%; top:38px; width:120%; height:34px;
+    background:linear-gradient(90deg, #fff 0%, #fff 33%, var(--red) 33%, var(--red) 66%, #fff 66%, #fff 100%);
+    transform:rotate(-4deg); box-shadow:0 6px 18px rgba(0,0,0,.2); opacity:.9;
+  }
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:30px; position:relative; z-index:2;}
+  .logo{font-weight:900; font-size:20px; letter-spacing:.5px;}
+  .logo span{display:block; font-size:10px; font-weight:400; opacity:.85;}
+  .merdeka-tag{
+    display:inline-block; font-family:Arial, sans-serif; font-weight:900; font-style:italic;
+    background:#fff; color:var(--red); padding:4px 18px; border-radius:20px; font-size:14px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15); position:relative; z-index:2; margin-bottom:10px;
+  }
+  header.hero h1{font-size:clamp(28px,5vw,46px); font-weight:900; line-height:1.15; margin:16px auto 10px; max-width:820px; text-shadow:0 4px 14px rgba(0,0,0,.15); position:relative; z-index:2;}
+  header.hero h1 .hl{color:#fff; background:var(--red); padding:2px 12px; border-radius:8px; display:inline-block; margin-top:6px; border:2px solid #fff;}
+  header.hero p.sub{font-size:clamp(15px,2.4vw,19px); max-width:640px; margin:0 auto 26px; opacity:.95; position:relative; z-index:2;}
+  .hero-cta{margin-top:8px; position:relative; z-index:2;}
+  .hero-note{margin-top:14px; font-size:13px; opacity:.9; position:relative; z-index:2;}
+
+  .moq-anchor{
+    display:inline-flex; align-items:center; gap:16px; background:#fff; border-radius:18px;
+    padding:14px 26px; margin:6px auto 22px; box-shadow:0 10px 24px rgba(0,0,0,.18); position:relative; z-index:2;
+  }
+  .moq-anchor .lbl{text-align:left;}
+  .moq-anchor .lbl .cap{display:block; font-size:11px; font-weight:800; color:var(--muted); letter-spacing:1px; text-transform:uppercase;}
+  .moq-anchor .lbl .old{display:block; color:var(--red); text-decoration:line-through; font-weight:700; font-size:15px;}
+  .moq-anchor .arrow{font-size:22px; color:var(--muted);}
+  .moq-anchor .new{color:var(--orange); font-weight:900; font-size:38px; line-height:1;}
+  .moq-anchor .new small{font-size:15px; font-weight:800; color:var(--blue-dark); margin-left:3px;}
+
+  /* TRUST STRIP */
+  .trust{background:#fff; margin-top:-40px; position:relative; z-index:5; border-radius:18px; box-shadow:0 10px 30px rgba(13,111,184,.15);}
+  .trust .wrap{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  .trust-item{text-align:center; padding:22px 10px; border-right:1px solid #eef3f8;}
+  .trust-item:last-child{border-right:none;}
+  .trust-item .ic{font-size:26px; margin-bottom:6px;}
+  .trust-item .t{font-weight:800; font-size:14px; color:var(--blue-dark);}
+  .trust-item .d{font-size:12px; color:var(--muted); margin-top:2px;}
+
+  /* URGENCY BAR */
+  .urgency{
+    background:var(--ink); color:#fff; text-align:center; padding:12px 16px; font-size:14px; font-weight:700; margin-top:30px;
+    border-top:4px solid var(--red); border-bottom:4px solid #fff; box-shadow:0 2px 0 var(--red);
+  }
+  .urgency span{color:#ffce54;}
+
+  /* MERDEKA SECTION */
+  .merdeka-section{
+    background:linear-gradient(135deg, var(--red), #b8231c); border-radius:24px; color:#fff; padding:44px 30px; position:relative; overflow:hidden;
+  }
+  .merdeka-section::before{
+    content:""; position:absolute; inset:0; background:repeating-linear-gradient(-35deg, rgba(255,255,255,.08) 0 22px, transparent 22px 44px);
+  }
+  .merdeka-section .section-title{position:relative; z-index:2;}
+  .merdeka-section .section-title h2, .merdeka-section .section-title p{color:#fff;}
+  .merdeka-section .eyebrow{color:#ffce54;}
+  .merdeka-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; position:relative; z-index:2;}
+  .merdeka-item{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:16px; padding:22px 18px; text-align:center;}
+  .merdeka-item .ic{font-size:28px; margin-bottom:10px;}
+  .merdeka-item h4{font-size:15.5px; font-weight:900; margin-bottom:6px;}
+  .merdeka-item p{font-size:13px; opacity:.92;}
+
+  section{padding:56px 0;}
+  .section-title{text-align:center; max-width:700px; margin:0 auto 36px;}
+  .section-title .eyebrow{color:var(--orange); font-weight:800; font-size:13px; letter-spacing:1.5px; text-transform:uppercase;}
+  .section-title h2{font-size:clamp(24px,3.6vw,34px); font-weight:900; margin-top:8px; color:var(--blue-dark);}
+  .section-title p{color:var(--muted); margin-top:10px; font-size:15px;}
+
+  /* PACKAGES */
+  .packages{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;}
+  .pkg .note{font-size:11px; color:var(--muted); margin-top:-10px; margin-bottom:14px;}
+  .pkg{background:#fff; border-radius:20px; padding:26px 22px; box-shadow:0 6px 22px rgba(13,37,64,.08); border:2px solid transparent; position:relative; display:flex; flex-direction:column;}
+  .pkg.feat{border-color:var(--orange);}
+  .pkg .tag{position:absolute; top:-13px; left:22px; background:var(--orange); color:#fff; font-size:11px; font-weight:800; padding:5px 14px; border-radius:20px; z-index:2;}
+  .pkg-img{width:calc(100% + 44px); margin:-26px -22px 16px; border-radius:20px 20px 0 0; overflow:hidden; background:#eaf3fb;}
+  .pkg-img img{width:100%; height:auto; object-fit:contain; display:block;}
+  .pkg h3{font-size:19px; font-weight:900; color:var(--blue-dark); margin:8px 0 4px;}
+  .pkg .price-line{font-size:13px; color:var(--muted); margin-bottom:14px;}
+  .pkg .price-line b{color:var(--red); font-size:16px;}
+  .pkg ul{list-style:none; margin-bottom:20px; flex-grow:1;}
+  .pkg ul li{font-size:14px; margin-bottom:9px; padding-left:22px; position:relative; color:#233246;}
+  .pkg ul li::before{content:"✓"; position:absolute; left:0; color:var(--blue); font-weight:900;}
+  .pkg .slot{font-size:12.5px; font-weight:800; color:var(--red); margin-bottom:12px;}
+  .pkg .btn-wa{width:100%; text-align:center; font-size:14.5px; padding:13px;}
+
+  /* FREE BONUS */
+  .bonus{background:linear-gradient(135deg, #0d6fb8, #054a80); border-radius:24px; color:#fff; padding:40px 30px; display:flex; flex-wrap:wrap; align-items:center; gap:30px;}
+  .bonus .left{flex:1; min-width:240px;}
+  .bonus .left h2{font-size:26px; font-weight:900; margin-bottom:10px;}
+  .bonus .left p{opacity:.9; font-size:14.5px;}
+  .bonus .right{flex:1; min-width:240px; display:grid; gap:12px;}
+  .bonus-item{background:rgba(255,255,255,.12); border-radius:12px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px;}
+  .bonus-item .ic{font-size:20px; margin-top:2px;}
+  .bonus-item b{display:block; font-size:14.5px; font-weight:800;}
+  .bonus-item span.d{display:block; font-size:12.5px; font-weight:400; opacity:.85; margin-top:2px;}
+
+  /* PROCESS */
+  .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; counter-reset:step;}
+  .step{background:#fff; border-radius:16px; padding:20px 14px; text-align:center; box-shadow:0 4px 14px rgba(13,37,64,.06);}
+  .step .num{width:34px; height:34px; border-radius:50%; background:var(--orange); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-size:15px;}
+  .step h4{font-size:14px; font-weight:800; color:var(--blue-dark); margin-bottom:5px;}
+  .step p{font-size:12px; color:var(--muted);}
+
+  /* FAQ */
+  .faq-item{background:#fff; border-radius:14px; padding:18px 20px; margin-bottom:12px; box-shadow:0 3px 10px rgba(13,37,64,.05);}
+  .faq-item h4{font-size:15px; font-weight:800; color:var(--blue-dark); margin-bottom:6px;}
+  .faq-item p{font-size:14px; color:var(--muted);}
+
+  /* FINAL CTA */
+  .final-cta{background:linear-gradient(135deg,#f5821f,#e0342a); border-radius:24px; text-align:center; padding:48px 24px; color:#fff;}
+  .final-cta h2{font-size:clamp(22px,3.6vw,32px); font-weight:900; margin-bottom:10px;}
+  .final-cta p{opacity:.95; margin-bottom:24px; font-size:15px;}
+  .final-cta .btn-wa{background:#fff; color:var(--red);}
+
+  footer{background:var(--ink); color:#cdd9e5; text-align:center; padding:30px 20px; font-size:13px;}
+  footer .foot-links{margin-top:10px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
+  footer a{color:#fff; font-weight:700;}
+
+  .sticky-wa{
+    position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:50;
+    background:var(--red); color:#fff; padding:14px 26px; border-radius:50px; font-weight:800;
+    box-shadow:0 8px 24px rgba(224,52,42,.45); font-size:14.5px; display:flex; align-items:center; gap:8px;
+  }
+
+  @media(max-width:900px){
+    .trust .wrap, .packages, .steps{grid-template-columns:1fr 1fr;}
+    .trust .wrap{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:600px){
+    .trust .wrap{grid-template-columns:1fr 1fr;}
+    .trust-item{border-right:none; border-bottom:1px solid #eef3f8;}
+    .packages{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .bonus{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="flag-ribbon"></div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">DREAM LAB<span>Cosmetics Laboratory</span></div>
+      <span class="badge">🇮🇩 HUT RI KE-81 · Indonesia Berdaulat, Adil & Makmur</span>
+    </div>
+    <div class="merdeka-tag">MERDEKA!! 🎉</div><br>
+    <span class="badge">PROMO 1 TAHUN SEKALI — HANYA UNTUK 8 ORANG PERTAMA</span>
+    <h1>Merdeka dari <span class="hl">MOQ Tinggi</span></h1>
+    <div class="moq-anchor">
+      <div class="lbl"><span class="cap">MOQ</span><span class="old">1.000 Set</span></div>
+      <span class="arrow">→</span>
+      <span class="new">200<small>Set</small></span>
+    </div>
+    <p class="sub">Promo ini cuma ada 1 tahun sekali, bareng momentum HUT RI Ke-81: MOQ turun jadi 200 set (dari 1.000 set), GRATIS desain logo & kemasan, foto produk, dan pengurusan BPOM. Berlaku untuk skincare, haircare, parfum, hingga kidscare — hanya untuk 8 orang pertama per kategori.</p>
+    <div class="hero-cta">
+      <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">💬 Konsultasi Gratis via WhatsApp</a>
+      <div class="hero-note">Tanpa biaya konsultasi · Slot terbatas 8 orang pertama per kategori · Promo 1 tahun sekali, tidak datang lagi bulan depan</div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="wrap">
+    <div class="trust-item"><div class="ic">🎨</div><div class="t">FREE Desain</div><div class="d">Logo & kemasan</div></div>
+    <div class="trust-item"><div class="ic">📸</div><div class="t">FREE Foto Produk</div><div class="d">Siap pakai jualan</div></div>
+    <div class="trust-item"><div class="ic">✅</div><div class="t">FREE Urus BPOM</div><div class="d">Legal & aman dijual</div></div>
+    <div class="trust-item"><div class="ic">📦</div><div class="t">MOQ Turun</div><div class="d">Dari 1.000 jadi 200 set</div></div>
+  </div>
+</div>
+
+<div class="urgency">🇮🇩 Promo ini <span>cuma ada 1 tahun sekali</span>, bareng momentum HUT RI Ke-81 — kuota terbatas 8 orang pertama per kategori.</div>
+
+<section id="paket">
+  <div class="wrap">
+    <div class="section-title">
+      <div class="eyebrow">Pilih Paket</div>
+      <h2>4 Paket Promo Agustus, Kuota 8 Slot per Kategori</h2>
+      <p>Setiap paket sudah termasuk konsultasi gratis, desain logo & kemasan, foto produk, dan pengurusan BPOM sampai terbit.</p>
+    </div>
+    <div class="packages">
+
+      <div class="pkg feat">
+        <span class="tag">PALING DIMINATI — KIDSCARE</span>
+        <div class="pkg-img"><img src="assets/promo-skincare-bodycare.png" alt="Promo Agustus Dreamlab - Paket Kidscare, MOQ 200 Set"></div>
+        <h3>Paket Kidscare</h3>
+        <div class="price-line">MOQ turun jadi <b>200 Set</b> (dari 1.000 set)</div>
+        <ul>
+          <li><b>1 Paket</b> = Hair Spray + Face & Body Cream + Cologne (khusus formula anak)</li>
+          <li>Cologne di sini adalah parfum ringan khas produk bayi/anak</li>
+          <li>FREE Desain Logo & Kemasan sesuai identitas brand kamu</li>
+          <li>FREE Pengurusan BPOM sampai izin edar terbit</li>
+        </ul>
+        <div class="slot">Sisa kuota: 8 orang pertama</div>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan-kidscare/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">Ambil Slot Ini</a>
+      </div>
+
+      <div class="pkg">
+        <span class="tag">HAIRCARE — GROWTH</span>
+        <div class="pkg-img"><img src="assets/promo-haircare.png" alt="Promo Agustusan Dreamlab - Paket Haircare Growth & Smooth"></div>
+        <h3>Paket Haircare Growth</h3>
+        <div class="price-line">Untuk target rambut rontok & tipis</div>
+        <ul>
+          <li><b>1 Set</b> = Hair Tonic (penebal) + Serum (penguat akar rambut)</li>
+          <li>FREE Penyusunan Konsep Brand — nama, positioning & target pasar</li>
+          <li>FREE Desain Logo & Kemasan sesuai identitas brand kamu</li>
+          <li>FREE Pengurusan BPOM sampai izin edar terbit</li>
+        </ul>
+        <div class="slot">Sisa kuota: 8 beautypreneur pertama</div>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan-haircare-growth/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">Ambil Slot Ini</a>
+      </div>
+
+      <div class="pkg">
+        <span class="tag">HAIRCARE — SMOOTH</span>
+        <div class="pkg-img"><img src="assets/promo-haircare.png" alt="Promo Agustusan Dreamlab - Paket Haircare Growth & Smooth"></div>
+        <h3>Paket Haircare Smooth</h3>
+        <div class="price-line">Untuk target rambut kering & kasar</div>
+        <ul>
+          <li><b>1 Set</b> = Shampoo (pelembut) + Protein Hair Cream (anti-kusut)</li>
+          <li>FREE Penyusunan Konsep Brand — nama, positioning & target pasar</li>
+          <li>FREE Desain Logo & Kemasan sesuai identitas brand kamu</li>
+          <li>FREE Pengurusan BPOM sampai izin edar terbit</li>
+        </ul>
+        <div class="slot">Sisa kuota: 8 beautypreneur pertama</div>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan-haircare-smooth/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">Ambil Slot Ini</a>
+      </div>
+
+      <div class="pkg">
+        <span class="tag">SEKALI SETAHUN</span>
+        <div class="pkg-img"><img src="assets/promo-parfum.png" alt="Merdeka Punya Brand Parfum Sendiri - Promo Dreamlab Potongan 1,7%"></div>
+        <h3>Paket Parfum</h3>
+        <div class="price-line">Potongan biaya <b>1,7%</b> — promo tahunan</div>
+        <ul>
+          <li><b>1 Set</b> = Parfum dari konsentrat pilihan + botol & tutup custom</li>
+          <li>FREE Desain Logo & Kemasan sesuai identitas brand kamu</li>
+          <li>FREE Pengurusan BPOM sampai izin edar terbit</li>
+          <li>Promo potongan 1,7% ini hanya muncul 1 tahun sekali</li>
+        </ul>
+        <div class="slot">Sisa kuota: 8 orang pertama</div>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan-parfum/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">Ambil Slot Ini</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="merdeka-section">
+      <div class="section-title">
+        <div class="eyebrow">Semangat 17 Agustus</div>
+        <h2>Merdeka dari 3 Hal yang Selama Ini Menahan Kamu Mulai</h2>
+        <p>Momen Kemerdekaan, momen paling tepat buat kamu juga "merdeka" mulai bisnis kosmetik sendiri.</p>
+      </div>
+      <div class="merdeka-grid">
+        <div class="merdeka-item"><div class="ic">📦</div><h4>Merdeka dari MOQ Tinggi</h4><p>Cukup mulai dari 200 set, bukan 1.000 set seperti biasanya</p></div>
+        <div class="merdeka-item"><div class="ic">🎨</div><h4>Merdeka dari Ribet Desain</h4><p>Logo, kemasan, dan foto produk dikerjakan tim Dreamlab — GRATIS</p></div>
+        <div class="merdeka-item"><div class="ic">📋</div><h4>Merdeka dari Urus BPOM Sendiri</h4><p>Izin edar diurus penuh oleh tim Dreamlab, kamu tinggal jualan</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="bonus">
+      <div class="left">
+        <h2>Kamu Cuma Fokus Jualan. Sisanya Kami yang Urus.</h2>
+        <p>Semua paket Promo Agustus sudah termasuk 3 hal yang biasanya bikin calon brand owner ragu memulai — sekarang digratiskan.</p>
+      </div>
+      <div class="right">
+        <div class="bonus-item"><span class="ic">🎨</span><div><b>Desain Logo Custom — GRATIS</b><span class="d">Dibuat dari nol sesuai karakter brand kamu, bukan template asal jadi</span></div></div>
+        <div class="bonus-item"><span class="ic">📦</span><div><b>Desain Kemasan Siap Cetak — GRATIS</b><span class="d">Disesuaikan kategori produk: skincare, haircare, atau parfum</span></div></div>
+        <div class="bonus-item"><span class="ic">📸</span><div><b>Foto Produk Siap Posting — GRATIS</b><span class="d">Langsung dipakai untuk katalog & iklan, tanpa foto ulang</span></div></div>
+        <div class="bonus-item"><span class="ic">📋</span><div><b>BPOM Diurus Sampai Terbit — GRATIS</b><span class="d">Tim legal Dreamlab yang bolak-balik, bukan kamu</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title">
+      <div class="eyebrow">Prosesnya</div>
+      <h2>5 Langkah dari Konsultasi ke Punya Brand Sendiri</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h4>Konsultasi</h4><p>Diskusi gratis via WhatsApp soal ide brand kamu</p></div>
+      <div class="step"><div class="num">2</div><h4>Pilih Formula</h4><p>Tentukan produk & formula sesuai target pasar</p></div>
+      <div class="step"><div class="num">3</div><h4>Desain Brand</h4><p>Logo, kemasan, dan foto produk dikerjakan tim kami</p></div>
+      <div class="step"><div class="num">4</div><h4>Produksi & BPOM</h4><p>Produksi berjalan, izin edar BPOM diurus tim Dreamlab</p></div>
+      <div class="step"><div class="num">5</div><h4>Siap Jual</h4><p>Produk & aset promosi siap, kamu tinggal launching</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final-cta">
+      <h2>🇮🇩 Merdeka Sekarang — Promo Ini Cuma Ada 1 Tahun Sekali</h2>
+      <p>Momentum HUT RI Ke-81 tidak datang setiap bulan — konsultasi gratis sekarang, tanpa komitmen. Tim Dreamlab siap bantu tentukan paket paling cocok untuk brand kamu.</p>
+      <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">💬 Klaim Slot via WhatsApp Sekarang</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>🇮🇩 Dirgahayu Republik Indonesia Ke-81 — Indonesia Berdaulat, Adil dan Makmur</div>
+  <div style="margin-top:6px;">© 2026 Dream Lab Cosmetics Laboratory — Maklon Skincare, Haircare & Parfum Indonesia</div>
+  <div class="foot-links">
+    <a href="https://www.dreamlab.id" target="_blank" rel="noopener">www.dreamlab.id</a>
+    <a href="https://instagram.com/Dreamlab_official" target="_blank" rel="noopener">@Dreamlab_official</a>
+  </div>
+</footer>
+
+<a class="sticky-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?msg=Ambil+Promo+Kemerdekaan" target="_blank" rel="noopener">💬 Chat Sekarang</a>
+
+</body>
+</html>
