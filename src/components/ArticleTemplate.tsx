@@ -176,9 +176,9 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 title={`${article.title} - Dreamlab Indonesia`}
                 width={1200}
                 height={630}
+                quality={80}
                 className="w-full h-auto"
                 priority
-                unoptimized
                 sizes="(max-width: 1280px) 100vw, 896px"
               />
             </div>
@@ -286,7 +286,6 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                           title={`${post.title} - Dreamlab Indonesia`}
                           fill
                           className="object-contain"
-                          unoptimized
                           sizes="80px"
                         />
                       </div>
