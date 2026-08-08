@@ -24,6 +24,10 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
   const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Hanya muat wrapper embed Instagram bila artikel benar-benar memuat blok IG.
+  const hasInstagramEmbed =
+    /instagram\.com\/p\//i.test(htmlContent) || /\.instagram-media[\s>]/i.test(htmlContent);
+
   useEffect(() => { setIsMounted(true); }, []);
 
   const parsedHtml = useMemo(() => {
@@ -287,7 +291,7 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
   }, [htmlContent, isMounted]);
 
   useEffect(() => {
-    if (!isMounted) return;
+    if (!isMounted || !hasInstagramEmbed) return;
 
     const timer = setTimeout(() => {
       const el = containerRef.current;
@@ -343,13 +347,15 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           ref={containerRef}
           dangerouslySetInnerHTML={{ __html: htmlContent.replace(/\u00a0/g, ' ').replace(/&#xa0;/g, ' ').replace(/&nbsp;/g, ' ') }}
         />
-        <Script
-          src="//www.instagram.com/embed.js"
-          strategy="lazyOnload"
-          onLoad={() => {
-            try { (window as any).instgrm?.Embeds?.process(); } catch {}
-          }}
-        />
+        {hasInstagramEmbed && (
+          <Script
+            src="//www.instagram.com/embed.js"
+            strategy="lazyOnload"
+            onLoad={() => {
+              try { (window as any).instgrm?.Embeds?.process(); } catch {}
+            }}
+          />
+        )}
       </>
     );
   }
@@ -361,13 +367,15 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         ref={containerRef}
         dangerouslySetInnerHTML={{ __html: parsedHtml }}
       />
-      <Script
-        src="//www.instagram.com/embed.js"
-        strategy="lazyOnload"
-        onLoad={() => {
-          try { (window as any).instgrm?.Embeds?.process(); } catch {}
-        }}
-      />
+      {hasInstagramEmbed && (
+        <Script
+          src="//www.instagram.com/embed.js"
+          strategy="lazyOnload"
+          onLoad={() => {
+            try { (window as any).instgrm?.Embeds?.process(); } catch {}
+          }}
+        />
+      )}
     </>
   );
 }
