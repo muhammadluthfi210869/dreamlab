@@ -14,6 +14,7 @@
     "simulate:leads": "npx tsx scripts/simulate-lead-distribution.ts",
     "verify:seo": "npx tsx scripts/verify-seo-integrity.ts",
     "verify:sitemap": "node scripts/verify-sitemap-indexability.mjs",
+    "compress:images": "node scripts/compress-blog-sharp.mjs",
     "verify:assets": "npx tsx scripts/verify-asset-paths.ts",
     "verify:all": "npm run build && npm run verify:redirects && npm run verify:lead-flow && npm run verify:round-robin && npm run verify:seo && npm run verify:assets",
     "db:migrate": "node scripts/db-migrate.mjs",
