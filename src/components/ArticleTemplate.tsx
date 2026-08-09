@@ -29,73 +29,18 @@ interface ArticleData {
   author: string;
 }
 
+interface RecentPostData {
+  slug: string;
+  title: string;
+  featuredImage: string | null;
+  publishDate: string;
+}
+
 interface ArticleTemplateProps {
   article: ArticleData;
-  recentPosts: ArticleData[];
+  recentPosts: RecentPostData[];
   allArticles: Array<{ slug: string; title: string; categories: string[] }>;
   faqs?: { question: string; answer: string }[];
-}
-
-/** Convert inline-styled #1a1a2e gradient CTAs to shared .article-cta class at SSR time.
- *  Handles both flat CTAs and ones with nested decorative divs (depth-counting). */
-function convertInlineCtaToClass(raw: string): string {
-  const out: string[] = [];
-  let i = 0;
-  while (i < raw.length) {
-    const openIdx = raw.indexOf('<div', i);
-    if (openIdx === -1) { out.push(raw.slice(i)); break; }
-    const tagEnd = raw.indexOf('>', openIdx);
-    if (tagEnd === -1) { out.push(raw.slice(i)); break; }
-    const tag = raw.slice(openIdx, tagEnd + 1);
-    if (/style="[^"]*1a1a2e/i.test(tag)) {
-      out.push(raw.slice(i, openIdx));
-      // ADD class="article-cta" while keeping inline style for client-side step 2b2 detection
-      out.push(tag.replace('<div', '<div class="article-cta"'));
-      const contentStart = tagEnd + 1;
-      let depth = 1;
-      let pos = contentStart;
-      while (depth > 0 && pos < raw.length) {
-        const nextOpen = raw.indexOf('<div', pos);
-        const nextClose = raw.indexOf('</div>', pos);
-        if (nextClose === -1) break;
-        if (nextOpen !== -1 && nextOpen < nextClose) {
-          depth++;
-          pos = nextOpen + 5;
-        } else {
-          depth--;
-          if (depth === 0) {
-            let inner = raw.slice(contentStart, nextClose)
-              .replace(/ style="[^"]*"/gi, '')
-              .replace(/<div\s*><\/div>/gi, '')
-              .replace(/<div style="position:absolute[^"]*"[^>]*><\/div>/gi, '')
-              .replace(/<a\s+href=/gi, '<a class="cta-button" href=');
-            out.push(inner);
-            out.push('</div>');
-            pos = nextClose + 6;
-            break;
-          }
-          pos = nextClose + 6;
-        }
-      }
-      i = pos;
-    } else {
-      out.push(raw.slice(i, openIdx + 1));
-      i = openIdx + 1;
-    }
-  }
-  return out.join('');
-}
-
-/** Strip srcset/sizes warisan WordPress HANYA pada <img> biasa (bukan /_next/image),
- *  supaya atribut responsif yang kita inject di SSR tetap dipertahankan. */
-function stripLegacySrcsetSizes(html: string): string {
-  return html.replace(
-    /<img\b[^>]*>/gi,
-    (tag: string) =>
-      tag.includes("/_next/image")
-        ? tag
-        : tag.replace(/srcset="[^"]*"/gi, "").replace(/sizes="[^"]*"/gi, "")
-  );
 }
 
 const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [], faqs = [] }) => {
@@ -199,24 +144,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
           <div className="max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
             <div className="space-y-6 min-w-0">
               <div className="bg-white border border-neutral-200/50 p-6 md:p-10 lg:p-12 rounded-[28px] text-brand-black shadow-sm font-sans text-base leading-relaxed max-w-4xl mx-auto xl:max-w-none">
-                <InteractiveArticleBody
-htmlContent={
-                    stripLegacySrcsetSizes(
-                      convertInlineCtaToClass(article.content)
-                        .replace(/https?:\/\/dreamlab\.id\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
-                        .replace(/\/wp-content\/uploads\/[^\s"'>]*\/([^\/\s"'>]+\.(?:webp|png|jpg|jpeg|svg|gif))/gi, '/assets/images/$1')
-                        .replace(/bv-data-src=/gi, 'data-src=')
-                        .replace(/src="data:image\/svg\+xml[^"]*"/gi, '')
-                        .replace(/data-src=/gi, 'src=')
-                        .replace(/<img\s/gi, '<img loading="lazy" ')
-                        .replace(/loading="lazy"\s+loading="lazy"/gi, 'loading="lazy"')
-                        .replace(/bv-data-srcset="[^"]*"/g, '')
-                        .replace(/data-id="[^"]*"/g, '')
-                        .replace(/|[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA00}-\u{1FA6F}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}]/gu, '')
-                        .replace(/\s{3,}/g, ' ')
-                    )
-                  }
-                />
+                <InteractiveArticleBody htmlContent={article.content} />
 
                 <div className="mt-10 pt-6 border-t border-neutral-200 flex gap-4 items-center">
                   <div className="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold font-display text-lg shadow-sm">
