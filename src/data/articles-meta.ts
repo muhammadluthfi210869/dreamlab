@@ -2886,7 +2886,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "maklon_kosmetik_agustus_promo_dreamlab.webp",
     "excerpt": "Promo spesial Agustus 2026 dari Dreamlab maklon kosmetik: maklon baby care, paket hair care GROWTH &amp; SMOOTH, dan penawaran maklon parfum. Cek cara mulainya di sini.",
-    "readingMinutes": 6
+    "readingMinutes": 5
   }
 ]
 ;
