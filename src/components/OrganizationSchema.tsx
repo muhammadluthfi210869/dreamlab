@@ -1,12 +1,11 @@
 import React from 'react';
-import { headers } from 'next/headers';
 import JsonLd from './JsonLd';
 
-export default async function OrganizationSchema() {
-  // Deteksi bahasa dari proxy.ts (x-dreamlab-path) — /en/ pakai English, selainnya Indonesian.
-  const h = await headers();
-  const pathname = h.get("x-dreamlab-path") || "/";
-  const isEn = pathname.startsWith("/en");
+export default function OrganizationSchema() {
+  // Layout harus statik (tanpa headers()) supaya seluruh halaman bisa di-cache
+  // di edge. Schema Organization dipakai default Indonesian (hhalaman /en/*
+  // ditangani WebSite schema English di en/layout.tsx).
+  const isEn = false;
 
   const organizationData = {
     "@context": "https://schema.org",

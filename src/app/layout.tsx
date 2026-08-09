@@ -1,6 +1,5 @@
 import { Viga, Onest } from "next/font/google";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,6 +9,7 @@ import { TrackingScripts, GTMNoScript } from "@/components/TrackingScripts";
 import { PixelsOnInteraction } from "@/components/PixelsOnInteraction";
 import OrganizationSchema from "@/components/OrganizationSchema";
 import SpeculationRules from "@/components/SpeculationRules";
+import ClientLangSync from "@/components/ClientLangSync";
 
 const viga = Viga({
   subsets: ["latin"],
@@ -48,20 +48,20 @@ export const metadata: Metadata = {
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Deteksi bahasa dari pathname yang diteruskan proxy.ts (x-dreamlab-path).
-  // Halaman /en/... → lang="en", selainnya → lang="id".
-  const h = await headers();
-  const pathname = h.get("x-dreamlab-path") || "/";
-  const lang = pathname.startsWith("/en") ? "en" : "id";
+  // Layout harus tetap static (tanpa headers()/cookies()) supaya seluruh halaman
+  // (termasuk /news-blog & artikel) bisa di-cache di edge (ISR) — bukan render
+  // serverless fresh tiap request. Bahasa /en/* di-sync client-side oleh
+  // ClientLangSync supaya <html lang> tetap benar setelah hydrate.
 
   return (
-    <html lang={lang} className={`${viga.variable} ${onest.variable}`}>
+    <html lang="id" className={`${viga.variable} ${onest.variable}`}>
       <body className="font-sans antialiased text-brand-black selection:bg-brand-orange selection:text-white">
+        <ClientLangSync />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <SpeculationRules />
         <OrganizationSchema />

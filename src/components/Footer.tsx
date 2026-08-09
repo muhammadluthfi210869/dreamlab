@@ -1,16 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { headers } from "next/headers";
+import { usePathname } from "next/navigation";
 import { FaFacebookF, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
 import { getImageTitle } from "@/lib/image-utils";
 import { resolveArticleImageSrc } from "@/lib/asset-paths";
 import { localizeHref } from "@/lib/seo-lang";
 
-export default async function Footer() {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
-  // Deteksi bahasa dari proxy.ts (x-dreamlab-path) → link footer ikut bahasa
-  const h = await headers();
-  const pathname = h.get("x-dreamlab-path") || "/";
+  // Bahasa di-detect client-side dari pathname → layout tetap static & cacheable.
+  const pathname = usePathname();
   const isEn = pathname.startsWith("/en");
   const L = (p: string) => localizeHref(p, isEn);
 
