@@ -2869,7 +2869,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/promo-spesial-agustus-2026-maklon-kosmetik",
-    "title": "Promo Spesial Agustus 2026: 3 Peluang Nyata Buat Mulai Bisnis Kosmetik dari Dreamlab",
+    "title": "Promo Spesial Kemerdekaan Agustus 2026: Diskon MOQ Mulai Brand Kosmetik",
     "publishDate": "2026-08-09T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
