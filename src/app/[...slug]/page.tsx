@@ -7,6 +7,7 @@ import { cleanWordPressHtml } from '@/lib/clean-html';
 import { getArticleOverride } from '@/lib/article-overrides';
 import { generatePageSchema } from '@/lib/schema-generator';
 import { optimizeArticleImages } from '@/lib/article-image-optimizer';
+import { processArticleContent } from '@/lib/article-content-processor';
 import { getMaklonPage } from '@/data/maklon-pages';
 import { getMaklonFAQ } from '@/data/maklon-faq';
 import { getMetaKeywords } from '@/data/keywords';
@@ -184,7 +185,7 @@ export default async function DynamicPage({ params }: PageProps) {
     const cleanedArticle = {
       ...article,
       excerpt: articleOverride?.excerpt || article.excerpt,
-      content: optimizeArticleImages(cleanWordPressHtml(articleOverride?.content || article.content)),
+      content: processArticleContent(optimizeArticleImages(cleanWordPressHtml(articleOverride?.content || article.content))),
     };
     const articleFaqs = articleOverride?.faqs || [];
     const recentPosts = [...articlesList]
@@ -194,7 +195,8 @@ export default async function DynamicPage({ params }: PageProps) {
         const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
         return dateB - dateA;
       })
-      .slice(0, 5);
+      .slice(0, 5)
+      .map(({ slug, title, featuredImage, publishDate }) => ({ slug, title, featuredImage, publishDate }));
     const allArticlesLight = articlesList.map(({ slug, title, categories }) => ({ slug, title, categories }));
     return (
       <main className="min-h-screen">
