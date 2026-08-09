@@ -389,6 +389,36 @@ const articleOverrides: Record<string, ArticleOverride> = {
       }
     ]
   },
+  '/promo-spesial-agustus-2026-maklon-kosmetik': {
+    excerpt: 'Promo spesial Agustus 2026 dari Dreamlab maklon kosmetik: maklon baby care, paket hair care GROWTH & SMOOTH, dan penawaran maklon parfum. Cek cara mulainya di sini.',
+    content: '',
+    faqs: [
+      {
+        question: 'Promo apa saja yang aktif pada Agustus 2026?',
+        answer: 'Tersedia tiga penawaran: maklon baby care dengan MOQ fleksibel, paket maklon hair care GROWTH & SMOOTH, dan penawaran khusus maklon parfum. Detail benefit dan persyaratan masing-masing bisa dikonfirmasi lewat konsultasi gratis tim Dreamlab sesuai kebutuhan brand-mu.'
+      },
+      {
+        question: 'Apakah promo ini untuk pembelian pertama?',
+        answer: 'Penawaran Agustus ini terutama memang dirancang membantu brand baru memulai produksi pertamanya, namun tim Dreamlab tetap bisa membahas kombinasi terpisah untuk klien yang sudah produksi dan ingin menambah kategori. Status penawaran terbaik ditanyakan ulang langsung ke tim saat konsultasi.'
+      },
+      {
+        question: 'Apakah formula tetap bisa custom saat memakai promo?',
+        answer: 'Ya. Semua paket promo tetap menerapkan prinsip 1 Klien 1 Formula — bahan, klaim, dan aroma produkmu dikembangkan khusus untuk brand-mu, tidak dipakai kembali oleh brand lain.'
+      },
+      {
+        question: 'Apakah tetap dibantu pengurusan BPOM?',
+        answer: 'Ya. Legalitas (notifikasi BPOM RI, Halal MUI, dan HKI) tetap didampingi sebagai bagian dari layanan Dreamlab. Proses ini tidak dihilangkan karena kamu memakai penawaran promo — kamu tinggal fokus menjual produk ke pasar.'
+      },
+      {
+        question: 'Berapa budget yang harus disiapkan?',
+        answer: 'Budget dipengaruhi oleh jenis produk, kemasan, dan volume produksi yang dipilih. Karena semuanya dibicarakan saat konsultasi sesuai kebutuhan, estimasi paling akurat didapat langsung dari tim Dreamlab sebelum kamu melakukan keputusan apapun.'
+      },
+      {
+        question: 'Bagaimana cara memulai promo ini?',
+        answer: 'Langkah paling mudah adalah menghubungi tim Dreamlab untuk konsultasi gratis dan informasi kategori yang kamu minati. Tim akan memandu ke yang promo aktif, paket yang paling sesuai, dan proses produksi dari sampel sampai barang jadi.'
+      }
+    ]
+  },
 };
 
 export function getArticleOverride(slug: string): ArticleOverride | null {

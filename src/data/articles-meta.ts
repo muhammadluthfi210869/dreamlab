@@ -2866,6 +2866,27 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "maklon_kosmetik_aquamist.jpg",
     "excerpt": "Mau bikin brand face mist sendiri? Simak kenapa face mist lagi dicari, strategi harga jual, pemasaran, dan cara mulai bareng Dreamlab maklon kosmetik.",
     "readingMinutes": 8
+  },
+  {
+    "slug": "/promo-spesial-agustus-2026-maklon-kosmetik",
+    "title": "Promo Spesial Agustus 2026: 3 Peluang Nyata Buat Mulai Bisnis Kosmetik dari Dreamlab",
+    "publishDate": "2026-08-09T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Promo",
+      "Promo Agustus 2026",
+      "Maklon Baby Care",
+      "Maklon Hair Care",
+      "Maklon Parfum",
+      "MOQ Fleksibel"
+    ],
+    "featuredImage": "maklon_kosmetik_agustus_promo_dreamlab.webp",
+    "excerpt": "Promo spesial Agustus 2026 dari Dreamlab maklon kosmetik: maklon baby care, paket hair care GROWTH &amp; SMOOTH, dan penawaran maklon parfum. Cek cara mulainya di sini.",
+    "readingMinutes": 6
   }
 ]
 ;
