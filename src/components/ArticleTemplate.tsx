@@ -203,7 +203,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 </p>
                 <WaRoundRobinButton
                   message={`Halo Dreamlab, saya baru saja baca artikel "${article.title}" dan tertarik untuk konsultasi maklon.`}
-                  className="bg-brand hover:bg-brand-dark text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-brand/20 hover:shadow-2xl transition-all"
+                  className="bg-brand-dark hover:bg-brand-black text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-brand-dark/20 hover:shadow-2xl transition-all"
                 >
                   Konsultasi Gratis Sekarang
                 </WaRoundRobinButton>

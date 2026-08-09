@@ -27,6 +27,14 @@
   --color-brand-black: var(--dream-black);
   --color-brand-white: var(--dream-white);
 
+  /* General `brand` aliases — dipakai oleh CTA/hero/footer (bg-brand,
+     from-brand, border-brand, dll). `brand-dark` adalah oranye lebih gelap
+     (#AD5700) yang AMMEMENUHI WCAG AA (5.07:1) untuk teks putih — #F39200
+     murni hanya 2.35:1 dan gagal. */
+  --color-brand: var(--dream-orange);
+  --color-brand-dark: #AD5700;
+  --color-brand-light: #FDEBD2;
+
   --color-dream-orange: var(--dream-orange);
   --color-dream-blue: var(--dream-blue);
   --color-dream-green: var(--dream-green);

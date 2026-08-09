@@ -406,7 +406,7 @@ export default async function DynamicPage({ params }: PageProps) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand/20 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-brand/30 transition-all" />
               <h3 className="text-2xl font-bold mb-4 relative z-10">Konsultasi Gratis</h3>
               <p className="text-white/70 mb-8 relative z-10">Dapatkan formulasi eksklusif dan pendampingan BPOM gratis untuk brand Anda.</p>
-              <WaRoundRobinButton message="Halo Dreamlab, saya ingin konsultasi maklon" className="block w-full bg-brand hover:bg-brand-light text-white text-center py-4 rounded-xl font-bold transition-all shadow-lg">
+              <WaRoundRobinButton message="Halo Dreamlab, saya ingin konsultasi maklon" className="block w-full bg-brand-dark hover:bg-brand-black text-white text-center py-4 rounded-xl font-bold transition-all shadow-lg">
                 Chat Ahli Maklon
               </WaRoundRobinButton>
             </div>
