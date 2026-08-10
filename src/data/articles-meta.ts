@@ -2887,6 +2887,26 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "maklon_kosmetik_agustus_promo_dreamlab.webp",
     "excerpt": "Promo spesial Agustus 2026 dari Dreamlab maklon kosmetik: maklon baby care, paket hair care GROWTH &amp; SMOOTH, dan penawaran maklon parfum. Cek cara mulainya di sini.",
     "readingMinutes": 5
+  },
+  {
+    "slug": "/maklon-kosmetik-cepat-produksi-untuk-restock-brand",
+    "title": "Cari Maklon Kosmetik Cepat Produksi untuk Restock Brand Anda",
+    "publishDate": "2026-08-10T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Restock Brand",
+      "Lead Time Produksi",
+      "Kapasitas Produksi",
+      "SLA Maklon",
+      "1 Klien 1 Formula"
+    ],
+    "featuredImage": "dreamlab_maklon_leadtime_tercepat.jpeg",
+    "excerpt": "Cari maklon kosmetik cepat produksi untuk restock brand? Lead time restock Dreamlab bisa di bawah 1 bulan dengan kapasitas sampai 10.000 unit per hari. Cek syarat dan waktunya di sini.",
+    "readingMinutes": 5
   }
 ]
 ;

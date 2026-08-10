@@ -419,6 +419,20 @@ const articleOverrides: Record<string, ArticleOverride> = {
       }
     ]
   },
+  '/maklon-kosmetik-cepat-produksi-untuk-restock-brand': {
+    excerpt: 'Cari maklon kosmetik cepat produksi untuk restock brand? Lead time restock Dreamlab bisa di bawah 1 bulan dengan kapasitas sampai 10.000 unit per hari. Cek syarat dan waktunya di sini.',
+    content: '',
+    faqs: [
+      {
+        question: 'Di mana lokasi Dreamlab?',
+        answer: 'Kantor pemasaran Dreamlab berada di Jl. Dukuh Kupang Timur XX No. 77B, Kec. Sawahan, Kota Surabaya. Dari sini kamu bisa konsultasi langsung soal kebutuhan produksi atau restock brand kamu.'
+      },
+      {
+        question: 'Bagaimana cara konsultasi ke Dreamlab?',
+        answer: 'Konsultasi bisa dilakukan online lewat website dreamlab.id atau WhatsApp, maupun offline dengan datang langsung ke kantor Dreamlab di Surabaya. Konsultasi awal ini gratis dan tanpa komitmen — cocok untuk kamu yang mau tanya-tanya dulu soal restock, lead time, atau kapasitas produksi sebelum memutuskan order.'
+      }
+    ]
+  },
 };
 
 export function getArticleOverride(slug: string): ArticleOverride | null {
