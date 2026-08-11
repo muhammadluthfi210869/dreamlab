@@ -204,7 +204,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Skincare"
     ],
     "featuredImage": "panduan-persentase_niacinamide-_skincare.webp",
-    "excerpt": "Panduan lengkap persentase Niacinamide 2%, 5%, dan 10% â€” manfaat, efek, dan produk yang tepat untuk kulitmu.",
+    "excerpt": "Panduan lengkap persentase Niacinamide 2%, 5%, dan 10% — manfaat, efek, dan produk yang tepat untuk kulitmu.",
     "readingMinutes": 7
   },
   {
@@ -329,7 +329,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/8-tren-kecantikan-2026-smart-formula",
-    "title": "Tren Skincare 2026 â€œSmart Formulaâ€ Akan Mendominasi Pasar Kosmetik Indonesia",
+    "title": "Tren Skincare 2026 “Smart Formula” Akan Mendominasi Pasar Kosmetik Indonesia",
     "publishDate": "2025-12-18T09:40:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -419,7 +419,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/inspirasi-parfum-lokal-aroma-teh",
-    "title": "5 Inspirasi Parfum Aroma Teh dengan Kesan â€œQuiet Luxuryâ€",
+    "title": "5 Inspirasi Parfum Aroma Teh dengan Kesan “Quiet Luxury”",
     "publishDate": "2025-12-28T03:16:30+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -1769,7 +1769,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/reampreneur-beauty-academy-maklon-kosmetik",
-    "title": "Dreamlab Resmi Luncurkan â€œDreampreneur Beauty Academyâ€ Solusi End-to-End Bagi Calon Beautypreneur",
+    "title": "Dreamlab Resmi Luncurkan “Dreampreneur Beauty Academy” Solusi End-to-End Bagi Calon Beautypreneur",
     "publishDate": "2026-02-22T07:57:03+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -1884,7 +1884,7 @@ export const articlesMeta: ArticleMeta[] =
       "Bisnis Kosmetik"
     ],
     "featuredImage": "woman-holding-different-lotions-scaled.webp",
-    "excerpt": "Maklon BodyCare Halal & Mudah â€“ Dreamlab: MOQ Fleksibel & Oneâ€‘Stop Service",
+    "excerpt": "Maklon BodyCare Halal & Mudah – Dreamlab: MOQ Fleksibel & One‑Stop Service",
     "readingMinutes": 6
   },
   {
@@ -2154,12 +2154,12 @@ export const articlesMeta: ArticleMeta[] =
       "Bisnis Kosmetik"
     ],
     "featuredImage": "633372a1-4e2a-440a-befa-06211c3af63b.webp",
-    "excerpt": "Produk moisturizer Dreamlab cetak omset tinggi! Peluang emas bagi kamu yang ingin memulai bisnis skincare sendiriâ€”modal kecil, potensi cuan besar.",
+    "excerpt": "Produk moisturizer Dreamlab cetak omset tinggi! Peluang emas bagi kamu yang ingin memulai bisnis skincare sendiri—modal kecil, potensi cuan besar.",
     "readingMinutes": 1
   },
   {
     "slug": "/cara-ampuh-memutihkan-ketiak",
-    "title": "Cara Memutihkan Ketiak dalam 1 Minggu â€“ Panduan Efektif & Aman",
+    "title": "Cara Memutihkan Ketiak dalam 1 Minggu – Panduan Efektif & Aman",
     "publishDate": "2025-10-22T09:02:47+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -2229,7 +2229,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Haircare"
     ],
     "featuredImage": "maklon-dry-shampoo.png",
-    "excerpt": "Bayangkan ini: rambut lepek di tengah hari, meeting 30 menit lagi, tidak ada waktu keramas. Di sinilahÂ dry shampooÂ jadi penyelamat â€”",
+    "excerpt": "Bayangkan ini: rambut lepek di tengah hari, meeting 30 menit lagi, tidak ada waktu keramas. Di sinilahÂ dry shampooÂ jadi penyelamat —",
     "readingMinutes": 6
   },
   {
@@ -2259,7 +2259,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Parfum"
     ],
     "featuredImage": "maklon-parfum-pheromone.png",
-    "excerpt": "Apa Itu Parfum Pheromone? Parfum pheromone adalah jenis parfum yang diformulasikan dengan bahan-bahan yang terinspirasi dari pheromone â€” senyawa kimia",
+    "excerpt": "Apa Itu Parfum Pheromone? Parfum pheromone adalah jenis parfum yang diformulasikan dengan bahan-bahan yang terinspirasi dari pheromone — senyawa kimia",
     "readingMinutes": 5
   },
   {
@@ -2334,7 +2334,7 @@ export const articlesMeta: ArticleMeta[] =
       "Bisnis Kosmetik"
     ],
     "featuredImage": "panduan-bikin-brand-skincare-dreamlab.png",
-    "excerpt": "Memiliki brand skincare sendiri bukan lagi mimpi yang jauh. Di tahun 2026 ini, industri kecantikan Indonesia terus bertumbuh pesat â€”",
+    "excerpt": "Memiliki brand skincare sendiri bukan lagi mimpi yang jauh. Di tahun 2026 ini, industri kecantikan Indonesia terus bertumbuh pesat —",
     "readingMinutes": 5
   },
   {
@@ -2484,7 +2484,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Parfum"
     ],
     "featuredImage": "29062428.jpg",
-    "excerpt": "Dalam beberapa tahun terakhir, brand parfum lokal di Jakarta mengalami lonjakan popularitas yang sangat besar. Bukan hanya UMKMâ€”bahkan artis, influencer",
+    "excerpt": "Dalam beberapa tahun terakhir, brand parfum lokal di Jakarta mengalami lonjakan popularitas yang sangat besar. Bukan hanya UMKM—bahkan artis, influencer",
     "readingMinutes": 4
   },
   {
@@ -2544,7 +2544,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Parfum"
     ],
     "featuredImage": "maklon-parfum-pheromone.png",
-    "excerpt": "Parfum&nbsp;Arab&nbsp;kini&nbsp;semakin&nbsp;populer&nbsp;di&nbsp;kalangan&nbsp;milenial&nbsp;Indonesia&nbsp;â€”&nbsp;pencarian&nbsp;online&nbsp;terkait&nbsp;&#8220;parfum&nbsp;Arab&#8221;&nbsp;meningkat&nbsp;signifikan&nbsp;dalam&nbsp;beberapa&nbsp;tahun&nbsp;terakhir,&nbsp;menandakan&nbsp;minat&nbsp;pasar&nbsp;yang&nbsp;tumbuh.&nbsp;Keunikan&nbsp;aroma&nbsp;dan&nbsp;daya&nbsp;tahan&nbsp;wangi&nbsp;membuat&nbsp;parfum&nbsp;arab&nbsp;menjadi&nbsp;pilihan&nbsp;gaya&nbsp;hidup&nbsp;dan&nbsp;ekspresi&nbsp;diri&nbsp;bagi&nbsp;banyak&nbsp;anak&nbsp;muda. Tren&nbsp;ini&nbsp;didorong&nbsp;oleh&nbsp;meningkatnya&nbsp;kesadaran&nbsp;akan&nbsp;kualitas&nbsp;bahan&nbsp;dan&nbsp;kombinasi&nbsp;sentuhan&nbsp;wewangian&nbsp;khas&nbsp;Timur&nbsp;Tengah,&nbsp;sehingga&nbsp;membuka&nbsp;peluang&nbsp;bisnis&nbsp;menarik&nbsp;bagi&nbsp;entrepreneur,&nbsp;reseller,&nbsp;dan&nbsp;pemilik&nbsp;brand&nbsp;baru.&nbsp;Dengan&nbsp;bantuan&nbsp;maklon&nbsp;parfum&nbsp;arab,&nbsp;Anda&nbsp;bisa&nbsp;masuk&nbsp;ke&nbsp;pasar&nbsp;ini&nbsp;lebih&nbsp;cepat&nbsp;tanpa&nbsp;modal&nbsp;pabrik&nbsp;besar. Dreamlab&nbsp;hadir&nbsp;sebagai&nbsp;solusi&nbsp;maklon&nbsp;yang&nbsp;membantu&nbsp;Anda&nbsp;mulai&nbsp;bisnis&nbsp;parfum&nbsp;Arab&nbsp;dengan&nbsp;proses&nbsp;produksi&nbsp;terstandar&nbsp;dan&nbsp;opsi&nbsp;formula&nbsp;siap&nbsp;pakai.&nbsp;Baca&nbsp;5&nbsp;rekomendasi&nbsp;parfum&nbsp;Arab&nbsp;yang&nbsp;cocok&nbsp;dijadikan&nbsp;bisnis&nbsp;di&nbsp;bagian&nbsp;bawah&nbsp;untuk&nbsp;ide&nbsp;produk&nbsp;dan&nbsp;positioning&nbsp;pasar. Fenomena&nbsp;Parfum&nbsp;Arab&nbsp;di&nbsp;Kalangan&nbsp;Milenial&nbsp;Indonesia Minat&nbsp;terhadap&nbsp;parfum&nbsp;Arab&nbsp;di&nbsp;kalangan&nbsp;milenial&nbsp;Indonesia&nbsp;terus&nbsp;naik&nbsp;â€”&nbsp;pencarian&nbsp;dan&nbsp;permintaan&nbsp;menunjukkan&nbsp;tren&nbsp;positif&nbsp;karena&nbsp;keunikan&nbsp;aroma&nbsp;dan&nbsp;kesan&nbsp;mewah&nbsp;yang&nbsp;ditimbulkannya.&nbsp;Parfum&nbsp;Arab&nbsp;menawarkan&nbsp;pengalaman&nbsp;wewangian&nbsp;berbeda&nbsp;dibanding&nbsp;parfum&nbsp;konvensional:&nbsp;aroma&nbsp;lebih&nbsp;kaya,&nbsp;komposisi&nbsp;kompleks,&nbsp;dan&nbsp;wangi&nbsp;yang&nbsp;lebih&nbsp;tahan&nbsp;lama. Sejarah&nbsp;Singkat&nbsp;Parfum&nbsp;Arab&nbsp;dan&nbsp;Perkembangannya Asalusul&nbsp;parfum&nbsp;Arab&nbsp;berakar&nbsp;pada&nbsp;peradaban&nbsp;Timur&nbsp;Tengah,&nbsp;di&nbsp;mana&nbsp;minyak&nbsp;wangi&nbsp;dipakai&nbsp;dalam&nbsp;upacara&nbsp;keagamaan,&nbsp;pengobatan,&nbsp;dan&nbsp;sebagai&nbsp;penanda&nbsp;status&nbsp;sosial.&nbsp;Perdagangan&nbsp;rempah&nbsp;dan&nbsp;bahan&nbsp;aromatik&nbsp;membuka&nbsp;akses&nbsp;ke bahan&nbsp;langka&nbsp;sehingga&nbsp;lahirlah&nbsp;kombinasi&nbsp;arab&nbsp;aroma&nbsp;yang&nbsp;khas&nbsp;â€”&nbsp;dari&nbsp;floral&nbsp;halus&nbsp;hingga&nbsp;oriental&nbsp;yang&nbsp;intens Seiring&nbsp;waktu,&nbsp;teknik&nbsp;distilasi&nbsp;dan&nbsp;blending&nbsp;berkembang&nbsp;sehingga&nbsp;menciptakan&nbsp;variasi&nbsp;wewangian&nbsp;yang&nbsp;luas;&nbsp;setiap&nbsp;wilayah&nbsp;membawa&nbsp;sentuhan&nbsp;lokal&nbsp;pada&nbsp;komposisi,&nbsp;misalnya&nbsp;oud&nbsp;Yaman&nbsp;yang&nbsp;pekat&nbsp;versus&nbsp;oud&nbsp;kayu&nbsp;lokal&nbsp;dari&nbsp;Asia&nbsp;Tenggara. Komponen Keterangan Bahan&nbsp;Baku Minyak&nbsp;esensial,&nbsp;rempah-rempah,&nbsp;oud,&nbsp;amber Proses&nbsp;Pembuatan Distilasi,&nbsp;ekstraksi,&nbsp;blending&nbsp;â€”&nbsp;mengutamakan&nbsp;bahan&nbsp;premium Karakteristik Aroma&nbsp;kuat,&nbsp;tahan&nbsp;lama,&nbsp;eksotis;&nbsp;sering&nbsp;meninggalkan&nbsp;kesan&nbsp;mewah Baca Juga :",
+    "excerpt": "Parfum&nbsp;Arab&nbsp;kini&nbsp;semakin&nbsp;populer&nbsp;di&nbsp;kalangan&nbsp;milenial&nbsp;Indonesia&nbsp;—&nbsp;pencarian&nbsp;online&nbsp;terkait&nbsp;&#8220;parfum&nbsp;Arab&#8221;&nbsp;meningkat&nbsp;signifikan&nbsp;dalam&nbsp;beberapa&nbsp;tahun&nbsp;terakhir,&nbsp;menandakan&nbsp;minat&nbsp;pasar&nbsp;yang&nbsp;tumbuh.&nbsp;Keunikan&nbsp;aroma&nbsp;dan&nbsp;daya&nbsp;tahan&nbsp;wangi&nbsp;membuat&nbsp;parfum&nbsp;arab&nbsp;menjadi&nbsp;pilihan&nbsp;gaya&nbsp;hidup&nbsp;dan&nbsp;ekspresi&nbsp;diri&nbsp;bagi&nbsp;banyak&nbsp;anak&nbsp;muda. Tren&nbsp;ini&nbsp;didorong&nbsp;oleh&nbsp;meningkatnya&nbsp;kesadaran&nbsp;akan&nbsp;kualitas&nbsp;bahan&nbsp;dan&nbsp;kombinasi&nbsp;sentuhan&nbsp;wewangian&nbsp;khas&nbsp;Timur&nbsp;Tengah,&nbsp;sehingga&nbsp;membuka&nbsp;peluang&nbsp;bisnis&nbsp;menarik&nbsp;bagi&nbsp;entrepreneur,&nbsp;reseller,&nbsp;dan&nbsp;pemilik&nbsp;brand&nbsp;baru.&nbsp;Dengan&nbsp;bantuan&nbsp;maklon&nbsp;parfum&nbsp;arab,&nbsp;Anda&nbsp;bisa&nbsp;masuk&nbsp;ke&nbsp;pasar&nbsp;ini&nbsp;lebih&nbsp;cepat&nbsp;tanpa&nbsp;modal&nbsp;pabrik&nbsp;besar. Dreamlab&nbsp;hadir&nbsp;sebagai&nbsp;solusi&nbsp;maklon&nbsp;yang&nbsp;membantu&nbsp;Anda&nbsp;mulai&nbsp;bisnis&nbsp;parfum&nbsp;Arab&nbsp;dengan&nbsp;proses&nbsp;produksi&nbsp;terstandar&nbsp;dan&nbsp;opsi&nbsp;formula&nbsp;siap&nbsp;pakai.&nbsp;Baca&nbsp;5&nbsp;rekomendasi&nbsp;parfum&nbsp;Arab&nbsp;yang&nbsp;cocok&nbsp;dijadikan&nbsp;bisnis&nbsp;di&nbsp;bagian&nbsp;bawah&nbsp;untuk&nbsp;ide&nbsp;produk&nbsp;dan&nbsp;positioning&nbsp;pasar. Fenomena&nbsp;Parfum&nbsp;Arab&nbsp;di&nbsp;Kalangan&nbsp;Milenial&nbsp;Indonesia Minat&nbsp;terhadap&nbsp;parfum&nbsp;Arab&nbsp;di&nbsp;kalangan&nbsp;milenial&nbsp;Indonesia&nbsp;terus&nbsp;naik&nbsp;—&nbsp;pencarian&nbsp;dan&nbsp;permintaan&nbsp;menunjukkan&nbsp;tren&nbsp;positif&nbsp;karena&nbsp;keunikan&nbsp;aroma&nbsp;dan&nbsp;kesan&nbsp;mewah&nbsp;yang&nbsp;ditimbulkannya.&nbsp;Parfum&nbsp;Arab&nbsp;menawarkan&nbsp;pengalaman&nbsp;wewangian&nbsp;berbeda&nbsp;dibanding&nbsp;parfum&nbsp;konvensional:&nbsp;aroma&nbsp;lebih&nbsp;kaya,&nbsp;komposisi&nbsp;kompleks,&nbsp;dan&nbsp;wangi&nbsp;yang&nbsp;lebih&nbsp;tahan&nbsp;lama. Sejarah&nbsp;Singkat&nbsp;Parfum&nbsp;Arab&nbsp;dan&nbsp;Perkembangannya Asalusul&nbsp;parfum&nbsp;Arab&nbsp;berakar&nbsp;pada&nbsp;peradaban&nbsp;Timur&nbsp;Tengah,&nbsp;di&nbsp;mana&nbsp;minyak&nbsp;wangi&nbsp;dipakai&nbsp;dalam&nbsp;upacara&nbsp;keagamaan,&nbsp;pengobatan,&nbsp;dan&nbsp;sebagai&nbsp;penanda&nbsp;status&nbsp;sosial.&nbsp;Perdagangan&nbsp;rempah&nbsp;dan&nbsp;bahan&nbsp;aromatik&nbsp;membuka&nbsp;akses&nbsp;ke bahan&nbsp;langka&nbsp;sehingga&nbsp;lahirlah&nbsp;kombinasi&nbsp;arab&nbsp;aroma&nbsp;yang&nbsp;khas&nbsp;—&nbsp;dari&nbsp;floral&nbsp;halus&nbsp;hingga&nbsp;oriental&nbsp;yang&nbsp;intens Seiring&nbsp;waktu,&nbsp;teknik&nbsp;distilasi&nbsp;dan&nbsp;blending&nbsp;berkembang&nbsp;sehingga&nbsp;menciptakan&nbsp;variasi&nbsp;wewangian&nbsp;yang&nbsp;luas;&nbsp;setiap&nbsp;wilayah&nbsp;membawa&nbsp;sentuhan&nbsp;lokal&nbsp;pada&nbsp;komposisi,&nbsp;misalnya&nbsp;oud&nbsp;Yaman&nbsp;yang&nbsp;pekat&nbsp;versus&nbsp;oud&nbsp;kayu&nbsp;lokal&nbsp;dari&nbsp;Asia&nbsp;Tenggara. Komponen Keterangan Bahan&nbsp;Baku Minyak&nbsp;esensial,&nbsp;rempah-rempah,&nbsp;oud,&nbsp;amber Proses&nbsp;Pembuatan Distilasi,&nbsp;ekstraksi,&nbsp;blending&nbsp;—&nbsp;mengutamakan&nbsp;bahan&nbsp;premium Karakteristik Aroma&nbsp;kuat,&nbsp;tahan&nbsp;lama,&nbsp;eksotis;&nbsp;sering&nbsp;meninggalkan&nbsp;kesan&nbsp;mewah Baca Juga :",
     "readingMinutes": 3
   },
   {
@@ -2609,7 +2609,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/maklon-kosmetik-jayapura",
-    "title": "Maklon Kosmetik Jayapura â€” Mulai Brand Skincare-mu Sekarang",
+    "title": "Maklon Kosmetik Jayapura — Mulai Brand Skincare-mu Sekarang",
     "publishDate": "2026-06-27T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -2619,12 +2619,12 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Skincare"
     ],
     "featuredImage": "maklon_kosmetik_jayapura.png",
-    "excerpt": "Mau bikin brand skincare dari Jayapura? Dreamlab maklon kosmetik siap bantu dari 0 â€” formula eksklusif, BPOM, Halal, hingga produk jadi. Konsultasi gratis!",
+    "excerpt": "Mau bikin brand skincare dari Jayapura? Dreamlab maklon kosmetik siap bantu dari 0 — formula eksklusif, BPOM, Halal, hingga produk jadi. Konsultasi gratis!",
     "readingMinutes": 9
   },
   {
     "slug": "/maklon-kosmetik-bpom-bandar-lampung",
-    "title": "Pabrik Kosmetik Bandar Lampung â€” Mulai Brand Skincare Sendiri Tanpa Ribet",
+    "title": "Pabrik Kosmetik Bandar Lampung — Mulai Brand Skincare Sendiri Tanpa Ribet",
     "publishDate": "2026-06-26T15:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -2634,7 +2634,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Skincare"
     ],
     "featuredImage": "maklon-kosmetik-bpom-bandar-lampung-hero.webp",
-    "excerpt": "Mau punya brand skincare dari Bandar Lampung? Dreamlab urus semua â€” formula eksklusif, BPOM, kemasan, sampai siap jual. Konsultasi gratis, tanpa ribet!",
+    "excerpt": "Mau punya brand skincare dari Bandar Lampung? Dreamlab urus semua — formula eksklusif, BPOM, kemasan, sampai siap jual. Konsultasi gratis, tanpa ribet!",
     "readingMinutes": 10
   },
   {
@@ -2679,7 +2679,7 @@ export const articlesMeta: ArticleMeta[] =
       "Dreamlab Pedia"
     ],
     "featuredImage": "panduan-bikin-brand-skincare-dreamlab.png",
-    "excerpt": "Rata-rata industri 4â€“6 bulan, tapi Dreamlab maklon kosmetik menargetkan 90 hari. Cek rincian tahap dan dasar hukum BPOM-nya di sini.",
+    "excerpt": "Rata-rata industri 4–6 bulan, tapi Dreamlab maklon kosmetik menargetkan 90 hari. Cek rincian tahap dan dasar hukum BPOM-nya di sini.",
     "readingMinutes": 6
   },
   {
