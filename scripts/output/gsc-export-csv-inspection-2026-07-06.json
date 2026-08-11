@@ -1,0 +1,1452 @@
+[
+  {
+    "url": "http://dreamlab.id/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/",
+    "lastCrawlTime": "2026-07-11T15:54:20Z"
+  },
+  {
+    "url": "http://dreamlab.id/cgi-sys/defaultwebpage.cgi",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "http://dreamlab.id/cgi-sys/defaultwebpage.cgi",
+    "lastCrawlTime": "2026-04-12T01:08:09Z"
+  },
+  {
+    "url": "http://www.dreamlab.id/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/",
+    "lastCrawlTime": "2026-07-12T12:27:29Z"
+  },
+  {
+    "url": "https://dreamlab.id/?s=%7Bsearch_term_string%7D",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/?s=%7Bsearch_term_string%7D",
+    "lastCrawlTime": "2026-04-24T21:19:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/?wc-ajax=%25%25endpoint%25%25",
+    "coverageState": "URL is unknown to Google",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+    "canonical": "https://dreamlab.id/?wc-ajax=%25%25endpoint%25%25",
+    "lastCrawlTime": "N/A"
+  },
+  {
+    "url": "https://dreamlab.id/atur‑kosmetik‑halal‑2026‑dreamlab/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/atur‑kosmetik‑halal‑2026‑dreamlab/",
+    "lastCrawlTime": "2026-02-08T08:52:25Z"
+  },
+  {
+    "url": "https://dreamlab.id/atur‑kosmetik‑halal‑dreamlab/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/atur‑kosmetik‑halal‑dreamlab/",
+    "lastCrawlTime": "2026-03-16T18:44:23Z"
+  },
+  {
+    "url": "https://dreamlab.id/author/admin/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/author/admin/feed/",
+    "lastCrawlTime": "2025-12-11T11:36:03Z"
+  },
+  {
+    "url": "https://dreamlab.id/author/admin/page/2/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/author/admin/page/2/",
+    "lastCrawlTime": "2026-06-13T18:34:11Z"
+  },
+  {
+    "url": "https://dreamlab.id/author/admin/page/3/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/author/admin/page/3/",
+    "lastCrawlTime": "2026-06-13T19:35:18Z"
+  },
+  {
+    "url": "https://dreamlab.id/author/admin/page/6/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/author/admin/page/6/",
+    "lastCrawlTime": "2026-06-13T19:04:27Z"
+  },
+  {
+    "url": "https://dreamlab.id/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan/",
+    "lastCrawlTime": "2026-01-28T16:05:48Z"
+  },
+  {
+    "url": "https://dreamlab.id/bahan-aktif-untuk-mengatasi-jerawat/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/bahan-aktif-skincare-jerawat/",
+    "lastCrawlTime": "2026-04-22T14:21:53Z"
+  },
+  {
+    "url": "https://dreamlab.id/blog/foot-care-produk-peluang-bisnis-maklon/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:25Z"
+  },
+  {
+    "url": "https://dreamlab.id/blog/maklon-hair-care-kesalahan-pemula/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/blog/pabrik-maklon-kosmetik-cpkb-grade-a/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:23Z"
+  },
+  {
+    "url": "https://dreamlab.id/cara-bisnis-skincare-dari-nol/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/bisnis-kosmetik-dari-nol/",
+    "lastCrawlTime": "2026-05-07T18:51:20Z"
+  },
+  {
+    "url": "https://dreamlab.id/cart/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/cart/",
+    "lastCrawlTime": "2026-01-16T05:47:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/bisnis-kosmetik/page/2/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/bisnis-kosmetik/page/2/",
+    "lastCrawlTime": "2026-01-25T04:05:40Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/bisnis-men-grooming/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/bisnis-men-grooming/",
+    "lastCrawlTime": "2026-06-26T21:37:39Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/bisnis-skincare/feed/",
+    "coverageState": "URL is unknown to Google",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+    "canonical": "https://dreamlab.id/category/bisnis-skincare/feed/",
+    "lastCrawlTime": "N/A"
+  },
+  {
+    "url": "https://dreamlab.id/category/dreamlabpedia/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/dreamlabpedia/feed/",
+    "lastCrawlTime": "2025-12-08T15:05:50Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/dreampreneur-beauty-academy/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/dreampreneur-beauty-academy/feed/",
+    "lastCrawlTime": "2026-03-25T21:58:01Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-baby-care/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-baby-care/feed/",
+    "lastCrawlTime": "2026-05-10T21:25:41Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-bodycare/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-bodycare/feed/",
+    "lastCrawlTime": "2025-12-12T15:12:45Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-footcare/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-footcare/feed/",
+    "lastCrawlTime": "2026-03-25T23:22:08Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-haircare/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-haircare/feed/",
+    "lastCrawlTime": "2026-02-10T13:18:00Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-parfum/feed/",
+    "coverageState": "URL is unknown to Google",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+    "canonical": "https://dreamlab.id/category/maklon-parfum/feed/",
+    "lastCrawlTime": "N/A"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-personal-care/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-personal-care/feed/",
+    "lastCrawlTime": "2026-04-16T04:42:37Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/maklon-skincare/feed/",
+    "coverageState": "URL is unknown to Google",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+    "canonical": "https://dreamlab.id/category/maklon-skincare/feed/",
+    "lastCrawlTime": "N/A"
+  },
+  {
+    "url": "https://dreamlab.id/category/personal-care/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/personal-care/feed/",
+    "lastCrawlTime": "2025-12-05T12:26:22Z"
+  },
+  {
+    "url": "https://dreamlab.id/category/tips-trick/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/tips-trick/feed/",
+    "lastCrawlTime": "2025-12-01T21:35:19Z"
+  },
+  {
+    "url": "https://dreamlab.id/checkout/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/checkout/",
+    "lastCrawlTime": "2026-01-16T05:47:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/cms_block_cat/flying-button/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/thankyoupage-google/",
+    "lastCrawlTime": "2026-06-23T02:27:15Z"
+  },
+  {
+    "url": "https://dreamlab.id/cms_block_cat/footer-column/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/cms_block_cat/footer-column/",
+    "lastCrawlTime": "2026-04-14T05:21:28Z"
+  },
+  {
+    "url": "https://dreamlab.id/cms_block_cat/pop-up-form/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/cms_block_cat/pop-up-form/",
+    "lastCrawlTime": "2026-04-02T09:54:27Z"
+  },
+  {
+    "url": "https://dreamlab.id/contact-form-dreamlab/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/contact-form-dreamlab/",
+    "lastCrawlTime": "2026-04-04T08:13:11Z"
+  },
+  {
+    "url": "https://dreamlab.id/dupe-parfum-nagita-slavina-tahan-lama/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/dupe-parfum-nagita-slavina-tahan-lama/",
+    "lastCrawlTime": "2026-06-27T17:47:11Z"
+  },
+  {
+    "url": "https://dreamlab.id/e-floating-buttons/popup-website/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T08:06:08Z"
+  },
+  {
+    "url": "https://dreamlab.id/flywheel-marketing-brand-skincare/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/news-blog/",
+    "lastCrawlTime": "2026-07-04T00:22:50Z"
+  },
+  {
+    "url": "https://dreamlab.id/hair-care",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/hair-care/",
+    "lastCrawlTime": "2026-06-28T03:46:47Z"
+  },
+  {
+    "url": "https://dreamlab.id/hero-ingredients-2025/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/hero-ingredients-2025/",
+    "lastCrawlTime": "2026-06-27T06:28:24Z"
+  },
+  {
+    "url": "https://dreamlab.id/ide-bisnis-kosmetik-menjan-jikan-2026/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-kosmetik-terbaik-bahasa/",
+    "lastCrawlTime": "2026-06-28T19:39:59Z"
+  },
+  {
+    "url": "https://dreamlab.id/ide-bisnis-kosmetik/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/ide-bisnis-kosmetik/",
+    "lastCrawlTime": "2026-03-17T16:58:26Z"
+  },
+  {
+    "url": "https://dreamlab.id/index.php",
+    "coverageState": "Not found (404)",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "NOT_FOUND",
+    "canonical": "https://dreamlab.id/index.php",
+    "lastCrawlTime": "2026-07-01T22:21:07Z"
+  },
+  {
+    "url": "https://dreamlab.id/jasa-maklon-sabun-mandi-batang/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/jasa-maklon-bar-soap-merek-sendiri/",
+    "lastCrawlTime": "2026-07-03T18:56:26Z"
+  },
+  {
+    "url": "https://dreamlab.id/juaranyaformula/?action=googlesitekit_auth",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/juaranyaformula/?action=googlesitekit_auth",
+    "lastCrawlTime": "2026-02-10T16:28:26Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-face-mist/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/skincare/",
+    "lastCrawlTime": "2026-07-01T16:56:42Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-kosmetik-jakarta-dreamlab-2026/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-jakarta-terbaik/",
+    "lastCrawlTime": "2026-06-19T16:54:23Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-kosmetik-parfum-tangerang/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-kosmetik-tangerang-terpercaya/",
+    "lastCrawlTime": "2026-06-23T23:26:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-kosmetik-terbaik/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-kosmetik-terbaik/",
+    "lastCrawlTime": "2026-01-21T03:28:48Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-moisturizer-bpom-dreamlab/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/skincare/",
+    "lastCrawlTime": "2026-07-03T14:25:13Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-parfum-jakarta/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pabrik-parfum-jakarta/",
+    "lastCrawlTime": "2026-07-09T12:03:53Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-pkrt/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/maklon-pkrt/",
+    "lastCrawlTime": "2026-06-23T12:00:18Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-scalp-haircare-bisnis-produk-rambut-sehat/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pabrik-shampoo-merek-sendiri/",
+    "lastCrawlTime": "2026-07-03T03:44:40Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-shampoo-psoriasis-formula-juara/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-shampoo-psoriasis-formula-juara/",
+    "lastCrawlTime": "2026-06-27T08:18:40Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-skinacre-lptiktok/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-skinacre-lptiktok/",
+    "lastCrawlTime": "2026-04-04T14:54:42Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-skincare-surabaya-umkm/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/",
+    "lastCrawlTime": "2026-07-03T03:37:47Z"
+  },
+  {
+    "url": "https://dreamlab.id/maklon-skincare-untuk-brand-baru/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-kosmetik-pemula-modal-kecil/",
+    "lastCrawlTime": "2026-06-04T13:48:47Z"
+  },
+  {
+    "url": "https://dreamlab.id/my-account/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/my-account/",
+    "lastCrawlTime": "2026-01-16T05:47:24Z"
+  },
+  {
+    "url": "https://dreamlab.id/news-blog/page/2/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/news-blog/page/2/",
+    "lastCrawlTime": "2026-06-25T07:12:54Z"
+  },
+  {
+    "url": "https://dreamlab.id/news-blog/page/3/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/news-blog/page/3/",
+    "lastCrawlTime": "2026-06-26T21:48:39Z"
+  },
+  {
+    "url": "https://dreamlab.id/news-blog/page/6/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/news-blog/page/6/",
+    "lastCrawlTime": "2026-06-29T16:00:17Z"
+  },
+  {
+    "url": "https://dreamlab.id/news-blog/page/7/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/news-blog/page/7/",
+    "lastCrawlTime": "2026-05-08T13:06:38Z"
+  },
+  {
+    "url": "https://dreamlab.id/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare/",
+    "lastCrawlTime": "2026-06-27T09:11:54Z"
+  },
+  {
+    "url": "https://dreamlab.id/pabrik-parfum-makasar/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-parfum-makassar/",
+    "lastCrawlTime": "2026-06-29T18:12:26Z"
+  },
+  {
+    "url": "https://dreamlab.id/pabrik-parfum-surabaya-biaya-2026/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/parfum/",
+    "lastCrawlTime": "2026-06-30T10:56:31Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/auto-provisioning.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/auto-provisioning.php",
+    "lastCrawlTime": "2026-04-11T22:02:50Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/cara-mendaftar.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/cara-mendaftar.php",
+    "lastCrawlTime": "2026-04-11T22:02:56Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/life-cycle.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/life-cycle.php",
+    "lastCrawlTime": "2026-04-11T22:02:55Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/office365.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/office365.php",
+    "lastCrawlTime": "2026-04-11T22:02:54Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/syarat-pendaftaran.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/syarat-pendaftaran.php",
+    "lastCrawlTime": "2026-04-11T22:03:00Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/ticket-guide.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/ticket-guide.php",
+    "lastCrawlTime": "2026-04-11T22:02:55Z"
+  },
+  {
+    "url": "https://dreamlab.id/pages/transfer-external.php",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pages/transfer-external.php",
+    "lastCrawlTime": "2026-04-11T22:02:58Z"
+  },
+  {
+    "url": "https://dreamlab.id/post-sitemap.xml",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/post-sitemap.xml",
+    "lastCrawlTime": "2026-02-25T19:47:46Z"
+  },
+  {
+    "url": "https://dreamlab.id/potensi-bisnis-babycare/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/potensi-bisnis-babycare/",
+    "lastCrawlTime": "2026-06-27T06:04:09Z"
+  },
+  {
+    "url": "https://dreamlab.id/prediksi-tren-2026/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/8-tren-kecantikan-2026-smart-formula/",
+    "lastCrawlTime": "2026-07-12T09:48:53Z"
+  },
+  {
+    "url": "https://dreamlab.id/privacy-policy/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/privacy-policy/",
+    "lastCrawlTime": "2026-06-29T10:00:18Z"
+  },
+  {
+    "url": "https://dreamlab.id/product-category/uncategorized/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/product-category/uncategorized/feed/",
+    "lastCrawlTime": "2026-03-27T05:24:03Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk-haircare-yang-sedang-tren/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/haircare/",
+    "lastCrawlTime": "2026-06-30T13:52:41Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/decorative/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/decorative/",
+    "lastCrawlTime": "2026-07-13T03:20:33Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/parfum/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/parfum/",
+    "lastCrawlTime": "2026-07-13T05:51:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/pkrt/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/produk/pkrt/",
+    "lastCrawlTime": "2026-06-12T11:34:58Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/pkrt/floor-cleaner/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/produk/pkrt/floor-cleaner/",
+    "lastCrawlTime": "2026-06-12T10:43:59Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/skincare/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/skincare/",
+    "lastCrawlTime": "2026-07-03T14:25:13Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/skincare/cleansing/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/produk/skincare/cleansing/",
+    "lastCrawlTime": "2026-06-12T12:07:57Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/skincare/face-mask/wash-off-mask/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/produk/skincare/face-mask/wash-off-mask/",
+    "lastCrawlTime": "2026-06-13T10:09:40Z"
+  },
+  {
+    "url": "https://dreamlab.id/produk/skincare/facial-toner/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/produk/skincare/facial-toner/",
+    "lastCrawlTime": "2026-06-13T09:37:44Z"
+  },
+  {
+    "url": "https://dreamlab.id/rahasia-maklon-parfum-jakarta/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/pabrik-parfum-jakarta/",
+    "lastCrawlTime": "2026-07-01T20:35:21Z"
+  },
+  {
+    "url": "https://dreamlab.id/search/{search_term_string}/feed/rss2/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/search/{search_term_string}/feed/rss2/",
+    "lastCrawlTime": "2026-04-17T10:23:08Z"
+  },
+  {
+    "url": "https://dreamlab.id/shop/feed/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/shop/feed/",
+    "lastCrawlTime": "2026-02-27T23:55:38Z"
+  },
+  {
+    "url": "https://dreamlab.id/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab/",
+    "lastCrawlTime": "2026-06-27T09:00:41Z"
+  },
+  {
+    "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-",
+    "lastCrawlTime": "2026-04-12T22:36:08Z"
+  },
+  {
+    "url": "https://dreamlab.id/tentang-dreamlab/alur-maklon/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/tentang-dreamlab/alur-maklon/",
+    "lastCrawlTime": "2026-03-18T12:34:36Z"
+  },
+  {
+    "url": "https://dreamlab.id/terms-of-service/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/terms-of-service/",
+    "lastCrawlTime": "2026-06-28T06:45:03Z"
+  },
+  {
+    "url": "https://dreamlab.id/tips-sukses-bisnis-parfum/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/bisnis-parfum-merk-sendiri/",
+    "lastCrawlTime": "2026-06-25T10:24:28Z"
+  },
+  {
+    "url": "https://dreamlab.id/tren-parfum-arab-bisnis-maklon-dreamlab/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk-viral-tiktok/",
+    "lastCrawlTime": "2026-07-04T00:46:17Z"
+  },
+  {
+    "url": "https://dreamlab.id/wp-content/litespeed/localres/aHR0cHM6Ly9jb25uZWN0LmZhY2Vib29rLm5ldC9lbl9VUy9mYmV2ZW50cy5qcw==",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/wp-content/litespeed/localres/aHR0cHM6Ly9jb25uZWN0LmZhY2Vib29rLm5ldC9lbl9VUy9mYmV2ZW50cy5qcw==",
+    "lastCrawlTime": "2026-01-19T04:24:25Z"
+  },
+  {
+    "url": "https://dreamlab.id/wp-content/plugins/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/wp-content/plugins/",
+    "lastCrawlTime": "2026-05-01T15:43:31Z"
+  },
+  {
+    "url": "https://dreamlab.id/wp-content/plugins/popup-maker/",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/wp-content/plugins/popup-maker/",
+    "lastCrawlTime": "2026-03-04T10:53:23Z"
+  },
+  {
+    "url": "https://dreamlab.id/wp-json/pum/v1",
+    "coverageState": "Crawled - currently not indexed",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/wp-json/pum/v1",
+    "lastCrawlTime": "2026-02-20T11:33:18Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/",
+    "lastCrawlTime": "2026-07-12T12:27:29Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/$",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:22Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/$/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:22Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/&",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:22Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/&/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:22Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/8-tren-kecantikan-2026-smart-formula/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/8-tren-kecantikan-2026-smart-formula/",
+    "lastCrawlTime": "2026-07-05T10:09:46Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/about-us/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/about-us/",
+    "lastCrawlTime": "2026-06-22T19:43:50Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/basic-skincare-pria-wajib/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/basic-skincare-pria-wajib/",
+    "lastCrawlTime": "2026-06-26T03:36:59Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:21Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/foot-care-produk-peluang-bisnis-maklon",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:25Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/foot-care-produk-peluang-bisnis-maklon/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:25Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/maklon-hair-care-kesalahan-pemula",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:21Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/maklon-hair-care-kesalahan-pemula/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:21Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/pabrik-maklon-kosmetik-cpkb-grade-a",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:23Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/blog/pabrik-maklon-kosmetik-cpkb-grade-a/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T03:09:23Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/cara-membuat-deodorant-balm-custom/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/cara-membuat-deodorant-balm-custom/",
+    "lastCrawlTime": "2026-06-26T04:48:03Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/career/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/career/",
+    "lastCrawlTime": "2026-06-22T22:31:09Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/category/maklon-bodycare/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-bodycare/",
+    "lastCrawlTime": "2026-06-23T06:57:59Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/category/maklon-haircare/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-haircare/",
+    "lastCrawlTime": "2026-06-24T04:33:57Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/category/maklon-personal-care/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/category/maklon-personal-care/",
+    "lastCrawlTime": "2026-06-12T19:39:34Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/contact-us/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/contact-us/",
+    "lastCrawlTime": "2026-07-08T06:57:29Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/cysteamine-alternatif-hydroquinone/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/cysteamine-alternatif-hydroquinone/",
+    "lastCrawlTime": "2026-06-26T02:07:13Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/e-floating-buttons/popup-website/",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-bodycare-ads/",
+    "lastCrawlTime": "2026-06-12T08:06:08Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/favicon.ico?favicon.0x3dzn~oxb6tn.ico",
+    "coverageState": "Excluded by ‘noindex’ tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "BLOCKED_BY_META_TAG",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/thankyoupage-google/",
+    "lastCrawlTime": "2026-06-23T05:14:45Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/hair-treatment-ampoule-maklon-haircare-dreamlab/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/hair-treatment-ampoule-maklon-haircare-dreamlab/",
+    "lastCrawlTime": "2026-06-25T19:03:38Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/jasa-maklon-parfum-moq-rendah/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/jasa-maklon-parfum-moq-rendah/",
+    "lastCrawlTime": "2026-07-06T09:20:28Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/maklon-parfum-bpom-indonesia-strategi-bisnis/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-parfum-dreamlab/",
+    "lastCrawlTime": "2026-06-26T04:55:17Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/maklon-parfum-dreamlab/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-parfum-dreamlab/",
+    "lastCrawlTime": "2026-06-26T04:55:17Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/maklon-skincare-jawa-timur-dreamlab/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/maklon-skincare-jawa-timur-dreamlab/",
+    "lastCrawlTime": "2026-06-25T22:50:05Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/memunculkan-keranjang-reels/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/news-blog/",
+    "lastCrawlTime": "2026-07-06T04:37:19Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/news-blog/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/news-blog/",
+    "lastCrawlTime": "2026-07-04T20:37:18Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/news-blog/page/5/",
+    "coverageState": "Submitted and indexed",
+    "verdict": "PASS",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://www.dreamlab.id/news-blog/page/5/",
+    "lastCrawlTime": "2026-06-23T06:05:58Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/our-client/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/our-client/",
+    "lastCrawlTime": "2026-07-09T20:21:48Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/pabrik-parfum-surabaya/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk/parfum/",
+    "lastCrawlTime": "2026-06-29T22:40:35Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/perbedaan-moisturizer-gel-vs-cream/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/perbedaan-moisturizer-gel-vs-cream/",
+    "lastCrawlTime": "2026-06-25T17:51:57Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/prediksi-tren-2026/",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/8-tren-kecantikan-2026-smart-formula/",
+    "lastCrawlTime": "2026-06-26T03:05:16Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/privacy-policy",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/privacy-policy/",
+    "lastCrawlTime": "2026-06-12T02:10:42Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/produk-viral-tiktok/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/produk-viral-tiktok/",
+    "lastCrawlTime": "2026-06-26T04:21:13Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/services",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/services/",
+    "lastCrawlTime": "2026-06-27T22:53:51Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/terms-of-service",
+    "coverageState": "Page with redirect",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/terms-of-service/",
+    "lastCrawlTime": "2026-06-12T02:10:43Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/tips-membuat-hand-sanitizer-bisnis/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/tips-membuat-hand-sanitizer-bisnis/",
+    "lastCrawlTime": "2026-06-24T06:00:21Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/tren-brand-kosmetik-lokal-2025/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/tren-brand-kosmetik-lokal-2025/",
+    "lastCrawlTime": "2026-06-26T02:24:24Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/tren-sunscreen-2025-6-produk-yang-siap-jadi-bisnis/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/tren-sunscreen-2025-6-produk-yang-siap-jadi-bisnis/",
+    "lastCrawlTime": "2026-06-19T21:56:03Z"
+  },
+  {
+    "url": "https://www.dreamlab.id/trend-body-care-2025-produk-viral-tiktok-shopee-dreamlab-maklon-kosmetik/",
+    "coverageState": "Alternate page with proper canonical tag",
+    "verdict": "NEUTRAL",
+    "indexingState": "INDEXING_ALLOWED",
+    "robotsTxtState": "ALLOWED",
+    "pageFetchState": "SUCCESSFUL",
+    "canonical": "https://dreamlab.id/trend-body-care-2025-produk-viral-tiktok-shopee-dreamlab-maklon-kosmetik/",
+    "lastCrawlTime": "2026-06-22T13:27:54Z"
+  }
+]

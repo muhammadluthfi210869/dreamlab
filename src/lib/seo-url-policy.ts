@@ -109,10 +109,10 @@ const noindexOnlyPaths = [
   '/author/admin/page',
   '/author/admin',
   '/news-blog/page',
+  // FASE 2: hanya /produk/pkrt yang tetap noindex (sengaja di-exclude).
+  // babycare, footcare, decorative di-un-noindex — produknya punya konten
+  // substansial dan kini menjadi kanonis di /produk/*.
   '/produk/pkrt',
-  '/produk/footcare',
-  '/produk/babycare',
-  '/produk/decorative',
 ];
 
 export function normalizeSeoPath(input: string): string {

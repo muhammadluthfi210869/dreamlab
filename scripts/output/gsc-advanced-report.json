@@ -1,0 +1,122 @@
+{
+  "generated_at": "2026-07-20T22:46:35.112Z",
+  "site_url": "sc-domain:dreamlab.id",
+  "data_period": {
+    "start": "2026-04-21",
+    "end": "2026-07-19"
+  },
+  "performance": {
+    "total_pages": 709,
+    "total_clicks": 2828,
+    "total_impressions": 148791,
+    "avg_ctr": "1.90%"
+  },
+  "sitemaps": [
+    {
+      "path": "https://dreamlab.id/sitemap.xml",
+      "urls": 1,
+      "errors": "0"
+    }
+  ],
+  "coverage_analysis": {
+    "total_inspected": 328,
+    "by_state": {
+      "Submitted and indexed": 172,
+      "Page with redirect": 32,
+      "Not found (404)": 1,
+      "URL is unknown to Google": 106,
+      "Excluded by ‘noindex’ tag": 12,
+      "Crawled - currently not indexed": 5
+    },
+    "passed": 172
+  },
+  "inspection_results": [],
+  "issues": {
+    "critical": [
+      {
+        "type": "high_impressions_no_clicks",
+        "count": 22,
+        "detail": "22 halaman memiliki >200 impressions tapi 0 klik. Perbaiki title & meta description segera!",
+        "pages": [
+          "https://dreamlab.id/perbedaan-edp-edt/",
+          "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Daftar_5_Pabrik_Skincare_di_Indonesia_Terbaik_Update_2026",
+          "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Berapa_MOQ_di_DREAMLAB",
+          "https://dreamlab.id/manfaat-panthenol-untuk-wajah-kering/",
+          "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Mengapa_DREAMLAB_Menjadi_%E2%80%9CGame_Changer%E2%80%9D",
+          "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Mengapa_PT_Karya_Impian_Laboratoris_DREAMLAB_Menjadi_Pilihan_Utama",
+          "https://dreamlab.id/cara-ampuh-memutihkan-ketiak/",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#2_Gourmand_Inspired",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#5_Jenis_Parfum_Inspired_yang_Sedang_Tren",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#Mengapa_Parfum_Inspired_Menjadi_Tren",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#1_Floral_Inspired",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#3_Woody_Spicy_Inspired",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#4_Fresh_Aquatic_Inspired",
+          "https://dreamlab.id/category/maklon-skincare/",
+          "https://dreamlab.id/perbedaan-privatelabel-vsodm/",
+          "https://dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/#Miliki_Brand_Parfum_Eksklusif",
+          "https://dreamlab.id/pabrik-skincare-maklon/",
+          "https://dreamlab.id/category/maklon-haircare/",
+          "https://dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/#Miliki_brand_parfum_dengan_aroma_Custom",
+          "https://dreamlab.id/cara-membuat-lulur-ampas-kopi/"
+        ]
+      }
+    ],
+    "warnings": [
+      {
+        "type": "zero_clicks",
+        "count": 492,
+        "detail": "492 halaman mendapat 0 klik dalam 90 hari. Ini menunjukkan masalah visibilitas atau relevansi."
+      },
+      {
+        "type": "low_ctr",
+        "count": 18,
+        "detail": "18 halaman dengan CTR < 0.5%. Optimasi title tag diperlukan.",
+        "pages": [
+          "https://dreamlab.id/perbedaan-moisturizer-gel-vs-cream/ (CTR: 0.18%)",
+          "https://dreamlab.id/contoh-kalimat-iklan-kosmetik-unik/ (CTR: 0.46%)",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/ (CTR: 0.26%)",
+          "https://www.dreamlab.id/cara-meracik-handbody-pemutih-alami/ (CTR: 0.39%)",
+          "https://dreamlab.id/lulur-vs-hb-dosting/ (CTR: 0.24%)",
+          "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/ (CTR: 0.48%)",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/ (CTR: 0.49%)",
+          "https://dreamlab.id/rekomendasi-sunscreen-lokal/ (CTR: 0.47%)",
+          "https://dreamlab.id/astaxanthin-mengapa-bahan-aktif-ini-sedang-naik-daun-di-industri-kosmetik/ (CTR: 0.14%)",
+          "https://dreamlab.id/manfaat-hair-tonic-ginseng-rambut/ (CTR: 0.15%)"
+        ]
+      }
+    ],
+    "info": []
+  },
+  "recommendations": [
+    {
+      "priority": "🔥 CRITICAL #1",
+      "action": "Perbaiki 505 halaman \"Di-crawl - tidak diindeks\"",
+      "detail": "505 halaman adalah jumlah sangat besar. Kemungkinan penyebab: (a) Konten duplikat/thin content, (b) Tidak ada internal links, (c) Halaman hasil generate otomatis (tag/category pages). Audit konten dan hapus/noindex halaman yang tidak perlu."
+    },
+    {
+      "priority": "🔥 CRITICAL #2",
+      "action": "Perbaiki 338 halaman redirect & canonical www vs non-www",
+      "detail": "Pastikan semua canonical tag mengarah ke dreamlab.id (tanpa www). Perbaiki redirect chain. Halaman seperti /maklon-parfum/ → /ads/maklon-parfum/ perlu diperbaiki."
+    },
+    {
+      "priority": "🔥 CRITICAL #3",
+      "action": "Perbaiki 26 halaman 4xx (404 + lainnya)",
+      "detail": "Buat redirect 301 untuk semua halaman 404. Periksa broken links di internal dan external."
+    },
+    {
+      "priority": "⚡ HIGH",
+      "action": "Review 73 halaman dengan tag noindex",
+      "detail": "Periksa apakah halaman-halaman ini sengaja di-noindex. Jika tidak, hapus tag noindex dan minta indexing ulang."
+    },
+    {
+      "priority": "⚡ HIGH",
+      "action": "Optimasi Title & Meta Description",
+      "detail": "Ada 22 halaman dengan impressions tinggi tapi 0 klik. Fokus optimasi halaman-halaman ini untuk meningkatkan CTR."
+    },
+    {
+      "priority": "📈 MEDIUM",
+      "action": "Tambah indexed pages dari 172 ke 300+",
+      "detail": "Buat konten baru berkualitas, perbaiki internal linking, submit sitemap, dan minta indexing via GSC."
+    }
+  ]
+}

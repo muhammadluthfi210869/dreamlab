@@ -1,0 +1,19 @@
+[
+  {
+    "path": "https://dreamlab.id/sitemap.xml",
+    "lastSubmitted": "2026-07-27T03:24:12.305Z",
+    "isPending": false,
+    "isSitemapsIndex": false,
+    "type": "sitemap",
+    "lastDownloaded": "2026-07-31T00:50:11.604Z",
+    "warnings": "17",
+    "errors": "0",
+    "contents": [
+      {
+        "type": "web",
+        "submitted": "298",
+        "indexed": "0"
+      }
+    ]
+  }
+]

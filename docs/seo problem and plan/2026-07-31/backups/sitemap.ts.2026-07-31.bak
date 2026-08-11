@@ -1,0 +1,244 @@
+import { MetadataRoute } from 'next';
+import fs from 'fs';
+import path from 'path';
+import { parse } from 'csv-parse/sync';
+import { articles } from '@/data/articles';
+import { getAllCategories } from '@/data/products-v2';
+import { maklonPages } from '@/data/maklon-pages';
+import { pilotBatch1Routes } from '@/data/seo-pilot/batch-1';
+import { pilotBatch2Routes } from '@/data/seo-pilot/batch-2';
+import { isIndexableSitemapPath, normalizeSeoPath } from '@/lib/seo-url-policy';
+
+interface AuditData {
+  slug: string;
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://dreamlab.id';
+  const priorityRecrawlSlugs = new Set([
+    'biaya-maklon-parfum-moq-kecil',
+    'bisnis-skincare-glow-glasskin-cystamine',
+    'perbedaan-micellar-water-dan-toner',
+  ]);
+
+  // 1. Static Routes
+  const staticRoutes = [
+    '',
+    '/news-blog',
+    '/panduan',
+    '/about-us',
+    '/about-us/alur-maklon',
+    '/services',
+    '/contact-us',
+    '/contact-medsos',
+    '/our-client',
+    '/career',
+    '/terms-of-service',
+    '/privacy-policy',
+    '/category/maklon-kosmetik',
+    '/category/panduan-bisnis-kosmetik',
+    '/category/dreampreneur-beauty-academy',
+  ].map(route => ({
+    url: `${baseUrl}${route}/`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 1.0,
+  }));
+
+  // Known slug patterns that exist in the current app (safelist for CSV audit slugs)
+  // NOTE: 'ads/' intentionally excluded — ads/thankyou pages have zero SEO value
+  const validRoutePrefixes = [
+    'category/', 'produk/', 'maklon/',
+    'news-blog/', 'about-us/',
+  ];
+  const knownArticleSlugs = new Set(
+    articles
+      .filter(a => a.slug)
+      .map(a => a.slug.replace(/^\/+/, '').replace(/\/+$/, ''))
+  );
+  const categoryArticleCounts = new Map<string, number>();
+  for (const article of articles) {
+    const allCats = [...(article.categories || []), ...(article.tags || [])];
+    for (const category of allCats) {
+      const slug = category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-');
+      categoryArticleCounts.set(slug, (categoryArticleCounts.get(slug) || 0) + 1);
+    }
+  }
+  // Proxy caught patterns — MUST match proxy.ts GONE_PATTERNS exactly.
+  // URLs matching these patterns return 410 Gone and must NOT appear in sitemap.
+  const proxyPrefixes = [
+    '.help/dhl/', 'wp-content/', 'wp-admin/', 'wp-json/',
+    'pages/', 'product-category/', 'shop/', 'cms_block_cat/', 'cgi-sys/',
+    'checkout/', 'cart/', 'my-account/', 'blog/',
+    'post-sitemap', 'search/', 'juaranyaformula/',
+    'produk/pkrt/', 'produk/footcare/', 'produk/babycare/', 'produk/decorative/',
+    'thankyou-page', 'thankyoupage-google', 'google-ads/', 'e-floating-buttons/',
+    'thankyou/', 'thankyou-medsos/', 'landing/',
+  ];
+
+  function isSlugInCurrentSite(slug: string): boolean {
+    if (knownArticleSlugs.has(slug)) return true;
+    for (const p of validRoutePrefixes) {
+      if (slug.startsWith(p)) return true;
+    }
+    return false;
+  }
+
+  function isProxyCaught(slug: string): boolean {
+    for (const p of proxyPrefixes) {
+      if (slug.startsWith(p)) return true;
+    }
+    return false;
+  }
+
+  function isThinCategorySlug(slug: string): boolean {
+    if (!slug.startsWith('category/')) return false;
+    const categorySlug = slug.replace(/^category\//, '').replace(/\/+$/, '');
+    const count = categoryArticleCounts.get(categorySlug) || 0;
+    return count > 0 && count <= 2;
+  }
+
+  // 2. Audit CSV Routes (The Legacy Footprint)
+  let auditRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const csvPath = path.join(process.cwd(), 'src', 'data', 'seo-audit-export.csv');
+    const fileContent = fs.readFileSync(csvPath, 'utf-8');
+    const records = parse(fileContent, { columns: true }) as AuditData[];
+    
+    auditRoutes = records
+      .filter(r => {
+        const s = r.slug;
+        if (!s || s === '/') return false;
+        if (s.length > 200 || s.includes(' ') || s.includes('%20') || s.includes(':')) return false;
+        
+        // Strip leading/trailing slashes
+        let cleaned = s.replace(/^\/+/, '').replace(/\/+$/, '');
+        
+        // news-blog/ prefix maps to root — adjust before checking
+        if (cleaned.startsWith('news-blog/')) {
+          cleaned = cleaned.replace('news-blog/', '');
+        }
+        
+        // Exclude slugs caught by proxy (410 Gone)
+        if (isProxyCaught(cleaned)) return false;
+
+        if (isThinCategorySlug(cleaned)) return false;
+        
+        // Only include slugs that exist in the current site
+        if (!isSlugInCurrentSite(cleaned)) return false;
+        
+        return true;
+      })
+      .map(r => {
+        // Clean up: remove leading/trailing slashes, then add them back consistently
+        let slug = r.slug.replace(/^\/+/, '').replace(/\/+$/, '');
+        
+        // If it starts with news-blog/, we want to point to the root version 
+        // to match our next.config.ts redirects
+        if (slug.startsWith('news-blog/')) {
+          slug = slug.replace('news-blog/', '');
+        }
+        
+        return {
+          url: `${baseUrl}/${slug}/`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.8,
+        };
+      });
+  } catch (e) {
+    console.error('Sitemap: Failed to load audit CSV', e);
+  }
+
+  // Helper: rough word count stripping HTML tags
+  function getWordCount(html: string): number {
+    return html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  }
+
+  const MIN_ARTICLE_WORDS = 200;
+
+  // 3. Current Articles — filtered by content substance
+  // Per review data: no articles < 200 words exist; 22 articles 200-499 need manual audit.
+  // Filter hanya untuk artikel dengan konten sangat minimal (< MIN_ARTICLE_WORDS kata).
+  const articleRoutes = articles
+    .filter(a => a.slug)
+    .filter(a => {
+      if (!a.content || a.content.trim().length < 100) return false;
+      const wordCount = getWordCount(a.content);
+      return wordCount >= MIN_ARTICLE_WORDS;
+    })
+    .map(article => {
+      const slug = article.slug.replace(/^\/+/, '').replace(/\/+$/, '');
+      const isPriorityRecrawl = priorityRecrawlSlugs.has(slug);
+      const changeFrequency: 'weekly' | 'monthly' = isPriorityRecrawl ? 'weekly' : 'monthly';
+      return {
+        url: `${baseUrl}/${slug}/`,
+        lastModified: new Date(article.publishDate || new Date()),
+        changeFrequency,
+        priority: isPriorityRecrawl ? 0.9 : 0.7,
+      };
+    });
+
+  // 4. Product Pages (V2 - Individual Product Pages)
+  const THIN_PRODUCT_CATEGORIES = new Set(['pkrt', 'footcare', 'babycare', 'decorative']);
+  const categories = getAllCategories();
+  const productRoutes: MetadataRoute.Sitemap = [];
+
+  for (const category of categories) {
+    const isThinCategory = THIN_PRODUCT_CATEGORIES.has(category.slug);
+
+    // Add category page (only if NOT thin)
+    if (!isThinCategory) {
+      productRoutes.push({
+        url: `${baseUrl}/produk/${category.slug}/`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      });
+    }
+
+    // Add individual product pages (only if NOT thin)
+    if (!isThinCategory) {
+      for (const product of category.products) {
+        productRoutes.push({
+          url: `${baseUrl}/produk/${category.slug}/${product.slug}/`,
+          lastModified: new Date(),
+          changeFrequency: 'monthly' as const,
+          priority: 0.7,
+        });
+      }
+    }
+  }
+
+  // 5. Maklon Pages — filtered by content quality (exclude thin pages without proper content)
+  const maklonRoutes: MetadataRoute.Sitemap = maklonPages
+    .filter(mp => {
+      // Only include pages with actual content sections (not just template)
+      return mp.sections && mp.sections.length >= 3;
+    })
+    .map(mp => ({
+      url: `${baseUrl}${mp.path.replace(/\/?$/, '/')}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.75,
+    }));
+
+  const pilotRoutes: MetadataRoute.Sitemap = [...pilotBatch1Routes, ...pilotBatch2Routes].map(route => ({
+    url: `${baseUrl}${route.replace(/\/?$/, '/')}`,
+    lastModified: new Date('2026-07-13T00:00:00+07:00'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }));
+
+  // Combine and de-duplicate by URL
+  const allRoutes = [...staticRoutes, ...auditRoutes, ...articleRoutes, ...productRoutes, ...maklonRoutes, ...pilotRoutes];
+  const indexableRoutes = allRoutes.filter(route => {
+    const pathName = normalizeSeoPath(route.url);
+    if (!isIndexableSitemapPath(pathName)) return false;
+    if (isThinCategorySlug(pathName.replace(/^\//, ''))) return false;
+    return true;
+  });
+  const uniqueRoutes = Array.from(new Map(indexableRoutes.map(r => [r.url, r])).values());
+
+  return uniqueRoutes;
+}

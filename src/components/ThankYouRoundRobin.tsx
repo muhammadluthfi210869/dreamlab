@@ -29,7 +29,10 @@ export function ThankYouRoundRobin({
   const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
   const [loading, setLoading] = useState(true);
   const [navigated, setNavigated] = useState(false);
+  const [trackingCode, setTrackingCode] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const leadTrackedRef = useRef(false);
+  const leadPromiseRef = useRef<Promise<string> | null>(null);
 
   // Pesan trigger per channel (dari git sebelumnya), contoh:
   // "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi..."
@@ -89,7 +92,61 @@ export function ThankYouRoundRobin({
     };
   }, []);
 
-  const redirectToWhatsApp = useCallback(() => {
+  /**
+   * Catat lead ke DB (sekali saja per halaman) dan kembalikan tracking code-nya.
+   * Tracking code dipakai sebagai akhiran pesan WA ([Kode: DL-...]) supaya CS
+   * bisa mencocokkan chat WA dengan lead di database. Intent yang dicatat
+   * memakai konteks produk yang benar (?ctx= / source / ?msg=), bukan title
+   * halaman "Terima Kasih!".
+   */
+  const ensureLeadTracked = useCallback(
+    (a: RoundRobinAgent): Promise<string> => {
+      if (leadPromiseRef.current) return leadPromiseRef.current;
+
+      const params = new URLSearchParams(window.location.search);
+      const intentCtx = params.get("ctx");
+      const intentMsg = params.get("msg");
+      const intentSource = params.get("source") || "";
+      const productIntent =
+        intentCtx || (messageMap?.[intentSource] ? intentSource : "") || intentMsg || title;
+
+      leadPromiseRef.current = trackLead({
+        source: normalizeLeadSource(source),
+        intent: productIntent,
+        pageUrl: window.location.href,
+        pageTitle: document.title,
+        utmSource: params.get("utm_source") || undefined,
+        utmMedium: params.get("utm_medium") || undefined,
+        utmCampaign: params.get("utm_campaign") || undefined,
+        assignedName: a.name,
+        assignedPhone: a.phoneNumber,
+      })
+        .then((res) => {
+          const code = res.trackingCode || "LOCAL";
+          setTrackingCode(code);
+          return code;
+        })
+        .catch(() => {
+          const code = "LOCAL-" + Math.random().toString(36).slice(2, 10).toUpperCase();
+          setTrackingCode(code);
+          return code;
+        });
+
+      return leadPromiseRef.current;
+    },
+    [messageMap, source, title]
+  );
+
+  // Begitu agent diketahui, segera catat lead (fire-and-forget). Dengan begitu
+  // tracking code sudah siap sebelum redirect, dan bounce yang gagal sempat
+  // mengklik WA pun tetap tercatat.
+  useEffect(() => {
+    if (!agent || leadTrackedRef.current) return;
+    leadTrackedRef.current = true;
+    ensureLeadTracked(agent);
+  }, [agent, ensureLeadTracked]);
+
+  const redirectToWhatsApp = useCallback(async () => {
     if (!agent || navigated) return;
     setNavigated(true);
     if (timerRef.current) {
@@ -97,23 +154,24 @@ export function ThankYouRoundRobin({
       timerRef.current = null;
     }
 
-    // Catat lead ke DB (fire-and-forget) dengan source channel yang rapi
-    const params = new URLSearchParams(window.location.search);
-    trackLead({
-      source: normalizeLeadSource(source),
-      intent: title,
-      pageUrl: window.location.href,
-      pageTitle: document.title,
-      utmSource: params.get('utm_source') || undefined,
-      utmMedium: params.get('utm_medium') || undefined,
-      utmCampaign: params.get('utm_campaign') || undefined,
-      assignedName: agent.name,
-      assignedPhone: agent.phoneNumber,
-    }).catch(() => {});
+    // Pastikan tracking code tersedia (bounded oleh promise trackLead) supaya
+    // selalu masuk ke pesan WA sebagai [Kode: DL-...].
+    let code = trackingCode;
+    if (!code && leadPromiseRef.current) {
+      try {
+        code = await leadPromiseRef.current;
+      } catch {
+        code = "LOCAL";
+      }
+    }
+    if (!code) code = "LOCAL";
 
-    const url = buildWhatsAppUrl(agent.phoneNumber, resolvedMessage);
+    const url = buildWhatsAppUrl(
+      agent.phoneNumber,
+      `${resolvedMessage}\n\n[Kode: ${code}]`
+    );
     window.location.href = url;
-  }, [agent, navigated, source, title, resolvedMessage]);
+  }, [agent, navigated, trackingCode, resolvedMessage]);
 
   useEffect(() => {
     if (!agent || navigated) return;

@@ -35,6 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/career',
     '/terms-of-service',
     '/privacy-policy',
+    // Halaman hub katalog produk (breadcrumb semua produk menunjuk ke sini)
+    '/produk',
     '/category/maklon-kosmetik',
     '/category/panduan-bisnis-kosmetik',
     '/category/dreampreneur-beauty-academy',
@@ -100,6 +102,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return count > 0 && count <= 2;
   }
 
+  // Category slugs yang di-redirect proxy.ts (CATEGORY_REDIRECTS) ke kategori
+  // baru — source category TIDAK boleh muncul di sitemap (URL-nya 301).
+  const REDIRECTING_CATEGORY_SLUGS = new Set([
+    'maklon-skincare', 'maklon-bodycare', 'maklon-footcare',
+    'maklon-haircare', 'maklon-baby-care', 'maklon-parfum',
+    'personal-care', 'bisnis-kosmetik', 'bisnis-skincare',
+    'tren-kosmetik', 'dreampreneur', 'bisnis-dreampreneur',
+    'tips-bisnis', 'tips-trick', 'dreamlab-pedia',
+    'maklon-kosmetik-skincare',
+  ]);
+
+  function isRedirectingCategorySlug(slug: string): boolean {
+    if (!slug.startsWith('category/')) return false;
+    const categorySlug = slug.replace(/^category\//, '').replace(/\/+$/, '');
+    return REDIRECTING_CATEGORY_SLUGS.has(categorySlug);
+  }
+
   // 2. Audit CSV Routes (The Legacy Footprint)
   let auditRoutes: MetadataRoute.Sitemap = [];
   try {
@@ -125,6 +144,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         if (isProxyCaught(cleaned)) return false;
 
         if (isThinCategorySlug(cleaned)) return false;
+
+        // Exclude category slugs yang di-redirect proxy.ts (301)
+        if (isRedirectingCategorySlug(cleaned)) return false;
         
         // Only include slugs that exist in the current site
         if (!isSlugInCurrentSite(cleaned)) return false;
@@ -201,6 +223,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Add individual product pages (only if NOT thin)
     if (!isThinCategory) {
+      const flatProductSlugs = new Set(category.products.map(p => p.slug));
       for (const product of category.products) {
         productRoutes.push({
           url: `${baseUrl}/produk/${category.slug}/${product.slug}/`,
@@ -209,21 +232,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
           priority: 0.7,
         });
       }
+      // Sub-kategori produk (mis. /produk/decorative/make-up/cream-blush/) yang
+      // TIDAK punya versi FLAT — tambahkan ke sitemap agar bisa di-index sebagai
+      // halaman produk individual (tanpa menciptakan duplikat dgn versi flat).
+      if (category.subCategories) {
+        for (const sub of category.subCategories) {
+          for (const product of sub.products) {
+            if (!flatProductSlugs.has(product.slug)) {
+              productRoutes.push({
+                url: `${baseUrl}/produk/${category.slug}/${sub.slug}/${product.slug}/`,
+                lastModified: new Date(),
+                changeFrequency: 'monthly' as const,
+                priority: 0.7,
+              });
+            }
+          }
+        }
+      }
     }
   }
 
-  // 5. Maklon Pages — filtered by content quality (exclude thin pages without proper content)
-  // Known parent paths that return 301 via proxy.ts LEGACY_PATH_REDIRECTS — must NOT appear in sitemap
-  const MAKLON_REDIRECTING_PARENTS = new Set([
-    '/maklon-body-care/',
-    '/maklon-baby-care/',
-    '/maklon-decorative/',
-    '/maklon-foot-care/',
-  ]);
+  // 5. Maklon Pages — FASE 2: SEMUA /maklon-* product page kini 301 ke /produk/*
+  // (via MAKLON_PRODUCT_REDIRECTS di proxy.ts). Maka tidak ada lagi halaman
+  // maklon yang layak masuk sitemap — hanya /produk/* yang menjadi kanonis.
   const maklonRoutes: MetadataRoute.Sitemap = maklonPages
     .filter(mp => {
-      // Exclude known redirecting parent pages (return 301 via proxy.ts)
-      if (MAKLON_REDIRECTING_PARENTS.has(mp.path)) return false;
+      // FASE 2: exclude semua halaman maklon (redirect ke /produk/*).
+      // Kategori parent (mis. /maklon-body-care/) dan sub-page produk semuanya
+      // di-redirect. Hanya artikel standalone bernama maklon-* (dari articles.ts)
+      // yang tetap valid — itu di-handle articleRoutes, bukan di sini.
+      if (mp.path.startsWith('/maklon-')) return false;
       // Only include pages with actual content sections (not just template)
       return mp.sections && mp.sections.length >= 3;
     })
@@ -261,7 +299,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const indexableRoutes = allRoutes.filter(route => {
     const pathName = normalizeSeoPath(route.url);
     if (!isIndexableSitemapPath(pathName)) return false;
-    if (isThinCategorySlug(pathName.replace(/^\//, ''))) return false;
+    const cleanedPath = pathName.replace(/^\//, '');
+    if (isThinCategorySlug(cleanedPath)) return false;
+    if (isRedirectingCategorySlug(cleanedPath)) return false;
     return true;
   });
   const uniqueRoutes = Array.from(new Map(indexableRoutes.map(r => [r.url, r])).values());

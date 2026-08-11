@@ -45,7 +45,12 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
-  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  // NOTE: `robots` di layout dihapus untuk mencegah konflik tag robots ganda
+  // (layout + page). Di Next.js App Router, metadata robots dari layout DAN
+  // page digabung → menghasilkan <meta name="robots"> ganda dengan direktif
+  // bertentangan (index vs noindex) → Google memakai yang paling restriktif
+  // (noindex) pada semua halaman catch-all. Biarkan page/layout per-rute yang
+  // mengontrol robots-nya sendiri. Default Next.js = index, follow.
 };
 
 export default function RootLayout({

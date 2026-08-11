@@ -104,7 +104,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const isValid = seoMapping.some(
       m => normalizeSlug(m.source) === normalized || normalizeSlug(m.destination) === normalized
     );
-    if (!isValid) notFound();
+    // JANGAN memanggil notFound() di generateMetadata — ini menyebabkan
+    // soft-404 (HTTP 200 + konten 404) di Next.js App Router dengan ISR.
+    // Biarkan komponen DynamicPage (validateSlugOrReject) yang memanggil
+    // notFound() agar status HTTP benar-benar 404 (sama pola dgn /category/).
+    if (!isValid) {
+      return {
+        title: '404 - Page Not Found | Dreamlab Maklon Kosmetik',
+        robots: 'noindex, follow',
+      };
+    }
   }
 
   const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
@@ -428,20 +437,9 @@ export default async function DynamicPage({ params }: PageProps) {
   );
 }
 
-export async function generateStaticParams() {
-  // HANYA generate static params untuk artikel asli dengan konten substantif.
-  // Halaman programmatic dari CSV audit TIDAK di-pre-build untuk mengurangi
-  // jumlah halaman yang diekspos ke Google ("crawled-not-indexed" bloat).
-  // Halaman tersebut tetap bisa diakses via ISR (revalidate: 3600).
-  const articlesList = await getArticles();
-
-  return articlesList
-    .filter(a => a.slug && a.content && a.content.trim().length > 200)
-    .map(a => ({
-      slug: a.slug.replace(/^\//, '').replace(/\/$/, '').split('/').filter(Boolean)
-    }));
-}
-
-// ISR: Regenerate halaman setiap 1 jam untuk konten fresh tanpa full rebuild
-export const revalidate = 3600;
+// NOTE: Soft-404 (HTTP 200 + konten 404) ditangani di middleware (src/proxy.ts)
+// menggunakan daftar SITE_PATHS. Root catch-all Next.js merender notFound()
+// sebagai 200, jadi middleware mengembalikan 404 asli sebelum catch-all dipanggil.
+// generateStaticParams & revalidate tidak digunakan di sini agar catch-all
+// tetap dinamis dan tidak me-prerender path yang tidak dikenal.
 

@@ -1,0 +1,15 @@
+﻿query,clicks_c90,clicks_p90,clicks_delta,clicks_pct_change,impressions_c90,impressions_p90,impressions_delta,ctr_c90_pct,ctr_p90_pct,ctr_delta_pp,position_c90,position_p90,position_delta,c30_clicks,p30_clicks,clicks_16m,impressions_16m,trend,business_intent,brand
+apa itu inspired parfum,0,0,0,,460,122,338,0.0,0.0,,9.6,4.6,5.0,0,0,0,585,stable,informational,False
+cara membuat handbody racikan dosis tinggi,1,0,1,100,480,0,480,0.21,0.0,,8.7,,,0,1,1,480,declining,informational,False
+cara membuat handbody racikan putih permanen,2,0,2,100,301,0,301,0.66,0.0,,7.9,,,1,0,2,301,growing,informational,False
+cara membuat handbody racikan sendiri agar cepat putih,6,0,6,100,1788,1,1787,0.34,0.0,,8.0,31.0,-23.0,3,2,6,1789,growing,informational,False
+cara membuat hb dosting,7,0,7,100,355,36,319,1.97,0.0,,5.7,6.0,-0.2,4,3,7,391,growing,informational,False
+hb racikan sendiri,2,0,2,100,459,13,446,0.44,0.0,,9.2,11.2,-2.1,0,2,2,472,declining,other,False
+inspired parfum adalah,0,0,0,,302,33,269,0.0,0.0,,8.8,6.0,2.8,0,0,0,336,stable,other,False
+maklon kosmetik,6,3,3,100.0,366,244,122,1.64,1.23,0.41,15.4,25.9,-10.4,2,0,9,818,growing,commercial,False
+maklon parfum,1,7,-6,-85.7,372,294,78,0.27,2.38,-2.11,34.1,33.9,0.2,1,0,12,980,growing,commercial,False
+maklon skincare,3,0,3,100,309,277,32,0.97,0.0,,35.3,49.9,-14.7,2,0,4,934,growing,commercial,False
+maklon skincare terbaik,10,4,6,150.0,515,499,16,1.94,0.8,1.14,7.5,15.6,-8.2,5,5,14,1288,stable,commercial,False
+pabrik kosmetik surabaya,2,1,1,100.0,401,243,158,0.5,0.41,0.09,14.2,12.5,1.8,1,0,3,749,growing,commercial,False
+pabrik parfum,4,7,-3,-42.9,369,266,103,1.08,2.63,-1.55,12.6,8.7,3.9,0,1,13,748,declining,commercial,False
+pabrik skincare,1,2,-1,-50.0,488,428,60,0.2,0.47,-0.26,14.9,10.6,4.3,0,0,3,918,stable,commercial,False

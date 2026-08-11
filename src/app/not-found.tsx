@@ -3,6 +3,7 @@ import Link from 'next/link';
 export const metadata = {
   title: "404 - Page Not Found | Dreamlab Maklon Kosmetik",
   description: "Halaman yang Anda cari tidak ditemukan. Kembali ke beranda Dreamlab untuk informasi jasa maklon kosmetik BPOM & Halal.",
+  robots: "noindex, follow",
 };
 
 export default function NotFound() {

@@ -1,0 +1,314 @@
+﻿query,clicks_c90,clicks_p90,clicks_delta,clicks_pct_change,impressions_c90,impressions_p90,impressions_delta,ctr_c90_pct,ctr_p90_pct,ctr_delta_pp,position_c90,position_p90,position_delta,c30_clicks,p30_clicks,clicks_16m,impressions_16m,trend,business_intent,brand
+"""beauty influencer makeup"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+"""bodycare"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,6,0,6,0.0,0.0,,6.8,,,0,0,0,6,stable,other,False
+"""bpom"" ""menarik"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,commercial,False
+"""maklon kosmetik"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,2,0,2,0.0,0.0,,5.5,,,0,0,0,2,stable,commercial,False
+"""moell"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+"""moisturizer"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+"""skincare bayi"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,4,0,4,0.0,0.0,,4.2,,,0,0,0,4,stable,other,False
+"""toner"" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+90 hari berapa lama,0,0,0,,5,0,5,0.0,0.0,,7.0,,,0,0,0,5,stable,informational,False
+admin maklon,0,0,0,,2,0,2,0.0,0.0,,4.0,,,0,0,0,2,stable,commercial,False
+admin produksi adalah,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,commercial,False
+advice,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+affiliate daviena skincare,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+alat pengencang wajah terbaik,2,9,-7,-77.8,145,219,-74,1.38,4.11,-2.73,5.7,1.6,4.1,0,1,16,518,declining,other,False
+alkohol dalam parfum,0,0,0,,3,0,3,0.0,0.0,,6.0,,,0,0,0,3,stable,other,False
+alkohol parfum terbaik,0,0,0,,26,15,11,0.0,0.0,,6.3,3.8,2.5,0,0,0,41,stable,other,False
+alkohol terbaik untuk parfum,1,0,1,100,21,9,12,4.76,0.0,,7.0,2.2,4.8,0,1,3,60,declining,other,False
+alkohol untuk parfum berapa persen,0,0,0,,2,3,-1,0.0,0.0,,5.5,45.7,-40.2,0,0,0,10,stable,informational,False
+all seasons skincare,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+apa itu cysteamine,0,0,0,,2,0,2,0.0,0.0,,6.5,,,0,0,0,2,stable,informational,False
+apa itu hb dosting,1,1,0,0.0,44,159,-115,2.27,0.63,1.64,4.7,1.2,3.5,1,0,2,203,growing,informational,False
+apa kegunaannya?,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,informational,False
+apa pelembab wajah terbaik untuk kulit kering?,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,informational,False
+apa saja,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,informational,False
+apakah harga menentukan kualitas produk pencerah?,0,0,0,,2,0,2,0.0,0.0,,5.0,,,0,0,0,2,stable,pricing,False
+apakah harus pakai npwp,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,informational,False
+apakah ini mengandung alkohol?,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,informational,False
+apakah ini terbukti,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,informational,False
+apakah parfum fresh mengandung alkohol,0,0,0,,2,1,1,0.0,0.0,,7.0,12.0,-5.0,0,0,0,3,stable,informational,False
+apalagi,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,informational,False
+aroma trend,0,0,0,,3,1,2,0.0,0.0,,4.3,9.0,-4.7,0,0,0,4,stable,informational,False
+arti hb dosting,0,0,0,,5,1,4,0.0,0.0,,6.6,1.0,5.6,0,0,0,6,stable,other,False
+astaxanthin toplux,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+astria,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+astria astaxanthin,0,0,0,,2,0,2,0.0,0.0,,4.0,,,0,0,0,2,stable,other,False
+bahan bahan racikan hb dosting,0,0,0,,30,0,30,0.0,0.0,,5.9,,,0,0,0,30,stable,other,False
+balm parfum,0,0,0,,1,10,-9,0.0,0.0,,5.0,7.5,-2.5,0,0,0,30,stable,other,False
+"bandingkan tekstur gel, lotion, cream, dan essence untuk berbagai jenis kulit?",0,0,0,,3,0,3,0.0,0.0,,4.0,,,0,0,0,3,stable,comparison,False
+bb custom,0,0,0,,2,0,2,0.0,0.0,,5.5,,,0,0,0,2,stable,commercial,False
+beauty lab,0,0,0,,1,1,0,0.0,0.0,,7.0,1.0,6.0,0,0,0,3,stable,other,False
+berapa harga parfum mykonos inception,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,pricing,False
+berapa harga pasaran nya,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,pricing,False
+berapa modal awal?,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,pricing,False
+bisnis kosmetik yang menjanjikan,0,0,0,,9,0,9,0.0,0.0,,5.6,,,0,0,0,9,stable,commercial,False
+bisnis parfum apakah menjanjikan,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,commercial,False
+body care whitening,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+body cleansing,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+brand hb,0,0,0,,10,7,3,0.0,0.0,,6.0,6.6,-0.6,0,0,0,17,stable,commercial,False
+brand oem di indonesia,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,commercial,False
+campuran hb cepat putih,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+campuran hb racikan pemutih,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+cara agar instagram ada keranjang kuning,0,0,0,,24,0,24,0.0,0.0,,5.2,,,0,0,0,24,stable,informational,False
+cara aktifkan keranjang di ig,0,1,-1,-100.0,17,8,9,4.0,12.5,-8.5,5.1,3.8,1.4,0,0,1,25,stable,informational,False
+cara bikin hb dosting sendiri,1,0,1,100,77,10,67,1.3,0.0,,6.1,5.6,0.5,1,0,1,87,growing,informational,False
+cara buat brand parfum sendiri,0,0,0,,3,0,3,0.0,0.0,,5.0,,,0,0,0,3,stable,commercial,False
+cara buat handbody,0,0,0,,2,0,2,0.0,0.0,,7.0,,,0,0,0,2,stable,informational,False
+cara buat handbody racikan pemutih badan,0,0,0,,21,0,21,0.0,0.0,,6.3,,,0,0,0,21,stable,informational,False
+cara buat hb dosting,2,1,1,100.0,73,2,71,2.74,50.0,-47.26,4.3,5.0,-0.7,1,1,3,75,stable,informational,False
+cara buat hb dosting sendiri,0,0,0,,205,23,182,0.0,0.0,,5.9,5.5,0.4,0,0,0,228,stable,informational,False
+cara buat keranjang di instagram,1,0,1,100,46,51,-5,2.17,0.0,,4.3,2.9,1.4,0,0,5,173,stable,informational,False
+cara membuat hb dosting,7,0,7,100,355,36,319,1.97,0.0,,5.7,6.0,-0.2,4,3,7,391,growing,informational,False
+cara membuat lulur dari handbody,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,informational,False
+cara membuat racikan hb dosting,0,0,0,,43,0,43,0.0,0.0,,6.8,,,0,0,0,43,stable,informational,False
+cara memunculkan tautan produk di instagram,5,17,-12,-70.6,105,183,-78,4.76,9.29,-4.53,4.3,2.3,2.0,0,1,25,349,declining,informational,False
+cara menambahkan keranjang kuning di video yang sudah upload,0,0,0,,6,3,3,0.0,0.0,,7.0,4.0,3.0,0,0,0,9,stable,informational,False
+cara menambahkan link produk di instagram,2,0,2,100,35,10,25,5.71,0.0,,6.9,4.8,2.1,0,2,2,46,declining,informational,False
+cara menambahkan link produk di reels instagram,6,4,2,50.0,141,244,-103,4.26,1.64,2.62,6.0,2.4,3.6,0,0,15,525,stable,informational,False
+cara menampilkan keranjang kuning,0,0,0,,1,9,-8,0.0,0.0,,7.0,7.3,-0.3,0,0,0,12,stable,informational,False
+cara menautkan link produk di reels instagram,0,0,0,,2,0,2,0.0,0.0,,6.5,,,0,0,0,2,stable,informational,False
+cara menautkan produk di instagram,2,5,-3,-60.0,111,184,-73,1.8,2.72,-0.92,5.7,2.4,3.3,0,1,8,411,declining,informational,False
+cara menautkan produk di reels instagram,0,2,-2,-100.0,10,42,-32,6.67,4.76,1.9,4.4,2.0,2.4,0,0,5,75,stable,informational,False
+cara mengaktifkan keranjang putih di ig,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,informational,False
+cara menggunakan ginseng untuk rambut,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,informational,False
+cara mengurus bpom,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,commercial,False
+cara menyematkan reels di ig,0,0,0,,5,0,5,0.0,0.0,,5.8,,,0,0,0,6,stable,informational,False
+cara meracik handbody agar kulit cepat putih,0,0,0,,35,0,35,0.0,0.0,,6.4,,,0,0,0,35,stable,informational,False
+cara meracik hb dosting sendiri,3,0,3,100,238,0,238,1.26,0.0,,6.5,,,1,2,3,238,declining,informational,False
+cara meracik hb dosting yg aman,0,0,0,,4,0,4,0.0,0.0,,5.0,,,0,0,0,4,stable,informational,False
+cara meracik hb sendiri,1,0,1,100,88,17,71,1.14,0.0,,6.9,10.2,-3.2,1,0,1,105,growing,informational,False
+cara racik hb dosting sendiri mencerahkan kulit,0,0,0,,6,0,6,0.0,0.0,,6.5,,,0,0,0,6,stable,informational,False
+cara tautan keranjang kuning,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,informational,False
+cara tautkan produk di ig,2,2,0,0.0,31,58,-27,6.45,3.45,3.0,6.4,2.0,4.4,0,2,4,89,declining,informational,False
+cari lagi yang lain,1,0,1,100,1,0,1,100.0,0.0,,4.0,,,0,1,1,1,declining,other,False
+carikan,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+carikan sumbernya,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+contoh brand,1,0,1,100,1,0,1,100.0,0.0,,6.0,,,0,0,1,1,stable,commercial,False
+contoh gambar,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+copywriting kosmetik,0,0,0,,120,166,-46,0.0,0.0,,6.3,7.4,-1.1,0,0,0,495,stable,other,False
+cream gel moisturizer,0,0,0,,14,2,12,0.0,0.0,,4.0,5.5,-1.5,0,0,0,16,stable,other,False
+cream gel power tx,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+cream vs gel,0,0,0,,8,2,6,0.0,0.0,,6.4,9.5,-3.1,0,0,0,13,stable,comparison,False
+custom body wash,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,commercial,False
+cv arasy cosmetindo,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+cystamine adalah,0,0,0,,2,0,2,0.0,0.0,,5.5,,,0,0,0,2,stable,other,False
+cysteamine vs hydroquinone,0,0,0,,6,0,6,0.0,0.0,,7.0,,,0,0,0,11,stable,comparison,False
+dan skincare,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+data industri kosmetik di indonesia,0,0,0,,2,0,2,0.0,0.0,,6.0,,,0,0,0,2,stable,local,False
+data penjualan kosmetik di indonesia 5 tahun terakhir,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,local,False
+data pertumbuhan industri kosmetik di indonesia 2025,5,21,-16,-76.2,86,198,-112,5.81,10.61,-4.79,5.8,3.1,2.7,0,2,51,483,declining,local,False
+decorative makeup,0,0,0,,13,0,13,0.0,0.0,,5.5,,,0,0,0,14,stable,other,False
+di keranjang atau keranjang,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,comparison,False
+di sore hari,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+distributor kosmetik murah tangan pertama jakarta,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,pricing,False
+dosting bpom,0,0,0,,2,0,2,0.0,0.0,,6.5,,,0,0,0,2,stable,commercial,False
+dosting hb adalah,0,0,0,,2,0,2,0.0,0.0,,6.5,,,0,0,0,2,stable,other,False
+dosting label,0,0,0,,3,0,3,0.0,0.0,,6.7,,,0,0,0,3,stable,other,False
+dr soromer,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+dreamlab chile,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,brand,True
+dreamlab official website,0,0,0,,12,0,12,0.0,0.0,,4.7,,,0,0,0,12,stable,brand,True
+dreamlab studio,0,0,0,,8,2,6,0.0,0.0,,5.8,1.0,4.8,0,0,0,10,stable,brand,True
+ethanol untuk parfum,0,0,0,,2,1,1,0.0,0.0,,7.0,1.0,6.0,0,0,0,3,stable,other,False
+facetology gel moisturizer,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+fifth love ginseng & polygonum,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+fitur keranjang di instagram,5,5,0,0.0,63,138,-75,7.94,3.62,4.31,4.0,2.5,1.5,0,2,30,408,declining,other,False
+formala,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+fungsi dpg pada parfum,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+gel cream vs cream,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,comparison,False
+gel vs cream,0,0,0,,13,6,7,0.0,0.0,,6.8,9.8,-3.0,0,0,0,31,stable,comparison,False
+gimana cara aktifkan nya,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,informational,False
+glycerin kosmetik,0,0,0,,2,0,2,0.0,0.0,,6.5,,,0,0,0,2,stable,other,False
+glycocare body lotion,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+grow lab,0,0,0,,1,1,0,0.0,0.0,,5.0,3.0,2.0,0,0,0,2,stable,other,False
+haleyora powerindo jakarta,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,local,False
+handbody campur apa biar cepat putih,0,0,0,,2,0,2,0.0,0.0,,7.0,,,0,0,0,2,stable,informational,False
+handbody racikan paling ampuh,0,0,0,,3,0,3,0.0,0.0,,5.3,,,0,0,0,3,stable,other,False
+handbody untuk menghilangkan bekas luka dan memutihkan,1,0,1,100,1,0,1,100.0,0.0,,4.0,,,1,0,1,1,growing,other,False
+harga gluxantin c,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,pricing,False
+harga huruf timbul galvanis per cm,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,pricing,False
+hb dosting bpom,0,0,0,,21,24,-3,0.0,0.0,,6.6,1.2,5.4,0,0,0,45,stable,commercial,False
+hb racikan,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+hb racikan ampuh mencerahkan cepat,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+hb racikan sendiri biar cepet cerah,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+hb skincare,0,0,0,,2,0,2,0.0,0.0,,5.5,,,0,0,0,2,stable,other,False
+iklan tentang makeup,0,0,0,,20,10,10,0.0,0.0,,6.8,10.8,-4.0,0,0,0,84,stable,other,False
+industri kecantikan di indonesia,0,0,0,,2,0,2,0.0,0.0,,6.0,,,0,0,0,3,stable,local,False
+industri kecantikan indonesia,0,0,0,,4,0,4,0.0,0.0,,5.2,,,0,0,0,4,stable,local,False
+ingrown hair salicylic acid,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+inspired parfum artinya,1,1,0,0.0,130,228,-98,0.77,0.44,0.33,6.5,5.5,1.0,0,0,2,411,stable,other,False
+inspired scent,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+instagram keranjang kuning,1,1,0,0.0,21,19,2,4.76,5.26,-0.5,4.5,2.4,2.1,0,1,2,46,declining,other,False
+iya keduanya,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+iya saya ingin,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+iyaa,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+izin arminareka perdana dicabut,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+jasa maklon,0,0,0,,8,6,2,0.0,0.0,,4.1,4.8,-0.7,0,0,0,23,stable,commercial,False
+jasa maklon cushion,0,0,0,,2,0,2,0.0,0.0,,4.0,,,0,0,0,2,stable,commercial,False
+jasa maklon exfoliator,0,0,0,,3,0,3,0.0,0.0,,7.0,,,0,0,0,3,stable,commercial,False
+jelaskan semuanya,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+kandungan cysteamine,0,0,0,,6,0,6,0.0,0.0,,6.0,,,0,0,0,6,stable,other,False
+kecantikan,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+kemasan feet bottle,0,0,0,,10,0,10,0.0,0.0,,6.4,,,0,0,0,10,stable,other,False
+kenapa bisa mahal?,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,informational,False
+kenapa keranjang putih di instagram tidak muncul,2,0,2,100,14,0,14,14.29,0.0,,4.5,,,0,2,2,14,declining,informational,False
+keranjang kuning di instagram,2,3,-1,-33.3,33,66,-33,6.06,4.55,1.52,5.2,3.5,1.8,0,1,5,133,declining,other,False
+keranjang kuning instagram,2,5,-3,-60.0,88,182,-94,2.27,2.75,-0.47,5.4,4.0,1.5,0,1,9,360,declining,other,False
+kesehatan dan kecantikan,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+kirim alamat,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+kosmetik service,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+kosmetik viral 2026,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+lightweight gel cream,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+logo hb dosting,0,0,0,,56,3,53,0.0,0.0,,5.8,7.7,-1.8,0,0,0,59,stable,other,False
+lulur ampas kopi,0,0,0,,4,0,4,0.0,0.0,,6.8,,,0,0,0,4,stable,other,False
+lush,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+maklon apa,0,0,0,,2,0,2,0.0,0.0,,7.0,,,0,0,0,4,stable,commercial,False
+maklon brand sendiri,0,0,0,,9,0,9,0.0,0.0,,6.8,,,0,0,0,9,stable,commercial,False
+maklon cosmetic,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,commercial,False
+maklon eye care,0,0,0,,6,0,6,0.0,0.0,,7.0,,,0,0,0,6,stable,commercial,False
+maklon face toner,0,0,0,,9,0,9,0.0,0.0,,4.4,,,0,0,0,9,stable,commercial,False
+maklon jawa timur,0,0,0,,9,32,-23,8.06,0.0,,6.1,17.7,-11.6,0,0,5,62,stable,commercial,False
+maklon kosmetik jawa timur,3,3,0,0.0,122,125,-3,2.46,2.4,0.06,7.0,15.6,-8.6,1,1,12,471,stable,commercial,False
+maklon lip scrub,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,commercial,False
+maklon loose powder,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,commercial,False
+maklon parfum bali,10,9,1,11.1,117,175,-58,8.55,5.14,3.4,4.3,4.4,-0.2,2,4,21,352,declining,commercial,False
+maklon parfum jawa timur,3,3,0,0.0,34,55,-21,8.82,5.45,3.37,6.9,5.1,1.9,2,1,8,177,growing,commercial,False
+maklon parfum malang,3,2,1,50.0,73,88,-15,4.11,2.27,1.84,4.5,6.1,-1.6,1,1,5,161,stable,commercial,False
+maklon parfum sidoarjo,0,0,0,,17,55,-38,0.0,0.0,,7.0,6.4,0.6,0,0,0,74,stable,commercial,False
+maklon parfum terbaik,7,2,5,250.0,235,97,138,2.98,2.06,0.92,7.0,7.6,-0.7,3,2,9,334,growing,commercial,False
+maklon parfum terbaik di indonesia,0,0,0,,45,47,-2,0.0,0.0,,6.6,6.4,0.2,0,0,0,93,stable,commercial,False
+maklon produk kesehatan,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,commercial,False
+maklon skincare indonesia,0,0,0,,6,1,5,0.0,0.0,,6.2,45.0,-38.8,0,0,0,7,stable,commercial,False
+maklon skincare surabaya,13,5,8,160.0,267,238,29,4.87,2.1,2.77,5.2,15.1,-9.9,4,8,18,755,declining,commercial,False
+maklon skincare tangerang,1,2,-1,-50.0,36,32,4,2.78,6.25,-3.47,5.8,7.4,-1.6,1,0,3,68,growing,commercial,False
+maklon skincare terbaik di indonesia,6,1,5,500.0,102,76,26,5.88,1.32,4.57,4.8,4.1,0.7,4,1,8,206,growing,commercial,False
+maklon skincare terpercaya,0,0,0,,1,8,-7,0.0,0.0,,5.0,10.1,-5.1,0,0,0,9,stable,commercial,False
+maklon surabaya,6,4,2,50.0,136,87,49,4.41,4.6,-0.19,4.9,6.0,-1.0,2,1,15,358,growing,commercial,False
+manfaat niacinamide 5 persen untuk wajah,0,0,0,,2,0,2,0.0,0.0,,6.5,,,0,0,0,2,stable,informational,False
+manufacturing,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+matte lip cream,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+mavis dreamlab,0,0,0,,2,0,2,0.0,0.0,,6.0,,,0,0,0,5,stable,brand,True
+medikids makassar,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,local,False
+merek,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+merek perawatan tubuh terbaik 2026 indonesia,0,0,0,,2,0,2,0.0,0.0,,6.0,,,0,0,0,2,stable,local,False
+moisturizer gel,0,0,0,,7,1,6,0.0,0.0,,6.7,3.0,3.7,0,0,0,8,stable,other,False
+moisturizer gel dan cream,0,0,0,,8,0,8,0.0,0.0,,6.5,,,0,0,0,8,stable,other,False
+moisturizer gel untuk kulit apa,0,0,0,,3,0,3,0.0,0.0,,6.0,,,0,0,0,3,stable,informational,False
+moisturizer sama cream apakah sama,0,0,0,,2,0,2,0.0,0.0,,7.0,,,0,0,0,2,stable,informational,False
+moisturizer vs grill,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,comparison,False
+moq rendah,1,0,1,100,1,0,1,100.0,0.0,,4.0,,,0,1,1,1,declining,pricing,False
+nad beauty,0,0,0,,3,1,2,0.0,0.0,,6.3,20.0,-13.7,0,0,0,6,stable,other,False
+nad kosmetik,0,0,0,,6,12,-6,0.0,0.0,,6.5,7.2,-0.7,0,0,0,27,stable,other,False
+nama brand skincare yang belum dipakai,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,commercial,False
+odm white label,0,0,0,,1,19,-18,0.0,0.0,,7.0,5.3,1.7,0,0,0,25,stable,commercial,False
+oem vs odm,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,comparison,False
+ok boleh,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+owner daviena skincare,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+pabrik kosmetik di surabaya,0,0,0,,37,45,-8,0.0,0.0,,6.0,8.9,-2.9,0,0,0,105,stable,commercial,False
+pabrik kosmetik pasuruan,0,0,0,,3,0,3,0.0,0.0,,4.3,,,0,0,0,8,stable,commercial,False
+pabrik maklon skincare terbaik,0,0,0,,8,22,-14,0.0,0.0,,5.9,6.8,-0.9,0,0,0,30,stable,commercial,False
+pabrik maklon terdekat,0,0,0,,1,1,0,0.0,0.0,,4.0,16.0,-12.0,0,0,0,2,stable,commercial,False
+pabrik minyak wangi,0,0,0,,3,6,-3,0.0,0.0,,6.3,6.8,-0.5,0,0,0,26,stable,commercial,False
+pabrik parfum di bali,0,0,0,,15,0,15,0.0,0.0,,5.2,,,0,0,0,15,stable,commercial,False
+pabrik parfum terbesar di indonesia,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,2,stable,commercial,False
+pabrik skincare surabaya,4,0,4,100,74,27,47,5.41,0.0,,5.3,7.4,-2.1,1,2,4,121,declining,commercial,False
+pabrik skincare terdekat,0,0,0,,7,1,6,0.0,0.0,,6.7,27.0,-20.3,0,0,0,9,stable,commercial,False
+parfum inspired adalah,0,0,0,,275,34,241,0.0,0.0,,7.0,5.4,1.6,0,0,0,309,stable,other,False
+parfum inspired artinya,0,0,0,,202,228,-26,0.0,0.0,,6.7,6.0,0.7,0,0,0,499,stable,other,False
+parfum yang sedang trend saat ini,0,0,0,,3,0,3,0.0,0.0,,4.3,,,0,0,0,3,stable,informational,False
+parfume,0,0,0,,1,2,-1,0.0,0.0,,7.0,1.0,6.0,0,0,0,3,stable,other,False
+parfume 2026,0,0,0,,3,2,1,0.0,0.0,,4.7,6.0,-1.3,0,0,0,5,stable,other,False
+pemasaran skincare di tiktok shop,0,0,0,,9,0,9,0.0,0.0,,5.9,,,0,0,0,9,stable,other,False
+pembersih lantai,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+peptide+,0,0,0,,3,0,3,0.0,0.0,,5.7,,,0,0,0,3,stable,other,False
+perawatan bibir,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+perbedaan hb dan dosting,0,0,0,,14,0,14,0.0,0.0,,5.6,,,0,0,0,14,stable,comparison,False
+perbedaan hb dosting dan hb whitening,0,0,0,,16,0,16,0.0,0.0,,4.8,,,0,0,0,16,stable,comparison,False
+perbedaan krim dan gel,0,0,0,,12,0,12,0.0,0.0,,4.8,,,0,0,0,20,stable,comparison,False
+perbedaan moisturizer cream dan gel,0,0,0,,79,53,26,0.52,0.0,,6.8,9.0,-2.1,0,0,1,191,stable,comparison,False
+personal care company sure ketiak gelap,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+perusahaan lainnya,0,0,0,,1,6,-5,0.0,0.0,,6.0,3.0,3.0,0,0,0,7,stable,other,False
+perusahaan maklon terbesar di indonesia,0,0,0,,22,0,22,0.0,0.0,,6.7,,,0,0,0,22,stable,commercial,False
+pheromone adalah,0,0,0,,276,0,276,0.0,0.0,,6.3,,,0,0,0,276,stable,other,False
+pheromone itu apa,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,informational,False
+pheromone manusia,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+physiogel hypoallergenic untuk apa,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,informational,False
+ponds moisturizer gel,0,0,0,,2,0,2,0.0,0.0,,4.5,,,0,0,0,2,stable,other,False
+prioritas jaya indonesia,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,local,False
+product develop,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+product development,0,0,0,,6,0,6,0.0,0.0,,6.0,,,0,0,0,6,stable,other,False
+produk inspired adalah,0,0,0,,22,18,4,0.0,0.0,,5.4,7.2,-1.8,0,0,0,46,stable,other,False
+produk lain,1,0,1,100,1,0,1,100.0,0.0,,4.0,,,1,0,1,1,growing,other,False
+produk skincare ramai dibicarakan indonesia 2026,0,0,0,,14,0,14,0.0,0.0,,4.9,,,0,0,0,14,stable,local,False
+produk skincare trending indonesia 2026,0,0,0,,9,0,9,0.0,0.0,,6.9,,,0,0,0,9,stable,local,False
+pt anjalis group indonesia,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,local,False
+pt athena royal kosmetika,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+pt cikos indonesia,0,0,0,,2,0,2,0.0,0.0,,5.0,,,0,0,0,2,stable,local,False
+pt kosmetik,0,0,0,,5,7,-2,0.0,0.0,,6.4,11.6,-5.2,0,0,0,19,stable,other,False
+pt kosmetik di indonesia,0,0,0,,1,7,-6,0.0,0.0,,4.0,56.3,-52.3,0,0,0,8,stable,local,False
+pt lainnya,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+pt mag trada indonesia jakarta selatan,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,local,False
+pt maklon,0,0,0,,4,2,2,0.0,0.0,,5.2,6.5,-1.2,0,0,0,6,stable,commercial,False
+pt nusantara wellness group,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+pt nya dimana,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+pt pillars cosmetiklon indonesia,0,0,0,,1,2,-1,0.0,0.0,,4.0,4.0,0.0,0,0,0,3,stable,local,False
+pt trixie,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+pt valencia organika global,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+pt. mash moshem indonesia,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,local,False
+racik handbody pemutih ampuh,0,0,0,,3,0,3,0.0,0.0,,6.0,,,0,0,0,3,stable,other,False
+racik hb,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+racikan handbody paling ampuh,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+racikan pemutih badan,1,0,1,100,59,0,59,1.69,0.0,,6.9,,,1,0,1,59,growing,other,False
+racikan pemutih badan buatan sendiri,0,0,0,,4,0,4,0.0,0.0,,5.8,,,0,0,0,4,stable,other,False
+racikan pemutih kulit buatan sendiri,0,0,0,,15,0,15,0.0,0.0,,6.8,,,0,0,0,15,stable,other,False
+reed diffuser,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+resep hb dosting farmasi,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+resep hb dosting paling ampuh,0,0,0,,11,0,11,0.0,0.0,,6.9,,,0,0,0,11,stable,other,False
+resep hb dosting racikan,0,0,0,,16,0,16,0.0,0.0,,5.4,,,0,0,0,16,stable,other,False
+resep hb pemutih badan,0,0,0,,21,0,21,0.0,0.0,,6.3,,,0,0,0,21,stable,other,False
+resep hb racikan bugis,0,0,0,,8,0,8,0.0,0.0,,5.4,,,0,0,0,8,stable,other,False
+resep hb racikan makassar,0,0,0,,2,0,2,0.0,0.0,,6.0,,,0,0,0,2,stable,local,False
+resep hb racikan paling ampuh,0,0,0,,5,0,5,0.0,0.0,,6.4,,,0,0,0,5,stable,other,False
+resep hb racikan pemutih,0,0,0,,27,0,27,0.0,0.0,,6.2,,,0,0,0,27,stable,other,False
+resep hb racikan pemutih ampuh,0,0,0,,12,0,12,0.0,0.0,,5.4,,,0,0,0,12,stable,other,False
+resep hb racikan sendiri,1,0,1,100,34,0,34,2.94,0.0,,7.0,,,0,1,1,34,declining,other,False
+resep racikan,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+resep racikan hb farmasi,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+resep racikan hb pemutih,1,0,1,100,46,0,46,2.17,0.0,,7.0,,,1,0,1,46,growing,other,False
+resep racikan pemutih badan,0,0,0,,29,1,28,0.0,0.0,,6.4,30.0,-23.6,0,0,0,30,stable,other,False
+sablon sabun,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+"saya ingin mencoba produk baru untuk perawatan tubuh, merek apa yang terkenal saat ini?. my location is indonesia.",0,0,0,,13,0,13,0.0,0.0,,4.5,,,0,0,0,13,stable,local,False
+selain itu merk apa lagi,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,informational,False
+semilir salatiga,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+serum pemutih ketiak,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+skin topical use suitable for all seasons obat apa,0,0,0,,8,0,8,0.0,0.0,,5.1,,,0,0,0,8,stable,informational,False
+skincare launch,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+skincare maklon,0,0,0,,1,1,0,0.0,0.0,,4.0,5.0,-1.0,0,0,0,4,stable,commercial,False
+skincare nad,0,0,0,,1,2,-1,0.0,0.0,,7.0,11.0,-4.0,0,0,0,6,stable,other,False
+skincare nad+,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+skincare no 1 di indonesia 2026,0,0,0,,4,0,4,0.0,0.0,,6.0,,,0,0,0,4,stable,local,False
+skincare terbaik di indonesia 2026,0,0,0,,13,8,5,0.0,0.0,,6.9,6.5,0.4,0,0,0,23,stable,local,False
+skincare terlaris 2026,0,0,0,,10,0,10,0.0,0.0,,6.3,,,0,0,0,10,stable,other,False
+slavina body lotion,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+susu dan madu,0,0,0,,1,0,1,0.0,0.0,,7.0,,,0,0,0,1,stable,other,False
+syarat menautkan keranjang di instagram,1,0,1,100,23,0,23,4.35,0.0,,5.8,,,0,0,1,23,stable,informational,False
+syarat nya,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,informational,False
+tautkan produk di instagram tidak muncul,1,2,-1,-50.0,18,21,-3,5.56,9.52,-3.97,6.4,3.9,2.5,0,0,3,39,stable,other,False
+top 50 brand skincare indonesia,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,commercial,False
+top skincare brands indonesia 2026,0,0,0,,1,2,-1,0.0,0.0,,7.0,3.5,3.5,0,0,0,3,stable,commercial,False
+tren kecantikan,0,0,0,,3,0,3,0.0,0.0,,7.0,,,0,0,0,4,stable,informational,False
+tren kecantikan 2026,2,0,2,100,23,13,10,8.7,0.0,,5.4,12.0,-6.6,0,2,2,46,declining,informational,False
+tren parfum 2026 indonesia,0,0,0,,12,19,-7,0.0,0.0,,6.2,5.3,0.9,0,0,0,31,stable,local,False
+tren parfum indonesia 2026,1,0,1,100,11,0,11,9.09,0.0,,5.2,,,0,0,1,11,stable,local,False
+tren skincare 2026 indonesia,0,0,0,,3,0,3,0.0,0.0,,6.7,,,0,0,0,3,stable,local,False
+tren sunscreen,0,0,0,,30,29,1,0.0,0.0,,6.0,7.1,-1.1,0,0,0,113,stable,informational,False
+untuk kulit,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+wardah purifying moisturizer gel with witch hazel,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+waterless beauty,0,0,0,,5,2,3,0.0,0.0,,4.2,5.5,-1.3,0,0,0,7,stable,other,False
+y,0,0,0,,1,1,0,0.0,0.0,,4.0,8.0,-4.0,0,0,0,2,stable,other,False
+ya,0,1,-1,-100.0,17,15,2,3.12,6.67,-3.54,4.8,2.9,1.9,0,0,1,32,stable,other,False
+ya bantu saya,0,0,0,,1,0,1,0.0,0.0,,5.0,,,0,0,0,1,stable,other,False
+yang di batam,0,0,0,,1,0,1,0.0,0.0,,4.0,,,0,0,0,1,stable,other,False
+yang terbaik apa?,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,informational,False
+yg lain,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False
+zinc untuk jerawat,0,0,0,,1,0,1,0.0,0.0,,6.0,,,0,0,0,1,stable,other,False

@@ -1,0 +1,431 @@
+{
+  "generated_at": "2026-07-20T03:01:24.235Z",
+  "site_url": "sc-domain:dreamlab.id",
+  "data_period": {
+    "start": "2026-04-21",
+    "end": "2026-07-19"
+  },
+  "performance": {
+    "total_pages": 548,
+    "total_clicks": 956,
+    "total_impressions": 53878,
+    "avg_ctr": "1.77%",
+    "top_20_pages": [
+      {
+        "url": "https://dreamlab.id/",
+        "slug": "/",
+        "clicks": 312,
+        "impressions": 3330,
+        "ctr": "9.37%",
+        "avgPosition": "11.2",
+        "uniqueQueries": 267
+      },
+      {
+        "url": "https://dreamlab.id/memunculkan-keranjang-reels/",
+        "slug": "/memunculkan-keranjang-reels",
+        "clicks": 278,
+        "impressions": 4356,
+        "ctr": "6.38%",
+        "avgPosition": "3.2",
+        "uniqueQueries": 121
+      },
+      {
+        "url": "https://dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/",
+        "slug": "/pabrik-maklon-kosmetik-surabaya-terlengkap",
+        "clicks": 37,
+        "impressions": 1344,
+        "ctr": "2.75%",
+        "avgPosition": "11.6",
+        "uniqueQueries": 42
+      },
+      {
+        "url": "https://www.dreamlab.id/memunculkan-keranjang-reels/",
+        "slug": "https://www.dreamlab.id/memunculkan-keranjang-reels",
+        "clicks": 33,
+        "impressions": 847,
+        "ctr": "3.90%",
+        "avgPosition": "4.7",
+        "uniqueQueries": 74
+      },
+      {
+        "url": "https://dreamlab.id/pabrik-parfum-surabaya/",
+        "slug": "/pabrik-parfum-surabaya",
+        "clicks": 30,
+        "impressions": 997,
+        "ctr": "3.01%",
+        "avgPosition": "7.3",
+        "uniqueQueries": 27
+      },
+      {
+        "url": "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/",
+        "slug": "/urutan-pabrik-skincare-terbaik-indonesia",
+        "clicks": 24,
+        "impressions": 2878,
+        "ctr": "0.83%",
+        "avgPosition": "12.8",
+        "uniqueQueries": 206
+      },
+      {
+        "url": "https://dreamlab.id/cara-meracik-handbody-pemutih-alami/",
+        "slug": "/cara-meracik-handbody-pemutih-alami",
+        "clicks": 21,
+        "impressions": 5420,
+        "ctr": "0.39%",
+        "avgPosition": "8.3",
+        "uniqueQueries": 201
+      },
+      {
+        "url": "https://dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/",
+        "slug": "/jasa-maklon-parfum-bali-terbaik-terlengkap",
+        "clicks": 18,
+        "impressions": 507,
+        "ctr": "3.55%",
+        "avgPosition": "6.8",
+        "uniqueQueries": 12
+      },
+      {
+        "url": "https://dreamlab.id/pkrt/",
+        "slug": "/pkrt",
+        "clicks": 15,
+        "impressions": 158,
+        "ctr": "9.49%",
+        "avgPosition": "12.4",
+        "uniqueQueries": 9
+      },
+      {
+        "url": "https://dreamlab.id/jasa-maklon-parfum-moq-rendah/",
+        "slug": "/jasa-maklon-parfum-moq-rendah",
+        "clicks": 15,
+        "impressions": 245,
+        "ctr": "6.12%",
+        "avgPosition": "11.4",
+        "uniqueQueries": 15
+      },
+      {
+        "url": "https://dreamlab.id/services/",
+        "slug": "/services",
+        "clicks": 14,
+        "impressions": 715,
+        "ctr": "1.96%",
+        "avgPosition": "8.4",
+        "uniqueQueries": 17
+      },
+      {
+        "url": "https://dreamlab.id/industri-kosmetik-indonesia-terus-tumbuh/",
+        "slug": "/industri-kosmetik-indonesia-terus-tumbuh",
+        "clicks": 13,
+        "impressions": 276,
+        "ctr": "4.71%",
+        "avgPosition": "12.4",
+        "uniqueQueries": 27
+      },
+      {
+        "url": "https://dreamlab.id/contact-us/",
+        "slug": "/contact-us",
+        "clicks": 11,
+        "impressions": 1172,
+        "ctr": "0.94%",
+        "avgPosition": "11.7",
+        "uniqueQueries": 49
+      },
+      {
+        "url": "https://dreamlab.id/cara-membuat-hb-dosting-sendiri/",
+        "slug": "/cara-membuat-hb-dosting-sendiri",
+        "clicks": 10,
+        "impressions": 1201,
+        "ctr": "0.83%",
+        "avgPosition": "7.0",
+        "uniqueQueries": 61
+      },
+      {
+        "url": "https://dreamlab.id/pabrik-parfum-jakarta/",
+        "slug": "/pabrik-parfum-jakarta",
+        "clicks": 10,
+        "impressions": 664,
+        "ctr": "1.51%",
+        "avgPosition": "19.8",
+        "uniqueQueries": 27
+      },
+      {
+        "url": "https://dreamlab.id/jasa-maklon-kosmetik-bandung/",
+        "slug": "/jasa-maklon-kosmetik-bandung",
+        "clicks": 5,
+        "impressions": 355,
+        "ctr": "1.41%",
+        "avgPosition": "11.8",
+        "uniqueQueries": 12
+      },
+      {
+        "url": "https://dreamlab.id/maklon-parfum-dreamlab/",
+        "slug": "/maklon-parfum-dreamlab",
+        "clicks": 4,
+        "impressions": 85,
+        "ctr": "4.71%",
+        "avgPosition": "31.0",
+        "uniqueQueries": 17
+      },
+      {
+        "url": "https://www.dreamlab.id/",
+        "slug": "https://www.dreamlab.id",
+        "clicks": 4,
+        "impressions": 36,
+        "ctr": "11.11%",
+        "avgPosition": "13.8",
+        "uniqueQueries": 16
+      },
+      {
+        "url": "https://dreamlab.id/jadwalkanvisitmeeting.php",
+        "slug": "/jadwalkanvisitmeeting.php",
+        "clicks": 4,
+        "impressions": 387,
+        "ctr": "1.03%",
+        "avgPosition": "9.1",
+        "uniqueQueries": 38
+      },
+      {
+        "url": "https://dreamlab.id/maklon-parfum-jakarta/",
+        "slug": "/maklon-parfum-jakarta",
+        "clicks": 4,
+        "impressions": 75,
+        "ctr": "5.33%",
+        "avgPosition": "16.0",
+        "uniqueQueries": 12
+      }
+    ]
+  },
+  "coverage_analysis": {
+    "total_inspected": 328,
+    "by_state": {
+      "Submitted and indexed": 172,
+      "Page with redirect": 32,
+      "Not found (404)": 1,
+      "URL is unknown to Google": 106,
+      "Excluded by ‘noindex’ tag": 12,
+      "Crawled - currently not indexed": 5
+    },
+    "passed": 172
+  },
+  "issues": {
+    "critical": [
+      {
+        "type": "404_not_found",
+        "count": 1,
+        "detail": "1 halaman 404. Redirect atau pulihkan.",
+        "pages": [
+          {
+            "url": "https://dreamlab.id/academy-beautypreneur/",
+            "lastCrawl": "2026-04-04T13:02:40Z"
+          }
+        ]
+      },
+      {
+        "type": "redirect_issues",
+        "count": 32,
+        "detail": "32 halaman dengan redirect. Perbaiki chain & canonical.",
+        "pages": [
+          {
+            "url": "https://dreamlab.id/about-us/alur-maklon/",
+            "canonical": "https://www.dreamlab.id/about-us/alur-maklon/"
+          },
+          {
+            "url": "https://dreamlab.id/author/admin/page/5/",
+            "canonical": "https://www.dreamlab.id/author/admin/page/5/"
+          },
+          {
+            "url": "https://dreamlab.id/author/admin/page/8/",
+            "canonical": "https://www.dreamlab.id/author/admin/page/8/"
+          },
+          {
+            "url": "https://dreamlab.id/bahan-aktif-untuk-mengatasi-jerawat/",
+            "canonical": "https://dreamlab.id/bahan-aktif-skincare-jerawat/"
+          },
+          {
+            "url": "https://dreamlab.id/cara-bisnis-skincare-dari-nol/",
+            "canonical": "https://dreamlab.id/bisnis-kosmetik-dari-nol/"
+          },
+          {
+            "url": "https://dreamlab.id/category/dreampreneur-beauty-academy/",
+            "canonical": "https://www.dreamlab.id/category/dreampreneur-beauty-academy/"
+          },
+          {
+            "url": "https://dreamlab.id/flywheel-marketing-brand-skincare/",
+            "canonical": "https://dreamlab.id/news-blog/"
+          },
+          {
+            "url": "https://dreamlab.id/foot-care/",
+            "canonical": "https://dreamlab.id/foot-care/"
+          },
+          {
+            "url": "https://dreamlab.id/hair-care",
+            "canonical": "https://dreamlab.id/hair-care/"
+          },
+          {
+            "url": "https://dreamlab.id/https-dreamlab-id-dreamlab-visit-ici-2026/",
+            "canonical": "https://dreamlab.id/"
+          },
+          {
+            "url": "https://dreamlab.id/jasa-maklon-sabun-mandi-batang/",
+            "canonical": "https://dreamlab.id/jasa-maklon-bar-soap-merek-sendiri/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-bodymist/",
+            "canonical": "https://www.dreamlab.id/maklon-bodymist/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-face-mist/",
+            "canonical": "https://dreamlab.id/produk/skincare/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-kosmetik-jakarta-dreamlab-2026/",
+            "canonical": "https://dreamlab.id/maklon-jakarta-terbaik/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-kosmetik-parfum-tangerang/",
+            "canonical": "https://dreamlab.id/maklon-kosmetik-tangerang-terpercaya/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-moisturizer-bpom-dreamlab/",
+            "canonical": "https://dreamlab.id/produk/skincare/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-parfum-bpom-indonesia-strategi-bisnis/",
+            "canonical": "https://dreamlab.id/maklon-parfum-dreamlab/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-parfum-jakarta/",
+            "canonical": "https://dreamlab.id/pabrik-parfum-jakarta/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-parfum/",
+            "canonical": "https://www.dreamlab.id/ads/maklon-parfum/"
+          },
+          {
+            "url": "https://dreamlab.id/maklon-scalp-haircare-bisnis-produk-rambut-sehat/",
+            "canonical": "https://dreamlab.id/pabrik-shampoo-merek-sendiri/"
+          }
+        ]
+      },
+      {
+        "type": "crawled_not_indexed",
+        "count": 5,
+        "detail": "5 halaman di-crawl tapi tidak diindeks. Periksa kualitas konten.",
+        "pages": [
+          {
+            "url": "https://dreamlab.id/bisnis-kosmetik-dari-nol/",
+            "lastCrawl": "2026-06-27T05:51:59Z"
+          },
+          {
+            "url": "https://dreamlab.id/category/bisnis-men-grooming/",
+            "lastCrawl": "2026-06-26T21:37:39Z"
+          },
+          {
+            "url": "https://dreamlab.id/cms_block_cat/pop-up-form/",
+            "lastCrawl": "2026-04-02T09:54:27Z"
+          },
+          {
+            "url": "https://dreamlab.id/contact-form-dreamlab/",
+            "lastCrawl": "2026-04-04T08:13:11Z"
+          },
+          {
+            "url": "https://dreamlab.id/perusahaan-maklon-kosmetik/",
+            "lastCrawl": "2026-06-27T07:47:40Z"
+          }
+        ]
+      }
+    ],
+    "warnings": [
+      {
+        "type": "zero_clicks",
+        "count": 465,
+        "detail": "465 halaman memiliki 0 klik. Perlu optimasi title & meta description.",
+        "examples": [
+          "https://dreamlab.id/about-us/alur-maklon/",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Bagaimana_Mendapatkan_KOL_Gratis",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Frequently_Asked_Questions_FAQ",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Mana_yang_Lebih_Menguntungkan",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Menggunakan_Affiliate_Jika%E2%80%A6"
+        ]
+      },
+      {
+        "type": "low_ctr",
+        "count": 11,
+        "detail": "11 halaman dengan CTR < 0.5% dan >100 impressions.",
+        "examples": [
+          "https://dreamlab.id/cara-meracik-handbody-pemutih-alami/ (CTR: 0.39%)",
+          "https://www.dreamlab.id/cara-meracik-handbody-pemutih-alami/ (CTR: 0.17%)",
+          "https://dreamlab.id/atur-kosmetik-halal-dreamlab/ (CTR: 0.48%)",
+          "https://dreamlab.id/basic-skincare-pria-wajib/ (CTR: 0.39%)",
+          "https://dreamlab.id/contoh-kalimat-iklan-kosmetik-unik/ (CTR: 0.12%)"
+        ]
+      }
+    ],
+    "info": [
+      {
+        "type": "high_impressions_no_clicks",
+        "count": 8,
+        "detail": "8 halaman dengan >500 impressions tapi 0 klik.",
+        "examples": [
+          "https://dreamlab.id/baby-care/",
+          "https://dreamlab.id/jenis-alkohol-dalam-parfum/",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#2_Gourmand_Inspired",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#5_Jenis_Parfum_Inspired_yang_Sedang_Tren",
+          "https://dreamlab.id/parfum-inspired-peluang-bisnis/#Mengapa_Parfum_Inspired_Menjadi_Tren"
+        ]
+      },
+      {
+        "type": "unknown_urls",
+        "count": 106,
+        "detail": "106 URL tidak dikenal Google (fragment URLs).",
+        "pages": [
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Bagaimana_Mendapatkan_KOL_Gratis",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Frequently_Asked_Questions_FAQ",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Mana_yang_Lebih_Menguntungkan",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Menggunakan_Affiliate_Jika%E2%80%A6",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Menggunakan_KOL_Jika%E2%80%A6",
+          "https://dreamlab.id/affiliate-kol-brand-skincare/#Perbedaan_Mendasar_antara_Affiliate_dan_KOL",
+          "https://dreamlab.id/atur-kosmetik-halal-dreamlab/#Dasar_Hukum_Tenggat_Waktu",
+          "https://dreamlab.id/atur-kosmetik-halal-dreamlab/#Kenapa_Harus_Sertifikasi_Halal_Dampak_Manfaat_bagi_Brand",
+          "https://dreamlab.id/atur-kosmetik-halal-dreamlab/#Makeup_Produk_Dekoratif",
+          "https://dreamlab.id/atur-kosmetik-halal-dreamlab/#Produk_Perawatan_Rambut_Kulit_Kepala"
+        ]
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Redirect 404 pages",
+      "detail": "Buat redirect 301 untuk semua halaman 404 ke halaman relevan."
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Fix redirect chain & canonical",
+      "detail": "Pastikan redirect langsung ke halaman final. Canonical harus non-www (dreamlab.id)."
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Optimize content quality",
+      "detail": "Tingkatkan kualitas konten untuk halaman yang di-crawl tapi tidak diindeks."
+    },
+    {
+      "priority": "HIGH",
+      "action": "Optimize titles & meta descriptions",
+      "detail": "Buat title dan meta description lebih menarik untuk meningkatkan CTR."
+    },
+    {
+      "priority": "HIGH",
+      "action": "Increase indexed pages",
+      "detail": "Hanya 172 halaman terindeks. Target 300+."
+    },
+    {
+      "priority": "REGULAR",
+      "action": "Submit sitemap",
+      "detail": "Submit sitemap.xml ke GSC."
+    },
+    {
+      "priority": "REGULAR",
+      "action": "Monitor weekly",
+      "detail": "Cek coverage setiap minggu."
+    }
+  ]
+}

@@ -257,10 +257,12 @@ const nextConfig: NextConfig = {
 
     // 5. Landing pages moved under /ads/ subdirectory
     // Redirect old URLs to new /ads/ paths for campaign tracking
+    // NOTE FASE 2: /maklon-parfum, /maklon-skincare, /maklon-hair-care DIHAPUS
+    // dari sini karena middleware (proxy.ts) kini menangani redirect maklon →
+    // /produk/* yang lebih tepat untuk SEO (halaman produk indexable, bukan
+    // /google-ads/ yang noindex). next.config redirects dieksekusi SEBELUM
+    // middleware, jadi konflik ini harus dihapus agar middleware menang.
     const adsRedirects: Array<[string, string]> = [
-      ['/maklon-parfum', '/google-ads/maklon-parfum/'],
-      ['/maklon-skincare', '/google-ads/maklon-kosmetik/'],
-      ['/maklon-hair-care', '/google-ads/maklon-hair-care/'],
       ['/thankyou-maklon', '/ads/thankyou/metaads/'],
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
@@ -286,7 +288,8 @@ const nextConfig: NextConfig = {
       ['/maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
       ['/rahasia-maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
       ['/body-care-2', '/maklon-body-care/'],
-      ['/cara-membuat-masker-wajah-organik-praktis-aman-dan-cocok-untuk-ide-bisnis-skincare', '/maklon-skincare/masker-wajah/'],
+      // FASE 2: target diubah ke /produk/skincare/face-mask/ (bukan /maklon-skincare/masker-wajah/ yang kini redirect lagi → hindari chain)
+      ['/cara-membuat-masker-wajah-organik-praktis-aman-dan-cocok-untuk-ide-bisnis-skincare', '/produk/skincare/face-mask/'],
       ['/berapa-biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
       ['/biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
       ['/rincian-biaya-produksi-serum', '/rincian-biaya-produksi-serum-wajah/'],

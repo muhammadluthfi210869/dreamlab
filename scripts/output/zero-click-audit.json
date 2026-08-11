@@ -1,0 +1,3620 @@
+{
+  "generated_at": "2026-07-29T08:20:29.471Z",
+  "data_period": {
+    "start": "2026-04-30",
+    "end": "2026-07-28"
+  },
+  "summary": {
+    "total_pages": 726,
+    "total_clicks": 2730,
+    "total_impressions": 149313,
+    "zero_click_pages": 505,
+    "high_confidence_410": 40,
+    "medium_confidence_410": 397,
+    "needs_content_fix": 68,
+    "keep_with_clicks": 221
+  },
+  "high_confidence_410": [
+    {
+      "url": "https://dreamlab.id/author/admin/page/2/",
+      "slug": "/author/admin/page/2",
+      "category": "author",
+      "impressions": 4,
+      "reason": "Author archive — 0 clicks (should noindex)"
+    },
+    {
+      "url": "https://dreamlab.id/author/admin/page/5/",
+      "slug": "/author/admin/page/5",
+      "category": "author",
+      "impressions": 1,
+      "reason": "Author archive — 0 clicks (should noindex)"
+    },
+    {
+      "url": "https://dreamlab.id/author/admin/page/7/",
+      "slug": "/author/admin/page/7",
+      "category": "author",
+      "impressions": 15,
+      "reason": "Author archive — 0 clicks (should noindex)"
+    },
+    {
+      "url": "https://dreamlab.id/author/admin/page/9/",
+      "slug": "/author/admin/page/9",
+      "category": "author",
+      "impressions": 1,
+      "reason": "Author archive — 0 clicks (should noindex)"
+    },
+    {
+      "url": "https://dreamlab.id/google-ads/maklon-hair-care/",
+      "slug": "/google-ads/maklon-hair-care",
+      "category": "ads",
+      "impressions": 10,
+      "reason": "Thankyou/landing/ads page — no SEO value"
+    },
+    {
+      "url": "https://dreamlab.id/google-ads/maklon-kosmetik/",
+      "slug": "/google-ads/maklon-kosmetik",
+      "category": "ads",
+      "impressions": 2,
+      "reason": "Thankyou/landing/ads page — no SEO value"
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-lotion/",
+      "slug": "/produk/babycare/baby-lotion",
+      "category": "product",
+      "impressions": 37,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-oil/",
+      "slug": "/produk/babycare/baby-oil",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-powder/",
+      "slug": "/produk/babycare/baby-powder",
+      "category": "product",
+      "impressions": 6,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/",
+      "slug": "/produk/decorative",
+      "category": "product",
+      "impressions": 38,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/cream-blush/",
+      "slug": "/produk/decorative/cream-blush",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/cushion-foundation/",
+      "slug": "/produk/decorative/cushion-foundation",
+      "category": "product",
+      "impressions": 9,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lip-gloss/",
+      "slug": "/produk/decorative/lip-gloss",
+      "category": "product",
+      "impressions": 7,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/",
+      "slug": "/produk/decorative/lipcare",
+      "category": "product",
+      "impressions": 11,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/lip-balm/",
+      "slug": "/produk/decorative/lipcare/lip-balm",
+      "category": "product",
+      "impressions": 5,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/lip-blush/",
+      "slug": "/produk/decorative/lipcare/lip-blush",
+      "category": "product",
+      "impressions": 8,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/lip-cream/",
+      "slug": "/produk/decorative/lipcare/lip-cream",
+      "category": "product",
+      "impressions": 3,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/lip-gloss/",
+      "slug": "/produk/decorative/lipcare/lip-gloss",
+      "category": "product",
+      "impressions": 7,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/lip-matte/",
+      "slug": "/produk/decorative/lipcare/lip-matte",
+      "category": "product",
+      "impressions": 6,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/lip-scrub/",
+      "slug": "/produk/decorative/lipcare/lip-scrub",
+      "category": "product",
+      "impressions": 4,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lipcare/tinted-lip-balm/",
+      "slug": "/produk/decorative/lipcare/tinted-lip-balm",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/liquid-foundation/",
+      "slug": "/produk/decorative/liquid-foundation",
+      "category": "product",
+      "impressions": 11,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/loose-powder/",
+      "slug": "/produk/decorative/loose-powder",
+      "category": "product",
+      "impressions": 2,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/",
+      "slug": "/produk/decorative/make-up",
+      "category": "product",
+      "impressions": 6,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/bb-cream/",
+      "slug": "/produk/decorative/make-up/bb-cream",
+      "category": "product",
+      "impressions": 11,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/cream-blush/",
+      "slug": "/produk/decorative/make-up/cream-blush",
+      "category": "product",
+      "impressions": 2,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/eyebrow-gel/",
+      "slug": "/produk/decorative/make-up/eyebrow-gel",
+      "category": "product",
+      "impressions": 10,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/foundation-serum/",
+      "slug": "/produk/decorative/make-up/foundation-serum",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/foundation/",
+      "slug": "/produk/decorative/make-up/foundation",
+      "category": "product",
+      "impressions": 21,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/liquid-blush/",
+      "slug": "/produk/decorative/make-up/liquid-blush",
+      "category": "product",
+      "impressions": 11,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/liquid-highlighter/",
+      "slug": "/produk/decorative/make-up/liquid-highlighter",
+      "category": "product",
+      "impressions": 16,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/make-up/mascara/",
+      "slug": "/produk/decorative/make-up/mascara",
+      "category": "product",
+      "impressions": 19,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/mascara/",
+      "slug": "/produk/decorative/mascara",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/",
+      "slug": "/produk/footcare",
+      "category": "product",
+      "impressions": 25,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-anti-bacterial/",
+      "slug": "/produk/footcare/foot-anti-bacterial",
+      "category": "product",
+      "impressions": 6,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-cream/",
+      "slug": "/produk/footcare/foot-cream",
+      "category": "product",
+      "impressions": 17,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-scrub/",
+      "slug": "/produk/footcare/foot-scrub",
+      "category": "product",
+      "impressions": 4,
+      "reason": "Thin product category (already in proxy.ts)"
+    },
+    {
+      "url": "https://dreamlab.id/thankyou-page/",
+      "slug": "/thankyou-page",
+      "category": "thankyou",
+      "impressions": 13,
+      "reason": "Thankyou/landing/ads page — no SEO value"
+    },
+    {
+      "url": "https://dreamlab.id/thankyou/google/",
+      "slug": "/thankyou/google",
+      "category": "thankyou",
+      "impressions": 8,
+      "reason": "Thankyou/landing/ads page — no SEO value"
+    },
+    {
+      "url": "https://dreamlab.id/thankyoupage-google/",
+      "slug": "/thankyoupage-google",
+      "category": "thankyou",
+      "impressions": 3,
+      "reason": "Thankyou/landing/ads page — no SEO value"
+    }
+  ],
+  "medium_confidence_410": [
+    {
+      "url": "https://dreamlab.id/affiliate-kol-brand-skincare/#Bagaimana_Mendapatkan_KOL_Gratis",
+      "slug": "/affiliate-kol-brand-skincare/#Bagaimana_Mendapatkan_KOL_Gratis",
+      "category": "article",
+      "impressions": 27,
+      "reason": "Zero clicks, 27 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/affiliate-kol-brand-skincare/#Frequently_Asked_Questions_FAQ",
+      "slug": "/affiliate-kol-brand-skincare/#Frequently_Asked_Questions_FAQ",
+      "category": "article",
+      "impressions": 24,
+      "reason": "Zero clicks, 24 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/affiliate-kol-brand-skincare/#Mana_yang_Lebih_Menguntungkan",
+      "slug": "/affiliate-kol-brand-skincare/#Mana_yang_Lebih_Menguntungkan",
+      "category": "article",
+      "impressions": 24,
+      "reason": "Zero clicks, 24 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/affiliate-kol-brand-skincare/#Menggunakan_Affiliate_Jika%E2%80%A6",
+      "slug": "/affiliate-kol-brand-skincare/#Menggunakan_Affiliate_Jika%E2%80%A6",
+      "category": "article",
+      "impressions": 24,
+      "reason": "Zero clicks, 24 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/affiliate-kol-brand-skincare/#Menggunakan_KOL_Jika%E2%80%A6",
+      "slug": "/affiliate-kol-brand-skincare/#Menggunakan_KOL_Jika%E2%80%A6",
+      "category": "article",
+      "impressions": 24,
+      "reason": "Zero clicks, 24 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/affiliate-kol-brand-skincare/#Perbedaan_Mendasar_antara_Affiliate_dan_KOL",
+      "slug": "/affiliate-kol-brand-skincare/#Perbedaan_Mendasar_antara_Affiliate_dan_KOL",
+      "category": "article",
+      "impressions": 27,
+      "reason": "Zero clicks, 27 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/bangun-brand-skincare-lebih-strategis-dreamlab/",
+      "slug": "/bangun-brand-skincare-lebih-strategis-dreamlab",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Cara_Menghitung_Biaya_Produksi_Berdasarkan_MOQ_Skincare",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Cara_Menghitung_Biaya_Produksi_Berdasarkan_MOQ_Skincare",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#MOQ_Maklon_Skincare_di_Dreamlab_Ketentuan_dan_Kebijakan",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#MOQ_Maklon_Skincare_di_Dreamlab_Ketentuan_dan_Kebijakan",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Memahami_Konsep_MOQ_dalam_Industri_Skincare",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Memahami_Konsep_MOQ_dalam_Industri_Skincare",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Perbandingan_MOQ_Maklon_Skincare_Dreamlab_dengan_Penyedia_Lainnya",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Perbandingan_MOQ_Maklon_Skincare_Dreamlab_dengan_Penyedia_Lainnya",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Profil_Dreamlab_sebagai_Penyedia_Jasa_Maklon_Skincare_Terpercaya",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Profil_Dreamlab_sebagai_Penyedia_Jasa_Maklon_Skincare_Terpercaya",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Studi_Kasus_Kesuksesan_Brand_Skincare_Pemula_dengan_MOQ_Dreamlab",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Studi_Kasus_Kesuksesan_Brand_Skincare_Pemula_dengan_MOQ_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Tips_Memilih_Paket_MOQ_yang_Tepat_untuk_Bisnis_Skincare_Pemula",
+      "slug": "/berapa-moq-maklon-skincare-di-dreamlab-ini-fakta-penting-untuk-pebisnis-pemula/#Tips_Memilih_Paket_MOQ_yang_Tepat_untuk_Bisnis_Skincare_Pemula",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/biaya-maklon-parfum-moq-kecil/#Apa_Saja_Syarat_dan_Fasilitas_Free_BPOM_untuk_Produk_Parfum",
+      "slug": "/biaya-maklon-parfum-moq-kecil/#Apa_Saja_Syarat_dan_Fasilitas_Free_BPOM_untuk_Produk_Parfum",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/biaya-maklon-parfum-moq-kecil/#Berapa_Estimasi_Biaya_Maklon_Parfum_di_Dreamlab",
+      "slug": "/biaya-maklon-parfum-moq-kecil/#Berapa_Estimasi_Biaya_Maklon_Parfum_di_Dreamlab",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/biaya-maklon-skincare/",
+      "slug": "/biaya-maklon-skincare",
+      "category": "article",
+      "impressions": 29,
+      "reason": "Zero clicks, 29 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/biaya-membuat-brand-serum/",
+      "slug": "/biaya-membuat-brand-serum",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/bisnis-kosmetik-dari-nol/",
+      "slug": "/bisnis-kosmetik-dari-nol",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/bisnis-skincare-glow-glasskin-cystamine/",
+      "slug": "/bisnis-skincare-glow-glasskin-cystamine",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-bangun-brand-deodoran-sendiri/",
+      "slug": "/cara-bangun-brand-deodoran-sendiri",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon/#Anatomi_Parfum_Yang_Wajib_Kamu_Pahami",
+      "slug": "/cara-buat-parfum-sendiri-dengan-maklon/#Anatomi_Parfum_Yang_Wajib_Kamu_Pahami",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon/#Cara_Memulai_Brand_Parfum_Bersama_Dreamlab",
+      "slug": "/cara-buat-parfum-sendiri-dengan-maklon/#Cara_Memulai_Brand_Parfum_Bersama_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon/#Konsentrasi_Parfum_Menentukan_Kekuatan_dan_Value_Produkmu",
+      "slug": "/cara-buat-parfum-sendiri-dengan-maklon/#Konsentrasi_Parfum_Menentukan_Kekuatan_dan_Value_Produkmu",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-hitunghpp-produk-kosmeti/#Contoh_Simulasi_HPP_Moisturizer_50ml_500_pcs",
+      "slug": "/cara-hitunghpp-produk-kosmeti/#Contoh_Simulasi_HPP_Moisturizer_50ml_500_pcs",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-hitunghpp-produk-kosmeti/#Komponen_HPP_Produk_Kosmetik",
+      "slug": "/cara-hitunghpp-produk-kosmeti/#Komponen_HPP_Produk_Kosmetik",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-hitunghpp-produk-kosmeti/#_Apa_Itu_HPP_dan_Mengapa_Penting",
+      "slug": "/cara-hitunghpp-produk-kosmeti/#_Apa_Itu_HPP_dan_Mengapa_Penting",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cara-menghilangkan-ketombe/",
+      "slug": "/cara-menghilangkan-ketombe",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/bisnis-skincare/",
+      "slug": "/category/bisnis-skincare",
+      "category": "category",
+      "impressions": 31,
+      "reason": "Zero clicks, 31 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/dreamlabpedia/page/2/",
+      "slug": "/category/dreamlabpedia/page/2",
+      "category": "category",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/dreampreneur-beauty-academy/",
+      "slug": "/category/dreampreneur-beauty-academy",
+      "category": "category",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-kosmetik/",
+      "slug": "/category/maklon-kosmetik",
+      "category": "category",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-parfum/page/2/",
+      "slug": "/category/maklon-parfum/page/2",
+      "category": "category",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-skincare/page/2/",
+      "slug": "/category/maklon-skincare/page/2",
+      "category": "category",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/panduan-bisnis-kosmetik/",
+      "slug": "/category/panduan-bisnis-kosmetik",
+      "category": "category",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/personal-care/",
+      "slug": "/category/personal-care",
+      "category": "category",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/category/tips-trick/",
+      "slug": "/category/tips-trick",
+      "category": "category",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/contact-medsos/",
+      "slug": "/contact-medsos",
+      "category": "contact",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cysteamine-alternatif-hydroquinone/#Cysteamine_sebagai_Alternatif_Aman_untuk_Mengatasi_Hiperpigmentasi",
+      "slug": "/cysteamine-alternatif-hydroquinone/#Cysteamine_sebagai_Alternatif_Aman_untuk_Mengatasi_Hiperpigmentasi",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/cysteamine-alternatif-hydroquinone/#Perbandingan_Efektivitas_Cysteamine_vs_Hydroquinone",
+      "slug": "/cysteamine-alternatif-hydroquinone/#Perbandingan_Efektivitas_Cysteamine_vs_Hydroquinone",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/e-floating-buttons/popup-website/",
+      "slug": "/e-floating-buttons/popup-website",
+      "category": "article",
+      "impressions": 13,
+      "reason": "Zero clicks, 13 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/estimasi-biaya-maklon-kosmetik",
+      "slug": "/estimasi-biaya-maklon-kosmetik",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/formulasi-witch-hazel/",
+      "slug": "/formulasi-witch-hazel",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/hair-care",
+      "slug": "/hair-care",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/hero-ingredients-2025/",
+      "slug": "/hero-ingredients-2025",
+      "category": "article",
+      "impressions": 39,
+      "reason": "Zero clicks, 39 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/inspirasi-parfum-lokal-aroma-teh/",
+      "slug": "/inspirasi-parfum-lokal-aroma-teh",
+      "category": "article",
+      "impressions": 33,
+      "reason": "Zero clicks, 33 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/jasa-maklon-kosmetik",
+      "slug": "/jasa-maklon-kosmetik",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/jasa-maklon-parfum-moq-rendah/#Bagaimana_Cara_Membuat_Parfum_Custom_dengan_Aroma_Eksklusif",
+      "slug": "/jasa-maklon-parfum-moq-rendah/#Bagaimana_Cara_Membuat_Parfum_Custom_dengan_Aroma_Eksklusif",
+      "category": "article",
+      "impressions": 47,
+      "reason": "Zero clicks, 47 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/jasa-maklon-parfum-moq-rendah/#Berapa_Minimal_Order_MOQ_Maklon_Parfum_di_Dreamlab",
+      "slug": "/jasa-maklon-parfum-moq-rendah/#Berapa_Minimal_Order_MOQ_Maklon_Parfum_di_Dreamlab",
+      "category": "article",
+      "impressions": 47,
+      "reason": "Zero clicks, 47 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/kosmetik-olahraga/#3_Produk_Kosmetik_Olahraga_Unggulan",
+      "slug": "/kosmetik-olahraga/#3_Produk_Kosmetik_Olahraga_Unggulan",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/kosmetik-olahraga/#Mengapa_Kosmetik_Olahraga_Menjadi_Tren_Baru",
+      "slug": "/kosmetik-olahraga/#Mengapa_Kosmetik_Olahraga_Menjadi_Tren_Baru",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/kosmetik-olahraga/#Peluang_Bisnis_Kosmetik_Sport-Friendly",
+      "slug": "/kosmetik-olahraga/#Peluang_Bisnis_Kosmetik_Sport-Friendly",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/kosmetik-olahraga/#Produk_Apa_Saja_yang_Bisa_Dibuat_di_Dreamlab",
+      "slug": "/kosmetik-olahraga/#Produk_Apa_Saja_yang_Bisa_Dibuat_di_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/kuasai-pasar-skincare-2026-biotech/",
+      "slug": "/kuasai-pasar-skincare-2026-biotech",
+      "category": "article",
+      "impressions": 12,
+      "reason": "Zero clicks, 12 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/lulur-vs-hb-dosting/#Apa_Itu_HB_Dosting",
+      "slug": "/lulur-vs-hb-dosting/#Apa_Itu_HB_Dosting",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/lulur-vs-hb-dosting/#Langkah-Langkah_Membuat_Body_Care_dengan_Merek_Sendiri",
+      "slug": "/lulur-vs-hb-dosting/#Langkah-Langkah_Membuat_Body_Care_dengan_Merek_Sendiri",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/lulur-vs-hb-dosting/#Perbandingan_Lulur_vs_HB_Dosting",
+      "slug": "/lulur-vs-hb-dosting/#Perbandingan_Lulur_vs_HB_Dosting",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-baby-care/baby-2in1-wash/",
+      "slug": "/maklon-baby-care/baby-2in1-wash",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-baby-care/baby-shampoo/",
+      "slug": "/maklon-baby-care/baby-shampoo",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/",
+      "slug": "/maklon-body-care",
+      "category": "article",
+      "impressions": 46,
+      "reason": "Zero clicks, 46 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/body-butter/",
+      "slug": "/maklon-body-care/body-butter",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/body-serum/",
+      "slug": "/maklon-body-care/body-serum",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/massage-cream/",
+      "slug": "/maklon-body-care/massage-cream",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/massage-oil/",
+      "slug": "/maklon-body-care/massage-oil",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/sabun-organik/",
+      "slug": "/maklon-body-care/sabun-organik",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/sabun-transparan/",
+      "slug": "/maklon-body-care/sabun-transparan",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/sabun-whitening/",
+      "slug": "/maklon-body-care/sabun-whitening",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-body-care/shower-gel/",
+      "slug": "/maklon-body-care/shower-gel",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-bodycare-ads/",
+      "slug": "/maklon-bodycare-ads",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/lip-care/lip-blush/",
+      "slug": "/maklon-decorative/lip-care/lip-blush",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/lip-care/lip-cream/",
+      "slug": "/maklon-decorative/lip-care/lip-cream",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/lip-care/lip-gloss/",
+      "slug": "/maklon-decorative/lip-care/lip-gloss",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/lip-care/lip-serum/",
+      "slug": "/maklon-decorative/lip-care/lip-serum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/makeup/",
+      "slug": "/maklon-decorative/makeup",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/makeup/bb-cream/",
+      "slug": "/maklon-decorative/makeup/bb-cream",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/makeup/face-primer/",
+      "slug": "/maklon-decorative/makeup/face-primer",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/makeup/liquid-blush/",
+      "slug": "/maklon-decorative/makeup/liquid-blush",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-decorative/makeup/mascara/",
+      "slug": "/maklon-decorative/makeup/mascara",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-face-mist/",
+      "slug": "/maklon-face-mist",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-foot-care/",
+      "slug": "/maklon-foot-care",
+      "category": "article",
+      "impressions": 15,
+      "reason": "Zero clicks, 15 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-foot-care/foot-cream/",
+      "slug": "/maklon-foot-care/foot-cream",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-foot-care/foot-scrub/",
+      "slug": "/maklon-foot-care/foot-scrub",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-foot-care/foot-serum/",
+      "slug": "/maklon-foot-care/foot-serum",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-foot-care/foot-soak/",
+      "slug": "/maklon-foot-care/foot-soak",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-foot-care/foot-spray/",
+      "slug": "/maklon-foot-care/foot-spray",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-footcare-dreamlab/",
+      "slug": "/maklon-footcare-dreamlab",
+      "category": "article",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hair-care/hair-conditioner/",
+      "slug": "/maklon-hair-care/hair-conditioner",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hair-care/hair-gel/",
+      "slug": "/maklon-hair-care/hair-gel",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hair-care/hair-mask/",
+      "slug": "/maklon-hair-care/hair-mask",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hair-care/scalp-care/",
+      "slug": "/maklon-hair-care/scalp-care",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hair-care/shampoo/",
+      "slug": "/maklon-hair-care/shampoo",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-haircare/",
+      "slug": "/maklon-haircare",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hairmist/#Apa_Itu_Maklon_Hair_Mist_dan_Haircare",
+      "slug": "/maklon-hairmist/#Apa_Itu_Maklon_Hair_Mist_dan_Haircare",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hairmist/#Berapa_Biaya_Maklon_Hair_Mist_dan_Haircare",
+      "slug": "/maklon-hairmist/#Berapa_Biaya_Maklon_Hair_Mist_dan_Haircare",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hairmist/#Kenapa_Banyak_Brand_Memilih_Dreamlab",
+      "slug": "/maklon-hairmist/#Kenapa_Banyak_Brand_Memilih_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hairmist/#Layanan_Lengkap_Dreamlab_untuk_Kategori_Rambut",
+      "slug": "/maklon-hairmist/#Layanan_Lengkap_Dreamlab_untuk_Kategori_Rambut",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-hairmist/#Proses_Maklon_Hair_Mist_dan_Haircare_di_Dreamlab",
+      "slug": "/maklon-hairmist/#Proses_Maklon_Hair_Mist_dan_Haircare_di_Dreamlab",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-jakarta-terbaik/#Frequently_Asked_Questions_FAQ",
+      "slug": "/maklon-jakarta-terbaik/#Frequently_Asked_Questions_FAQ",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-jakarta-terbaik/#Kenapa_Harus_Produksi_Skincare_Kamu_di_Pabrik_CPKB",
+      "slug": "/maklon-jakarta-terbaik/#Kenapa_Harus_Produksi_Skincare_Kamu_di_Pabrik_CPKB",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-jakarta-terbaik/#Kenapa_Kamu_Harus_Memilih_Dreamlab_Sebagai_Maklon_Kamu",
+      "slug": "/maklon-jakarta-terbaik/#Kenapa_Kamu_Harus_Memilih_Dreamlab_Sebagai_Maklon_Kamu",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-jakarta-terbaik/#Konsultasi_Mudah_di_Dreamlab",
+      "slug": "/maklon-jakarta-terbaik/#Konsultasi_Mudah_di_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-jakarta-terbaik/#Layanan_One-Stop_Service",
+      "slug": "/maklon-jakarta-terbaik/#Layanan_One-Stop_Service",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-serum-exosome-pdrn-dreamlab/#1_Serum_Anti_Acne_Serum_Pengendali_Jerawat",
+      "slug": "/maklon-kosmetik-serum-exosome-pdrn-dreamlab/#1_Serum_Anti_Acne_Serum_Pengendali_Jerawat",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-serum-exosome-pdrn-dreamlab/#8_Exfoliating_Serum_Peremajaan_Kulit_Halus_dan_Cerah",
+      "slug": "/maklon-kosmetik-serum-exosome-pdrn-dreamlab/#8_Exfoliating_Serum_Peremajaan_Kulit_Halus_dan_Cerah",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-serum-exosome-pdrn-dreamlab/#Jenis_Serum_Premium_yang_Bisa_Diproduksi_di_Dreamlab",
+      "slug": "/maklon-kosmetik-serum-exosome-pdrn-dreamlab/#Jenis_Serum_Premium_yang_Bisa_Diproduksi_di_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-tangerang-terpercaya/#Apa_Saja_yang_Dibuat_Brand_oleh_Dreamlab",
+      "slug": "/maklon-kosmetik-tangerang-terpercaya/#Apa_Saja_yang_Dibuat_Brand_oleh_Dreamlab",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-tangerang-terpercaya/#Berapa_MOQ_di_Dreamlab",
+      "slug": "/maklon-kosmetik-tangerang-terpercaya/#Berapa_MOQ_di_Dreamlab",
+      "category": "article",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-tangerang-terpercaya/#Pabrik_Dreamlab_Sudah_BPOM_Halal_dan_CPKB_Grade_A",
+      "slug": "/maklon-kosmetik-tangerang-terpercaya/#Pabrik_Dreamlab_Sudah_BPOM_Halal_dan_CPKB_Grade_A",
+      "category": "article",
+      "impressions": 16,
+      "reason": "Zero clicks, 16 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-terbaik-bahasa/",
+      "slug": "/maklon-kosmetik-terbaik-bahasa",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-kosmetik-terbaik-english/",
+      "slug": "/maklon-kosmetik-terbaik-english",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-moisturizer-bpom-dreamlab/",
+      "slug": "/maklon-moisturizer-bpom-dreamlab",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-anak-custom-aroma/#Apa_Itu_Maklon_Parfum_Anak",
+      "slug": "/maklon-parfum-anak-custom-aroma/#Apa_Itu_Maklon_Parfum_Anak",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-anak-custom-aroma/#Jenis_Parfum_Baby_Cologne_yang_Bisa_Kamu_Buat",
+      "slug": "/maklon-parfum-anak-custom-aroma/#Jenis_Parfum_Baby_Cologne_yang_Bisa_Kamu_Buat",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-bpom-indonesia-strategi-bisnis/",
+      "slug": "/maklon-parfum-bpom-indonesia-strategi-bisnis",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-dreamlab/#6_Alasan_Kenapa_Kamu_Harus_Memulai_Bisnis_Parfum",
+      "slug": "/maklon-parfum-dreamlab/#6_Alasan_Kenapa_Kamu_Harus_Memulai_Bisnis_Parfum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-dreamlab/#Jenis-Jenis_Parfum",
+      "slug": "/maklon-parfum-dreamlab/#Jenis-Jenis_Parfum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-jakarta/",
+      "slug": "/maklon-parfum-jakarta",
+      "category": "article",
+      "impressions": 26,
+      "reason": "Zero clicks, 26 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-jakarta/#Biaya_Maklon_Parfum_Mulai_Berapa",
+      "slug": "/maklon-parfum-jakarta/#Biaya_Maklon_Parfum_Mulai_Berapa",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-jakarta/#Jenis-Jenis_Parfum_yang_Bisa_Diproduksi_di_Dreamlab",
+      "slug": "/maklon-parfum-jakarta/#Jenis-Jenis_Parfum_yang_Bisa_Diproduksi_di_Dreamlab",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-jakarta/#Keunggulan_Pabrik_Parfum_Dreamlab_sebagai_Partner",
+      "slug": "/maklon-parfum-jakarta/#Keunggulan_Pabrik_Parfum_Dreamlab_sebagai_Partner",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-makassar/#Kenapa_Makassar_Menjadi_Pasar_Potensial_untuk_Brand_Parfum_Lokal",
+      "slug": "/maklon-parfum-makassar/#Kenapa_Makassar_Menjadi_Pasar_Potensial_untuk_Brand_Parfum_Lokal",
+      "category": "article",
+      "impressions": 37,
+      "reason": "Zero clicks, 37 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum-makassar/#Tempat_Produksi_Parfum_Premium_untuk_Brand_Lokal_Makassar",
+      "slug": "/maklon-parfum-makassar/#Tempat_Produksi_Parfum_Premium_untuk_Brand_Lokal_Makassar",
+      "category": "article",
+      "impressions": 37,
+      "reason": "Zero clicks, 37 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum/",
+      "slug": "/maklon-parfum",
+      "category": "article",
+      "impressions": 13,
+      "reason": "Zero clicks, 13 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-parfum/body-mist/",
+      "slug": "/maklon-parfum/body-mist",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-pkrt/",
+      "slug": "/maklon-pkrt",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-shampoo-psoriasis-formula-juara/",
+      "slug": "/maklon-shampoo-psoriasis-formula-juara",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare-surabaya-umkm/",
+      "slug": "/maklon-skincare-surabaya-umkm",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare-surabaya-umkm/#Alur_Maklon_Skincare_di_Dreamlab_Cukup_Mudah",
+      "slug": "/maklon-skincare-surabaya-umkm/#Alur_Maklon_Skincare_di_Dreamlab_Cukup_Mudah",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare-surabaya-umkm/#Mengapa_Sekarang_Waktunya_UMKM_Surabaya_Menjadi_Beautypreneur",
+      "slug": "/maklon-skincare-surabaya-umkm/#Mengapa_Sekarang_Waktunya_UMKM_Surabaya_Menjadi_Beautypreneur",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare-surabaya-umkm/#Partner_UMKM_Surabaya_untuk_Bangun_Brand_Skincare_Berkelas",
+      "slug": "/maklon-skincare-surabaya-umkm/#Partner_UMKM_Surabaya_untuk_Bangun_Brand_Skincare_Berkelas",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare-surabaya-umkm/#Produk_Skincare_yang_Paling_Mudah_Laku_untuk_UMKM_Surabaya",
+      "slug": "/maklon-skincare-surabaya-umkm/#Produk_Skincare_yang_Paling_Mudah_Laku_untuk_UMKM_Surabaya",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare/",
+      "slug": "/maklon-skincare",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare/cleansing-series/",
+      "slug": "/maklon-skincare/cleansing-series",
+      "category": "article",
+      "impressions": 21,
+      "reason": "Zero clicks, 21 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare/facial-toner/",
+      "slug": "/maklon-skincare/facial-toner",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare/facial-wash/",
+      "slug": "/maklon-skincare/facial-wash",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare/masker-wajah/",
+      "slug": "/maklon-skincare/masker-wajah",
+      "category": "article",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-skincare/sunscreen/",
+      "slug": "/maklon-skincare/sunscreen",
+      "category": "article",
+      "impressions": 18,
+      "reason": "Zero clicks, 18 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/melembutkan-kulit-bersisik/",
+      "slug": "/melembutkan-kulit-bersisik",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/moq-maklon-kosmetik/",
+      "slug": "/moq-maklon-kosmetik",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare/",
+      "slug": "/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare",
+      "category": "article",
+      "impressions": 15,
+      "reason": "Zero clicks, 15 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-kosmetik",
+      "slug": "/pabrik-kosmetik",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-parfum",
+      "slug": "/pabrik-parfum",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-shampoo-merek-sendiri/#Apa_Saja_yang_Bisa_Dibuat_di_Dreamlab",
+      "slug": "/pabrik-shampoo-merek-sendiri/#Apa_Saja_yang_Bisa_Dibuat_di_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-shampoo-merek-sendiri/#Dreamlab_Partner_untuk_Brand_Haircare_Anda",
+      "slug": "/pabrik-shampoo-merek-sendiri/#Dreamlab_Partner_untuk_Brand_Haircare_Anda",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-shampoo-merek-sendiri/#Kelebihan_Menggunakan_Jasa_Maklon_Shampoo_untuk_Merek_Sendiri",
+      "slug": "/pabrik-shampoo-merek-sendiri/#Kelebihan_Menggunakan_Jasa_Maklon_Shampoo_untuk_Merek_Sendiri",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-shampoo-merek-sendiri/#Langkah-Langkah_Memulai_Produksi_di_Dreamlab",
+      "slug": "/pabrik-shampoo-merek-sendiri/#Langkah-Langkah_Memulai_Produksi_di_Dreamlab",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/panduan/",
+      "slug": "/panduan",
+      "category": "article",
+      "impressions": 13,
+      "reason": "Zero clicks, 13 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/panduan/cara-menentukan-moq-produk-kosmetik/",
+      "slug": "/panduan/cara-menentukan-moq-produk-kosmetik",
+      "category": "panduan",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/panduan/komponen-biaya-maklon-skincare/",
+      "slug": "/panduan/komponen-biaya-maklon-skincare",
+      "category": "panduan",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/peluang-bisnis-deodorant-ditrend-sport/",
+      "slug": "/peluang-bisnis-deodorant-ditrend-sport",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/peluang-bisnis-deodorant/",
+      "slug": "/peluang-bisnis-deodorant",
+      "category": "article",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/perusahaan-maklon-kosmetik/",
+      "slug": "/perusahaan-maklon-kosmetik",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/privacy-policy/",
+      "slug": "/privacy-policy",
+      "category": "legal",
+      "impressions": 16,
+      "reason": "Zero clicks, 16 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/private-label-kosmetik",
+      "slug": "/private-label-kosmetik",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/private-label-kosmetik/",
+      "slug": "/private-label-kosmetik",
+      "category": "article",
+      "impressions": 35,
+      "reason": "Zero clicks, 35 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/product-category/uncategorized/",
+      "slug": "/product-category/uncategorized",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk-haircare-yang-sedang-tren/",
+      "slug": "/produk-haircare-yang-sedang-tren",
+      "category": "article",
+      "impressions": 32,
+      "reason": "Zero clicks, 32 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-butter/",
+      "slug": "/produk/bodycare/body-butter",
+      "category": "product",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-lotion/",
+      "slug": "/produk/bodycare/body-lotion",
+      "category": "product",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-oil/",
+      "slug": "/produk/bodycare/body-oil",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-scrub/",
+      "slug": "/produk/bodycare/body-scrub",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-wash/",
+      "slug": "/produk/bodycare/body-wash",
+      "category": "product",
+      "impressions": 16,
+      "reason": "Zero clicks, 16 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/",
+      "slug": "/produk/haircare",
+      "category": "product",
+      "impressions": 33,
+      "reason": "Zero clicks, 33 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/beard-serum/",
+      "slug": "/produk/haircare/beard-serum",
+      "category": "product",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-conditioner/",
+      "slug": "/produk/haircare/hair-conditioner",
+      "category": "product",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-gel/",
+      "slug": "/produk/haircare/hair-gel",
+      "category": "product",
+      "impressions": 13,
+      "reason": "Zero clicks, 13 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-mask/",
+      "slug": "/produk/haircare/hair-mask",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-mist/",
+      "slug": "/produk/haircare/hair-mist",
+      "category": "product",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-serum/",
+      "slug": "/produk/haircare/hair-serum",
+      "category": "product",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-tonic/",
+      "slug": "/produk/haircare/hair-tonic",
+      "category": "product",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/scalp-care/",
+      "slug": "/produk/haircare/scalp-care",
+      "category": "product",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/shampoo/",
+      "slug": "/produk/haircare/shampoo",
+      "category": "product",
+      "impressions": 28,
+      "reason": "Zero clicks, 28 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/body-mist/",
+      "slug": "/produk/parfum/body-mist",
+      "category": "product",
+      "impressions": 31,
+      "reason": "Zero clicks, 31 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/eau-de-cologne/",
+      "slug": "/produk/parfum/eau-de-cologne",
+      "category": "product",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/eau-de-parfum/",
+      "slug": "/produk/parfum/eau-de-parfum",
+      "category": "product",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/eau-de-toilette/",
+      "slug": "/produk/parfum/eau-de-toilette",
+      "category": "product",
+      "impressions": 16,
+      "reason": "Zero clicks, 16 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/extrait-de-parfum/",
+      "slug": "/produk/parfum/extrait-de-parfum",
+      "category": "product",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/acne-cream/",
+      "slug": "/produk/skincare/acne-cream",
+      "category": "product",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/face-cream/",
+      "slug": "/produk/skincare/face-cream",
+      "category": "product",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/face-cream/brightening-cream/",
+      "slug": "/produk/skincare/face-cream/brightening-cream",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/face-cream/moisturizing-cream/",
+      "slug": "/produk/skincare/face-cream/moisturizing-cream",
+      "category": "product",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/face-mask/peel-off-mask/",
+      "slug": "/produk/skincare/face-mask/peel-off-mask",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-moisturizer/",
+      "slug": "/produk/skincare/facial-moisturizer",
+      "category": "product",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-sunscreen/",
+      "slug": "/produk/skincare/facial-sunscreen",
+      "category": "product",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-toner/brightening-facial-toner/",
+      "slug": "/produk/skincare/facial-toner/brightening-facial-toner",
+      "category": "product",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-wash/",
+      "slug": "/produk/skincare/facial-wash",
+      "category": "product",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-wash/acne-facial-wash/",
+      "slug": "/produk/skincare/facial-wash/acne-facial-wash",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-wash/moisturizing-facial-wash/",
+      "slug": "/produk/skincare/facial-wash/moisturizing-facial-wash",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/micellar-cleansing-gel/",
+      "slug": "/produk/skincare/micellar-cleansing-gel",
+      "category": "product",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/moisturizing-cream/",
+      "slug": "/produk/skincare/moisturizing-cream",
+      "category": "product",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/rekomendasi-maklon-kosmetik-terbaik-dreamlab/",
+      "slug": "/rekomendasi-maklon-kosmetik-terbaik-dreamlab",
+      "category": "article",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/rekomendasi-sunscreen-lokal/#1_Glow_Sunscreen_%E2%80%93_AURAJUNE",
+      "slug": "/rekomendasi-sunscreen-lokal/#1_Glow_Sunscreen_%E2%80%93_AURAJUNE",
+      "category": "article",
+      "impressions": 30,
+      "reason": "Zero clicks, 30 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/rekomendasi-sunscreen-lokal/#4_Daily_Moisturizing_with_Sun_Protection_%E2%80%93_COOWN",
+      "slug": "/rekomendasi-sunscreen-lokal/#4_Daily_Moisturizing_with_Sun_Protection_%E2%80%93_COOWN",
+      "category": "article",
+      "impressions": 33,
+      "reason": "Zero clicks, 33 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/rekomendasi-sunscreen-lokal/#5_Rekomendasi_Sunscreen_Terbaik_Lokal",
+      "slug": "/rekomendasi-sunscreen-lokal/#5_Rekomendasi_Sunscreen_Terbaik_Lokal",
+      "category": "article",
+      "impressions": 35,
+      "reason": "Zero clicks, 35 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/rincian-biaya-produksi-serum-wajah/",
+      "slug": "/rincian-biaya-produksi-serum-wajah",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/rincian-biaya-produksi-serum/",
+      "slug": "/rincian-biaya-produksi-serum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab/",
+      "slug": "/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Keberlanjutan_dan_Etika_dalam_Industri_Kosmetik2025",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Keberlanjutan_dan_Etika_dalam_Industri_Kosmetik2025",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Panorama_Industri_Kecantikan_Global_2025",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Panorama_Industri_Kecantikan_Global_2025",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Perkembangan_Industri_Kosmetik2025_di_Indonesia_dan_Asia_Tenggara",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Perkembangan_Industri_Kosmetik2025_di_Indonesia_dan_Asia_Tenggara",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Revolusi_Pasar_Skincare_Inovasi_Formulasi_dan_Bahan_Aktif",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Revolusi_Pasar_Skincare_Inovasi_Formulasi_dan_Bahan_Aktif",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Segmentasi_Konsumen_dan_Perubahan_Perilaku_Pembelian",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Segmentasi_Konsumen_dan_Perubahan_Perilaku_Pembelian",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Transformasi_Digital_dalam_Industri_Kecantikan",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Transformasi_Digital_dalam_Industri_Kecantikan",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Tren_Kecantikan2025_yang_Akan_Mendominasi_Pasar_Global",
+      "slug": "/state-of-beauty-2025-tren-kecantikan-pertumbuhan-industri-kosmetik-perubahan-pasar/#Tren_Kecantikan2025_yang_Akan_Mendominasi_Pasar_Global",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/sunscreen-spf-yang-cocok-untuk-kegiatan",
+      "slug": "/sunscreen-spf-yang-cocok-untuk-kegiatan",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/sunscreen-spf-yang-cocok-untuk-kegiatan/",
+      "slug": "/sunscreen-spf-yang-cocok-untuk-kegiatan",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/tips-membuat-konten-viral/",
+      "slug": "/tips-membuat-konten-viral",
+      "category": "article",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://dreamlab.id/trend-aroma-parfum-disukai-market-2026/",
+      "slug": "/trend-aroma-parfum-disukai-market-2026",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/8-tren-kecantikan-2026-smart-formula/",
+      "slug": "https://www.dreamlab.id/8-tren-kecantikan-2026-smart-formula",
+      "category": "article",
+      "impressions": 46,
+      "reason": "Zero clicks, 46 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/about-us",
+      "slug": "https://www.dreamlab.id/about-us",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/ads/maklon-parfum/",
+      "slug": "https://www.dreamlab.id/ads/maklon-parfum",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/ads/thankyou/metaads/?source=meta-parfum",
+      "slug": "https://www.dreamlab.id/ads/thankyou/metaads/?source=meta-parfum",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/ai-data-cara-brand-kosmetik-baru-menemukan-formula-viral/",
+      "slug": "https://www.dreamlab.id/ai-data-cara-brand-kosmetik-baru-menemukan-formula-viral",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/alat-pengencang-wajah/",
+      "slug": "https://www.dreamlab.id/alat-pengencang-wajah",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/astaxanthin-mengapa-bahan-aktif-ini-sedang-naik-daun-di-industri-kosmetik/",
+      "slug": "https://www.dreamlab.id/astaxanthin-mengapa-bahan-aktif-ini-sedang-naik-daun-di-industri-kosmetik",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/author/admin/page/5/",
+      "slug": "https://www.dreamlab.id/author/admin/page/5",
+      "category": "article",
+      "impressions": 25,
+      "reason": "Zero clicks, 25 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/author/admin/page/8/",
+      "slug": "https://www.dreamlab.id/author/admin/page/8",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/bangun-brand-skincare-lebih-strategis-dreamlab/",
+      "slug": "https://www.dreamlab.id/bangun-brand-skincare-lebih-strategis-dreamlab",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/basic-skincare-pria-wajib/",
+      "slug": "https://www.dreamlab.id/basic-skincare-pria-wajib",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/biaya-maklon-parfum-moq-kecil/",
+      "slug": "https://www.dreamlab.id/biaya-maklon-parfum-moq-kecil",
+      "category": "article",
+      "impressions": 12,
+      "reason": "Zero clicks, 12 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/bisnis-perawatan-pria/",
+      "slug": "https://www.dreamlab.id/bisnis-perawatan-pria",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-ampuh-memutihkan-ketiak/",
+      "slug": "https://www.dreamlab.id/cara-ampuh-memutihkan-ketiak",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-branding-bisnis-kosmetik/",
+      "slug": "https://www.dreamlab.id/cara-branding-bisnis-kosmetik",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-buat-brand-dry-shampoo/",
+      "slug": "https://www.dreamlab.id/cara-buat-brand-dry-shampoo",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon/",
+      "slug": "https://www.dreamlab.id/cara-buat-parfum-sendiri-dengan-maklon",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-membuka-offline-store-kosmetik-2026/",
+      "slug": "https://www.dreamlab.id/cara-membuka-offline-store-kosmetik-2026",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-mulai-bisnis-skincare-dari-nol/",
+      "slug": "https://www.dreamlab.id/cara-mulai-bisnis-skincare-dari-nol",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/category/dreampreneur-beauty-academy/",
+      "slug": "https://www.dreamlab.id/category/dreampreneur-beauty-academy",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/category/maklon-baby-care/",
+      "slug": "https://www.dreamlab.id/category/maklon-baby-care",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/category/maklon-parfum/",
+      "slug": "https://www.dreamlab.id/category/maklon-parfum",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/category/maklon-skincare/",
+      "slug": "https://www.dreamlab.id/category/maklon-skincare",
+      "category": "article",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/contact-us",
+      "slug": "https://www.dreamlab.id/contact-us",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/foot-care-produk-peluang-bisnis-maklon-dreamlab/",
+      "slug": "https://www.dreamlab.id/foot-care-produk-peluang-bisnis-maklon-dreamlab",
+      "category": "article",
+      "impressions": 34,
+      "reason": "Zero clicks, 34 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/formulasi-witch-hazel/",
+      "slug": "https://www.dreamlab.id/formulasi-witch-hazel",
+      "category": "article",
+      "impressions": 23,
+      "reason": "Zero clicks, 23 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/ide-bisnis-gen-z/",
+      "slug": "https://www.dreamlab.id/ide-bisnis-gen-z",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/inspirasi-parfum-lokal-aroma-teh/",
+      "slug": "https://www.dreamlab.id/inspirasi-parfum-lokal-aroma-teh",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/jasa-maklon-bar-soap-merek-sendiri/",
+      "slug": "https://www.dreamlab.id/jasa-maklon-bar-soap-merek-sendiri",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/",
+      "slug": "https://www.dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/jasa-maklon-parfum-moq-rendah/",
+      "slug": "https://www.dreamlab.id/jasa-maklon-parfum-moq-rendah",
+      "category": "article",
+      "impressions": 28,
+      "reason": "Zero clicks, 28 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/jasa-maklon-sunscreen-terbaik/",
+      "slug": "https://www.dreamlab.id/jasa-maklon-sunscreen-terbaik",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/jenis-packaging-box-parfum/",
+      "slug": "https://www.dreamlab.id/jenis-packaging-box-parfum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/jenis-vitamin-c-whitening-terbaik/",
+      "slug": "https://www.dreamlab.id/jenis-vitamin-c-whitening-terbaik",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/kuasai-pasar-skincare-2026-biotech/",
+      "slug": "https://www.dreamlab.id/kuasai-pasar-skincare-2026-biotech",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-baby-care/baby-2in1-wash/",
+      "slug": "https://www.dreamlab.id/maklon-baby-care/baby-2in1-wash",
+      "category": "article",
+      "impressions": 28,
+      "reason": "Zero clicks, 28 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-baby-care/baby-cologne/",
+      "slug": "https://www.dreamlab.id/maklon-baby-care/baby-cologne",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-baby-care/baby-moisturizer/",
+      "slug": "https://www.dreamlab.id/maklon-baby-care/baby-moisturizer",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-baby-care/baby-shampoo/",
+      "slug": "https://www.dreamlab.id/maklon-baby-care/baby-shampoo",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/body-butter/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/body-butter",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/body-scrub/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/body-scrub",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/body-serum/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/body-serum",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/sabun-antibakteri/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/sabun-antibakteri",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/sabun-organik/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/sabun-organik",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/sabun-whitening/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/sabun-whitening",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-care/shower-gel/",
+      "slug": "https://www.dreamlab.id/maklon-body-care/shower-gel",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-body-wash-berkualitas-dan-bersertifikat-bpom/",
+      "slug": "https://www.dreamlab.id/maklon-body-wash-berkualitas-dan-bersertifikat-bpom",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-brand-kosmetik-sendiri-100pcs-pemula/",
+      "slug": "https://www.dreamlab.id/maklon-brand-kosmetik-sendiri-100pcs-pemula",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/",
+      "slug": "https://www.dreamlab.id/maklon-decorative",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/lip-care/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/lip-care",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-balm/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-balm",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-gloss/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-gloss",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-matte/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-matte",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-serum/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/lip-care/lip-serum",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/lip-care/tinted-lip-balm/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/lip-care/tinted-lip-balm",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/makeup/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/makeup",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/makeup/cream-blush/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/makeup/cream-blush",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/makeup/eyebrow-gel/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/makeup/eyebrow-gel",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/makeup/highlighter/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/makeup/highlighter",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/makeup/liquid-blush/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/makeup/liquid-blush",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-decorative/makeup/mascara/",
+      "slug": "https://www.dreamlab.id/maklon-decorative/makeup/mascara",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-face-mist/",
+      "slug": "https://www.dreamlab.id/maklon-face-mist",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-foot-care/foot-serum/",
+      "slug": "https://www.dreamlab.id/maklon-foot-care/foot-serum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-footcare-dreamlab/",
+      "slug": "https://www.dreamlab.id/maklon-footcare-dreamlab",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-hair-care/beard-serum/",
+      "slug": "https://www.dreamlab.id/maklon-hair-care/beard-serum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-hair-care/hair-conditioner/",
+      "slug": "https://www.dreamlab.id/maklon-hair-care/hair-conditioner",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-hair-care/hair-gel/",
+      "slug": "https://www.dreamlab.id/maklon-hair-care/hair-gel",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-hair-care/hair-tonic/",
+      "slug": "https://www.dreamlab.id/maklon-hair-care/hair-tonic",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-hair-care/pomade/",
+      "slug": "https://www.dreamlab.id/maklon-hair-care/pomade",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-hair-care/scalp-care/",
+      "slug": "https://www.dreamlab.id/maklon-hair-care/scalp-care",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-kosmetik-kediri/",
+      "slug": "https://www.dreamlab.id/maklon-kosmetik-kediri",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-kosmetik-skincare-medan-dreamlab/",
+      "slug": "https://www.dreamlab.id/maklon-kosmetik-skincare-medan-dreamlab",
+      "category": "article",
+      "impressions": 32,
+      "reason": "Zero clicks, 32 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-kosmetik-tangerang-terpercaya/",
+      "slug": "https://www.dreamlab.id/maklon-kosmetik-tangerang-terpercaya",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum-custom-dreamlab/",
+      "slug": "https://www.dreamlab.id/maklon-parfum-custom-dreamlab",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum-dreamlab/",
+      "slug": "https://www.dreamlab.id/maklon-parfum-dreamlab",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum-makassar/",
+      "slug": "https://www.dreamlab.id/maklon-parfum-makassar",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum/body-mist/",
+      "slug": "https://www.dreamlab.id/maklon-parfum/body-mist",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum/eau-de-cologne/",
+      "slug": "https://www.dreamlab.id/maklon-parfum/eau-de-cologne",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum/eau-de-parfum/",
+      "slug": "https://www.dreamlab.id/maklon-parfum/eau-de-parfum",
+      "category": "article",
+      "impressions": 13,
+      "reason": "Zero clicks, 13 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-parfum/extrait-de-parfum/",
+      "slug": "https://www.dreamlab.id/maklon-parfum/extrait-de-parfum",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-skincare/cleansing-series/",
+      "slug": "https://www.dreamlab.id/maklon-skincare/cleansing-series",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-skincare/day-night-cream/",
+      "slug": "https://www.dreamlab.id/maklon-skincare/day-night-cream",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-skincare/facial-wash/",
+      "slug": "https://www.dreamlab.id/maklon-skincare/facial-wash",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-skincare/masker-wajah/",
+      "slug": "https://www.dreamlab.id/maklon-skincare/masker-wajah",
+      "category": "article",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/maklon-skincare/serum-wajah/",
+      "slug": "https://www.dreamlab.id/maklon-skincare/serum-wajah",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/manfaat-hair-tonic-ginseng-rambut",
+      "slug": "https://www.dreamlab.id/manfaat-hair-tonic-ginseng-rambut",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/manfaat-hair-tonic-ginseng-rambut/",
+      "slug": "https://www.dreamlab.id/manfaat-hair-tonic-ginseng-rambut",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/manfaat-panthenol-untuk-wajah-kering/",
+      "slug": "https://www.dreamlab.id/manfaat-panthenol-untuk-wajah-kering",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/mudahnya-menjadi-owner-parfum-sendiri-ciptakan-brand-wewangian-eksklusif-tanpa-ribet/",
+      "slug": "https://www.dreamlab.id/mudahnya-menjadi-owner-parfum-sendiri-ciptakan-brand-wewangian-eksklusif-tanpa-ribet",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/news-blog",
+      "slug": "https://www.dreamlab.id/news-blog",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/news-blog/page/18/",
+      "slug": "https://www.dreamlab.id/news-blog/page/18",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/news-blog/page/2/",
+      "slug": "https://www.dreamlab.id/news-blog/page/2",
+      "category": "article",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare/",
+      "slug": "https://www.dreamlab.id/omset-moisturizer-naik-tajam-dreamlab-bisnis-skincare",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/optimasi-penjualan-tiktok-shop/",
+      "slug": "https://www.dreamlab.id/optimasi-penjualan-tiktok-shop",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-maklon-kosmetik-cpkb-grade-a/",
+      "slug": "https://www.dreamlab.id/pabrik-maklon-kosmetik-cpkb-grade-a",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-maklon-kosmetik-sidoarjo-dreamlab/",
+      "slug": "https://www.dreamlab.id/pabrik-maklon-kosmetik-sidoarjo-dreamlab",
+      "category": "article",
+      "impressions": 12,
+      "reason": "Zero clicks, 12 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/",
+      "slug": "https://www.dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap",
+      "category": "article",
+      "impressions": 14,
+      "reason": "Zero clicks, 14 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/#Konsultasi_Brand_Kosmetik_Tatap_Muka",
+      "slug": "https://www.dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/#Konsultasi_Brand_Kosmetik_Tatap_Muka",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/#Mengapa_Kamu_Harus_Memulai_Bisnis_Skincare_Sekarang",
+      "slug": "https://www.dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/#Mengapa_Kamu_Harus_Memulai_Bisnis_Skincare_Sekarang",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-parfum-jakarta/",
+      "slug": "https://www.dreamlab.id/pabrik-parfum-jakarta",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-parfum-malang-dreamlab/",
+      "slug": "https://www.dreamlab.id/pabrik-parfum-malang-dreamlab",
+      "category": "article",
+      "impressions": 41,
+      "reason": "Zero clicks, 41 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-shampoo-merek-sendiri/",
+      "slug": "https://www.dreamlab.id/pabrik-shampoo-merek-sendiri",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pabrik-skincare-maklon/",
+      "slug": "https://www.dreamlab.id/pabrik-skincare-maklon",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/panduan-maklon-deodorant-bpom/",
+      "slug": "https://www.dreamlab.id/panduan-maklon-deodorant-bpom",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/panduan-persentase-manfaat-niacinamide-skincare/",
+      "slug": "https://www.dreamlab.id/panduan-persentase-manfaat-niacinamide-skincare",
+      "category": "article",
+      "impressions": 17,
+      "reason": "Zero clicks, 17 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/parfum-balm-vs-parfum-oil/",
+      "slug": "https://www.dreamlab.id/parfum-balm-vs-parfum-oil",
+      "category": "article",
+      "impressions": 12,
+      "reason": "Zero clicks, 12 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/parfum-pheromone-bisnis-parfum/",
+      "slug": "https://www.dreamlab.id/parfum-pheromone-bisnis-parfum",
+      "category": "article",
+      "impressions": 28,
+      "reason": "Zero clicks, 28 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/parfum/",
+      "slug": "https://www.dreamlab.id/parfum",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/peluang-bisnis-skincare-irt/",
+      "slug": "https://www.dreamlab.id/peluang-bisnis-skincare-irt",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/penyebab-ingrown-hair/",
+      "slug": "https://www.dreamlab.id/penyebab-ingrown-hair",
+      "category": "article",
+      "impressions": 16,
+      "reason": "Zero clicks, 16 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/perbedaan-edp-edt/",
+      "slug": "https://www.dreamlab.id/perbedaan-edp-edt",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/perbedaan-oem-vs-odm/",
+      "slug": "https://www.dreamlab.id/perbedaan-oem-vs-odm",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/pkrt/",
+      "slug": "https://www.dreamlab.id/pkrt",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/privacy-policy/",
+      "slug": "https://www.dreamlab.id/privacy-policy",
+      "category": "article",
+      "impressions": 17,
+      "reason": "Zero clicks, 17 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk-haircare-yang-sedang-tren/",
+      "slug": "https://www.dreamlab.id/produk-haircare-yang-sedang-tren",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/babycare/baby-cologne/",
+      "slug": "https://www.dreamlab.id/produk/babycare/baby-cologne",
+      "category": "article",
+      "impressions": 42,
+      "reason": "Zero clicks, 42 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/babycare/baby-oil/",
+      "slug": "https://www.dreamlab.id/produk/babycare/baby-oil",
+      "category": "article",
+      "impressions": 36,
+      "reason": "Zero clicks, 36 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/babycare/baby-powder/",
+      "slug": "https://www.dreamlab.id/produk/babycare/baby-powder",
+      "category": "article",
+      "impressions": 27,
+      "reason": "Zero clicks, 27 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/anti-bacterial-soap/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/anti-bacterial-soap",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/bar-soap/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/bar-soap",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/bath-salt/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/bath-salt",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/body-butter/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/body-butter",
+      "category": "article",
+      "impressions": 21,
+      "reason": "Zero clicks, 21 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/body-lotion/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/body-lotion",
+      "category": "article",
+      "impressions": 31,
+      "reason": "Zero clicks, 31 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/body-oil/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/body-oil",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/body-scrub/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/body-scrub",
+      "category": "article",
+      "impressions": 31,
+      "reason": "Zero clicks, 31 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/body-wash/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/body-wash",
+      "category": "article",
+      "impressions": 10,
+      "reason": "Zero clicks, 10 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/massage-cream/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/massage-cream",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/neck-cream/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/neck-cream",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/organic-soap/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/organic-soap",
+      "category": "article",
+      "impressions": 20,
+      "reason": "Zero clicks, 20 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/shower-gel/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/shower-gel",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/soothing-gel/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/soothing-gel",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/transparent-soap/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/transparent-soap",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/underarm-cream/",
+      "slug": "https://www.dreamlab.id/produk/bodycare/underarm-cream",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/cushion-foundation/",
+      "slug": "https://www.dreamlab.id/produk/decorative/cushion-foundation",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lip-gloss/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lip-gloss",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-balm/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-balm",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-blush/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-blush",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-cream/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-cream",
+      "category": "article",
+      "impressions": 9,
+      "reason": "Zero clicks, 9 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-gloss/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-gloss",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-matte/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-matte",
+      "category": "article",
+      "impressions": 11,
+      "reason": "Zero clicks, 11 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-scrub/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-scrub",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/lip-serum/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/lip-serum",
+      "category": "article",
+      "impressions": 13,
+      "reason": "Zero clicks, 13 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/lipcare/tinted-lip-balm/",
+      "slug": "https://www.dreamlab.id/produk/decorative/lipcare/tinted-lip-balm",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/liquid-foundation/",
+      "slug": "https://www.dreamlab.id/produk/decorative/liquid-foundation",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up",
+      "category": "article",
+      "impressions": 12,
+      "reason": "Zero clicks, 12 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/bb-cream/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/bb-cream",
+      "category": "article",
+      "impressions": 6,
+      "reason": "Zero clicks, 6 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/cream-blush/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/cream-blush",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/eyebrow-gel/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/eyebrow-gel",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/face-primer/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/face-primer",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/foundation-serum/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/foundation-serum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/foundation/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/foundation",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/liquid-blush/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/liquid-blush",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/liquid-highlighter/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/liquid-highlighter",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/make-up/mascara/",
+      "slug": "https://www.dreamlab.id/produk/decorative/make-up/mascara",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/haircare/beard-serum/",
+      "slug": "https://www.dreamlab.id/produk/haircare/beard-serum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/haircare/hair-conditioner/",
+      "slug": "https://www.dreamlab.id/produk/haircare/hair-conditioner",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/haircare/hair-gel/",
+      "slug": "https://www.dreamlab.id/produk/haircare/hair-gel",
+      "category": "article",
+      "impressions": 7,
+      "reason": "Zero clicks, 7 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/haircare/hair-mist/",
+      "slug": "https://www.dreamlab.id/produk/haircare/hair-mist",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/haircare/hair-tonic/",
+      "slug": "https://www.dreamlab.id/produk/haircare/hair-tonic",
+      "category": "article",
+      "impressions": 15,
+      "reason": "Zero clicks, 15 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/haircare/pomade/",
+      "slug": "https://www.dreamlab.id/produk/haircare/pomade",
+      "category": "article",
+      "impressions": 15,
+      "reason": "Zero clicks, 15 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/parfum/body-mist/",
+      "slug": "https://www.dreamlab.id/produk/parfum/body-mist",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/parfum/eau-de-cologne/",
+      "slug": "https://www.dreamlab.id/produk/parfum/eau-de-cologne",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/parfum/eau-de-parfum/",
+      "slug": "https://www.dreamlab.id/produk/parfum/eau-de-parfum",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/parfum/eau-de-toilette/",
+      "slug": "https://www.dreamlab.id/produk/parfum/eau-de-toilette",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/parfum/extrait-de-parfum/",
+      "slug": "https://www.dreamlab.id/produk/parfum/extrait-de-parfum",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/parfum/minyak-atsiri/",
+      "slug": "https://www.dreamlab.id/produk/parfum/minyak-atsiri",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/pkrt/",
+      "slug": "https://www.dreamlab.id/produk/pkrt",
+      "category": "article",
+      "impressions": 12,
+      "reason": "Zero clicks, 12 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/pkrt/bar-soap-pkrt/",
+      "slug": "https://www.dreamlab.id/produk/pkrt/bar-soap-pkrt",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/pkrt/floor-cleaner/",
+      "slug": "https://www.dreamlab.id/produk/pkrt/floor-cleaner",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/pkrt/hand-sanitizer/",
+      "slug": "https://www.dreamlab.id/produk/pkrt/hand-sanitizer",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/pkrt/hand-wash/",
+      "slug": "https://www.dreamlab.id/produk/pkrt/hand-wash",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/pkrt/room-spray/",
+      "slug": "https://www.dreamlab.id/produk/pkrt/room-spray",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/cleansing/cleansing-balm/",
+      "slug": "https://www.dreamlab.id/produk/skincare/cleansing/cleansing-balm",
+      "category": "article",
+      "impressions": 19,
+      "reason": "Zero clicks, 19 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/cleansing/micellar-cleansing-gel/",
+      "slug": "https://www.dreamlab.id/produk/skincare/cleansing/micellar-cleansing-gel",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/cleansing/milk-cleanser/",
+      "slug": "https://www.dreamlab.id/produk/skincare/cleansing/milk-cleanser",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/face-cream/",
+      "slug": "https://www.dreamlab.id/produk/skincare/face-cream",
+      "category": "article",
+      "impressions": 30,
+      "reason": "Zero clicks, 30 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/face-cream/brightening-cream/",
+      "slug": "https://www.dreamlab.id/produk/skincare/face-cream/brightening-cream",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/face-cream/eye-cream/",
+      "slug": "https://www.dreamlab.id/produk/skincare/face-cream/eye-cream",
+      "category": "article",
+      "impressions": 42,
+      "reason": "Zero clicks, 42 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/face-cream/moisturizing-cream/",
+      "slug": "https://www.dreamlab.id/produk/skincare/face-cream/moisturizing-cream",
+      "category": "article",
+      "impressions": 15,
+      "reason": "Zero clicks, 15 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/face-mask/wash-off-mask/",
+      "slug": "https://www.dreamlab.id/produk/skincare/face-mask/wash-off-mask",
+      "category": "article",
+      "impressions": 1,
+      "reason": "Zero clicks, 1 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/facial-toner/moisturizing-facial-toner/",
+      "slug": "https://www.dreamlab.id/produk/skincare/facial-toner/moisturizing-facial-toner",
+      "category": "article",
+      "impressions": 2,
+      "reason": "Zero clicks, 2 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/facial-wash/",
+      "slug": "https://www.dreamlab.id/produk/skincare/facial-wash",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/micellar-cleansing-gel/",
+      "slug": "https://www.dreamlab.id/produk/skincare/micellar-cleansing-gel",
+      "category": "article",
+      "impressions": 8,
+      "reason": "Zero clicks, 8 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/rahasia-kulit-glowing-devina-karamoy/",
+      "slug": "https://www.dreamlab.id/rahasia-kulit-glowing-devina-karamoy",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/rahasia-perawatan-rambut-keriting-tetap-sehat-lembut-dan-terdefinisi/",
+      "slug": "https://www.dreamlab.id/rahasia-perawatan-rambut-keriting-tetap-sehat-lembut-dan-terdefinisi",
+      "category": "article",
+      "impressions": 3,
+      "reason": "Zero clicks, 3 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/reampreneur-beauty-academy-maklon-kosmetik/",
+      "slug": "https://www.dreamlab.id/reampreneur-beauty-academy-maklon-kosmetik",
+      "category": "article",
+      "impressions": 5,
+      "reason": "Zero clicks, 5 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/services/",
+      "slug": "https://www.dreamlab.id/services",
+      "category": "article",
+      "impressions": 38,
+      "reason": "Zero clicks, 38 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab/",
+      "slug": "https://www.dreamlab.id/solusi-bisnis-body-serum-aha-2025-tren-pasar-maklon-dreamlab",
+      "category": "article",
+      "impressions": 4,
+      "reason": "Zero clicks, 4 impressions in 90 days — very low search demand"
+    },
+    {
+      "url": "https://www.dreamlab.id/terms-of-service/",
+      "slug": "https://www.dreamlab.id/terms-of-service",
+      "category": "article",
+      "impressions": 20,
+      "reason": "Zero clicks, 20 impressions in 90 days — very low search demand"
+    }
+  ],
+  "needs_content_fix": [
+    {
+      "url": "https://dreamlab.id/about-us/alur-maklon/",
+      "slug": "/about-us/alur-maklon",
+      "category": "about",
+      "impressions": 105,
+      "reason": "Zero clicks but 105 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/bahan-aktif-skincare-jerawat/",
+      "slug": "/bahan-aktif-skincare-jerawat",
+      "category": "article",
+      "impressions": 53,
+      "reason": "Zero clicks but 53 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/bahan-aktif-skincare-paling-dicari/",
+      "slug": "/bahan-aktif-skincare-paling-dicari",
+      "category": "article",
+      "impressions": 53,
+      "reason": "Zero clicks but 53 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-ampuh-memutihkan-ketiak/",
+      "slug": "/cara-ampuh-memutihkan-ketiak",
+      "category": "article",
+      "impressions": 657,
+      "reason": "Zero clicks but 657 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-branding-bisnis-kosmetik/",
+      "slug": "/cara-branding-bisnis-kosmetik",
+      "category": "article",
+      "impressions": 59,
+      "reason": "Zero clicks but 59 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-membuat-hb-dosting-sendiri/#Kenapa_Bisnis_HB_Dosting_Sangat_Laris_di_Market",
+      "slug": "/cara-membuat-hb-dosting-sendiri/#Kenapa_Bisnis_HB_Dosting_Sangat_Laris_di_Market",
+      "category": "article",
+      "impressions": 158,
+      "reason": "Zero clicks but 158 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-membuat-hb-dosting-sendiri/#Langkah_Mudah_Membuat_Brand_HB_Dosting_Sendiri",
+      "slug": "/cara-membuat-hb-dosting-sendiri/#Langkah_Mudah_Membuat_Brand_HB_Dosting_Sendiri",
+      "category": "article",
+      "impressions": 158,
+      "reason": "Zero clicks but 158 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-membuat-lulur-ampas-kopi/",
+      "slug": "/cara-membuat-lulur-ampas-kopi",
+      "category": "article",
+      "impressions": 256,
+      "reason": "Zero clicks but 256 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-membuat-masker-wajah-organik/",
+      "slug": "/cara-membuat-masker-wajah-organik",
+      "category": "article",
+      "impressions": 64,
+      "reason": "Zero clicks but 64 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-meracik-handbody-pemutih-alami/#Manfaat_Nyata_Kandungan_Alami_untuk_Kulit",
+      "slug": "/cara-meracik-handbody-pemutih-alami/#Manfaat_Nyata_Kandungan_Alami_untuk_Kulit",
+      "category": "article",
+      "impressions": 71,
+      "reason": "Zero clicks but 71 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/cara-meracik-handbody-pemutih-alami/#Panduan_Cara_Meracik_Handbody_Pemutih_Kulit_DIY",
+      "slug": "/cara-meracik-handbody-pemutih-alami/#Panduan_Cara_Meracik_Handbody_Pemutih_Kulit_DIY",
+      "category": "article",
+      "impressions": 71,
+      "reason": "Zero clicks but 71 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/category/bisnis-kosmetik/",
+      "slug": "/category/bisnis-kosmetik",
+      "category": "category",
+      "impressions": 89,
+      "reason": "Zero clicks but 89 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-baby-care/",
+      "slug": "/category/maklon-baby-care",
+      "category": "category",
+      "impressions": 57,
+      "reason": "Zero clicks but 57 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-footcare/",
+      "slug": "/category/maklon-footcare",
+      "category": "category",
+      "impressions": 67,
+      "reason": "Zero clicks but 67 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-haircare/",
+      "slug": "/category/maklon-haircare",
+      "category": "category",
+      "impressions": 203,
+      "reason": "Zero clicks but 203 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/category/maklon-skincare/",
+      "slug": "/category/maklon-skincare",
+      "category": "category",
+      "impressions": 226,
+      "reason": "Zero clicks but 226 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/contoh-kalimat-iklan-kosmetik-unik/#Apa_yang_Membuat_Kalimat_Iklan_Kosmetik_Efektif",
+      "slug": "/contoh-kalimat-iklan-kosmetik-unik/#Apa_yang_Membuat_Kalimat_Iklan_Kosmetik_Efektif",
+      "category": "article",
+      "impressions": 105,
+      "reason": "Zero clicks but 105 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/contoh-kalimat-iklan-kosmetik-unik/#Contoh_Kalimat_Iklan_Kosmetik",
+      "slug": "/contoh-kalimat-iklan-kosmetik-unik/#Contoh_Kalimat_Iklan_Kosmetik",
+      "category": "article",
+      "impressions": 118,
+      "reason": "Zero clicks but 118 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/contoh-kalimat-iklan-kosmetik-unik/#Untuk_Iklan_Skincare_Fokus_pada_Solusi",
+      "slug": "/contoh-kalimat-iklan-kosmetik-unik/#Untuk_Iklan_Skincare_Fokus_pada_Solusi",
+      "category": "article",
+      "impressions": 80,
+      "reason": "Zero clicks but 80 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/glycerin-bahan-skincare-yang-naik-daun-dan-cocok-untuk-semua-jenis-kulit/",
+      "slug": "/glycerin-bahan-skincare-yang-naik-daun-dan-cocok-untuk-semua-jenis-kulit",
+      "category": "article",
+      "impressions": 162,
+      "reason": "Zero clicks but 162 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/https-dreamlab-id-dreamlab-visit-ici-2026/",
+      "slug": "/https-dreamlab-id-dreamlab-visit-ici-2026",
+      "category": "article",
+      "impressions": 64,
+      "reason": "Zero clicks but 64 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/#Apa_Saja_yang_Bisa_Anda_Custom_di_Dreamlab",
+      "slug": "/jasa-maklon-parfum-bali-terbaik-terlengkap/#Apa_Saja_yang_Bisa_Anda_Custom_di_Dreamlab",
+      "category": "article",
+      "impressions": 171,
+      "reason": "Zero clicks but 171 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/#Miliki_Brand_Parfum_Eksklusif",
+      "slug": "/jasa-maklon-parfum-bali-terbaik-terlengkap/#Miliki_Brand_Parfum_Eksklusif",
+      "category": "article",
+      "impressions": 209,
+      "reason": "Zero clicks but 209 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/jasa-maklon-parfum-bali-terbaik-terlengkap/#Miliki_brand_parfum_dengan_aroma_Custom",
+      "slug": "/jasa-maklon-parfum-bali-terbaik-terlengkap/#Miliki_brand_parfum_dengan_aroma_Custom",
+      "category": "article",
+      "impressions": 203,
+      "reason": "Zero clicks but 203 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/maklon-bodymist/",
+      "slug": "/maklon-bodymist",
+      "category": "article",
+      "impressions": 81,
+      "reason": "Zero clicks but 81 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/manfaat-panthenol-untuk-wajah-kering/",
+      "slug": "/manfaat-panthenol-untuk-wajah-kering",
+      "category": "article",
+      "impressions": 950,
+      "reason": "Zero clicks but 950 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/mudahnya-menjadi-owner-parfum-sendiri-ciptakan-brand-wewangian-eksklusif-tanpa-ribet/",
+      "slug": "/mudahnya-menjadi-owner-parfum-sendiri-ciptakan-brand-wewangian-eksklusif-tanpa-ribet",
+      "category": "article",
+      "impressions": 93,
+      "reason": "Zero clicks but 93 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/optimasi-penjualan-tiktok-shop/",
+      "slug": "/optimasi-penjualan-tiktok-shop",
+      "category": "article",
+      "impressions": 111,
+      "reason": "Zero clicks but 111 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/#Konsultasi_Brand_Kosmetik_Tatap_Muka",
+      "slug": "/pabrik-maklon-kosmetik-surabaya-terlengkap/#Konsultasi_Brand_Kosmetik_Tatap_Muka",
+      "category": "article",
+      "impressions": 126,
+      "reason": "Zero clicks but 126 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-maklon-kosmetik-surabaya-terlengkap/#Mengapa_Kamu_Harus_Memulai_Bisnis_Skincare_Sekarang",
+      "slug": "/pabrik-maklon-kosmetik-surabaya-terlengkap/#Mengapa_Kamu_Harus_Memulai_Bisnis_Skincare_Sekarang",
+      "category": "article",
+      "impressions": 126,
+      "reason": "Zero clicks but 126 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-parfum-makasar/",
+      "slug": "/pabrik-parfum-makasar",
+      "category": "article",
+      "impressions": 53,
+      "reason": "Zero clicks but 53 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/pabrik-skincare-maklon/",
+      "slug": "/pabrik-skincare-maklon",
+      "category": "article",
+      "impressions": 229,
+      "reason": "Zero clicks but 229 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/parfum-inspired-peluang-bisnis/#1_Floral_Inspired",
+      "slug": "/parfum-inspired-peluang-bisnis/#1_Floral_Inspired",
+      "category": "article",
+      "impressions": 565,
+      "reason": "Zero clicks but 565 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/parfum-inspired-peluang-bisnis/#2_Gourmand_Inspired",
+      "slug": "/parfum-inspired-peluang-bisnis/#2_Gourmand_Inspired",
+      "category": "article",
+      "impressions": 606,
+      "reason": "Zero clicks but 606 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/parfum-inspired-peluang-bisnis/#3_Woody_Spicy_Inspired",
+      "slug": "/parfum-inspired-peluang-bisnis/#3_Woody_Spicy_Inspired",
+      "category": "article",
+      "impressions": 565,
+      "reason": "Zero clicks but 565 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/parfum-inspired-peluang-bisnis/#4_Fresh_Aquatic_Inspired",
+      "slug": "/parfum-inspired-peluang-bisnis/#4_Fresh_Aquatic_Inspired",
+      "category": "article",
+      "impressions": 565,
+      "reason": "Zero clicks but 565 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/parfum-inspired-peluang-bisnis/#5_Jenis_Parfum_Inspired_yang_Sedang_Tren",
+      "slug": "/parfum-inspired-peluang-bisnis/#5_Jenis_Parfum_Inspired_yang_Sedang_Tren",
+      "category": "article",
+      "impressions": 606,
+      "reason": "Zero clicks but 606 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/parfum-inspired-peluang-bisnis/#Mengapa_Parfum_Inspired_Menjadi_Tren",
+      "slug": "/parfum-inspired-peluang-bisnis/#Mengapa_Parfum_Inspired_Menjadi_Tren",
+      "category": "article",
+      "impressions": 602,
+      "reason": "Zero clicks but 602 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/penyebab-ingrown-hair/",
+      "slug": "/penyebab-ingrown-hair",
+      "category": "article",
+      "impressions": 202,
+      "reason": "Zero clicks but 202 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/perbedaan-edp-edt/",
+      "slug": "/perbedaan-edp-edt",
+      "category": "article",
+      "impressions": 1959,
+      "reason": "Zero clicks but 1959 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/perbedaan-micellar-water-dan-toner/",
+      "slug": "/perbedaan-micellar-water-dan-toner",
+      "category": "article",
+      "impressions": 157,
+      "reason": "Zero clicks but 157 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/perbedaan-moisturizer-gel-vs-cream/#Buat_produk_Moisturizer_dengan_Nama_Brandmu_Sendiri",
+      "slug": "/perbedaan-moisturizer-gel-vs-cream/#Buat_produk_Moisturizer_dengan_Nama_Brandmu_Sendiri",
+      "category": "article",
+      "impressions": 238,
+      "reason": "Zero clicks but 238 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/perbedaan-moisturizer-gel-vs-cream/#Cara_Membuat_Brand_Moisturizer",
+      "slug": "/perbedaan-moisturizer-gel-vs-cream/#Cara_Membuat_Brand_Moisturizer",
+      "category": "article",
+      "impressions": 224,
+      "reason": "Zero clicks but 224 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/perbedaan-moisturizer-gel-vs-cream/#Moisturizer_Cream_dan_Moisturizer_Gel",
+      "slug": "/perbedaan-moisturizer-gel-vs-cream/#Moisturizer_Cream_dan_Moisturizer_Gel",
+      "category": "article",
+      "impressions": 247,
+      "reason": "Zero clicks but 247 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/perbedaan-privatelabel-vsodm/",
+      "slug": "/perbedaan-privatelabel-vsodm",
+      "category": "article",
+      "impressions": 220,
+      "reason": "Zero clicks but 220 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/produk-whitening-branding-claim/",
+      "slug": "/produk-whitening-branding-claim",
+      "category": "article",
+      "impressions": 97,
+      "reason": "Zero clicks but 97 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/",
+      "slug": "/produk/bodycare",
+      "category": "product",
+      "impressions": 67,
+      "reason": "Zero clicks but 67 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/",
+      "slug": "/produk/skincare",
+      "category": "product",
+      "impressions": 109,
+      "reason": "Zero clicks but 109 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/rahasia-kulit-glowing-devina-karamoy/",
+      "slug": "/rahasia-kulit-glowing-devina-karamoy",
+      "category": "article",
+      "impressions": 135,
+      "reason": "Zero clicks but 135 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/rekomendasi-skincare-musim-hujan-agar-kulit-tetap-sehat-dan-lembap/",
+      "slug": "/rekomendasi-skincare-musim-hujan-agar-kulit-tetap-sehat-dan-lembap",
+      "category": "article",
+      "impressions": 62,
+      "reason": "Zero clicks but 62 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/tips-membuat-hand-sanitizer-bisnis/",
+      "slug": "/tips-membuat-hand-sanitizer-bisnis",
+      "category": "article",
+      "impressions": 54,
+      "reason": "Zero clicks but 54 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/tren-aroma-parfum-2026-terbaru/#5_Tren_Aroma_Parfum_yang_Akan_Mendominasi_Market_2026",
+      "slug": "/tren-aroma-parfum-2026-terbaru/#5_Tren_Aroma_Parfum_yang_Akan_Mendominasi_Market_2026",
+      "category": "article",
+      "impressions": 73,
+      "reason": "Zero clicks but 73 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/tren-aroma-parfum-2026-terbaru/#Wewangian_Fungsional_Wellness_Neuro-Scent",
+      "slug": "/tren-aroma-parfum-2026-terbaru/#Wewangian_Fungsional_Wellness_Neuro-Scent",
+      "category": "article",
+      "impressions": 73,
+      "reason": "Zero clicks but 73 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/tren-sunscreen-2025-6-produk-yang-siap-jadi-bisnis/",
+      "slug": "/tren-sunscreen-2025-6-produk-yang-siap-jadi-bisnis",
+      "category": "article",
+      "impressions": 164,
+      "reason": "Zero clicks but 164 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Berapa_MOQ_di_DREAMLAB",
+      "slug": "/urutan-pabrik-skincare-terbaik-indonesia/#Berapa_MOQ_di_DREAMLAB",
+      "category": "article",
+      "impressions": 1016,
+      "reason": "Zero clicks but 1016 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Daftar_5_Pabrik_Skincare_di_Indonesia_Terbaik_Update_2026",
+      "slug": "/urutan-pabrik-skincare-terbaik-indonesia/#Daftar_5_Pabrik_Skincare_di_Indonesia_Terbaik_Update_2026",
+      "category": "article",
+      "impressions": 1083,
+      "reason": "Zero clicks but 1083 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Mengapa_DREAMLAB_Menjadi_%E2%80%9CGame_Changer%E2%80%9D",
+      "slug": "/urutan-pabrik-skincare-terbaik-indonesia/#Mengapa_DREAMLAB_Menjadi_%E2%80%9CGame_Changer%E2%80%9D",
+      "category": "article",
+      "impressions": 802,
+      "reason": "Zero clicks but 802 impressions — needs content improvement"
+    },
+    {
+      "url": "https://dreamlab.id/urutan-pabrik-skincare-terbaik-indonesia/#Mengapa_PT_Karya_Impian_Laboratoris_DREAMLAB_Menjadi_Pilihan_Utama",
+      "slug": "/urutan-pabrik-skincare-terbaik-indonesia/#Mengapa_PT_Karya_Impian_Laboratoris_DREAMLAB_Menjadi_Pilihan_Utama",
+      "category": "article",
+      "impressions": 749,
+      "reason": "Zero clicks but 749 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-meracik-handbody-pemutih-alami/#Manfaat_Nyata_Kandungan_Alami_untuk_Kulit",
+      "slug": "https://www.dreamlab.id/cara-meracik-handbody-pemutih-alami/#Manfaat_Nyata_Kandungan_Alami_untuk_Kulit",
+      "category": "article",
+      "impressions": 149,
+      "reason": "Zero clicks but 149 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/cara-meracik-handbody-pemutih-alami/#Panduan_Cara_Meracik_Handbody_Pemutih_Kulit_DIY",
+      "slug": "https://www.dreamlab.id/cara-meracik-handbody-pemutih-alami/#Panduan_Cara_Meracik_Handbody_Pemutih_Kulit_DIY",
+      "category": "article",
+      "impressions": 149,
+      "reason": "Zero clicks but 149 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/babycare/baby-2in1-wash/",
+      "slug": "https://www.dreamlab.id/produk/babycare/baby-2in1-wash",
+      "category": "article",
+      "impressions": 58,
+      "reason": "Zero clicks but 58 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/babycare/baby-lotion/",
+      "slug": "https://www.dreamlab.id/produk/babycare/baby-lotion",
+      "category": "article",
+      "impressions": 82,
+      "reason": "Zero clicks but 82 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/bodycare/",
+      "slug": "https://www.dreamlab.id/produk/bodycare",
+      "category": "article",
+      "impressions": 105,
+      "reason": "Zero clicks but 105 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/decorative/",
+      "slug": "https://www.dreamlab.id/produk/decorative",
+      "category": "article",
+      "impressions": 68,
+      "reason": "Zero clicks but 68 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/",
+      "slug": "https://www.dreamlab.id/produk/skincare",
+      "category": "article",
+      "impressions": 130,
+      "reason": "Zero clicks but 130 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/cleansing/",
+      "slug": "https://www.dreamlab.id/produk/skincare/cleansing",
+      "category": "article",
+      "impressions": 72,
+      "reason": "Zero clicks but 72 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/facial-toner/",
+      "slug": "https://www.dreamlab.id/produk/skincare/facial-toner",
+      "category": "article",
+      "impressions": 75,
+      "reason": "Zero clicks but 75 impressions — needs content improvement"
+    },
+    {
+      "url": "https://www.dreamlab.id/produk/skincare/sunscreen/",
+      "slug": "https://www.dreamlab.id/produk/skincare/sunscreen",
+      "category": "article",
+      "impressions": 50,
+      "reason": "Zero clicks but 50 impressions — needs content improvement"
+    }
+  ],
+  "by_category": {
+    "article": {
+      "total": 599,
+      "zero_clicks": 411
+    },
+    "homepage": {
+      "total": 1,
+      "zero_clicks": 0
+    },
+    "contact": {
+      "total": 2,
+      "zero_clicks": 1
+    },
+    "career": {
+      "total": 1,
+      "zero_clicks": 0
+    },
+    "services": {
+      "total": 1,
+      "zero_clicks": 0
+    },
+    "category": {
+      "total": 18,
+      "zero_clicks": 14
+    },
+    "product": {
+      "total": 85,
+      "zero_clicks": 66
+    },
+    "about": {
+      "total": 2,
+      "zero_clicks": 1
+    },
+    "blog": {
+      "total": 2,
+      "zero_clicks": 0
+    },
+    "social-proof": {
+      "total": 1,
+      "zero_clicks": 0
+    },
+    "author": {
+      "total": 5,
+      "zero_clicks": 4
+    },
+    "legal": {
+      "total": 2,
+      "zero_clicks": 1
+    },
+    "ads": {
+      "total": 2,
+      "zero_clicks": 2
+    },
+    "panduan": {
+      "total": 2,
+      "zero_clicks": 2
+    },
+    "thankyou": {
+      "total": 3,
+      "zero_clicks": 3
+    }
+  }
+}

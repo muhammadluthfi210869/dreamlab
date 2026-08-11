@@ -267,7 +267,10 @@ export async function generateStaticParams() {
 }
 
 // Thin product categories that should not be indexed (template content only)
-const THIN_CATEGORIES = new Set(['pkrt', 'footcare', 'babycare', 'decorative']);
+// FASE 2: hanya pkrt yang tetap noindex (produk strategis yang sengaja di-exclude).
+// babycare, footcare, decorative DI-UN-NOINDEX karena produknya punya konten
+// substansial (~500+ kata: story, benefits, seoParagraph, FAQ).
+const THIN_CATEGORIES = new Set(['pkrt']);
 
 function shouldNoindexCategory(category: string): boolean {
   return THIN_CATEGORIES.has(category);

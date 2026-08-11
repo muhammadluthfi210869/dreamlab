@@ -34,7 +34,9 @@ export const metadata: Metadata = {
       "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya.",
     url: "https://dreamlab.id/en/",
   },
-  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  // NOTE: `robots` dihapus — lihat komentar di src/app/layout.tsx.
+  // Mencegah konflik tag robots ganda (layout + page) yang membuat
+  // halaman catch-all /en/... efektif noindex.
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {

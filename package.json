@@ -17,6 +17,8 @@
     "verify:sitemap": "node scripts/verify-sitemap-indexability.mjs",
     "compress:images": "node scripts/compress-blog-sharp.mjs",
     "verify:assets": "npx tsx scripts/verify-asset-paths.ts",
+    "gen:paths": "npx tsx scripts/generate-site-paths.ts && node scripts/generate-maklon-redirects.mjs",
+    "prebuild": "npx tsx scripts/generate-site-paths.ts && node scripts/generate-maklon-redirects.mjs",
     "verify:all": "npm run build && npm run verify:redirects && npm run verify:lead-flow && npm run verify:round-robin && npm run verify:seo && npm run verify:assets",
     "db:migrate": "node scripts/db-migrate.mjs",
     "crawl:baseline": "npx tsx scripts/crawl-baseline.ts",

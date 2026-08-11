@@ -1,0 +1,572 @@
+{
+  "site": "dreamlab.id",
+  "generated": "2026-07-31T09:18:17.459251",
+  "period": {
+    "start": "2025-03-31",
+    "end": "2026-07-28"
+  },
+  "overall_16m": {
+    "clicks": 8885,
+    "impressions": 360457,
+    "ctr": 2.46,
+    "avg_position": 8.8
+  },
+  "last_90d": {
+    "clicks": 2760,
+    "impressions": 131656,
+    "ctr": 2.1,
+    "avg_position": 8.5
+  },
+  "prev_90d": {
+    "clicks": 2160,
+    "impressions": 103887,
+    "ctr": 2.08,
+    "avg_position": 7.5
+  },
+  "last_30d": {
+    "clicks": 837,
+    "impressions": 45857,
+    "ctr": 1.83,
+    "avg_position": 8.5
+  },
+  "prev_30d": {
+    "clicks": 947,
+    "impressions": 44860,
+    "ctr": 2.11,
+    "avg_position": 8.9
+  },
+  "redesign_detection": [
+    {
+      "detected": true,
+      "approx_period": "2025-04-30",
+      "weekly_drop_pct": -50.0,
+      "clicks_before": 2,
+      "clicks_after": 1
+    }
+  ],
+  "device": [
+    {
+      "device": "MOBILE",
+      "clicks": 5490,
+      "impressions": 237808,
+      "ctr": 2.3085999999999998,
+      "position": 6.68
+    },
+    {
+      "device": "DESKTOP",
+      "clicks": 3327,
+      "impressions": 119829,
+      "ctr": 2.7765,
+      "position": 13.03
+    },
+    {
+      "device": "TABLET",
+      "clicks": 68,
+      "impressions": 2820,
+      "ctr": 2.4112999999999998,
+      "position": 8.26
+    }
+  ],
+  "country_top": [
+    {
+      "country": "idn",
+      "clicks": 8740,
+      "impressions": 321172,
+      "ctr": 2.7213000000000003,
+      "position": 8.39
+    },
+    {
+      "country": "sgp",
+      "clicks": 25,
+      "impressions": 702,
+      "ctr": 3.5612999999999997,
+      "position": 8.25
+    },
+    {
+      "country": "aus",
+      "clicks": 22,
+      "impressions": 457,
+      "ctr": 4.814,
+      "position": 10.39
+    },
+    {
+      "country": "usa",
+      "clicks": 15,
+      "impressions": 20527,
+      "ctr": 0.0731,
+      "position": 10.82
+    },
+    {
+      "country": "hkg",
+      "clicks": 13,
+      "impressions": 394,
+      "ctr": 3.2994999999999997,
+      "position": 7.8
+    },
+    {
+      "country": "mys",
+      "clicks": 12,
+      "impressions": 1054,
+      "ctr": 1.1384999999999998,
+      "position": 18.62
+    },
+    {
+      "country": "khm",
+      "clicks": 10,
+      "impressions": 259,
+      "ctr": 3.8609999999999998,
+      "position": 7.2
+    },
+    {
+      "country": "chn",
+      "clicks": 7,
+      "impressions": 1439,
+      "ctr": 0.48640000000000005,
+      "position": 9.39
+    },
+    {
+      "country": "jpn",
+      "clicks": 6,
+      "impressions": 611,
+      "ctr": 0.9820000000000001,
+      "position": 9.17
+    },
+    {
+      "country": "twn",
+      "clicks": 4,
+      "impressions": 412,
+      "ctr": 0.9709000000000001,
+      "position": 9.06
+    },
+    {
+      "country": "gbr",
+      "clicks": 3,
+      "impressions": 708,
+      "ctr": 0.4237,
+      "position": 18.5
+    },
+    {
+      "country": "can",
+      "clicks": 2,
+      "impressions": 970,
+      "ctr": 0.2062,
+      "position": 12.23
+    },
+    {
+      "country": "kor",
+      "clicks": 2,
+      "impressions": 553,
+      "ctr": 0.3617,
+      "position": 12.4
+    },
+    {
+      "country": "lka",
+      "clicks": 2,
+      "impressions": 30,
+      "ctr": 6.6667000000000005,
+      "position": 6.83
+    },
+    {
+      "country": "nzl",
+      "clicks": 2,
+      "impressions": 57,
+      "ctr": 3.5088,
+      "position": 11.46
+    },
+    {
+      "country": "tha",
+      "clicks": 2,
+      "impressions": 219,
+      "ctr": 0.9131999999999999,
+      "position": 11.25
+    },
+    {
+      "country": "tur",
+      "clicks": 2,
+      "impressions": 249,
+      "ctr": 0.8031999999999999,
+      "position": 14.45
+    },
+    {
+      "country": "are",
+      "clicks": 1,
+      "impressions": 118,
+      "ctr": 0.8475,
+      "position": 9.93
+    },
+    {
+      "country": "arg",
+      "clicks": 1,
+      "impressions": 274,
+      "ctr": 0.365,
+      "position": 13.91
+    },
+    {
+      "country": "bel",
+      "clicks": 1,
+      "impressions": 68,
+      "ctr": 1.4706000000000001,
+      "position": 14.18
+    }
+  ],
+  "appearance": [
+    {
+      "searchAppearance": "AMP_TOP_STORIES",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0.0,
+      "position": 2.17
+    },
+    {
+      "searchAppearance": "AMP_BLUE_LINK",
+      "clicks": 14,
+      "impressions": 1681,
+      "ctr": 0.8328,
+      "position": 38.63
+    }
+  ],
+  "monthly": [
+    {
+      "ym": "2025-03",
+      "clicks": 0,
+      "impressions": 69,
+      "ctr": 0.0,
+      "avg_position": 39.84
+    },
+    {
+      "ym": "2025-04",
+      "clicks": 86,
+      "impressions": 2032,
+      "ctr": 4.232,
+      "avg_position": 20.12
+    },
+    {
+      "ym": "2025-05",
+      "clicks": 127,
+      "impressions": 2922,
+      "ctr": 4.346,
+      "avg_position": 18.79
+    },
+    {
+      "ym": "2025-06",
+      "clicks": 130,
+      "impressions": 3044,
+      "ctr": 4.271,
+      "avg_position": 25.36
+    },
+    {
+      "ym": "2025-07",
+      "clicks": 131,
+      "impressions": 2285,
+      "ctr": 5.733,
+      "avg_position": 21.64
+    },
+    {
+      "ym": "2025-08",
+      "clicks": 167,
+      "impressions": 3153,
+      "ctr": 5.297,
+      "avg_position": 19.79
+    },
+    {
+      "ym": "2025-09",
+      "clicks": 204,
+      "impressions": 5781,
+      "ctr": 3.529,
+      "avg_position": 13.45
+    },
+    {
+      "ym": "2025-10",
+      "clicks": 538,
+      "impressions": 12497,
+      "ctr": 4.305,
+      "avg_position": 7.57
+    },
+    {
+      "ym": "2025-11",
+      "clicks": 1085,
+      "impressions": 26893,
+      "ctr": 4.035,
+      "avg_position": 6.24
+    },
+    {
+      "ym": "2025-12",
+      "clicks": 899,
+      "impressions": 35731,
+      "ctr": 2.516,
+      "avg_position": 9.17
+    },
+    {
+      "ym": "2026-01",
+      "clicks": 639,
+      "impressions": 32334,
+      "ctr": 1.976,
+      "avg_position": 10.33
+    },
+    {
+      "ym": "2026-02",
+      "clicks": 581,
+      "impressions": 27901,
+      "ctr": 2.082,
+      "avg_position": 7.83
+    },
+    {
+      "ym": "2026-03",
+      "clicks": 533,
+      "impressions": 27945,
+      "ctr": 1.907,
+      "avg_position": 8.16
+    },
+    {
+      "ym": "2026-04",
+      "clicks": 1033,
+      "impressions": 47335,
+      "ctr": 2.182,
+      "avg_position": 6.75
+    },
+    {
+      "ym": "2026-05",
+      "clicks": 1002,
+      "impressions": 42998,
+      "ctr": 2.33,
+      "avg_position": 8.16
+    },
+    {
+      "ym": "2026-06",
+      "clicks": 979,
+      "impressions": 44797,
+      "ctr": 2.185,
+      "avg_position": 8.99
+    },
+    {
+      "ym": "2026-07",
+      "clicks": 751,
+      "impressions": 42740,
+      "ctr": 1.757,
+      "avg_position": 8.48
+    }
+  ],
+  "folders": [
+    {
+      "folder": "/memunculkan-keranjang-reels/",
+      "clicks_c90": 699.0,
+      "impressions_c90": 18057.0,
+      "clicks_p90": 1044.0,
+      "impressions_p90": 26710.0,
+      "ctr_c90": 3.87,
+      "ctr_p90": 3.91,
+      "clicks_delta": -345,
+      "clicks_growth_pct": -33.04597701149425
+    },
+    {
+      "folder": "/",
+      "clicks_c90": 486.0,
+      "impressions_c90": 6955.0,
+      "clicks_p90": 281.0,
+      "impressions_p90": 5469.0,
+      "ctr_c90": 6.99,
+      "ctr_p90": 5.14,
+      "clicks_delta": 205,
+      "clicks_growth_pct": 72.95373665480427
+    },
+    {
+      "folder": "/urutan-pabrik-skincare-terbaik-indonesia/",
+      "clicks_c90": 140.0,
+      "impressions_c90": 11863.0,
+      "clicks_p90": 67.0,
+      "impressions_p90": 8993.0,
+      "ctr_c90": 1.18,
+      "ctr_p90": 0.75,
+      "clicks_delta": 73,
+      "clicks_growth_pct": 108.955223880597
+    },
+    {
+      "folder": "/cara-meracik-handbody-pemutih-alami/",
+      "clicks_c90": 106.0,
+      "impressions_c90": 21602.0,
+      "clicks_p90": 11.0,
+      "impressions_p90": 1197.0,
+      "ctr_c90": 0.49,
+      "ctr_p90": 0.92,
+      "clicks_delta": 95,
+      "clicks_growth_pct": 863.6363636363636
+    },
+    {
+      "folder": "/cara-membuat-hb-dosting-sendiri/",
+      "clicks_c90": 82.0,
+      "impressions_c90": 3950.0,
+      "clicks_p90": 18.0,
+      "impressions_p90": 694.0,
+      "ctr_c90": 2.08,
+      "ctr_p90": 2.59,
+      "clicks_delta": 64,
+      "clicks_growth_pct": 355.55555555555554
+    },
+    {
+      "folder": "/produk/",
+      "clicks_c90": 75.0,
+      "impressions_c90": 3532.0,
+      "clicks_p90": 0.0,
+      "impressions_p90": 0.0,
+      "ctr_c90": 2.12,
+      "ctr_p90": NaN,
+      "clicks_delta": 75,
+      "clicks_growth_pct": NaN
+    },
+    {
+      "folder": "/pabrik-maklon-kosmetik-surabaya-terlengkap/",
+      "clicks_c90": 64.0,
+      "impressions_c90": 3078.0,
+      "clicks_p90": 25.0,
+      "impressions_p90": 1678.0,
+      "ctr_c90": 2.08,
+      "ctr_p90": 1.49,
+      "clicks_delta": 39,
+      "clicks_growth_pct": 156.0
+    },
+    {
+      "folder": "/industri-kosmetik-indonesia-terus-tumbuh/",
+      "clicks_c90": 56.0,
+      "impressions_c90": 1653.0,
+      "clicks_p90": 94.0,
+      "impressions_p90": 2320.0,
+      "ctr_c90": 3.39,
+      "ctr_p90": 4.05,
+      "clicks_delta": -38,
+      "clicks_growth_pct": -40.42553191489362
+    },
+    {
+      "folder": "/jasa-maklon-parfum-bali-terbaik-terlengkap/",
+      "clicks_c90": 48.0,
+      "impressions_c90": 1633.0,
+      "clicks_p90": 34.0,
+      "impressions_p90": 1776.0,
+      "ctr_c90": 2.94,
+      "ctr_p90": 1.91,
+      "clicks_delta": 14,
+      "clicks_growth_pct": 41.176470588235304
+    },
+    {
+      "folder": "/contact-us/",
+      "clicks_c90": 44.0,
+      "impressions_c90": 2553.0,
+      "clicks_p90": 29.0,
+      "impressions_p90": 1957.0,
+      "ctr_c90": 1.72,
+      "ctr_p90": 1.48,
+      "clicks_delta": 15,
+      "clicks_growth_pct": 51.72413793103448
+    },
+    {
+      "folder": "/pabrik-parfum-surabaya/",
+      "clicks_c90": 37.0,
+      "impressions_c90": 1391.0,
+      "clicks_p90": 45.0,
+      "impressions_p90": 1811.0,
+      "ctr_c90": 2.66,
+      "ctr_p90": 2.48,
+      "clicks_delta": -8,
+      "clicks_growth_pct": -17.777777777777782
+    },
+    {
+      "folder": "/pabrik-parfum-jakarta/",
+      "clicks_c90": 37.0,
+      "impressions_c90": 1337.0,
+      "clicks_p90": 8.0,
+      "impressions_p90": 543.0,
+      "ctr_c90": 2.77,
+      "ctr_p90": 1.47,
+      "clicks_delta": 29,
+      "clicks_growth_pct": 362.5
+    },
+    {
+      "folder": "/jasa-maklon-parfum-moq-rendah/",
+      "clicks_c90": 36.0,
+      "impressions_c90": 915.0,
+      "clicks_p90": 20.0,
+      "impressions_p90": 589.0,
+      "ctr_c90": 3.93,
+      "ctr_p90": 3.4,
+      "clicks_delta": 16,
+      "clicks_growth_pct": 80.0
+    },
+    {
+      "folder": "/jenis-alkohol-dalam-parfum/",
+      "clicks_c90": 32.0,
+      "impressions_c90": 5060.0,
+      "clicks_p90": 20.0,
+      "impressions_p90": 4294.0,
+      "ctr_c90": 0.63,
+      "ctr_p90": 0.47,
+      "clicks_delta": 12,
+      "clicks_growth_pct": 60.00000000000001
+    },
+    {
+      "folder": "/tren-cleanical-beauty-produk-skincare-paling-dicari-tahun-2026/",
+      "clicks_c90": 29.0,
+      "impressions_c90": 1196.0,
+      "clicks_p90": 0.0,
+      "impressions_p90": 0.0,
+      "ctr_c90": 2.42,
+      "ctr_p90": NaN,
+      "clicks_delta": 29,
+      "clicks_growth_pct": NaN
+    },
+    {
+      "folder": "/career/",
+      "clicks_c90": 25.0,
+      "impressions_c90": 432.0,
+      "clicks_p90": 12.0,
+      "impressions_p90": 189.0,
+      "ctr_c90": 5.79,
+      "ctr_p90": 6.35,
+      "clicks_delta": 13,
+      "clicks_growth_pct": 108.33333333333334
+    },
+    {
+      "folder": "/pkrt/",
+      "clicks_c90": 24.0,
+      "impressions_c90": 258.0,
+      "clicks_p90": 39.0,
+      "impressions_p90": 350.0,
+      "ctr_c90": 9.3,
+      "ctr_p90": 11.14,
+      "clicks_delta": -15,
+      "clicks_growth_pct": -38.46153846153846
+    },
+    {
+      "folder": "/panduan-maklon-deodorant-bpom/",
+      "clicks_c90": 23.0,
+      "impressions_c90": 718.0,
+      "clicks_p90": 2.0,
+      "impressions_p90": 79.0,
+      "ctr_c90": 3.2,
+      "ctr_p90": 2.53,
+      "clicks_delta": 21,
+      "clicks_growth_pct": 1050.0
+    },
+    {
+      "folder": "/cara-hitunghpp-produk-kosmeti/",
+      "clicks_c90": 20.0,
+      "impressions_c90": 1506.0,
+      "clicks_p90": 6.0,
+      "impressions_p90": 165.0,
+      "ctr_c90": 1.33,
+      "ctr_p90": 3.64,
+      "clicks_delta": 14,
+      "clicks_growth_pct": 233.33333333333334
+    },
+    {
+      "folder": "/category/",
+      "clicks_c90": 19.0,
+      "impressions_c90": 1592.0,
+      "clicks_p90": 9.0,
+      "impressions_p90": 1720.0,
+      "ctr_c90": 1.19,
+      "ctr_p90": 0.52,
+      "clicks_delta": 10,
+      "clicks_growth_pct": 111.11111111111111
+    }
+  ],
+  "cannibalization_count": 786
+}

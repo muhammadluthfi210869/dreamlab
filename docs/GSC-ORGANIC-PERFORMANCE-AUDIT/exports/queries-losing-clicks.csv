@@ -1,0 +1,85 @@
+﻿query,clicks_c90,clicks_p90,clicks_delta,clicks_pct_change,impressions_c90,impressions_p90,impressions_delta,ctr_c90_pct,ctr_p90_pct,ctr_delta_pp,position_c90,position_p90,position_delta,c30_clicks,p30_clicks,clicks_16m,impressions_16m,trend,business_intent,brand
+alat pengencang wajah terbaik,2,9,-7,-77.8,145,219,-74,1.38,4.11,-2.73,5.7,1.6,4.1,0,1,16,518,declining,other,False
+alkohol parfum yang bagus,0,1,-1,-100.0,22,49,-27,1.39,2.04,-0.65,10.3,7.1,3.2,0,0,1,72,stable,other,False
+alkohol yang digunakan untuk parfum,0,1,-1,-100.0,31,21,10,1.72,4.76,-3.04,8.8,4.5,4.2,0,0,1,58,stable,other,False
+alkohol yang dipakai untuk parfum,0,1,-1,-100.0,5,35,-30,2.27,2.86,-0.58,10.0,7.2,2.8,0,0,1,44,stable,other,False
+biaya maklon parfum,0,1,-1,-100.0,9,39,-30,1.92,2.56,-0.64,16.3,11.0,5.4,0,0,1,52,stable,pricing,False
+cara aktifkan keranjang di ig,0,1,-1,-100.0,17,8,9,4.0,12.5,-8.5,5.1,3.8,1.4,0,0,1,25,stable,informational,False
+cara aktifkan keranjang di instagram,4,11,-7,-63.6,91,159,-68,4.4,6.92,-2.52,2.9,2.6,0.3,0,1,18,348,declining,informational,False
+cara keranjang di instagram,1,2,-1,-50.0,52,53,-1,1.92,3.77,-1.85,3.6,2.2,1.4,0,1,7,142,declining,informational,False
+cara masukan keranjang di instagram,3,4,-1,-25.0,36,68,-32,8.33,5.88,2.45,3.0,1.7,1.3,0,1,7,104,declining,informational,False
+cara memasukan keranjang di instagram,3,4,-1,-25.0,33,52,-19,9.09,7.69,1.4,2.7,1.4,1.3,0,1,7,86,declining,informational,False
+cara memunculkan keranjang di ig,0,1,-1,-100.0,0,5,-5,0.0,20.0,,,1.0,,0,0,3,51,stable,informational,False
+cara memunculkan keranjang di instagram,7,18,-11,-61.1,202,365,-163,3.47,4.93,-1.47,2.2,1.4,0.8,0,3,80,1024,declining,informational,False
+cara memunculkan tautan produk di instagram,5,17,-12,-70.6,105,183,-78,4.76,9.29,-4.53,4.3,2.3,2.0,0,1,25,349,declining,informational,False
+cara menambah keranjang di ig,0,1,-1,-100.0,0,9,-9,0.0,11.11,,,1.0,,0,0,1,19,stable,informational,False
+cara menambah keranjang di instagram,5,7,-2,-28.6,86,102,-16,5.81,6.86,-1.05,2.3,1.8,0.5,0,2,21,298,declining,informational,False
+cara menambah keranjang kuning di instagram,3,5,-2,-40.0,38,49,-11,7.89,10.2,-2.31,2.9,1.6,1.4,0,1,9,101,declining,informational,False
+cara menambahkan keranjang di instagram,25,27,-2,-7.4,416,619,-203,6.01,4.36,1.65,2.5,1.6,0.9,0,8,92,1666,declining,informational,False
+cara menambahkan keranjang putih di instagram,1,2,-1,-50.0,37,53,-16,2.7,3.77,-1.07,2.4,1.6,0.7,0,0,3,90,stable,informational,False
+cara menambahkan keranjang shopee di instagram,2,3,-1,-33.3,54,42,12,3.7,7.14,-3.44,2.7,1.7,1.0,0,0,6,108,stable,informational,False
+cara menampilkan keranjang di instagram,3,7,-4,-57.1,53,88,-35,5.66,7.95,-2.29,2.4,1.5,0.8,0,2,18,245,declining,informational,False
+cara menautkan keranjang di instagram,12,14,-2,-14.3,208,313,-105,5.77,4.47,1.3,2.4,1.5,0.9,0,6,39,795,declining,informational,False
+cara menautkan keranjang shopee di instagram,2,5,-3,-60.0,57,62,-5,3.51,8.06,-4.56,3.1,2.0,1.1,0,0,10,134,stable,informational,False
+cara menautkan link shopee di reels instagram,0,1,-1,-100.0,0,25,-25,0.0,4.0,,,1.0,,0,0,1,25,stable,informational,False
+cara menautkan produk di instagram,2,5,-3,-60.0,111,184,-73,1.8,2.72,-0.92,5.7,2.4,3.3,0,1,8,411,declining,informational,False
+cara menautkan produk di reels instagram,0,2,-2,-100.0,10,42,-32,6.67,4.76,1.9,4.4,2.0,2.4,0,0,5,75,stable,informational,False
+cara mengaktifkan keranjang di instagram,4,6,-2,-33.3,27,120,-93,14.81,5.0,9.81,2.4,1.6,0.8,0,1,15,217,declining,informational,False
+cara nya gimana ?,0,1,-1,-100.0,0,1,-1,0.0,100.0,,,1.0,,0,0,1,1,stable,informational,False
+cara tautkan keranjang di instagram,2,4,-2,-50.0,65,78,-13,3.08,5.13,-2.05,2.1,1.7,0.4,0,0,7,193,stable,informational,False
+cara tautkan produk di instagram,0,1,-1,-100.0,6,50,-44,1.0,2.0,-1.0,7.2,2.8,4.4,0,0,1,100,stable,informational,False
+contoh iklan skincare yang menarik,0,2,-2,-100.0,14,73,-59,1.35,2.74,-1.39,9.6,2.9,6.7,0,0,2,148,stable,other,False
+daftar perusahaan maklon kosmetik,0,2,-2,-100.0,38,32,6,2.78,6.25,-3.47,11.0,7.8,3.2,0,0,2,72,stable,commercial,False
+data pengguna skincare di indonesia 2025,0,1,-1,-100.0,1,16,-15,6.0,6.25,-0.25,42.0,3.4,38.6,0,0,3,50,stable,local,False
+data penjualan skincare di indonesia 2025,1,2,-1,-50.0,7,30,-23,14.29,6.67,7.62,17.1,5.7,11.5,0,1,9,273,declining,local,False
+data pertumbuhan industri kosmetik di indonesia,0,2,-2,-100.0,4,30,-26,6.38,6.67,-0.28,8.0,2.0,6.0,0,0,9,141,stable,local,False
+data pertumbuhan industri kosmetik di indonesia 2025,5,21,-16,-76.2,86,198,-112,5.81,10.61,-4.79,5.8,3.1,2.7,0,2,51,483,declining,local,False
+dramlab,0,1,-1,-100.0,5,5,0,16.67,20.0,-3.33,1.8,1.2,0.6,0,0,2,12,stable,other,False
+dreamlab kosmetik surabaya,0,1,-1,-100.0,0,5,-5,0.0,20.0,,,1.0,,0,0,2,24,stable,brand,True
+grafik pertumbuhan industri kosmetik di indonesia,0,1,-1,-100.0,10,9,1,6.45,11.11,-4.66,9.3,7.1,2.2,0,0,2,31,stable,local,False
+hair tonic ginseng,0,1,-1,-100.0,19,6,13,4.0,16.67,-12.67,24.5,25.8,-1.4,0,0,1,25,stable,other,False
+iklan kecantikan,0,1,-1,-100.0,61,47,14,0.46,2.13,-1.67,11.6,18.8,-7.2,0,0,1,217,stable,other,False
+jasa maklon parfum,0,1,-1,-100.0,127,122,5,0.56,0.82,-0.25,34.8,13.3,21.4,0,0,2,354,stable,commercial,False
+kata-kata promosi produk kecantikan,0,2,-2,-100.0,67,273,-206,0.78,0.73,0.05,10.1,2.9,7.2,0,0,4,512,stable,other,False
+kata-kata promosi skincare,0,1,-1,-100.0,0,16,-16,0.0,6.25,,,4.8,,0,0,1,25,stable,other,False
+kata-kata promosi skincare yang menarik,0,2,-2,-100.0,60,409,-349,0.5,0.49,0.01,9.1,2.0,7.1,0,0,4,795,stable,other,False
+keranjang di instagram,3,4,-1,-25.0,55,87,-32,5.45,4.6,0.86,3.9,1.8,2.0,0,2,18,270,declining,other,False
+keranjang di instagram tidak muncul,10,13,-3,-23.1,139,286,-147,7.19,4.55,2.65,3.1,1.7,1.4,0,0,30,588,stable,other,False
+keranjang kuning di instagram,2,3,-1,-33.3,33,66,-33,6.06,4.55,1.52,5.2,3.5,1.8,0,1,5,133,declining,other,False
+keranjang kuning instagram,2,5,-3,-60.0,88,182,-94,2.27,2.75,-0.47,5.4,4.0,1.5,0,1,9,360,declining,other,False
+maklon body mist,0,1,-1,-100.0,62,122,-60,0.22,0.82,-0.6,20.7,16.3,4.4,0,0,1,464,stable,commercial,False
+maklon hair care,0,1,-1,-100.0,84,257,-173,0.16,0.39,-0.23,23.3,20.4,2.8,0,0,1,631,stable,commercial,False
+maklon jakarta,0,1,-1,-100.0,2,7,-5,14.29,14.29,0.0,13.5,12.7,0.8,0,0,2,14,stable,commercial,False
+maklon kosmetik indonesia,0,1,-1,-100.0,25,22,3,2.04,4.55,-2.5,30.1,31.4,-1.4,0,0,1,49,stable,commercial,False
+maklon moq rendah,0,1,-1,-100.0,34,40,-6,0.61,2.5,-1.89,29.2,45.1,-15.9,0,0,1,165,stable,pricing,False
+maklon parfum,1,7,-6,-85.7,372,294,78,0.27,2.38,-2.11,34.1,33.9,0.2,1,0,12,980,growing,commercial,False
+maklon parfum jakarta,4,9,-5,-55.6,161,125,36,2.48,7.2,-4.72,8.4,11.8,-3.4,1,1,16,364,stable,commercial,False
+maklon parfum moq rendah,6,10,-4,-40.0,139,155,-16,4.32,6.45,-2.14,8.2,7.1,1.1,3,1,16,296,growing,pricing,False
+maklon parfum tangerang,0,2,-2,-100.0,23,95,-72,1.6,2.11,-0.51,9.4,8.4,1.0,0,0,2,125,stable,commercial,False
+maklon pkrt,14,23,-9,-39.1,132,210,-78,10.61,10.95,-0.35,8.0,6.5,1.5,5,5,53,512,stable,commercial,False
+maklon sabun mandi,0,1,-1,-100.0,0,27,-27,0.0,3.7,,,18.4,,0,0,1,27,stable,commercial,False
+maklon skincare bandung,1,2,-1,-50.0,208,262,-54,0.48,0.76,-0.28,13.5,11.3,2.2,0,1,3,495,declining,commercial,False
+maklon skincare sidoarjo,0,1,-1,-100.0,108,54,54,0.56,1.85,-1.29,34.7,14.1,20.6,0,0,1,177,stable,commercial,False
+maklon skincare tangerang,1,2,-1,-50.0,36,32,4,2.78,6.25,-3.47,5.8,7.4,-1.6,1,0,3,68,growing,commercial,False
+maklon tangerang,0,1,-1,-100.0,17,27,-10,2.27,3.7,-1.43,20.0,16.0,4.0,0,0,1,44,stable,commercial,False
+masukkan keranjang,0,1,-1,-100.0,16,26,-10,2.38,3.85,-1.47,7.8,9.0,-1.2,0,0,1,42,stable,other,False
+mau,0,1,-1,-100.0,6,5,1,8.33,20.0,-11.67,2.5,2.6,-0.1,0,0,1,12,stable,other,False
+menambahkan keranjang di instagram,4,13,-9,-69.2,55,60,-5,7.27,21.67,-14.39,1.9,1.2,0.7,0,2,21,141,declining,other,False
+pabrik kosmetik sidoarjo,1,3,-2,-66.7,36,155,-119,2.78,1.94,0.84,10.1,9.3,0.8,0,1,4,200,declining,commercial,False
+pabrik maklon kosmetik surabaya,0,1,-1,-100.0,111,111,0,0.75,0.9,-0.15,11.2,11.8,-0.7,0,0,2,267,stable,commercial,False
+pabrik parfum,4,7,-3,-42.9,369,266,103,1.08,2.63,-1.55,12.6,8.7,3.9,0,1,13,748,declining,commercial,False
+pabrik parfum di indonesia,0,1,-1,-100.0,42,43,-1,1.05,2.33,-1.27,13.2,14.7,-1.5,0,0,1,95,stable,commercial,False
+pabrik parfum surabaya pt maklon kosmetik indonesia,0,1,-1,-100.0,71,89,-18,0.51,1.12,-0.62,8.2,7.9,0.3,0,0,1,197,stable,commercial,False
+pabrik parfum terdekat,0,1,-1,-100.0,31,25,6,2.47,4.0,-1.53,8.8,10.1,-1.3,0,0,2,81,stable,commercial,False
+pabrik skincare,1,2,-1,-50.0,488,428,60,0.2,0.47,-0.26,14.9,10.6,4.3,0,0,3,918,stable,commercial,False
+pertumbuhan industri kosmetik di indonesia,0,1,-1,-100.0,3,25,-22,1.82,4.0,-2.18,9.3,3.9,5.4,0,0,1,55,stable,local,False
+perusahaan kosmetik terbesar di indonesia,0,1,-1,-100.0,72,80,-8,0.65,1.25,-0.6,13.4,10.8,2.6,0,0,1,153,stable,local,False
+perusahaan maklon kosmetik terbesar di indonesia,0,1,-1,-100.0,0,1,-1,0.0,100.0,,,10.0,,0,0,1,4,stable,commercial,False
+perusahaan skincare terbesar di indonesia,1,2,-1,-50.0,81,191,-110,1.23,1.05,0.19,7.8,7.8,0.0,0,0,3,288,stable,local,False
+syarat keranjang di instagram,6,17,-11,-64.7,107,141,-34,5.61,12.06,-6.45,2.3,1.4,0.9,0,1,34,362,declining,informational,False
+syarat keranjang putih instagram,1,3,-2,-66.7,46,65,-19,2.17,4.62,-2.44,3.5,2.0,1.6,0,0,4,111,stable,informational,False
+tautan produk di instagram tidak muncul,0,1,-1,-100.0,0,21,-21,0.0,4.76,,,1.4,,0,0,1,21,stable,other,False
+tautkan produk di instagram tidak muncul,1,2,-1,-50.0,18,21,-3,5.56,9.52,-3.97,6.4,3.9,2.5,0,0,3,39,stable,other,False
+waterless skincare,0,1,-1,-100.0,1,3,-2,25.0,33.33,-8.33,10.0,7.0,3.0,0,0,1,4,stable,other,False
+white label kosmetik,0,1,-1,-100.0,4,1,3,20.0,100.0,-80.0,10.8,10.0,0.8,0,0,1,5,stable,other,False
+ya,0,1,-1,-100.0,17,15,2,3.12,6.67,-3.54,4.8,2.9,1.9,0,0,1,32,stable,other,False

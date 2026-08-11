@@ -1,0 +1,133 @@
+{
+  "captured_at": "2026-06-11T06:49:57.241Z",
+  "target": "dreamlab.id (WordPress - current live)",
+  "new_site": "Next.js 16 - Netlify (to be deployed)",
+  "layer_1_crawl": {
+    "total_urls_in_sitemap": 226,
+    "indexed_200": 209,
+    "redirects_301": 16,
+    "errors": 1,
+    "avg_response_time_ms": 129,
+    "slowest_pages": [
+      {
+        "slug": "/hair-treatment-ampoule-maklon-haircare-dreamlab",
+        "ms": 1899
+      },
+      {
+        "slug": "/my-account",
+        "ms": 1799
+      },
+      {
+        "slug": "/bahan-aktif-skincare-paling-dicari",
+        "ms": 1767
+      },
+      {
+        "slug": "/set-skincare-bpom",
+        "ms": 1713
+      },
+      {
+        "slug": "/hero-ingredients-2025",
+        "ms": 1660
+      }
+    ]
+  },
+  "layer_2_seo_health": {
+    "missing_title": [],
+    "missing_meta_description": [
+      "/maklon-bodymist",
+      "/biaya-maklon-parfum-moq-kecil",
+      "/privacy-policy",
+      "/contact-form-dreamlab",
+      "/shop",
+      "/cart",
+      "/my-account",
+      "/thankyou-page",
+      "/category/bisnis-men-grooming",
+      "/category/bisnis-skincare",
+      "/category/dreampreneur-beauty-academy",
+      "/category/maklon-baby-care",
+      "/category/maklon-personal-care",
+      "/cms_block_cat/flying-button",
+      "/cms_block_cat/footer-column",
+      "/cms_block_cat/pop-up-form"
+    ],
+    "missing_h1": [
+      "/",
+      "/contact-form-dreamlab",
+      "/body-care",
+      "/pkrt",
+      "/decorative",
+      "/skincare-face-care",
+      "/maklon-skinacre-lptiktok",
+      "/maklon-kosmetik-terbaik-bahasa",
+      "/dreampreneur-beauty-academy-surabaya-2026",
+      "/about-us/alur-maklon",
+      "/parfum",
+      "/hair-care",
+      "/maklon-bodycare-ads",
+      "/maklon-parfum",
+      "/baby-care",
+      "/thankyoupage-tiktokads",
+      "/maklon-haircare",
+      "/thankyoupage-google",
+      "/thankyou-page",
+      "/category/bisnis-kosmetik",
+      "/category/bisnis-men-grooming",
+      "/category/bisnis-skincare",
+      "/category/dreamlabpedia",
+      "/category/dreampreneur-beauty-academy",
+      "/category/maklon-baby-care",
+      "/category/maklon-bodycare",
+      "/category/maklon-footcare",
+      "/category/maklon-haircare",
+      "/category/maklon-parfum",
+      "/category/maklon-personal-care",
+      "/category/maklon-skincare",
+      "/category/personal-care",
+      "/category/tips-trick",
+      "/cms_block_cat/flying-button",
+      "/cms_block_cat/footer-column",
+      "/cms_block_cat/pop-up-form",
+      "/author/admin"
+    ],
+    "all_canonical_present": true,
+    "all_schema_present": true
+  },
+  "layer_3_new_site_readiness": {
+    "seo_mapping_entries": 193,
+    "redirects_mapped_in_next_config": 5,
+    "article_count": 186,
+    "sitemap_dynamic": true,
+    "robots_txt": true,
+    "schema_org": [
+      "Organization",
+      "WebSite",
+      "WebPage",
+      "Article",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "Service",
+      "LocalBusiness"
+    ],
+    "isr_revalidation": "3600 seconds (1 hour)",
+    "trailing_slash": true
+  },
+  "layer_4_action_items": {
+    "critical": [
+      "Bersihkan konten artikel dari bloat WordPress (elementor, ez-toc classes)",
+      "Fix PSI API key restriction untuk monitoring CWV",
+      "Setup staging domain untuk pre-deploy validation"
+    ],
+    "high": [
+      "Bandingkan metadata (title, desc, H1) antara WordPress vs Next.js untuk 10 artikel dengan traffic tertinggi",
+      "Verifikasi 301 redirect: semua 16 old WordPress URL mengarah ke halaman baru yang benar",
+      "Test sitemap.xml baru vs sitemap lama — pastikan coverage sama atau lebih"
+    ],
+    "medium": [
+      "GSC manual export untuk data traffic landing pages",
+      "Core Web Vitals: Next.js harus improve LPC mobile dari baseline >3s ke <2.5s",
+      "Schema.org Article untuk semua blog post (current: hanya WebPage generic)"
+    ]
+  }
+}

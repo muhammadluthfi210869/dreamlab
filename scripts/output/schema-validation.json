@@ -1,0 +1,1691 @@
+{
+  "timestamp": "2026-06-29T12:56:27.115Z",
+  "results": [
+    {
+      "url": "https://dreamlab.id/produk/parfum/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/eau-de-parfum/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/eau-de-toilette/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/eau-de-cologne/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/extrait-de-parfum/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/body-mist/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/parfum/minyak-atsiri/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/acne-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/moisturizing-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/brightening-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/eye-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-serum/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-toner/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-wash/",
+      "status": 200,
+      "schemas": 1,
+      "types": [
+        "Organization"
+      ],
+      "issues": [
+        "No Product schema found"
+      ],
+      "warnings": [
+        "No BreadcrumbList schema (recommended)"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/micellar-cleansing-gel/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-sunscreen/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/skincare/facial-moisturizer/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-lotion/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-wash/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-butter/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-scrub/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/massage-oil/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-oil/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/anti-bacterial-soap/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/shower-gel/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/bath-salt/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/organic-soap/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/body-serum/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/transparent-soap/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/underarm-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/whitening-soap/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/bar-soap/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/massage-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/soothing-gel/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/bodycare/neck-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/shampoo/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-mask/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-serum/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-tonic/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-gel/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/scalp-care/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/beard-serum/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/pomade/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-conditioner/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/haircare/hair-mist/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-2in1-wash/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-shampoo/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-lotion/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-powder/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-cologne/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/babycare/baby-oil/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/liquid-highlighter/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/mascara/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/cream-blush/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lip-matte/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/lip-gloss/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/liquid-foundation/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/cushion-foundation/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/decorative/loose-powder/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-cream/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-scrub/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-mask/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-spray/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-soak/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-serum/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/footcare/foot-anti-bacterial/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/hand-sanitizer/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/hand-wash/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/disinfectant-spray/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/floor-cleaner/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/room-spray/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/bar-soap-pkrt/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    },
+    {
+      "url": "https://dreamlab.id/produk/pkrt/herbal-soap/",
+      "status": 200,
+      "schemas": 2,
+      "types": [
+        "Organization",
+        "Organization",
+        "WebSite",
+        "Service",
+        "Product",
+        "WebPage",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "issues": [
+        "offers: missing price",
+        "offers: missing priceCurrency"
+      ],
+      "warnings": [
+        "shippingDetails is inside offers ✓"
+      ]
+    }
+  ]
+}
