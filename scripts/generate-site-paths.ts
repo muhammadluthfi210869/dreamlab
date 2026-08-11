@@ -29,7 +29,7 @@ const staticRoutes = [
   '/panduan/cara-menentukan-moq-produk-kosmetik',
   '/panduan/komponen-biaya-maklon-skincare',
   '/category/maklon-kosmetik', '/category/panduan-bisnis-kosmetik',
-  '/category/dreampreneur-beauty-academy', '/category/dreamlabpedia',
+  '/category/dreampreneur-beauty-academy',
   '/produk',
   '/en', '/en/produk', '/en/about-us', '/en/services', '/en/our-client', '/en/contact-us',
 ];
@@ -38,9 +38,13 @@ staticRoutes.forEach(add);
 // 2. Artikel
 articles.forEach(a => { if (a.slug) add(a.slug); });
 
-// 3. Maklon pages — FASE 2: /maklon-* product page redirect ke /produk/*, JANGAN masuk.
-//    Hanya maklon pages yang BUKAN product page (path tidak mulai 'maklon-') yang masuk.
-maklonPages.forEach(p => { if (!p.path.replace(/^\/+/, '').startsWith('maklon-')) add(p.path); });
+// 3. Maklon pages — SEMUA path maklonPages disertakan.
+//    Beberapa maklon page memang redirect (skincare/parfum/baby-care via
+//    LEGACY_SLUG_REDIRECTS di proxy), tapi yang lain (body-care, hair-care,
+//    foot-care, decorative) SERVE KONTEN 200 via catch-all. Middleware menangani
+//    redirect TERLEBIH DAHULU, lalu SITE_PATHS hanya mengecek path yang tersisa.
+//    Jadi semua maklonPages wajib ada di SITE_PATHS agar yang serve tidak 404.
+maklonPages.forEach(p => add(p.path));
 
 // 4. seo-mapping destinations
 (seoMapping as Array<{ destination?: string }>).forEach(m => { if (m.destination) add(m.destination); });

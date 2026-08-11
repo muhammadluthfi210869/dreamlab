@@ -437,9 +437,21 @@ export default async function DynamicPage({ params }: PageProps) {
   );
 }
 
-// NOTE: Soft-404 (HTTP 200 + konten 404) ditangani di middleware (src/proxy.ts)
-// menggunakan daftar SITE_PATHS. Root catch-all Next.js merender notFound()
-// sebagai 200, jadi middleware mengembalikan 404 asli sebelum catch-all dipanggil.
-// generateStaticParams & revalidate tidak digunakan di sini agar catch-all
-// tetap dinamis dan tidak me-prerender path yang tidak dikenal.
+// Soft-404 (HTTP 200 + konten 404) ditangani di middleware (src/proxy.ts)
+// via SITE_PATHS — middleware mengembalikan 404 asli SEBELUM catch-all dipanggil.
+// Karena itu catch-all aman untuk menggunakan SSG/ISR (kecepatan artikel),
+// tanpa me-prerender halaman not-found sebagai 200 (path invalid sudah dicegat
+// middleware). generateStaticParams + revalidate dipakai agar artikel di-pre-
+// render statis saat build (loading cepat, bukan SSR 18 detik).
+export async function generateStaticParams() {
+  const articlesList = await getArticles();
+  return articlesList
+    .filter(a => a.slug && a.content && a.content.trim().length > 200)
+    .map(a => ({
+      slug: a.slug.replace(/^\/+/, '').replace(/\/+$/, '').split('/').filter(Boolean),
+    }));
+}
+
+// ISR: regenerasi tiap 1 jam agar konten fresh tanpa full rebuild
+export const revalidate = 3600;
 

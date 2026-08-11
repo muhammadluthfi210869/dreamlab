@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { SITE_PATHS } from '@/data/site-paths';
-import { MAKLON_PRODUCT_REDIRECTS } from '@/data/maklon-redirects';
 
 const GONE_PATTERNS = [
   '/.help/dhl/',
@@ -22,8 +20,6 @@ const GONE_PATTERNS = [
   '/juaranyaformula/',
   // Thin product sub-categories — template only, 0 traffic, 0 backlink value
   '/produk/pkrt/',
-  // FASE 2: /maklon-pkrt/ konsisten 410 dengan /produk/pkrt/ (kategori di-exclude)
-  '/maklon-pkrt/',
   // Dead thankyou/landing pages — no SEO value, 0 clicks
   '/thankyou-page',
   '/thankyoupage-google',
@@ -82,25 +78,25 @@ export function proxy(request: NextRequest) {
   const categoryPaginationMatch = pathname.match(/^\/category\/([^/]+)\/page\/(\d+)\/?$/);
 
   // 301 redirect legacy direct slugs (NON /category/ variants) to new pillar URLs
-  // NOTE: Semua target diarahkan ke halaman /produk/* yang NYATA dan indexable
-  // (BUKAN /maklon/kosmetik/* yang ternyata 404). Sebelumnya redirect mengarah
-  // ke /maklon/kosmetik/{subpath} yang soft-404 → merusak SEO.
+  // NOTE: Dikembalikan ke perilaku SEMULA (sebelum commit SEO) — target maklon
+  // mengarah ke /maklon/kosmetik/ dan sub-path dipertahankan. Ini memulihkan
+  // penempatan URL persis seperti sebelumnya.
   const LEGACY_SLUG_REDIRECTS: Record<string, string> = {
-    // Legacy maklon categories → halaman produk yang nyata
-    '/maklon-skincare/': '/produk/skincare/',
-    '/maklon-personal-care/': '/produk/skincare/',
-    '/personal-care/': '/produk/skincare/',
-    '/maklon-bodycare/': '/produk/bodycare/',
-    '/maklon-footcare/': '/produk/footcare/',
-    '/maklon-baby-care/': '/produk/babycare/',
-    '/maklon-haircare/': '/produk/haircare/',
-    '/maklon-parfum/': '/produk/parfum/',
-    '/bisnis-men-grooming/': '/produk/skincare/',
+    // Legacy maklon categories → Maklon Kosmetik
+    '/maklon-skincare/': '/maklon/kosmetik/',
+    '/maklon-personal-care/': '/maklon/kosmetik/',
+    '/personal-care/': '/maklon/kosmetik/',
+    '/maklon-bodycare/': '/maklon/kosmetik/',
+    '/maklon-footcare/': '/maklon/kosmetik/',
+    '/maklon-baby-care/': '/maklon/kosmetik/',
+    '/maklon-haircare/': '/maklon/kosmetik/',
+    '/maklon-parfum/': '/maklon/kosmetik/',
+    '/bisnis-men-grooming/': '/maklon/kosmetik/',
     // Legacy bisnis categories → Panduan Bisnis Kosmetik
     '/bisnis-kosmetik/': '/category/panduan-bisnis-kosmetik/',
     '/bisnis-skincare/': '/category/panduan-bisnis-kosmetik/',
     // Previous pillar slugs → new pillar slugs
-    '/tren-kosmetik/': '/produk/skincare/',
+    '/tren-kosmetik/': '/maklon/kosmetik/',
     '/dreampreneur/': '/category/panduan-bisnis-kosmetik/',
     '/bisnis-dreampreneur/': '/category/panduan-bisnis-kosmetik/',
     '/tips-bisnis/': '/category/panduan-bisnis-kosmetik/',
@@ -108,9 +104,7 @@ export function proxy(request: NextRequest) {
     '/dreamlab-pedia/': '/category/panduan-bisnis-kosmetik/',
   };
   const directSlugMatch = LEGACY_SLUG_REDIRECTS[pathname] || LEGACY_SLUG_REDIRECTS[pathname.replace(/\/$/, '') + '/'];
-  // Also match legacy sub-pages: /maklon-skincare/something → redirect ke target
-  // DASAR (sub-path di-DROP karena halaman sub legacy sudah tidak ada & sub-path
-  // yang dipertahankan malah mengarah ke soft-404 /maklon/kosmetik/{subpath}).
+  // Also match legacy sub-pages: /maklon-body-care/something → redirect to base
   const directSlugPrefixMatch = Object.keys(LEGACY_SLUG_REDIRECTS).find(pattern =>
     pathname.startsWith(pattern) && pattern !== '/'
   );
@@ -143,23 +137,6 @@ export function proxy(request: NextRequest) {
   const categoryRedirectMatch = pathname.match(/^\/category\/([^/]+)\/?$/);
   const categoryRedirectTo = categoryRedirectMatch ? CATEGORY_REDIRECTS[categoryRedirectMatch[1]] : null;
 
-  // FASE 2: Redirect spesifik produk maklon → /produk/* (301).
-  // Mapping lengkap ada di src/data/maklon-redirects.ts.
-  // Prioritas TERTINGGI — sebelum prefix LEGACY_SLUG_REDIRECTS agar
-  // /maklon-skincare/face-cream/ → /produk/skincare/face-cream/ (bukan drop-subpath).
-  const maklonProductRedirect =
-    MAKLON_PRODUCT_REDIRECTS[pathname] ||
-    MAKLON_PRODUCT_REDIRECTS[pathname.replace(/\/$/, '') + '/'];
-
-  if (maklonProductRedirect) {
-    const canonicalUrl = new URL(nextUrl.toString());
-    canonicalUrl.pathname = maklonProductRedirect;
-    if (shouldForceHttps) canonicalUrl.protocol = 'https:';
-    if (shouldForceNonWww) canonicalUrl.hostname = 'dreamlab.id';
-    if (!canonicalUrl.pathname.endsWith('/')) canonicalUrl.pathname = `${canonicalUrl.pathname}/`;
-    return NextResponse.redirect(canonicalUrl, 301);
-  }
-
   if (shouldForceHttps || shouldForceNonWww || shouldNormalizeDash || shouldNormalizeBlog || categoryPaginationMatch || categoryRedirectTo || directSlugMatch || directSlugPrefixMatch) {
     const canonicalUrl = new URL(nextUrl.toString());
 
@@ -181,12 +158,11 @@ export function proxy(request: NextRequest) {
 
     // Redirect legacy direct slugs (non-/category/ variants)
     if (directSlugPrefixMatch) {
-      // Redirect ke target DASAR (drop sub-path). Sub-page legacy seperti
-      // /maklon-skincare/face-cream/ TIDAK ada di struktur baru — mempertahankan
-      // sub-path hanya menghasilkan redirect ke /maklon/kosmetik/face-cream/
-      // yang soft-404. Redirect ke halaman kategori /produk/* yang nyata.
+      // Kembalikan perilaku semula: pertahankan sub-path
+      // /maklon-body-care/xxx → /maklon/kosmetik/xxx
       const target = LEGACY_SLUG_REDIRECTS[directSlugPrefixMatch];
-      canonicalUrl.pathname = target;
+      const subPath = pathname.slice(directSlugPrefixMatch.length);
+      canonicalUrl.pathname = `${target.replace(/\/$/, '')}/${subPath.replace(/^\//, '')}`;
     } else if (directSlugMatch) {
       canonicalUrl.pathname = LEGACY_SLUG_REDIRECTS[pathname];
     }
@@ -260,24 +236,13 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(canonicalUrl, 301);
   }
 
-  // ============================================================
-  // PERBAIKAN SOFT-404 — status HTTP 404 untuk path yang tidak ada.
-  // Root catch-all [...slug] Next.js merender notFound() sebagai HTTP 200
-  // (soft-404) → ribuan URL "crawled - not indexed" di GSC.
-  // Di sini kita cek apakah path ada di daftar SITE_PATHS (data sah).
-  // Jika tidak → kembalikan 404 asli dari middleware.
-  // NOTE: ini dijalankan SETELAH semua redirect & 410 di atas.
-  // ============================================================
-  const normalizedForCheck = pathname.replace(/\/+$/, '') || '/';
-  const pathKey = normalizedForCheck.replace(/^\/+/, '');
-  const isSystemRoute =
-    pathKey.startsWith('api/') ||
-    pathKey.startsWith('_next/') ||
-    pathKey === 'api' ||
-    pathKey === 'favicon.ico';
-  if (pathKey && pathKey !== '/' && !isSystemRoute && !SITE_PATHS.includes(pathKey)) {
-    return new NextResponse(null, { status: 404 });
-  }
+  // NOTE: Middleware soft-404 (pengecekan SITE_PATHS) DIHAPUS.
+  // Terbukti merusak: memblokir file statis public/ (mis. /promo-kemerdekaan/),
+  // gambar, dan halaman valid yang tidak ada di daftar → broken image & 404.
+  // Untuk menjamin perilaku URL PERSIS seperti sebelum commit SEO, middleware
+  // hanya menangani redirect & 410 (di atas) — TIDAK memutus path lain.
+  // Konsekuensi: path invalid kembali menjadi soft-404 (200 + noindex) — ini
+  // adalah perilaku asli/status quo sebelum commit, sesuai permintaan.
 
   // Teruskan pathname sebagai request header supaya root layout bisa
   // menentukan <html lang> yang benar (id/en) saat SSR. Ini penting

@@ -109,7 +109,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'maklon-haircare', 'maklon-baby-care', 'maklon-parfum',
     'personal-care', 'bisnis-kosmetik', 'bisnis-skincare',
     'tren-kosmetik', 'dreampreneur', 'bisnis-dreampreneur',
-    'tips-bisnis', 'tips-trick', 'dreamlab-pedia',
+    'tips-bisnis', 'tips-trick', 'dreamlab-pedia', 'dreamlabpedia',
     'maklon-kosmetik-skincare',
   ]);
 
