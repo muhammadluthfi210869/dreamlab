@@ -32,6 +32,24 @@ function normalizePhone(phone: string): string {
   return cleaned;
 }
 
+/**
+ * Fail-fast client: batasi waktu tunggu fetch supaya saat DB/server lambat atau
+ * mati, fallback lokal aktif cepat (bukan menunggu timeout server 8 detik).
+ * Nilai disesuaikan sedikit di atas connectionTimeoutMillis server (3 detik)
+ * supaya respons 500 server sempat tiba sebelum client abort.
+ */
+const CLIENT_FETCH_TIMEOUT_MS = 4000;
+
+/** AbortSignal dengan timeout, kompatibel browser lama (fallback AbortController). */
+function timeoutSignal(ms: number): AbortSignal {
+  if (typeof AbortSignal !== "undefined" && typeof AbortSignal.timeout === "function") {
+    return AbortSignal.timeout(ms);
+  }
+  const ctrl = new AbortController();
+  setTimeout(() => ctrl.abort(), ms);
+  return ctrl.signal;
+}
+
 const FALLBACK_COUNTER_KEY = "dreamlab_wa_fallback_index";
 const CLIENT_VID_KEY = "dreamlab_vid_client";
 
@@ -97,16 +115,51 @@ function getClientVisitorId(): string {
   }
 }
 
+/**
+ * Fallback lokal saat server/DB tidak terjangkau:
+ * 1) kalau visitor sudah punya sticky (localStorage) & agent masih aktif → CS yang SAMA
+ * 2) kalau baru → rotasi counter lokal dari AGENTS config, simpan sebagai sticky
+ */
+function localFallbackAgent(vid: string): RoundRobinAgent {
+  const active = AGENTS.filter((a) => a.active);
+  if (active.length === 0) throw new Error("lead-capture: tidak ada agent aktif untuk fallback");
+
+  const sticky = readStickyAgent(vid);
+  if (sticky && active.some((a) => a.id === sticky.id)) {
+    return sticky;
+  }
+
+  let index = 0;
+  if (typeof window !== "undefined") {
+    index = parseInt(localStorage.getItem(FALLBACK_COUNTER_KEY) || "0", 10) || 0;
+  }
+  const agent = active[index % active.length];
+
+  if (typeof window !== "undefined") {
+    localStorage.setItem(FALLBACK_COUNTER_KEY, String((index + 1) % active.length));
+  }
+
+  const fallbackAgent: RoundRobinAgent = {
+    id: agent.id,
+    name: agent.name || agent.id,
+    phoneNumber: normalizePhone(agent.phone),
+    orderIndex: index % active.length,
+  };
+  saveStickyAgent(vid, fallbackAgent);
+  return fallbackAgent;
+}
+
 /** Ambil CS berikutnya. Prioritas: PostgreSQL (internal) → fallback sticky lokal → fallback AGENTS. */
 export async function getNextRoundRobinAgent(): Promise<RoundRobinAgent> {
   const vid = getClientVisitorId();
 
   try {
     const res = await fetch(
-      `/api/lead-capture/next${vid ? `?vid=${encodeURIComponent(vid)}` : ""}`,
+      `/api/lead-capture/next/${vid ? `?vid=${encodeURIComponent(vid)}` : ""}`,
       {
         cache: "no-store",
         headers: { "Content-Type": "application/json" },
+        signal: timeoutSignal(CLIENT_FETCH_TIMEOUT_MS),
       }
     );
     if (!res.ok) throw new Error("lead-capture/next " + res.statusText);
@@ -123,38 +176,66 @@ export async function getNextRoundRobinAgent(): Promise<RoundRobinAgent> {
     return agent;
   } catch (err) {
     console.error("[lead-capture] /next gagal, pakai fallback sticky lokal:", err);
+    return localFallbackAgent(vid);
+  }
+}
 
-    const active = AGENTS.filter((a) => a.active);
-    if (active.length === 0) throw new Error("lead-capture: tidak ada agent aktif untuk fallback");
+export interface ConvertLeadCaptureResult {
+  agent: RoundRobinAgent;
+  trackingCode: string;
+  waUrl: string;
+}
 
-    // 1) Kalau visitor ini SUDAH punya sticky (dari server sebelumnya / fallback
-    //    sebelumnya) dan agentnya masih aktif → balas CS yang SAMA. Ini mencegah
-    //    "1 orang klik 2x dapat CS berbeda" saat DB sempat intermittent.
-    const sticky = readStickyAgent(vid);
-    if (sticky && active.some((a) => a.id === sticky.id)) {
-      return sticky;
-    }
+/**
+ * Endpoint round-robin VPS (Biznet). Round-robin TIDAK lagi lewat Vercel →
+ * DB (jalur itu tidak andal). Browser memanggil layanan lead di VPS langsung
+ * lewat HTTPS — layanan ini berada di mesin yang sama dengan database, jadi
+ * assign + simpan lead cepat & andal.
+ *
+ * Bisa di-override via env NEXT_PUBLIC_LEAD_API_URL (tanpa trailing slash).
+ */
+const LEAD_API_BASE =
+  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_LEAD_API_URL) ||
+  "https://nexerp.id/lead";
 
-    // 2) Visitor baru / sticky tidak valid → rotasi counter lokal, lalu simpan
-    //    sebagai sticky supaya panggilan berikutnya konsisten.
-    let index = 0;
-    if (typeof window !== "undefined") {
-      index = parseInt(localStorage.getItem(FALLBACK_COUNTER_KEY) || "0", 10) || 0;
-    }
-    const agent = active[index % active.length];
+/**
+ * Alur TERCEPAT (dipakai halaman thankyou): assign CS + simpan lead dalam
+ * SATU panggilan ke layanan VPS. Pengganti dua langkah lama (getNextRoundRobinAgent
+ * lalu trackLead) → 1 request + 1 query DB (lokal di VPS).
+ * Kalau VPS gagal → fallback lokal + kode LOCAL-... (chat tetap jalan).
+ */
+export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLeadCaptureResult> {
+  const vid = getClientVisitorId();
 
-    if (typeof window !== "undefined") {
-      localStorage.setItem(FALLBACK_COUNTER_KEY, String((index + 1) % active.length));
-    }
+  try {
+    const res = await fetch(`${LEAD_API_BASE}/convert`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(vid ? { ...data, visitorId: vid } : data),
+      signal: timeoutSignal(CLIENT_FETCH_TIMEOUT_MS),
+    });
+    if (!res.ok) throw new Error("lead-capture/convert " + res.statusText);
+    const json = await res.json();
 
-    const fallbackAgent: RoundRobinAgent = {
-      id: agent.id,
-      name: agent.name || agent.id,
-      phoneNumber: normalizePhone(agent.phone),
-      orderIndex: index % active.length,
+    const agent: RoundRobinAgent = {
+      id: String(json.id),
+      name: json.name,
+      phoneNumber: json.phoneNumber,
+      orderIndex: Number(json.orderIndex ?? 0),
     };
-    saveStickyAgent(vid, fallbackAgent);
-    return fallbackAgent;
+    saveStickyAgent(vid, agent);
+
+    return {
+      agent,
+      trackingCode: json.trackingCode || "LOCAL",
+      waUrl: json.waUrl || "",
+    };
+  } catch (err) {
+    console.error("[lead-capture] /convert gagal, pakai fallback lokal:", err);
+    const agent = localFallbackAgent(vid);
+    const trackingCode = "LOCAL-" + Math.random().toString(36).slice(2, 10).toUpperCase();
+    const waUrl = agent.phoneNumber ? `https://wa.me/${agent.phoneNumber}` : "";
+    return { agent, trackingCode, waUrl };
   }
 }
 
@@ -179,10 +260,11 @@ export async function trackLead(
 ): Promise<{ trackingCode: string; waUrl: string }> {
   try {
     const vid = getClientVisitorId();
-    const res = await fetch("/api/lead-capture/track", {
+    const res = await fetch("/api/lead-capture/track/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(vid ? { ...data, visitorId: vid } : data),
+      signal: timeoutSignal(CLIENT_FETCH_TIMEOUT_MS),
     });
     if (!res.ok) throw new Error("lead-capture/track " + res.statusText);
     return await res.json();

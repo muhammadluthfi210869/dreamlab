@@ -178,6 +178,69 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
   return { trackingCode, waUrl };
 }
 
+export interface ConvertLeadResult {
+  id: string;
+  name: string;
+  phoneNumber: string; // format internasional 628... (siap wa.me)
+  orderIndex: number;
+  trackingCode: string;
+  waUrl: string;
+}
+
+/**
+ * Endpoint gabungan (POST /api/lead-capture/convert): assign CS
+ * (sticky/rotasi) + simpan lead (dedup) dalam SATU panggilan DB.
+ *
+ * Ini pengganti alur lama "getNextAgentFromDb() lalu insertLead()" yang butuh
+ * 2 API call + 3 query DB. Fungsi DB assign_and_insert_lead() melakukan
+ * semuanya server-side → 1 API call + 1 query → latency jauh lebih rendah.
+ */
+export async function convertLead(data: LeadInput): Promise<ConvertLeadResult> {
+  const res = await pool.query<{
+    agent_id: number;
+    agent_name: string;
+    agent_phone: string;
+    order_index: number;
+    tracking_code: string;
+    wa_url: string;
+  }>(
+    `SELECT agent_id, agent_name, agent_phone, order_index, tracking_code, wa_url
+       FROM assign_and_insert_lead($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)`,
+    [
+      data.visitorId || null,
+      data.intent ?? null,
+      data.source ?? 'direct',
+      data.pageUrl ?? null,
+      data.pageTitle ?? null,
+      data.referrer ?? null,
+      data.utmSource ?? null,
+      data.utmMedium ?? null,
+      data.utmCampaign ?? null,
+      data.deviceType ?? null,
+      data.browser ?? null,
+      data.sessionId ?? null,
+      data.nama ?? null,
+      data.perusahaan ?? null,
+      data.hp ?? null,
+      data.produk ?? null,
+    ]
+  );
+
+  const row = res.rows[0];
+  if (!row) {
+    throw new Error('assign_and_insert_lead tidak mengembalikan hasil');
+  }
+
+  return {
+    id: String(row.agent_id),
+    name: row.agent_name || `CS ${row.agent_id}`,
+    phoneNumber: normalizePhone(row.agent_phone),
+    orderIndex: row.order_index,
+    trackingCode: row.tracking_code,
+    waUrl: row.wa_url,
+  };
+}
+
 export interface DbLeadStats {
   countsByAgentId: Record<string, number>; // busdev id -> jumlah lead
   totalLeads: number;

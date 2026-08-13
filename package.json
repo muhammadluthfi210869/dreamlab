@@ -12,6 +12,7 @@
     "verify:redirects": "npx tsx scripts/test-redirects.ts",
     "verify:lead-flow": "npx tsx scripts/verify-thankyou-flow.ts",
     "verify:round-robin": "npx tsx scripts/verify-round-robin-config.ts",
+    "test:round-robin-perf": "npx tsx scripts/test-round-robin-perf.ts",
     "simulate:leads": "npx tsx scripts/simulate-lead-distribution.ts",
     "verify:seo": "npx tsx scripts/verify-seo-integrity.ts",
     "verify:sitemap": "node scripts/verify-sitemap-indexability.mjs",

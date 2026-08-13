@@ -9,7 +9,7 @@ function check(name, cond, detail = '') {
 }
 
 async function getNext(vid?: string, cookie?: string) {
-  const url = BASE + '/api/lead-capture/next' + (vid ? '?vid=' + encodeURIComponent(vid) : '');
+  const url = BASE + '/api/lead-capture/next/' + (vid ? '?vid=' + encodeURIComponent(vid) : '');
   const headers: any = {};
   if (cookie) headers.Cookie = cookie;
   const res = await fetch(url, { headers });
@@ -29,7 +29,7 @@ async function main() {
   console.log('==================================================');
 
   // 1. next — visitor baru (tanpa cookie)
-  console.log('\n-- 1. GET /api/lead-capture/next --');
+  console.log('\n-- 1. GET /api/lead-capture/next/ --');
   const fresh = await getNext();
   check('1a: status 200', fresh.res.status === 200, String(fresh.res.status));
   check('1b: response punya id/name/phoneNumber/orderIndex', !!(fresh.data.id && fresh.data.phoneNumber && fresh.data.name !== undefined && fresh.data.orderIndex !== undefined), JSON.stringify(fresh.data));
@@ -45,21 +45,21 @@ async function main() {
   const v2 = await getNext('http-vid-2');
   check('3a: dua visitor beda via vid', v1.data.id !== v2.data.id, v1.data.id + ' vs ' + v2.data.id);
 
-  // 4. GET /api/round-robin/next (legacy shape: phone, busdev_id, assignmentMethod)
-  console.log('\n-- 4. GET /api/round-robin/next (legacy) --');
-  const legacy = await fetch(BASE + '/api/round-robin/next');
+  // 4. GET /api/round-robin/next/ (legacy shape: phone, busdev_id, assignmentMethod)
+  console.log('\n-- 4. GET /api/round-robin/next/ (legacy) --');
+  const legacy = await fetch(BASE + '/api/round-robin/next/');
   const legacyData = await legacy.json();
   check('4a: status 200 + shape legacy', legacy.status === 200 && !!legacyData.phone && !!legacyData.busdev_id && legacyData.assignmentMethod === 'db', JSON.stringify(legacyData));
 
-  // 5. GET /api/lead-assignment (legacy)
-  console.log('\n-- 5. GET /api/lead-assignment (legacy) --');
-  const la = await fetch(BASE + '/api/lead-assignment');
+  // 5. GET /api/lead-assignment/ (legacy)
+  console.log('\n-- 5. GET /api/lead-assignment/ (legacy) --');
+  const la = await fetch(BASE + '/api/lead-assignment/');
   const laData = await la.json();
   check('5a: status 200 + phone/agentId/assignmentMethod', la.status === 200 && !!laData.phone && !!laData.agentId && laData.assignmentMethod === 'db', JSON.stringify(laData));
 
-  // 6. POST /api/lead-capture/track — happy path
-  console.log('\n-- 6. POST /api/lead-capture/track --');
-  const trackRes = await fetch(BASE + '/api/lead-capture/track', {
+  // 6. POST /api/lead-capture/track/ — happy path
+  console.log('\n-- 6. POST /api/lead-capture/track/ --');
+  const trackRes = await fetch(BASE + '/api/lead-capture/track/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ intent: 'http-test', source: 'organic', visitorId: 'http-lead-1', pageUrl: '/http', assignedName: 'CS 1', assignedPhone: '08123456789' }),
@@ -70,7 +70,7 @@ async function main() {
 
   // 7. track — body tidak valid (garbage)
   console.log('\n-- 7. POST track — body invalid --');
-  const badRes = await fetch(BASE + '/api/lead-capture/track', {
+  const badRes = await fetch(BASE + '/api/lead-capture/track/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: 'not-json{{{',

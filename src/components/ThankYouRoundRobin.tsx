@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
-import { getNextRoundRobinAgent, trackLead, type RoundRobinAgent } from "@/lib/lead-capture";
+import { convertLeadCapture, type RoundRobinAgent } from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
 import { buildChannelPrefixedMessage, buildWaMessage } from "@/lib/wa-message";
 import { normalizeLeadSource } from "@/lib/lead-source";
@@ -31,8 +31,6 @@ export function ThankYouRoundRobin({
   const [navigated, setNavigated] = useState(false);
   const [trackingCode, setTrackingCode] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const leadTrackedRef = useRef(false);
-  const leadPromiseRef = useRef<Promise<string> | null>(null);
 
   // Pesan trigger per channel (dari git sebelumnya), contoh:
   // "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi..."
@@ -74,77 +72,46 @@ export function ThankYouRoundRobin({
     }
   }, [defaultSource]);
 
-  // Satu sumber assignment: PostgreSQL (sticky) — 1 visitor = 1 CS
+  // SATU panggilan (POST /api/lead-capture/convert): assign CS (sticky/rotasi)
+  // + simpan lead + tracking code, langsung sekaligus. Alur ini menggantikan
+  // dua langkah lama (getNextRoundRobinAgent lalu trackLead) → latency jauh
+  // lebih rendah. Kalau server/DB gagal, convertLeadCapture otomatis pakai
+  // fallback lokal (CS + kode LOCAL-...), jadi tombol tetap aktif.
   useEffect(() => {
     let cancelled = false;
-    getNextRoundRobinAgent()
-      .then((a) => {
-        if (!cancelled) {
-          setAgent(a);
-          setLoading(false);
-        }
+
+    const params = new URLSearchParams(window.location.search);
+    const resolvedSource = params.get("source") || defaultSource;
+    const intentCtx = params.get("ctx");
+    const intentMsg = params.get("msg");
+    const intentSource = params.get("source") || "";
+    const productIntent =
+      intentCtx || (messageMap?.[intentSource] ? intentSource : "") || intentMsg || title;
+
+    convertLeadCapture({
+      source: normalizeLeadSource(resolvedSource),
+      intent: productIntent,
+      pageUrl: window.location.href,
+      pageTitle: document.title,
+      utmSource: params.get("utm_source") || undefined,
+      utmMedium: params.get("utm_medium") || undefined,
+      utmCampaign: params.get("utm_campaign") || undefined,
+    })
+      .then((r) => {
+        if (cancelled) return;
+        setAgent(r.agent);
+        setTrackingCode(r.trackingCode);
+        setLoading(false);
       })
       .catch(() => {
         if (!cancelled) setLoading(false);
       });
+
     return () => {
       cancelled = true;
     };
-  }, []);
-
-  /**
-   * Catat lead ke DB (sekali saja per halaman) dan kembalikan tracking code-nya.
-   * Tracking code dipakai sebagai akhiran pesan WA ([Kode: DL-...]) supaya CS
-   * bisa mencocokkan chat WA dengan lead di database. Intent yang dicatat
-   * memakai konteks produk yang benar (?ctx= / source / ?msg=), bukan title
-   * halaman "Terima Kasih!".
-   */
-  const ensureLeadTracked = useCallback(
-    (a: RoundRobinAgent): Promise<string> => {
-      if (leadPromiseRef.current) return leadPromiseRef.current;
-
-      const params = new URLSearchParams(window.location.search);
-      const intentCtx = params.get("ctx");
-      const intentMsg = params.get("msg");
-      const intentSource = params.get("source") || "";
-      const productIntent =
-        intentCtx || (messageMap?.[intentSource] ? intentSource : "") || intentMsg || title;
-
-      leadPromiseRef.current = trackLead({
-        source: normalizeLeadSource(source),
-        intent: productIntent,
-        pageUrl: window.location.href,
-        pageTitle: document.title,
-        utmSource: params.get("utm_source") || undefined,
-        utmMedium: params.get("utm_medium") || undefined,
-        utmCampaign: params.get("utm_campaign") || undefined,
-        assignedName: a.name,
-        assignedPhone: a.phoneNumber,
-      })
-        .then((res) => {
-          const code = res.trackingCode || "LOCAL";
-          setTrackingCode(code);
-          return code;
-        })
-        .catch(() => {
-          const code = "LOCAL-" + Math.random().toString(36).slice(2, 10).toUpperCase();
-          setTrackingCode(code);
-          return code;
-        });
-
-      return leadPromiseRef.current;
-    },
-    [messageMap, source, title]
-  );
-
-  // Begitu agent diketahui, segera catat lead (fire-and-forget). Dengan begitu
-  // tracking code sudah siap sebelum redirect, dan bounce yang gagal sempat
-  // mengklik WA pun tetap tercatat.
-  useEffect(() => {
-    if (!agent || leadTrackedRef.current) return;
-    leadTrackedRef.current = true;
-    ensureLeadTracked(agent);
-  }, [agent, ensureLeadTracked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultSource, messageMap, title]);
 
   const redirectToWhatsApp = useCallback(async () => {
     if (!agent || navigated) return;
@@ -154,17 +121,9 @@ export function ThankYouRoundRobin({
       timerRef.current = null;
     }
 
-    // Pastikan tracking code tersedia (bounded oleh promise trackLead) supaya
-    // selalu masuk ke pesan WA sebagai [Kode: DL-...].
-    let code = trackingCode;
-    if (!code && leadPromiseRef.current) {
-      try {
-        code = await leadPromiseRef.current;
-      } catch {
-        code = "LOCAL";
-      }
-    }
-    if (!code) code = "LOCAL";
+    // trackingCode diisi bersamaan dengan agent oleh convertLeadCapture, jadi
+    // sudah tersedia saat redirect (400ms kemudian). "LOCAL" hanya jaga-jaga.
+    const code = trackingCode || "LOCAL";
 
     const url = buildWhatsAppUrl(
       agent.phoneNumber,
@@ -176,9 +135,13 @@ export function ThankYouRoundRobin({
   useEffect(() => {
     if (!agent || navigated) return;
 
+    // Redirect cepat (400ms) setelah agent siap — bukan 1 detik. Kalau tracking
+    // code belum sempat terisi, redirectToWhatsApp tetap meng-await promise
+    // trackLead (bounded oleh timeout client) sehingga kode DL-... selalu masuk
+    // ke pesan WA tanpa menahan user terlalu lama.
     timerRef.current = setTimeout(() => {
       redirectToWhatsApp();
-    }, 1000);
+    }, 400);
 
     return () => {
       if (timerRef.current) {

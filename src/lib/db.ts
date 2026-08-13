@@ -50,8 +50,11 @@ function buildPool() {
     ssl,
     max: poolMax,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 8000,
-    statement_timeout: 15000,
+    // Fail-fast: kalau DB tidak terjangkau (mis. firewall/network), kegagalan
+    // harus cepat (≤3 dtk) supaya klien langsung jatuh ke fallback lokal —
+    // bukan menunggu 8 dtk seperti sebelumnya (keluhan "lemot").
+    connectionTimeoutMillis: 3000,
+    statement_timeout: 5000,
   });
 }
 

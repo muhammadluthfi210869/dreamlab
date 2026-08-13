@@ -254,5 +254,8 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/((?!_next/static|_next/image|favicon.ico|assets|robots.txt|sitemap.xml).*)',
+  // API routes dilewati middleware (edge) supaya request round-robin & lead
+  // capture tidak menambah hop latensi. Middleware hanya untuk redirect/410 SEO
+  // dan penentuan lang — tidak dipakai route API.
+  matcher: '/((?!_next/static|_next/image|favicon.ico|assets|robots.txt|sitemap.xml|api).*)',
 };

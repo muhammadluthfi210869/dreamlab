@@ -122,7 +122,11 @@ export function useLeadAssignment(defaultSource: string = 'direct'): LeadAssignm
 
     let cancelled = false;
 
-    fetch(`/api/lead-assignment?campaignSource=${encodeURIComponent(campaignSource)}`)
+    fetch(`/api/lead-assignment/?campaignSource=${encodeURIComponent(campaignSource)}`, {
+      signal: typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function'
+        ? AbortSignal.timeout(4000)
+        : undefined,
+    })
 
       .then((res) => res.json())
 

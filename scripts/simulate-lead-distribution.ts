@@ -1,7 +1,7 @@
 /**
  * simulate-lead-distribution.ts
  *
- * Dua mode simulasi round-robin lewat /api/lead-assignment:
+ * Dua mode simulasi round-robin lewat /api/lead-assignment/:
  *
  * 1. ROTASI MURNI — setiap request pakai "visitor" baru (tanpa cookie),
  *    jadi selalu lewat jalur rotasi Redis. Ini menguji apakah counter
@@ -73,7 +73,7 @@ async function runFreshRotationTest(n: number) {
 
   for (let i = 0; i < n; i += 1) {
     try {
-      const res = await fetch(`${BASE}/api/lead-assignment`, {
+      const res = await fetch(`${BASE}/api/lead-assignment/`, {
         headers: { "x-simulate-fresh": "true" },
       });
       const data = await res.json();
@@ -100,7 +100,7 @@ async function runRealisticTrafficTest(visitors: number, repeatRate: number, max
 
   for (let v = 0; v < visitors; v += 1) {
     try {
-      const firstRes = await fetch(`${BASE}/api/lead-assignment`);
+      const firstRes = await fetch(`${BASE}/api/lead-assignment/`);
       const firstData = await firstRes.json();
       const key = `${firstData.agentId} (${firstData.phone})`;
       firstVisitCounts[key] = (firstVisitCounts[key] ?? 0) + 1;
@@ -112,7 +112,7 @@ async function runRealisticTrafficTest(visitors: number, repeatRate: number, max
       if (cookie && isRepeatVisitor) {
         const repeatCount = 1 + Math.floor(Math.random() * maxRepeatVisits);
         for (let r = 0; r < repeatCount; r += 1) {
-          const repeatRes = await fetch(`${BASE}/api/lead-assignment`, {
+          const repeatRes = await fetch(`${BASE}/api/lead-assignment/`, {
             headers: { Cookie: cookie },
           });
           const repeatData = await repeatRes.json();
