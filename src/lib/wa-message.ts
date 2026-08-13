@@ -42,6 +42,8 @@ export function getChannelLabel(source: string): string {
       return 'media sosial';
     case 'ads':
       return 'iklan Dreamlab';
+    case 'dreampreneur':
+      return 'Dreampreneur Vol. 2';
     default:
       return 'Google';
   }
@@ -54,18 +56,19 @@ export function getPageChannelLabel(): string {
 }
 
 /** Pesan WA standar yang tampil di chat customer + menyebut channel sumber. */
-export function buildWaMessage(context?: string, source?: string): string {
+export function buildWaMessage(context?: string, source?: string, label?: string): string {
   const c = (context || 'produk Dreamlab').trim();
-  const channel = source ? getChannelLabel(source) : getPageChannelLabel();
+  const channel = label || (source ? getChannelLabel(source) : getPageChannelLabel());
   return `Hi Dreamlab, saya mengetahui dari ${channel}. Saya tertarik dengan ${c} dan ingin konsultasi untuk brand saya, apakah bisa dibantu?`;
 }
 
 /**
  * Tambahkan opener channel di depan pesan custom (mis. dari props halaman),
  * tanpa mengulang sapaan "Halo/Hi Dreamlab" di awal pesan.
+ * `label` opsional untuk meng-override label channel (mis. kampanye event).
  */
-export function buildChannelPrefixedMessage(body: string, source?: string): string {
-  const channel = source ? getChannelLabel(source) : getPageChannelLabel();
+export function buildChannelPrefixedMessage(body: string, source?: string, label?: string): string {
+  const channel = label || (source ? getChannelLabel(source) : getPageChannelLabel());
   // Buang sapaan pembuka ("Halo Dreamlab, / Hi Dreamlab!") agar tidak dobel
   const cleaned = (body || '').trim().replace(/^(halo|hi)\s+dreamlab\s*[,!.\-–—:]?\s*/i, '');
   const capitalized = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);

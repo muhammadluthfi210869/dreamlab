@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/news-blog',
     '/panduan',
+    '/dreampreneur-batch-2',
     '/about-us',
     '/about-us/alur-maklon',
     '/services',

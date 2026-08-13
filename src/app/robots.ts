@@ -46,12 +46,14 @@ export default function robots(): MetadataRoute.Robots {
         '/.help/dhl/',
         // Legacy thin product categories (return 410 via proxy.ts)
         '/produk/pkrt/',
-        // NOTE: Disallow /maklon-*, /bisnis-*, /dreampreneur*, /tips-* dsb.
+// NOTE: Disallow /maklon-*, /bisnis-*, /dreampreneur*, /tips-* dsb.
         // DIHAPUS. Semua slug legacy ini kini 301 redirect ke /produk/* atau
         // /category/panduan-bisnis-kosmetik/ via proxy.ts. Jika di-disallow,
         // Googlebot TIDAK bisa mengikuti redirect 301 → equity backlink lama
         // tidak tersalur & URL tidak pernah dibersihkan dari index. Dengan
         // membiarkannya crawlable, Google ikuti 301 → consolidate equity.
+        // /dreampreneur-batch-2/thankyou/ punya noindex metadata sendiri —
+        // tidak perlu disallow (biarkan crawlable agar noindex tetap terlihat).
       ],
     },
     sitemap: 'https://dreamlab.id/sitemap.xml',

@@ -16,6 +16,8 @@ type ThankYouRoundRobinProps = {
   description: string;
   message?: string;
   messageMap?: Record<string, string>;
+  channelLabel?: string;
+  ctaLabel?: string;
 };
 
 export function ThankYouRoundRobin({
@@ -24,6 +26,8 @@ export function ThankYouRoundRobin({
   description,
   message,
   messageMap,
+  channelLabel,
+  ctaLabel = "KONSULTASI BRAND ANDA SEKARANG",
 }: ThankYouRoundRobinProps) {
   const [source, setSource] = useState(defaultSource);
   const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
@@ -50,12 +54,12 @@ export function ThankYouRoundRobin({
   //  3. ?ctx=  → konteks produk dari floating button (mis. "produk skincare")
   //  4. message prop / generic
   const resolvedMessage = qMsg
-    ? buildChannelPrefixedMessage(qMsg, source)
+    ? buildChannelPrefixedMessage(qMsg, source, channelLabel)
     : messageMap?.[source]
       ? messageMap[source]
       : qCtx
-        ? buildWaMessage(qCtx, source)
-        : message || buildWaMessage("produk kosmetik", source);
+        ? buildWaMessage(qCtx, source, channelLabel)
+        : message || buildWaMessage("produk kosmetik", source, channelLabel);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -193,7 +197,7 @@ export function ThankYouRoundRobin({
               className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 w-full sm:w-auto min-w-[320px]"
             >
               <MessageCircle className="w-5 h-5 shrink-0" />
-              <span>KONSULTASI BRAND ANDA SEKARANG</span>
+              <span>{ctaLabel}</span>
             </button>
 
             {loading && (

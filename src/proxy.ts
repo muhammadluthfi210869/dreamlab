@@ -82,6 +82,9 @@ export function proxy(request: NextRequest) {
   // mengarah ke /maklon/kosmetik/ dan sub-path dipertahankan. Ini memulihkan
   // penempatan URL persis seperti sebelumnya.
   const LEGACY_SLUG_REDIRECTS: Record<string, string> = {
+    // Dreampreneur landing → batch 2 slug
+    '/dreampreneur/': '/dreampreneur-batch-2/',
+    '/dreampreneur/thankyou/': '/dreampreneur-batch-2/thankyou/',
     // Legacy maklon categories → Maklon Kosmetik
     '/maklon-skincare/': '/maklon/kosmetik/',
     '/maklon-personal-care/': '/maklon/kosmetik/',
@@ -97,7 +100,6 @@ export function proxy(request: NextRequest) {
     '/bisnis-skincare/': '/category/panduan-bisnis-kosmetik/',
     // Previous pillar slugs → new pillar slugs
     '/tren-kosmetik/': '/maklon/kosmetik/',
-    '/dreampreneur/': '/category/panduan-bisnis-kosmetik/',
     '/bisnis-dreampreneur/': '/category/panduan-bisnis-kosmetik/',
     '/tips-bisnis/': '/category/panduan-bisnis-kosmetik/',
     '/tips-trick/': '/category/panduan-bisnis-kosmetik/',
@@ -128,7 +130,6 @@ export function proxy(request: NextRequest) {
     // Previous pillar slugs → new pillar slugs
     'tren-kosmetik': 'maklon-kosmetik',
     'maklon-kosmetik-skincare': 'maklon-kosmetik',
-    'dreampreneur': 'panduan-bisnis-kosmetik',
     'bisnis-dreampreneur': 'panduan-bisnis-kosmetik',
     'tips-bisnis': 'panduan-bisnis-kosmetik',
     'tips-trick': 'panduan-bisnis-kosmetik',
@@ -257,5 +258,6 @@ export const config = {
   // API routes dilewati middleware (edge) supaya request round-robin & lead
   // capture tidak menambah hop latensi. Middleware hanya untuk redirect/410 SEO
   // dan penentuan lang — tidak dipakai route API.
-  matcher: '/((?!_next/static|_next/image|favicon.ico|assets|robots.txt|sitemap.xml|api).*)',
+  matcher:
+    '/((?!_next/static|_next/image|favicon.ico|assets|robots.txt|sitemap.xml|api|new(?:%20|\\s)asset|images|promo-kemerdekaan|next.svg|file.svg|globe.svg|vercel.svg|window.svg|Sampul(?:%20|\\s)WEB).*)',
 };
