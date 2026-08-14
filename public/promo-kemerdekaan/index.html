@@ -5,7 +5,7 @@
   3. Ganti [INSERT: berapa hari proses produksi rata-rata] dengan angka real dari tim produksi.
   4. Semua klaim lain (FREE desain, BPOM, kuota 8 orang, MOQ 200, potongan 1,7%) diambil langsung dari 3 flyer yang dikirim.
   5. Paket Kidscare pakai flyer/gambar promo-skincare-bodycare.png (Hair Spray + Face & Body Cream + Cologne) -- ini memang lini kidscare/baby, bukan skincare dewasa.
-  6. Semua tombol CTA sekarang mengarah ke https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=... (pola round robin yang sudah kamu punya), BUKAN wa.me langsung. Halaman thankyou + messageMap per paket sudah dibuat di src/app/ads/thankyou/promo-kemerdekaan/. Cek dengan tim dev/ads:
+  6. Semua tombol CTA sekarang mengarah ke https://dreamlab.id/ads/thankyou/metaads/?source=... (pola round robin yang sudah kamu punya), BUKAN wa.me langsung. Halaman thankyou + messageMap per paket sudah dibuat di src/app/ads/thankyou/promo-kemerdekaan/. Cek dengan tim dev/ads:
      a) Param query "?source=" (mis. promo-kemerdekaan-kidscare) dipakai halaman thankyou untuk memilih pesan WA per paket. Kalau mau pesan custom lain, sesuaikan messageMap di page.tsx.
 -->
 <!DOCTYPE html>
@@ -46,20 +46,12 @@
   }
 
   /* HERO */
-  header.hero{
-    background:linear-gradient(135deg, #0d6fb8 0%, #1a8fe0 45%, #f5821f 100%);
-    background-size:200% 200%;
-    animation:heroShift 9s ease-in-out infinite;
-    color:#fff; padding:44px 0 74px; text-align:center; position:relative; overflow:hidden;
-  }
+  header.hero{background:#fff; padding:0; position:relative; overflow:hidden; line-height:0; display:flex; justify-content:center;}
+  header.hero img{width:100%; height:auto; display:block; max-width:1080px;}
   header.hero::before{
     content:""; position:absolute; inset:0; pointer-events:none;
-    background:radial-gradient(circle at 18% 12%, rgba(255,255,255,.16), transparent 42%),
-               radial-gradient(circle at 85% 90%, rgba(255,255,255,.12), transparent 46%);
-  }
-  @keyframes heroShift{
-    0%,100%{ background-position:0% 0%; }
-    50%{ background-position:100% 100%; }
+    background:radial-gradient(circle at 18% 12%, rgba(255,255,255,.10), transparent 42%),
+               radial-gradient(circle at 85% 90%, rgba(255,255,255,.08), transparent 46%);
   }
   @keyframes rise{
     from{ opacity:0; transform:translateY(26px); }
@@ -218,7 +210,7 @@
   }
   @media(max-width:600px){
     .wrap{padding:0 16px;}
-    header.hero{padding:20px 0 56px;}
+    header.hero{padding:0;}
     header.hero h1{font-size:26px; margin-top:12px;}
     .moq-anchor{flex-direction:column; gap:12px; text-align:center; padding:20px 24px; width:100%; max-width:340px;}
     .moq-anchor .arrow{transform:rotate(90deg); font-size:15px; width:34px; height:34px;}
@@ -264,18 +256,7 @@
 <body>
 
 <header class="hero">
-  <div class="wrap">
-    <h1>Merdeka dari <span class="hl">MOQ Tinggi</span></h1>
-    <div class="moq-anchor">
-      <span class="save">HEMAT 80%</span>
-      <div class="lbl"><span class="cap">MOQ Normal</span><span class="old">1.000 Set</span></div>
-      <span class="arrow">→</span>
-      <span class="new">200<small>Set</small></span>
-    </div>
-    <div class="hero-cta">
-      <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan" target="_blank" rel="noopener">💬 Konsultasi Gratis via WhatsApp</a>
-    </div>
-  </div>
+  <img src="assets/header-promo-kemerdekaan.jpg" alt="Promo Kemerdekaan Dreamlab — Merdeka dari MOQ Tinggi">
 </header>
 
 <div class="trust">
@@ -309,7 +290,7 @@
           <li>FREE BPOM</li>
         </ul>
         <div class="slot">Sisa kuota: 8 orang pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan-kidscare" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/?source=promo-kemerdekaan-kidscare" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
       <div class="pkg">
@@ -324,7 +305,7 @@
           <li>FREE BPOM</li>
         </ul>
         <div class="slot">Sisa kuota: 8 beautypreneur pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan-haircare-growth" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/?source=promo-kemerdekaan-haircare-growth" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
       <div class="pkg">
@@ -339,7 +320,7 @@
           <li>FREE BPOM</li>
         </ul>
         <div class="slot">Sisa kuota: 8 beautypreneur pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan-haircare-smooth" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/?source=promo-kemerdekaan-haircare-smooth" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
       <div class="pkg">
@@ -354,7 +335,7 @@
           <li>Promo potongan 1,7% ini hanya muncul 1 tahun sekali</li>
         </ul>
         <div class="slot">Sisa kuota: 8 orang pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan-parfum" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/?source=promo-kemerdekaan-parfum" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
     </div>
@@ -398,7 +379,7 @@
   <div class="wrap">
     <div class="final-cta">
       <h2>🇮🇩 Merdeka Sekarang — Promo Ini Cuma Ada 1 Tahun Sekali</h2>
-      <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan" target="_blank" rel="noopener">💬 Klaim Slot via WhatsApp Sekarang</a>
+      <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/?source=promo-kemerdekaan" target="_blank" rel="noopener">💬 Klaim Slot via WhatsApp Sekarang</a>
     </div>
   </div>
 </section>
@@ -412,7 +393,7 @@
   </div>
 </footer>
 
-<a class="sticky-wa" href="https://dreamlab.id/ads/thankyou/promo-kemerdekaan/?source=promo-kemerdekaan" target="_blank" rel="noopener">💬 Chat Sekarang</a>
+<a class="sticky-wa" href="https://dreamlab.id/ads/thankyou/metaads/?source=promo-kemerdekaan" target="_blank" rel="noopener">💬 Chat Sekarang</a>
 
 </body>
 </html>

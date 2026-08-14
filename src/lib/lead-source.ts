@@ -57,5 +57,6 @@ export function normalizeLeadSource(raw?: string | null): string {
   if (r === 'medsos' || r === 'linktree' || r === 'social' || r === 'media-sosial') return 'medsos';
   if (r === 'ads' || r === 'direct') return 'ads';
   if (r === 'dreampreneur' || r.startsWith('dreampreneur')) return 'dreampreneur';
+  if (r.startsWith('promo-kemerdekaan')) return 'metaads';
   return 'organic';
 }

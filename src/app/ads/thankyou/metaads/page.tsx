@@ -15,6 +15,11 @@ const WA_MSGS: Record<string, string> = {
   "meta-haircare": buildWaMessage("produk haircare", "metaads"),
   "meta-deodorant": buildWaMessage("produk deodorant", "metaads"),
   "meta-babycare": buildWaMessage("produk baby care", "metaads"),
+  "promo-kemerdekaan": buildWaMessage("promo kemerdekaan Dreamlab", "metaads"),
+  "promo-kemerdekaan-kidscare": buildWaMessage("paket kidscare promo kemerdekaan", "metaads"),
+  "promo-kemerdekaan-haircare-growth": buildWaMessage("paket haircare growth promo kemerdekaan", "metaads"),
+  "promo-kemerdekaan-haircare-smooth": buildWaMessage("paket haircare smooth promo kemerdekaan", "metaads"),
+  "promo-kemerdekaan-parfum": buildWaMessage("paket parfum promo kemerdekaan", "metaads"),
 };
 
 export default function ThankYouMetaAds() {
