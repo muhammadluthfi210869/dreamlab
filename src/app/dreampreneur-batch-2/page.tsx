@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://dreamlab.id/assets/images/dreampreneur-batch-2/flyer.png',
-        width: 696,
-        height: 871,
+        width: 810,
+        height: 1013,
         alt: 'Dreampreneur Batch 2 — Beauty Academy di Surabaya',
       },
     ],

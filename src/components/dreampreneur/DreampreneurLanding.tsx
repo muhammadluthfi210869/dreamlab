@@ -418,8 +418,8 @@ export default function DreampreneurLanding() {
                 <Image
                   src="/assets/images/dreampreneur-batch-2/flyer.png"
                   alt="Pembicara Dreampreneur Batch 2 — para praktisi industri kecantikan"
-                  width={696}
-                  height={871}
+                  width={810}
+                  height={1013}
                   sizes="(max-width: 1024px) 100vw, 400px"
                   className="w-full h-auto object-cover"
                 />
