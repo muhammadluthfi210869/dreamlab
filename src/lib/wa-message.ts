@@ -43,7 +43,7 @@ export function getChannelLabel(source: string): string {
     case 'ads':
       return 'iklan Dreamlab';
     case 'dreampreneur':
-      return 'Dreampreneur Vol. 2';
+      return 'Dreampreneur Batch 2';
     default:
       return 'Google';
   }

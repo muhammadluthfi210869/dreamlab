@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import DreampreneurLanding from '@/components/dreampreneur/DreampreneurLanding';
 
 export const metadata: Metadata = {
-  title: 'Dreampreneur Vol. 2 | Connect, Learn & Scale — Dreamlab',
+  title: 'Dreampreneur Batch 2 | Connect, Learn & Scale — Dreamlab',
   description:
-    'Belajar membangun dan scale beauty brand bersama praktisi product development, business strategy, quality testing, dan digital marketing di Dreampreneur Vol. 2.',
+    'Satu hari untuk memahami formula, strategi bisnis, growth marketing, dan peluang kolaborasi agar beauty brand lebih siap bertumbuh. 29 Agustus 2026, Surabaya.',
   alternates: {
     canonical: 'https://dreamlab.id/dreampreneur-batch-2/',
   },
@@ -12,25 +12,25 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'id_ID',
     siteName: 'Dreamlab',
-    title: 'Dreampreneur Vol. 2 | Connect, Learn & Scale — Dreamlab',
+    title: 'Dreampreneur Batch 2 | Connect, Learn & Scale — Dreamlab',
     description:
-      'Belajar membangun dan scale beauty brand bersama praktisi product development, business strategy, quality testing, dan digital marketing di Dreampreneur Vol. 2.',
+      'Satu hari untuk memahami formula, strategi bisnis, growth marketing, dan peluang kolaborasi agar beauty brand lebih siap bertumbuh. 29 Agustus 2026, Surabaya.',
     url: 'https://dreamlab.id/dreampreneur-batch-2/',
     images: [
       {
-        url: 'https://dreamlab.id/assets/images/Dreamlab-Dreamprenuer-Academy--1024x540.webp',
-        width: 1024,
-        height: 540,
-        alt: 'Dreampreneur Vol. 2 — Dreamlab Beauty Business Event',
+        url: 'https://dreamlab.id/assets/images/dreampreneur-batch-2/flyer.png',
+        width: 696,
+        height: 871,
+        alt: 'Dreampreneur Batch 2 — Beauty Academy di Surabaya',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dreampreneur Vol. 2 | Connect, Learn & Scale — Dreamlab',
+    title: 'Dreampreneur Batch 2 | Connect, Learn & Scale — Dreamlab',
     description:
-      'Belajar membangun dan scale beauty brand bersama praktisi product development, business strategy, quality testing, dan digital marketing di Dreampreneur Vol. 2.',
-    images: ['https://dreamlab.id/assets/images/Dreamlab-Dreamprenuer-Academy--1024x540.webp'],
+      'Satu hari untuk memahami formula, strategi bisnis, growth marketing, dan peluang kolaborasi agar beauty brand lebih siap bertumbuh. 29 Agustus 2026, Surabaya.',
+    images: ['https://dreamlab.id/assets/images/dreampreneur-batch-2/flyer.png'],
   },
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
