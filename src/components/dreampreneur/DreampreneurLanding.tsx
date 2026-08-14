@@ -236,8 +236,8 @@ export default function DreampreneurLanding() {
         <div className="pointer-events-none absolute -bottom-40 -left-24 w-[26rem] h-[26rem] rounded-full bg-[#8B5CF6]/30 blur-3xl" />
         <div className="pointer-events-none absolute -top-16 left-1/3 w-[20rem] h-[20rem] rounded-full bg-[#C026D3]/20 blur-3xl" />
 
-        <div className="container-custom relative py-16 md:py-24 lg:py-28 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16 items-center">
-          <div className="space-y-7 max-w-3xl">
+        <div className="container-custom relative py-16 md:py-24 lg:py-28">
+          <div className="max-w-3xl mx-auto text-center space-y-7">
             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-[#F472B6] animate-pulse" />
               <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-white uppercase">
@@ -253,13 +253,13 @@ export default function DreampreneurLanding() {
               Connect, Learn <span className="text-white/60">&amp;</span> Scale
             </h2>
 
-            <p className="text-sm sm:text-base md:text-lg text-white/70 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base md:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
               A Growth &amp; Networking Session for Future Beautypreneurs. Satu hari untuk memahami
               formula, strategi bisnis, growth marketing, dan peluang kolaborasi agar beauty brand
               lebih siap bertumbuh.
             </p>
 
-            <div className="flex flex-wrap gap-3 pt-1">
+            <div className="flex flex-wrap justify-center gap-3 pt-1">
               <span className="inline-flex items-center gap-2 text-xs font-bold text-white/85 bg-white/10 border border-white/15 rounded-full px-4 py-2">
                 <CalendarDays className="w-4 h-4 text-[#F472B6]" /> {EVENT_DATE}
               </span>
@@ -271,14 +271,14 @@ export default function DreampreneurLanding() {
               </span>
             </div>
 
-            <div className="flex items-baseline gap-3 pt-1">
+            <div className="flex items-baseline justify-center gap-3 pt-1">
               <span className="text-lg text-white/40 line-through">{PRICE_NORMAL}</span>
               <span className="text-4xl sm:text-5xl font-black text-[#F9A8D4] font-display tracking-tight">
                 {PRICE_EARLY_BIRD}
               </span>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
               <button type="button" onClick={() => scrollToSection("register", "hero_cta")} className={CTA_BASE}>
                 Amankan Seat — {PRICE_EARLY_BIRD}
               </button>
@@ -287,7 +287,7 @@ export default function DreampreneurLanding() {
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap justify-center items-center gap-3 pt-2">
               {TRUST_ITEMS.map((item) => (
                 <span
                   key={item}
@@ -297,21 +297,6 @@ export default function DreampreneurLanding() {
                   {item}
                 </span>
               ))}
-            </div>
-          </div>
-
-          <div className="relative max-w-sm mx-auto w-full lg:max-w-none">
-            <div className="pointer-events-none absolute inset-0 -z-0 bg-gradient-to-br from-[#E11D8F]/20 via-transparent to-[#8B5CF6]/20 blur-2xl rounded-[40px]" />
-            <div className="relative rounded-[28px] overflow-hidden border border-white/15 shadow-[0_24px_70px_-20px_rgba(109,40,217,0.6)]">
-              <Image
-                src="/assets/images/dreampreneur-batch-2/flyer.png"
-                alt="Flyer Dreampreneur Batch 2 — Beauty Academy, Connect Learn & Scale"
-                width={696}
-                height={871}
-                priority
-                sizes="(max-width: 1024px) 100vw, 420px"
-                className="w-full h-auto object-cover"
-              />
             </div>
           </div>
         </div>
