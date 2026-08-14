@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
-import { CalendarDays, CheckCircle2, Clock, MapPin } from "lucide-react";
+import { CalendarDays, CheckCircle2, Clock, MapPin, Quote, Star } from "lucide-react";
 import { ATTRIBUTION_PARAMS } from "@/lib/lead-routing";
 
 const CTA_BASE =
@@ -33,6 +33,35 @@ const BENEFITS = [
   {
     title: "AI-Optimized Business Matchmaking",
     desc: "Temukan peluang koneksi dan kolaborasi yang lebih relevan untuk perkembangan bisnismu.",
+  },
+];
+
+const LEARN_ITEMS = [
+  {
+    num: "01",
+    question: "Produk apa yang punya peluang?",
+    speaker: "R&D Dreamlab",
+    topic:
+      "Tren industri skincare, peluang kategori produk, product development, dan inovasi formula yang relevan dengan kebutuhan market.",
+  },
+  {
+    num: "02",
+    question: "Bagaimana membuat produk lebih siap dipercaya market?",
+    speaker: "SIG — Kepala Operasional Uji Lab",
+    topic: "Quality, testing, dan bagaimana standar produk membantu membangun trust.",
+  },
+  {
+    num: "03",
+    question: "Sudah punya produk, lalu bagaimana membangun bisnisnya?",
+    speaker: "Fadhila — Senior Business Development Strategist",
+    topic: "Positioning, business development, brand direction, dan growth strategy.",
+  },
+  {
+    num: "04",
+    question: "Produk sudah jadi. Bagaimana menemukan pembelinya?",
+    speaker: "Revita — Digital Marketing Strategist",
+    topic:
+      "From Market Fit to Scale — membaca respons market, menemukan product-market fit, hingga mendorong penjualan melalui Shopee Ads, Meta CPAS, dan Performance Marketing.",
   },
 ];
 
@@ -241,16 +270,16 @@ export default function DreampreneurLanding() {
             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-[#F472B6] animate-pulse" />
               <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-white uppercase">
-                Beauty Academy #1 di Surabaya
+                Dreampreneur Batch 2 — Beauty Academy
               </span>
             </div>
 
-            <h1 className="text-[38px] sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] uppercase font-display text-white [text-shadow:0_8px_40px_rgba(201,42,211,0.35)]">
-              Dreampreneur <span className={DP_ACCENT}>Batch 2</span>
+            <h1 className="text-[34px] sm:text-4xl lg:text-[46px] font-black tracking-tight leading-[1.1] uppercase font-display text-white [text-shadow:0_8px_40px_rgba(201,42,211,0.35)]">
+              Mau Mulai Beauty Brand, Tapi <span className={DP_ACCENT}>Bingung Mulai</span> dari Mana?
             </h1>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white/90 leading-snug uppercase font-display [text-shadow:0_4px_24px_rgba(139,92,246,0.4)]">
-              Connect, Learn <span className="text-white/60">&amp;</span> Scale
+            <h2 className="text-xl sm:text-2xl lg:text-[28px] font-extrabold text-white/90 leading-snug uppercase font-display [text-shadow:0_4px_24px_rgba(139,92,246,0.4)]">
+              Atau Sudah Punya Brand, Tapi <span className="text-white/60">Growth-nya Masih Stuck?</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
@@ -327,6 +356,40 @@ export default function DreampreneurLanding() {
                   {b.title}
                 </h3>
                 <p className="text-sm text-neutral-600 leading-relaxed">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 2b. THE ANSWER — QUESTIONS WE'LL UNPACK ============ */}
+      <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="the-answer">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto text-center space-y-3 mb-10 md:mb-12">
+            <h2 id="the-answer" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
+              Bukan Teori. Kita Bedah Hal yang <span className={DP_ACCENT}>Akan Kamu Hadapi di Market.</span>
+            </h2>
+            <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
+              Empat pertanyaan yang akan terjawab dalam satu hari bersama praktisi industri.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-4xl mx-auto">
+            {LEARN_ITEMS.map((item) => (
+              <div
+                key={item.num}
+                className="rounded-3xl bg-white border border-neutral-100 p-7 md:p-8 space-y-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <span className="inline-flex items-center gap-2 text-xs font-black text-[#7C3AED] uppercase tracking-widest">
+                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white flex items-center justify-center text-sm">
+                    {item.num}
+                  </span>
+                  {item.speaker}
+                </span>
+                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-brand-black">
+                  {item.question}
+                </h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">{item.topic}</p>
               </div>
             ))}
           </div>
@@ -438,6 +501,27 @@ export default function DreampreneurLanding() {
             <p className="text-center text-xs text-neutral-400 font-medium mt-3">
               Cuplikan sesi Dreampreneur Academy oleh Dreamlab — diskusi langsung bersama praktisi industri.
             </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto rounded-3xl bg-gradient-to-br from-[#F4EEFD] to-[#FCE9FA] border border-brand-orange/20 p-7 md:p-9 shadow-lg shadow-[#C026D3]/10">
+            <Quote className="w-8 h-8 text-brand-orange mb-4" fill="currentColor" strokeWidth={0} />
+            <blockquote className="text-[15px] md:text-lg font-medium text-brand-black leading-relaxed">
+              &ldquo;Aku sempat ragu memulai, tapi mengikuti batch pertama Dreampreneur membuka mata aku bahwa membangun brand itu soal keberanian, bukan sekadar teori. Dari sanalah aku akhirnya memberanikan diri membangun brand parfum sendiri dengan konsep yang inovatif — dan merasa lebih siap menghadapi langkah berikutnya.&rdquo;
+            </blockquote>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] flex items-center justify-center text-white font-black text-lg">
+                E
+              </div>
+              <div>
+                <p className="font-black text-brand-black text-sm md:text-base font-display">Kak Eki</p>
+                <p className="text-xs md:text-sm text-[#5B21B6] font-semibold">Peserta Batch 1 · Founder Brand Parfum</p>
+              </div>
+              <div className="ml-auto flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-brand-orange" fill="currentColor" strokeWidth={0} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
