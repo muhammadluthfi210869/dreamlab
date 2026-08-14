@@ -3,7 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import { CalendarDays, CheckCircle2, Clock, MapPin, Quote, Star } from "lucide-react";
-import { ATTRIBUTION_PARAMS } from "@/lib/lead-routing";
+import {
+  DREAMPRENEUR_WHATSAPP_URL,
+  ensureMetaPixelQueue,
+  trackDreampreneurScroll,
+  trackDreampreneurView,
+  trackDreampreneurWhatsAppClick,
+} from "@/lib/dreampreneur";
 
 const CTA_BASE =
   "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 shadow-[0_12px_32px_-10px_rgba(147,51,234,0.65)] hover:brightness-110 hover:shadow-[0_16px_40px_-10px_rgba(192,38,211,0.7)] hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
@@ -81,133 +87,20 @@ const EXPERIENCE_ITEMS = [
 
 const TRUST_ITEMS = ["Limited seats", "Learning + Networking", "Industry practitioners"];
 
-const w = () =>
-  window as unknown as {
-    dataLayer?: Record<string, unknown>[];
-    gtag?: (...args: unknown[]) => void;
-    fbq?: (...args: unknown[]) => void;
-    ttq?: { track: (...args: unknown[]) => void };
-  };
-
-function pushDataEvent(name: string, params: Record<string, unknown>) {
-  if (typeof window === "undefined") return;
-  (w().dataLayer = w().dataLayer || []).push({
-    event: name,
-    page: window.location.pathname,
-    campaign: "dreampreneur-vol-2",
-    ...params,
-  });
-}
-function gtagEvent(name: string, params: Record<string, unknown>) {
-  const gtag = w().gtag;
-  if (typeof gtag === "function") gtag("event", name, params);
-}
-function fbqEvent(name: string, params?: Record<string, unknown>) {
-  const fbq = w().fbq;
-  if (typeof fbq === "function") fbq("track", name, params);
-}
-function fbqCustom(name: string, params: Record<string, unknown>) {
-  const fbq = w().fbq;
-  if (typeof fbq === "function") fbq("trackCustom", name, params);
-}
-function ttqEvent(name: string, params: Record<string, unknown>) {
-  const ttq = w().ttq;
-  if (ttq && typeof ttq.track === "function") ttq.track(name, params);
-}
-
-function trackView() {
-  const base = { page: window.location.pathname, campaign: "dreampreneur-vol-2" };
-  pushDataEvent("view_content", base);
-  gtagEvent("view_content", base);
-  fbqEvent("ViewContent", base);
-  ttqEvent("view_content", base);
-}
-
-function trackCta(label: string) {
-  const base = { cta_label: label, campaign: "dreampreneur-vol-2" };
-  pushDataEvent("cta_click", base);
-  gtagEvent("cta_click", base);
-  fbqEvent("AddToCart", { content_name: label, content_category: "Landing Page Dreampreneur Vol 2" });
-  ttqEvent("cta_click", base);
-}
-
-function trackFormStart() {
-  const base = { form_name: "dreampreneur_registration", campaign: "dreampreneur-vol-2" };
-  pushDataEvent("form_start", base);
-  gtagEvent("form_start", base);
-  fbqEvent("InitiateCheckout", base);
-}
-
-function trackFormSubmit(fields: Record<string, string>) {
-  const base = {
-    form_name: "dreampreneur_registration",
-    cta_label: "RESERVE MY SEAT",
-    campaign: "dreampreneur-vol-2",
-    form_fields: fields,
-  };
-  pushDataEvent("form_submit", base);
-  gtagEvent("form_submit", base);
-  fbqCustom("DreampreneurSubmit", base);
-  ttqEvent("form_submit", base);
-}
-
-function isValidWhatsApp(value: string): boolean {
-  const cleaned = value.replace(/[\s\-().]/g, "");
-  return /^(\+?62|0)?8\d{8,11}$/.test(cleaned);
-}
-
-const scrollToSection = (id: string, label: string) => {
-  trackCta(label);
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-};
-
 export default function DreampreneurLanding() {
   const [showSticky, setShowSticky] = useState(false);
 
-  const [name, setName] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [status, setStatus] = useState("");
-  const [brand, setBrand] = useState("");
-  const [errors, setErrors] = useState<{ name?: string; whatsapp?: string; status?: string }>({});
-  const [submitting, setSubmitting] = useState(false);
-
   useEffect(() => {
-    trackView();
+    ensureMetaPixelQueue();
+    trackDreampreneurView();
     const onScroll = () => setShowSticky(window.scrollY > 560);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const errs: typeof errors = {};
-    if (!name.trim()) errs.name = "Nama wajib diisi.";
-    if (!isValidWhatsApp(whatsapp)) errs.whatsapp = "Nomor WhatsApp tidak valid.";
-    if (!status) errs.status = "Pilih status kamu dulu.";
-    setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setSubmitting(true);
-    const fields = { name: name.trim(), whatsapp: whatsapp.trim(), status, brand: brand.trim() || "—" };
-    trackFormSubmit(fields);
-
-    const lines = [
-      "Saya mau reservasi seat Dreampreneur Batch 2.",
-      `Nama: ${name.trim()}`,
-      `WhatsApp: ${whatsapp.trim()}`,
-      `Status: ${status}`,
-      brand.trim() ? `Brand: ${brand.trim()}` : null,
-    ].filter(Boolean).join("\n");
-
-    const params = new URLSearchParams();
-    params.set("source", "dreampreneur");
-    params.set("msg", lines);
-    const cur = new URLSearchParams(window.location.search);
-    for (const key of ATTRIBUTION_PARAMS) {
-      const val = cur.get(key);
-      if (val) params.set(key, val);
-    }
-    window.location.assign(`/dreampreneur-batch-2/thankyou/?${params.toString()}`);
+  const scrollToMentors = () => {
+    trackDreampreneurScroll("hero_meet_mentors");
+    document.getElementById("mentors")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -245,14 +138,16 @@ export default function DreampreneurLanding() {
         }`}
       >
         <div className="bg-[#F7F1FC]/95 backdrop-blur border-t border-[#E4D8F4] pt-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(109,40,217,0.25)]">
-          <button
-            type="button"
-            onClick={() => scrollToSection("register", "sticky_amankan_seat")}
+          <a
+            href={DREAMPRENEUR_WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackDreampreneurWhatsAppClick("sticky_amankan_seat")}
             className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_12px_30px_-8px_rgba(147,51,234,0.7)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6D28D9]"
-            aria-label="Amankan seat Dreampreneur Batch 2"
+            aria-label="Amankan seat Dreampreneur Batch 2 via WhatsApp"
           >
             Amankan Seat
-          </button>
+          </a>
           <p className="text-center text-[10px] font-bold text-neutral-500 mt-1.5">
             Early Bird {PRICE_EARLY_BIRD} · Seat terbatas
           </p>
@@ -308,10 +203,16 @@ export default function DreampreneurLanding() {
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
-              <button type="button" onClick={() => scrollToSection("register", "hero_cta")} className={CTA_BASE}>
+              <a
+                href={DREAMPRENEUR_WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackDreampreneurWhatsAppClick("hero_cta")}
+                className={CTA_BASE}
+              >
                 Amankan Seat — {PRICE_EARLY_BIRD}
-              </button>
-              <button type="button" onClick={() => scrollToSection("mentors", "hero_meet_mentors")} className={CTA_SECONDARY}>
+              </a>
+              <button type="button" onClick={scrollToMentors} className={CTA_SECONDARY}>
                 Meet Our Mentors
               </button>
             </div>
@@ -583,125 +484,43 @@ export default function DreampreneurLanding() {
                 <p className="text-base md:text-lg font-black uppercase font-display tracking-tight leading-snug text-white">
                   Seat terbatas.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("register", "offer_cta")}
+                <a
+                  href={DREAMPRENEUR_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackDreampreneurWhatsAppClick("offer_cta")}
                   className={`${CTA_BASE} w-full`}
                 >
                   Amankan Seat Sekarang
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 7. REGISTRATION ============ */}
-      <section id="register" className="py-16 md:py-20 bg-[#F8F4FF] scroll-mt-16" aria-labelledby="register-title">
+      {/* ============ 7. REGISTRATION — Direct WhatsApp CTA ============ */}
+      <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="join-title">
         <div className="container-custom">
-          <div className="max-w-xl mx-auto text-center space-y-3 mb-10">
-            <h2 id="register-title" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              Reserve Your <span className={DP_ACCENT}>Seat</span>
+          <div className="max-w-xl mx-auto rounded-[28px] bg-white border border-[#E4D8F4] p-8 sm:p-10 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] space-y-6">
+            <h2 id="join-title" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
+              Siap Jadi Bagian dari <span className={DP_ACCENT}>Dreampreneur?</span>
             </h2>
             <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-              Isi data singkat berikut untuk mengamankan seat Dreampreneur Batch 2.
+              Amankan seat kamu dan lanjutkan pendaftaran langsung bersama tim Dreampreneur melalui WhatsApp.
             </p>
-          </div>
-
-          <div className="max-w-lg mx-auto rounded-[28px] bg-white border border-[#E4D8F4] p-6 sm:p-9 shadow-[0_18px_50px_rgba(0,0,0,0.06)]">
-            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-              <label className="grid gap-2 text-sm font-bold text-brand-black">
-                Nama<span className={DP_ACCENT}>*</span>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    if (errors.name) setErrors((p) => ({ ...p, name: undefined }));
-                  }}
-                  onFocus={() => trackFormStart()}
-                  className="rounded-2xl border border-[#E1D4F5] bg-[#F8F4FF] px-4 py-3 text-sm outline-none transition focus:border-[#7C3AED] focus:bg-white focus:ring-2 focus:ring-[#7C3AED]/20"
-                  placeholder="Nama lengkap kamu"
-                  autoComplete="name"
-                  aria-required="true"
-                />
-                {errors.name && <span className="text-xs font-bold text-red-600">{errors.name}</span>}
-              </label>
-
-              <label className="grid gap-2 text-sm font-bold text-brand-black">
-                WhatsApp<span className={DP_ACCENT}>*</span>
-                <input
-                  type="tel"
-                  value={whatsapp}
-                  onChange={(e) => {
-                    setWhatsapp(e.target.value);
-                    if (errors.whatsapp) setErrors((p) => ({ ...p, whatsapp: undefined }));
-                  }}
-                  onFocus={() => trackFormStart()}
-                  className="rounded-2xl border border-[#E1D4F5] bg-[#F8F4FF] px-4 py-3 text-sm outline-none transition focus:border-[#7C3AED] focus:bg-white focus:ring-2 focus:ring-[#7C3AED]/20"
-                  placeholder="08xxxxxxxxxx"
-                  autoComplete="tel"
-                  inputMode="tel"
-                  aria-required="true"
-                />
-                {errors.whatsapp && <span className="text-xs font-bold text-red-600">{errors.whatsapp}</span>}
-              </label>
-
-              <fieldset className="grid gap-2 text-sm font-bold text-brand-black">
-                <legend>Status kamu<span className={DP_ACCENT}>*</span></legend>
-                <div className="grid grid-cols-2 gap-3">
-                  {["Belum punya brand", "Sudah punya brand"].map((s) => (
-                    <label
-                      key={s}
-                      className={`cursor-pointer rounded-2xl border px-4 py-3 text-center text-sm font-bold transition ${
-                        status === s
-                          ? "border-[#7C3AED] bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white"
-                          : "border-[#E1D4F5] bg-white text-brand-black hover:border-brand-orange/50"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="status"
-                        value={s}
-                        checked={status === s}
-                        onChange={() => {
-                          setStatus(s);
-                          if (errors.status) setErrors((p) => ({ ...p, status: undefined }));
-                        }}
-                        onFocus={() => trackFormStart()}
-                        className="sr-only"
-                      />
-                      {s}
-                    </label>
-                  ))}
-                </div>
-                {errors.status && <span className="text-xs font-bold text-red-600">{errors.status}</span>}
-              </fieldset>
-
-              <label className="grid gap-2 text-sm font-bold text-brand-black">
-                Nama brand (opsional)
-                <input
-                  type="text"
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                  className="rounded-2xl border border-[#E1D4F5] bg-[#F8F4FF] px-4 py-3 text-sm outline-none transition focus:border-[#7C3AED] focus:bg-white focus:ring-2 focus:ring-[#7C3AED]/20"
-                  placeholder="Kalau sudah punya brand"
-                  autoComplete="organization"
-                />
-              </label>
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className={`${CTA_BASE} w-full ${submitting ? "opacity-70 cursor-not-allowed" : ""}`}
-              >
-                {submitting ? "Mengirim..." : `Lanjutkan Pendaftaran — ${PRICE_EARLY_BIRD}`}
-              </button>
-
-              <p className="text-center text-xs text-neutral-500 leading-relaxed">
-                Harga early bird {PRICE_EARLY_BIRD}. Tim Dreamlab akan menghubungi kamu melalui WhatsApp untuk konfirmasi selanjutnya.
-              </p>
-            </form>
+            <a
+              href={DREAMPRENEUR_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackDreampreneurWhatsAppClick("register_cta")}
+              className={`${CTA_BASE} w-full`}
+            >
+              Daftar Dreampreneur Sekarang
+            </a>
+            <p className="text-xs font-bold text-neutral-500">
+              Early Bird {PRICE_EARLY_BIRD} · Seat terbatas
+            </p>
           </div>
         </div>
       </section>
