@@ -5,7 +5,7 @@
   3. Ganti [INSERT: berapa hari proses produksi rata-rata] dengan angka real dari tim produksi.
   4. Semua klaim lain (FREE desain, BPOM, kuota 8 orang, MOQ 200, potongan 1,7%) diambil langsung dari 3 flyer yang dikirim.
   5. Paket Kidscare pakai flyer/gambar promo-skincare-bodycare.png (Hair Spray + Face & Body Cream + Cologne) -- ini memang lini kidscare/baby, bukan skincare dewasa.
-  6. Semua tombol CTA sekarang mengarah ke https://dreamlab.id/ads/thankyou/metaads/?source=... (pola round robin yang sudah kamu punya), BUKAN wa.me langsung. Halaman thankyou + messageMap per paket sudah dibuat di src/app/ads/thankyou/promo-kemerdekaan/. Cek dengan tim dev/ads:
+  6. Semua tombol CTA sekarang mengarah ke https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/?source=... (pola round robin yang sudah kamu punya), BUKAN wa.me langsung. Halaman thankyou + messageMap per paket sudah dibuat di src/app/ads/thankyou/promo-kemerdekaan/. Cek dengan tim dev/ads:
      a) Param query "?source=" (mis. promo-kemerdekaan-kidscare) dipakai halaman thankyou untuk memilih pesan WA per paket. Kalau mau pesan custom lain, sesuaikan messageMap di page.tsx.
 -->
 <!DOCTYPE html>
@@ -290,7 +290,7 @@
           <li>FREE BPOM</li>
         </ul>
         <div class="slot">Sisa kuota: 8 orang pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
       <div class="pkg">
@@ -305,7 +305,7 @@
           <li>FREE BPOM</li>
         </ul>
         <div class="slot">Sisa kuota: 8 beautypreneur pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
       <div class="pkg">
@@ -320,7 +320,7 @@
           <li>FREE BPOM</li>
         </ul>
         <div class="slot">Sisa kuota: 8 beautypreneur pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
       <div class="pkg">
@@ -335,7 +335,7 @@
           <li>Promo potongan 1,7% ini hanya muncul 1 tahun sekali</li>
         </ul>
         <div class="slot">Sisa kuota: 8 orang pertama</div>
-        <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
+        <a class="btn-wa" href="https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/" target="_blank" rel="noopener">Ambil Slot Ini</a>
       </div>
 
     </div>
@@ -379,7 +379,7 @@
   <div class="wrap">
     <div class="final-cta">
       <h2>🇮🇩 Merdeka Sekarang — Promo Ini Cuma Ada 1 Tahun Sekali</h2>
-      <a class="btn-wa" href="https://dreamlab.id/ads/thankyou/metaads/" target="_blank" rel="noopener">💬 Klaim Slot via WhatsApp Sekarang</a>
+      <a class="btn-wa" href="https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/" target="_blank" rel="noopener">🇮🇩 Klaim Promo & Konsultasi Sekarang</a>
     </div>
   </div>
 </section>
@@ -393,7 +393,46 @@
   </div>
 </footer>
 
-<a class="sticky-wa" href="https://dreamlab.id/ads/thankyou/metaads/" target="_blank" rel="noopener">💬 Chat Sekarang</a>
+<a class="sticky-wa" href="https://dreamlab.id/promo-kemerdekaan/thankyou-googleads/" target="_blank" rel="noopener">💬 Klaim Promo & Konsultasi Sekarang</a>
 
+<script>
+(function () {
+  var ATTR_KEYS = ['gclid','gbraid','wbraid','fbclid','msclkid','ttclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','campaign_id','adgroup_id','creative','keyword','matchtype','device','network'];
+  var SS_ATTR = 'promo_kemerdekaan_googleads_attribution';
+  function valid(k, v) {
+    if (!v) return false;
+    v = String(v).trim();
+    if (!v || v === 'undefined' || v === 'null') return false;
+    if (v.toLowerCase() === String(k).toLowerCase()) return false; // placeholder gclid=gclid
+    return v.length > 2;
+  }
+  function collectAttribution(search, target) {
+    try {
+      var cur = search ? new URLSearchParams(search) : new URLSearchParams();
+      for (var i = 0; i < ATTR_KEYS.length; i++) {
+        var k = ATTR_KEYS[i];
+        var v = cur.get(k);
+        if (valid(k, v)) target.set(k, v);
+      }
+    } catch (e) {}
+    return target;
+  }
+  try {
+    var stored = JSON.parse(sessionStorage.getItem(SS_ATTR) || '{}');
+    var fresh = collectAttribution(window.location.search, new URLSearchParams(stored instanceof Object ? stored : {}));
+    sessionStorage.setItem(SS_ATTR, JSON.stringify(Object.fromEntries(fresh.entries())));
+  } catch (e) {}
+  document.addEventListener('click', function (ev) {
+    var t = ev.target;
+    var a = t && t.closest ? t.closest('a[href*="promo-kemerdekaan/thankyou-googleads"]') : null;
+    if (!a) return;
+    ev.preventDefault();
+    var qs = new URLSearchParams();
+    collectAttribution(window.location.search, qs);
+    qs.set('intent', 'whatsapp');
+    window.location.href = '/promo-kemerdekaan/thankyou-googleads/' + (qs.toString() ? '?' + qs.toString() : '');
+  });
+})();
+</script>
 </body>
 </html>
