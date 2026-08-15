@@ -75,7 +75,7 @@ export default function DreampreneurThankYou() {
           </div>
 
           <h1
-            className="mt-6 text-[26px] sm:text-[30px] font-black leading-tight [font-family:var(--font-viga),sans-serif]"
+            className="mt-6 text-[26px] sm:text-[30px] font-black text-white leading-tight [font-family:var(--font-viga),sans-serif]"
           >
             Menghubungkanmu ke Tim Dreampreneur
           </h1>
