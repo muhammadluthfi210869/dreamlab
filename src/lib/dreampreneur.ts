@@ -127,8 +127,10 @@ export function ensureMetaPixelQueue() {
  * query string landing page:
  *   utm_source/medium/campaign/content/term/id, fbclid (valid), gclid, ttclid.
  * Nilai kosong / placeholder (mis. fbclid=fbclid) tidak diikutkan.
+ * `eventID` (opsional) ditambahkan sebagai `event_id` untuk dedup eksternal
+ * (dipakai thank-you page sbg eventID tetap bila disediakan).
  */
-export function buildDreampreneurThankyouUrl(): string {
+export function buildDreampreneurThankyouUrl(eventID?: string): string {
   if (typeof window === "undefined") return DREAMPRENEUR_THANKYOU_PATH;
   const current = new URLSearchParams(window.location.search);
   const next = new URLSearchParams();
@@ -138,6 +140,7 @@ export function buildDreampreneurThankyouUrl(): string {
     const val = raw.trim();
     if (isValidAttributionValue(key, val)) next.set(key, val);
   }
+  if (eventID) next.set("event_id", eventID);
   const qs = next.toString();
   return qs ? `${DREAMPRENEUR_THANKYOU_PATH}?${qs}` : DREAMPRENEUR_THANKYOU_PATH;
 }
@@ -226,13 +229,16 @@ function makeEventId(): string {
 }
 
 /**
- * Event konversi thank-you page — terkirim TEPAT SATU KALI per kunjungan
- * (guard sessionStorage anti-refresh). Menjalankan tracking SEBELUM redirect
- * ke WhatsApp. Tidak memanggil AddToCart / Purchase / Lead.
+ * Browser events yang DIJALANKAN DI THANK-YOU PAGE — terkirim TEPAT SATU KALI
+ * per kunjungan (guard sessionStorage anti-refresh). Halaman thankyou dirender
+ * dulu (~700ms) sebelum redirect ke WhatsApp, jadi beacon Meta sempat terflush
+ * dan Meta dapat membaca konversi. Tidak memanggil AddToCart / Purchase / Lead.
  *
  * - dataLayer: dreampreneur_whatsapp_redirect
- * - Meta standard: Contact (dengan eventID unik utk dedup server Meta)
- * - Meta custom: DreampreneurWhatsAppRedirect (dengan eventID)
+ * - Meta standard: Contact (dengan eventID utk dedup)
+ * - Meta custom:   DreampreneurWhatsAppRedirect (dengan eventID)
+ * eventID diambil dari `?event_id=` (diteruskan CTA landing utk dedup CAPI)
+ * atau digenerate baru.
  */
 export function trackDreampreneurContact() {
   if (typeof window === "undefined") return;
@@ -248,7 +254,8 @@ export function trackDreampreneurContact() {
   if (now - lastContactAt < 2000) return;
   lastContactAt = now;
 
-  const eventID = makeEventId();
+  const urlEventId = new URLSearchParams(window.location.search).get("event_id");
+  const eventID = (urlEventId && urlEventId.trim()) || makeEventId();
   const options = { eventID };
 
   pushDataEvent("dreampreneur_whatsapp_redirect", {
