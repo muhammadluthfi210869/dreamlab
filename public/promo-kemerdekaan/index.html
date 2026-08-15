@@ -442,7 +442,10 @@
     ev.preventDefault();
     var qs = new URLSearchParams();
     collectAttribution(window.location.search, qs);
-    var srcType = detectAdSource(window.location.search);
+    var pathname = window.location.pathname || '';
+    var forceMeta = pathname.indexOf('/metaads/promo-kemerdekaan') === 0;
+    var forceGoogle = pathname.indexOf('/google-ads/promo-kemerdekaan') === 0;
+    var srcType = forceMeta ? 'meta' : forceGoogle ? 'google' : detectAdSource(window.location.search);
     if (srcType === 'meta') {
       window.location.href = '/ads/thankyou/metaads/' + (qs.toString() ? '?' + qs.toString() : '');
       return;
