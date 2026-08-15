@@ -13,6 +13,7 @@ declare module "lucide-react" {
   export const BadgeCheck: Icon
   export const Beaker: Icon
   export const Calculator: Icon
+  export const CalendarDays: Icon
   export const Check: Icon
   export const CheckCircle: Icon
   export const CheckCircle2: Icon
@@ -63,6 +64,7 @@ declare module "lucide-react" {
   export const Menu: Icon
   export const MessageCircle: Icon
   export const MessageSquare: Icon
+  export const Microscope: Icon
   export const Minimize2: Icon
   export const Minus: Icon
   export const MoreHorizontal: Icon
@@ -74,7 +76,9 @@ declare module "lucide-react" {
   export const Phone: Icon
   export const Play: Icon
   export const Plus: Icon
+  export const Quote: Icon
   export const RefreshCw: Icon
+  export const Rocket: Icon
   export const RotateCw: Icon
   export const Save: Icon
   export const Scale: Icon

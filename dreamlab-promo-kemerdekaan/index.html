@@ -49,14 +49,21 @@
 
   /* HERO */
   header.hero{
-    background:linear-gradient(180deg, #1a8fe0 0%, #0d6fb8 55%, #f5821f 100%);
-    color:#fff; padding:26px 0 70px; text-align:center; position:relative; overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(6,32,54,.80) 0%, rgba(6,32,54,.38) 45%, rgba(6,32,54,.84) 100%),
+      url('assets/header-promo-kemerdekaan.jpg') center/contain no-repeat;
+    color:#fff; padding:30px 0 76px; text-align:center; position:relative; overflow:hidden;
+    min-height:640px; display:flex; align-items:center;
   }
   header.hero::before{
     content:""; position:absolute; inset:0; pointer-events:none;
-    background:repeating-linear-gradient(-35deg, rgba(255,255,255,.10) 0 26px, rgba(224,52,42,.16) 26px 52px, transparent 52px 90px);
-    opacity:.6;
+    background:repeating-linear-gradient(-35deg, rgba(255,255,255,.06) 0 26px, rgba(224,52,42,.10) 26px 52px, transparent 52px 90px);
   }
+  header.hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:110px; pointer-events:none;
+    background:linear-gradient(180deg, transparent, rgba(244,249,253,.95) 90%, #f4f9fd);
+  }
+  header.hero .wrap{position:relative; z-index:2; width:100%;}
   .flag-ribbon{
     position:absolute; left:-10%; top:38px; width:120%; height:34px;
     background:linear-gradient(90deg, #fff 0%, #fff 33%, var(--red) 33%, var(--red) 66%, #fff 66%, #fff 100%);
@@ -186,6 +193,11 @@
     .trust .wrap{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:600px){
+    header.hero{min-height:auto; padding-top:40px;
+      background:
+        linear-gradient(180deg, rgba(6,32,54,.82) 0%, rgba(6,32,54,.42) 45%, rgba(6,32,54,.86) 100%),
+        url('assets/header-promo-kemerdekaan.jpg') center 25%/cover no-repeat;
+    }
     .trust .wrap{grid-template-columns:1fr 1fr;}
     .trust-item{border-right:none; border-bottom:1px solid #eef3f8;}
     .packages{grid-template-columns:1fr;}

@@ -5,25 +5,33 @@ import { usePathname } from "next/navigation";
 import { buildThankyouUrl } from "@/lib/lead-routing";
 import { getPageContext } from "@/lib/wa-message";
 import { getLeadSource } from "@/lib/lead-source";
-import { DREAMPRENEUR_WHATSAPP_URL, trackDreampreneurWhatsAppClick } from "@/lib/dreampreneur";
+import {
+  DREAMPRENEUR_THANKYOU_PATH,
+  buildDreampreneurThankyouUrl,
+  trackDreampreneurCtaClick,
+} from "@/lib/dreampreneur";
 
 const DREAMPRENEUR_ROUTE = "/dreampreneur-batch-2/";
+const DREAMPRENEUR_THANKYOU_ROUTE = DREAMPRENEUR_THANKYOU_PATH;
 
 const FLOATING_CLASS =
   "fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300 flex items-center justify-center group cursor-pointer border-0";
 
 /**
  * Global floating WhatsApp button.
- * - Route Dreampreneur Batch 2 → buka WhatsApp khusus event langsung
- *   (no thankyou), tetap mencatat Lead + DreampreneurWhatsAppClick.
+ * - Route Dreampreneur Batch 2 (landing) → thank-you page Dreampreneur
+ *   (attribution + conversion terekam dulu, baru redirect WhatsApp).
+ * - Route thank-you Dreampreneur → disembunyikan (halaman punya CTA sendiri).
  * - Route lain → halaman thankyou sesuai channel (organik → /thankyou/google/),
- *   yang mencatat atribusi + fire conversion, lalu auto-redirect ke WhatsApp.
+ *   round-robin existing tanpa perubahan.
  */
 export default function WhatsAppButton() {
   const pathname = usePathname();
   const isEn = pathname?.startsWith("/en");
+  const isDreampreneurThankYou = pathname === DREAMPRENEUR_THANKYOU_ROUTE;
   const isDreampreneur =
-    pathname === DREAMPRENEUR_ROUTE || pathname?.startsWith(DREAMPRENEUR_ROUTE);
+    !isDreampreneurThankYou &&
+    (pathname === DREAMPRENEUR_ROUTE || pathname?.startsWith(DREAMPRENEUR_ROUTE));
 
   const handleClick = useCallback(() => {
     const source = getLeadSource(window.location.pathname);
@@ -31,15 +39,20 @@ export default function WhatsAppButton() {
     window.location.assign(buildThankyouUrl({ source, ctx }));
   }, []);
 
+  if (isDreampreneurThankYou) {
+    return null;
+  }
+
   if (isDreampreneur) {
     return (
-      <a
-        href={DREAMPRENEUR_WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackDreampreneurWhatsAppClick("floating_whatsapp")}
+      <button
+        type="button"
+        onClick={() => {
+          trackDreampreneurCtaClick("floating_whatsapp");
+          window.location.assign(buildDreampreneurThankyouUrl());
+        }}
         className={FLOATING_CLASS}
-        aria-label="Daftar Dreampreneur Batch 2 via WhatsApp"
+        aria-label="Daftar Dreampreneur Batch 2"
       >
         <svg
           viewBox="0 0 24 24"
@@ -53,7 +66,7 @@ export default function WhatsAppButton() {
         <span className="absolute right-full mr-4 bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-bold shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           Daftar Dreampreneur
         </span>
-      </a>
+      </button>
     );
   }
 

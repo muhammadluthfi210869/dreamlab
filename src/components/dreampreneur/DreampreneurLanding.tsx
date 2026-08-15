@@ -4,11 +4,12 @@ import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import { CalendarDays, CheckCircle2, Clock, MapPin, Quote, Star } from "lucide-react";
 import {
-  DREAMPRENEUR_WHATSAPP_URL,
+  DREAMPRENEUR_THANKYOU_PATH,
+  buildDreampreneurThankyouUrl,
   ensureMetaPixelQueue,
+  trackDreampreneurCtaClick,
   trackDreampreneurScroll,
   trackDreampreneurView,
-  trackDreampreneurWhatsAppClick,
 } from "@/lib/dreampreneur";
 
 const CTA_BASE =
@@ -103,6 +104,12 @@ export default function DreampreneurLanding() {
     document.getElementById("mentors")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleRegisterClick = (e: React.MouseEvent<HTMLAnchorElement>, label: string) => {
+    e.preventDefault();
+    trackDreampreneurCtaClick(label);
+    window.location.assign(buildDreampreneurThankyouUrl());
+  };
+
   return (
     <div
       className="landing-page-ads min-h-screen bg-[#F7F1FC] text-brand-black font-sans selection:bg-[#C026D3] selection:text-white pb-24 md:pb-0"
@@ -139,14 +146,12 @@ export default function DreampreneurLanding() {
       >
         <div className="bg-[#F7F1FC]/95 backdrop-blur border-t border-[#E4D8F4] pt-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(109,40,217,0.25)]">
           <a
-            href={DREAMPRENEUR_WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackDreampreneurWhatsAppClick("sticky_amankan_seat")}
+            href={DREAMPRENEUR_THANKYOU_PATH}
+            onClick={(e) => handleRegisterClick(e, "sticky_daftar_sekarang")}
             className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_12px_30px_-8px_rgba(147,51,234,0.7)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6D28D9]"
-            aria-label="Amankan seat Dreampreneur Batch 2 via WhatsApp"
+            aria-label="Daftar Dreampreneur Batch 2 — Rp189K"
           >
-            Amankan Seat
+            Daftar Sekarang — Rp189K
           </a>
           <p className="text-center text-[10px] font-bold text-neutral-500 mt-1.5">
             Early Bird {PRICE_EARLY_BIRD} · Seat terbatas
@@ -204,13 +209,11 @@ export default function DreampreneurLanding() {
 
             <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
               <a
-                href={DREAMPRENEUR_WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackDreampreneurWhatsAppClick("hero_cta")}
+                href={DREAMPRENEUR_THANKYOU_PATH}
+                onClick={(e) => handleRegisterClick(e, "hero_cta")}
                 className={CTA_BASE}
               >
-                Amankan Seat — {PRICE_EARLY_BIRD}
+                Daftar Dreampreneur — {PRICE_EARLY_BIRD}
               </a>
               <button type="button" onClick={scrollToMentors} className={CTA_SECONDARY}>
                 Meet Our Mentors
@@ -485,13 +488,11 @@ export default function DreampreneurLanding() {
                   Seat terbatas.
                 </p>
                 <a
-                  href={DREAMPRENEUR_WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackDreampreneurWhatsAppClick("offer_cta")}
+                  href={DREAMPRENEUR_THANKYOU_PATH}
+                  onClick={(e) => handleRegisterClick(e, "offer_cta")}
                   className={`${CTA_BASE} w-full`}
                 >
-                  Amankan Seat Sekarang
+                  Daftar Dreampreneur — {PRICE_EARLY_BIRD}
                 </a>
               </div>
             </div>
@@ -510,13 +511,11 @@ export default function DreampreneurLanding() {
               Amankan seat kamu dan lanjutkan pendaftaran langsung bersama tim Dreampreneur melalui WhatsApp.
             </p>
             <a
-              href={DREAMPRENEUR_WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackDreampreneurWhatsAppClick("register_cta")}
+              href={DREAMPRENEUR_THANKYOU_PATH}
+              onClick={(e) => handleRegisterClick(e, "register_cta")}
               className={`${CTA_BASE} w-full`}
             >
-              Daftar Dreampreneur Sekarang
+              Daftar Dreampreneur — {PRICE_EARLY_BIRD}
             </a>
             <p className="text-xs font-bold text-neutral-500">
               Early Bird {PRICE_EARLY_BIRD} · Seat terbatas

@@ -58,6 +58,26 @@ function buildPool() {
   });
 }
 
-const pool = buildPool();
+let _pool: Pool | null = null;
+
+function getPool(): Pool {
+  if (!_pool) {
+    _pool = buildPool();
+  }
+  return _pool;
+}
+
+// Lazy Pool: hanya dibangun saat benar-benar dipakai (runtime), bukan saat
+// module di-import. Mencegah `next build` gagal ketika DATABASE_URL belum
+// tersedia pada fase collect page data (mis. build lokal tanpa .env.local
+// lengkap) — koneksi DB baru dibuat saat route benar-benar dipanggil.
+const pool: Pool = new Proxy({} as unknown as Pool, {
+  get(_target, prop, receiver) {
+    return Reflect.get(getPool(), prop, receiver);
+  },
+  has(_target, prop) {
+    return prop in getPool();
+  },
+});
 
 export default pool;

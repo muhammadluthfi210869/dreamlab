@@ -8,6 +8,7 @@ Static landing page (1 file HTML, no build step). Siap dibuka di VS Code, di-pus
 dreamlab-promo-kemerdekaan/
 ├── index.html          <- landing page utama
 ├── assets/
+│   ├── header-promo-kemerdekaan.jpg  (header/hero full background)
 │   ├── promo-skincare-bodycare.png   (dipakai untuk Paket Kidscare)
 │   ├── promo-haircare.png            (dipakai untuk Paket Haircare Growth & Smooth)
 │   └── promo-parfum.png              (dipakai untuk Paket Parfum)
