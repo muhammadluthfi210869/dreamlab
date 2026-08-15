@@ -13,6 +13,8 @@ export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  if (pathname === "/dreampreneur-batch-2/thankyou/") return null;
+
   // Helper untuk menormalisasi trailing slash dari URL (Next.js trailingSlash: true)
   const normalizePath = (p: string) => {
     if (!p) return "";

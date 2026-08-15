@@ -15,6 +15,8 @@ export default function Footer() {
   const isEn = pathname.startsWith("/en");
   const L = (p: string) => localizeHref(p, isEn);
 
+  if (pathname === "/dreampreneur-batch-2/thankyou/") return null;
+
   return (
     <footer className="bg-[#1A1A1A] text-white pt-20 pb-10">
       <div className="container-custom">

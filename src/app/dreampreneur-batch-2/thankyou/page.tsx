@@ -1,24 +1,16 @@
-import type { Metadata } from 'next';
-import { ThankYouRoundRobin } from '@/components/ThankYouRoundRobin';
-import { buildWaMessage } from '@/lib/wa-message';
+import type { Metadata } from "next";
+import DreampreneurThankYou from "@/components/dreampreneur/DreampreneurThankYou";
 
 export const metadata: Metadata = {
-  title: 'Terima Kasih — Dreampreneur Batch 2 | Dreamlab',
+  title: "Terima Kasih — Dreampreneur Batch 2 | Dreamlab",
+  description:
+    "Kamu sedang diarahkan ke WhatsApp untuk melanjutkan pendaftaran Dreampreneur Batch 2.",
   robots: { index: false, follow: false },
   alternates: {
-    canonical: 'https://dreamlab.id/dreampreneur-batch-2/thankyou/',
+    canonical: "https://dreamlab.id/dreampreneur-batch-2/thankyou/",
   },
 };
 
-export default function DreampreneurThankYou() {
-  return (
-    <ThankYouRoundRobin
-      defaultSource="dreampreneur"
-      channelLabel="Dreampreneur Batch 2"
-      ctaLabel="KONFIRMASI SEAT SAYA DI WHATSAPP"
-      title="Seat Kamu Berhasil Direservasi!"
-      description="Tim Dreamlab akan mengonfirmasi detail pembayaran dan kehadiran kamu di Dreampreneur Batch 2 melalui WhatsApp. Simak pesannya sekarang."
-      message={buildWaMessage("Dreampreneur Batch 2", "dreampreneur")}
-    />
-  );
+export default function DreampreneurThankYouPage() {
+  return <DreampreneurThankYou />;
 }
