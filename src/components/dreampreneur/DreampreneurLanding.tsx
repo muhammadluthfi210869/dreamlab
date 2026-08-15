@@ -7,6 +7,7 @@ import {
   DREAMPRENEUR_THANKYOU_PATH,
   buildDreampreneurThankyouUrl,
   ensureMetaPixelQueue,
+  preconnectWhatsApp,
   trackDreampreneurCtaClick,
   trackDreampreneurScroll,
   trackDreampreneurView,
@@ -93,6 +94,7 @@ export default function DreampreneurLanding() {
 
   useEffect(() => {
     ensureMetaPixelQueue();
+    preconnectWhatsApp();
     trackDreampreneurView();
     const onScroll = () => setShowSticky(window.scrollY > 560);
     window.addEventListener("scroll", onScroll, { passive: true });

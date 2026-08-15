@@ -3,7 +3,7 @@ export const DREAMPRENEUR_WHATSAPP_NUMBER = "62881027240339";
 const META_PIXEL_ID = "1178862663474674";
 
 export const DREAMPRENEUR_WHATSAPP_MESSAGE =
-  "Halo Dreamlab, saya ingin mendaftar Dreampreneur Batch 2. Mohon informasi selanjutnya mengenai pembayaran dan detail acaranya.";
+  "Saya ingin mendaftar Dreampreneur Batch 2. Mohon informasi selanjutnya mengenai pembayaran dan detail acaranya.";
 
 export const DREAMPRENEUR_WHATSAPP_URL =
   `https://wa.me/${DREAMPRENEUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -183,6 +183,35 @@ export function trackDreampreneurScroll(label: string) {
 
 const CONTACT_STORAGE_KEY = "dreamlab_dp2_contact_sent";
 let lastContactAt = 0;
+
+/**
+ * Panasi koneksi ke domain WhatsApp (wa.me / api / web) lebih awal supaya saat
+ * redirect ke WA tidak menunggu DNS + TLS lagi. Idempotent per halaman.
+ */
+export function preconnectWhatsApp() {
+  if (typeof window === "undefined") return;
+  const win = window as unknown as { __dreamlabDp2WaPreconnect?: boolean };
+  if (win.__dreamlabDp2WaPreconnect) return;
+  win.__dreamlabDp2WaPreconnect = true;
+
+  const hosts = [
+    "https://wa.me",
+    "https://api.whatsapp.com",
+    "https://web.whatsapp.com",
+  ];
+  for (const host of hosts) {
+    const link = document.createElement("link");
+    link.rel = "preconnect";
+    link.href = host;
+    link.crossOrigin = "anonymous";
+    document.head.appendChild(link);
+
+    const dns = document.createElement("link");
+    dns.rel = "dns-prefetch";
+    dns.href = host;
+    document.head.appendChild(dns);
+  }
+}
 
 function makeEventId(): string {
   let id = "dp2_";

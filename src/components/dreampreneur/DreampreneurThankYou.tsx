@@ -8,10 +8,11 @@ import {
   DREAMPRENEUR_WHATSAPP_URL,
   DREAMPRENEUR_LANDING_PATH,
   ensureMetaPixelQueue,
+  preconnectWhatsApp,
   trackDreampreneurContact,
 } from "@/lib/dreampreneur";
 
-const REDIRECT_DELAY_MS = 1800;
+const REDIRECT_DELAY_MS = 700;
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" className={className} aria-hidden="true">
@@ -24,6 +25,7 @@ export default function DreampreneurThankYou() {
 
   useEffect(() => {
     ensureMetaPixelQueue();
+    preconnectWhatsApp();
     trackDreampreneurContact();
 
     timerRef.current = window.setTimeout(() => {
