@@ -422,6 +422,19 @@
     var fresh = collectAttribution(window.location.search, new URLSearchParams(stored instanceof Object ? stored : {}));
     sessionStorage.setItem(SS_ATTR, JSON.stringify(Object.fromEntries(fresh.entries())));
   } catch (e) {}
+  function detectAdSource(search) {
+    try {
+      var params = new URLSearchParams(search || '');
+      if (valid('gclid', params.get('gclid')) || valid('gbraid', params.get('gbraid')) || valid('wbraid', params.get('wbraid'))) return 'google';
+      var src = (params.get('utm_source') || '').toLowerCase();
+      var med = (params.get('utm_medium') || '').toLowerCase();
+      var isGoogleSrc = src === 'google' || src === 'googleads' || src === 'google_ads' || src.indexOf('google') !== -1;
+      if (src === 'google' || (med === 'cpc' && isGoogleSrc)) return 'google';
+      if (valid('fbclid', params.get('fbclid')) || valid('ttclid', params.get('ttclid'))) return 'meta';
+      if (src.indexOf('facebook') !== -1 || src.indexOf('instagram') !== -1 || src === 'meta' || src === 'metaads') return 'meta';
+    } catch (e) {}
+    return 'none';
+  }
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     var a = t && t.closest ? t.closest('a[href*="promo-kemerdekaan/thankyou-googleads"]') : null;
@@ -429,6 +442,11 @@
     ev.preventDefault();
     var qs = new URLSearchParams();
     collectAttribution(window.location.search, qs);
+    var srcType = detectAdSource(window.location.search);
+    if (srcType === 'meta') {
+      window.location.href = '/ads/thankyou/metaads/' + (qs.toString() ? '?' + qs.toString() : '');
+      return;
+    }
     qs.set('intent', 'whatsapp');
     window.location.href = '/promo-kemerdekaan/thankyou-googleads/' + (qs.toString() ? '?' + qs.toString() : '');
   });
