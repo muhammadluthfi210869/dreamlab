@@ -13,6 +13,22 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/5-cara-menaikkan-omzet-klinik-kecantikan",
+    "title": "5 Cara Menaikkan Omzet Klinik Kecantikan dengan Memaksimalkan Database Pasien",
+    "publishDate": "2026-08-16T00:00:00+00:00",
+    "author": "Tim Dreamlab",
+    "categories": [
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Klinik Kecantikan",
+      "Bisnis Kosmetik"
+    ],
+    "featuredImage": "/images/artikel-klinik/hero-crm-klinik.png",
+    "excerpt": "5 cara menaikkan omzet klinik kecantikan: maksimalkan database pasien dengan CRM, produk after-treatment, toko online, membership, dan reaktivasi pasien.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/panduan-maklon-deodorant-bpom",
     "title": "Cara membuat deodoran BPOM yang diksukai konsumen",
     "publishDate": "2026-04-15T22:29:33+00:00",

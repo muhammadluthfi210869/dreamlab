@@ -102,6 +102,31 @@ const micellarHeadings = [
 ];
 
 const articleOverrides: Record<string, ArticleOverride> = {
+  '/5-cara-menaikkan-omzet-klinik-kecantikan': {
+    content: '',
+    faqs: [
+      {
+        question: 'Apakah klinik kecantikan dapat memiliki brand skincare sendiri?',
+        answer: 'Bisa. Produk harus dikembangkan dan diproduksi melalui sarana yang sesuai serta memenuhi proses notifikasi dan ketentuan kosmetik sebelum diedarkan.',
+      },
+      {
+        question: 'Produk apa yang sebaiknya dibuat pertama kali?',
+        answer: 'Pilih hero product berdasarkan kebutuhan pasien yang paling sering muncul, treatment unggulan, relevansi penggunaan harian, dan potensi pembelian ulang.',
+      },
+      {
+        question: 'Apakah harus langsung membuat satu rangkaian?',
+        answer: 'Tidak. Memulai dari satu hero product membuat positioning, edukasi, dan evaluasi penjualan lebih fokus sebelum memperluas SKU.',
+      },
+      {
+        question: 'Apa perbedaan produk klinik dengan produk yang dijual bebas?',
+        answer: 'Perbedaannya seharusnya terletak pada insight pengguna, positioning, formula, pengalaman penggunaan, serta bagaimana produk terhubung dengan journey pasien klinik.',
+      },
+      {
+        question: 'Bagaimana database pasien membantu penjualan produk?',
+        answer: 'Database membantu klinik menentukan segmentasi, waktu edukasi, program refill, reaktivasi, dan penawaran yang relevan. Penggunaannya tetap harus berdasarkan persetujuan serta menjaga data pribadi pasien.',
+      },
+    ],
+  },
   '/biaya-maklon-parfum-moq-kecil': {
     excerpt:
       'Panduan rinci biaya maklon parfum dengan MOQ kecil, lengkap dengan struktur modal, faktor HPP, dan strategi launch yang lebih realistis untuk brand baru.',

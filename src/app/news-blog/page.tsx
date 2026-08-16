@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { articlesMeta, ArticleMeta } from '@/data/articles-meta';
+import { resolveArticleImageSrc } from '@/lib/asset-paths';
 
 const MONTHS_ID = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'];
 
@@ -218,7 +219,7 @@ onChange={(e) => handleSearch(e.target.value)}
                         >
                           <Link href={`${article.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-gray-50 bg-[#FAF9F6]">
                             <Image 
-                              src={article.featuredImage ? `/assets/images/blog/${article.featuredImage}` : '/assets/images/placeholder.jpg'} 
+                              src={resolveArticleImageSrc(article.featuredImage)} 
                               alt={article.title}
                               fill
                               className="object-contain group-hover:scale-105 transition-transform duration-1000"
@@ -354,7 +355,7 @@ onChange={(e) => handleSearch(e.target.value)}
                       <Link href={`${a.slug}`} key={i} className="flex gap-4 group">
                         <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 bg-[#FAF9F6]">
                           <Image 
-                            src={a.featuredImage ? `/assets/images/blog/${a.featuredImage}` : '/assets/images/placeholder.jpg'} 
+                            src={resolveArticleImageSrc(a.featuredImage)} 
                             alt={a.title} 
                             fill 
                             className="object-contain group-hover:scale-110 transition-transform duration-500" 

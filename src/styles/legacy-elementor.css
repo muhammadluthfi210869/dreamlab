@@ -463,6 +463,148 @@
   line-height: 1.7;
 }
 
+/* ===== Scoped components: Artikel "5 Cara Menaikkan Omzet Klinik Kecantikan" ===== */
+.legacy-content-wrapper .dl-strategy {
+  border: 1px solid #e8e3d8;
+  border-radius: 20px;
+  padding: 26px 28px;
+  margin: 34px 0;
+  background: #ffffff;
+  box-shadow: 0 14px 42px rgba(16, 27, 63, 0.07);
+}
+
+.legacy-content-wrapper .dl-strategy-num {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #FF6B1A;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.legacy-content-wrapper .dl-note {
+  margin: 30px 0;
+  padding: 20px 24px;
+  border-left: 4px solid #FF6B1A;
+  border-radius: 0 14px 14px 0;
+  background: #fff0e7;
+}
+
+.legacy-content-wrapper .dl-note strong { color: #101B3F; }
+
+.legacy-content-wrapper .dl-formula {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 26px 0;
+}
+
+.legacy-content-wrapper .dl-formula-card {
+  padding: 20px;
+  border-radius: 16px;
+  background: #F8F6F1;
+}
+
+.legacy-content-wrapper .dl-formula-card span {
+  color: #FF6B1A;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.legacy-content-wrapper .dl-formula-card h3 { margin: 16px 0 8px; font-size: 19px; }
+.legacy-content-wrapper .dl-formula-card p { margin: 0; color: #657086; font-size: 14px; }
+
+.legacy-content-wrapper ol.dl-steps {
+  list-style: none;
+  counter-reset: dl-step;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 30px 0;
+  padding: 0;
+}
+
+.legacy-content-wrapper ol.dl-steps li {
+  counter-increment: dl-step;
+  position: relative;
+  padding: 22px;
+  border: 1px solid #e8e3d8;
+  border-radius: 17px;
+  background: #ffffff;
+  min-height: 210px;
+}
+
+.legacy-content-wrapper ol.dl-steps li::before {
+  content: counter(dl-step, decimal-leading-zero);
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  color: rgba(16, 27, 63, 0.06);
+  font-size: 84px;
+  font-weight: 900;
+}
+
+.legacy-content-wrapper ol.dl-steps .dl-step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #FF6B1A;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.legacy-content-wrapper ol.dl-steps h3 { margin: 30px 0 8px; font-size: 18px; }
+.legacy-content-wrapper ol.dl-steps p { margin: 0; color: #657086; font-size: 13px; line-height: 1.6; }
+
+.legacy-content-wrapper .dl-expectations {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 30px 0;
+}
+
+.legacy-content-wrapper .dl-expectation {
+  padding: 24px;
+  border-radius: 18px;
+  background: #101B3F;
+  color: #ffffff;
+}
+
+.legacy-content-wrapper .dl-expectation span {
+  color: #ffb58a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.legacy-content-wrapper .dl-expectation h3 { margin: 26px 0 10px; color: #ffffff; font-size: 20px; }
+.legacy-content-wrapper .dl-expectation p { margin: 0; color: #c3cce0; font-size: 14px; }
+
+.legacy-content-wrapper .dl-sources {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e8e3d8;
+  font-size: 12px;
+  color: #777;
+}
+
+@media (max-width: 900px) {
+  .legacy-content-wrapper .dl-formula,
+  .legacy-content-wrapper .dl-expectations { grid-template-columns: 1fr; }
+  .legacy-content-wrapper ol.dl-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+  .legacy-content-wrapper ol.dl-steps { grid-template-columns: 1fr; }
+  .legacy-content-wrapper ol.dl-steps li { min-height: 0; }
+}
+
 @keyframes ig-skeleton-shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }

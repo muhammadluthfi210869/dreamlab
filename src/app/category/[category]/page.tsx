@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getSEOData } from '@/lib/seo-service';
+import { resolveArticleImageSrc } from '@/lib/asset-paths';
 
 let articlesCache: any[] | null = null;
 const THIN_CATEGORY_MAX_ARTICLES = 1;
@@ -130,7 +131,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               >
                 <Link href={`/${article.slug}/`} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
                   <Image 
-                    src={article.featuredImage ? `/assets/images/blog/${article.featuredImage}` : '/assets/images/placeholder.jpg'} 
+                    src={resolveArticleImageSrc(article.featuredImage)} 
                     alt={article.title}
                     fill
                     className="object-contain group-hover:scale-105 transition-transform duration-1000"
