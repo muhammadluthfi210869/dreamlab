@@ -106,26 +106,6 @@ const articleOverrides: Record<string, ArticleOverride> = {
     content: '',
     faqs: [
       {
-        question: 'Apakah klinik kecantikan dapat memiliki brand skincare sendiri?',
-        answer: 'Bisa. Produk harus dikembangkan dan diproduksi melalui sarana yang sesuai serta memenuhi proses notifikasi dan ketentuan kosmetik sebelum diedarkan.',
-      },
-      {
-        question: 'Produk apa yang sebaiknya dibuat pertama kali?',
-        answer: 'Pilih hero product berdasarkan kebutuhan pasien yang paling sering muncul, treatment unggulan, relevansi penggunaan harian, dan potensi pembelian ulang.',
-      },
-      {
-        question: 'Apakah harus langsung membuat satu rangkaian?',
-        answer: 'Tidak. Memulai dari satu hero product membuat positioning, edukasi, dan evaluasi penjualan lebih fokus sebelum memperluas SKU.',
-      },
-      {
-        question: 'Apa perbedaan produk klinik dengan produk yang dijual bebas?',
-        answer: 'Perbedaannya seharusnya terletak pada insight pengguna, positioning, formula, pengalaman penggunaan, serta bagaimana produk terhubung dengan journey pasien klinik.',
-      },
-      {
-        question: 'Bagaimana database pasien membantu penjualan produk?',
-        answer: 'Database membantu klinik menentukan segmentasi, waktu edukasi, program refill, reaktivasi, dan penawaran yang relevan. Penggunaannya tetap harus berdasarkan persetujuan serta menjaga data pribadi pasien.',
-      },
-      {
         question: 'Berapa MOQ di Dreamlab?',
         answer: 'MOQ bersifat fleksibel sehingga bisa disesuaikan dengan rencana dan budget brand Anda. Silakan tanyakan dan diskusikan langsung kebutuhan MOQ produk skincare Anda bersama tim Dreamlab.',
       },
