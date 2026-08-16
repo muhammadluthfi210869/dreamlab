@@ -102,6 +102,19 @@ const micellarHeadings = [
 ];
 
 const articleOverrides: Record<string, ArticleOverride> = {
+  '/peluang-bangun-brand-moisturizer-pdrn': {
+    content: '',
+    faqs: [
+      {
+        question: 'Berapa MOQ produksi moisturizer PDRN di Dreamlab?',
+        answer: 'Dreamlab menyediakan MOQ yang fleksibel sesuai konsep produk, jenis formula, dan kebutuhan brand. Konsultasikan rencana produk Anda bersama tim Dreamlab untuk mendapatkan rekomendasi jumlah produksi yang paling sesuai.',
+      },
+      {
+        question: 'Apa tahap awal membuat moisturizer PDRN?',
+        answer: 'Tahap awal dimulai dengan konsultasi konsep produk dan pembuatan sample formula. Melalui proses ini, Anda dapat mengevaluasi tekstur, aroma, kenyamanan, serta karakter produk sebelum melanjutkan ke tahap legalitas dan produksi.',
+      },
+    ],
+  },
   '/5-cara-menaikkan-omzet-klinik-kecantikan': {
     content: '',
     faqs: [

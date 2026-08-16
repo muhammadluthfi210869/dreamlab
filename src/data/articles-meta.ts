@@ -13,6 +13,23 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/peluang-bangun-brand-moisturizer-pdrn",
+    "title": "Peluang Bangun Brand Moisturizer PDRN: Jangan Hanya Mengikuti Tren",
+    "publishDate": "2026-08-16T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Moisturizer",
+      "PDRN",
+      "Skincare"
+    ],
+    "featuredImage": "/images/artikel-pdrn/pdrn-niacinamide-concept.jpeg",
+    "excerpt": "PDRN mulai menarik perhatian pasar skincare. Pelajari peluang membangun brand moisturizer PDRN dengan formula, konsep, dan positioning yang relevan.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/5-cara-menaikkan-omzet-klinik-kecantikan",
     "title": "5 Cara Menaikkan Omzet Klinik Kecantikan dengan Memaksimalkan Database Pasien",
     "publishDate": "2026-08-16T00:00:00+00:00",
