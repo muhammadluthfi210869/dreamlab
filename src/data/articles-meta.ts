@@ -26,7 +26,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-klinik/hero-crm-klinik.png",
     "excerpt": "5 cara menaikkan omzet klinik kecantikan: maksimalkan database pasien dengan CRM, produk after-treatment, toko online, membership, dan reaktivasi pasien.",
-    "readingMinutes": 8
+    "readingMinutes": 7
   },
   {
     "slug": "/panduan-maklon-deodorant-bpom",
