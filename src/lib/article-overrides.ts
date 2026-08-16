@@ -125,6 +125,14 @@ const articleOverrides: Record<string, ArticleOverride> = {
         question: 'Bagaimana database pasien membantu penjualan produk?',
         answer: 'Database membantu klinik menentukan segmentasi, waktu edukasi, program refill, reaktivasi, dan penawaran yang relevan. Penggunaannya tetap harus berdasarkan persetujuan serta menjaga data pribadi pasien.',
       },
+      {
+        question: 'Berapa MOQ di Dreamlab?',
+        answer: 'MOQ bersifat fleksibel sehingga bisa disesuaikan dengan rencana dan budget brand Anda. Silakan tanyakan dan diskusikan langsung kebutuhan MOQ produk skincare Anda bersama tim Dreamlab.',
+      },
+      {
+        question: 'Dreamlab berlokasi di mana?',
+        answer: 'Dreamlab adalah maklon kosmetik yang berlokasi di Surabaya, Jawa Timur. Layanan produksi kami mencakup berbagai kategori, termasuk produk skincare yang bisa disesuaikan dengan kebutuhan brand Anda.',
+      },
     ],
   },
   '/biaya-maklon-parfum-moq-kecil': {
