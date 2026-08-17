@@ -13,6 +13,23 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-kosmetik-pasuruan",
+    "title": "Maklon Kosmetik Pasuruan: Dreamlab Juaranya Formula",
+    "publishDate": "2026-08-17T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Pasuruan",
+      "Jawa Timur"
+    ],
+    "featuredImage": "/images/artikel-pasuruan/maklon-kosmetik-pasuruan-hero.jpeg",
+    "excerpt": "Cari maklon kosmetik di Pasuruan? Dreamlab membantu dari konsep, custom formula, produksi, hingga pengurusan BPOM. Konsultasikan brand Anda.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/peluang-bangun-brand-moisturizer-pdrn",
     "title": "Peluang Bangun Brand Moisturizer PDRN: Jangan Hanya Mengikuti Tren",
     "publishDate": "2026-08-16T00:00:00+00:00",

@@ -102,6 +102,19 @@ const micellarHeadings = [
 ];
 
 const articleOverrides: Record<string, ArticleOverride> = {
+  '/maklon-kosmetik-pasuruan': {
+    content: '',
+    faqs: [
+      {
+        question: 'Berapa MOQ maklon kosmetik di Dreamlab?',
+        answer: 'MOQ di Dreamlab bersifat fleksibel dan disesuaikan dengan kategori produk, formula, bahan aktif, kemasan, serta kebutuhan brand. Konsultasikan konsep produk terlebih dahulu agar tim Dreamlab dapat memberikan rekomendasi jumlah produksi dan estimasi yang lebih sesuai.',
+      },
+      {
+        question: 'Bagaimana cara konsultasi maklon di Dreamlab?',
+        answer: 'Anda dapat memulai melalui halaman Contact Us Dreamlab dan memilih tombol konsultasi. Sampaikan kategori produk, target konsumen, referensi atau benchmark, manfaat yang diinginkan, serta perkiraan budget jika sudah ada. Tim Dreamlab akan membantu menyusun langkah awal, termasuk konsep formula dan pembuatan sample.',
+      },
+    ],
+  },
   '/peluang-bangun-brand-moisturizer-pdrn': {
     content: '',
     faqs: [
