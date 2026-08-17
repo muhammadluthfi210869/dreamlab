@@ -27,7 +27,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-pdrn/pdrn-niacinamide-concept.jpeg",
     "excerpt": "PDRN mulai menarik perhatian pasar skincare. Pelajari peluang membangun brand moisturizer PDRN dengan formula, konsep, dan positioning yang relevan.",
-    "readingMinutes": 9
+    "readingMinutes": 8
   },
   {
     "slug": "/5-cara-menaikkan-omzet-klinik-kecantikan",
