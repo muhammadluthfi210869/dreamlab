@@ -2997,6 +2997,26 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "dreamlab_maklon_kosmeti_jawa_tengah_11zon.jpg",
     "excerpt": "Cari jasa maklon kosmetik dan skincare untuk Jawa Tengah? Dreamlab membantu dari konsep, custom formula, BPOM, produksi, hingga strategi pemasaran brand Anda.",
     "readingMinutes": 12
+  },
+  {
+    "slug": "/maklon-parfum-terbaik-free-marketing-kit",
+    "title": "Cari Maklon Parfum Terbaik? Bangun Produk High Demand dengan FREE Marketing Kit Dreamlab",
+    "publishDate": "2026-08-18T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Parfum",
+      "Jasa Maklon",
+      "Custom Aroma",
+      "Marketing Kit",
+      "Brand Parfum"
+    ],
+    "featuredImage": "maklon_parfum_free_marketing_kit_dreamlab.jpg",
+    "excerpt": "Cari maklon parfum terbaik? Dreamlab membantu custom aroma, BPOM, produksi, dan persiapan penjualan dengan FREE Marketing Kit untuk brand Anda.",
+    "readingMinutes": 11
   }
 ]
 ;
