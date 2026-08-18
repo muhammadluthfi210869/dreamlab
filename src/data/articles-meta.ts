@@ -3016,7 +3016,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "maklon_parfum_free_marketing_kit_dreamlab.jpg",
     "excerpt": "Cari maklon parfum terbaik? Dreamlab membantu custom aroma, BPOM, produksi, dan persiapan penjualan dengan FREE Marketing Kit untuk brand Anda.",
-    "readingMinutes": 11
+    "readingMinutes": 10
   }
 ]
 ;
