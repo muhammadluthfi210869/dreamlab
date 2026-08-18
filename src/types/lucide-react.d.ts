@@ -12,6 +12,7 @@ declare module "lucide-react" {
   export const Award: Icon
   export const BadgeCheck: Icon
   export const Beaker: Icon
+  export const BookOpen: Icon
   export const Calculator: Icon
   export const CalendarDays: Icon
   export const Check: Icon
@@ -101,6 +102,7 @@ declare module "lucide-react" {
   export const Truck: Icon
   export const Twitter: Icon
   export const Upload: Icon
+  export const Utensils: Icon
   export const User: Icon
   export const Users: Icon
   export const Volume2: Icon

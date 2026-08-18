@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
-import { CalendarDays, CheckCircle2, Clock, MapPin, Quote, Star } from "lucide-react";
+import { BookOpen, CalendarDays, CheckCircle2, Clock, Gift, MapPin, Quote, Sparkles, Star, Utensils } from "lucide-react";
 import {
   DREAMPRENEUR_THANKYOU_PATH,
   buildDreampreneurThankyouUrl,
@@ -41,6 +41,35 @@ const BENEFITS = [
   {
     title: "AI-Optimized Business Matchmaking",
     desc: "Temukan peluang koneksi dan kolaborasi yang lebih relevan untuk perkembangan bisnismu.",
+  },
+  {
+    title: "Launch & Go-To-Market Support",
+    desc: "Pendampingan menyiapkan peluncuran produk pertamamu — dari kemasan, foto produk, sampai strategi launching yang siap jual.",
+  },
+  {
+    title: "Ebook Framework Menjadi Beautypreneur",
+    desc: "Materi eksklusif berupa ebook framework lengkap — blueprint dari nol memahami formula, legalitas, hingga brand siap diluncurkan.",
+  },
+];
+
+const EXPERIENCE_BENEFITS = [
+  {
+    title: "Makan Siang",
+    desc: "Makan siang sudah disediakan agar kamu tetap nyaman mengikuti seluruh rangkaian acara.",
+    Icon: Utensils,
+    featured: false,
+  },
+  {
+    title: "Dreampreneur Merchandise",
+    desc: "Dapatkan merchandise eksklusif sebagai bagian dari pengalaman Dreampreneur Batch 2.",
+    Icon: Gift,
+    featured: false,
+  },
+  {
+    title: "E-book Framework Memulai Brand Skincare",
+    desc: "Panduan praktis untuk membantu kamu menyusun langkah awal membangun brand skincare.",
+    Icon: BookOpen,
+    featured: true,
   },
 ];
 
@@ -245,7 +274,7 @@ export default function DreampreneurLanding() {
               What You&apos;ll <span className={DP_ACCENT}>Get</span>
             </h2>
             <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-              Tiga bekal utama untuk membangun beauty brand yang lebih siap bertumbuh.
+              Lima bekal utama untuk membangun beauty brand yang lebih siap bertumbuh.
             </p>
           </div>
 
@@ -264,6 +293,68 @@ export default function DreampreneurLanding() {
                 <p className="text-sm text-neutral-600 leading-relaxed">{b.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 2c. DREAMPRENEUR EXPERIENCE — WHAT YOU GET ============ */}
+      <section className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden" aria-labelledby="dp-experience">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
+
+        <div className="container-custom relative">
+          <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-[10px] md:text-xs font-bold tracking-[0.25em] text-white uppercase">
+              Dreampreneur Experience
+            </p>
+            <h2 id="dp-experience" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
+              Apa yang <span className={DP_ACCENT}>Kamu Dapatkan?</span>
+            </h2>
+            <p className="text-sm md:text-base text-white/70 leading-relaxed">
+              Bukan hanya sesi belajar. Kamu juga mendapatkan fasilitas dan panduan yang bisa dibawa pulang.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 max-w-4xl mx-auto">
+            {EXPERIENCE_BENEFITS.map((b) => (
+              <div
+                key={b.title}
+                className={
+                  b.featured
+                    ? "rounded-3xl border border-[#E11D8F]/40 bg-gradient-to-br from-[#E11D8F]/15 via-[#7C3AED]/10 to-[#8B5CF6]/20 backdrop-blur p-7 md:p-8 space-y-4 shadow-[0_18px_50px_-12px_rgba(225,29,143,0.4)] ring-1 ring-[#F472B6]/30 hover:shadow-[0_22px_60px_-12px_rgba(192,38,211,0.55)] transition-all duration-300"
+                    : "rounded-3xl border border-white/15 bg-white/5 backdrop-blur p-7 md:p-8 space-y-4 shadow-sm hover:bg-white/10 hover:shadow-md transition-all duration-300"
+                }
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]">
+                    <b.Icon className="w-6 h-6" />
+                  </span>
+                  {b.featured && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#E11D8F] to-[#7C3AED] px-3 py-1 text-[10px] font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-8px_rgba(225,29,143,0.8)]">
+                      <Sparkles className="w-3 h-3" /> Value Utama
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-white">
+                  {b.title}
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-white/70 leading-relaxed mt-8">
+            Semua sudah termasuk dalam tiket Dreampreneur Batch 2.
+          </p>
+
+          <div className="text-center mt-8">
+            <a
+              href={DREAMPRENEUR_THANKYOU_PATH}
+              onClick={(e) => handleRegisterClick(e, "experience_cta")}
+              className={`${CTA_BASE} min-h-[48px]`}
+            >
+              Dapatkan Semua Benefit — {PRICE_EARLY_BIRD}
+            </a>
           </div>
         </div>
       </section>
@@ -404,9 +495,6 @@ export default function DreampreneurLanding() {
                 className="w-full h-auto object-cover"
               />
             </figure>
-            <p className="text-center text-xs text-neutral-400 font-medium mt-3">
-              Cuplikan sesi Dreampreneur Academy oleh Dreamlab — diskusi langsung bersama praktisi industri.
-            </p>
           </div>
 
           <div className="max-w-2xl mx-auto rounded-3xl bg-gradient-to-br from-[#F4EEFD] to-[#FCE9FA] border border-brand-orange/20 p-7 md:p-9 shadow-lg shadow-[#C026D3]/10">

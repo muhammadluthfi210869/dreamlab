@@ -13,6 +13,26 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/ide-produk-pore-care-maklon-skincare",
+    "title": "8 Ide Produk Pore Care yang Bisa Dibuat untuk Brand Skincare Anda",
+    "publishDate": "2026-08-17T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Skincare"
+    ],
+    "tags": [
+      "Pore Care",
+      "Maklon Skincare",
+      "Skincare Routine",
+      "Hero Ingredient",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-pore-care/maklon-kosmetik-pore-care-hero.png",
+    "excerpt": "8 ide produk pore care untuk brand skincare: cleansing oil, cleanser, serum, clay mask, hingga sunscreen. Eksplorasi hero ingredient bersama Dreamlab.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/maklon-kosmetik-pasuruan",
     "title": "Maklon Kosmetik Pasuruan: Dreamlab Juaranya Formula",
     "publishDate": "2026-08-17T00:00:00+00:00",
@@ -2957,6 +2977,26 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "dreamlab_maklon_leadtime_tercepat.jpeg",
     "excerpt": "Cari maklon kosmetik cepat produksi untuk restock brand? Lead time restock Dreamlab bisa di bawah 1 bulan dengan kapasitas sampai 10.000 unit per hari. Cek syarat dan waktunya di sini.",
     "readingMinutes": 5
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-skincare-jawa-tengah",
+    "title": "Jasa Maklon Kosmetik dan Skincare Jawa Tengah: Kembangkan Brand Bersama Dreamlab",
+    "publishDate": "2026-08-18T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Jasa Maklon",
+      "Maklon Jawa Tengah",
+      "Maklon Skincare",
+      "Custom Formula",
+      "Beauty Brand Development"
+    ],
+    "featuredImage": "dreamlab_maklon_kosmeti_jawa_tengah_11zon.jpg",
+    "excerpt": "Cari jasa maklon kosmetik dan skincare untuk Jawa Tengah? Dreamlab membantu dari konsep, custom formula, BPOM, produksi, hingga strategi pemasaran brand Anda.",
+    "readingMinutes": 12
   }
 ]
 ;
