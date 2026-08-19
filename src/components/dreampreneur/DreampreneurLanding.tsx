@@ -55,19 +55,19 @@ const BENEFITS = [
 const EXPERIENCE_BENEFITS = [
   {
     title: "Makan Siang",
-    desc: "Makan siang sudah disediakan agar kamu tetap nyaman mengikuti seluruh rangkaian acara.",
+    desc: "Lunch disediakan untuk menemani rangkaian acara.",
     Icon: Utensils,
     featured: false,
   },
   {
-    title: "Dreampreneur Merchandise",
-    desc: "Dapatkan merchandise eksklusif sebagai bagian dari pengalaman Dreampreneur Batch 2.",
+    title: "Exclusive Merchandise",
+    desc: "Merchandise khusus untuk peserta Dreampreneur Batch 2.",
     Icon: Gift,
     featured: false,
   },
   {
     title: "E-book Framework Memulai Brand Skincare",
-    desc: "Panduan praktis untuk membantu kamu menyusun langkah awal membangun brand skincare.",
+    desc: "Panduan praktis untuk menyusun langkah awal membangun brand skincare.",
     Icon: BookOpen,
     featured: true,
   },
@@ -266,15 +266,15 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 2. WHAT YOU'LL GET ============ */}
-      <section className="py-16 md:py-20 bg-white" aria-labelledby="what-youll-get">
+      {/* ============ 2. WHAT YOU'LL LEARN ============ */}
+      <section className="py-16 md:py-20 bg-white" aria-labelledby="what-youll-learn">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
-            <h2 id="what-youll-get" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              What You&apos;ll <span className={DP_ACCENT}>Get</span>
+            <h2 id="what-youll-learn" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
+              What You&apos;ll <span className={DP_ACCENT}>Learn</span>
             </h2>
             <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-              Lima bekal utama untuk membangun beauty brand yang lebih siap bertumbuh.
+              Materi, pembelajaran, dan insight langsung dari para mentor.
             </p>
           </div>
 
@@ -297,21 +297,21 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 2c. DREAMPRENEUR EXPERIENCE — WHAT YOU GET ============ */}
-      <section className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden" aria-labelledby="dp-experience">
+      {/* ============ 2. FASILITAS PESERTA ============ */}
+      <section className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden" aria-labelledby="fasilitas-peserta">
         <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
 
         <div className="container-custom relative">
           <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
             <p className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-[10px] md:text-xs font-bold tracking-[0.25em] text-white uppercase">
-              Dreampreneur Experience
+              Included in Your Ticket
             </p>
-            <h2 id="dp-experience" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
-              Apa yang <span className={DP_ACCENT}>Kamu Dapatkan?</span>
+            <h2 id="fasilitas-peserta" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
+              Fasilitas <span className={DP_ACCENT}>Peserta</span>
             </h2>
             <p className="text-sm md:text-base text-white/70 leading-relaxed">
-              Bukan hanya sesi belajar. Kamu juga mendapatkan fasilitas dan panduan yang bisa dibawa pulang.
+              Tiket Dreampreneur Batch 2 sudah termasuk fasilitas berikut:
             </p>
           </div>
 
@@ -344,7 +344,7 @@ export default function DreampreneurLanding() {
           </div>
 
           <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-white/70 leading-relaxed mt-8">
-            Semua sudah termasuk dalam tiket Dreampreneur Batch 2.
+            Semuanya sudah termasuk dalam tiket seharga {PRICE_EARLY_BIRD}.
           </p>
 
           <div className="text-center mt-8">
@@ -353,7 +353,7 @@ export default function DreampreneurLanding() {
               onClick={(e) => handleRegisterClick(e, "experience_cta")}
               className={`${CTA_BASE} min-h-[48px]`}
             >
-              Dapatkan Semua Benefit — {PRICE_EARLY_BIRD}
+              Amankan Seat — {PRICE_EARLY_BIRD}
             </a>
           </div>
         </div>
