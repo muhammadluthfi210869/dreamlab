@@ -14,13 +14,13 @@ import {
 } from "@/lib/dreampreneur";
 
 const CTA_BASE =
-  "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 shadow-[0_16px_38px_-12px_rgba(225,29,72,0.55)] hover:brightness-110 hover:shadow-[0_20px_44px_-12px_rgba(190,18,60,0.6)] hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]";
+  "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 shadow-[0_16px_38px_-12px_rgba(225,29,72,0.55)] hover:brightness-110 hover:shadow-[0_20px_44px_-12px_rgba(190,18,60,0.6)] hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]";
 
 const CTA_SECONDARY =
-  "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-white border border-slate-200 text-slate-800 font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 hover:border-[#e11d48]/50 hover:text-[#e11d48] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e11d48] shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]";
+  "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-white border border-slate-200 text-slate-800 font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 hover:border-[#db2777]/50 hover:text-[#db2777] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#db2777] shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]";
 
 const DP_ACCENT =
-  "bg-clip-text text-transparent bg-gradient-to-r from-[#e11d48] via-[#db2777] to-[#be123c]";
+  "bg-clip-text text-transparent bg-gradient-to-r from-[#db2777] via-[#be123c] to-[#9d174d]";
 
 const EVENT_DATE = "29 Agustus 2026";
 const EVENT_TIME = "11.00–17.00 WIB";
@@ -184,7 +184,7 @@ export default function DreampreneurLanding() {
 
   return (
     <div
-      className="landing-page-ads min-h-screen bg-white text-slate-900 font-sans selection:bg-[#e11d48] selection:text-white overflow-x-hidden"
+      className="landing-page-ads min-h-screen bg-white text-slate-900 font-sans selection:bg-[#db2777] selection:text-white overflow-x-hidden"
       style={
         {
           "--dream-orange": "#e11d48",
@@ -222,7 +222,7 @@ export default function DreampreneurLanding() {
               <a
                 href={DREAMPRENEUR_THANKYOU_PATH}
                 onClick={(e) => handleRegisterClick(e, "sticky_daftar_sekarang")}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_14px_32px_-10px_rgba(225,29,72,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_14px_32px_-10px_rgba(225,29,72,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]"
                 aria-label="Daftar Dreampreneur Batch 2 — Rp189K"
               >
                 Daftar Sekarang — {PRICE_EARLY_BIRD}
@@ -235,7 +235,7 @@ export default function DreampreneurLanding() {
             <button
               type="button"
               onClick={() => scrollToCurriculum("sticky_lihat_detail")}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_14px_32px_-10px_rgba(225,29,72,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_14px_32px_-10px_rgba(225,29,72,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]"
               aria-label="Lihat Detail Acara Dreampreneur Batch 2"
             >
               Lihat Detail Acara
@@ -245,24 +245,18 @@ export default function DreampreneurLanding() {
       </div>
 
       {/* ============ 1. HERO ============ */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#fff5f7] to-white text-slate-900">
-        <div className="pointer-events-none absolute -top-40 -right-32 w-[32rem] h-[32rem] rounded-full bg-[#e11d48]/10 blur-3xl" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#fdf2f8] to-[#f3e8ff] text-slate-900">
+        <div className="pointer-events-none absolute -top-40 -right-32 w-[32rem] h-[32rem] rounded-full bg-[#db2777]/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-48 -left-24 w-[30rem] h-[30rem] rounded-full bg-[#f9a8d4]/25 blur-3xl" />
         <div className="pointer-events-none absolute top-24 left-1/2 -translate-x-1/2 w-[22rem] h-[22rem] rounded-full bg-[#fecdd3]/40 blur-3xl" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(225,29,72,0.06),transparent_60%)]" />
 
         <div className="container-custom relative py-16 md:py-28">
           <div className="max-w-3xl mx-auto text-center space-y-6 md:space-y-7">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white border border-rose-200 shadow-[0_8px_24px_-12px_rgba(225,29,72,0.35)]">
-              <span className="w-2 h-2 rounded-full bg-[#e11d48] animate-pulse" />
-              <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#be123c] uppercase">
-                Dreampreneur Batch 2 — Beauty Academy
-              </span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#f3d1ff] text-[10px] md:text-xs font-bold tracking-[0.3em] text-[#a21caf] uppercase shadow-[0_8px_24px_-12px_rgba(168,85,247,0.35)]">
+              <Sparkles className="w-3.5 h-3.5 text-[#db2777]" fill="currentColor" strokeWidth={0} />
+              It&apos;s Time to Learn, Networking &amp; Scale!
             </div>
-
-            <p className="text-[11px] md:text-sm font-bold tracking-[0.3em] text-[#be123c] uppercase">
-              A Growth &amp; Networking Session for Future Beautypreneurs
-            </p>
 
             <h1 className="text-[30px] sm:text-4xl lg:text-[44px] font-black tracking-tight leading-[1.14] font-display text-slate-900">
               Strategi Bikin Brand Skincare Sendiri dari Nol,{" "}
@@ -276,13 +270,13 @@ export default function DreampreneurLanding() {
 
             <div className="flex flex-wrap justify-center gap-3 pt-1">
               <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.18)]">
-                <CalendarDays className="w-4 h-4 text-[#e11d48]" /> {EVENT_DATE}
+                <CalendarDays className="w-4 h-4 text-[#db2777]" /> {EVENT_DATE}
               </span>
               <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.18)]">
-                <Clock className="w-4 h-4 text-[#e11d48]" /> {EVENT_TIME}
+                <Clock className="w-4 h-4 text-[#db2777]" /> {EVENT_TIME}
               </span>
               <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.18)]">
-                <MapPin className="w-4 h-4 text-[#e11d48]" /> {EVENT_VENUE}
+                <MapPin className="w-4 h-4 text-[#db2777]" /> {EVENT_VENUE}
               </span>
             </div>
 
@@ -300,31 +294,14 @@ export default function DreampreneurLanding() {
             </div>
 
             <div className="flex flex-wrap justify-center items-center gap-3 pt-3">
-              {TRUST_ITEMS.map((item) => (
+{TRUST_ITEMS.map((item) => (
                 <span
                   key={item}
                   className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.16)]"
                 >
-                  <BadgeCheck className="w-4 h-4 text-[#e11d48]" />
+                  <BadgeCheck className="w-4 h-4 text-[#db2777]" />
                   {item}
                 </span>
-              ))}
-            </div>
-
-            <div className="max-w-2xl mx-auto pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {MENTORS.map((m) => (
-                <div
-                  key={m.name}
-                  className="rounded-2xl bg-white border border-slate-200 p-2.5 pb-3 text-center shadow-[0_16px_40px_-18px_rgba(225,29,72,0.25)] hover:border-[#e11d48]/40 hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  <span className="mx-auto flex w-16 h-16 rounded-full bg-gradient-to-br from-[#e11d48] to-[#be123c] items-center justify-center text-white font-black text-base ring-4 ring-rose-100 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.6)]">
-                    {m.initials}
-                  </span>
-                  <p className="mt-2.5 text-[11px] font-bold text-slate-800 uppercase tracking-wide leading-tight">
-                    {m.name}
-                  </p>
-                  <p className="mt-1 text-[10px] text-slate-500 font-medium leading-snug">{m.role}</p>
-                </div>
               ))}
             </div>
           </div>
@@ -332,13 +309,13 @@ export default function DreampreneurLanding() {
       </section>
 
       {/* ============ 2. REALITA DI LAPANGAN — IS THIS YOU? ============ */}
-      <section className="py-16 md:py-24 bg-[#f8fafc] relative overflow-hidden" aria-labelledby="problem-audience">
-        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#e11d48]/[0.07] blur-3xl" />
+      <section className="py-16 md:py-24 bg-white relative overflow-hidden" aria-labelledby="problem-audience">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#db2777]/[0.07] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#f9a8d4]/[0.18] blur-3xl" />
 
         <div className="container-custom relative">
           <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-rose-200 text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#be123c] uppercase shadow-[0_8px_24px_-12px_rgba(225,29,72,0.3)]">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-rose-200 text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_8px_24px_-12px_rgba(225,29,72,0.3)]">
               Realita di Lapangan
             </p>
             <h2 id="problem-audience" className="text-3xl md:text-[36px] font-black tracking-tight leading-[1.14] uppercase font-display text-slate-900">
@@ -353,13 +330,13 @@ export default function DreampreneurLanding() {
             {PROBLEM_AUDIENCE.map((p) => (
               <div
                 key={p.title}
-                className="rounded-3xl bg-white border border-slate-200 p-7 md:p-8 space-y-5 shadow-[0_20px_50px_-22px_rgba(15,23,42,0.18)] hover:border-[#e11d48]/35 hover:shadow-[0_24px_56px_-20px_rgba(225,29,72,0.25)] transition-all duration-300"
+                className="rounded-3xl bg-white border border-slate-200 p-7 md:p-8 space-y-5 shadow-[0_20px_50px_-22px_rgba(15,23,42,0.18)] hover:border-[#db2777]/35 hover:shadow-[0_24px_56px_-20px_rgba(225,29,72,0.25)] transition-all duration-300"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#e11d48] to-[#be123c] text-white shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] text-white shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                     <p.Icon className="w-6 h-6" />
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-rose-50 border border-rose-200 px-3 py-1 text-[10px] font-black text-[#be123c] uppercase tracking-widest">
+                  <span className="inline-flex items-center rounded-full bg-rose-50 border border-rose-200 px-3 py-1 text-[10px] font-black text-[#9d174d] uppercase tracking-widest">
                     {p.label}
                   </span>
                 </div>
@@ -372,7 +349,7 @@ export default function DreampreneurLanding() {
           </div>
 
           <div className="max-w-3xl mx-auto mt-10 md:mt-12 rounded-3xl bg-gradient-to-r from-rose-50 via-white to-rose-100 border border-rose-200 p-7 md:p-9 text-center shadow-[0_20px_50px_-20px_rgba(225,29,72,0.25)]">
-            <Sparkles className="w-6 h-6 text-[#e11d48] mx-auto mb-3" fill="currentColor" strokeWidth={0} />
+            <Sparkles className="w-6 h-6 text-[#db2777] mx-auto mb-3" fill="currentColor" strokeWidth={0} />
             <p className="text-sm md:text-base text-slate-700 leading-relaxed">
               Dreampreneur membantu kamu menemukan arah yang lebih jelas sebelum menentukan langkah berikutnya.
             </p>
@@ -381,17 +358,17 @@ export default function DreampreneurLanding() {
       </section>
 
       {/* ============ 3. CURRICULUM — MASTERCLASS MODULES ============ */}
-      <section id="curriculum" className="py-16 md:py-24 bg-white relative overflow-hidden scroll-mt-6" aria-labelledby="curriculum-title">
-        <div className="pointer-events-none absolute top-1/3 -left-32 w-[26rem] h-[26rem] rounded-full bg-[#e11d48]/[0.06] blur-3xl" />
+      <section id="curriculum" className="py-16 md:py-24 bg-gradient-to-b from-[#fae8ff] via-[#fdf2f8] to-white relative overflow-hidden scroll-mt-6" aria-labelledby="curriculum-title">
+        <div className="pointer-events-none absolute top-1/3 -left-32 w-[26rem] h-[26rem] rounded-full bg-[#db2777]/[0.06] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -right-24 w-[26rem] h-[26rem] rounded-full bg-[#f9a8d4]/[0.22] blur-3xl" />
 
         <div className="container-custom relative">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-10 md:mb-14">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-rose-50 border border-rose-200 text-[10px] md:text-xs font-black tracking-[0.25em] text-[#be123c] uppercase">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-rose-50 border border-rose-200 text-[10px] md:text-xs font-black tracking-[0.25em] text-[#9d174d] uppercase">
               Masterclass Modules
             </p>
             <h2 id="curriculum-title" className="text-3xl md:text-[36px] font-black tracking-tight leading-[1.14] uppercase font-display text-slate-900">
-              Kunci Growth &amp; Scale-Up Beauty Brand 2026 <span className="text-[#e11d48]">→</span>{" "}
+              Kunci Growth &amp; Scale-Up Beauty Brand 2026 <span className="text-[#db2777]">→</span>{" "}
               <span className={DP_ACCENT}>Mengerti Formula Bangun Bisnis dari Nol</span>
             </h2>
             <p className="text-sm md:text-base text-slate-600 leading-relaxed">
@@ -403,13 +380,13 @@ export default function DreampreneurLanding() {
             {LEARN_ITEMS.map((item) => (
               <div
                 key={item.num}
-                className="relative overflow-hidden rounded-3xl bg-white border border-slate-200 p-7 md:p-8 shadow-[0_22px_55px_-25px_rgba(15,23,42,0.22)] hover:border-[#e11d48]/45 hover:shadow-[0_26px_60px_-22px_rgba(225,29,72,0.3)] hover:-translate-y-1.5 transition-all duration-300"
+                className="relative overflow-hidden rounded-3xl bg-white border border-slate-200 p-7 md:p-8 shadow-[0_22px_55px_-25px_rgba(15,23,42,0.22)] hover:border-[#db2777]/45 hover:shadow-[0_26px_60px_-22px_rgba(225,29,72,0.3)] hover:-translate-y-1.5 transition-all duration-300"
               >
                 <span className="pointer-events-none absolute -top-6 -right-4 text-[96px] font-black text-rose-100 font-display leading-none select-none">
                   {item.num}
                 </span>
                 <div className="relative flex items-center justify-between gap-3 mb-5">
-                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e11d48] to-[#be123c] text-white font-black text-lg shadow-[0_10px_24px_-6px_rgba(225,29,72,0.6)]">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] text-white font-black text-lg shadow-[0_10px_24px_-6px_rgba(225,29,72,0.6)]">
                     {item.num}
                   </span>
                   <span className="h-px flex-1 bg-gradient-to-r from-rose-200 to-transparent" />
@@ -420,7 +397,7 @@ export default function DreampreneurLanding() {
                 <ul className="relative mt-4 space-y-2.5">
                   {item.points.map((point) => (
                     <li key={point} className="flex items-start gap-2.5 text-[13px] md:text-sm text-slate-600 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48] mt-[7px] shrink-0 shadow-[0_0_8px_rgba(225,29,72,0.6)]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#db2777] mt-[7px] shrink-0 shadow-[0_0_8px_rgba(225,29,72,0.6)]" />
                       {point}
                     </li>
                   ))}
@@ -432,8 +409,8 @@ export default function DreampreneurLanding() {
       </section>
 
       {/* ============ 4. MEET OUR MENTORS ============ */}
-      <section id="meet-mentors" className="py-16 md:py-24 bg-[#f8fafc] relative overflow-hidden scroll-mt-6" aria-labelledby="meet-mentors-title">
-        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#e11d48]/[0.07] blur-3xl" />
+      <section id="meet-mentors" className="py-16 md:py-24 bg-white relative overflow-hidden scroll-mt-6" aria-labelledby="meet-mentors-title">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#db2777]/[0.07] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#f9a8d4]/[0.2] blur-3xl" />
 
         <div className="container-custom relative">
@@ -463,11 +440,11 @@ export default function DreampreneurLanding() {
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
               {MENTORS.map((m) => (
-                <li key={m.name} className="flex flex-col gap-3 rounded-2xl bg-white border border-slate-200 p-4 md:p-5 shadow-[0_16px_40px_-22px_rgba(15,23,42,0.16)] hover:border-[#e11d48]/40 hover:-translate-y-0.5 transition-all duration-300">
+                <li key={m.name} className="flex flex-col gap-3 rounded-2xl bg-white border border-slate-200 p-4 md:p-5 shadow-[0_16px_40px_-22px_rgba(15,23,42,0.16)] hover:border-[#db2777]/40 hover:-translate-y-0.5 transition-all duration-300">
                   <span className="flex items-center gap-4">
                     <span
                       aria-hidden="true"
-                      className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#e11d48] to-[#be123c] flex items-center justify-center text-white font-black text-lg ring-4 ring-rose-100 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]"
+                      className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center text-white font-black text-lg ring-4 ring-rose-100 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]"
                     >
                       {m.initials}
                     </span>
@@ -475,7 +452,7 @@ export default function DreampreneurLanding() {
                       <span className="block text-sm md:text-base font-black text-slate-900 font-display uppercase tracking-wide leading-tight">
                         {m.name}
                       </span>
-                      <span className="block text-xs md:text-[13px] text-[#be123c] font-bold mt-1 leading-snug">
+                      <span className="block text-xs md:text-[13px] text-[#9d174d] font-bold mt-1 leading-snug">
                         {m.role}
                       </span>
                     </span>
@@ -489,8 +466,8 @@ export default function DreampreneurLanding() {
       </section>
 
       {/* ============ 5. DOCUMENTATION & TESTIMONI BATCH 1 ============ */}
-      <section className="py-16 md:py-24 bg-white relative overflow-hidden" aria-labelledby="social-proof">
-        <div className="pointer-events-none absolute -top-24 right-1/4 w-[24rem] h-[24rem] rounded-full bg-[#e11d48]/[0.05] blur-3xl" />
+      <section className="py-16 md:py-24 bg-gradient-to-b from-white via-[#fdf2f8] to-[#f3e8ff] relative overflow-hidden" aria-labelledby="social-proof">
+        <div className="pointer-events-none absolute -top-24 right-1/4 w-[24rem] h-[24rem] rounded-full bg-[#db2777]/[0.05] blur-3xl" />
 
         <div className="container-custom relative">
           <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-14">
@@ -517,17 +494,17 @@ export default function DreampreneurLanding() {
           </div>
 
           <div className="max-w-2xl mx-auto rounded-3xl bg-gradient-to-br from-rose-50 via-white to-rose-100 border border-rose-200 p-7 md:p-9 shadow-[0_24px_60px_-22px_rgba(190,18,60,0.3)]">
-            <Quote className="w-8 h-8 text-[#e11d48] mb-4" fill="currentColor" strokeWidth={0} />
+            <Quote className="w-8 h-8 text-[#db2777] mb-4" fill="currentColor" strokeWidth={0} />
             <blockquote className="text-[15px] md:text-lg font-medium text-slate-700 leading-relaxed">
               &ldquo;Aku sempat ragu memulai, tapi mengikuti batch pertama Dreampreneur membuka mata aku bahwa membangun brand itu soal keberanian, bukan sekadar teori. Dari sanalah aku akhirnya memberanikan diri membangun brand parfum sendiri dengan konsep yang inovatif — dan merasa lebih siap menghadapi langkah berikutnya.&rdquo;
             </blockquote>
             <div className="mt-6 flex flex-wrap items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#e11d48] to-[#be123c] flex items-center justify-center text-white font-black text-lg ring-4 ring-rose-100">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center text-white font-black text-lg ring-4 ring-rose-100">
                 E
               </div>
               <div>
                 <p className="font-black text-slate-900 text-sm md:text-base font-display">Kak Eki</p>
-                <p className="text-xs md:text-sm text-[#be123c] font-semibold">Peserta Batch 1 · Founder Brand Parfum</p>
+                <p className="text-xs md:text-sm text-[#9d174d] font-semibold">Peserta Batch 1 · Founder Brand Parfum</p>
               </div>
               <div className="ml-auto flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -540,13 +517,13 @@ export default function DreampreneurLanding() {
       </section>
 
       {/* ============ 6. FASILITAS PESERTA ============ */}
-      <section className="py-16 md:py-24 bg-[#f8fafc] relative overflow-hidden" aria-labelledby="fasilitas-peserta">
-        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#e11d48]/[0.06] blur-3xl" />
+      <section className="py-16 md:py-24 bg-white relative overflow-hidden" aria-labelledby="fasilitas-peserta">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#db2777]/[0.06] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#f9a8d4]/[0.2] blur-3xl" />
 
         <div className="container-custom relative">
           <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-14">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-rose-200 text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#be123c] uppercase shadow-[0_8px_24px_-12px_rgba(225,29,72,0.3)]">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-rose-200 text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_8px_24px_-12px_rgba(225,29,72,0.3)]">
               All Included
             </p>
             <h2 id="fasilitas-peserta" className="text-3xl md:text-[36px] font-black tracking-tight leading-[1.14] uppercase font-display text-slate-900">
@@ -563,16 +540,16 @@ export default function DreampreneurLanding() {
                 key={b.title}
                 className={
                   b.featured
-                    ? "rounded-3xl bg-white border border-[#e11d48]/45 p-7 md:p-8 space-y-4 shadow-[0_24px_55px_-20px_rgba(225,29,72,0.35)] ring-1 ring-rose-200 hover:-translate-y-1.5 transition-all duration-300"
-                    : "rounded-3xl bg-white border border-slate-200 p-7 md:p-8 space-y-4 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.18)] hover:border-[#e11d48]/35 hover:-translate-y-1.5 transition-all duration-300"
+                    ? "rounded-3xl bg-white border border-[#db2777]/45 p-7 md:p-8 space-y-4 shadow-[0_24px_55px_-20px_rgba(225,29,72,0.35)] ring-1 ring-rose-200 hover:-translate-y-1.5 transition-all duration-300"
+                    : "rounded-3xl bg-white border border-slate-200 p-7 md:p-8 space-y-4 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.18)] hover:border-[#db2777]/35 hover:-translate-y-1.5 transition-all duration-300"
                 }
               >
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#e11d48] to-[#be123c] text-white shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] text-white shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                     <b.Icon className="w-6 h-6" />
                   </span>
                   {b.featured && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] px-3 py-1 text-[10px] font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-8px_rgba(225,29,72,0.7)]">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] px-3 py-1 text-[10px] font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-8px_rgba(225,29,72,0.7)]">
                       <Sparkles className="w-3 h-3" /> Value Utama
                     </span>
                   )}
@@ -592,7 +569,7 @@ export default function DreampreneurLanding() {
       </section>
 
       {/* ============ 7. KILLER OFFER — DETAIL ACARA + HARGA + CTA ============ */}
-      <section className="py-16 md:py-24 bg-white relative overflow-hidden" aria-labelledby="ticket-title">
+      <section className="py-16 md:py-24 bg-gradient-to-b from-white via-[#fae8ff] to-[#fdf2f8] relative overflow-hidden" aria-labelledby="ticket-title">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(225,29,72,0.08),transparent_60%)]" />
         <div className="pointer-events-none absolute -top-24 left-1/4 w-[24rem] h-[24rem] rounded-full bg-[#fbcfe8]/40 blur-3xl" />
 
@@ -609,7 +586,7 @@ export default function DreampreneurLanding() {
           <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
             <div className="rounded-3xl bg-white border border-slate-200 p-7 md:p-9 space-y-5 shadow-[0_20px_55px_-25px_rgba(15,23,42,0.18)]">
               <div className="flex items-start gap-4">
-                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e11d48] to-[#be123c] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
+                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                   <CalendarDays className="w-5 h-5 text-white" />
                 </span>
                 <div>
@@ -618,7 +595,7 @@ export default function DreampreneurLanding() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e11d48] to-[#be123c] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
+                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                   <Clock className="w-5 h-5 text-white" />
                 </span>
                 <div>
@@ -627,7 +604,7 @@ export default function DreampreneurLanding() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#e11d48] to-[#be123c] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
+                <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                   <MapPin className="w-5 h-5 text-white" />
                 </span>
                 <div>
@@ -641,33 +618,33 @@ export default function DreampreneurLanding() {
                 <p className="text-[11px] font-black text-slate-500 uppercase tracking-widest">Semuanya sudah termasuk</p>
                 {EXPERIENCE_BENEFITS.map((b) => (
                   <div key={b.title} className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#e11d48] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#db2777] shrink-0" />
                     <p className="text-sm text-slate-700">{b.title}</p>
                   </div>
                 ))}
                 <div className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#e11d48] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#db2777] shrink-0" />
                   <p className="text-sm text-slate-700">Sesi networking dengan praktisi industri</p>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-3xl bg-gradient-to-b from-white to-rose-50 border border-[#e11d48]/40 p-7 md:p-9 flex flex-col justify-between shadow-[0_30px_80px_-25px_rgba(225,29,72,0.4)] ring-1 ring-rose-200 relative overflow-hidden">
-              <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 rounded-full bg-[#e11d48]/15 blur-3xl" />
+            <div className="rounded-3xl bg-gradient-to-b from-white to-rose-50 border border-[#db2777]/40 p-7 md:p-9 flex flex-col justify-between shadow-[0_30px_80px_-25px_rgba(225,29,72,0.4)] ring-1 ring-rose-200 relative overflow-hidden">
+              <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 rounded-full bg-[#db2777]/15 blur-3xl" />
 
               <div className="relative space-y-5">
                 <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <p className="w-fit rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] px-4 py-1.5 text-[10px] md:text-xs font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-6px_rgba(225,29,72,0.7)]">
+                  <p className="w-fit rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] px-4 py-1.5 text-[10px] md:text-xs font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-6px_rgba(225,29,72,0.7)]">
                     Early Bird
                   </p>
-                  <p className="rounded-full bg-[#e11d48]/10 border border-[#e11d48]/30 px-3 py-1 text-[11px] font-black text-[#be123c] uppercase tracking-wider">
+                  <p className="rounded-full bg-[#db2777]/10 border border-[#db2777]/30 px-3 py-1 text-[11px] font-black text-[#9d174d] uppercase tracking-wider">
                     Hemat 24%
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
                   <p className="text-lg text-slate-400 line-through">{PRICE_NORMAL}</p>
-                  <p className="text-[44px] md:text-6xl font-black text-[#e11d48] font-display tracking-tight">
+                  <p className="text-[44px] md:text-6xl font-black text-[#db2777] font-display tracking-tight">
                     {PRICE_EARLY_BIRD}
                   </p>
                 </div>
@@ -682,7 +659,7 @@ export default function DreampreneurLanding() {
                       { v: timeLeft?.s, t: "Detik" },
                     ].map((x) => (
                       <div key={x.t} className="rounded-2xl bg-white border border-rose-200 px-2 py-3 text-center shadow-[0_8px_20px_-12px_rgba(225,29,72,0.3)]">
-                        <div className="text-xl md:text-2xl font-black text-[#e11d48] font-display">{x.v === undefined ? "--" : pad(x.v)}</div>
+                        <div className="text-xl md:text-2xl font-black text-[#db2777] font-display">{x.v === undefined ? "--" : pad(x.v)}</div>
                         <div className="text-[9px] md:text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">{x.t}</div>
                       </div>
                     ))}
@@ -697,7 +674,7 @@ export default function DreampreneurLanding() {
                 <a
                   href={DREAMPRENEUR_THANKYOU_PATH}
                   onClick={(e) => handleRegisterClick(e, "ticket_cta")}
-                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-black text-base sm:text-lg uppercase tracking-wider py-5 shadow-[0_18px_50px_-14px_rgba(225,29,72,0.8)] hover:brightness-110 hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c] transition-all duration-300"
+                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-black text-base sm:text-lg uppercase tracking-wider py-5 shadow-[0_18px_50px_-14px_rgba(225,29,72,0.8)] hover:brightness-110 hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c] transition-all duration-300"
                 >
                   Amankan Seat — {PRICE_EARLY_BIRD} <ArrowRight className="w-5 h-5" />
                 </a>
