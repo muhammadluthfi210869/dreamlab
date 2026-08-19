@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
-import { BookOpen, CalendarDays, CheckCircle2, Clock, Gift, MapPin, Quote, Sparkles, Star, Utensils } from "lucide-react";
+import { BookOpen, CalendarDays, CheckCircle2, Clock, Gift, Lightbulb, MapPin, Quote, Sparkles, Star, TrendingUp, Utensils } from "lucide-react";
 import {
   DREAMPRENEUR_THANKYOU_PATH,
   buildDreampreneurThankyouUrl,
@@ -70,6 +70,21 @@ const EXPERIENCE_BENEFITS = [
     desc: "Panduan praktis untuk menyusun langkah awal membangun brand skincare.",
     Icon: BookOpen,
     featured: true,
+  },
+];
+
+const PROBLEM_AUDIENCE = [
+  {
+    label: "Baru Mau Memulai",
+    title: "Punya Ide, Tapi Belum Tahu Langkah Pertamanya",
+    desc: "Masih bingung memilih produk pertama, menentukan target market, sampai memahami proses pengembangan produknya.",
+    Icon: Lightbulb,
+  },
+  {
+    label: "Sudah Punya Brand",
+    title: "Brand Sudah Berjalan, Tapi Masih Stuck",
+    desc: "Strategi produk, pemasaran, operasional, dan pertumbuhan brand belum memiliki arah yang jelas.",
+    Icon: TrendingUp,
   },
 ];
 
@@ -266,6 +281,66 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
+      {/* ============ 1b. PROBLEM AUDIENCE — IS THIS YOU? ============ */}
+      <section className="py-16 md:py-20 bg-[#2B0643] text-white relative overflow-hidden" aria-labelledby="problem-audience">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
+
+        <div className="container-custom relative">
+          <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-[10px] md:text-xs font-bold tracking-[0.25em] text-white uppercase">
+              Is This You?
+            </p>
+            <h2 id="problem-audience" className="text-3xl md:text-[34px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
+              Mau Mulai Beauty Brand, Tapi Masih <span className={DP_ACCENT}>Bingung Harus Mulai dari Mana?</span>
+            </h2>
+            <p className="text-sm md:text-base text-white/70 leading-relaxed">
+              Atau brand-mu sudah berjalan, tetapi kamu masih stuck menentukan langkah berikutnya? Kamu tidak sendirian.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 max-w-4xl mx-auto">
+            {PROBLEM_AUDIENCE.map((p) => (
+              <div
+                key={p.title}
+                className="rounded-3xl border border-white/15 bg-white/5 backdrop-blur p-7 md:p-8 space-y-4 shadow-sm hover:bg-white/10 hover:shadow-md transition-colors"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]">
+                    <p.Icon className="w-6 h-6" />
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-white/10 border border-white/20 px-3 py-1 text-[10px] font-black text-white uppercase tracking-widest">
+                    {p.label}
+                  </span>
+                </div>
+                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-white">
+                  {p.title}
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-3xl mx-auto mt-10 md:mt-12 rounded-3xl bg-gradient-to-br from-[#E11D8F]/20 via-[#7C3AED]/15 to-[#8B5CF6]/25 backdrop-blur border border-[#F472B6]/30 p-7 md:p-9 text-center shadow-[0_18px_50px_-12px_rgba(225,29,143,0.4)]">
+            <p className="text-sm md:text-base text-white/90 leading-relaxed">
+              Dreampreneur Batch 2 membantumu melihat bisnis beauty dari empat sisi penting: <span className="font-black text-[#F9A8D4]">formulasi produk, business development, operasional, dan digital marketing</span>.
+            </p>
+            <p className="text-sm md:text-base text-white/70 leading-relaxed mt-4">
+              Supaya kamu tidak hanya punya ide, tetapi juga tahu langkah berikutnya.
+            </p>
+            <div className="mt-7">
+              <a
+                href={DREAMPRENEUR_THANKYOU_PATH}
+                onClick={(e) => handleRegisterClick(e, "problem_solution_cta")}
+                className={`${CTA_BASE} min-h-[48px]`}
+              >
+                Temukan Arah Brand-mu
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ============ 2. WHAT YOU'LL LEARN ============ */}
       <section className="py-16 md:py-20 bg-white" aria-labelledby="what-youll-learn">
         <div className="container-custom">
@@ -297,7 +372,61 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 2. FASILITAS PESERTA ============ */}
+      {/* ============ 3. MEET OUR MENTORS ============ */}
+      <section id="mentors" className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden scroll-mt-6" aria-labelledby="meet-mentors">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
+
+        <div className="container-custom relative">
+          <div className="max-w-2xl text-center mx-auto space-y-3 mb-10 md:mb-12">
+            <h2 id="meet-mentors" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
+              Meet Our <span className={DP_ACCENT}>Mentors</span>
+            </h2>
+            <p className="text-sm md:text-base text-white/70 leading-relaxed">
+              Belajar langsung dari praktisi yang menangani formula, pengembangan bisnis, operasional, dan digital marketing.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-center">
+            <div className="relative max-w-xs mx-auto w-full lg:max-w-none">
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#E11D8F]/25 via-transparent to-[#8B5CF6]/25 blur-2xl rounded-[40px]" />
+              <div className="relative rounded-[24px] overflow-hidden border border-white/15 shadow-[0_20px_60px_-20px_rgba(109,40,217,0.55)]">
+                <Image
+                  src="/assets/images/dreampreneur-batch-2/flyer.png"
+                  alt="Pembicara Dreampreneur Batch 2 — para praktisi industri kecantikan"
+                  width={810}
+                  height={1013}
+                  sizes="(max-width: 1024px) 100vw, 400px"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            </div>
+
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
+              {MENTORS.map((m) => (
+                <li key={m.name} className="flex items-center gap-4 rounded-2xl bg-white/5 border border-white/10 p-4 md:p-5 hover:bg-white/10 transition-colors">
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] flex items-center justify-center text-white font-black text-lg shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]"
+                  >
+                    {m.initials}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm md:text-base font-black text-white font-display uppercase tracking-wide leading-tight">
+                      {m.name}
+                    </span>
+                    <span className="block text-xs md:text-[13px] text-white/60 font-medium mt-1 leading-snug">
+                      {m.role}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 4. FASILITAS PESERTA ============ */}
       <section className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden" aria-labelledby="fasilitas-peserta">
         <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
@@ -359,7 +488,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 2b. THE ANSWER — QUESTIONS WE'LL UNPACK ============ */}
+      {/* ============ 5. THE ANSWER — QUESTIONS WE'LL UNPACK ============ */}
       <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="the-answer">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center space-y-3 mb-10 md:mb-12">
@@ -393,61 +522,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 3. MEET OUR MENTORS ============ */}
-      <section id="mentors" className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden scroll-mt-6" aria-labelledby="meet-mentors">
-        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
-
-        <div className="container-custom relative">
-          <div className="max-w-2xl text-center mx-auto space-y-3 mb-10 md:mb-12">
-            <h2 id="meet-mentors" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
-              Meet Our <span className={DP_ACCENT}>Mentors</span>
-            </h2>
-            <p className="text-sm md:text-base text-white/70 leading-relaxed">
-              Belajar langsung dari praktisi yang menangani formula, pengembangan bisnis, operasional, dan digital marketing.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-center">
-            <div className="relative max-w-xs mx-auto w-full lg:max-w-none">
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#E11D8F]/25 via-transparent to-[#8B5CF6]/25 blur-2xl rounded-[40px]" />
-              <div className="relative rounded-[24px] overflow-hidden border border-white/15 shadow-[0_20px_60px_-20px_rgba(109,40,217,0.55)]">
-                <Image
-                  src="/assets/images/dreampreneur-batch-2/flyer.png"
-                  alt="Pembicara Dreampreneur Batch 2 — para praktisi industri kecantikan"
-                  width={810}
-                  height={1013}
-                  sizes="(max-width: 1024px) 100vw, 400px"
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </div>
-
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-              {MENTORS.map((m) => (
-                <li key={m.name} className="flex items-center gap-4 rounded-2xl bg-white/5 border border-white/10 p-4 md:p-5 hover:bg-white/10 transition-colors">
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] flex items-center justify-center text-white font-black text-lg shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]"
-                  >
-                    {m.initials}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-sm md:text-base font-black text-white font-display uppercase tracking-wide leading-tight">
-                      {m.name}
-                    </span>
-                    <span className="block text-xs md:text-[13px] text-white/60 font-medium mt-1 leading-snug">
-                      {m.role}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 4. EVENT EXPERIENCE ============ */}
+      {/* ============ 6. EVENT EXPERIENCE ============ */}
       <section className="py-16 md:py-20 bg-white" aria-labelledby="event-experience">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
@@ -471,7 +546,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 5. SOCIAL PROOF ============ */}
+      {/* ============ 7. SOCIAL PROOF ============ */}
       <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="social-proof">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
@@ -520,7 +595,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 6. EVENT DETAILS & TICKET ============ */}
+      {/* ============ 8. EVENT DETAILS & TICKET ============ */}
       <section className="py-16 md:py-20 bg-white" aria-labelledby="event-details">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
@@ -590,7 +665,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 7. REGISTRATION — Direct WhatsApp CTA ============ */}
+      {/* ============ 9. REGISTRATION — Direct WhatsApp CTA ============ */}
       <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="join-title">
         <div className="container-custom">
           <div className="max-w-xl mx-auto rounded-[28px] bg-white border border-[#E4D8F4] p-8 sm:p-10 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] space-y-6">
