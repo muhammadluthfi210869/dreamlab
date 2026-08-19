@@ -184,6 +184,19 @@ export function trackDreampreneurScroll(label: string) {
   ttqEvent("cta_click", base);
 }
 
+/**
+ * Klik eksplorasi (CTA scroll hero/sticky "Lihat Detail Acara") — analytics
+ * saja tanpa event conversion Meta (Lead/Contact/AddToCart/Purchase) dan tanpa
+ * redirect ke WhatsApp. Event yang dikirim: dreampreneur_explore_click.
+ */
+export function trackDreampreneurExplore(label: string) {
+  if (typeof window === "undefined") return;
+  const base = { campaign: CAMPAIGN, cta_label: label };
+  pushDataEvent("dreampreneur_explore_click", base);
+  gtagEvent("dreampreneur_explore_click", base);
+  ttqEvent("dreampreneur_explore_click", base);
+}
+
 const CONTACT_STORAGE_KEY = "dreamlab_dp2_contact_sent";
 let lastContactAt = 0;
 

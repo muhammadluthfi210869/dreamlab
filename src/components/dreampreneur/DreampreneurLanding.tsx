@@ -9,7 +9,7 @@ import {
   ensureMetaPixelQueue,
   preconnectWhatsApp,
   trackDreampreneurCtaClick,
-  trackDreampreneurScroll,
+  trackDreampreneurExplore,
   trackDreampreneurView,
 } from "@/lib/dreampreneur";
 
@@ -28,29 +28,6 @@ const EVENT_VENUE = "Excotel Design Hotel, Surabaya";
 const EVENT_ADDRESS = "Jl. Ahmad Yani No.119, Surabaya";
 const PRICE_NORMAL = "Rp250.000";
 const PRICE_EARLY_BIRD = "Rp189.000";
-
-const BENEFITS = [
-  {
-    title: "Learning Session with R&D",
-    desc: "Pelajari proses pengembangan produk dan formula yang relevan dengan kebutuhan market.",
-  },
-  {
-    title: "Organic Growth & Scale-Up Insight",
-    desc: "Pahami strategi membangun positioning, menjangkau market, dan meningkatkan pertumbuhan brand.",
-  },
-  {
-    title: "AI-Optimized Business Matchmaking",
-    desc: "Temukan peluang koneksi dan kolaborasi yang lebih relevan untuk perkembangan bisnismu.",
-  },
-  {
-    title: "Launch & Go-To-Market Support",
-    desc: "Pendampingan menyiapkan peluncuran produk pertamamu — dari kemasan, foto produk, sampai strategi launching yang siap jual.",
-  },
-  {
-    title: "Ebook Framework Menjadi Beautypreneur",
-    desc: "Materi eksklusif berupa ebook framework lengkap — blueprint dari nol memahami formula, legalitas, hingga brand siap diluncurkan.",
-  },
-];
 
 const EXPERIENCE_BENEFITS = [
   {
@@ -91,63 +68,69 @@ const PROBLEM_AUDIENCE = [
 const LEARN_ITEMS = [
   {
     num: "01",
-    question: "Produk apa yang punya peluang?",
-    speaker: "R&D Dreamlab",
+    label: "R&D Dreamlab",
+    question: "Produk Apa yang Punya Peluang?",
     topic:
       "Tren industri skincare, peluang kategori produk, product development, dan inovasi formula yang relevan dengan kebutuhan market.",
   },
   {
     num: "02",
-    question: "Bagaimana membuat produk lebih siap dipercaya market?",
-    speaker: "SIG — Kepala Operasional Uji Lab",
-    topic: "Quality, testing, dan bagaimana standar produk membantu membangun trust.",
+    label: "SIG Laboratories",
+    question: "Bagaimana Membuat Produk Lebih Siap Dipercaya Market?",
+    topic:
+      "Pentingnya uji laboratorium serta manfaat pengujian dalam mendukung kualitas, keamanan, dan kepercayaan terhadap produk.",
   },
   {
     num: "03",
-    question: "Sudah punya produk, lalu bagaimana membangun bisnisnya?",
-    speaker: "Fadhila — Senior Business Development Strategist",
-    topic: "Positioning, business development, brand direction, dan growth strategy.",
+    label: "Business Development",
+    question: "Sudah Punya Produk, Lalu Bagaimana Membangun Bisnisnya?",
+    topic:
+      "Positioning, arah bisnis, strategi organic growth, dan langkah mengembangkan brand secara lebih terarah.",
   },
   {
     num: "04",
-    question: "Produk sudah jadi. Bagaimana menemukan pembelinya?",
-    speaker: "Revita — Digital Marketing Strategist",
+    label: "Digital Marketing",
+    question: "Produk Sudah Jadi. Bagaimana Menemukan Pembelinya?",
     topic:
-      "From Market Fit to Scale — membaca respons market, menemukan product-market fit, hingga mendorong penjualan melalui Shopee Ads, Meta CPAS, dan Performance Marketing.",
+      "Membaca respons market, menemukan product-market fit, serta menyiapkan strategi launching dan performance marketing dengan dukungan AI dan automation.",
   },
 ];
 
 const MENTORS = [
-  { name: "Amira Alydrus", role: "Cosmetic Formulation Expert", initials: "AA" },
-  { name: "Fadhila Syahab", role: "Business Development Strategist", initials: "FS" },
-  { name: "Revita", role: "Digital Marketer", initials: "R" },
-  { name: "Bari Noor Rahman", role: "SIG Manager Operasional", initials: "B" },
-];
-
-const EXPERIENCE_ITEMS = [
-  "Product & Formula Insight",
-  "Business Development Strategy",
-  "Operational & Quality Insight",
-  "Organic Growth & Performance Marketing",
+  { name: "Amira Alydrus", role: "Cosmetic Formulation Expert", initials: "AA", expert: "Meracik formula kosmetik yang aman dan siap masuk pasar." },
+  { name: "Fadhila Syahab", role: "Business Development Strategist", initials: "FS", expert: "Menyusun strategi bisnis untuk menumbuhkan brand." },
+  { name: "Bari Noor Rahman", role: "SIG Manager Operasional", initials: "B", expert: "Memastikan produk lolos uji laboratorium yang kredibel." },
+  { name: "Revita", role: "Digital Marketer", initials: "R", expert: "Membaca market dan menemukan pembeli lewat digital marketing." },
 ];
 
 const TRUST_ITEMS = ["Limited seats", "Learning + Networking", "Industry practitioners"];
 
 export default function DreampreneurLanding() {
   const [showSticky, setShowSticky] = useState(false);
+  const [showRegisterCta, setShowRegisterCta] = useState(false);
 
   useEffect(() => {
     ensureMetaPixelQueue();
     preconnectWhatsApp();
     trackDreampreneurView();
-    const onScroll = () => setShowSticky(window.scrollY > 560);
+    const onScroll = () => {
+      setShowSticky(window.scrollY > 560);
+      const mentor = document.getElementById("meet-mentors");
+      const threshold = mentor ? mentor.offsetTop + mentor.offsetHeight - 240 : 3600;
+      setShowRegisterCta(window.scrollY >= threshold);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const scrollToCurriculum = (label: string) => {
+    trackDreampreneurExplore(label);
+    document.getElementById("curriculum")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const scrollToMentors = () => {
-    trackDreampreneurScroll("hero_meet_mentors");
-    document.getElementById("mentors")?.scrollIntoView({ behavior: "smooth" });
+    trackDreampreneurExplore("hero_meet_mentors");
+    document.getElementById("meet-mentors")?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleRegisterClick = (e: React.MouseEvent<HTMLAnchorElement>, label: string) => {
@@ -191,17 +174,30 @@ export default function DreampreneurLanding() {
         }`}
       >
         <div className="bg-[#F7F1FC]/95 backdrop-blur border-t border-[#E4D8F4] pt-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(109,40,217,0.25)]">
-          <a
-            href={DREAMPRENEUR_THANKYOU_PATH}
-            onClick={(e) => handleRegisterClick(e, "sticky_daftar_sekarang")}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_12px_30px_-8px_rgba(147,51,234,0.7)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6D28D9]"
-            aria-label="Daftar Dreampreneur Batch 2 — Rp189K"
-          >
-            Daftar Sekarang — Rp189K
-          </a>
-          <p className="text-center text-[10px] font-bold text-neutral-500 mt-1.5">
-            Early Bird {PRICE_EARLY_BIRD} · Seat terbatas
-          </p>
+          {showRegisterCta ? (
+            <>
+              <a
+                href={DREAMPRENEUR_THANKYOU_PATH}
+                onClick={(e) => handleRegisterClick(e, "sticky_daftar_sekarang")}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_12px_30px_-8px_rgba(147,51,234,0.7)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6D28D9]"
+                aria-label="Daftar Dreampreneur Batch 2 — Rp189K"
+              >
+                Daftar Sekarang — Rp189K
+              </a>
+              <p className="text-center text-[10px] font-bold text-neutral-500 mt-1.5">
+                Early Bird {PRICE_EARLY_BIRD} · Seat terbatas
+              </p>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={() => scrollToCurriculum("sticky_lihat_detail")}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#C2185B] to-[#6D28D9] text-white font-extrabold text-sm uppercase tracking-wider py-4 shadow-[0_12px_30px_-8px_rgba(147,51,234,0.7)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6D28D9]"
+              aria-label="Lihat Detail Acara Dreampreneur Batch 2"
+            >
+              Lihat Detail Acara
+            </button>
+          )}
         </div>
       </div>
 
@@ -221,17 +217,12 @@ export default function DreampreneurLanding() {
             </div>
 
             <h1 className="text-[34px] sm:text-4xl lg:text-[46px] font-black tracking-tight leading-[1.1] uppercase font-display text-white [text-shadow:0_8px_40px_rgba(201,42,211,0.35)]">
-              Mau Mulai Beauty Brand, Tapi <span className={DP_ACCENT}>Bingung Mulai</span> dari Mana?
+              It&apos;s Time to <span className={DP_ACCENT}>Learn, Network &amp; Scale!</span>
             </h1>
 
-            <h2 className="text-xl sm:text-2xl lg:text-[28px] font-extrabold text-white/90 leading-snug uppercase font-display [text-shadow:0_4px_24px_rgba(139,92,246,0.4)]">
-              Atau Sudah Punya Brand, Tapi <span className="text-white/60">Growth-nya Masih Stuck?</span>
-            </h2>
-
             <p className="text-sm sm:text-base md:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
-              A Growth &amp; Networking Session for Future Beautypreneurs. Satu hari untuk memahami
-              formula, strategi bisnis, growth marketing, dan peluang kolaborasi agar beauty brand
-              lebih siap bertumbuh.
+              Satu hari bersama praktisi industri untuk membantu kamu memahami produk, membangun bisnis,
+              meningkatkan kepercayaan market, dan menyiapkan strategi pertumbuhan beauty brand.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 pt-1">
@@ -246,21 +237,14 @@ export default function DreampreneurLanding() {
               </span>
             </div>
 
-            <div className="flex items-baseline justify-center gap-3 pt-1">
-              <span className="text-lg text-white/40 line-through">{PRICE_NORMAL}</span>
-              <span className="text-4xl sm:text-5xl font-black text-[#F9A8D4] font-display tracking-tight">
-                {PRICE_EARLY_BIRD}
-              </span>
-            </div>
-
             <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
-              <a
-                href={DREAMPRENEUR_THANKYOU_PATH}
-                onClick={(e) => handleRegisterClick(e, "hero_cta")}
+              <button
+                type="button"
+                onClick={() => scrollToCurriculum("hero_primary")}
                 className={CTA_BASE}
               >
-                Daftar Dreampreneur — {PRICE_EARLY_BIRD}
-              </a>
+                Lihat yang Akan Kamu Pelajari
+              </button>
               <button type="button" onClick={scrollToMentors} className={CTA_SECONDARY}>
                 Meet Our Mentors
               </button>
@@ -281,7 +265,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 1b. PROBLEM AUDIENCE — IS THIS YOU? ============ */}
+      {/* ============ 2. PROBLEM AUDIENCE — IS THIS YOU? ============ */}
       <section className="py-16 md:py-20 bg-[#2B0643] text-white relative overflow-hidden" aria-labelledby="problem-audience">
         <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
@@ -321,65 +305,59 @@ export default function DreampreneurLanding() {
             ))}
           </div>
 
-          <div className="max-w-3xl mx-auto mt-10 md:mt-12 rounded-3xl bg-gradient-to-br from-[#E11D8F]/20 via-[#7C3AED]/15 to-[#8B5CF6]/25 backdrop-blur border border-[#F472B6]/30 p-7 md:p-9 text-center shadow-[0_18px_50px_-12px_rgba(225,29,143,0.4)]">
-            <p className="text-sm md:text-base text-white/90 leading-relaxed">
-              Dreampreneur Batch 2 membantumu melihat bisnis beauty dari empat sisi penting: <span className="font-black text-[#F9A8D4]">formulasi produk, business development, operasional, dan digital marketing</span>.
+          <div className="max-w-3xl mx-auto mt-10 md:mt-12 rounded-3xl bg-white/5 backdrop-blur border border-white/15 p-7 md:p-9 text-center shadow-sm">
+            <p className="text-sm md:text-base text-white/85 leading-relaxed">
+              Dreampreneur membantu kamu menemukan arah yang lebih jelas sebelum menentukan langkah berikutnya.
             </p>
-            <p className="text-sm md:text-base text-white/70 leading-relaxed mt-4">
-              Supaya kamu tidak hanya punya ide, tetapi juga tahu langkah berikutnya.
-            </p>
-            <div className="mt-7">
-              <a
-                href={DREAMPRENEUR_THANKYOU_PATH}
-                onClick={(e) => handleRegisterClick(e, "problem_solution_cta")}
-                className={`${CTA_BASE} min-h-[48px]`}
-              >
-                Temukan Arah Brand-mu
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 2. WHAT YOU'LL LEARN ============ */}
-      <section className="py-16 md:py-20 bg-white" aria-labelledby="what-youll-learn">
+      {/* ============ 3. CURRICULUM — BUKAN TEORI ============ */}
+      <section id="curriculum" className="py-16 md:py-20 bg-[#F8F4FF] scroll-mt-6" aria-labelledby="curriculum-title">
         <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
-            <h2 id="what-youll-learn" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              What You&apos;ll <span className={DP_ACCENT}>Learn</span>
+          <div className="max-w-3xl mx-auto text-center space-y-3 mb-10 md:mb-12">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-[10px] md:text-xs font-bold tracking-[0.25em] text-brand-orange uppercase">
+              Curriculum
+            </p>
+            <h2 id="curriculum-title" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
+              Bukan Teori. Kita Bedah Hal yang <span className={DP_ACCENT}>Akan Kamu Hadapi di Market.</span>
             </h2>
             <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-              Materi, pembelajaran, dan insight langsung dari para mentor.
+              Empat pertanyaan yang akan terjawab dalam satu hari bersama praktisi industri.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 lg:gap-7 max-w-4xl mx-auto">
-            {BENEFITS.map((b, i) => (
+          <div className="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-4xl mx-auto">
+            {LEARN_ITEMS.map((item) => (
               <div
-                key={b.title}
-                className="rounded-3xl bg-[#F8F4FF] border border-neutral-100 p-7 md:p-8 space-y-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+                key={item.num}
+                className="rounded-3xl bg-white border border-neutral-100 p-7 md:p-8 space-y-4 shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                <span className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white font-black text-lg">
-                  {i + 1}
+                <span className="inline-flex items-center gap-2 text-xs font-black text-[#7C3AED] uppercase tracking-widest">
+                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white flex items-center justify-center text-sm">
+                    {item.num}
+                  </span>
+                  {item.label}
                 </span>
-                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug">
-                  {b.title}
+                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-brand-black">
+                  {item.question}
                 </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">{b.desc}</p>
+                <p className="text-sm text-neutral-600 leading-relaxed">{item.topic}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ 3. MEET OUR MENTORS ============ */}
-      <section id="mentors" className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden scroll-mt-6" aria-labelledby="meet-mentors">
+      {/* ============ 4. MEET OUR MENTORS ============ */}
+      <section id="meet-mentors" className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden scroll-mt-6" aria-labelledby="meet-mentors-title">
         <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
 
         <div className="container-custom relative">
           <div className="max-w-2xl text-center mx-auto space-y-3 mb-10 md:mb-12">
-            <h2 id="meet-mentors" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
+            <h2 id="meet-mentors-title" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
               Meet Our <span className={DP_ACCENT}>Mentors</span>
             </h2>
             <p className="text-sm md:text-base text-white/70 leading-relaxed">
@@ -404,21 +382,24 @@ export default function DreampreneurLanding() {
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
               {MENTORS.map((m) => (
-                <li key={m.name} className="flex items-center gap-4 rounded-2xl bg-white/5 border border-white/10 p-4 md:p-5 hover:bg-white/10 transition-colors">
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] flex items-center justify-center text-white font-black text-lg shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]"
-                  >
-                    {m.initials}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-sm md:text-base font-black text-white font-display uppercase tracking-wide leading-tight">
-                      {m.name}
+                <li key={m.name} className="flex flex-col gap-3 rounded-2xl bg-white/5 border border-white/10 p-4 md:p-5 hover:bg-white/10 transition-colors">
+                  <span className="flex items-center gap-4">
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] flex items-center justify-center text-white font-black text-lg shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]"
+                    >
+                      {m.initials}
                     </span>
-                    <span className="block text-xs md:text-[13px] text-white/60 font-medium mt-1 leading-snug">
-                      {m.role}
+                    <span className="min-w-0">
+                      <span className="block text-sm md:text-base font-black text-white font-display uppercase tracking-wide leading-tight">
+                        {m.name}
+                      </span>
+                      <span className="block text-xs md:text-[13px] text-white/60 font-medium mt-1 leading-snug">
+                        {m.role}
+                      </span>
                     </span>
                   </span>
+                  <p className="text-xs md:text-[13px] text-white/70 leading-relaxed">{m.expert}</p>
                 </li>
               ))}
             </ul>
@@ -426,127 +407,7 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 4. FASILITAS PESERTA ============ */}
-      <section className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden" aria-labelledby="fasilitas-peserta">
-        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
-
-        <div className="container-custom relative">
-          <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-[10px] md:text-xs font-bold tracking-[0.25em] text-white uppercase">
-              Included in Your Ticket
-            </p>
-            <h2 id="fasilitas-peserta" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
-              Fasilitas <span className={DP_ACCENT}>Peserta</span>
-            </h2>
-            <p className="text-sm md:text-base text-white/70 leading-relaxed">
-              Tiket Dreampreneur Batch 2 sudah termasuk fasilitas berikut:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 max-w-4xl mx-auto">
-            {EXPERIENCE_BENEFITS.map((b) => (
-              <div
-                key={b.title}
-                className={
-                  b.featured
-                    ? "rounded-3xl border border-[#E11D8F]/40 bg-gradient-to-br from-[#E11D8F]/15 via-[#7C3AED]/10 to-[#8B5CF6]/20 backdrop-blur p-7 md:p-8 space-y-4 shadow-[0_18px_50px_-12px_rgba(225,29,143,0.4)] ring-1 ring-[#F472B6]/30 hover:shadow-[0_22px_60px_-12px_rgba(192,38,211,0.55)] transition-all duration-300"
-                    : "rounded-3xl border border-white/15 bg-white/5 backdrop-blur p-7 md:p-8 space-y-4 shadow-sm hover:bg-white/10 hover:shadow-md transition-all duration-300"
-                }
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]">
-                    <b.Icon className="w-6 h-6" />
-                  </span>
-                  {b.featured && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#E11D8F] to-[#7C3AED] px-3 py-1 text-[10px] font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-8px_rgba(225,29,143,0.8)]">
-                      <Sparkles className="w-3 h-3" /> Value Utama
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-white">
-                  {b.title}
-                </h3>
-                <p className="text-sm text-white/70 leading-relaxed">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-white/70 leading-relaxed mt-8">
-            Semuanya sudah termasuk dalam tiket seharga {PRICE_EARLY_BIRD}.
-          </p>
-
-          <div className="text-center mt-8">
-            <a
-              href={DREAMPRENEUR_THANKYOU_PATH}
-              onClick={(e) => handleRegisterClick(e, "experience_cta")}
-              className={`${CTA_BASE} min-h-[48px]`}
-            >
-              Amankan Seat — {PRICE_EARLY_BIRD}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 5. THE ANSWER — QUESTIONS WE'LL UNPACK ============ */}
-      <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="the-answer">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center space-y-3 mb-10 md:mb-12">
-            <h2 id="the-answer" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              Bukan Teori. Kita Bedah Hal yang <span className={DP_ACCENT}>Akan Kamu Hadapi di Market.</span>
-            </h2>
-            <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-              Empat pertanyaan yang akan terjawab dalam satu hari bersama praktisi industri.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-4xl mx-auto">
-            {LEARN_ITEMS.map((item) => (
-              <div
-                key={item.num}
-                className="rounded-3xl bg-white border border-neutral-100 p-7 md:p-8 space-y-4 shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <span className="inline-flex items-center gap-2 text-xs font-black text-[#7C3AED] uppercase tracking-widest">
-                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white flex items-center justify-center text-sm">
-                    {item.num}
-                  </span>
-                  {item.speaker}
-                </span>
-                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-brand-black">
-                  {item.question}
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">{item.topic}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 6. EVENT EXPERIENCE ============ */}
-      <section className="py-16 md:py-20 bg-white" aria-labelledby="event-experience">
-        <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
-            <h2 id="event-experience" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              Event <span className={DP_ACCENT}>Experience</span>
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto">
-            {EXPERIENCE_ITEMS.map((item) => (
-              <div key={item} className="rounded-2xl bg-[#F8F4FF] border border-neutral-100 p-6 text-center space-y-3">
-                <CheckCircle2 className="w-6 h-6 text-[#7C3AED] mx-auto" />
-                <p className="text-sm md:text-[15px] font-bold text-brand-black leading-snug">{item}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-neutral-500 leading-relaxed mt-8">
-            Bukan hanya belajar teori. Kamu akan melihat beauty business dari sisi produk, market, operasional, dan pertumbuhan.
-          </p>
-        </div>
-      </section>
-
-      {/* ============ 7. SOCIAL PROOF ============ */}
+      {/* ============ 5. DOCUMENTATION & TESTIMONI BATCH 1 ============ */}
       <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="social-proof">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
@@ -595,12 +456,61 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 8. EVENT DETAILS & TICKET ============ */}
-      <section className="py-16 md:py-20 bg-white" aria-labelledby="event-details">
+      {/* ============ 6. FASILITAS PESERTA ============ */}
+      <section className="py-16 md:py-20 bg-brand-black text-white relative overflow-hidden" aria-labelledby="fasilitas-peserta">
+        <div className="pointer-events-none absolute -top-24 -right-24 w-[24rem] h-[24rem] rounded-full bg-[#E11D8F]/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 w-[24rem] h-[24rem] rounded-full bg-[#8B5CF6]/15 blur-3xl" />
+
+        <div className="container-custom relative">
+          <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
+            <h2 id="fasilitas-peserta" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display text-white">
+              Fasilitas <span className={DP_ACCENT}>Peserta</span>
+            </h2>
+            <p className="text-sm md:text-base text-white/70 leading-relaxed">
+              Sudah termasuk dalam tiket Dreampreneur Batch 2.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 max-w-4xl mx-auto">
+            {EXPERIENCE_BENEFITS.map((b) => (
+              <div
+                key={b.title}
+                className={
+                  b.featured
+                    ? "rounded-3xl border border-[#E11D8F]/40 bg-gradient-to-br from-[#E11D8F]/15 via-[#7C3AED]/10 to-[#8B5CF6]/20 backdrop-blur p-7 md:p-8 space-y-4 shadow-[0_18px_50px_-12px_rgba(225,29,143,0.4)] ring-1 ring-[#F472B6]/30 transition-all duration-300"
+                    : "rounded-3xl border border-white/15 bg-white/5 backdrop-blur p-7 md:p-8 space-y-4 shadow-sm transition-all duration-300"
+                }
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E11D8F] to-[#7C3AED] text-white shadow-[0_8px_24px_-8px_rgba(201,42,211,0.7)]">
+                    <b.Icon className="w-6 h-6" />
+                  </span>
+                  {b.featured && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#E11D8F] to-[#7C3AED] px-3 py-1 text-[10px] font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-8px_rgba(225,29,143,0.8)]">
+                      <Sparkles className="w-3 h-3" /> Value Utama
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-base md:text-lg font-black uppercase tracking-wide font-display leading-snug text-white">
+                  {b.title}
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-white/70 leading-relaxed mt-8">
+            Acara juga mencakup sesi networking bersama praktisi industri dan sesama beautypreneur.
+          </p>
+        </div>
+      </section>
+
+      {/* ============ 7. DETAIL ACARA + HARGA + CTA ============ */}
+      <section className="py-16 md:py-20 bg-white" aria-labelledby="ticket-title">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-10 md:mb-12">
-            <h2 id="event-details" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              Details &amp; <span className={DP_ACCENT}>Ticket</span>
+            <h2 id="ticket-title" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
+              Siap Menentukan Langkah Berikutnya untuk <span className={DP_ACCENT}>Brand-mu?</span>
             </h2>
           </div>
 
@@ -654,37 +564,13 @@ export default function DreampreneurLanding() {
                 </p>
                 <a
                   href={DREAMPRENEUR_THANKYOU_PATH}
-                  onClick={(e) => handleRegisterClick(e, "offer_cta")}
+                  onClick={(e) => handleRegisterClick(e, "ticket_cta")}
                   className={`${CTA_BASE} w-full`}
                 >
-                  Daftar Dreampreneur — {PRICE_EARLY_BIRD}
+                  Amankan Seat — {PRICE_EARLY_BIRD}
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 9. REGISTRATION — Direct WhatsApp CTA ============ */}
-      <section className="py-16 md:py-20 bg-[#F8F4FF]" aria-labelledby="join-title">
-        <div className="container-custom">
-          <div className="max-w-xl mx-auto rounded-[28px] bg-white border border-[#E4D8F4] p-8 sm:p-10 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] space-y-6">
-            <h2 id="join-title" className="text-3xl md:text-[38px] font-black tracking-tight leading-[1.1] uppercase font-display">
-              Siap Jadi Bagian dari <span className={DP_ACCENT}>Dreampreneur?</span>
-            </h2>
-            <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-              Amankan seat kamu dan lanjutkan pendaftaran langsung bersama tim Dreampreneur melalui WhatsApp.
-            </p>
-            <a
-              href={DREAMPRENEUR_THANKYOU_PATH}
-              onClick={(e) => handleRegisterClick(e, "register_cta")}
-              className={`${CTA_BASE} w-full`}
-            >
-              Daftar Dreampreneur — {PRICE_EARLY_BIRD}
-            </a>
-            <p className="text-xs font-bold text-neutral-500">
-              Early Bird {PRICE_EARLY_BIRD} · Seat terbatas
-            </p>
           </div>
         </div>
       </section>
