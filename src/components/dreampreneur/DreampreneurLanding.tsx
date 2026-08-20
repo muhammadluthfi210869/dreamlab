@@ -296,6 +296,20 @@ export default function DreampreneurLanding() {
               </button>
             </div>
 
+            <div className="pt-1 flex flex-wrap justify-center gap-2.5">
+              <span
+                className="inline-flex items-center gap-2 rounded-full bg-[#fef2f2] border border-[#ef4444]/50 px-4 py-2 text-[11px] md:text-xs font-black text-slate-800 uppercase tracking-wide shadow-[0_10px_26px_-12px_rgba(239,68,68,0.5)]"
+                role="status"
+                aria-label="Kursi terbatas — sisa 5 seat"
+              >
+                <span aria-hidden="true">🔥</span> Perhatian: Kursi Terbatas!{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ef4444] to-[#db2777] animate-pulse">
+                  Sisa 5 Seat Lagi
+                </span>{" "}
+                untuk Batch 2 ini.
+              </span>
+            </div>
+
             <div className="flex flex-wrap justify-center items-center gap-3 pt-3">
 {TRUST_ITEMS.map((item) => (
                 <span
@@ -671,13 +685,24 @@ export default function DreampreneurLanding() {
               </div>
 
               <div className="relative space-y-4 mt-8">
+                <span
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-[#fef2f2] border border-[#ef4444]/50 px-4 py-3 text-center text-[12px] md:text-sm font-black text-slate-800 uppercase tracking-wide shadow-[0_12px_28px_-14px_rgba(239,68,68,0.55)]"
+                  role="status"
+                  aria-label="Kursi terbatas — sisa 5 seat"
+                >
+                  <span aria-hidden="true" className="text-base">🔥</span> Perhatian: Kursi Terbatas!{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ef4444] to-[#db2777] animate-pulse">
+                    Sisa 5 Seat Lagi
+                  </span>{" "}
+                  untuk Batch 2 ini.
+                </span>
                 <p className="text-base md:text-lg font-black uppercase font-display tracking-tight leading-snug text-slate-900">
                   Seat terbatas untuk session ini.
                 </p>
                 <a
                   href={DREAMPRENEUR_THANKYOU_PATH}
                   onClick={(e) => handleRegisterClick(e, "ticket_cta")}
-                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-black text-base sm:text-lg uppercase tracking-wider py-5 shadow-[0_18px_50px_-14px_rgba(225,29,72,0.8)] hover:brightness-110 hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c] transition-all duration-300"
+                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-black text-base sm:text-lg uppercase tracking-wider py-5 shadow-[0_18px_50px_-14px_rgba(225,29,72,0.8)] hover:brightness-110 hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9d174d] transition-all duration-300"
                 >
                   Amankan Seat — {PRICE_EARLY_BIRD} <ArrowRight className="w-5 h-5" />
                 </a>
