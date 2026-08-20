@@ -144,6 +144,21 @@ export default function LinktreePage({ initialSource = "linktree" }: LinktreePag
         </motion.div>
 
         <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.8, ease: premiumEase }}
+          className="w-full"
+        >
+          <Link
+            href="/dreampreneur-batch-2/"
+            className="w-full bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white py-5 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(219,39,119,0.4)] hover:shadow-[0_14px_38px_rgba(219,39,119,0.5)] hover:scale-[1.02] active:scale-[0.98] no-underline group"
+          >
+            <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+            <span className="text-[15px] font-black tracking-wider uppercase">Daftar BeautyAcademy Vol. 2</span>
+          </Link>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
