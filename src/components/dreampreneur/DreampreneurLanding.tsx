@@ -253,10 +253,13 @@ export default function DreampreneurLanding() {
 
         <div className="container-custom relative py-16 md:py-28">
           <div className="max-w-3xl mx-auto text-center space-y-6 md:space-y-7">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#f3d1ff] text-[10px] md:text-xs font-bold tracking-[0.3em] text-[#a21caf] uppercase shadow-[0_8px_24px_-12px_rgba(168,85,247,0.35)]">
-              <Sparkles className="w-3.5 h-3.5 text-[#db2777]" fill="currentColor" strokeWidth={0} />
-              It&apos;s Time to Learn, Networking &amp; Scale!
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#f3d1ff] text-[10px] md:text-xs font-bold tracking-[0.3em] text-[#a21caf] uppercase shadow-[0_8px_24px_-12px_rgba(168,85,247,0.35)]">
+              <span aria-hidden="true">✨</span> Beautypreneur Academy — Batch 2
             </div>
+
+            <p className="w-fit mx-auto inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-[#db2777] via-[#c026d3] to-[#7c3aed] text-white font-black text-[11px] md:text-sm tracking-[0.22em] uppercase shadow-[0_14px_34px_-12px_rgba(168,85,247,0.55)]">
+              <span aria-hidden="true" className="text-base md:text-lg">🚀</span> It&apos;s Time to Learn, Networking &amp; Scale!
+            </p>
 
             <h1 className="text-[30px] sm:text-4xl lg:text-[44px] font-black tracking-tight leading-[1.14] font-display text-slate-900">
               Strategi Bikin Brand Skincare Sendiri dari Nol,{" "}
