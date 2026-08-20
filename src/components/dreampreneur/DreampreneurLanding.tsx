@@ -17,7 +17,7 @@ const CTA_BASE =
   "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-gradient-to-r from-[#db2777] to-[#9d174d] text-white font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 shadow-[0_16px_38px_-12px_rgba(225,29,72,0.55)] hover:brightness-110 hover:shadow-[0_20px_44px_-12px_rgba(190,18,60,0.6)] hover:scale-[1.02] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#be123c]";
 
 const CTA_SECONDARY =
-  "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-white border border-slate-200 text-slate-800 font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 hover:border-[#db2777]/50 hover:text-[#db2777] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#db2777] shadow-[0_8px_24px_-12px_rgba(15,23,42,0.18)]";
+  "inline-flex items-center justify-center gap-2.5 px-8 py-4 sm:px-10 sm:py-5 rounded-[50px] bg-white text-slate-800 font-extrabold text-sm sm:text-[15px] uppercase tracking-wider transition-all duration-300 shadow-[0_16px_34px_-14px_rgba(15,23,42,0.2)] hover:shadow-[0_20px_44px_-16px_rgba(219,39,119,0.35)] hover:text-[#db2777] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#db2777]";
 
 const DP_ACCENT =
   "bg-clip-text text-transparent bg-gradient-to-r from-[#db2777] via-[#be123c] to-[#9d174d]";
@@ -127,6 +127,38 @@ const MENTORS = [
 ];
 
 const TRUST_ITEMS = ["Seat terbatas", "Belajar + Networking", "Praktisi industri langsung"];
+
+function SeatQuotaBar({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className="w-full mx-auto space-y-3" role="status" aria-live="polite">
+      <div className="flex items-center justify-center gap-2">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fef2f2] px-3.5 py-1.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest text-[#be123c] shadow-[0_8px_20px_-10px_rgba(239,68,68,0.4)]">
+          <span aria-hidden="true" className="text-xs md:text-sm">🔥</span>
+          Perhatian: Kursi Terbatas!
+        </span>
+      </div>
+      <div
+        className={`relative w-full overflow-hidden rounded-full bg-[#f3e8ff] shadow-inner ${
+          compact ? "h-3.5 md:h-4" : "h-4 md:h-5"
+        }`}
+        role="progressbar"
+        aria-valuenow={90}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Kuota terisi 90 persen, sisa 5 seat"
+      >
+        <span className="absolute inset-y-0 left-0 w-[90%] rounded-l-full bg-gradient-to-r from-[#c026d3] via-[#db2777] to-[#e11d48]" />
+        <span className="absolute inset-y-0 left-[90%] w-[10%] rounded-r-full bg-gradient-to-r from-[#ef4444] to-[#db2777] animate-pulse shadow-[0_0_16px_rgba(239,68,68,0.9)]" />
+      </div>
+      <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] md:text-xs font-black uppercase tracking-wide">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ef4444] to-[#db2777] text-[13px] md:text-sm animate-pulse">
+          🔥 Sisa 5 Seat Lagi!
+        </span>
+        <span className="text-slate-600">Kuota Hampir Penuh</span>
+      </p>
+    </div>
+  );
+}
 
 type TimeLeft = { d: number; h: number; m: number; s: number };
 
@@ -253,7 +285,7 @@ export default function DreampreneurLanding() {
 
         <div className="container-custom relative py-16 md:py-28">
           <div className="max-w-3xl mx-auto text-center space-y-6 md:space-y-7">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#f3d1ff] text-[10px] md:text-xs font-bold tracking-[0.3em] text-[#a21caf] uppercase shadow-[0_8px_24px_-12px_rgba(168,85,247,0.35)]">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[10px] md:text-xs font-bold tracking-[0.3em] text-[#a21caf] uppercase shadow-[0_12px_30px_-14px_rgba(168,85,247,0.4)]">
               <span aria-hidden="true">✨</span> Beautypreneur Academy — Batch 2
             </div>
 
@@ -272,18 +304,18 @@ export default function DreampreneurLanding() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 pt-1">
-              <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.18)]">
+              <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white rounded-full px-4 py-2 shadow-[0_12px_30px_-14px_rgba(15,23,42,0.22)]">
                 <CalendarDays className="w-4 h-4 text-[#db2777]" /> {EVENT_DATE}
               </span>
-              <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.18)]">
+              <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white rounded-full px-4 py-2 shadow-[0_12px_30px_-14px_rgba(15,23,42,0.22)]">
                 <Clock className="w-4 h-4 text-[#db2777]" /> {EVENT_TIME}
               </span>
-              <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.18)]">
+              <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 bg-white rounded-full px-4 py-2 shadow-[0_12px_30px_-14px_rgba(15,23,42,0.22)]">
                 <MapPin className="w-4 h-4 text-[#db2777]" /> {EVENT_VENUE}
               </span>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
+            <div className="pt-1 flex flex-col sm:flex-row justify-center gap-3">
               <a
                 href={DREAMPRENEUR_THANKYOU_PATH}
                 onClick={(e) => handleRegisterClick(e, "hero_cta")}
@@ -296,25 +328,15 @@ export default function DreampreneurLanding() {
               </button>
             </div>
 
-            <div className="pt-1 flex flex-wrap justify-center gap-2.5">
-              <span
-                className="inline-flex items-center gap-2 rounded-full bg-[#fef2f2] border border-[#ef4444]/50 px-4 py-2 text-[11px] md:text-xs font-black text-slate-800 uppercase tracking-wide shadow-[0_10px_26px_-12px_rgba(239,68,68,0.5)]"
-                role="status"
-                aria-label="Kursi terbatas — sisa 5 seat"
-              >
-                <span aria-hidden="true">🔥</span> Perhatian: Kursi Terbatas!{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ef4444] to-[#db2777] animate-pulse">
-                  Sisa 5 Seat Lagi
-                </span>{" "}
-                untuk Batch 2 ini.
-              </span>
+            <div className="pt-2 max-w-xl mx-auto w-full">
+              <SeatQuotaBar />
             </div>
 
             <div className="flex flex-wrap justify-center items-center gap-3 pt-3">
-{TRUST_ITEMS.map((item) => (
+              {TRUST_ITEMS.map((item) => (
                 <span
                   key={item}
-                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 shadow-[0_6px_18px_-10px_rgba(15,23,42,0.16)]"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 bg-white rounded-full px-4 py-2 shadow-[0_12px_30px_-14px_rgba(15,23,42,0.22)]"
                 >
                   <BadgeCheck className="w-4 h-4 text-[#db2777]" />
                   {item}
@@ -332,7 +354,7 @@ export default function DreampreneurLanding() {
 
         <div className="container-custom relative">
           <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-12">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-rose-200 text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_8px_24px_-12px_rgba(225,29,72,0.3)]">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_10px_26px_-12px_rgba(225,29,72,0.3)]">
               Realita di Lapangan
             </p>
             <h2 id="problem-audience" className="text-3xl md:text-[36px] font-black tracking-tight leading-[1.14] uppercase font-display text-slate-900">
@@ -347,13 +369,13 @@ export default function DreampreneurLanding() {
             {PROBLEM_AUDIENCE.map((p) => (
               <div
                 key={p.title}
-                className="rounded-3xl bg-white border border-slate-200 p-7 md:p-8 space-y-5 shadow-[0_20px_50px_-22px_rgba(15,23,42,0.18)] hover:border-[#db2777]/35 hover:shadow-[0_24px_56px_-20px_rgba(225,29,72,0.25)] transition-all duration-300"
+                className="rounded-3xl bg-white shadow-[0_28px_65px_-28px_rgba(15,23,42,0.25)] p-7 md:p-8 space-y-5 hover:shadow-[0_32px_70px_-28px_rgba(219,39,119,0.3)] transition-all duration-300"
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] text-white shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                     <p.Icon className="w-6 h-6" />
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-rose-50 border border-rose-200 px-3 py-1 text-[10px] font-black text-[#9d174d] uppercase tracking-widest">
+                  <span className="inline-flex items-center rounded-full bg-rose-50 px-3 py-1 text-[10px] font-black text-[#9d174d] uppercase tracking-widest">
                     {p.label}
                   </span>
                 </div>
@@ -365,7 +387,7 @@ export default function DreampreneurLanding() {
             ))}
           </div>
 
-          <div className="max-w-3xl mx-auto mt-10 md:mt-12 rounded-3xl bg-gradient-to-r from-rose-50 via-white to-rose-100 border border-rose-200 p-7 md:p-9 text-center shadow-[0_20px_50px_-20px_rgba(225,29,72,0.25)]">
+          <div className="max-w-3xl mx-auto mt-10 md:mt-12 rounded-3xl bg-gradient-to-r from-rose-50 via-white to-rose-100 p-7 md:p-9 text-center shadow-[0_28px_60px_-28px_rgba(225,29,72,0.3)]">
             <Sparkles className="w-6 h-6 text-[#db2777] mx-auto mb-3" fill="currentColor" strokeWidth={0} />
             <p className="text-sm md:text-base text-slate-700 leading-relaxed">
               Dreampreneur membantu kamu menemukan arah yang lebih jelas sebelum menentukan langkah berikutnya.
@@ -381,7 +403,7 @@ export default function DreampreneurLanding() {
 
         <div className="container-custom relative">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-10 md:mb-14">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-rose-50 border border-rose-200 text-[10px] md:text-xs font-black tracking-[0.25em] text-[#9d174d] uppercase">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white text-[10px] md:text-xs font-black tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_10px_26px_-12px_rgba(219,39,119,0.35)]">
               Masterclass Modules
             </p>
             <h2 id="curriculum-title" className="text-3xl md:text-[36px] font-black tracking-tight leading-[1.14] uppercase font-display text-slate-900">
@@ -397,7 +419,7 @@ export default function DreampreneurLanding() {
             {LEARN_ITEMS.map((item) => (
               <div
                 key={item.num}
-                className="relative overflow-hidden rounded-3xl bg-white border border-slate-200 p-7 md:p-8 shadow-[0_22px_55px_-25px_rgba(15,23,42,0.22)] hover:border-[#db2777]/45 hover:shadow-[0_26px_60px_-22px_rgba(225,29,72,0.3)] hover:-translate-y-1.5 transition-all duration-300"
+                className="relative overflow-hidden rounded-3xl bg-white shadow-[0_28px_70px_-30px_rgba(15,23,42,0.28)] hover:shadow-[0_34px_80px_-30px_rgba(219,39,119,0.35)] hover:-translate-y-1.5 p-7 md:p-8 transition-all duration-300"
               >
                 <span className="pointer-events-none absolute -top-6 -right-4 text-[96px] font-black text-rose-100 font-display leading-none select-none">
                   {item.num}
@@ -443,7 +465,7 @@ export default function DreampreneurLanding() {
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-center">
             <div className="relative max-w-xs mx-auto w-full lg:max-w-none">
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#fda4af]/60 via-transparent to-[#fbcfe8]/60 blur-2xl rounded-[40px]" />
-              <div className="relative rounded-[24px] overflow-hidden border border-slate-200 shadow-[0_24px_60px_-22px_rgba(190,18,60,0.35)]">
+              <div className="relative rounded-[24px] overflow-hidden shadow-[0_30px_70px_-25px_rgba(190,18,60,0.4)]">
                 <Image
                   src="/assets/images/dreampreneur-batch-2/flyer.png"
                   alt="Pembicara Dreampreneur Batch 2 — para praktisi industri kecantikan"
@@ -457,11 +479,11 @@ export default function DreampreneurLanding() {
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
               {MENTORS.map((m) => (
-                <li key={m.name} className="flex flex-col gap-3 rounded-2xl bg-white border border-slate-200 p-4 md:p-5 shadow-[0_16px_40px_-22px_rgba(15,23,42,0.16)] hover:border-[#db2777]/40 hover:-translate-y-0.5 transition-all duration-300">
+                <li key={m.name} className="flex flex-col gap-3 rounded-2xl bg-white shadow-[0_20px_48px_-26px_rgba(15,23,42,0.22)] p-4 md:p-5 hover:shadow-[0_24px_56px_-26px_rgba(219,39,119,0.3)] hover:-translate-y-0.5 transition-all duration-300">
                   <span className="flex items-center gap-4">
                     <span
                       aria-hidden="true"
-                      className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center text-white font-black text-lg ring-4 ring-rose-100 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]"
+                      className="shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center text-white font-black text-lg shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]"
                     >
                       {m.initials}
                     </span>
@@ -497,7 +519,7 @@ export default function DreampreneurLanding() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <figure className="rounded-3xl overflow-hidden shadow-[0_30px_70px_-25px_rgba(15,23,42,0.25)] border border-slate-200">
+            <figure className="rounded-3xl overflow-hidden shadow-[0_34px_75px_-30px_rgba(15,23,42,0.3)]">
               <Image
                 src="/assets/images/Dreamlab-Dreamprenuer-Academy--1024x540.webp"
                 alt="Suasana sesi Dreampreneur Beauty Academy yang digelar Dreamlab — networking dan diskusi praktisi industri kecantikan"
@@ -510,13 +532,13 @@ export default function DreampreneurLanding() {
             </figure>
           </div>
 
-          <div className="max-w-2xl mx-auto rounded-3xl bg-gradient-to-br from-rose-50 via-white to-rose-100 border border-rose-200 p-7 md:p-9 shadow-[0_24px_60px_-22px_rgba(190,18,60,0.3)]">
+          <div className="max-w-2xl mx-auto rounded-3xl bg-gradient-to-br from-rose-50 via-white to-rose-100 p-7 md:p-9 shadow-[0_30px_70px_-28px_rgba(190,18,60,0.35)]">
             <Quote className="w-8 h-8 text-[#db2777] mb-4" fill="currentColor" strokeWidth={0} />
             <blockquote className="text-[15px] md:text-lg font-medium text-slate-700 leading-relaxed">
               &ldquo;Aku sempat ragu memulai, tapi mengikuti batch pertama Dreampreneur membuka mata aku bahwa membangun brand itu soal keberanian, bukan sekadar teori. Dari sanalah aku akhirnya memberanikan diri membangun brand parfum sendiri dengan konsep yang inovatif — dan merasa lebih siap menghadapi langkah berikutnya.&rdquo;
             </blockquote>
             <div className="mt-6 flex flex-wrap items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center text-white font-black text-lg ring-4 ring-rose-100">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center text-white font-black text-lg shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                 E
               </div>
               <div>
@@ -540,7 +562,7 @@ export default function DreampreneurLanding() {
 
         <div className="container-custom relative">
           <div className="max-w-2xl mx-auto text-center space-y-4 mb-10 md:mb-14">
-            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-rose-200 text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_8px_24px_-12px_rgba(225,29,72,0.3)]">
+            <p className="inline-flex items-center px-4 py-2 rounded-full bg-white text-[10px] md:text-xs font-bold tracking-[0.25em] text-[#9d174d] uppercase shadow-[0_10px_26px_-12px_rgba(219,39,119,0.35)]">
               All Included
             </p>
             <h2 id="fasilitas-peserta" className="text-3xl md:text-[36px] font-black tracking-tight leading-[1.14] uppercase font-display text-slate-900">
@@ -557,8 +579,8 @@ export default function DreampreneurLanding() {
                 key={b.title}
                 className={
                   b.featured
-                    ? "rounded-3xl bg-white border border-[#db2777]/45 p-7 md:p-8 space-y-4 shadow-[0_24px_55px_-20px_rgba(225,29,72,0.35)] ring-1 ring-rose-200 hover:-translate-y-1.5 transition-all duration-300"
-                    : "rounded-3xl bg-white border border-slate-200 p-7 md:p-8 space-y-4 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.18)] hover:border-[#db2777]/35 hover:-translate-y-1.5 transition-all duration-300"
+                    ? "rounded-3xl bg-white p-7 md:p-8 space-y-4 shadow-[0_30px_65px_-26px_rgba(219,39,119,0.4)] hover:-translate-y-1.5 transition-all duration-300"
+                    : "rounded-3xl bg-white p-7 md:p-8 space-y-4 shadow-[0_26px_60px_-28px_rgba(15,23,42,0.2)] hover:shadow-[0_30px_65px_-28px_rgba(219,39,119,0.3)] hover:-translate-y-1.5 transition-all duration-300"
                 }
               >
                 <div className="flex items-start justify-between gap-3">
@@ -601,7 +623,7 @@ export default function DreampreneurLanding() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
-            <div className="rounded-3xl bg-white border border-slate-200 p-7 md:p-9 space-y-5 shadow-[0_20px_55px_-25px_rgba(15,23,42,0.18)]">
+            <div className="rounded-3xl bg-white shadow-[0_28px_65px_-28px_rgba(15,23,42,0.22)] p-7 md:p-9 space-y-5">
               <div className="flex items-start gap-4">
                 <span className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#db2777] to-[#9d174d] flex items-center justify-center shrink-0 shadow-[0_10px_24px_-8px_rgba(225,29,72,0.55)]">
                   <CalendarDays className="w-5 h-5 text-white" />
@@ -631,7 +653,7 @@ export default function DreampreneurLanding() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-200 space-y-3">
+              <div className="pt-3 border-t border-slate-100 space-y-3">
                 <p className="text-[11px] font-black text-slate-500 uppercase tracking-widest">Semuanya sudah termasuk</p>
                 {EXPERIENCE_BENEFITS.map((b) => (
                   <div key={b.title} className="flex items-center gap-2.5">
@@ -646,7 +668,7 @@ export default function DreampreneurLanding() {
               </div>
             </div>
 
-            <div className="rounded-3xl bg-gradient-to-b from-white to-rose-50 border border-[#db2777]/40 p-7 md:p-9 flex flex-col justify-between shadow-[0_30px_80px_-25px_rgba(225,29,72,0.4)] ring-1 ring-rose-200 relative overflow-hidden">
+            <div className="rounded-3xl bg-gradient-to-b from-white to-rose-50 shadow-[0_36px_90px_-30px_rgba(225,29,72,0.45)] p-7 md:p-9 flex flex-col justify-between relative overflow-hidden">
               <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 rounded-full bg-[#db2777]/15 blur-3xl" />
 
               <div className="relative space-y-5">
@@ -654,7 +676,7 @@ export default function DreampreneurLanding() {
                   <p className="w-fit rounded-full bg-gradient-to-r from-[#db2777] to-[#9d174d] px-4 py-1.5 text-[10px] md:text-xs font-black text-white uppercase tracking-widest shadow-[0_8px_20px_-6px_rgba(225,29,72,0.7)]">
                     Early Bird
                   </p>
-                  <p className="rounded-full bg-[#db2777]/10 border border-[#db2777]/30 px-3 py-1 text-[11px] font-black text-[#9d174d] uppercase tracking-wider">
+                  <p className="rounded-full bg-[#db2777]/10 px-3 py-1 text-[11px] font-black text-[#9d174d] uppercase tracking-wider">
                     Hemat 24%
                   </p>
                 </div>
@@ -675,7 +697,7 @@ export default function DreampreneurLanding() {
                       { v: timeLeft?.m, t: "Menit" },
                       { v: timeLeft?.s, t: "Detik" },
                     ].map((x) => (
-                      <div key={x.t} className="rounded-2xl bg-white border border-rose-200 px-2 py-3 text-center shadow-[0_8px_20px_-12px_rgba(225,29,72,0.3)]">
+                      <div key={x.t} className="rounded-2xl bg-white px-2 py-3 text-center shadow-[0_12px_28px_-14px_rgba(225,29,72,0.3)]">
                         <div className="text-xl md:text-2xl font-black text-[#db2777] font-display">{x.v === undefined ? "--" : pad(x.v)}</div>
                         <div className="text-[9px] md:text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">{x.t}</div>
                       </div>
@@ -685,17 +707,7 @@ export default function DreampreneurLanding() {
               </div>
 
               <div className="relative space-y-4 mt-8">
-                <span
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-[#fef2f2] border border-[#ef4444]/50 px-4 py-3 text-center text-[12px] md:text-sm font-black text-slate-800 uppercase tracking-wide shadow-[0_12px_28px_-14px_rgba(239,68,68,0.55)]"
-                  role="status"
-                  aria-label="Kursi terbatas — sisa 5 seat"
-                >
-                  <span aria-hidden="true" className="text-base">🔥</span> Perhatian: Kursi Terbatas!{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ef4444] to-[#db2777] animate-pulse">
-                    Sisa 5 Seat Lagi
-                  </span>{" "}
-                  untuk Batch 2 ini.
-                </span>
+                <SeatQuotaBar compact />
                 <p className="text-base md:text-lg font-black uppercase font-display tracking-tight leading-snug text-slate-900">
                   Seat terbatas untuk session ini.
                 </p>
