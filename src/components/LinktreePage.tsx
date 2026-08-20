@@ -147,7 +147,7 @@ export default function LinktreePage({ initialSource = "linktree" }: LinktreePag
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.8, ease: premiumEase }}
-          className="w-full"
+          className="w-full my-8"
         >
           <Link
             href="/dreampreneur-batch-2/"
