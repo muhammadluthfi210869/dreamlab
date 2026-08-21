@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -16,16 +16,7 @@ export default function MaklonHairCareAdsLP() {
     "FREE Digital Marketing"
   ];
 
-  useEffect(() => {
-    const ctas = document.querySelectorAll('a[href*="thankyou/metaads"]');
-    const handler = () => {
-      if (typeof (window as any).fbq === 'function') {
-        (window as any).fbq('track', 'AddToCart', { content_name: 'Maklon Hair Care', content_category: 'Landing Page Ads' });
-      }
-    };
-    ctas.forEach(el => el.addEventListener('click', handler));
-    return () => ctas.forEach(el => el.removeEventListener('click', handler));
-  }, []);
+  useMetaAdsCtaPixel("Maklon Hair Care");
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">

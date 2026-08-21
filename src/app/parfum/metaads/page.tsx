@@ -16,6 +16,7 @@ import {
   CheckCircle2,
   FlaskConical
 } from "lucide-react";
+import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -23,6 +24,7 @@ const parfumBg = "#EAD7CD";
 const parfumVivid = "#E2BC86";
 
 export default function ParfumMetaAdsLP() {
+  useMetaAdsCtaPixel("Parfum");
   const benefits = [
     { title: "Formula Custom", icon: FlaskConical },
     { title: "Desain Kemasan", icon: Sparkles },

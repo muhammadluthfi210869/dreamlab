@@ -66,7 +66,10 @@ export function ThankYouRoundRobin({
     const resolvedSource = params.get("source") || defaultSource;
 
     setSource(resolvedSource);
-    fireConversion(resolvedSource);
+    // eventID di-`?event_id=` diteruskan landing CTA (metaads) → reuse utk dedup
+    // sama seperti pola Dreampreneur: browser beacon Lead & server sebenarnya
+    // satu konversi, bukan duplikat.
+    fireConversion(resolvedSource, params.get("event_id") || undefined);
 
     // Google Ads conversion hanya untuk channel google-ads (jangan polusi data
     // konversi Ads dari traffic organik / medsos / meta). gclid terbaca otomatis

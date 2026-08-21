@@ -22,7 +22,7 @@ export interface NexerpCRMData {
   produk?: string;
 }
 
-export function fireConversion(source: string) {
+export function fireConversion(source: string, eventID?: string) {
   // dataLayer (GTM)
   if (typeof window !== "undefined") {
     (window as any).dataLayer = (window as any).dataLayer || [];
@@ -45,7 +45,8 @@ export function fireConversion(source: string) {
 
   // Meta Pixel Lead event
   if (typeof (window as any).fbq === "function") {
-    (window as any).fbq("track", "Lead", { source });
+    const opts = eventID ? { eventID } : {}; // dedup: eventID sama utk landing & thankyou
+    (window as any).fbq("track", "Lead", { source }, opts);
   }
 
   // TikTok Pixel Lead event

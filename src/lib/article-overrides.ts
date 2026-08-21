@@ -128,6 +128,31 @@ const articleOverrides: Record<string, ArticleOverride> = {
       },
     ],
   },
+  '/ide-produk-pore-care-maklon-skincare': {
+    content: '',
+    faqs: [
+      {
+        question: 'Apakah bisa request sample terlebih dahulu?',
+        answer: 'Bisa. Dreamlab menyediakan proses sampling agar Anda dapat mencoba dan mengevaluasi formula terlebih dahulu sebelum melanjutkan ke tahap produksi.',
+      },
+      {
+        question: 'Berapa MOQ maklon skincare di Dreamlab?',
+        answer: 'MOQ di Dreamlab fleksibel dan dapat disesuaikan dengan jenis produk serta kebutuhan brand. Anda dapat berkonsultasi terlebih dahulu dengan tim Dreamlab untuk menentukan opsi yang paling sesuai dengan produk yang ingin dikembangkan.',
+      },
+      {
+        question: 'Bisakah brand pemula memulai hanya dengan satu produk pore care?',
+        answer: 'Ya. Dreamlab mendukung brand yang memulai dari satu hero product, seperti Pore Serum, sebelum rangkaian diperluas secara bertahap. Konsultasikan konsep produk terlebih dahulu agar tim dapat memberikan rekomendasi SKU awal yang paling relevan.',
+      },
+      {
+        question: 'Produk pore care apa saja yang bisa dibuat di Dreamlab?',
+        answer: 'Cleansing oil, cleanser, toner, serum, peptide serum, clay mask, moisturizer, hingga sunscreen dapat dikembangkan bersama Dreamlab dengan custom formula sesuai konsep brand.',
+      },
+      {
+        question: 'Dreamlab berada di mana?',
+        answer: 'Head Office Dreamlab berada di Surabaya, Jawa Timur. Konsultasi mengenai pengembangan produk dapat dilakukan bersama tim Dreamlab sesuai kebutuhan.',
+      },
+    ],
+  },
   '/5-cara-menaikkan-omzet-klinik-kecantikan': {
     content: '',
     faqs: [

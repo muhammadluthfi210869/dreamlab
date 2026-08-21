@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, ShieldCheck, Package, Palette, MessageCircle, TrendingUp, FlaskConical, Award } from 'lucide-react';
+import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -33,16 +33,7 @@ const products = [
 ];
 
 export default function DeodorantMetaAdsLP() {
-  useEffect(() => {
-    const ctas = document.querySelectorAll('a[href*="thankyou/metaads"]');
-    const handler = () => {
-      if (typeof (window as any).fbq === 'function') {
-        (window as any).fbq('track', 'AddToCart', { content_name: 'Deodorant', content_category: 'Landing Page Ads' });
-      }
-    };
-    ctas.forEach(el => el.addEventListener('click', handler));
-    return () => ctas.forEach(el => el.removeEventListener('click', handler));
-  }, []);
+  useMetaAdsCtaPixel('Deodorant');
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">

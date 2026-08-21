@@ -11,12 +11,14 @@ import {
   TrendingUp,
   FlaskConical
 } from "lucide-react";
+import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
 const haircareBg = "#E7ECFE";
 
 export default function HaircareMetaAdsLP() {
+  useMetaAdsCtaPixel("Hair Care");
   const benefits = [
     { title: "Formula Custom", icon: FlaskConical },
     { title: "Desain Kemasan", icon: Sparkles },

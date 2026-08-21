@@ -15,6 +15,7 @@ import {
   Users,
   FlaskConical
 } from "lucide-react";
+import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -22,6 +23,7 @@ const skincareBg = "#EADBC8";
 const skincareVivid = "#CFB185";
 
 export default function SkincareMetaAdsLP() {
+  useMetaAdsCtaPixel("Skincare Face Care");
   const benefits = [
     { title: "Formula Custom", icon: FlaskConical },
     { title: "Desain Kemasan", icon: Sparkles },
