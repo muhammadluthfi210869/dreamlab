@@ -2,35 +2,44 @@
 
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
-import { ArrowRight, CheckCircle2, ChevronDown, MapPin, Calendar, Clock } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import {
   DREAMPRENEUR_THANKYOU_PATH,
   buildDreampreneurThankyouUrl,
   ensureMetaPixelQueue,
   preconnectWhatsApp,
   trackDreampreneurCtaClick,
-  trackDreampreneurExplore,
   trackDreampreneurView,
 } from "@/lib/dreampreneur";
 
 export default function DreampreneurLanding() {
   const [showSticky, setShowSticky] = useState(false);
+  const [passedPrice, setPassedPrice] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   useEffect(() => {
     ensureMetaPixelQueue();
     preconnectWhatsApp();
     trackDreampreneurView();
-    
+
     const handleScroll = () => {
-      setShowSticky(window.scrollY > 600);
+      const scrollY = window.scrollY;
+      setShowSticky(scrollY > 500);
+      const priceEl = document.getElementById("price-section");
+      if (priceEl) {
+        const priceTop = priceEl.getBoundingClientRect().top + scrollY;
+        setPassedPrice(scrollY > priceTop - 100);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleRegisterClick = (e: React.MouseEvent<HTMLAnchorElement>, label: string) => {
+  const handleRegisterClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    label: string
+  ) => {
     e.preventDefault();
     trackDreampreneurCtaClick(label);
     window.location.assign(buildDreampreneurThankyouUrl());
@@ -41,14 +50,15 @@ export default function DreampreneurLanding() {
   };
 
   const EVENT_DATE = "29 Agustus 2026";
-  const EVENT_TIME = "11.00–17.00 WIB";
+  const EVENT_TIME = "11.00\u201317.00 WIB";
+  const EVENT_VENUE = "Excotel Design Hotel, Surabaya";
 
   return (
     <div
-      className="landing-page-ads min-h-screen bg-[#FFF8FC] text-[#141414] font-sans selection:bg-[#FF5A1F] selection:text-white overflow-x-hidden"
+      className="landing-page-ads min-h-screen bg-white text-[#141414] font-sans selection:bg-[#5A31F4] selection:text-white overflow-x-hidden antialiased"
       style={
         {
-          "--color-ungu": "#4A2ACB",
+          "--color-ungu": "#5A31F4",
           "--color-pink": "#E63E97",
           "--color-biru": "#4A7DFF",
           "--color-orange": "#FF5A1F",
@@ -56,336 +66,235 @@ export default function DreampreneurLanding() {
         } as CSSProperties
       }
     >
-      {/* CSS Custom untuk Gaya Editorial Bold */}
       <style>{`
-        .landing-page-ads h1,
-        .landing-page-ads h2,
-        .landing-page-ads h3,
-        .landing-page-ads h4,
-        .landing-page-ads .font-display {
+        .dp-display {
           font-family: "Viga", var(--font-viga), sans-serif !important;
-          font-weight: 800 !important;
-          letter-spacing: -0.02em;
+          font-weight: 900 !important;
+          letter-spacing: -0.03em;
         }
-        .editorial-border {
-          border: 3px solid #141414;
-        }
-        .editorial-shadow-orange {
-          box-shadow: 6px 6px 0px 0px #FF5A1F;
-        }
-        .editorial-shadow-blue {
-          box-shadow: 6px 6px 0px 0px #4A7DFF;
-        }
-        .editorial-shadow-black {
-          box-shadow: 6px 6px 0px 0px #141414;
-        }
-        .editorial-shadow-ungu {
-          box-shadow: 6px 6px 0px 0px #4A2ACB;
-        }
-        .sticker-badge {
-          display: inline-block;
-          padding: 6px 12px;
-          background-color: #4A2ACB;
-          color: #FFF8FC;
+        .dp-hero-hl {
+          font-family: "Viga", var(--font-viga), sans-serif !important;
+          font-size: clamp(2.2rem, 8.5vw, 5rem);
+          line-height: 1.02;
           font-weight: 900;
-          text-transform: uppercase;
-          border: 2px solid #141414;
-          transform: rotate(-2deg);
+          letter-spacing: -0.04em;
         }
-        @media (max-width: 767.98px) {
-          .landing-page-ads h1 { font-size: 32px !important; line-height: 1.15 !important; }
-          .landing-page-ads h2 { font-size: 26px !important; line-height: 1.2 !important; }
+        .dp-section-hl {
+          font-family: "Viga", var(--font-viga), sans-serif !important;
+          font-size: clamp(1.8rem, 5.5vw, 3.2rem);
+          line-height: 1.05;
+          font-weight: 900;
+          letter-spacing: -0.03em;
         }
       `}</style>
 
-      {/* ============ 16. TOMBOL TETAP DI PONSEL ============ */}
+      {/* ===== MOBILE STICKY CTA ===== */}
       <div
         className={`fixed inset-x-0 bottom-0 z-50 md:hidden transition-transform duration-300 ${
           showSticky ? "translate-y-0" : "translate-y-full"
         }`}
       >
-        <div className="bg-[#FFF8FC] border-t-3 border-[#141414] py-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(20,20,20,0.15)] flex items-center justify-between gap-4">
+        <div className="bg-[#FFF8FC]/95 backdrop-blur-md border-t border-[#E9D5FF]/50 py-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(59,7,100,0.06)] flex items-center justify-between gap-4">
           <div className="flex flex-col">
-            <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">Harga Spesial</span>
-            <span className="text-lg font-black text-[#FF5A1F]">Rp189.000</span>
+            <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Harga Spesial</span>
+            <span className="text-lg font-black text-[#5A31F4]">Rp189.000</span>
           </div>
           <a
             href={DREAMPRENEUR_THANKYOU_PATH}
             onClick={(e) => handleRegisterClick(e, "sticky_daftar")}
-            className="flex-1 max-w-[200px] inline-flex items-center justify-center gap-2 rounded-none bg-[#FF5A1F] text-[#FFF8FC] font-black text-sm uppercase py-3.5 px-4 border-2 border-[#141414] hover:bg-[#ff6e39] active:scale-[0.97] transition-all editorial-shadow-black"
+            className="flex-1 max-w-[200px] inline-flex items-center justify-center gap-2 rounded-2xl bg-[#5A31F4] text-white font-black text-sm uppercase py-3.5 px-4 hover:bg-[#4A2ACB] active:scale-[0.97] transition-all shadow-md"
           >
             Daftar <ArrowRight className="w-4 h-4" />
           </a>
         </div>
       </div>
 
-      {/* ============ 1. HERO / BAGIAN UTAMA ============ */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#FFF8FC] to-[#FFF0F6] text-[#141414] border-b-3 border-[#141414] pt-12 pb-16 md:pt-20 md:pb-24">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-            
-            {/* Kiri: Teks & Informasi Utama */}
-            <div className="md:col-span-7 flex flex-col space-y-6 md:space-y-8">
-              <div>
-                <span className="sticker-badge text-xs md:text-sm tracking-widest font-black inline-block mb-4">
-                  BEAUTY ACADEMY BATCH 2
-                </span>
-                
-                <h1 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.1] text-[#4A2ACB] uppercase">
-                  Bangun Brand Kosmetik <br />
-                  <span className="text-[#FF5A1F] underline decoration-4 decoration-[#4A2ACB]">Yang Lebih Terarah,</span> <br />
-                  Sampai Dipercaya Pasar.
-                </h1>
-              </div>
+      {/* ===== 1. HERO ===== */}
+      <section className="bg-gradient-to-b from-[#FAF8FC] to-[#F5EEF8] pt-16 pb-16 md:pt-24 md:pb-24">
+        <div className="container mx-auto px-5 max-w-4xl flex flex-col items-center text-center gap-6">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#FAF8FC] border border-[#C5A880]/35 text-[#C5A880] text-[10px] sm:text-xs font-black uppercase tracking-widest">
+            BEAUTY ACADEMY BATCH 2
+          </span>
 
-              {/* Hook Box */}
-              <div className="bg-[#FFF8FC] border-3 border-[#141414] p-5 relative editorial-shadow-ungu">
-                <span className="absolute -top-3.5 left-4 bg-[#FF5A1F] text-white text-[10px] font-black px-2.5 py-1 uppercase border-2 border-[#141414] rotate-[-1deg]">
-                  1 HARI PAHAM FRAMEWORK BANGUN BRAND DARI 0 SAMPAI MARKET FIT
-                </span>
-                <p className="text-sm md:text-base font-black leading-relaxed text-[#141414] pt-3">
-                  Bagaimana membuat produk, formula, bisnis, dan pemasaran lebih selaras dengan kebutuhan pasar.
-                </p>
-              </div>
+          <h1 className="dp-hero-hl text-[#3B0764] uppercase w-full max-w-3xl leading-[1.05]">
+            Pahami Cara Bangun Brand Kosmetik<br />
+            <span className="text-[#C5A880]">dari 0 Sampai Market Fit.</span>
+          </h1>
 
-              <p className="text-base sm:text-lg text-slate-800 leading-relaxed font-semibold">
-                Untuk Anda yang baru ingin memulai maupun yang brand-nya sudah berjalan. Pelajari bagaimana melihat brand dari sisi produk, formula, bisnis, pemasaran hingga pemanfaatan kecerdasan buatan agar keputusan tidak hanya berdasarkan perkiraan.
-              </p>
+          <p className="text-xs sm:text-sm md:text-base text-slate-500 font-semibold max-w-xl mx-auto leading-relaxed">
+            Bagaimana menyelaraskan konsep produk, formula, eksekusi bisnis, dan strategi pasar secara presisi.
+          </p>
 
-              {/* Ringkasan Pembahasan */}
-              <div className="flex flex-wrap gap-2 text-xs font-black uppercase text-[#141414]">
-                {["Produk & Formula", "Bisnis", "Pemasaran", "Kecerdasan Buatan"].map((tag, i) => (
-                  <span key={i} className="bg-white border-2 border-[#141414] px-3 py-1.5 rounded-none font-semibold">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Informasi Jadwal & Lokasi */}
-              <div className="bg-white border-3 border-[#141414] p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-                <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Tanggal</p>
-                  <p className="text-sm font-black text-[#141414]">{EVENT_DATE}</p>
-                </div>
-                <div className="sm:border-l-2 sm:border-[#141414]">
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Waktu</p>
-                  <p className="text-sm font-black text-[#141414]">{EVENT_TIME}</p>
-                </div>
-                <div className="sm:border-l-2 sm:border-[#141414]">
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Lokasi</p>
-                  <p className="text-sm font-black text-[#141414]">Excotel Design Hotel, Surabaya</p>
-                </div>
-              </div>
-
-              {/* Penawaran & CTA */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
-                <div className="flex flex-col">
-                  <span className="text-xs text-slate-500 font-bold line-through">Normal Rp250.000</span>
-                  <span className="text-3xl font-black text-[#FF5A1F] tracking-tight">Harga Spesial Rp189.000</span>
-                </div>
-                <a
-                  href={DREAMPRENEUR_THANKYOU_PATH}
-                  onClick={(e) => handleRegisterClick(e, "hero_cta")}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4.5 rounded-none bg-[#FF5A1F] text-white font-black text-base uppercase border-3 border-[#141414] hover:bg-[#ff6e39] active:scale-[0.98] transition-all editorial-shadow-black"
-                >
-                  Saya Mau Ikut <ArrowRight className="w-5 h-5" />
-                </a>
-              </div>
-              <p className="text-xs font-bold text-slate-600">
-                * Kuota peserta terbatas · Acara tatap muka di Surabaya
-              </p>
+          <div className="w-full max-w-md md:max-w-xl mt-4 relative">
+            <div className="absolute -inset-4 bg-[#3B0764]/5 rounded-3xl blur-2xl opacity-60 pointer-events-none" />
+            <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100/80">
+              <Image
+                src="/assets/images/dreampreneur-batch-2/flyer.png"
+                alt="BEAUTY ACADEMY BATCH 2 — Surabaya, 29 Agustus 2026"
+                width={810}
+                height={1013}
+                className="w-full h-auto"
+                priority
+              />
             </div>
-
-            {/* Kanan: Visual Composition */}
-            <div className="md:col-span-5 flex flex-col items-center">
-              <div className="relative w-full max-w-[340px] md:max-w-none pt-4">
-                <div className="absolute inset-0 bg-[#4A7DFF] border-3 border-[#141414] translate-x-4 translate-y-4" />
-                <div className="relative bg-white border-3 border-[#141414] p-3 transition-transform hover:rotate-1">
-                  <Image
-                    src="/assets/images/dreampreneur-batch-2/flyer.png"
-                    alt="BEAUTY ACADEMY BATCH 2 — Surabaya"
-                    width={810}
-                    height={1013}
-                    className="w-full h-auto object-cover border-2 border-[#141414]"
-                    priority
-                  />
-                  {/* Sticker Badges Overlay */}
-                  <div className="absolute top-6 -left-6 bg-[#FFD83D] border-2 border-[#141414] px-3 py-1 font-black uppercase text-xs rotate-[-6deg] shadow-md">
-                    🔥 Hanya Rp189K
-                  </div>
-                  <div className="absolute bottom-6 -right-4 bg-[#E63E97] text-white border-2 border-[#141414] px-3 py-1 font-black uppercase text-xs rotate-[4deg] shadow-md">
-                    📍 Live Surabaya
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
 
-      {/* ============ 2. IDENTIFIKASI AUDIENS (PROBLEM STICKER WALL) ============ */}
-      <section className="bg-[#FFF8FC] text-[#141414] border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto space-y-4">
-            <span className="text-xs font-black uppercase tracking-wider text-[#E63E97] border-2 border-[#E63E97] px-3 py-1">
-              PIKIRAN BRAND OWNER
+      {/* ===== 2. PROBLEM ===== */}
+      <section className="bg-white py-16 md:py-24 border-y border-slate-100">
+        <div className="container mx-auto px-5 max-w-4xl">
+          <div className="text-center mb-12 space-y-3">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#6D28D9] border border-[#E9D5FF] px-3 py-1 rounded-full bg-[#F9F6FC]">
+              DIAGNOSTIK BISNIS
             </span>
-            <h2 className="text-3xl md:text-4xl uppercase leading-tight">
-              Kebanyakan Brand Bukan Kekurangan Ide. <br />
-              Mereka Bingung Harus Mulai Dan Memperbaiki Dari Mana.
+            <h2 className="dp-section-hl text-[#2E1065] uppercase">
+              Apakah Anda Mengalami<br />Salah Satu Titik Hambat Ini?
             </h2>
-            <p className="text-base text-slate-700 font-semibold">
-              Kalau Anda merasa:
+            <p className="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto leading-relaxed">
+              Banyak brand owner menghabiskan modal besar di awal karena melangkah tanpa urutan prioritas yang tepat.
             </p>
           </div>
 
-          {/* Grid Bubble / Sticker Wall */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[#E9D5FF] border border-[#E9D5FF] rounded-3xl overflow-hidden bg-white shadow-sm">
+            <div className="flex flex-col divide-y divide-[#E9D5FF]">
+              {[
+                "Bingung menentukan langkah awal yang valid dalam membangun brand kosmetik.",
+                "Khawatir salah memilih kategori produk dan meleset menyasar target pasar.",
+                "Kesulitan merumuskan formula dan karakter produk yang punya diferensiasi kuat.",
+                "Budget pemasaran terus terkuras, namun angka konversi dan retensi stagnan."
+              ].map((text, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-4 p-6 sm:p-8 hover:bg-[#F9F6FC]/30 transition-colors"
+                >
+                  <span className="text-2xl sm:text-3xl font-[900] text-[#6D28D9] leading-none shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-xs sm:text-sm font-semibold text-[#2E1065] leading-relaxed">
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col divide-y divide-[#E9D5FF]">
+              {[
+                "Belum menemukan segmentasi pasar yang spesifik dan berdaya beli tinggi.",
+                "Belum memiliki sistem penetrasi pasar yang terukur agar brand cepat dikenal.",
+                "Brand sudah berjalan, namun identitas dan positioning-nya belum berkarakter.",
+                "Mengalami kebuntuan (growth plateau) saat ingin membawa brand ke level ekspansi."
+              ].map((text, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-4 p-6 sm:p-8 hover:bg-[#F9F6FC]/30 transition-colors"
+                >
+                  <span className="text-2xl sm:text-3xl font-[900] text-[#6D28D9] leading-none shrink-0">
+                    {String(i + 5).padStart(2, "0")}
+                  </span>
+                  <p className="text-xs sm:text-sm font-semibold text-[#2E1065] leading-relaxed">
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 3. FRAMEWORK ===== */}
+      <section className="bg-[#F9F6FC] py-16 md:py-24">
+        <div className="container mx-auto px-5 max-w-5xl">
+          <div className="text-center mb-12 space-y-3">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#3B0764] border border-[#C5A880]/30 px-3 py-1 rounded-full bg-white">
+              THE STRATEGIC ROADMAP
+            </span>
+            <h2 className="dp-section-hl text-[#3B0764] uppercase max-w-2xl mx-auto">
+              Brand Kosmetik Tidak Bisa<br />Dibangun Hanya dari Satu Sisi.
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto leading-relaxed">
+              Setiap tahap saling mengunci. Melewati satu tahapan akan merusak efisiensi tahapan berikutnya.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-3 md:gap-y-6 md:gap-x-2 max-w-4xl mx-auto">
             {[
-              { text: "BINGUNG MAU BIKIN PRODUK APA", bg: "bg-[#4A2ACB]/10 border-[#4A2ACB] text-[#4A2ACB]" },
-              { text: "IKUT PRODUK VIRAL, TAPI NGGAK TAHU PASARNYA", bg: "bg-white border-[#4A7DFF] text-[#141414]" },
-              { text: "FORMULA ADA, TAPI BELUM PUNYA PEMBEDA", bg: "bg-[#E63E97]/10 border-[#E63E97] text-[#E63E97]" },
-              { text: "SUDAH PRODUKSI, TAKUT NGGAK LAKU", bg: "bg-[#FF5A1F] border-[#141414] text-white font-black scale-105 shadow-md rotate-[-2deg]" },
-              { text: "BRAND SUDAH JADI, TAPI ARAHNYA BELUM JELAS", bg: "bg-[#4A2ACB]/10 border-[#4A2ACB] text-[#4A2ACB]" },
-              { text: "SUDAH LAUNCHING, PENJUALAN MASIH SEPI", bg: "bg-white border-[#4A7DFF] text-[#141414]" },
-              { text: "KONTEN JALAN, TAPI ORANG BELUM TERTARIK BELI", bg: "bg-[#E63E97]/10 border-[#E63E97] text-[#E63E97]" },
-              { text: "SUDAH PROMOSI, BUDGET TERUS KELUAR", bg: "bg-[#4A7DFF]/10 border-[#4A7DFF] text-[#4A7DFF]" },
-              { text: "BINGUNG HARUS TAMBAH PRODUK ATAU OPTIMALKAN YANG ADA", bg: "bg-white border-[#141414] text-[#141414]" },
-              { text: "NGGAK TAHU BAGIAN MANA YANG SEBENARNYA HARUS DIPERBAIKI", bg: "bg-[#E63E97]/10 border-[#E63E97] text-[#E63E97] font-black" }
-            ].map((bubble, i) => (
-              <div
-                key={i}
-                className={`border-2 p-5 rounded-3xl flex items-center justify-center text-center font-bold text-sm md:text-base leading-snug transition-transform hover:scale-102 hover:rotate-1 ${bubble.bg} ${
-                  i === 9 ? "sm:col-span-2 md:col-span-3 border-3" : ""
-                }`}
-              >
-                <span>{bubble.text}</span>
+              "Kebutuhan Pasar",
+              "Konsep Produk",
+              "Formulasi & Karakter",
+              "Posisi & Arah Brand",
+              "Strategi Bisnis & Margin",
+              "Peluncuran (Launch Execution)",
+              "Konten & Distribusi Pemasaran",
+              "Membangun Kepercayaan Pasar",
+              "Validasi & Pertumbuhan Berkelanjutan"
+            ].map((step, i, arr) => (
+              <div key={i} className="flex flex-col md:flex-row items-center gap-2 md:gap-3 w-full md:w-auto">
+                <div className="bg-white border border-[#C5A880]/35 rounded-2xl px-5 py-4 shadow-sm text-center min-w-[170px] w-full md:w-auto hover:border-[#C5A880] transition-colors">
+                  <span className="text-[10px] font-black text-[#C5A880] block uppercase tracking-wider">
+                    Tahap {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-xs font-black uppercase text-[#3B0764] mt-1 leading-tight">
+                    {step}
+                  </p>
+                </div>
+                {i < arr.length - 1 && (
+                  <span className="text-[#C5A880] font-black text-lg rotate-90 md:rotate-0 my-1 md:my-0">
+                    →
+                  </span>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ 3. Brand Kosmetik Tidak Bisa Dibangun Dari Satu Sisi Saja ============ */}
-      <section className="bg-[#4A2ACB] text-white border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="max-w-3xl mx-auto text-center space-y-6 mb-12">
-            <h2 className="text-3xl md:text-4xl uppercase leading-tight font-display">
-              Brand Kosmetik Tidak Bisa <br />
-              Dibangun Dari Satu Sisi Saja.
-            </h2>
-            <p className="text-base md:text-lg text-pink-100 font-semibold leading-relaxed">
-              Produk bagus saja belum cukup. Pemasaran ramai saja juga belum cukup. <br />
-              Semuanya harus saling terhubung dalam satu rantai yang kokoh.
-            </p>
-          </div>
-
-          {/* Diagram Alur Perjalanan Brand */}
-          <div className="bg-white text-[#141414] border-3 border-[#141414] p-6 md:p-10 my-8 relative editorial-shadow-black">
-            <span className="absolute -top-3.5 left-6 bg-[#FF5A1F] text-white text-[10px] font-black px-3 py-1 uppercase border-2 border-[#141414]">
-              ALUR PERJALANAN BRAND KOSMETIK YANG BENAR
-            </span>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 text-center pt-4">
-              {[
-                { step: "01", name: "Market Opportunity", desc: "Kebutuhan Pasar" },
-                { step: "02", name: "Product Fit", desc: "Kesesuaian Produk" },
-                { step: "03", name: "Formula R&D", desc: "Formula Unik" },
-                { step: "04", name: "Packaging", desc: "Kemasan & HPP" },
-                { step: "05", name: "Pricing", desc: "Harga Jual" },
-                { step: "06", name: "Branding", desc: "Arah & Nilai" },
-                { step: "07", name: "Launch Plan", desc: "Launching & Iklan" },
-                { step: "08", name: "Scale Up", desc: "Pertumbuhan" }
-              ].map((item, i) => (
-                <div key={i} className="bg-[#FFF8FC] border-2 border-[#141414] p-3 flex flex-col justify-between items-center relative">
-                  <span className="text-[10px] font-black text-[#4A2ACB] bg-white border border-[#141414] px-1.5 py-0.5 rounded-none">
-                    {item.step}
-                  </span>
-                  <div className="my-2">
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tight">{item.name}</p>
-                    <p className="text-xs font-black uppercase text-[#141414] mt-1">{item.desc}</p>
-                  </div>
-                  {i < 7 && (
-                    <span className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-xl font-black text-[#FF5A1F]">
-                      →
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto text-left space-y-6 mt-12 bg-[#FFF8FC]/10 border-2 border-white/20 p-6 md:p-8">
-            <h3 className="text-xl md:text-2xl uppercase font-black text-[#FFD83D] text-center border-b border-white/20 pb-4">
-              Bagaimana Alur Ini Bekerja & Saling Terhubung:
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-pink-50 leading-relaxed font-semibold">
-              <div>
-                <p className="font-black text-[#FFD83D] uppercase text-base mb-1">1. IDE KE PRODUK FIT</p>
-                Analisis pasar mendalam (Market Opportunity) menentukan produk apa yang layak dikembangkan. Dari sana R&D merancang formula yang aman serta memiliki USP (pembeda) unik agar produk fit dengan keinginan pasar.
-              </div>
-              <div className="border-t border-white/10 pt-4 md:pt-0 md:border-t-0 md:border-l md:border-white/20 md:pl-6">
-                <p className="font-black text-[#FFD83D] uppercase text-base mb-1">2. HPP & BRANDING</p>
-                Rantai kemasan (Packaging) dipilih selaras dengan harga jual produk (Pricing) agar struktur HPP tetap sehat dan memberikan keuntungan bagi operasional serta aktivitas promosi ke depan.
-              </div>
-              <div className="border-t border-white/10 pt-4 md:pt-0 md:border-t-0 md:border-l md:border-white/20 md:pl-6">
-                <p className="font-black text-[#FFD83D] uppercase text-base mb-1">3. LAUNCHING & SCALE</p>
-                Positioning brand diturunkan ke konten & digital marketing. Eksekusi promosi dilakukan dengan strategi peluncuran produk terarah agar menghasilkan konversi maksimal dan pertumbuhan brand yang stabil.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 4. BEAUTY ACADEMY Akan Kita Bedah Dalam Satu Hari ============ */}
-      <section className="bg-[#FFF8FC] text-[#141414] border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-12">
-            <span className="text-xs font-black uppercase tracking-wider text-[#4A2ACB] border-2 border-[#4A2ACB] px-3 py-1">
+      {/* ===== 4. APA YANG AKAN DIBEDAH ===== */}
+      <section className="bg-white border-y border-slate-100 py-16 md:py-24">
+        <div className="container mx-auto px-5 max-w-4xl">
+          <div className="text-center mb-12 space-y-3">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#3B0764] border border-[#E9D5FF] px-3 py-1 rounded-full bg-[#F9F6FC]">
               BEDAH MATERI UTAMA
             </span>
-            <h2 className="text-3xl md:text-4xl uppercase mt-4">
-              BEAUTY ACADEMY Akan Kita Bedah Dalam Satu Hari
+            <h2 className="dp-section-hl text-[#2E1065] uppercase">
+              BEAUTY ACADEMY BATCH 2<br />AKAN KITA BEDAH DALAM SATU HARI.
             </h2>
-            <p className="text-sm text-slate-600 mt-2 font-semibold">
+            <p className="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto leading-relaxed">
               Menguraikan sepuluh poin penting untuk membangun brand dari nol sampai siap bertumbuh:
             </p>
           </div>
 
-          {/* Bullet Points with Shape Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {[
-              { num: "01", text: "Membaca tren dan kebutuhan pasar", color: "border-[#E63E97] hover:bg-[#E63E97]/5" },
-              { num: "02", text: "Menentukan konsep dan arah produk", color: "border-[#4A2ACB] hover:bg-[#4A2ACB]/5" },
-              { num: "03", text: "Mengembangkan formula yang relevan dan punya pembeda", color: "border-[#4A7DFF] hover:bg-[#4A7DFF]/5" },
-              { num: "04", text: "Menyiapkan produk agar lebih siap dipercaya pasar", color: "border-[#FF5A1F] hover:bg-[#FF5A1F]/5" },
-              { num: "05", text: "Menentukan arah dan strategi bisnis brand", color: "border-[#4A2ACB] hover:bg-[#4A2ACB]/5" },
-              { num: "06", text: "Melihat peluang serta menentukan prioritas pertumbuhan", color: "border-[#E63E97] hover:bg-[#E63E97]/5" },
-              { num: "07", text: "Menyusun strategi peluncuran produk", color: "border-[#4A7DFF] hover:bg-[#4A7DFF]/5" },
-              { num: "08", text: "Membangun konten dan pemasaran yang menarik minat pasar", color: "border-[#FF5A1F] hover:bg-[#FF5A1F]/5" },
-              { num: "09", text: "Memanfaatkan AI untuk riset, pemasaran, dan pekerjaan bisnis", color: "border-[#4A2ACB] hover:bg-[#4A2ACB]/5" },
-              { num: "10", text: "Menyiapkan operasional dan kualitas produk agar brand lebih siap berkembang", color: "border-[#E63E97] hover:bg-[#E63E97]/5" }
+              { num: "01", text: "Membaca tren dan kebutuhan pasar", bg: "bg-[#FFF8FC] border-[#E63E97]/20 text-[#E63E97]" },
+              { num: "02", text: "Menentukan konsep dan arah produk", bg: "bg-white border-slate-100 text-slate-400" },
+              { num: "03", text: "Mengembangkan formula yang relevan dan punya pembeda", bg: "bg-[#F0F0FF] border-[#5A31F4]/20 text-[#5A31F4]" },
+              { num: "04", text: "Menyiapkan produk agar lebih siap dipercaya pasar", bg: "bg-white border-slate-100 text-slate-400" },
+              { num: "05", text: "Menentukan arah dan strategi bisnis brand", bg: "bg-[#E6F0FF] border-[#4A7DFF]/20 text-[#4A7DFF]" },
+              { num: "06", text: "Melihat peluang serta menentukan prioritas pertumbuhan", bg: "bg-white border-slate-100 text-slate-400" },
+              { num: "07", text: "Menyusun strategi peluncuran produk", bg: "bg-[#FFF8FC] border-[#E63E97]/20 text-[#E63E97]" },
+              { num: "08", text: "Membangun konten dan pemasaran yang menarik minat pasar", bg: "bg-white border-slate-100 text-slate-400" },
+              { num: "09", text: "Memanfaatkan AI untuk riset, pemasaran, dan pekerjaan bisnis", bg: "bg-[#F0F0FF] border-[#5A31F4]/20 text-[#5A31F4]" },
+              { num: "10", text: "Menyiapkan operasional dan kualitas produk agar brand lebih siap berkembang", bg: "bg-white border-slate-100 text-slate-400" },
             ].map((item, i) => (
               <div
                 key={i}
-                className={`border-3 border-[#141414] p-5 rounded-2xl bg-white flex items-center gap-4 transition-all duration-300 hover:translate-x-1 ${item.color}`}
+                className={`relative overflow-hidden border rounded-3xl p-6 sm:p-8 flex items-center gap-5 hover:shadow-md transition-all ${item.bg}`}
               >
-                <span className="w-10 h-10 rounded-full bg-[#141414] text-white flex items-center justify-center font-black text-sm shrink-0">
+                <span className="text-4xl sm:text-5xl font-[900] leading-none shrink-0 opacity-80">
                   {item.num}
                 </span>
-                <p className="font-bold text-slate-800 text-sm md:text-base leading-snug">
+                <p className="font-extrabold text-xs sm:text-sm text-slate-800 leading-snug">
                   {item.text}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="text-center mt-12 md:mt-16">
+          <div className="text-center mt-12">
             <a
               href={DREAMPRENEUR_THANKYOU_PATH}
               onClick={(e) => handleRegisterClick(e, "solusi_cta")}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-none bg-[#FF5A1F] text-white font-black text-base uppercase border-3 border-[#141414] hover:bg-[#ff6e39] active:scale-[0.98] transition-all editorial-shadow-black"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#5A31F4] text-white font-black text-sm sm:text-base uppercase shadow-xl shadow-[#5A31F4]/25 hover:bg-[#4A2ACB] active:scale-[0.98] transition-all min-h-[52px]"
             >
               Saya Mau Ikut <ArrowRight className="w-5 h-5" />
             </a>
@@ -393,243 +302,211 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 5. MENTOR SECTION (DARK PREMIUM) ============ */}
-      <section className="bg-[#0F0C20] text-white border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12 md:mb-16">
-            <span className="text-xs font-black uppercase tracking-wider text-[#4A7DFF] border-2 border-[#4A7DFF] px-3 py-1">
-              Tim Praktisi
+      {/* ===== 5. MENTOR ===== */}
+      <section className="bg-gradient-to-br from-[#5A31F4] via-[#6e3efd] to-[#7B4DFF] py-16 md:py-24 text-white">
+        <div className="container mx-auto px-5 max-w-5xl">
+          <div className="text-center mb-12 space-y-3">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#E63E97] border border-[#E63E97]/30 px-3 py-1 rounded-full bg-white">
+              TIM PRAKTISI
             </span>
-            <h2 className="text-3xl md:text-4xl uppercase mt-4 text-[#FFF8FC] font-display">
-              Satu Brand Kosmetik <br />
-              Butuh Lebih Dari Satu Perspektif.
-            </h2>
-            <p className="text-sm text-slate-400 mt-2 font-semibold">
-              Belajar langsung dari tim praktisi yang mendiagnosis arah bisnis Anda.
+            <h2 className="dp-section-hl uppercase text-white font-display">MEET OUR MENTORS</h2>
+            <p className="text-purple-100 font-medium text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+              Belajar langsung dari praktisi di bidang produk, bisnis, pemasaran, dan operasional.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               {
                 name: "AMIRA ALYDRUS",
                 role: "Cosmetic Formulation Expert",
-                question: "Produk dan formula seperti apa yang perlu dipertimbangkan?",
-                focus: "PRODUK & FORMULA"
+                focus: "PRODUK & FORMULA",
+                points: ["Tren & kebutuhan pasar", "Pengembangan formula", "Pembeda produk"],
+                badgeColor: "bg-[#E63E97]/10 text-[#E63E97]"
               },
               {
                 name: "FADHILA SYAHAB",
                 role: "Business Development Strategist",
-                question: "Bagaimana membuat brand punya arah bisnis dan peluang bertumbuh?",
-                focus: "BISNIS & PERTUMBUHAN"
+                focus: "BISNIS & PERTUMBUHAN",
+                points: ["Arah bisnis brand", "Peluang pertumbuhan", "Prioritas langkah berikutnya"],
+                badgeColor: "bg-[#4A7DFF]/10 text-[#4A7DFF]"
               },
               {
                 name: "REVITA",
                 role: "Digital Marketer",
-                question: "Bagaimana membuat pasar tahu, tertarik dan mempertimbangkan produk?",
-                focus: "PEMASARAN & KECERDASAN BUATAN"
+                focus: "PEMASARAN & KECERDASAN BUATAN",
+                points: ["Strategi peluncuran", "Konten & pemasaran", "AI untuk bisnis"],
+                badgeColor: "bg-[#FF5A1F]/10 text-[#FF5A1F]"
               },
               {
                 name: "BARI NOOR RAHMAN",
                 role: "SIG Manager Operasional",
-                question: "Apa yang perlu diperhatikan agar produk dan operasional lebih siap berjalan?",
-                focus: "OPERASIONAL"
+                focus: "OPERASIONAL & KESIAPAN PRODUK",
+                points: ["Kesiapan produk", "Kualitas & kepercayaan", "Kesiapan operasional"],
+                badgeColor: "bg-[#4A7DFF]/10 text-[#4A7DFF]"
               }
             ].map((mentor, i) => (
-              <div key={i} className="bg-[#1C1738] border-2 border-[#4A7DFF] p-6 flex flex-col justify-between hover:border-[#FF5A1F] transition-all duration-300">
+              <div
+                key={i}
+                className="bg-white border border-slate-100 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow"
+              >
                 <div>
-                  <span className="text-[10px] font-black text-[#E63E97] bg-[#0F0C20] border border-[#E63E97] px-2 py-0.5 rounded-none block w-fit mb-4">
-                    Fokus: {mentor.focus}
+                  <span className={`inline-block ${mentor.badgeColor} text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider mb-4`}>
+                    {mentor.focus}
                   </span>
-                  <h3 className="text-lg font-black uppercase text-white font-display">
+                  <h3 className="text-base sm:text-lg font-[900] uppercase text-[#141414] leading-tight mb-1">
                     {mentor.name}
                   </h3>
-                  <p className="text-xs text-[#FF5A1F] font-bold mt-1 uppercase tracking-wider border-b border-slate-700 pb-3">
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-4">
                     {mentor.role}
                   </p>
-                  <p className="text-xs text-slate-300 italic leading-relaxed mt-4">
-                    &ldquo;{mentor.question}&rdquo;
-                  </p>
                 </div>
+                <ul className="space-y-2 border-t border-slate-100 pt-4 mt-auto">
+                  {mentor.points.map((pt, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-xs text-slate-600 font-semibold leading-tight">
+                      <span className="text-[#5A31F4] font-black">•</span>
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ 6. TESTIMONI / DOKUMENTASI ============ */}
-      <section className="bg-[#FFF8FC] text-[#141414] border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-12">
-            <span className="text-xs font-black uppercase tracking-wider text-[#E63E97] border-2 border-[#E63E97] px-3 py-1">
-              Dokumentasi Nyata
+      {/* ===== 6. DOKUMENTASI ===== */}
+      <section className="bg-white border-y border-slate-100 py-16 md:py-24">
+        <div className="container mx-auto px-5 max-w-4xl">
+          <div className="text-center mb-12 space-y-3">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#E63E97] border border-[#E63E97]/25 px-3 py-1 rounded-full bg-[#FFF8FC]">
+              DOKUMENTASI EVENT
             </span>
-            <h2 className="text-3xl md:text-4xl uppercase mt-4">
-              Bukan Cuma Datang, <br />
-              Duduk, Dengar, Lalu Pulang.
+            <h2 className="dp-section-hl text-[#141414] uppercase">
+              BUKAN CUMA DATANG,<br />DUDUK, DENGAR, LALU PULANG.
             </h2>
-            <p className="text-sm text-slate-600 mt-2 font-semibold">
-              Belajar langsung. Bertanya langsung. Bertemu orang yang juga sedang membangun brand.
+            <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-xl mx-auto leading-relaxed">
+              Belajar langsung, bertanya langsung, dan bertemu dengan sesama beautypreneur.
             </p>
           </div>
 
-          <div className="bg-white border-3 border-[#141414] p-4 md:p-6 mb-8 editorial-shadow-black">
+          <div className="relative overflow-hidden rounded-3xl border border-slate-100 shadow-sm mb-8 bg-white p-2">
             <Image
               src="/assets/images/Dreamlab-Dreamprenuer-Academy--1024x540.webp"
-              alt="Bukti Keberhasilan Dreampreneur Academy Batch 1"
+              alt="Suasana Dreampreneur Academy Batch 1"
               width={1024}
               height={540}
-              className="w-full h-auto object-cover border-2 border-[#141414]"
+              className="w-full h-auto object-cover rounded-2xl"
               loading="lazy"
             />
           </div>
 
-          {/* Testimoni Real Kak Eki */}
-          <div className="bg-white border-3 border-[#141414] p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
-            <div className="w-14 h-14 rounded-none bg-[#E63E97] text-white flex items-center justify-center font-black text-xl shrink-0 border-2 border-[#141414]">
+          <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-[#E63E97] text-white flex items-center justify-center font-[900] text-xl shrink-0">
               E
             </div>
-            <div className="space-y-4">
-              <p className="text-base md:text-lg italic text-slate-800 leading-relaxed font-semibold">
+            <div className="space-y-3">
+              <p className="text-sm sm:text-base md:text-lg italic text-slate-700 leading-relaxed font-semibold">
                 &ldquo;Aku sempat ragu memulai, tapi mengikuti batch pertama Dreampreneur membuka mata aku bahwa membangun brand itu soal keberanian, bukan sekadar teori. Dari sanalah aku akhirnya memberanikan diri membangun brand parfum sendiri dengan konsep yang inovatif — dan merasa lebih siap menghadapi langkah berikutnya.&rdquo;
               </p>
               <div>
-                <p className="font-black text-base uppercase text-[#141414]">Kak Eki</p>
-                <p className="text-xs text-[#E63E97] font-bold uppercase">Peserta Batch 1 · Founder Brand Parfum</p>
+                <p className="font-extrabold text-sm sm:text-base uppercase text-[#141414]">Kak Eki</p>
+                <p className="text-xs text-[#E63E97] font-black uppercase tracking-wider">Peserta Batch 1 · Founder Brand Parfum</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 7. HARGA / SCARCITY SECTION ============ */}
-      <section className="bg-gradient-to-r from-[#E63E97] to-[#4A2ACB] text-white border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl md:text-5xl uppercase leading-none font-display">
-              Investasi Satu Hari <br />
-              Untuk Arah Brand Yang Lebih Jelas.
+      {/* ===== 7. HARGA ===== */}
+      <section id="price-section" className="bg-[#FFF8FC] py-16 md:py-24 border-b border-slate-100">
+        <div className="container mx-auto px-5 max-w-4xl">
+          <div className="text-center mb-10">
+            <h2 className="dp-section-hl text-[#141414] uppercase">
+              INVESTASI SATU HARI<br />UNTUK ARAH BRAND<br />YANG LEBIH JELAS.
             </h2>
           </div>
 
-          {/* Pricing Box */}
-          <div className="bg-white text-[#141414] border-4 border-[#141414] p-6 md:p-10 relative overflow-hidden editorial-shadow-black max-w-2xl mx-auto">
-            <span className="absolute -top-4 left-6 bg-[#4A7DFF] text-white text-xs font-black px-3 py-1 uppercase border-2 border-[#141414] rotate-[-1deg]">
-              HARGA SPESIAL PROMOSI
-            </span>
-            
-            <div className="flex flex-col items-center text-center space-y-4 pt-4">
-              <span className="text-sm font-bold text-slate-400 line-through">Normal Rp250.000</span>
-              <h3 className="text-4xl md:text-6xl font-black text-[#FF5A1F] tracking-tight font-display">
-                Rp189.000
-              </h3>
-              
-              {/* Bar Proses Tinggal 5 Seat Lagi */}
-              <div className="w-full max-w-md mx-auto space-y-2 mt-2 bg-[#FFF8FC] p-3 border-2 border-[#141414] rounded-xl" role="status" aria-live="polite">
-                <div className="relative w-full h-4 overflow-hidden rounded-full bg-slate-200">
-                  <span className="absolute inset-y-0 left-0 w-[92%] rounded-l-full bg-gradient-to-r from-[#FF5A1F] to-[#E63E97]" />
-                  <span className="absolute inset-y-0 left-[92%] w-[8%] rounded-r-full bg-[#E63E97] animate-pulse" />
+          <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-10 max-w-md mx-auto shadow-xl h-auto">
+            <div className="flex justify-center mb-5">
+              <span className="inline-block bg-[#E63E97]/10 text-[#E63E97] text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-[#E63E97]/25">
+                HARGA SPESIAL
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center text-center gap-5">
+              <div className="flex flex-col items-center">
+                <span className="text-xs font-bold text-slate-400 line-through uppercase tracking-wider mb-1">
+                  Normal Rp250.000
+                </span>
+                <div className="text-5xl sm:text-6xl font-black text-[#5A31F4] tracking-tight">
+                  Rp189.000
                 </div>
-                <p className="text-xs font-black uppercase tracking-wide text-center text-[#FF5A1F] animate-pulse">
-                  🔥 Sisa 5 Seat Lagi! Kuota Hampir Penuh
+              </div>
+
+              <div className="w-full bg-[#FFF8FC] border border-[#E63E97]/10 rounded-2xl py-3 px-4">
+                <p className="text-xs font-black uppercase tracking-wider text-[#FF5A1F] text-center">
+                  ⚠️ KUOTA PESERTA TERBATAS
                 </p>
               </div>
 
-              <div className="w-full border-t-2 border-dashed border-slate-200 py-4 my-4">
-                <p className="text-xs font-black uppercase text-slate-500 mb-3">Paket sudah termasuk:</p>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-left max-w-md mx-auto text-xs font-black uppercase">
-                  <div>✓ 1 Hari Belajar</div>
-                  <div>✓ Makan Siang</div>
-                  <div>✓ 4 Praktisi Expert</div>
-                  <div>✓ Merchandise Eksklusif</div>
-                  <div>✓ Networking Session</div>
-                  <div>✓ E-book Framework</div>
+              <div className="w-full border-t border-slate-100 pt-5 text-left">
+                <p className="text-[10px] font-black uppercase text-slate-400 mb-3 tracking-wider">
+                  PAKET SUDAH TERMASUK:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-bold text-slate-700">
+                  {["✓ 1 Hari Belajar", "✓ Makan Siang", "✓ 4 Praktisi Expert", "✓ Merchandise Eksklusif", "✓ Sesi Membangun Relasi", "✓ E-book Framework"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-1.5">
+                      <span className="text-[#E63E97] font-black">✓</span>
+                      <span>{item.replace("✓ ", "")}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <a
                 href={DREAMPRENEUR_THANKYOU_PATH}
                 onClick={(e) => handleRegisterClick(e, "price_cta")}
-                className="w-full inline-flex items-center justify-center gap-3 px-8 py-5 rounded-none bg-[#FF5A1F] text-white font-black text-lg uppercase border-3 border-[#141414] hover:bg-[#ff6e39] active:scale-[0.98] transition-all editorial-shadow-black"
+                className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-[#FF5A1F] text-white font-black text-sm sm:text-base uppercase shadow-lg shadow-orange-500/20 hover:bg-[#e04e18] active:scale-[0.98] transition-all min-h-[52px]"
               >
-                Amankan Kursi Rp189.000 →
+                AMANKAN KURSI Rp189.000 →
               </a>
-              
-              <p className="text-[10px] font-bold text-slate-500 uppercase">
-                * Kuota peserta terbatas · Harga spesial berlaku selama periode promosi
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 8. PERTANYAAN UMUM (FAQ) ============ */}
-      <section className="bg-[#FFF8FC] text-[#141414] border-b-3 border-[#141414] py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-12">
-            <span className="text-xs font-black uppercase tracking-wider text-[#4A2ACB] border-2 border-[#4A2ACB] px-3 py-1">
+      {/* ===== 8. FAQ ===== */}
+      <section className="bg-white border-y border-slate-100 py-16 md:py-24">
+        <div className="container mx-auto px-5 max-w-3xl">
+          <div className="text-center mb-12 space-y-3">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#5A31F4] border border-[#5A31F4]/20 px-3 py-1 rounded-full bg-[#F0F0FF]">
               FAQ
             </span>
-            <h2 className="text-3xl md:text-4xl uppercase mt-4">
-              Masih Ragu Apa Beauty Academy Batch 2 Cocok Untuk Anda?
-            </h2>
+            <h2 className="dp-section-hl text-[#141414] uppercase">MASIH RAGU?</h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[
-              {
-                q: "Saya belum punya brand. Apakah tetap cocok?",
-                a: "Ya. BEAUTY ACADEMY BATCH 2 juga ditujukan untuk Anda yang baru ingin memulai dan ingin memahami produk, bisnis serta pemasaran sebelum melangkah lebih jauh."
-              },
-              {
-                q: "Brand saya sudah berjalan. Apakah masih relevan?",
-                a: "Ya. Pembahasannya juga relevan untuk pemilik brand yang ingin melihat kembali produk, bisnis, pemasaran dan langkah berikutnya."
-              },
-              {
-                q: "Apakah saya harus sudah punya produk?",
-                a: "Tidak."
-              },
-              {
-                q: "Apakah acara ini hanya untuk skincare?",
-                a: "Tidak. Pembahasan berfokus pada strategi membangun brand kosmetik dari produk, formula, bisnis, pemasaran hingga kecerdasan buatan."
-              },
-              {
-                q: "Apa yang termasuk dalam tiket?",
-                a: "Sesi belajar satu hari penuh, sesi membangun relasi, makan siang, merchandise Dreampreneur dan E-book Framework Memulai Brand Skincare."
-              },
-              {
-                q: "Berapa harga tiket?",
-                a: "Harga spesial Rp189.000 dari harga normal Rp250.000."
-              },
-              {
-                q: "Kapan acaranya?",
-                a: "29 Agustus 2026 pukul 11.00–17.00 WIB."
-              },
-              {
-                q: "Di mana acaranya?",
-                a: "Excotel Design Hotel, Surabaya."
-              }
+              { q: "Saya belum punya brand. Apakah tetap cocok?", a: "Ya. BEAUTY ACADEMY BATCH 2 juga ditujukan untuk Anda yang baru ingin memulai dan ingin memahami produk, bisnis serta pemasaran sebelum melangkah lebih jauh." },
+              { q: "Brand saya sudah berjalan. Apakah masih relevan?", a: "Ya. Pembahasannya juga relevan untuk pemilik brand yang ingin melihat kembali produk, bisnis, pemasaran dan langkah berikutnya." },
+              { q: "Apakah saya harus sudah punya produk?", a: "Tidak." },
+              { q: "Apakah acara ini hanya untuk skincare?", a: "Tidak. Pembahasan berfokus pada strategi membangun brand kosmetik dari produk, formula, bisnis, pemasaran hingga kecerdasan buatan." },
+              { q: "Apa yang termasuk dalam tiket?", a: "Sesi belajar satu hari penuh, sesi membangun relasi, makan siang, merchandise Dreampreneur dan E-book Framework Memulai Brand Skincare." },
+              { q: "Berapa harga tiket?", a: "Harga spesial Rp189.000 dari harga normal Rp250.000." },
+              { q: "Kapan acaranya?", a: "29 Agustus 2026 pukul 11.00–17.00 WIB." },
+              { q: "Di mana acaranya?", a: "Excotel Design Hotel, Surabaya." },
             ].map((faq, i) => (
-              <div key={i} className="bg-white border-2 border-[#141414] overflow-hidden">
+              <div key={i} className="bg-white border border-slate-100 overflow-hidden rounded-2xl shadow-sm hover:border-slate-200 transition-colors">
                 <button
                   onClick={() => toggleFaq(i)}
-                  className="w-full flex items-center justify-between gap-4 p-4 text-left font-black uppercase text-sm md:text-base hover:bg-[#FFF8FC]/40 transition-colors"
+                  className="w-full flex items-center justify-between gap-4 p-5 text-left font-extrabold uppercase text-xs sm:text-sm text-slate-800 hover:bg-[#FFF8FC]/50 transition-colors"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-[#FF5A1F] transition-transform shrink-0 ${
-                      activeFaq === i ? "rotate-180" : ""
-                    }`}
-                  />
+                  <ChevronDown className="w-5 h-5 text-[#5A31F4] transition-transform shrink-0" />
                 </button>
-                <div
-                  className={`transition-all duration-200 overflow-hidden ${
-                    activeFaq === i ? "max-h-[300px] border-t-2 border-[#141414]" : "max-h-0"
-                  }`}
-                >
-                  <p className="p-4 text-sm text-slate-700 leading-relaxed font-semibold">
-                    {faq.a}
-                  </p>
+                <div className={`transition-all duration-200 overflow-hidden ${activeFaq === i ? "max-h-[400px] border-t border-slate-100" : "max-h-0"}`}>
+                  <p className="p-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-semibold">{faq.a}</p>
                 </div>
               </div>
             ))}
@@ -637,63 +514,69 @@ export default function DreampreneurLanding() {
         </div>
       </section>
 
-      {/* ============ 9. AJAKAN TERAKHIR / FOOTER CTA ============ */}
-      <section className="bg-[#141414] text-white py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center space-y-6 max-w-2xl mx-auto">
-            <span className="text-xs font-black uppercase tracking-widest bg-[#E63E97] text-white px-3 py-1 border border-white">
+      {/* ===== 9. FINAL CTA ===== */}
+      <section className="bg-gradient-to-br from-[#5A31F4] via-[#6d3cfc] to-[#8D4DFF] py-16 md:py-24 text-white pb-[calc(4.5rem+env(safe-area-inset-bottom))] relative overflow-hidden">
+        {/* Soft pink highlight glow */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#E63E97]/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="container mx-auto px-5 max-w-4xl relative z-10">
+          <div className="text-center space-y-8 max-w-2xl mx-auto">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-[#E63E97] text-white px-4 py-1.5 rounded-full">
               KESEMPATAN TERAKHIR
             </span>
-            
-            <h2 className="text-3xl md:text-5xl uppercase font-display leading-tight text-[#FFF8FC]">
-              Jangan Cuma Bikin <br />
-              Brand Kosmetik.
+
+            <h2 className="dp-section-hl uppercase text-white font-display">
+              JANGAN CUMA BIKIN<br />BRAND KOSMETIK.
             </h2>
-            
-            <div className="bg-[#FF5A1F] text-white border-3 border-white p-4 rotate-[-1deg] inline-block my-4">
-              <h3 className="text-xl md:text-3xl uppercase font-black">
-                BANGUN DENGAN ARAH, SAMPAI SIAP DIPERCAYA PASAR.
-              </h3>
+
+            <div className="border border-white/20 bg-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-sm">
+              <p className="text-xl sm:text-2xl md:text-3xl uppercase font-[900] leading-tight tracking-tight text-white dp-display">
+                BANGUN DENGAN ARAH,<br />
+                <span className="text-[#FF4FA3]">SAMPAI SIAP DIPERCAYA PASAR.</span>
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left my-8 text-[#141414]">
-              <div className="border border-slate-700 p-5 bg-white">
-                <h4 className="font-black uppercase text-[#E63E97] text-sm">Belum Mulai?</h4>
-                <p className="text-xs text-slate-600 mt-2 font-semibold">
-                  Bangun pondasinya dengan pertimbangan yang lebih matang sejak awal. Mencegah kerugian modal sebelum memproduksi produk.
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+                <h4 className="font-extrabold uppercase text-[#E63E97] text-xs sm:text-sm mb-2">Belum Mulai?</h4>
+                <p className="text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed">
+                  Bangun pondasinya dengan pertimbangan yang lebih matang sejak awal. Kurangi risiko modal terbuang sebelum produk benar-benar masuk produksi.
                 </p>
               </div>
-              <div className="border border-slate-700 p-5 bg-white">
-                <h4 className="font-black uppercase text-[#4A7DFF] text-sm">Brand Sudah Berjalan?</h4>
-                <p className="text-xs text-slate-600 mt-2 font-semibold">
-                  Temukan apa yang perlu diperkuat untuk langkah berikutnya. Diagnosis letak kesalahan strategi konversi Anda.
+              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+                <h4 className="font-extrabold uppercase text-[#5A31F4] text-xs sm:text-sm mb-2">Brand Sudah Berjalan?</h4>
+                <p className="text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed">
+                  Temukan apa yang perlu diperkuat untuk langkah berikutnya. Lihat kembali bagian strategi yang mungkin menghambat konversi dan pertumbuhan brand.
                 </p>
               </div>
             </div>
 
-            {/* Event Summary Details */}
-            <div className="space-y-2 text-sm text-slate-400">
-              <p className="font-bold text-white uppercase font-display">BEAUTY ACADEMY BATCH 2</p>
-              <p>29 AGUSTUS 2026 · EXCOTEL DESIGN HOTEL, SURABAYA</p>
+            <div className="space-y-2 text-xs sm:text-sm text-purple-100">
+              <p className="font-black uppercase text-white text-base sm:text-lg tracking-wider dp-display">
+                BEAUTY ACADEMY BATCH 2
+              </p>
+              <p className="font-bold uppercase tracking-wide">
+                29 AGUSTUS 2026 · EXCOTEL DESIGN HOTEL, SURABAYA
+              </p>
               <div className="flex justify-center items-center gap-3 pt-2">
-                <span className="line-through text-slate-500">Rp250.000</span>
-                <span className="text-2xl font-black text-[#FF5A1F]">Rp189.000</span>
+                <span className="line-through text-purple-300/80 font-bold">
+                  Rp250.000
+                </span>
+                <span className="text-2xl sm:text-3xl font-black text-[#FF4FA3] dp-display">
+                  Rp189.000
+                </span>
               </div>
             </div>
 
-            <div className="pt-6">
-              <a
-                href={DREAMPRENEUR_THANKYOU_PATH}
-                onClick={(e) => handleRegisterClick(e, "final_cta")}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-12 py-5 rounded-none bg-[#FF5A1F] text-white font-black text-lg uppercase border-3 border-white hover:bg-[#ff6e39] active:scale-[0.98] transition-all"
-              >
-                Saya Mau Ikut <ArrowRight className="w-5 h-5" />
-              </a>
-            </div>
+            <a
+              href={DREAMPRENEUR_THANKYOU_PATH}
+              onClick={(e) => handleRegisterClick(e, "final_cta")}
+              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-white text-[#5A31F4] hover:bg-[#FFF8FC] active:scale-[0.98] font-black text-sm sm:text-base uppercase shadow-xl transition-all min-h-[56px]"
+            >
+              SAYA MAU IKUT →
+            </a>
           </div>
         </div>
       </section>
-
     </div>
   );
 }
