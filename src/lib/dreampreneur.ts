@@ -296,3 +296,39 @@ export function trackDreampreneurContact() {
     options
   );
 }
+
+/**
+ * Klik Checkout ke Scalev.
+ * Event: dreampreneur_checkout_click
+ * Parameters:
+ *   event: "Dreampreneur Batch 2"
+ *   price: 189000
+ *   currency: "IDR"
+ *   destination: "Scalev"
+ */
+export function trackDreampreneurCheckoutClick() {
+  if (typeof window === "undefined") return;
+
+  const base = {
+    campaign: CAMPAIGN,
+    dreampreneur_event: "Dreampreneur Batch 2",
+    price: EVENT_VALUE,
+    currency: EVENT_CURRENCY,
+    destination: "Scalev",
+  };
+
+  pushDataEvent("dreampreneur_checkout_click", base);
+  gtagEvent("dreampreneur_checkout_click", base);
+  
+  fbqEvent("InitiateCheckout", {
+    content_name: CONTENT_NAME,
+    content_category: "Event Registration",
+    value: EVENT_VALUE,
+    currency: EVENT_CURRENCY,
+  });
+
+  ttqEvent("InitiateCheckout", {
+    value: EVENT_VALUE,
+    currency: EVENT_CURRENCY,
+  });
+}
