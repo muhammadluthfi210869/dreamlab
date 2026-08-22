@@ -54,7 +54,7 @@ export default function DreampreneurLanding() {
   const EVENT_TIME = "11.00\u201317.00 WIB";
   const EVENT_VENUE = "Excotel Design Hotel, Surabaya";
 
-  const SCALEV_CHECKOUT_URL = "https://beautyacademy.myscalev.com/p/beautypreneur-academy-batch-2";
+  const SCALEV_CHECKOUT_URL = "https://beautyacademy.myscalev.com/landing-page-baru-1";
 
   return (
     <div
