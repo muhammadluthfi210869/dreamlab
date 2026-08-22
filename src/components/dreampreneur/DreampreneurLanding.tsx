@@ -42,8 +42,8 @@ export default function DreampreneurLanding() {
     label: string
   ) => {
     e.preventDefault();
-    trackDreampreneurCtaClick(label);
-    window.location.assign(buildDreampreneurThankyouUrl());
+    trackDreampreneurCheckoutClick();
+    window.location.assign(SCALEV_CHECKOUT_URL);
   };
 
   const toggleFaq = (index: number) => {
@@ -103,7 +103,7 @@ export default function DreampreneurLanding() {
             <span className="text-lg font-black text-[#5A31F4]">Rp189.000</span>
           </div>
           <a
-            href={DREAMPRENEUR_THANKYOU_PATH}
+            href={SCALEV_CHECKOUT_URL}
             onClick={(e) => handleRegisterClick(e, "sticky_daftar")}
             className="flex-1 max-w-[200px] inline-flex items-center justify-center gap-2 rounded-2xl bg-[#5A31F4] text-white font-black text-sm uppercase py-3.5 px-4 hover:bg-[#4A2ACB] active:scale-[0.97] transition-all shadow-md"
           >
@@ -152,7 +152,7 @@ export default function DreampreneurLanding() {
             </div>
             
             <a
-              href={DREAMPRENEUR_THANKYOU_PATH}
+              href={SCALEV_CHECKOUT_URL}
               onClick={(e) => handleRegisterClick(e, "hero_early_bird")}
               className="inline-flex items-center justify-center gap-3 px-10 py-4.5 rounded-2xl bg-gradient-to-r from-[#EC4899] to-[#F59E0B] text-white hover:opacity-95 active:scale-[0.98] font-black text-sm sm:text-base uppercase shadow-lg shadow-orange-500/20 transition-all min-h-[56px] w-full max-w-md"
             >
@@ -309,7 +309,7 @@ export default function DreampreneurLanding() {
 
           <div className="text-center mt-12">
             <a
-              href={DREAMPRENEUR_THANKYOU_PATH}
+              href={SCALEV_CHECKOUT_URL}
               onClick={(e) => handleRegisterClick(e, "solusi_cta")}
               className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#5A31F4] text-white font-black text-sm sm:text-base uppercase shadow-xl shadow-[#5A31F4]/25 hover:bg-[#4A2ACB] active:scale-[0.98] transition-all min-h-[52px]"
             >
@@ -635,7 +635,7 @@ export default function DreampreneurLanding() {
             </div>
 
             <a
-              href={DREAMPRENEUR_THANKYOU_PATH}
+              href={SCALEV_CHECKOUT_URL}
               onClick={(e) => handleRegisterClick(e, "final_cta")}
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#EC4899] to-[#F59E0B] text-white hover:opacity-95 active:scale-[0.98] font-black text-sm sm:text-base uppercase shadow-lg transition-all min-h-[56px]"
             >
