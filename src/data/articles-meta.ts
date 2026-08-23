@@ -3033,7 +3033,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-mojokerto/maklon-kosmetik-mojokerto-hero.jpg",
     "excerpt": "Cari maklon kosmetik Mojokerto untuk membangun brand sendiri? Kembangkan skincare, parfum, body care, baby care hingga hair care dengan custom formula bersama Dreamlab.",
-    "readingMinutes": 8
+    "readingMinutes": 9
   },
   {
     "slug": "/peluang-bisnis-hair-care-keratin",
