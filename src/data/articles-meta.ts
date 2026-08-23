@@ -3017,6 +3017,23 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "maklon_parfum_free_marketing_kit_dreamlab.jpg",
     "excerpt": "Cari maklon parfum terbaik? Dreamlab membantu custom aroma, BPOM, produksi, dan persiapan penjualan dengan FREE Marketing Kit untuk brand Anda.",
     "readingMinutes": 10
+  },
+  {
+    "slug": "/maklon-kosmetik-mojokerto",
+    "title": "Maklon Kosmetik Mojokerto Terbaik dan Terlengkap untuk Bangun Brand Anda",
+    "publishDate": "2026-08-23T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Mojokerto",
+      "Jawa Timur"
+    ],
+    "featuredImage": "/images/artikel-mojokerto/maklon-kosmetik-mojokerto-hero.jpg",
+    "excerpt": "Cari maklon kosmetik Mojokerto untuk membangun brand sendiri? Kembangkan skincare, parfum, body care, baby care hingga hair care dengan custom formula bersama Dreamlab.",
+    "readingMinutes": 8
   }
 ]
 ;

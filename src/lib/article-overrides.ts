@@ -497,6 +497,28 @@ const articleOverrides: Record<string, ArticleOverride> = {
       }
     ]
   },
+  '/maklon-kosmetik-mojokerto': {
+    excerpt: 'Cari maklon kosmetik Mojokerto untuk membangun brand sendiri? Kembangkan skincare, parfum, body care, baby care hingga hair care dengan custom formula bersama Dreamlab.',
+    content: '',
+    faqs: [
+      {
+        question: 'Di mana lokasi Dreamlab?',
+        answer: 'Kantor marketing Dreamlab berada di Surabaya, Jawa Timur, sedangkan fasilitas produksinya berada di Pasuruan, Jawa Timur. Brand owner dari Mojokerto dan daerah lain tetap dapat memulai konsultasi untuk pengembangan produk.'
+      },
+      {
+        question: 'Berapa MOQ maklon kosmetik di Dreamlab?',
+        answer: 'MOQ menyesuaikan kategori produk, formula, kemasan, dan kebutuhan brand. Untuk beberapa kategori/program tersedia opsi MOQ yang lebih fleksibel. Angka final sebaiknya dikonfirmasi ke tim Dreamlab sesuai produk yang akan dibuat.'
+      },
+      {
+        question: 'Berapa biaya maklon kosmetik di Dreamlab?',
+        answer: 'Biaya maklon dipengaruhi oleh jenis produk, formula, ingredients, kemasan, jumlah produksi, dan kebutuhan tambahan. Tim Dreamlab dapat memberikan estimasi setelah mengetahui brief produk dan kebutuhan brand Anda.'
+      },
+      {
+        question: 'Belum punya formula, apakah tetap bisa mulai?',
+        answer: 'Bisa. Anda dapat datang membawa konsep, referensi produk, target market, atau problem konsumen. Tim R&D Dreamlab membantu mengembangkan custom formula berdasarkan arah produk yang ingin dibangun.'
+      }
+    ]
+  },
 };
 
 export function getArticleOverride(slug: string): ArticleOverride | null {
