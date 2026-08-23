@@ -3052,7 +3052,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-keratin/peluang-bisnis-hair-care-keratin-hero.jpg",
     "excerpt": "Keratin tetap menjadi peluang besar untuk bisnis hair care. Pelajari insight pasar, custom formula, alur produk, dan strategi pemasaran bersama Dreamlab.",
-    "readingMinutes": 9
+    "readingMinutes": 6
   }
 ]
 ;
