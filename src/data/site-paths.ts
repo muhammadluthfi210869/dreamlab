@@ -326,6 +326,7 @@ export const SITE_PATHS: string[] = [
   "parfum/metaads",
   "peluang-bangun-brand-moisturizer-pdrn",
   "peluang-bisnis-deodorant-ditrend-sport",
+  "peluang-bisnis-hair-care-keratin",
   "peluang-bisnis-skincare-irt",
   "peluang-feminim-care-dalam-bisnis-pasar-yang-menjanjikan",
   "pengganti-hydroquinone-flek-hitam-aman",

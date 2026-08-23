@@ -3034,6 +3034,25 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/artikel-mojokerto/maklon-kosmetik-mojokerto-hero.jpg",
     "excerpt": "Cari maklon kosmetik Mojokerto untuk membangun brand sendiri? Kembangkan skincare, parfum, body care, baby care hingga hair care dengan custom formula bersama Dreamlab.",
     "readingMinutes": 8
+  },
+  {
+    "slug": "/peluang-bisnis-hair-care-keratin",
+    "title": "Produk Hair Care Keratin Masih Punya Peluang Besar untuk Bisnis Anda",
+    "publishDate": "2026-08-23T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Hair Care",
+      "Keratin",
+      "Maklon Kosmetik",
+      "Peluang Bisnis",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-keratin/peluang-bisnis-hair-care-keratin-hero.jpg",
+    "excerpt": "Keratin tetap menjadi peluang besar untuk bisnis hair care. Pelajari insight pasar, custom formula, alur produk, dan strategi pemasaran bersama Dreamlab.",
+    "readingMinutes": 9
   }
 ]
 ;
