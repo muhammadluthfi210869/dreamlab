@@ -144,8 +144,8 @@ export default function DreampreneurLanding() {
               <Image
                 src="/assets/images/dreampreneur-batch-2/flyer.png"
                 alt="BEAUTY ACADEMY BATCH 2 — Surabaya, 29 Agustus 2026"
-                width={810}
-                height={1013}
+                width={819}
+                height={1024}
                 className="w-full h-auto"
                 priority
               />
