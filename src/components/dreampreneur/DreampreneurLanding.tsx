@@ -332,6 +332,20 @@ export default function DreampreneurLanding() {
             </p>
           </div>
 
+          {/* Speaker Graphic Image */}
+          <div className="w-full max-w-2xl mx-auto mb-12 relative flex flex-col items-center">
+            <div className="absolute -inset-2 bg-gradient-to-r from-[#EC4899] to-[#F59E0B] rounded-3xl blur-xl opacity-40 pointer-events-none" />
+            <div className="relative w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+              <Image
+                src="/assets/images/dreampreneur-batch-2/pembicara.png"
+                alt="Bongkar Perhitungan Biaya & Proses Maklon — Pembicara Dreampreneur Batch 2"
+                width={668}
+                height={690}
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               {
