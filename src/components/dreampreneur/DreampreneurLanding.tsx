@@ -333,7 +333,7 @@ export default function DreampreneurLanding() {
           </div>
 
           {/* Speaker Graphic Image */}
-          <div className="w-full max-w-2xl mx-auto mb-12 relative flex flex-col items-center">
+          <div className="w-full max-w-2xl mx-auto relative flex flex-col items-center">
             <div className="absolute -inset-2 bg-gradient-to-r from-[#EC4899] to-[#F59E0B] rounded-3xl blur-xl opacity-40 pointer-events-none" />
             <div className="relative w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/20">
               <Image
@@ -344,64 +344,6 @@ export default function DreampreneurLanding() {
                 className="w-full h-auto"
               />
             </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {[
-              {
-                name: "AMIRA ALYDRUS",
-                role: "Cosmetic Formulation Expert",
-                focus: "PRODUK & FORMULA",
-                points: ["Tren & kebutuhan pasar", "Pengembangan formula", "Pembeda produk"],
-                badgeColor: "bg-[#E63E97]/10 text-[#E63E97]"
-              },
-              {
-                name: "FADHILA SYAHAB",
-                role: "Business Development Strategist",
-                focus: "BISNIS & PERTUMBUHAN",
-                points: ["Arah bisnis brand", "Peluang pertumbuhan", "Prioritas langkah berikutnya"],
-                badgeColor: "bg-[#4A7DFF]/10 text-[#4A7DFF]"
-              },
-              {
-                name: "REVITA",
-                role: "Digital Marketer",
-                focus: "PEMASARAN & KECERDASAN BUATAN",
-                points: ["Strategi peluncuran", "Konten & pemasaran", "AI untuk bisnis"],
-                badgeColor: "bg-[#FF5A1F]/10 text-[#FF5A1F]"
-              },
-              {
-                name: "BARI NOOR RAHMAN",
-                role: "SIG Manager Operasional",
-                focus: "OPERASIONAL & KESIAPAN PRODUK",
-                points: ["Kesiapan produk", "Kualitas & kepercayaan", "Kesiapan operasional"],
-                badgeColor: "bg-[#4A7DFF]/10 text-[#4A7DFF]"
-              }
-            ].map((mentor, i) => (
-              <div
-                key={i}
-                className="bg-white border border-slate-100 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div>
-                  <span className={`inline-block ${mentor.badgeColor} text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider mb-4`}>
-                    {mentor.focus}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-[900] uppercase text-[#141414] leading-tight mb-1">
-                    {mentor.name}
-                  </h3>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-4">
-                    {mentor.role}
-                  </p>
-                </div>
-                <ul className="space-y-2 border-t border-slate-100 pt-4 mt-auto">
-                  {mentor.points.map((pt, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-slate-600 font-semibold leading-tight">
-                      <span className="text-[#5A31F4] font-black">•</span>
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
       </section>
