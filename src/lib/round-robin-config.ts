@@ -34,13 +34,12 @@ export const AGENTS: Agent[] = [
 
   { id: 'cs3', phone: '087776550657', name: 'CS 3', active: true },
 
-  { id: 'irma', phone: '085133188827', name: 'Bu Irma', active: true },
+  { id: 'irma', phone: '085133188827', name: 'Bu Irma', active: false },
 
   // Pak Zaki (087867029842) sudah dihapus total dari rotasi — lihat
   // db/migrations/00004_remove_pak_zaki.sql.
 
-  // Pak Bagir (087766466927) sudah dihapus total dari rotasi — lihat
-  // db/migrations/00006_remove_pak_bagir.sql.
+  { id: 'bagir', phone: '087766466927', name: 'Pak Bagir', active: true },
 
   // Tambah CS baru di sini kapan saja, contoh:
 
