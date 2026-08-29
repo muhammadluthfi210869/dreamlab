@@ -3053,6 +3053,25 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/artikel-keratin/peluang-bisnis-hair-care-keratin-hero.jpg",
     "excerpt": "Keratin tetap menjadi peluang besar untuk bisnis hair care. Pelajari insight pasar, custom formula, alur produk, dan strategi pemasaran bersama Dreamlab.",
     "readingMinutes": 6
+  },
+  {
+    "slug": "/maklon-kosmetik-makassar",
+    "title": "Maklon Kosmetik Makassar: Bangun Brand Kosmetik Anda Bersama Partner Produksi yang Tepat",
+    "publishDate": "2026-08-29T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Makassar",
+      "Sulawesi Selatan",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-makassar/maklon-kosmetik-makassar-hero.jpg",
+    "excerpt": "Cari maklon kosmetik Makassar? Dreamlab membantu pengembangan skincare, parfum, body care, hair care, dan baby care dengan custom formula hingga digital marketing.",
+    "readingMinutes": 8
   }
 ]
 ;
