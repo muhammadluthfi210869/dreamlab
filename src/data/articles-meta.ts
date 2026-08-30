@@ -3114,6 +3114,26 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/artikel-sabun-herbal/sabun-herbal-peluang-brand-natural-hero.jpg",
     "excerpt": "Ingin membuat brand sabun herbal? Pelajari peluang sabun natural, perbandingan sabun batang vs cair, ide produk, faktor biaya, dan custom formula bersama Dreamlab.",
     "readingMinutes": 8
+  },
+  {
+    "slug": "/bisnis-skincare",
+    "title": "5 Alasan Anda Harus Memulai Bisnis Brand Skincare Sendiri",
+    "publishDate": "2026-08-30T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Bisnis Skincare",
+      "Brand Skincare Sendiri",
+      "Maklon Skincare",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-bisnis-skincare/alasan-memulai-bisnis-brand-skincare-hero.jpg",
+    "excerpt": "Ingin memulai bisnis skincare? Pelajari 5 alasan membangun brand sendiri, cara memilih produk berdasarkan demand dan masalah customer, hingga custom formula bersama Dreamlab.",
+    "readingMinutes": 11
   }
 ]
 ;

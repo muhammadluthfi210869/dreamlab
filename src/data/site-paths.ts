@@ -44,6 +44,7 @@ export const SITE_PATHS: string[] = [
   "bisnis-kosmetik-dari-nol",
   "bisnis-parfum-merk-sendiri",
   "bisnis-perawatan-pria",
+  "bisnis-skincare",
   "bisnis-skincare-glow-glasskin-cystamine",
   "body-care",
   "body-care-2",
