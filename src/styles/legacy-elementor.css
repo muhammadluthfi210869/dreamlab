@@ -518,16 +518,20 @@
 .legacy-content-wrapper .dl-formula-card p { margin: 0; color: #657086; font-size: 14px; }
 
 .legacy-content-wrapper ol.dl-steps {
-  list-style: none;
+  list-style: none !important;
+  list-style-type: none !important;
   counter-reset: dl-step;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   margin: 30px 0;
-  padding: 0;
+  padding: 0 !important;
 }
 
 .legacy-content-wrapper ol.dl-steps li {
+  list-style: none !important;
+  list-style-type: none !important;
+  display: block !important;
   counter-increment: dl-step;
   position: relative;
   padding: 22px;

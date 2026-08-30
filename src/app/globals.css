@@ -271,7 +271,7 @@
     display: none !important;
   }
 
-  .article-content ol {
+  .article-content ol:not(.dl-steps):not(.article-outline ol) {
     list-style-type: decimal !important;
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
@@ -279,7 +279,7 @@
     counter-reset: none !important;
   }
 
-  .article-content ol li {
+  .article-content ol:not(.dl-steps):not(.article-outline ol) > li {
     margin-bottom: 0.5rem !important;
     line-height: 1.7 !important;
     font-size: 16px !important;
@@ -289,6 +289,21 @@
     padding: 0 !important;
     box-shadow: none !important;
     display: list-item !important;
+  }
+
+  .article-content ol.dl-steps,
+  .legacy-content-wrapper ol.dl-steps {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .article-content ol.dl-steps > li,
+  .legacy-content-wrapper ol.dl-steps > li {
+    list-style: none !important;
+    list-style-type: none !important;
+    display: block !important;
   }
 
   .article-content ol li::before {
