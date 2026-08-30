@@ -496,6 +496,7 @@ export const SITE_PATHS: string[] = [
   "rekomendasi-skincare-musim-hujan-agar-kulit-tetap-sehat-dan-lembap",
   "rekomendasi-sunscreen-lokal",
   "rincian-biaya-produksi-serum-wajah",
+  "sabun-herbal",
   "services",
   "set-skincare-bpom",
   "skincare-face-care",

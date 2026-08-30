@@ -3093,6 +3093,27 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/artikel-bengkulu/maklon-kosmetik-bengkulu-hero.jpg",
     "excerpt": "Cari maklon kosmetik Bengkulu? Dreamlab membantu pengembangan skincare, serum, sunscreen, body care hingga parfum dengan custom formula, BPOM, dan MOQ fleksibel.",
     "readingMinutes": 10
+  },
+  {
+    "slug": "/sabun-herbal",
+    "title": "Peluang Membuat Brand Sabun Natural dengan Custom Formula",
+    "publishDate": "2026-08-30T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Sabun Herbal",
+      "Sabun Natural",
+      "Custom Formula",
+      "Body Care",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-sabun-herbal/sabun-herbal-peluang-brand-natural-hero.jpg",
+    "excerpt": "Ingin membuat brand sabun herbal? Pelajari peluang sabun natural, perbandingan sabun batang vs cair, ide produk, faktor biaya, dan custom formula bersama Dreamlab.",
+    "readingMinutes": 10
   }
 ]
 ;
