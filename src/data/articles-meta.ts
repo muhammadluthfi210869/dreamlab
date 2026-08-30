@@ -3113,7 +3113,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-sabun-herbal/sabun-herbal-peluang-brand-natural-hero.jpg",
     "excerpt": "Ingin membuat brand sabun herbal? Pelajari peluang sabun natural, perbandingan sabun batang vs cair, ide produk, faktor biaya, dan custom formula bersama Dreamlab.",
-    "readingMinutes": 10
+    "readingMinutes": 8
   }
 ]
 ;
