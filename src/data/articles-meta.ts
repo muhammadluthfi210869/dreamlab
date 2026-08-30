@@ -3132,7 +3132,7 @@ export const articlesMeta: ArticleMeta[] =
       "Dreamlab"
     ],
     "featuredImage": "/images/artikel-bisnis-skincare/alasan-memulai-bisnis-brand-skincare-hero.jpg",
-    "excerpt": "Ingin memulai bisnis skincare? Pelajari 5 alasan membangun brand sendiri, cara memilih produk berdasarkan demand dan masalah customer, hingga custom formula bersama Dreamlab.",
+    "excerpt": "Ingin memulai bisnis skincare? Pelajari cara memilih produk berdasarkan demand pasar, menemukan solusi masalah customer, hingga alur maklon 8 langkah bersama Dreamlab.",
     "readingMinutes": 10
   }
 ]
