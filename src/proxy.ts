@@ -97,7 +97,6 @@ export function proxy(request: NextRequest) {
     '/bisnis-men-grooming/': '/maklon/kosmetik/',
     // Legacy bisnis categories → Panduan Bisnis Kosmetik
     '/bisnis-kosmetik/': '/category/panduan-bisnis-kosmetik/',
-    '/bisnis-skincare/': '/category/panduan-bisnis-kosmetik/',
     // Previous pillar slugs → new pillar slugs
     '/tren-kosmetik/': '/maklon/kosmetik/',
     '/bisnis-dreampreneur/': '/category/panduan-bisnis-kosmetik/',
