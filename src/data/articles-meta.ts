@@ -3072,6 +3072,27 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/artikel-makassar/maklon-kosmetik-makassar-hero.jpg",
     "excerpt": "Cari maklon kosmetik Makassar? Dreamlab membantu pengembangan skincare, parfum, body care, hair care, dan baby care dengan custom formula hingga digital marketing.",
     "readingMinutes": 8
+  },
+  {
+    "slug": "/maklon-kosmetik-bengkulu",
+    "title": "Maklon Kosmetik Bengkulu: Custom Formula, BPOM & Partner untuk Bangun Brand Skincare Anda",
+    "publishDate": "2026-08-30T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Bengkulu",
+      "Custom Formula",
+      "Skincare",
+      "BPOM",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-bengkulu/maklon-kosmetik-bengkulu-hero.jpg",
+    "excerpt": "Cari maklon kosmetik Bengkulu? Dreamlab membantu pengembangan skincare, serum, sunscreen, body care hingga parfum dengan custom formula, BPOM, dan MOQ fleksibel.",
+    "readingMinutes": 10
   }
 ]
 ;
