@@ -605,6 +605,63 @@
   .legacy-content-wrapper ol.dl-steps li { min-height: 0; }
 }
 
+.legacy-content-wrapper .data-chart-card {
+  background: #fdfcf9;
+  border: 1px solid #e8e3d8;
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin: 32px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.legacy-content-wrapper .data-chart-card h3 {
+  margin: 0 0 6px !important;
+  color: #1a1a2e !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  border: none !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.legacy-content-wrapper .article-example-card {
+  background: #ffffff;
+  border: 1px solid #e8e3d8;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.legacy-content-wrapper .article-example-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.legacy-content-wrapper .article-example-card h3 {
+  margin: 0 0 10px !important;
+  font-size: 16px !important;
+  color: #1a1a2e !important;
+  font-weight: 800 !important;
+  border: none !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.legacy-content-wrapper .article-cta h3,
+.legacy-content-wrapper .article-cta h2,
+.legacy-content-wrapper .dl-formula-card h3,
+.legacy-content-wrapper .dl-steps h3,
+.legacy-content-wrapper .dl-expectation h3 {
+  margin-top: 0 !important;
+  display: block !important;
+  border-left: none !important;
+  padding-left: 0 !important;
+}
+
 @keyframes ig-skeleton-shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }

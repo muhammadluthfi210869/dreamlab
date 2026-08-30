@@ -227,7 +227,17 @@ function processHeadings(html: string): { html: string; headings: Heading[] } {
       const text = textContentOf(inner);
       const id = slugify(text);
       if (!id) return m;
-      headings.push({ level, id, text });
+
+      // Exclude CTA headings and chart card headings from the TOC
+      const isCtaHeading =
+        /article-cta/i.test(attrs) ||
+        /konsultasi|diskusikan|partner selanjutnya|yuk,/i.test(text.toLowerCase());
+      const isChartHeading = /penjualan 5 brand/i.test(text.toLowerCase());
+
+      if (!isCtaHeading && !isChartHeading) {
+        headings.push({ level, id, text });
+      }
+
       const cls = level === 2 ? 'article-h2' : 'article-h3';
       const cleanAttrs = attrs.replace(/\s+id="[^"]*"/gi, '').replace(/\s+class="[^"]*"/gi, '').trim();
       return `<h${level} id="${id}" class="${cls}"${cleanAttrs ? ' ' + cleanAttrs : ''}>${inner}</h${level}>`;
@@ -239,7 +249,13 @@ function processHeadings(html: string): { html: string; headings: Heading[] } {
 function buildToc(heads: Heading[]): string | null {
   const h2s = heads.filter((h) => h.level === 2 && h.id);
   if (h2s.length < 2) return null;
-  const items = h2s.map((h) => `<li><a href="#${h.id}">${esc(h.text)}</a></li>`).join('');
+  const items = h2s
+    .map((h) => {
+      // Strip leading numbering (e.g. "1. ", "01. ", "1) ") so <ol> numbering does not double
+      const label = h.text.replace(/^\d+[\.\)]\s*/, '').trim();
+      return `<li><a href="#${h.id}">${esc(label)}</a></li>`;
+    })
+    .join('');
   return `<nav class="article-outline"><p class="article-outline-label">Daftar Isi</p><ol>${items}</ol></nav>`;
 }
 
@@ -254,7 +270,13 @@ function injectToc(html: string, toc: string | null): string {
  * 4. CTA: inline navy → .article-cta; auto bila tak ada                *
  * ------------------------------------------------------------------ */
 function absorbInlineCtas(html: string): string {
-  const nodes = findElementSpans(html, 'div').filter((o) => /style="[^"]*1a1a2e/.test(o.attrs));
+  // Only target actual CTA container divs that have a navy background and are not already .article-cta or .data-chart-card
+  const nodes = findElementSpans(html, 'div').filter((o) => {
+    const isNavyBg = /(?:background|background-color):\s*[^;"]*(?:linear-gradient|#1a1a2e|#16213e|#0f3460)/i.test(o.attrs);
+    const isAlreadyCta = /class="[^"]*article-cta[^"]*"/i.test(o.attrs);
+    const isChart = /class="[^"]*data-chart-card[^"]*"/i.test(o.attrs);
+    return isNavyBg && !isAlreadyCta && !isChart;
+  });
   if (!nodes.length) return html;
 
   const spans = resolveSpansAll(html, nodes, 'div');
@@ -262,9 +284,11 @@ function absorbInlineCtas(html: string): string {
   for (const s of spans) {
     if (s.closeEnd === -1) continue;
     const inner = html.slice(s.innerStart, s.innerEnd);
-    const h3m = /<h3\b[^>]*>([\s\S]*?)<\/h3>/i.exec(inner);
-    const ps = inner.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi) || [];
     const aM = /<a\b([^>]*)>([\s\S]*?)<\/a>/i.exec(inner);
+    if (!aM && !/konsultasi|hubungi|whatsapp/i.test(inner)) continue;
+
+    const h3m = /<h[23]\b[^>]*>([\s\S]*?)<\/h[23]>/i.exec(inner);
+    const ps = inner.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi) || [];
     const pText = ps
       .map((p) => textContentOf(p.replace(/<p\b[^>]*>/i, '').replace(/<\/p>/i, '')))
       .filter(Boolean);
@@ -289,7 +313,7 @@ function buildAutoCta(): string {
 }
 
 function injectAutoCta(html: string): string {
-  if (/class="article-cta"/.test(html)) return html;
+  if (/(?:class="[^"]*article-cta[^"]*"|article-cta)/i.test(html)) return html;
   const cta = buildAutoCta();
   const toc = /(<nav\b[^>]*class="article-outline"[^>]*>[\s\S]*?<\/nav>)/i.exec(html);
   if (toc) return html.slice(0, toc.index + toc[0].length) + cta + html.slice(toc.index + toc[0].length);
