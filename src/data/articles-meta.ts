@@ -13,6 +13,26 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-kosmetik-probolinggo",
+    "title": "Cara Membuat Brand Kosmetik BPOM Tanpa Harus Punya Pabrik Sendiri",
+    "publishDate": "2026-09-01T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Probolinggo",
+      "Maklon Skincare",
+      "BPOM",
+      "Jawa Timur",
+      "Custom Formula"
+    ],
+    "featuredImage": "/images/artikel-probolinggo/jasa-maklon-kosmetik-probolinggo-hero.jpeg",
+    "excerpt": "Cari jasa maklon kosmetik Probolinggo? Wujudkan brand skincare BPOM Anda bersama Dreamlab, maklon juaranya formula dengan sistem 1 client 1 custom formula.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/ide-produk-pore-care-maklon-skincare",
     "title": "8 Ide Produk Pore Care yang Bisa Dibuat untuk Brand Skincare Anda",
     "publishDate": "2026-08-17T00:00:00+00:00",

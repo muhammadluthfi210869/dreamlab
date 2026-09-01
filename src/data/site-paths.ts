@@ -129,6 +129,7 @@ export const SITE_PATHS: string[] = [
   "jasa-maklon-kosmetik-bandung",
   "jasa-maklon-kosmetik-bpom-panduan-lengkap",
   "jasa-maklon-kosmetik-di-jember",
+  "jasa-maklon-kosmetik-probolinggo",
   "jasa-maklon-kosmetik-skincare-jawa-tengah",
   "jasa-maklon-lipstik-bpom-terpercaya",
   "jasa-maklon-parfum-bali-terbaik-terlengkap",
