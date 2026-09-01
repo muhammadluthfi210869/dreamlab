@@ -117,8 +117,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const categorySlug = resolvedParams.slug[0]?.replace(/^maklon-/, '').replace(/-care$/, 'care') || '';
-  const title = seoData?.meta_title || (article ? (article.seo?.title || article.title) : 'Dreamlab');
-  const description = seoData?.meta_description || (article ? (article.seo?.description || article.excerpt) : 'Dreamlab - Maklon Kosmetik & Skincare Terbaik BPOM Indonesia');
+  const title = (article ? (article.seo?.title || article.title) : null) || seoData?.meta_title || 'Dreamlab';
+  const description = (article ? (article.seo?.description || article.excerpt) : null) || seoData?.meta_description || 'Dreamlab - Maklon Kosmetik & Skincare Terbaik BPOM Indonesia';
 
   // Canonical MUST always point to the content's PRIMARY URL, not the requested path.
   // When an article is matched, use its canonical slug regardless of the request URL.
