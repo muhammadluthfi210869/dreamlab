@@ -19,7 +19,7 @@ export const articles: Article[] = [
 
   {
     "slug": "/jasa-maklon-kosmetik-probolinggo",
-    "title": "Cara Membuat Brand Kosmetik BPOM Tanpa Harus Punya Pabrik Sendiri",
+    "title": "Jasa Maklon Kosmetik Probolinggo: Cara Membuat Brand Kosmetik BPOM Tanpa Harus Punya Pabrik Sendiri",
     "publishDate": "2026-09-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
