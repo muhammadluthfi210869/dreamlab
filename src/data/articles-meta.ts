@@ -13,6 +13,26 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-skincare-moq-fleksibel",
+    "title": "Maklon Skincare MOQ Fleksibel: Strategi Tepat Uji Pasar Tanpa Risiko Stok Menumpuk",
+    "publishDate": "2026-09-01T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Skincare",
+      "MOQ Fleksibel",
+      "Uji Pasar",
+      "BPOM",
+      "Custom Formula"
+    ],
+    "featuredImage": "/images/artikel-moq-fleksibel/maklon-skincare-moq-fleksibel-hero.jpg",
+    "excerpt": "Uji pasar brand skincare impian Anda dengan skema maklon skincare MOQ fleksibel. Nikmati sistem 1-client 1-formula berstandar CPKB resmi Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-probolinggo",
     "title": "Jasa Maklon Kosmetik Probolinggo: Panduan Lengkap Membangun Brand Skincare BPOM dari Nol",
     "publishDate": "2026-09-01T00:00:00+00:00",

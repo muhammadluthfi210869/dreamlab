@@ -256,6 +256,7 @@ export const SITE_PATHS: string[] = [
   "maklon-skincare-batam",
   "maklon-skincare-jakarta-brand-klinik-2026",
   "maklon-skincare-jawa-timur-dreamlab",
+  "maklon-skincare-moq-fleksibel",
   "maklon-skincare-nad-plus-anti-aging",
   "maklon-skincare-surabaya-umkm",
   "maklon-skincare-untuk-brand-baru",
