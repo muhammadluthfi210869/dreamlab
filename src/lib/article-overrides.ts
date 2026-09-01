@@ -166,69 +166,6 @@ const articleOverrides: Record<string, ArticleOverride> = {
       },
     ],
   },
-  '/biaya-maklon-parfum-moq-kecil': {
-    excerpt:
-      'Panduan rinci biaya maklon parfum dengan MOQ kecil, lengkap dengan struktur modal, faktor HPP, dan strategi launch yang lebih realistis untuk brand baru.',
-    content: [
-      '<p>Memulai brand parfum sendiri tidak harus langsung masuk ke produksi besar. Justru untuk brand baru, keputusan paling sehat biasanya dimulai dari batch kecil yang cukup untuk menguji aroma hero, respon pasar, dan kemampuan harga jual. Pendekatan ini menurunkan risiko stok mati sekaligus memberi ruang untuk memperbaiki positioning sebelum scale up.</p>',
-      '<p>Masalahnya, banyak calon brand owner hanya fokus pada angka MOQ tanpa memahami struktur biaya di belakangnya. Akibatnya, harga jual terlihat menarik di atas kertas tetapi margin aktual menjadi tipis setelah biaya sample, kemasan, revisi, dan legalitas ikut dihitung. Artikel ini memecah biaya maklon parfum secara lebih operasional agar keputusan awal lebih presisi.</p>',
-      buildOutline(parfumHeadings),
-      buildFigure('dreamlab_maklonkosmetik_artikel_tengah.png', 'Riset biaya maklon parfum Dreamlab'),
-      '<h2>Komponen biaya yang wajib dihitung sejak awal</h2>',
-      '<p>Dalam proyek parfum, biaya jarang berhenti pada biaya isi botol. Ada beberapa lapisan cost yang saling berkaitan: pengembangan aroma, bahan baku, kemasan primer, box, pengisian, hingga legalitas dan koreksi desain. Jika salah satu komponen dilewatkan dari simulasi awal, keputusan harga jual akan meleset.</p>',
-      '<p>Riset aroma dan sample berada di fase paling awal tetapi efeknya besar. Di sinilah karakter brand mulai dibentuk. Revisi yang terlalu banyak tidak selalu buruk, tetapi harus diantisipasi sebagai biaya waktu dan biaya pengembangan. Setelah itu, bagian yang paling menentukan HPP biasanya berpindah ke konsentrat parfum, botol, sprayer, dan finishing box.</p>',
-      '<ul><li><strong>Riset dan sample:</strong> menentukan akurasi aroma, kualitas first impression, dan repeatability produksi.</li><li><strong>Konsentrat dan alkohol:</strong> langsung mempengaruhi kualitas aroma, dry down, dan daya tahan.</li><li><strong>Botol dan sprayer:</strong> menjadi komponen visual yang paling sering mengubah persepsi premium.</li><li><strong>Box, label, dan finishing:</strong> mempengaruhi biaya per unit sekaligus pengalaman unboxing.</li><li><strong>Legalitas:</strong> penting untuk keamanan penjualan jangka panjang dan kesiapan scale up.</li></ul>',
-      '<h2>Contoh struktur modal untuk batch MOQ kecil</h2>',
-      '<p>MOQ kecil cocok untuk soft launch, batch komunitas, atau validasi awal di marketplace. Namun, HPP per unit biasanya lebih tinggi daripada batch besar. Itu bukan masalah selama model bisnisnya memang mengutamakan pembelajaran pasar, bukan efisiensi volume sejak hari pertama.</p>',
-      buildComparisonTable(
-        ['Komponen', 'Fungsi dalam launch awal', 'Dampak ke margin'],
-        [
-          ['Sample dan revisi', 'Validasi aroma hero sebelum produksi', 'Sedang'],
-          ['Isi parfum dan bahan baku', 'Menentukan kualitas utama produk', 'Tinggi'],
-          ['Botol, sprayer, cap', 'Membentuk persepsi premium', 'Tinggi'],
-          ['Box dan label', 'Menguatkan branding dan shelf appeal', 'Sedang'],
-          ['Legalitas dan support dokumen', 'Membuat produk aman dijual', 'Sedang'],
-        ]
-      ),
-      '<p>Secara praktis, batch kecil sebaiknya diperlakukan sebagai investasi validasi. Target utamanya bukan langsung mengejar biaya serendah mungkin, tetapi memastikan tiga hal: aroma yang benar, packaging yang masuk akal untuk target market, dan harga jual yang masih diterima pasar. Jika tiga titik ini lolos uji, scale up menjadi jauh lebih aman.</p>',
-      '<h2>Kesalahan yang paling sering membuat margin tipis</h2>',
-      '<p>Kesalahan paling umum adalah memilih kemasan terlalu premium sebelum brand memiliki alasan harga yang kuat. Banyak proyek parfum baru terlihat cantik secara visual, tetapi margin hancur karena botol custom, box tebal, dan aksesoris tambahan dipilih terlalu cepat. Pada tahap awal, kemasan harus tetap menarik, tetapi disiplin terhadap fungsi dan target margin.</p>',
-      '<p>Kesalahan lain adalah memisahkan diskusi produk dari diskusi channel penjualan. Parfum yang akan dijual lewat komunitas, live commerce, atau reseller tidak selalu membutuhkan struktur biaya yang sama. Jika channel penjualan menuntut diskon agresif, maka HPP harus disusun lebih konservatif sejak awal.</p>',
-      '<ul><li><strong>Terlalu cepat memakai kemasan custom:</strong> visual naik, tapi ruang margin turun drastis.</li><li><strong>Tidak mengunci target harga jual:</strong> membuat pemilihan bahan dan packaging melenceng.</li><li><strong>Mengabaikan biaya konten dan launch:</strong> padahal parfum sangat bergantung pada presentasi visual.</li><li><strong>Memilih terlalu banyak varian di batch awal:</strong> stok terpecah, pembacaan data penjualan jadi kabur.</li></ul>',
-      buildFigure('dreamlab_maklonkosmetik_artikel_akhir.png', 'Simulasi HPP parfum untuk batch kecil'),
-      '<h2>Kapan MOQ kecil justru pilihan paling sehat</h2>',
-      '<p>MOQ kecil menjadi pilihan paling sehat ketika brand belum punya bukti bahwa aroma tertentu memang akan menang di pasar. Dalam kondisi ini, memaksa produksi besar hanya memperbesar risiko. Batch kecil memberi ruang untuk menguji review, konten, dan repeat order tanpa menahan terlalu banyak modal di gudang.</p>',
-      '<p>Pendekatan ini juga cocok untuk brand yang ingin masuk lewat positioning niche, misalnya parfum tea-inspired, gourmand, atau oriental modern. Produk seperti ini sering butuh validasi narasi lebih dulu. Jika pembacaan pasar awal bagus, barulah volume dan varian bisa ditambah secara disiplin.</p>',
-      '<h2>Strategi positioning agar parfum lebih mudah dijual</h2>',
-      '<p>Parfum jarang menang hanya karena aroma enak. Ia menang karena cerita produknya jelas: siapa target pembelinya, mood apa yang dijual, dan kenapa konsumen perlu mengingat brand tersebut. Positioning yang baik membuat biaya produksi lebih terarah karena semua keputusan visual dan formula mengikuti narasi yang sama.</p>',
-      '<p>Untuk memperjelas arah, Anda bisa membaca <a href="https://dreamlab.id/inspirasi-parfum-lokal-aroma-teh/">inspirasi parfum lokal aroma teh</a>, <a href="https://dreamlab.id/parfum-inspired-peluang-bisnis/">peluang parfum inspired</a>, dan <a href="https://dreamlab.id/jenis-alkohol-dalam-parfum/">jenis alkohol dalam parfum</a>. Link seperti ini penting karena membantu calon brand owner masuk ke riset yang lebih konkret, bukan sekadar estimasi modal umum.</p>',
-      buildCta(
-        'Butuh simulasi MOQ parfum yang realistis?',
-        'Diskusikan struktur biaya, arah aroma, dan opsi kemasan yang paling aman untuk batch launch pertama Anda.'
-      ),
-      '<h2>FAQ biaya maklon parfum</h2>',
-      buildFaq([
-        {
-          question: 'Apakah MOQ kecil selalu berarti modal awal lebih rendah?',
-          answer:
-            'Tidak selalu. Total modal bisa lebih terkendali, tetapi HPP per unit biasanya lebih tinggi. Karena itu, MOQ kecil cocok untuk validasi pasar, bukan untuk efisiensi volume.',
-        },
-        {
-          question: 'Komponen mana yang paling sering menaikkan HPP tanpa terasa?',
-          answer:
-            'Botol, sprayer, box, dan finishing visual sering menjadi pemborosan paling besar karena terlihat kecil per item, tetapi dampaknya tinggi saat dikalikan jumlah produksi.',
-        },
-        {
-          question: 'Lebih baik mulai dengan satu aroma atau beberapa aroma?',
-          answer:
-            'Untuk brand baru, satu aroma hero atau dua varian yang benar-benar berbeda biasanya lebih sehat. Data penjualannya lebih mudah dibaca dan modal tidak terlalu terpecah.',
-        },
-      ]),
-      '<h2>Kesimpulan</h2>',
-      '<p>Biaya maklon parfum tidak boleh dihitung hanya dari angka MOQ. Yang menentukan sehat atau tidaknya bisnis justru kombinasi antara HPP, kemasan, target harga jual, dan kekuatan positioning. Jika struktur ini rapi sejak awal, batch kecil bisa menjadi langkah paling efisien untuk membangun brand yang siap scale up.</p>',
-      '<p><a href="/thankyou/google/"><strong>Konsultasikan konsep brand parfum Anda bersama Dreamlab</strong></a> untuk menghitung skema MOQ, estimasi biaya, dan arah formulasi yang lebih realistis.</p>',
-    ].join(''),
-  },
   '/bisnis-skincare-glow-glasskin-cystamine': {
     excerpt:
       'Panduan lebih lengkap untuk merancang bisnis skincare glow glass skin berbasis cystamine, dari positioning bahan aktif sampai struktur launch yang layak dijual.',

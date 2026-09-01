@@ -719,18 +719,23 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/biaya-maklon-parfum-moq-kecil",
-    "title": "Buat Brand Parfum Sendiri Rincian Biaya & Syaratnya",
-    "publishDate": "2026-01-26T09:25:17+00:00",
+    "title": "Biaya Maklon Parfum: Panduan Lengkap Modal MOQ Fleksibel hingga Extrait de Parfum",
+    "publishDate": "2026-09-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
       "Maklon Kosmetik"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Biaya Maklon Parfum",
+      "Extrait de Parfum",
+      "BPOM",
+      "MOQ Kecil",
+      "Custom Formula"
     ],
-    "featuredImage": "803584-1.webp",
-    "excerpt": "Ingin buat brand parfum sendiri? Simak rincian biaya maklon parfum, syarat, dan estimasi modal. Dreamlab siap bantu dengan MOQ kecil dan BPOM gratis.",
-    "readingMinutes": 8
+    "featuredImage": "/images/blog/dreamlab_maklonkosmetik_artikel_tengah.png",
+    "excerpt": "Panduan lengkap rincian biaya maklon parfum, simulasi modal MOQ kecil hingga Extrait de Parfum BPOM, estimasi HPP, dan strategi margin profit bersama Dreamlab.",
+    "readingMinutes": 9
   },
   {
     "slug": "/pabrik-parfum-surabaya",
