@@ -13,6 +13,26 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-sunscreen-hybrid-bpom",
+    "title": "Maklon Sunscreen Hybrid & Tinted: Cara Bikin Produk Proteksi UV Sekaligus Coverage untuk Brand Sendiri",
+    "publishDate": "2026-09-02T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Sunscreen Hybrid",
+      "Maklon Tinted Sunscreen",
+      "Jasa Maklon Sunscreen BPOM",
+      "Custom Formula Sunscreen",
+      "Pabrik Maklon Sunscreen",
+      "Bikin Brand Sunscreen Sendiri"
+    ],
+    "featuredImage": "/images/artikel-sunscreen/maklon-sunscreen-hybrid-hero.jpg",
+    "excerpt": "Buat brand sunscreen hybrid & tinted sunscreen berizin BPOM bersama Dreamlab. Custom formula tanpa white-cast, proteksi UV teruji, dan sistem 1 client 1 formula.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/maklon-skincare-moq-fleksibel",
     "title": "Maklon Skincare MOQ Fleksibel: Strategi Tepat Uji Pasar Tanpa Risiko Stok Menumpuk",
     "publishDate": "2026-09-01T00:00:00+00:00",

@@ -267,6 +267,7 @@ export const SITE_PATHS: string[] = [
   "maklon-skincare/masker-wajah",
   "maklon-skincare/serum-wajah",
   "maklon-skincare/sunscreen",
+  "maklon-sunscreen-hybrid-bpom",
   "manfaat-hair-tonic-ginseng-rambut",
   "manfaat-panthenol-untuk-wajah-kering",
   "melembutkan-kulit-bersisik",
