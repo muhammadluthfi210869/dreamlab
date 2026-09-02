@@ -753,7 +753,7 @@ export const articlesMeta: ArticleMeta[] =
       "MOQ Kecil",
       "Custom Formula"
     ],
-    "featuredImage": "/images/blog/dreamlab_maklonkosmetik_artikel_tengah.png",
+    "featuredImage": "/images/artikel-parfum/biaya-maklon-parfum-hero.jpg",
     "excerpt": "Panduan lengkap rincian biaya maklon parfum, simulasi modal MOQ kecil hingga Extrait de Parfum BPOM, estimasi HPP, dan strategi margin profit bersama Dreamlab.",
     "readingMinutes": 9
   },
