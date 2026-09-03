@@ -337,35 +337,60 @@ function cleanEmptyParagraphs(html: string): string {
 function rewriteAnchorsAndImages(html: string): string {
   let c = html;
 
-  // a) Legacy WhatsApp / broken thankyou anchor (non-gambar) → thankyou
+  // a) WhatsApp / old forms / broken thankyou / kontak / broken text hrefs → thankyou
   c = c.replace(
-    /<a\b([^>]*?)href="[^"]*(?:wa\.me|api\.whatsapp\.com|wa\.link|thankyoupage-google|thankyou-page)[^"]*"([^>]*)>([\s\S]*?)<\/a>/gi,
+    /<a\b([^>]*?)href=["'][^"']*(?:wa\.me|api\.whatsapp\.com|wa\.link|thankyoupage-google|thankyou-page|thank-you-maklon|forms\.kommo\.com|dreamlab\.id\/kontak|\/kontak|dreamlab\.id\/contact-us|\/contact-us|\s+)[^"']*["']([^>]*)>((?:(?!<\/a>)[\s\S])*?)<\/a>/gi,
     (_full, pre: string, post: string, inner: string) => {
-      if (/<img/i.test(inner)) return _full;
       return `<a href="${THANKYOU_URL}"${cleanAttrs(pre + ' ' + post)}>${inner}</a>`;
     }
   );
 
-  // b) <a href="*.dreamlab.id"> membungkus img → thankyou
+  // b) Any anchor wrapping ANY banner/article CTA image → thankyou
   c = c.replace(
-    /<a\b([^>]*?)href="[^"]*dreamlab\.id[^"]*"([^>]*)>([\s\S]*?)<\/a>/gi,
-    (full, pre: string, post: string, inner: string) => {
-      if (!/<img/i.test(inner)) return full;
-      return `<a href="${THANKYOU_URL}">${inner}</a>`;
+    /<a\b([^>]*?)href=["'][^"']*["']([^>]*)>((?:(?!<\/a>)[\s\S])*?<img\b[^>]*?(?:artikel-mid|artikel-cta|artikel_tengah|artikel_akhir|maklonkosmetik_artikel|legalitas|cta-wa|dreamlab_maklonkosmetik)[^>]*?>(?:(?!<\/a>)[\s\S])*?)<\/a>/gi,
+    (_full, pre: string, post: string, inner: string) => {
+      return `<a href="${THANKYOU_URL}"${cleanAttrs(pre + ' ' + post)}>${inner}</a>`;
     }
   );
 
-  // c) Gambar legalitas/artikel-mid/cta-wa/artikel-cta yang belum membungkus
-  c = c.replace(/<img\b([^>]*?)\/?>/gi, (full, attrs: string) => {
-    const src = /(?:src|data-src)=["']([^"']*)["']/i.exec(attrs)?.[1] ?? '';
-    if (!/(legalitas|artikel-mid|cta-wa|artikel-cta)/i.test(src)) return full;
-    return `<a href="${THANKYOU_URL}" style="display:block;cursor:pointer;text-decoration:none;">${full}</a>`;
+  // c) CTA text anchors (e.g. Konsultasi, Hubungi, Mulai sekarang) pointing to homepage or external
+  c = c.replace(
+    /<a\b([^>]*?)href=["'][^"']*["']([^>]*)>((?:(?!<\/a>)[\s\S])*?)<\/a>/gi,
+    (full, pre: string, post: string, inner: string) => {
+      const text = textContentOf(inner).toLowerCase();
+      const isCtaText = /^(?:konsultasi|konsultasikan|hubungi|chat|daftar|yuk,\s*mulai|mulai\s*sekarang|dapatkan\s*free\s*sample|free\s*sample)/i.test(text) ||
+                        /konsultasi\s*(?:gratis|sekarang|maklon|brand|bersama|produk)/i.test(text) ||
+                        /hubungi\s*(?:dreamlab|kami|tim)/i.test(text);
+      if (isCtaText) {
+        return `<a href="${THANKYOU_URL}"${cleanAttrs(pre + ' ' + post)}>${inner}</a>`;
+      }
+      return full;
+    }
+  );
+
+  // d) CTA button anchors (.cta-button)
+  c = c.replace(
+    /<a\b([^>]*?class=["'][^"']*cta-button[^"']*["'][^>]*?)href=["'][^"']*["']([^>]*)>((?:(?!<\/a>)[\s\S])*?)<\/a>/gi,
+    (_full, pre: string, post: string, inner: string) => {
+      return `<a href="${THANKYOU_URL}"${cleanAttrs(pre + ' ' + post)}>${inner}</a>`;
+    }
+  );
+
+  // e) Standalone banner CTA images that are not yet wrapped in <a>
+  c = c.replace(/(<a\b[^>]*>[\s\S]*?<\/a>)|(<img\b[^>]*?(?:legalitas|artikel-mid|cta-wa|artikel-cta|artikel_tengah|artikel_akhir|maklonkosmetik_artikel|dreamlab_maklonkosmetik)[^>]*?\/?>)/gi, (full, aTag, imgTag) => {
+    if (aTag) return aTag;
+    return `<a href="${THANKYOU_URL}" style="display:block;cursor:pointer;text-decoration:none;">${imgTag}</a>`;
   });
 
-  // d) figcaption berisi teks broken thankyou → buang
+  // f) figcaption berisi teks broken thankyou → buang
   c = c.replace(/<figcaption>([\s\S]*?)<\/figcaption>/gi, (full, inner: string) =>
     /thankyoupage-google|thankyou-page/i.test(inner) ? '' : full
   );
+
+  // g) Bersihkan accidental nested anchors
+  c = c.replace(/<a\b[^>]*href=["']([^"']*)["'][^>]*>\s*<a\b[^>]*href=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>\s*<\/a>/gi, (_full, _h1, h2, inner) => {
+    return `<a href="${h2 || THANKYOU_URL}">${inner}</a>`;
+  });
 
   return c;
 }
