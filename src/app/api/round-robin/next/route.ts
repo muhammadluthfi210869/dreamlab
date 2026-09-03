@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getNextAgentFromDb } from '@/lib/round-robin-db';
+import { getNextAgentFromDb, normalizePhone } from '@/lib/round-robin-db';
+import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * GET /api/round-robin/next
@@ -21,14 +23,23 @@ export async function GET(req: NextRequest) {
         name: agent.name ?? null,
         assignmentMethod: 'db',
       },
-      { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
     );
 
     setVisitorCookieIfNew(res, req, visitorId);
 
     return res;
   } catch (error) {
-    console.error('Round robin error:', error);
-    return NextResponse.json({ error: 'Assignment failed' }, { status: 500 });
+    console.error('Round robin error from DB, fallback:', error);
+    const fallback = pickEmergencyFallbackAgent();
+    return NextResponse.json(
+      {
+        phone: normalizePhone(fallback.phone),
+        busdev_id: fallback.id,
+        name: fallback.name ?? null,
+        assignmentMethod: 'fallback-random',
+      },
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
+    );
   }
 }

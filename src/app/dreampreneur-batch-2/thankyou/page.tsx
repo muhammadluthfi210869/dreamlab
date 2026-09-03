@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import DreampreneurThankYou from "@/components/dreampreneur/DreampreneurThankYou";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Terima Kasih — Dreampreneur Batch 2 | Dreamlab",
   description:

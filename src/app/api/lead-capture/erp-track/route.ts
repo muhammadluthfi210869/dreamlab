@@ -33,6 +33,7 @@ import { cookies } from 'next/headers';
 import { decideBridge } from '@/lib/erp-bridge-server';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 async function readVisitorCookie(): Promise<string | null> {
   try {

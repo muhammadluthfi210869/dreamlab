@@ -3,6 +3,7 @@ import { getDbLeadStats } from '@/lib/round-robin-db';
 import { isInternalRequestAuthorized } from '@/lib/internal-auth';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * GET /api/round-robin-stats

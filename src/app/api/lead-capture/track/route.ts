@@ -3,6 +3,7 @@ import { insertLead } from '@/lib/round-robin-db';
 import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * POST /api/lead-capture/track
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     const res = NextResponse.json(
       { trackingCode: result.trackingCode, waUrl: result.waUrl },
-      { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
     );
 
     setVisitorCookieIfNew(res, req, visitorId);

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * GET /api/round-robin/redirect
@@ -14,9 +15,9 @@ export async function GET(req: NextRequest) {
   try {
     const visitorId = getOrCreateVisitorId(req);
 
-    const res = NextResponse.redirect('/thankyou-medsos/', {
+    const res = NextResponse.redirect(new URL('/thankyou-medsos/', req.url), {
       status: 302,
-      headers: { 'Cache-Control': 'no-store, max-age=0' },
+      headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' },
     });
 
     setVisitorCookieIfNew(res, req, visitorId);

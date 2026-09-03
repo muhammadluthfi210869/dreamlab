@@ -4,6 +4,7 @@ import { getAllPipelineLeadCounts, KOMMO_PIPELINE_MAPPING } from '@/lib/kommo-cl
 import { isInternalRequestAuthorized } from '@/lib/internal-auth';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * GET /api/kommo-comparison

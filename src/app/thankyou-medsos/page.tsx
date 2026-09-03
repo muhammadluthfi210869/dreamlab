@@ -1,6 +1,9 @@
 import { ThankYouRoundRobin } from "@/components/ThankYouRoundRobin";
 import { buildWaMessage } from "@/lib/wa-message";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default function ThankYouMedsos() {
   return (
     <ThankYouRoundRobin

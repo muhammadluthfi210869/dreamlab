@@ -88,8 +88,8 @@ export function pickEmergencyFallbackAgent(): Agent {
 
   console.error(
     '[round-robin-config] KRITIS: semua agent di AGENTS berstatus nonaktif (active: false). ' +
-      'Fallback darurat ke AGENTS[0] sambil abaikan flag active, supaya lead tetap tersalurkan. ' +
+      'Fallback darurat acak ke AGENTS sambil abaikan flag active, supaya lead tetap tersalurkan. ' +
       'Segera cek/perbaiki round-robin-config.ts.'
   );
-  return AGENTS[0];
+  return AGENTS[Math.floor(Math.random() * AGENTS.length)];
 }

@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getNextAgentFromDb } from '@/lib/round-robin-db';
+import { getNextAgentFromDb, normalizePhone } from '@/lib/round-robin-db';
+import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * GET /api/lead-capture/next
  * Ambil CS berikutnya (round-robin + sticky) dari PostgreSQL dedicated.
  * 1 visitor = 1 CS — counter hanya maju untuk visitor BARU.
- * Response disamakan dengan ERP lama: { id, name, phoneNumber, orderIndex }
  */
 export async function GET(req: NextRequest) {
   try {
@@ -22,14 +23,23 @@ export async function GET(req: NextRequest) {
         phoneNumber: agent.phoneNumber,
         orderIndex: agent.orderIndex,
       },
-      { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
     );
 
     setVisitorCookieIfNew(res, req, visitorId);
 
     return res;
   } catch (err) {
-    console.error('[lead-capture/next] Gagal ambil agent:', err);
-    return NextResponse.json({ error: 'Assignment failed' }, { status: 500 });
+    console.error('[lead-capture/next] Gagal ambil agent dari DB, fallback ke random active agent:', err);
+    const fallback = pickEmergencyFallbackAgent();
+    return NextResponse.json(
+      {
+        id: fallback.id,
+        name: fallback.name || fallback.id,
+        phoneNumber: normalizePhone(fallback.phone),
+        orderIndex: Math.floor(Math.random() * 100),
+      },
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
+    );
   }
 }

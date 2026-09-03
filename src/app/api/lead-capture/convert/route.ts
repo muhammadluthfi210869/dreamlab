@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { convertLead } from '@/lib/round-robin-db';
+import { convertLead, normalizePhone } from '@/lib/round-robin-db';
+import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import { getOrCreateVisitorId, setVisitorCookieIfNew } from '@/lib/visitor';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * POST /api/lead-capture/convert/
  * Alur BARU & tercepat: assign CS (sticky/rotasi) + simpan lead (dedup)
- * dalam SATU panggilan DB. Pengganti dua langkah lama:
- *   GET  /api/lead-capture/next/  → ambil CS
- *   POST /api/lead-capture/track/ → simpan lead
- * Kini cukup 1 request, 1 query DB → latency jauh lebih rendah.
- *
- * Response:
- *   { id, name, phoneNumber, orderIndex, trackingCode, waUrl }
+ * dalam SATU panggilan DB.
  */
 export async function POST(req: NextRequest) {
   try {
@@ -52,14 +48,28 @@ export async function POST(req: NextRequest) {
         trackingCode: result.trackingCode,
         waUrl: result.waUrl,
       },
-      { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
     );
 
     setVisitorCookieIfNew(res, req, visitorId);
 
     return res;
   } catch (err) {
-    console.error('[lead-capture/convert] Gagal assign+track lead:', err);
-    return NextResponse.json({ error: 'Convert failed' }, { status: 500 });
+    console.error('[lead-capture/convert] Gagal assign+track lead, fallback ke random active agent:', err);
+    const fallback = pickEmergencyFallbackAgent();
+    const phone = normalizePhone(fallback.phone);
+    const trackingCode = `DL-LOCAL-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    const waUrl = `https://wa.me/${phone}`;
+    return NextResponse.json(
+      {
+        id: fallback.id,
+        name: fallback.name || fallback.id,
+        phoneNumber: phone,
+        orderIndex: Math.floor(Math.random() * 100),
+        trackingCode,
+        waUrl,
+      },
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
+    );
   }
 }

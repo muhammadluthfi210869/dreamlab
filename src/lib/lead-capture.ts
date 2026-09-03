@@ -129,15 +129,18 @@ function localFallbackAgent(vid: string): RoundRobinAgent {
     return sticky;
   }
 
-  let index = 0;
+  let index = Math.floor(Math.random() * active.length);
   if (typeof window !== "undefined") {
-    index = parseInt(localStorage.getItem(FALLBACK_COUNTER_KEY) || "0", 10) || 0;
-  }
-  const agent = active[index % active.length];
-
-  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem(FALLBACK_COUNTER_KEY);
+    if (stored !== null) {
+      const parsed = parseInt(stored, 10);
+      if (!isNaN(parsed)) {
+        index = parsed % active.length;
+      }
+    }
     localStorage.setItem(FALLBACK_COUNTER_KEY, String((index + 1) % active.length));
   }
+  const agent = active[index % active.length];
 
   const fallbackAgent: RoundRobinAgent = {
     id: agent.id,
@@ -193,22 +196,19 @@ export interface ConvertLeadCaptureResult {
 }
 
 /**
- * Endpoint round-robin VPS (Biznet). Round-robin TIDAK lagi lewat Vercel →
- * DB (jalur itu tidak andal). Browser memanggil layanan lead di VPS langsung
- * lewat HTTPS — layanan ini berada di mesin yang sama dengan database, jadi
- * assign + simpan lead cepat & andal.
- *
- * Bisa di-override via env NEXT_PUBLIC_LEAD_API_URL (tanpa trailing slash).
+ * Endpoint round-robin Next.js internal / VPS.
+ * Default ke `/api/lead-capture` (internal Next.js API route) yang terhubung ke PostgreSQL.
+ * Bisa di-override via env NEXT_PUBLIC_LEAD_API_URL jika memakai external service.
  */
 const LEAD_API_BASE =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_LEAD_API_URL) ||
-  "https://nexerp.id/lead";
+  "/api/lead-capture";
 
 /**
  * Alur TERCEPAT (dipakai halaman thankyou): assign CS + simpan lead dalam
- * SATU panggilan ke layanan VPS. Pengganti dua langkah lama (getNextRoundRobinAgent
- * lalu trackLead) → 1 request + 1 query DB (lokal di VPS).
- * Kalau VPS gagal → fallback lokal + kode LOCAL-... (chat tetap jalan).
+ * SATU panggilan ke layanan API. Pengganti dua langkah lama (getNextRoundRobinAgent
+ * lalu trackLead) → 1 request + 1 query DB.
+ * Kalau API gagal → fallback lokal + kode LOCAL-... (chat tetap jalan secara merata).
  */
 export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLeadCaptureResult> {
   const vid = getClientVisitorId();
