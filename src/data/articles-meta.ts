@@ -3065,7 +3065,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/maklon-parfum-terbaik-free-marketing-kit",
-    "title": "Cari Maklon Parfum Terbaik? Bangun Produk High Demand dengan FREE Marketing Kit Dreamlab",
+    "title": "Panduan Maklon Parfum Eksklusif: Formulasi Custom Aroma, Legalitas BPOM, dan Strategi Brand",
     "publishDate": "2026-08-18T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -3076,12 +3076,11 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Parfum",
       "Jasa Maklon",
       "Custom Aroma",
-      "Marketing Kit",
       "Brand Parfum"
     ],
     "featuredImage": "maklon_parfum_free_marketing_kit_dreamlab.jpg",
-    "excerpt": "Cari maklon parfum terbaik? Dreamlab membantu custom aroma, BPOM, produksi, dan persiapan penjualan dengan FREE Marketing Kit untuk brand Anda.",
-    "readingMinutes": 9
+    "excerpt": "Jasa maklon parfum EDP & Extrait de Parfum BPOM dengan sistem 1 Client = 1 Custom Formula, standar CPKB Grade A, dan MOQ fleksibel untuk bisnis Anda.",
+    "readingMinutes": 6
   },
   {
     "slug": "/maklon-kosmetik-mojokerto",
