@@ -36,7 +36,9 @@ export default function WhatsAppButton() {
   const handleClick = useCallback(() => {
     const source = getLeadSource(window.location.pathname);
     const ctx = getPageContext(window.location.href);
-    window.location.assign(buildThankyouUrl({ source, ctx }));
+    // Lead attribution journey (Batch 4 §3) — pass source page + CTA id.
+    const from = window.location.pathname.slice(0, 500);
+    window.location.assign(buildThankyouUrl({ source, ctx, from, cta: 'whatsapp-button-global' }));
   }, []);
 
   if (isDreampreneurThankYou) {

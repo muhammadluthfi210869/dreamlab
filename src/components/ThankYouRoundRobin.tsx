@@ -5,10 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { fireConversion } from "@/lib/tracking";
-import { convertLeadCapture, type RoundRobinAgent } from "@/lib/lead-capture";
+import {
+  convertLeadCapture,
+  convertLeadCaptureWithErpBridge,
+  BridgeConflictError,
+  type RoundRobinAgent,
+} from "@/lib/lead-capture";
 import { buildWhatsAppUrl } from "@/lib/lead-routing";
 import { buildChannelPrefixedMessage, buildWaMessage } from "@/lib/wa-message";
 import { normalizeLeadSource } from "@/lib/lead-source";
+import { buildTrackingCodeFragment } from "@/lib/tracking-code";
 
 type ThankYouRoundRobinProps = {
   defaultSource: string;
@@ -33,8 +39,15 @@ export function ThankYouRoundRobin({
   const [agent, setAgent] = useState<RoundRobinAgent | null>(null);
   const [loading, setLoading] = useState(true);
   const [navigated, setNavigated] = useState(false);
-  const [trackingCode, setTrackingCode] = useState("");
+  const [bridgeError, setBridgeError] = useState<string | null>(null);
+  const [erpTrackingCode, setErpTrackingCode] = useState<string | null>(null);
+  const [erpDestinationPhone, setErpDestinationPhone] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Batch 2 — feature flag is public-readonly (allowed per spec §30) so the
+  // client can branch. The SECRET stays server-side.
+  const erpBridgeEnabled =
+    process.env.NEXT_PUBLIC_DREAMLAB_ERP_BRIDGE_ENABLED === "true";
 
   // Pesan trigger per channel (dari git sebelumnya), contoh:
   // "Hi Dreamlab saya mengetahui dari Google saya ingin konsultasi..."
@@ -84,6 +97,10 @@ export function ThankYouRoundRobin({
   // dua langkah lama (getNextRoundRobinAgent lalu trackLead) → latency jauh
   // lebih rendah. Kalau server/DB gagal, convertLeadCapture otomatis pakai
   // fallback lokal (CS + kode LOCAL-...), jadi tombol tetap aktif.
+  //
+  // Batch 2 — ketika NEXT_PUBLIC_DREAMLAB_ERP_BRIDGE_ENABLED=true, panggil
+  // versi with-Erp-bridge: VPS assign CS → server-side bridge ke ERP → kalau
+  // bridge gagal, JANGAN tampilkan tombol (no untracked WA open).
   useEffect(() => {
     let cancelled = false;
 
@@ -95,7 +112,17 @@ export function ThankYouRoundRobin({
     const productIntent =
       intentCtx || (messageMap?.[intentSource] ? intentSource : "") || intentMsg || title;
 
-    convertLeadCapture({
+    // Lead attribution journey (Batch 4 §3). The CTA forwarded:
+    //   ?from=<source page path>   → bridge → ERP sourcePage
+    //   ?cta=<cta identifier>      → bridge → ERP ctaType
+    //   ctaClickedAt / thankYouViewedAt stamped HERE (UTC ISO) — both
+    //   recorded against the same journey, not the CTA click which lives
+    //   on the source page.
+    const fromParam = params.get("from") || undefined;
+    const ctaParam = params.get("cta") || undefined;
+    const thankYouViewedAtIso = new Date().toISOString();
+
+    const basePayload = {
       source: normalizeLeadSource(resolvedSource),
       intent: productIntent,
       pageUrl: window.location.href,
@@ -103,44 +130,100 @@ export function ThankYouRoundRobin({
       utmSource: params.get("utm_source") || undefined,
       utmMedium: params.get("utm_medium") || undefined,
       utmCampaign: params.get("utm_campaign") || undefined,
-    })
+      sourcePage: fromParam,
+      ctaType: ctaParam,
+      thankYouViewedAt: thankYouViewedAtIso,
+    };
+
+    const run = erpBridgeEnabled
+      ? convertLeadCaptureWithErpBridge(basePayload)
+      : convertLeadCapture(basePayload);
+
+    run
       .then((r) => {
         if (cancelled) return;
         setAgent(r.agent);
-        setTrackingCode(r.trackingCode);
+        if (erpBridgeEnabled && r.erpBridge) {
+          setErpTrackingCode(r.erpTrackingCode ?? null);
+          setErpDestinationPhone(r.waDestinationPhone ?? null);
+        }
         setLoading(false);
       })
-      .catch(() => {
-        if (!cancelled) setLoading(false);
+      .catch((err) => {
+        if (cancelled) return;
+        // Batch 2: pada mode bridge, error = JANGAN buka WA. Tampilkan pesan.
+        if (erpBridgeEnabled) {
+          if (err instanceof BridgeConflictError) {
+            setBridgeError("IDEMPOTENCY_CONFLICT");
+          } else {
+            setBridgeError("BRIDGE_FAILED");
+          }
+        }
+        setLoading(false);
       });
 
     return () => {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultSource, messageMap, title]);
+  }, [defaultSource, messageMap, title, erpBridgeEnabled]);
 
   const redirectToWhatsApp = useCallback(async () => {
     if (!agent || navigated) return;
+    if (erpBridgeEnabled && (!erpTrackingCode || !erpDestinationPhone)) return;
     setNavigated(true);
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
 
-    // trackingCode diisi bersamaan dengan agent oleh convertLeadCapture, jadi
-    // sudah tersedia saat redirect (400ms kemudian). "LOCAL" hanya jaga-jaga.
-    const code = trackingCode || "LOCAL";
+    // Lead attribution journey (Batch 4 §3): fire-and-forget WA click
+    // recording. Self QR will later bind this journey to the inbound
+    // chat by matching [Kode: <erpTrackingCode>] in the message body.
+    // ERP_BRIDGE_URL is server-only — use the VPS /whatsapp-click route
+    // on the website side OR direct ERP public route. We hit the ERP
+    // public route when known; fall back silently if not configured.
+    if (erpTrackingCode) {
+      try {
+        const erpBase = (process as any)?.env?.NEXT_PUBLIC_ERP_BASE_URL;
+        if (erpBase) {
+          fetch(`${String(erpBase).replace(/\/+$/, '')}/lead-capture/whatsapp-click/${encodeURIComponent(erpTrackingCode)}`, {
+            method: 'POST',
+            cache: 'no-store',
+          }).catch(() => { /* fire-and-forget */ });
+        }
+      } catch {
+        // never block redirect
+      }
+    }
 
-    const url = buildWhatsAppUrl(
-      agent.phoneNumber,
-      `${resolvedMessage}\n\n[Kode: ${code}]`
-    );
+    // Batch 2: pesan WhatsApp HARUS memuat [Kode: <ERP trackingCode>] supaya
+    // inbound Wablas bisa match ke lead yang sama.
+    const baseMessage = erpBridgeEnabled && erpTrackingCode
+      ? `${resolvedMessage}\n\n${buildTrackingCodeFragment(erpTrackingCode)}`
+      : resolvedMessage;
+    const destinationPhone = erpBridgeEnabled && erpDestinationPhone
+      ? erpDestinationPhone
+      : agent.phoneNumber;
+
+    const url = buildWhatsAppUrl(destinationPhone, baseMessage);
     window.location.href = url;
-  }, [agent, navigated, trackingCode, resolvedMessage]);
+  }, [
+    agent,
+    navigated,
+    resolvedMessage,
+    erpBridgeEnabled,
+    erpTrackingCode,
+    erpDestinationPhone,
+  ]);
 
   useEffect(() => {
     if (!agent || navigated) return;
+    // Batch 2 — when ERP bridge is enabled, gate the auto-redirect on the
+    // ERP canonical tracking code + destination having landed. Otherwise
+    // we may open WhatsApp without [Kode: ...] in the message and the
+    // inbound Wablas match would fail. Spec §19.
+    if (erpBridgeEnabled && (!erpTrackingCode || !erpDestinationPhone)) return;
 
     // Redirect cepat (400ms) setelah agent siap — bukan 1 detik. Kalau tracking
     // code belum sempat terisi, redirectToWhatsApp tetap meng-await promise
@@ -156,9 +239,17 @@ export function ThankYouRoundRobin({
         timerRef.current = null;
       }
     };
-  }, [agent, navigated, redirectToWhatsApp]);
+  }, [
+    agent,
+    navigated,
+    redirectToWhatsApp,
+    erpBridgeEnabled,
+    erpTrackingCode,
+    erpDestinationPhone,
+  ]);
 
-  const isReady = Boolean(agent) && !navigated;
+  const isReady = Boolean(agent) && !navigated
+    && (!erpBridgeEnabled || Boolean(erpTrackingCode && erpDestinationPhone));
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
@@ -193,15 +284,26 @@ export function ThankYouRoundRobin({
           </div>
 
           <div className="space-y-4 pt-2">
-            <button
-              type="button"
-              onClick={redirectToWhatsApp}
-              disabled={!isReady}
-              className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 w-full sm:w-auto min-w-[320px]"
-            >
-              <MessageCircle className="w-5 h-5 shrink-0" />
-              <span>{ctaLabel}</span>
-            </button>
+            {bridgeError ? (
+              // Batch 2: bridge failure — generic Indonesian retry message,
+              // NO fallback to legacy untracked WA URL.
+              <p
+                role="alert"
+                className="text-sm text-neutral-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3"
+              >
+                WhatsApp belum dapat dibuka. Silakan coba lagi.
+              </p>
+            ) : (
+              <button
+                type="button"
+                onClick={redirectToWhatsApp}
+                disabled={!isReady}
+                className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 w-full sm:w-auto min-w-[320px]"
+              >
+                <MessageCircle className="w-5 h-5 shrink-0" />
+                <span>{ctaLabel}</span>
+              </button>
+            )}
 
             {loading && (
               <p className="text-xs text-neutral-400 font-medium animate-pulse">

@@ -39,7 +39,15 @@ export function getThankyouPath(source: string): string {
  * - msg    → custom message lengkap (artikel / brief form / dsb.) yang
  *            akan di-prefix channel oleh halaman thankyou
  */
-export function buildThankyouUrl(opts: { source?: string; ctx?: string; msg?: string }): string {
+export function buildThankyouUrl(opts: {
+  source?: string;
+  ctx?: string;
+  msg?: string;
+  /** Source page path/url — passed to thank-you → bridge as `sourcePage`. */
+  from?: string;
+  /** CTA identifier — passed to bridge as `ctaType`. */
+  cta?: string;
+}): string {
   const source = opts.source || 'organic';
   const path = getThankyouPath(source);
   const params = new URLSearchParams();
@@ -51,6 +59,9 @@ export function buildThankyouUrl(opts: { source?: string; ctx?: string; msg?: st
   }
   if (opts.ctx) params.set('ctx', opts.ctx);
   if (opts.msg) params.set('msg', opts.msg);
+  // Lead attribution journey (Batch 4 §3). Length-capped by caller.
+  if (opts.from) params.set('from', opts.from);
+  if (opts.cta) params.set('cta', opts.cta);
 
   // Teruskan atribusi iklan (gclid/fbclid/utm_*) dari URL halaman saat ini
   // ke halaman thankyou — khusus tombol CTA yang navigasi programatik

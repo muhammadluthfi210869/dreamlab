@@ -9,15 +9,31 @@ interface SmartWARRProps {
   label?: string;
   className?: string;
   fullWidth?: boolean;
+  /**
+   * CTA identifier carried through thank-you → ERP bridge → LeadCapture.ctaType.
+   * Defaults to "smart-wa-button". Other CTAs (hero, floating, footer) pass
+   * their own.
+   */
+  ctaType?: string;
 }
 
-export default function SmartWARRButton({ intent, label = "Konsultasi Gratis via WhatsApp", className = "", fullWidth = false }: SmartWARRProps) {
+export default function SmartWARRButton({
+  intent,
+  label = "Konsultasi Gratis via WhatsApp",
+  className = "",
+  fullWidth = false,
+  ctaType = "smart-wa-button",
+}: SmartWARRProps) {
   const handleClick = useCallback(() => {
     const source = getLeadSource(window.location.pathname);
     const msg = intent || document.title || "produk Dreamlab";
+    // Lead attribution journey (Batch 4 §3):
+    //   from = current source page path (capped at 500 chars)
+    //   cta  = CTA identifier (capped at 50 chars)
+    const from = window.location.pathname.slice(0, 500);
     // Semua klik → halaman thankyou sesuai channel, lalu auto-redirect ke WA
-    window.location.assign(buildThankyouUrl({ source, msg }));
-  }, [intent]);
+    window.location.assign(buildThankyouUrl({ source, msg, from, cta: ctaType }));
+  }, [intent, ctaType]);
 
   return (
     <button

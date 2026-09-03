@@ -238,6 +238,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       // halaman produk individual (tanpa menciptakan duplikat dgn versi flat).
       if (category.subCategories) {
         for (const sub of category.subCategories) {
+          // Tambahkan sub-category HUB page (mis. /produk/skincare/face-cream/)
+          // — halaman browse/search yang berisi daftar produk dan jadi landing
+          // page bagi long-tail query. Selalu indexable dan self-canonical.
+          productRoutes.push({
+            url: `${baseUrl}/produk/${category.slug}/${sub.slug}/`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.75,
+          });
           for (const product of sub.products) {
             if (!flatProductSlugs.has(product.slug)) {
               productRoutes.push({

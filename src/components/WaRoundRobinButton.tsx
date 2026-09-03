@@ -21,7 +21,9 @@ export default function WaRoundRobinButton({ message, className, children }: WaR
   const handleClick = useCallback(() => {
     const source = getLeadSource(window.location.pathname);
     const msg = message || document.title || "produk Dreamlab";
-    window.location.assign(buildThankyouUrl({ source, msg }));
+    // Lead attribution journey (Batch 4 §3) — pass source page + CTA id.
+    const from = window.location.pathname.slice(0, 500);
+    window.location.assign(buildThankyouUrl({ source, msg, from, cta: 'wa-round-robin-button' }));
   }, [message]);
 
   return <button onClick={handleClick} className={className}>{children}</button>;

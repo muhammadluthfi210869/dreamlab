@@ -184,6 +184,12 @@ export interface ConvertLeadCaptureResult {
   agent: RoundRobinAgent;
   trackingCode: string;
   waUrl: string;
+  /** True when Batch 2 ERP bridge produced this result (vs legacy VPS-only). */
+  erpBridge?: boolean;
+  /** Canonical ERP tracking code, distinct from the legacy VPS code. */
+  erpTrackingCode?: string;
+  /** Resolved WhatsApp destination from ERP (env-driven device). */
+  waDestinationPhone?: string;
 }
 
 /**
@@ -238,6 +244,43 @@ export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLe
     return { agent, trackingCode, waUrl };
   }
 }
+
+/**
+ * Batch 2 — final cross-repo closure.
+ *
+ * The real implementation lives in `./bridge-client.ts` — a standalone
+ * module that does NOT import round-robin-config (so it stays unit-testable
+ * under Node 22 `--experimental-strip-types` without a transpiler hook).
+ * This file re-exports the public surface for backward compatibility with
+ * existing consumers like `ThankYouRoundRobin.tsx`.
+ *
+ * Behavior contract (unchanged):
+ *
+ *   - The BROWSER calls the website server route EXACTLY ONCE. The browser
+ *     MUST NOT independently call the VPS /convert endpoint when bridge
+ *     mode is enabled.
+ *   - On any failure (network, 4xx, 5xx, 409, route 404) the function
+ *     THROWS — the caller MUST NOT fall back to a non-bridged WA URL.
+ *   - 409 IDEMPOTENCY_CONFLICT surfaces as `BridgeConflictError`.
+ */
+export {
+  convertLeadCaptureWithErpBridge,
+  BridgeConflictError,
+  type ConvertWithErpInput,
+  type ConvertBridgeResult,
+} from './bridge-client';
+
+// Local-view of the bridge result — kept here so existing imports of
+// `convertLeadCaptureWithErpBridge` continue to see a `ConvertLeadCaptureResult`-
+// shaped response (with `erpBridge`, `erpTrackingCode`, `waDestinationPhone`).
+export type ConvertLeadCaptureResultWithBridge = {
+  agent: RoundRobinAgent;
+  trackingCode: string;
+  waUrl: string;
+  erpBridge?: boolean;
+  erpTrackingCode?: string;
+  waDestinationPhone?: string;
+};
 
 export interface TrackLeadData {
   intent?: string;

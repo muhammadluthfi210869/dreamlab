@@ -24,6 +24,11 @@ export const EN_TRANSLATED_PATHS = new Set<string>([
   '/services',
   '/our-client',
   '/contact-us',
+  // /produk/ ↔ /en/produk/ — katalog produk Dreamlab. Setelahnya, buildAlternates()
+  // akan menghasilkan hreflang id/en/x-default yang resiprokal untuk kedua halaman.
+  // Tidak termasuk /produk/{category}/ (detail) — EN catalogue tidak punya halaman
+  // detail setara, jadi hreflang dibatasi hanya pada hub katalog.
+  '/produk',
 ]);
 
 /** Path English untuk path Indonesia tertentu (null kalau belum ada versi EN). */

@@ -14,8 +14,10 @@ export default function FloatingWhatsApp() {
   const handleClick = useCallback(() => {
     const source = getLeadSource(window.location.pathname);
     const ctx = getPageContext(window.location.href);
+    // Lead attribution journey (Batch 4 §3) — pass source page + CTA id.
+    const from = window.location.pathname.slice(0, 500);
     // Semua klik → halaman thankyou sesuai channel, lalu auto-redirect ke WA
-    window.location.assign(buildThankyouUrl({ source, ctx }));
+    window.location.assign(buildThankyouUrl({ source, ctx, from, cta: 'floating-wa' }));
   }, []);
 
   return (

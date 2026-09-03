@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { homepageData } from "@/data/homepage";
 import CtaSection from "@/components/CtaSection";
+import { buildAlternates } from "@/lib/seo-lang";
 
 const KatalogProduk = dynamic(() => import("@/components/KatalogProduk"));
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Katalog produk maklon kosmetik Dreamlab: skincare, body care, hair care, decorative, baby care, parfum, foot care, dan PKRT. BPOM, CPKB, Halal MUI. MOQ fleksibel.",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-  alternates: { canonical: "https://dreamlab.id/produk/" },
+  alternates: buildAlternates("/produk/"),
   openGraph: {
     type: "website",
     locale: "id_ID",

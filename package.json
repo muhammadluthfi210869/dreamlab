@@ -23,6 +23,7 @@
     "verify:all": "npm run build && npm run verify:redirects && npm run verify:lead-flow && npm run verify:round-robin && npm run verify:seo && npm run verify:assets",
     "db:migrate": "node scripts/db-migrate.mjs",
     "crawl:baseline": "npx tsx scripts/crawl-baseline.ts",
+    "test:bridge-batch2": "node --experimental-strip-types --test src/lib/__tests__/erp-bridge-server.spec.ts",
     "psi:snapshot": "npx tsx scripts/pagespeed-snapshot.ts",
     "gsc:baseline": "npx tsx scripts/gsc-baseline.ts",
     "preflight": "npm run verify:all"

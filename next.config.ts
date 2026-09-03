@@ -325,6 +325,11 @@ const nextConfig: NextConfig = {
       ['/berapa-biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
       ['/biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
       ['/rincian-biaya-produksi-serum', '/rincian-biaya-produksi-serum-wajah/'],
+      // City maklon aliases & legacy variants
+      ['/jasa-maklon-kosmetik-jember', '/jasa-maklon-kosmetik-di-jember/'],
+      ['/maklon-kosmetik-jember', '/jasa-maklon-kosmetik-di-jember/'],
+      ['/maklon-kosmetik-madiun', '/jasa-maklon-kosmetik-madiun/'],
+      ['/maklon-kosmetik-banyuwangi', '/jasa-maklon-kosmetik-banyuwangi/'],
     ];
     for (const [source, destination] of wordpressRedirects) {
       addRedirect(source, destination);

@@ -196,7 +196,7 @@ export default async function DynamicPage({ params }: PageProps) {
       excerpt: articleOverride?.excerpt || article.excerpt,
       content: processArticleContent(optimizeArticleImages(cleanWordPressHtml(articleOverride?.content || article.content))),
     };
-    const articleFaqs = articleOverride?.faqs || [];
+    const articleFaqs = article.faqs || articleOverride?.faqs || [];
     const recentPosts = [...articlesList]
       .filter(a => a.slug !== article.slug && a.title)
       .sort((a, b) => {
