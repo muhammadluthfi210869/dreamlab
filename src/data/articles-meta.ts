@@ -3061,7 +3061,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "dreamlab_maklon_kosmeti_jawa_tengah_11zon.jpg",
     "excerpt": "Cari jasa maklon kosmetik dan skincare untuk Jawa Tengah? Dreamlab membantu dari konsep, custom formula, BPOM, produksi, hingga strategi pemasaran brand Anda.",
-    "readingMinutes": 12
+    "readingMinutes": 11
   },
   {
     "slug": "/maklon-parfum-terbaik-free-marketing-kit",
