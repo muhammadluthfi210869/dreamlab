@@ -13,6 +13,26 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-lip-serum-bpom",
+    "title": "Jasa Maklon Lip Serum BPOM: Riset Formula Adaptif pH & Tren Hybrid Lip Care",
+    "publishDate": "2026-09-03T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Lip Serum",
+      "Lip Serum BPOM",
+      "Hybrid Lip Care",
+      "Custom Formula"
+    ],
+    "featuredImage": "maklon_lip_serum_hero_dreamlab.jpg",
+    "excerpt": "Jasa maklon lip serum BPOM berstandar CPKB Grade A. Formulasi adaptif pH, plumping nyaman, sistem 1-client 1-formula, fasilitas higienis, dan MOQ fleksibel.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/maklon-sunscreen-hybrid-bpom",
     "title": "Maklon Sunscreen Hybrid & Tinted: Cara Bikin Produk Proteksi UV Sekaligus Coverage untuk Brand Sendiri",
     "publishDate": "2026-09-02T00:00:00+00:00",
