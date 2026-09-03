@@ -48,9 +48,9 @@ export const articlesMeta: ArticleMeta[] =
       "BPOM",
       "Custom Formula"
     ],
-    "featuredImage": "/images/artikel-moq-fleksibel/maklon-skincare-moq-fleksibel-hero.jpg",
+    "featuredImage": "maklon_skincare_moq_fleksibel_hero.jpg",
     "excerpt": "Uji pasar brand skincare impian Anda dengan skema maklon skincare MOQ fleksibel. Nikmati sistem 1-client 1-formula berstandar CPKB resmi Dreamlab.",
-    "readingMinutes": 8
+    "readingMinutes": 5
   },
   {
     "slug": "/jasa-maklon-kosmetik-probolinggo",
