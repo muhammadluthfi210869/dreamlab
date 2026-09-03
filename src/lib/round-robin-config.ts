@@ -73,11 +73,26 @@ export function getActiveAgents(): Agent[] {
  * di atas "distribusi tetap rapi", karena skenario ini seharusnya sangat
  * jarang terjadi dan butuh perhatian manual segera (makanya di-log
  * sebagai error kritis).
+ *
+ * Distribusi: pakai counter modulo (deterministik per-instance), BUKAN
+ * Math.random(). Math.random() secara teori uniform, tapi dalam burst
+ * pendek (mis. 18 lead dalam 5 menit) bisa sangat tidak merata karena
+ * tidak ada jaminan distribusi. Counter modulo memberi rotasi pasti:
+ * panggilan ke-1 → CS[0], ke-2 → CS[1], dst — wrap-around otomatis.
+ *
+ * Caveat: counter ini per-instance serverless. Vercel tidak share memory
+ * antar instance — 2 instance warm masing-masing punya counter sendiri.
+ * Untuk distribusi lintas-instance deterministik, butuh Redis (lihat
+ * getNextAgent di roundRobin.ts). Ini prioritas "tidak miring parah
+ * dalam burst" di atas "sempurna lintas instance".
  */
+let _fbCounter = 0;
 export function pickEmergencyFallbackAgent(): Agent {
   const active = AGENTS.filter((a) => a.active);
   if (active.length > 0) {
-    return active[Math.floor(Math.random() * active.length)];
+    const picked = active[_fbCounter % active.length];
+    _fbCounter = (_fbCounter + 1) >>> 0; // modulo-safe increment
+    return picked;
   }
 
   if (AGENTS.length === 0) {
@@ -91,5 +106,7 @@ export function pickEmergencyFallbackAgent(): Agent {
       'Fallback darurat acak ke AGENTS sambil abaikan flag active, supaya lead tetap tersalurkan. ' +
       'Segera cek/perbaiki round-robin-config.ts.'
   );
-  return AGENTS[Math.floor(Math.random() * AGENTS.length)];
+  const picked = AGENTS[_fbCounter % AGENTS.length];
+  _fbCounter = (_fbCounter + 1) >>> 0;
+  return picked;
 }
