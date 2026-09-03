@@ -2969,7 +2969,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/jasa-maklon-kosmetik-di-jember",
-    "title": "Jasa Maklon Kosmetik untuk Brand di Jember dengan Free Custom Formula",
+    "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -2978,11 +2978,13 @@ export const articlesMeta: ArticleMeta[] =
     "tags": [
       "Maklon Kosmetik",
       "Maklon Jember",
-      "Custom Formula"
+      "Custom Formula",
+      "Tapal Kuda",
+      "Skincare BPOM"
     ],
-    "featuredImage": null,
-    "excerpt": "Jasa maklon kosmetik untuk brand di Jember: custom formula, pengembangan produk, legalitas, kemasan, hingga produksi bersama Dreamlab.",
-    "readingMinutes": 4
+    "featuredImage": "/images/artikel-jember/maklon-kosmetik-jember-hero.jpg",
+    "excerpt": "Bikin brand skincare BPOM tren terkini di Jember. Nikmati sistem 1-client 1-formula, MOQ fleksibel, dan legalitas resmi bersama Dreamlab maklon juaranya formula.",
+    "readingMinutes": 7
   },
   {
     "slug": "/layanan-one-stop-maklon-kosmetik-dreamlab",
@@ -3141,7 +3143,6 @@ export const articlesMeta: ArticleMeta[] =
     "slug": "/maklon-kosmetik-makassar",
     "title": "Maklon Kosmetik Makassar: Bangun Brand Kosmetik Anda Bersama Partner Produksi yang Tepat",
     "publishDate": "2026-08-29T00:00:00+00:00",
-
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
       "Maklon Kosmetik"
@@ -3218,26 +3219,6 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/artikel-bisnis-skincare/alasan-memulai-bisnis-brand-skincare-hero.jpg",
     "excerpt": "Ingin memulai bisnis skincare? Pelajari cara memilih produk berdasarkan demand pasar, menemukan solusi masalah customer, hingga alur maklon 8 langkah bersama Dreamlab.",
     "readingMinutes": 10
-
-  }
-]
-;,
-  {
-    "slug": "/jasa-maklon-kosmetik-banyuwangi",
-    "title": "Jasa Maklon Kosmetik Banyuwangi, Free Custom Formula | Dreamlab",
-    "publishDate": "2026-09-02T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Maklon Kosmetik"
-    ],
-    "tags": [
-      "Maklon Kosmetik",
-      "Maklon Banyuwangi",
-      "Custom Formula"
-    ],
-    "featuredImage": "/images/artikel-banyuwangi/maklon-kosmetik-banyuwangi-hero.jpg",
-    "excerpt": "Jasa maklon kosmetik Banyuwangi: custom formula, R&D bahan lokal (kopi Ijen, buah naga, kakao), BPOM, Halal, hingga produksi siap edar bersama Dreamlab.",
-    "readingMinutes": 6
   },
   {
     "slug": "/jasa-maklon-kosmetik-madiun",
@@ -3250,10 +3231,30 @@ export const articlesMeta: ArticleMeta[] =
     "tags": [
       "Maklon Kosmetik",
       "Maklon Madiun",
-      "Custom Formula"
+      "Custom Formula",
+      "Winning Product Skincare"
     ],
     "featuredImage": "/images/artikel-madiun/maklon-kosmetik-madiun-hero.jpg",
-    "excerpt": "Jasa maklon kosmetik Madiun: custom formula winning product skincare, serum, sunscreen, legalitas BPOM, Halal MUI, dan alur maklon 8 langkah bersama Dreamlab.",
+    "excerpt": "Jasa maklon kosmetik untuk brand di Madiun, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.",
     "readingMinutes": 7
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-banyuwangi",
+    "title": "Jasa Maklon Kosmetik Banyuwangi, Free Custom Formula | Dreamlab",
+    "publishDate": "2026-09-02T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Banyuwangi",
+      "Potensi Lokal Skincare",
+      "Custom Formula"
+    ],
+    "featuredImage": "/images/artikel-banyuwangi/maklon-kosmetik-banyuwangi-hero.jpg",
+    "excerpt": "Jasa maklon kosmetik untuk brand di Banyuwangi, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.",
+    "readingMinutes": 6
   }
-];
+]
+;
