@@ -3078,9 +3078,9 @@ export const articlesMeta: ArticleMeta[] =
       "Custom Aroma",
       "Brand Parfum"
     ],
-    "featuredImage": "maklon_parfum_free_marketing_kit_dreamlab.jpg",
+    "featuredImage": "maklon_parfum_kemasan_mewah_dreamlab.jpg",
     "excerpt": "Jasa maklon parfum EDP & Extrait de Parfum BPOM dengan sistem 1 Client = 1 Custom Formula, standar CPKB Grade A, dan MOQ fleksibel untuk bisnis Anda.",
-    "readingMinutes": 6
+    "readingMinutes": 5
   },
   {
     "slug": "/maklon-kosmetik-mojokerto",
