@@ -25,6 +25,7 @@ const pool = new pg.Pool({
   database: decodeURIComponent(u.pathname.replace(/^\//, '')),
   user: decodeURIComponent(u.username),
   password: decodeURIComponent(u.password),
+  ssl: { rejectUnauthorized: false },
   max: 2,
   connectionTimeoutMillis: 10000,
 });
