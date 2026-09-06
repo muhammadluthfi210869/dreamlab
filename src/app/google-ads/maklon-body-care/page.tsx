@@ -42,7 +42,22 @@ export default function GoogleAdsMaklonBodyCare() {
         
         
 
-        .bodycare-lp .metrics { background:var(--paper); padding:40px 0; border-bottom:1px solid var(--line); }
+        
+          .bodycare-lp .metrics { position:relative; margin-top:-44px; z-index:3; }
+          .bodycare-lp .metric-card { background:#fff; border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); display:grid; grid-template-columns:1.4fr 1fr 1fr; align-items:center; padding:27px 32px; }
+          .bodycare-lp .metric-card h2 { font-size:22px; line-height:1.3; margin:0; }
+          .bodycare-lp .metric { padding-left:30px; border-left:1px solid var(--line); }
+          .bodycare-lp .metric b { display:block; color:var(--blue); font-size:34px; }
+          .bodycare-lp .metric span { font-size:13px; color:var(--muted); }
+          @media (max-width: 1024px) {
+            .bodycare-lp .metric-card { grid-template-columns:1fr 1fr; padding:20px 16px; text-align:center; gap: 16px; }
+            .bodycare-lp .metric-card h2 { grid-column:1/-1; font-size:18px; margin-bottom:0px; }
+            .bodycare-lp .metric { padding:0; border:0; }
+            .bodycare-lp .metric+ .metric { border-left:1px solid var(--line); }
+            .bodycare-lp .metric b { font-size:28px; }
+          }
+
+          .bodycare-lp .metrics-orig { background:var(--paper); padding:40px 0; border-bottom:1px solid var(--line); }
         .bodycare-lp .metric-card { background:#fff; border-radius:24px; padding:32px 40px; box-shadow:var(--shadow); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:32px; margin-top:-90px; position:relative; z-index:10; }
         .bodycare-lp .metric-card h2 { font-size:24px; font-weight:800; margin:0; max-width:300px; line-height:1.3; }
         .bodycare-lp .metric { display:flex; flex-direction:column; }
@@ -200,8 +215,13 @@ export default function GoogleAdsMaklonBodyCare() {
           
           <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px"}}>
             <div className="wrap">
-              <div className="title" style={{marginBottom: "20px"}}>
-                <span className="eyebrow">500++ BRAND BEKERJASAMA | 1000++ PRODUK</span>
+              <div className="metric-card" style={{marginBottom: "40px", marginTop: "-100px", position: "relative", zIndex: 10}}>
+                <h2>Dipercaya untuk Mengembangkan Brand Beauty</h2>
+                <div className="metric"><b data-count="500">0++</b><span>Brand bekerja sama</span></div>
+                <div className="metric"><b data-count="1000">0+</b><span>Produk dikembangkan</span></div>
+              </div>
+              
+              <div className="title" style={{marginBottom: "20px", marginTop: "20px"}}>
                 <h2 style={{fontSize:"28px"}}>MENGAPA MEMILIH DREAMLAB?</h2>
               </div>
               <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
@@ -303,6 +323,35 @@ export default function GoogleAdsMaklonBodyCare() {
             <p>Mulai dari konsep formulasi sampai siap masuk market bersama Dreamlab.</p>
             <a className="btn track" data-location="closing" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
+        
+          <script dangerouslySetInnerHTML={{ __html: `
+            document.addEventListener("DOMContentLoaded", function() {
+              const observer = new IntersectionObserver(es => {
+                es.forEach(e => {
+                  if(!e.isIntersecting) return;
+                  document.querySelectorAll('[data-count]').forEach(el => {
+                    const target = +(el.getAttribute('data-count') || 0);
+                    let current = 0;
+                    const increment = target / 40;
+                    const updateCounter = () => {
+                      current += increment;
+                      if(current < target) {
+                        el.innerText = Math.ceil(current) + (target === 500 ? "++" : "+");
+                        setTimeout(updateCounter, 30);
+                      } else {
+                        el.innerText = target + (target === 500 ? "++" : "+");
+                      }
+                    };
+                    updateCounter();
+                  });
+                  observer.disconnect();
+                });
+              }, {threshold:.25});
+              const metrics = document.querySelector('.metric-card');
+              if(metrics) observer.observe(metrics);
+            });
+          `}} />
+
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/google-ads/" aria-label="Konsultasi WhatsApp">
