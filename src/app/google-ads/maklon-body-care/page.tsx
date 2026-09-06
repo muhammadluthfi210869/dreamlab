@@ -249,10 +249,10 @@ export default function GoogleAdsMaklonBodyCare() {
               </div>
 
               <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
-                <div className="check"><i>&#10003;</i><b>Fokus Skin Barrier & Hidrasi</b></div>
-                <div className="check"><i>&#10003;</i><b>Tren Body Serum & Sunscreen</b></div>
-                <div className="check"><i>&#10003;</i><b>Body Care Wangi Parfum Premium</b></div>
-                <div className="check"><i>&#10003;</i><b>Infusi Bahan Aktif Skincare</b></div>
+                <div className="check"><i>&#10003;</i><b>Barrier & Hydration</b></div>
+                <div className="check"><i>&#10003;</i><b>Body Serum & Sunscreen</b></div>
+                <div className="check"><i>&#10003;</i><b>Signature Fragrance</b></div>
+                <div className="check"><i>&#10003;</i><b>Active Ingredient Body Care</b></div>
               </div>
             </div>
           </section>
