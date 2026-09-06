@@ -173,39 +173,39 @@ export default function MaklonSkincareAdsLP() {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-sm border border-black/5">
-              <Image src="/new asset/landing page/skincare.webp" alt="Skincare" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(0,0,0,0.15)] border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1">
+              <Image src="/assets/landing-skincare/catalog-skincare.jpg" alt="Skincare" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 via-40% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white drop-shadow-md">
                 <h3 className="text-lg md:text-2xl font-black uppercase tracking-wide mb-1 md:mb-2 font-display">SKINCARE</h3>
-                <p className="text-xs md:text-sm text-white/80 leading-relaxed font-medium">Serum, Moisturizer, Sunscreen, Facial Wash, Mask</p>
+                <p className="text-xs md:text-sm text-white/85 leading-relaxed font-medium">Serum, Moisturizer, Sunscreen, Facial Wash, Mask</p>
               </div>
             </div>
             
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-sm border border-black/5">
-              <Image src="/assets/images/Body-Care-1.webp" alt="Body Care" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(0,0,0,0.15)] border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1">
+              <Image src="/assets/landing-skincare/catalog-bodycare.jpg" alt="Body Care" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 via-40% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white drop-shadow-md">
                 <h3 className="text-lg md:text-2xl font-black uppercase tracking-wide mb-1 md:mb-2 font-display">BODY CARE</h3>
-                <p className="text-xs md:text-sm text-white/80 leading-relaxed font-medium">Body Lotion, Body Serum, Body Scrub, Body Wash</p>
+                <p className="text-xs md:text-sm text-white/85 leading-relaxed font-medium">Body Lotion, Body Serum, Body Scrub, Body Wash</p>
               </div>
             </div>
 
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-sm border border-black/5">
-              <Image src="/assets/images/aromatic-perfume-bottles-background-scaled.webp" alt="Parfum" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(0,0,0,0.15)] border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1">
+              <Image src="/assets/landing-skincare/catalog-parfum.jpg" alt="Parfum" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 via-40% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white drop-shadow-md">
                 <h3 className="text-lg md:text-2xl font-black uppercase tracking-wide mb-1 md:mb-2 font-display">PARFUM</h3>
-                <p className="text-xs md:text-sm text-white/80 leading-relaxed font-medium">Extrait de Parfum, Eau de Parfum, Eau de Toilette, Body Mist</p>
+                <p className="text-xs md:text-sm text-white/85 leading-relaxed font-medium">Extrait de Parfum, Eau de Parfum, Eau de Toilette, Body Mist</p>
               </div>
             </div>
 
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-sm border border-black/5">
-              <Image src="/assets/images/baby-care.webp" alt="Baby Care" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(0,0,0,0.15)] border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1">
+              <Image src="/assets/landing-skincare/catalog-babycare.jpg" alt="Baby Care" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 via-40% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-white drop-shadow-md">
                 <h3 className="text-lg md:text-2xl font-black uppercase tracking-wide mb-1 md:mb-2 font-display">BABY CARE</h3>
-                <p className="text-xs md:text-sm text-white/80 leading-relaxed font-medium">Baby Lotion, Baby Wash, Baby Oil, Baby Shampoo</p>
+                <p className="text-xs md:text-sm text-white/85 leading-relaxed font-medium">Baby Lotion, Baby Wash, Baby Oil, Baby Shampoo</p>
               </div>
             </div>
           </div>
@@ -235,55 +235,55 @@ export default function MaklonSkincareAdsLP() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-sm border border-neutral-200">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2F6BFF]/95 via-[#2F6BFF]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest">STEP 01</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">KONSULTASI BRAND & TARGET MARKET</h3>
-                <p className="text-[13px] text-white/90 leading-relaxed font-medium">Diskusikan konsep produk, target market, positioning, dan benefit yang ingin dikembangkan.</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 01</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>KONSULTASI BRAND & TARGET MARKET</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Diskusikan konsep produk, target market, positioning, dan benefit yang ingin dikembangkan.</p>
               </div>
             </div>
             
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-sm border border-neutral-200">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image src="/assets/maklon-parfum/sample.webp" alt="Formula & Sample" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2F6BFF]/95 via-[#2F6BFF]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest">STEP 02</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">CUSTOM FORMULA & SAMPLE</h3>
-                <p className="text-[13px] text-white/90 leading-relaxed font-medium">Tim R&D mengembangkan formula dan sample sesuai kebutuhan serta karakter brand Anda.</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 02</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>CUSTOM FORMULA & SAMPLE</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Tim R&D mengembangkan formula dan sample sesuai kebutuhan serta karakter brand Anda.</p>
               </div>
             </div>
 
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-sm border border-neutral-200">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image src="/assets/maklon-parfum/legal-design.webp" alt="Legalitas & Desain" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2F6BFF]/95 via-[#2F6BFF]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest">STEP 03</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">LEGALITAS & DESAIN</h3>
-                <p className="text-[13px] text-white/90 leading-relaxed font-medium">Setelah formula disetujui, proses dilanjutkan ke legalitas dan desain kemasan.</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 03</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>LEGALITAS & DESAIN</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Setelah formula disetujui, proses dilanjutkan ke legalitas dan desain kemasan.</p>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:px-24 md:px-12">
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-sm border border-neutral-200">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image src="/assets/maklon-parfum/production.webp" alt="Produksi" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2F6BFF]/95 via-[#2F6BFF]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest">STEP 04</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">PRODUKSI & QUALITY CONTROL</h3>
-                <p className="text-[13px] text-white/90 leading-relaxed font-medium">Produk masuk ke tahap produksi dan melewati proses quality control.</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 04</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>PRODUKSI & QUALITY CONTROL</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Produk masuk ke tahap produksi dan melewati proses quality control.</p>
               </div>
             </div>
 
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-sm border border-neutral-200">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image src="/assets/maklon-parfum/delivery.webp" alt="Launching" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2F6BFF]/95 via-[#2F6BFF]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest">STEP 05</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">SIAP LAUNCHING</h3>
-                <p className="text-[13px] text-white/90 leading-relaxed font-medium">Produk selesai diproduksi, dipersiapkan untuk dikirim dan mulai dipasarkan.</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 05</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>SIAP LAUNCHING</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Produk selesai diproduksi, dipersiapkan untuk dikirim dan mulai dipasarkan.</p>
               </div>
             </div>
           </div>
@@ -292,6 +292,86 @@ export default function MaklonSkincareAdsLP() {
             <a href="/ads/thankyou/metaads/" className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-xl font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25">
               KONSULTASI BRAND ANDA <ArrowRight className="w-5 h-5" />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. BEAUTY ACADEMY */}
+      <section className="bg-[#FAF9F6] py-16 md:py-24 border-t border-neutral-100">
+        <div className="container-custom px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Left: Copy & List */}
+            <div className="lg:col-span-7">
+              <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
+                FREE BEAUTYPRENEUR COMMUNITY
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-[36px] font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display mb-4">
+                HANYA DI DREAMLAB, BRAND ANDA BUKAN SEKADAR DIPRODUKSI, TETAPI JUGA <span className="text-[#2F6BFF]">DIBIMBING UNTUK BERTUMBUH</span>
+              </h2>
+              <p className="text-sm md:text-base text-neutral-600 leading-relaxed mb-8">
+                Nikmati pendampingan praktis untuk memperkuat branding dan meningkatkan penjualan online.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-8">
+                {[
+                  "Mentoring strategi digital marketing",
+                  "Panduan membangun branding dan positioning produk",
+                  "Strategi memasarkan dan menjual produk secara online",
+                  "Networking bersama komunitas beautypreneur",
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white border border-neutral-200/80 p-4 rounded-2xl flex items-center gap-3.5 shadow-sm">
+                    <span className="w-7 h-7 rounded-full bg-[#FF8A00]/10 text-[#FF8A00] font-black flex items-center justify-center shrink-0 text-sm">
+                      ✓
+                    </span>
+                    <span className="text-xs md:text-sm font-bold text-brand-black/90 leading-snug">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <a
+                  href="/ads/thankyou/metaads/"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-xl font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20"
+                >
+                  JADI PARTNER DREAMLAB <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Right: Collage */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+              <div className="col-span-2 relative rounded-2xl overflow-hidden aspect-[16/10] shadow-[0_10px_25px_rgba(0,0,0,0.1)] border border-neutral-200/80 group">
+                <Image
+                  src="/assets/maklon-parfum/academy-community.webp"
+                  alt="Komunitas beautypreneur Dreamlab"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.08)] border border-neutral-200/80 group">
+                <Image
+                  src="/assets/maklon-parfum/academy-digital-marketing.webp"
+                  alt="Mentoring digital marketing"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.08)] border border-neutral-200/80 group">
+                <Image
+                  src="/assets/maklon-parfum/academy-branding.webp"
+                  alt="Sesi branding Dreamlab Academy"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
