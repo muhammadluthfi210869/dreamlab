@@ -82,11 +82,10 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .product { position:relative; height:390px; border-radius:22px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; }
         .parfum-lp .product img { width:100%; height:100%; object-fit:cover; transition:.5s; }
         .parfum-lp .product:hover img { transform:scale(1.04); }
-        .parfum-lp .product:after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgba(10,28,41,.9),rgba(10,28,41,.05) 68%); pointer-events:none; }
-        .parfum-lp .product-copy { position:absolute; left:22px; right:22px; bottom:22px; z-index:2; color:#fff; pointer-events:none; }
-        .parfum-lp .product-copy small { color:#ffc06f; font-weight:800; letter-spacing:1px; }
-        .parfum-lp .product-copy h3 { font-size:23px; margin:6px 0 5px; }
-        .parfum-lp .product-copy p { font-size:13px; line-height:1.5; margin:0; color:#e4edf3; max-width:250px; }
+        .parfum-lp .product:after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 0%, rgba(10,20,40,0.1) 40%, rgba(8,18,35,0.9) 100%); pointer-events:none; }
+        .parfum-lp .product-copy { position:absolute; left:24px; right:24px; bottom:24px; z-index:2; color:#fff; pointer-events:none; }
+        .parfum-lp .product-copy h3 { font-size:26px; margin:0 0 6px; font-weight:800; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.3); }
+        .parfum-lp .product-copy p { font-size:14px; line-height:1.5; margin:0; color:#f8fbfd; opacity:0.95; max-width:250px; }
         .parfum-lp .process { background:#fff; }
         .parfum-lp .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
         .parfum-lp .step { border:1px solid var(--line); border-radius:20px; overflow:hidden; background:#fff; }
@@ -166,8 +165,8 @@ export default function MaklonParfumAdsLP() {
           .parfum-lp .check span { font-size:11px; }
           .parfum-lp .product-grid { grid-template-columns:1fr 1fr; gap:9px; }
           .parfum-lp .product { height:280px; border-radius:16px; }
-          .parfum-lp .product-copy { left:14px; right:12px; bottom:14px; }
-          .parfum-lp .product-copy h3 { font-size:17px; }
+          .parfum-lp .product-copy { left:18px; right:18px; bottom:20px; }
+          .parfum-lp .product-copy h3 { font-size:20px; }
           .parfum-lp .product-copy p { font-size:11px; }
           .parfum-lp .process-grid { grid-template-columns:1fr; gap:10px; }
           .parfum-lp .step { display:grid; grid-template-columns:42% 58%; min-height:145px; }
@@ -240,27 +239,27 @@ export default function MaklonParfumAdsLP() {
               <div className="product-grid">
                 <a className="product" href="/ads/thankyou/metaads/">
                   <img src="/assets/maklon-parfum/edp.webp" alt="Eau de Parfum" />
-                  <div className="product-copy"><small>BEST SELLER</small><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
+                  <div className="product-copy"><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
                   <img src="/assets/maklon-parfum/edt.webp" alt="Eau de Toilette" />
-                  <div className="product-copy"><small>DAILY WEAR</small><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
+                  <div className="product-copy"><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
                   <img src="/assets/maklon-parfum/edc.webp" alt="Eau de Cologne" />
-                  <div className="product-copy"><small>REFRESHING</small><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
+                  <div className="product-copy"><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
                   <img src="/assets/maklon-parfum/extrait.webp" alt="Extrait de Parfum" />
-                  <div className="product-copy"><small>PREMIUM</small><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
+                  <div className="product-copy"><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
                   <img src="/assets/maklon-parfum/body-mist.webp" alt="Body Mist" />
-                  <div className="product-copy"><small>HIGH REPEAT</small><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
+                  <div className="product-copy"><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
                   <img src="/assets/maklon-parfum/essential-oil.webp" alt="Essential Oil" />
-                  <div className="product-copy"><small>NATURAL</small><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
+                  <div className="product-copy"><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
                 </a>
               </div>
             </div>
