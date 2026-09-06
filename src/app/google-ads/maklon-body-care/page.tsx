@@ -33,7 +33,7 @@ export default function GoogleAdsMaklonBodyCare() {
         .bodycare-lp .hero { position:relative; min-height:85vh; display:flex; align-items:center; padding:100px 0 60px; background:#FAF9F6; overflow:hidden; }
         .bodycare-lp .hero-bg { opacity:1; object-position:82% center; }
         .bodycare-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 45%, rgba(255,255,255,0) 100%); z-index:10; }
-        .bodycare-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:760px; margin-left: 0; }
+        .bodycare-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:760px; margin-left: 48px; }
         .bodycare-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.2); border:1px solid var(--orange); color:#ffb732; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
         .bodycare-lp .hero h1 { font-size:52px; font-weight:900; line-height:1.1; margin:0 0 24px; text-transform:uppercase; letter-spacing:-1px; }
         .bodycare-lp .hero h1 em { color:var(--orange); font-style:italic; }
@@ -43,8 +43,8 @@ export default function GoogleAdsMaklonBodyCare() {
         
 
         
-          .bodycare-lp .metrics { position:relative; margin-top:-32px; z-index:50; width:calc(100% - 32px); max-width:760px; margin-left:auto; margin-right:auto; }
-          .bodycare-lp .metric-card { background:#FFFFFF; border:1px solid #E5EAF2; border-radius:24px; padding:28px; box-shadow:0 4px 20px rgba(0,0,0,0.04); display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); align-items:center; }
+          .bodycare-lp .metrics { position:relative; margin-top:-32px; z-index:50; }
+          .bodycare-lp .metric-card { background:#FFFFFF; border:1px solid #E5EAF2; border-radius:24px; padding:28px; box-shadow:0 4px 20px rgba(0,0,0,0.04); display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); align-items:center; width:calc(100% - 32px); max-width:760px; margin-left:auto; margin-right:auto; margin-bottom:60px; }
           .bodycare-lp .stat { text-align:center; }
           .bodycare-lp .stat.divider { border-left:1px solid #E5EAF2; }
           .bodycare-lp .number { color:#2F6BFF; font-weight:800; font-size:48px; line-height:1; }
@@ -214,7 +214,7 @@ export default function GoogleAdsMaklonBodyCare() {
               </div>
             </div>
             <div className="wrap">
-              <div className="title" style={{marginBottom: "20px", marginTop: "20px"}}>
+              <div className="title" style={{marginBottom: "20px", marginTop: "60px"}}>
                 <h2 style={{fontSize:"28px"}}>MENGAPA MEMILIH DREAMLAB?</h2>
               </div>
               <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
