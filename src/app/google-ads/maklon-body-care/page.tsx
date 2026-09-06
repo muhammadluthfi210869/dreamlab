@@ -142,10 +142,11 @@ export default function GoogleAdsMaklonBodyCare() {
         }
         @media(max-width:768px){
           .bodycare-lp .section { padding:48px 0; }
-          .bodycare-lp .hero { padding:70px 0 40px; min-height:auto; }
+          .bodycare-lp .hero { padding:160px 0 60px; min-height:auto; }
           .bodycare-lp .hero h1 { font-size:32px; }
           .bodycare-lp .hero p { font-size:16px; }
-          .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,1) 100%); }
+          .bodycare-lp .hero-copy { text-align:center; margin:0 auto; display:flex; flex-direction:column; align-items:center; }
+          .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.85) 40%, rgba(255,255,255,1) 100%); }
           .bodycare-lp .metric-card { grid-template-columns:1fr; padding:24px 16px; gap:24px; }
           .bodycare-lp .stat.divider { border-left:none; border-top:1px solid #E5EAF2; padding-top:24px; }
           .bodycare-lp .number { font-size:40px; }
