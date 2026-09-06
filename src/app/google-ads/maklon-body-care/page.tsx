@@ -236,7 +236,6 @@ export default function GoogleAdsMaklonBodyCare() {
           <section className="metrics" style={{paddingTop: "20px", borderBottom: "none", backgroundColor: "#fdfdfd"}}>
             <div className="wrap">
               <div className="title" style={{marginBottom: "20px"}}>
-                <span className="eyebrow">PELUANG MARKET</span>
                 <h2 style={{fontSize:"28px"}}>TREND BODYCARE 2026</h2>
                 <p>Formula yang paling dicari oleh konsumen saat ini.</p>
               </div>
