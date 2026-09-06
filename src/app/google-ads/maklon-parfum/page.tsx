@@ -118,7 +118,7 @@ export default function GoogleAdsMaklonParfum() {
           .parfum-lp .hero { padding:70px 0 40px; min-height:auto; }
           .parfum-lp .hero h1 { font-size:32px; }
           .parfum-lp .hero p { font-size:16px; }
-          .parfum-lp .hero-shade { background:linear-gradient(to bottom, rgba(250,249,246,0.85) 0%, rgba(250,249,246,0.98) 100%); }
+          .parfum-lp .hero-shade { background:linear-gradient(to bottom, rgba(250,249,246,0.4) 0%, rgba(250,249,246,0.85) 50%, rgba(250,249,246,0.98) 100%); }
           .parfum-lp .metric-card { flex-direction:column; text-align:center; padding:30px 20px; gap:20px; margin-top:20px; }
           .parfum-lp .checks { grid-template-columns:1fr; gap:12px; margin-top:24px; }
           .parfum-lp .check { padding:16px; }
@@ -174,51 +174,7 @@ export default function GoogleAdsMaklonParfum() {
             </div>
           </section>
 
-          {/* New 1 Client 1 Custom Formula & MOQ Section */}
-          <section className="section bg-gray-50 py-16">
-            <div className="wrap">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                
-                {/* USP Utama: 1 Client 1 Custom Formula */}
-                <div className="lg:col-span-7 bg-[#112b3e] rounded-[32px] p-8 lg:p-12 text-white relative overflow-hidden shadow-xl">
-                  <div className="absolute top-0 right-0 w-80 h-80 bg-orange-500/10 blur-[100px] rounded-full pointer-events-none" />
-                  <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
-                    <div className="w-full md:w-1/2 aspect-square relative rounded-[24px] overflow-hidden border border-white/5">
-                      <Image src="/new asset/landing page/perfume_lab_rd.webp" alt="R&D Perfumery Laboratory" fill loading="lazy" sizes="(max-width: 760px) 100vw, 400px" style={{ objectFit: "cover" }} />
-                    </div>
-                    <div className="w-full md:w-1/2">
-                      <h2 className="text-3xl lg:text-4xl font-black uppercase leading-tight mb-2 text-brand-orange" style={{color: "var(--orange)"}}>
-                        1 KLIEN<br />1 FORMULA
-                      </h2>
-                      <p className="text-gray-300 font-medium mb-6">Aroma dikembangkan khusus untuk karakter brand Anda.</p>
-                      
-                      <ul className="space-y-4 text-sm md:text-base">
-                        <li className="flex items-start gap-3"><span className="text-brand-orange font-bold text-lg">✓</span> <span className="text-gray-200">Aroma eksklusif untuk brand Anda</span></li>
-                        <li className="flex items-start gap-3"><span className="text-brand-orange font-bold text-lg">✓</span> <span className="text-gray-200">Dikembangkan sesuai karakter dan target market</span></li>
-                        <li className="flex items-start gap-3"><span className="text-brand-orange font-bold text-lg">✓</span> <span className="text-gray-200">Dikembangkan bersama tim R&amp;D Perfumery</span></li>
-                        <li className="flex items-start gap-3"><span className="text-brand-orange font-bold text-lg">✓</span> <span className="text-gray-200">Formula dapat dievaluasi melalui proses sampling</span></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                {/* MOQ / BRAND READINESS */}
-                <div className="lg:col-span-5 bg-white rounded-[32px] p-8 lg:p-12 border border-gray-200 shadow-sm flex flex-col justify-center">
-                  <div className="mb-8">
-                    <h3 className="text-xl font-black uppercase text-brand-black mb-2">DARI IDE SAMPAI SIAP PRODUKSI</h3>
-                    <p className="text-gray-500 font-medium">Pendampingan proses pengembangan brand secara bertahap.</p>
-                  </div>
-                  <div className="mb-8 border-t border-gray-100 pt-8">
-                    <h3 className="text-xl font-black uppercase text-brand-black mb-2">MOQ MENYESUAIKAN</h3>
-                    <p className="text-gray-500 font-medium">Mulai pengembangan brand tanpa harus mengambil stok terlalu besar.</p>
-                  </div>
-                  <a className="btn track !w-full" data-location="moq" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
-                  <p className="text-center text-xs text-gray-400 mt-4">*Estimasi proses ±3 bulan bergantung persetujuan formula dan legalitas.</p>
-                </div>
-
-              </div>
-            </div>
-          </section>
+          
 
           <section className="catalog section pb-0 mt-0">
             <div className="wrap">
