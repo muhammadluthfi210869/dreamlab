@@ -27,8 +27,8 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .hero { position:relative; min-height:85vh; display:flex; align-items:center; padding:100px 0 60px; background:#FAF9F6; overflow:hidden; }
         .parfum-lp .hero-bg { opacity:1; object-position:82% center; }
         .parfum-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(18,28,45,0.95) 0%, rgba(18,28,45,0.7) 50%, rgba(18,28,45,0) 100%); z-index:10; }
-        .parfum-lp .hero-copy { position:relative; z-index:20; color:#fff; max-width:700px; margin:0; }
-        .parfum-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.2); border:1px solid var(--orange); color:#ffb732; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
+        .parfum-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:700px; }
+        .parfum-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.1); border:1px solid var(--orange); color:#b87500; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
         .parfum-lp .hero h1 { font-size:52px; font-weight:900; line-height:1.1; margin:0 0 24px; text-transform:uppercase; letter-spacing:-1px; }
         .parfum-lp .hero h1 em { color:var(--orange); font-style:italic; }
         .parfum-lp .hero p { font-size:18px; line-height:1.6; color:#555; font-weight:500; margin:0 0 40px; }
