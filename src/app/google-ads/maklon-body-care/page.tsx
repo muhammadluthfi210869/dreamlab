@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 export default function GoogleAdsMaklonBodyCare() {
   const bodycareData = getProductDataV2("bodycare");
+  const filteredProducts = bodycareData?.products?.filter(p => !["deodorant-spray", "deodorant-roll-on", "deodorant-dry-serum", "deodorant-balm"].includes(p.slug)) || [];
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -203,8 +204,8 @@ export default function GoogleAdsMaklonBodyCare() {
 
           <section className="catalog section pb-0 mt-0">
             <div className="wrap" style={{maxWidth: "1280px"}}>
-              {bodycareData && bodycareData.products && (
-                <ProductGrid products={bodycareData.products} categorySlug={bodycareData.slug} />
+              {bodycareData && filteredProducts.length > 0 && (
+                <ProductGrid products={filteredProducts} categorySlug={bodycareData.slug} />
               )}
             </div>
           </section>
