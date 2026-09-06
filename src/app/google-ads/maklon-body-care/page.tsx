@@ -58,11 +58,10 @@ export default function GoogleAdsMaklonBodyCare() {
           }
 
           .bodycare-lp .metrics-orig { background:var(--paper); padding:40px 0; border-bottom:1px solid var(--line); }
-        .bodycare-lp .metric-card { background:#fff; border-radius:24px; padding:32px 40px; box-shadow:var(--shadow); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:32px; margin-top:-90px; position:relative; z-index:10; }
-        .bodycare-lp .metric-card h2 { font-size:24px; font-weight:800; margin:0; max-width:300px; line-height:1.3; }
-        .bodycare-lp .metric { display:flex; flex-direction:column; }
-        .bodycare-lp .metric b { font-size:42px; font-weight:900; color:var(--orange); line-height:1; }
-        .bodycare-lp .metric span { font-size:14px; font-weight:600; color:var(--dark); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+        .bodycare-lp .metric-card { background:#fff; border-radius:24px; padding:48px 40px; box-shadow:var(--shadow); display:grid; grid-template-columns:1fr 1fr; gap:40px; margin:-90px auto 40px; position:relative; z-index:10; max-width:800px; text-align:center; align-items:center; }
+        .bodycare-lp .metric { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .bodycare-lp .metric b { font-size:64px; font-weight:900; color:var(--orange); line-height:1; letter-spacing:-1px; }
+        .bodycare-lp .metric span { font-size:18px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:1.5px; margin-top:12px; }
         
           .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
           @media (max-width: 1024px) {
@@ -160,7 +159,9 @@ export default function GoogleAdsMaklonBodyCare() {
           .bodycare-lp .hero h1 { font-size:32px; }
           .bodycare-lp .hero p { font-size:16px; }
           .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,1) 100%); }
-          .bodycare-lp .metric-card { flex-direction:column; text-align:center; padding:30px 20px; gap:20px; margin-top:20px; }
+          .bodycare-lp .metric-card { grid-template-columns:1fr; padding:40px 20px; gap:32px; margin-top:20px; }
+          .bodycare-lp .metric b { font-size:48px; }
+          .bodycare-lp .metric span { font-size:15px; }
           
           .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
           @media (max-width: 1024px) {
@@ -215,10 +216,9 @@ export default function GoogleAdsMaklonBodyCare() {
           
           <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px", position: "relative", zIndex: 50}}>
             <div className="wrap">
-              <div className="metric-card" style={{marginBottom: "40px", marginTop: "-100px", position: "relative", zIndex: 99}}>
-                <h2>Dipercaya untuk Mengembangkan Brand Beauty</h2>
-                <div className="metric"><b data-count="500">0++</b><span>Brand bekerja sama</span></div>
-                <div className="metric"><b data-count="1000">0+</b><span>Produk dikembangkan</span></div>
+              <div className="metric-card" style={{position: "relative", zIndex: 99, maxWidth: "800px", margin: "-100px auto 40px"}}>
+                <div className="metric"><b data-count="500">0++</b><span>Brand Bekerja Sama</span></div>
+                <div className="metric"><b data-count="1000">0++</b><span>Produk Dikembangkan</span></div>
               </div>
               
               <div className="title" style={{marginBottom: "20px", marginTop: "20px"}}>
@@ -335,10 +335,10 @@ export default function GoogleAdsMaklonBodyCare() {
                     const updateCounter = () => {
                       current += increment;
                       if(current < target) {
-                        el.innerText = Math.ceil(current) + (target === 500 ? "++" : "+");
+                        el.innerText = Math.ceil(current) + "++";
                         setTimeout(updateCounter, 30);
                       } else {
-                        el.innerText = target + (target === 500 ? "++" : "+");
+                        el.innerText = target + "++";
                       }
                     };
                     updateCounter();
