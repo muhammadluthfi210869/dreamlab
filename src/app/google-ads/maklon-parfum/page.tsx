@@ -13,7 +13,7 @@ export default function GoogleAdsMaklonParfum() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        :root { --orange: #D98A00; --orange-hover: #b87500; --dark: #121c2d; --paper: #f8f9fa; --line: #e2e8f0; --shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        :root { --orange: #D98A00; --orange-hover: #b87500; --dark: #111827; --paper: #f8f9fa; --line: #e2e8f0; --shadow: 0 12px 24px rgba(0,0,0,0.08); }
         .parfum-lp { font-family:var(--font-sans), system-ui, -apple-system, sans-serif; color:var(--dark); background:#fff; overflow-x:hidden; }
         .parfum-lp h1, .parfum-lp h2, .parfum-lp h3, .parfum-lp b { font-family:var(--font-display), inherit; }
         .parfum-lp img { max-width:100%; height:auto; }
@@ -66,11 +66,11 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .process .title h2 { color:#fff; }
         .parfum-lp .process .title p { color:rgba(255,255,255,0.78); }
         .parfum-lp .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-        .parfum-lp .step { position:relative; height:340px; border-radius:20px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; }
+        .parfum-lp .step { position:relative; height:340px; border-radius:20px; overflow:hidden; background:#1f2937; box-shadow:var(--shadow); display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; }
         .parfum-lp .step:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .parfum-lp .step img { width:100%; height:100%; display:block; object-fit:cover; position:relative; z-index:0; transition: transform 0.7s ease; }
         .parfum-lp .step:hover img { transform: scale(1.06); }
-        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,15,30,0.96) 0%, rgba(5,15,30,0.75) 38%, rgba(5,15,30,0.20) 70%, transparent 100%); pointer-events:none; z-index:10; }
+        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(17,24,39,0.96) 0%, rgba(17,24,39,0.75) 38%, rgba(17,24,39,0.20) 70%, transparent 100%); pointer-events:none; z-index:10; }
         .parfum-lp .step-copy { position:absolute; bottom:28px; left:28px; right:28px; z-index:20; color:#fff; pointer-events:none; }
         .parfum-lp .step-copy b { display:block; color:var(--orange); font-size:14px; font-weight:800; letter-spacing:1px; margin-bottom:8px; text-transform:uppercase; }
         .parfum-lp .step-copy h3 { margin:0 0 12px; font-size:26px; font-weight:800; text-transform:uppercase; color:#fff; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,0.35); }
