@@ -1,369 +1,348 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { CheckCircle2, ArrowRight, FlaskConical, Sparkles, ShieldCheck, TrendingUp, Paintbrush, Target, Activity } from "lucide-react";
+import { useEffect } from "react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
-import Link from "next/link";
-
-const ease = [0.16, 1, 0.3, 1] as any;
 
 export default function MaklonParfumAdsLP() {
   useMetaAdsCtaPixel("Maklon Parfum");
 
+  useEffect(() => {
+    // Analytics & interaction script from HTML
+    const dataLayer = (window as any).dataLayer = (window as any).dataLayer || [];
+    dataLayer.push({event:'view_landing_page',service:'maklon_parfum'});
+    document.querySelectorAll('.track').forEach(a=>a.addEventListener('click',()=>dataLayer.push({event:'cta_click',location:(a as HTMLElement).dataset.location,service:'maklon_parfum'})));
+    
+    const observer = new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      document.querySelectorAll('[data-count]').forEach(el=>{
+        const targetElement = el as HTMLElement;
+        const target = +(targetElement.dataset.count || 0);
+        const suffix = target === 500 ? '++' : '+';
+        let n = 0;
+        const timer = setInterval(()=>{
+          n = Math.min(target, n + Math.ceil(target/42));
+          targetElement.textContent = n.toLocaleString('id-ID') + suffix;
+          if(n===target) clearInterval(timer);
+        }, 28);
+      });
+      observer.disconnect();
+    }), {threshold:.25});
+    
+    const metricsSection = document.querySelector('.metrics');
+    if (metricsSection) observer.observe(metricsSection);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="landing-page-ads min-h-screen bg-[#F7F9FF] text-[#111827] font-sans selection:bg-[#FF6A1A] selection:text-white">
-      
-      {/* 1. HERO */}
-      <section className="relative min-h-[90vh] md:min-h-screen flex items-center bg-gradient-to-br from-[#111827] via-[#1a388a] to-[#2056D7] overflow-hidden pt-20 pb-16">
-        <div className="absolute inset-0 bg-[url('/assets/Dreamlab-Maklon-Parfum.webp')] opacity-20 bg-cover bg-center mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#111827] via-[#2056D7]/80 to-transparent z-10" />
-
-        <div className="container mx-auto px-5 lg:px-8 relative z-20 w-full">
-          <div className="max-w-2xl lg:max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease }}
-              className="inline-block px-4 py-1.5 bg-white/10 rounded-full mb-6 border border-white/20 backdrop-blur-md"
-            >
-              <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest">
-                MAKLON PARFUM CUSTOM & SIGNATURE SCENT
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 1, ease }}
-              className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] tracking-tight uppercase mb-6"
-            >
-              WUJUDKAN BRAND PARFUM<br />
-              DENGAN SIGNATURE SCENT<br />
-              <span className="text-[#FF6A1A]">YANG PUNYA KARAKTER SENDIRI</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 1 }}
-              className="text-sm sm:text-base md:text-lg text-white/90 font-medium leading-relaxed mb-8 max-w-xl"
-            >
-              Dikembangkan bersama tim R&D Dreamlab untuk menghasilkan aroma custom yang relevan dengan konsep brand, positioning, dan target pasar Anda.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-col sm:flex-row items-center gap-4 mb-10"
-            >
-              <a
-                href="/ads/thankyou/metaads/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#FF6A1A] hover:bg-[#e55910] text-white font-bold py-4 px-8 rounded-xl transition-all shadow-[0_10px_25px_rgba(255,106,26,0.3)] hover:-translate-y-1 text-sm uppercase tracking-wide"
-              >
-                KONSULTASIKAN BRAND PARFUM ANDA <ArrowRight className="w-4 h-4" />
-              </a>
-              <a
-                href="#katalog"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-8 rounded-xl transition-all border border-white/20 text-sm uppercase tracking-wide backdrop-blur-sm"
-              >
-                LIHAT PILIHAN PRODUK
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 1 }}
-              className="flex flex-wrap items-center gap-4 sm:gap-8 text-white/80 text-xs sm:text-sm font-semibold"
-            >
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#FF6A1A]" />
-                <span>500++ Brand Bekerja Sama</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#FF6A1A]" />
-                <span>1000+ Produk Dikembangkan</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#FF6A1A]" />
-                <span>CPKB Grade A</span>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. VALUE BAR DI BAWAH HERO */}
-      <section className="relative z-30 -mt-10 sm:-mt-16 px-4 sm:px-8">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { icon: FlaskConical, title: "R&D & FORMULASI", desc: "Arah aroma dikembangkan bersama tim R&D sesuai karakter brand yang ingin dibangun." },
-              { icon: Sparkles, title: "1 CLIENT, 1 CUSTOM FORMULA", desc: "Formula dibuat eksklusif agar brand memiliki pembeda yang lebih jelas di market." },
-              { icon: ShieldCheck, title: "BPOM, HALAL & CPKB", desc: "Pendampingan legalitas dan produksi dalam sistem one-stop maklon service." }
-            ].map((val, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 shadow-[0_10px_40px_rgba(32,86,215,0.06)] border border-[#2056D7]/10 flex flex-col items-start gap-4 hover:-translate-y-1 transition-transform">
-                <div className="w-12 h-12 rounded-xl bg-[#F7F9FF] text-[#2056D7] flex items-center justify-center border border-[#2056D7]/10">
-                  <val.icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-black text-[#111827] text-sm uppercase tracking-wide mb-2">{val.title}</h3>
-                  <p className="text-[#111827]/70 text-sm font-medium leading-relaxed">{val.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. KATALOG PRODUK PARFUM */}
-      <section id="katalog" className="py-20 md:py-28 bg-[#F7F9FF]">
-        <div className="container mx-auto px-5 lg:px-8 max-w-6xl">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-black text-[#111827] uppercase tracking-tight leading-[1.15] mb-4">
-              BANGUN LINI WEWANGIAN YANG SESUAI<br className="hidden md:block" />
-              <span className="text-[#2056D7]">DENGAN POSITIONING BRAND ANDA</span>
-            </h2>
-            <p className="text-sm md:text-base text-[#111827]/70 font-medium">
-              Mulai dari daily fragrance sampai konsentrasi premium, pilih format produk yang paling sesuai untuk target pasar Anda.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: "Eau de Parfum", subtitle: "Konsentrasi aroma kuat dan tahan lama, ideal untuk produk signature." },
-              { title: "Eau de Toilette", subtitle: "Karakter ringan dan menyegarkan, cocok untuk pemakaian harian." },
-              { title: "Eau de Cologne", subtitle: "Sensasi segar seketika dengan konsentrasi yang lebih ringan." },
-              { title: "Extrait de Parfum", subtitle: "Lini premium dengan konsentrasi fragrance oil tertinggi." },
-              { title: "Body Mist", subtitle: "Aroma ringan dan praktis disemprotkan berkali-kali sepanjang hari." },
-              { title: "Minyak Atsiri", subtitle: "Eksplorasi wewangian natural dari bahan baku esensial alami." }
-            ].map((prod, i) => (
-              <div key={i} className="group relative bg-white rounded-2xl p-8 border border-[#2056D7]/10 hover:border-[#3F78FF]/30 hover:shadow-xl transition-all overflow-hidden flex flex-col justify-end min-h-[240px]">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#F7F9FF] to-transparent rounded-bl-full pointer-events-none" />
-                <div className="relative z-10 mt-auto">
-                  <h3 className="text-xl font-black text-[#111827] mb-2 group-hover:text-[#2056D7] transition-colors">{prod.title}</h3>
-                  <p className="text-sm text-[#111827]/60 font-medium leading-relaxed mb-6">{prod.subtitle}</p>
-                  <a href="/ads/thankyou/metaads/" className="inline-flex items-center gap-2 text-xs font-bold text-[#FF6A1A] uppercase tracking-wider group-hover:gap-3 transition-all">
-                    Eksplorasi Produk <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. WHY DREAMLAB */}
-      <section className="py-20 md:py-28 bg-white border-y border-[#2056D7]/5">
-        <div className="container mx-auto px-5 lg:px-8 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="inline-block text-[10px] font-bold text-[#2056D7] bg-[#F7F9FF] border border-[#2056D7]/20 px-3 py-1 rounded-full uppercase tracking-widest mb-6">
-                MENGAPA DREAMLAB
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-[#111827] uppercase tracking-tight leading-[1.15] mb-6">
-                MAKLON PARFUM BUKAN SEKADAR<br />
-                <span className="text-[#FF6A1A]">PRODUKSI BOTOL DAN AROMA</span>
-              </h2>
-              <p className="text-sm md:text-base text-[#111827]/70 font-medium leading-relaxed mb-8">
-                Brand perlu formula, kesiapan legalitas, desain, dan strategi pemasaran yang bergerak dalam satu arah.
-              </p>
-              <a
-                href="/ads/thankyou/metaads/"
-                className="inline-flex items-center justify-center gap-3 bg-[#111827] hover:bg-[#1f2937] text-white font-bold py-4 px-8 rounded-xl transition-all text-sm uppercase tracking-wide"
-              >
-                MULAI DISKUSI <ArrowRight className="w-4 h-4" />
-              </a>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+        :root {--blue:#4299d4;--blue2:#eaf6ff;--orange:#f78c1f;--green:#235f42;--ink:#172b3a;--muted:#607485;--paper:#fffdf7;--white:#fff;--line:#dbeaf4;--shadow:0 18px 55px rgba(23,75,109,.12)}
+        .parfum-lp { box-sizing:border-box; scroll-behavior:smooth; margin:0; font-family:Helvetica,Arial,sans-serif; color:var(--ink); background:var(--paper) }
+        .parfum-lp * { box-sizing:border-box; }
+        .parfum-lp h2 { font-family:'Viga',Helvetica,Arial,sans-serif; font-weight:400; text-transform:uppercase; }
+        .parfum-lp img { max-width:100%; }
+        .parfum-lp a { text-decoration:none; color:inherit; }
+        .parfum-lp .wrap { width:min(1160px,calc(100% - 40px)); margin:auto; }
+        .parfum-lp .eyebrow { display:inline-block; font-size:11px; letter-spacing:1.5px; font-weight:800; color:var(--blue); margin-bottom:12px; }
+        .parfum-lp .section { padding:88px 0; }
+        .parfum-lp .title { max-width:720px; margin:0 auto 38px; text-align:center; }
+        .parfum-lp .title h2 { font-size:44px; line-height:1.12; letter-spacing:-1.2px; margin:0 0 14px; }
+        .parfum-lp .title p { font-size:17px; color:var(--muted); line-height:1.65; margin:0; }
+        .parfum-lp .btn { display:inline-flex; align-items:center; justify-content:center; gap:18px; min-height:54px; padding:0 24px; border-radius:14px; background:var(--orange); color:#fff; font-weight:800; font-size:15px; box-shadow:0 12px 28px rgba(247,140,31,.28); transition:.2s; }
+        .parfum-lp .btn:hover { transform:translateY(-2px); filter:saturate(1.08); }
+        .parfum-lp .hero { position:relative; min-height:700px; display:flex; align-items:center; overflow:hidden; background:#dfeff8; }
+        .parfum-lp .hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+        .parfum-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(90deg,rgba(8,30,48,.86) 0%,rgba(8,30,48,.58) 45%,rgba(8,30,48,.06) 75%); }
+        .parfum-lp .hero-copy { position:relative; z-index:1; max-width:670px; color:#fff; }
+        .parfum-lp .hero-copy .eyebrow { color:#ffc06f; }
+        .parfum-lp .hero h1 { font-size:60px; line-height:1.02; letter-spacing:-2.7px; margin:0 0 20px; }
+        .parfum-lp .hero h1 em { font-style:normal; color:var(--orange); }
+        .parfum-lp .hero p { font-size:18px; line-height:1.65; color:#e9f4fb; max-width:600px; margin:0 0 28px; }
+        .parfum-lp .hero-trust { display:flex; gap:22px; margin-top:25px; font-size:13px; font-weight:700; color:#fff; }
+        .parfum-lp .hero-trust span:before { content:'✓'; color:#7ce5a9; margin-right:7px; }
+        .parfum-lp .hero .btn { background:var(--orange); }
+        .parfum-lp .metrics { position:relative; margin-top:-44px; z-index:3; }
+        .parfum-lp .metric-card { background:#fff; border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); display:grid; grid-template-columns:1.4fr 1fr 1fr; align-items:center; padding:27px 32px; }
+        .parfum-lp .metric-card h2 { font-size:22px; line-height:1.3; margin:0; }
+        .parfum-lp .metric { padding-left:30px; border-left:1px solid var(--line); }
+        .parfum-lp .metric b { display:block; color:var(--blue); font-size:34px; }
+        .parfum-lp .metric span { font-size:13px; color:var(--muted); }
+        .parfum-lp .value { background:#fff; }
+        .parfum-lp .value-grid { display:grid; grid-template-columns:.95fr 1.05fr; gap:64px; align-items:center; }
+        .parfum-lp .value-copy h2 { font-size:44px; line-height:1.12; letter-spacing:-1.6px; margin:0 0 18px; }
+        .parfum-lp .value-copy p { color:var(--muted); font-size:17px; line-height:1.65; }
+        .parfum-lp .checks { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+        .parfum-lp .check { min-height:105px; padding:20px; border:1px solid var(--line); border-radius:18px; background:var(--paper); display:flex; gap:12px; align-items:flex-start; }
+        .parfum-lp .check i { font-style:normal; width:27px; height:27px; flex:0 0 27px; border-radius:50%; display:grid; place-items:center; background:#e4f7eb; color:#1f9e57; font-weight:900; }
+        .parfum-lp .check b { font-size:14px; line-height:1.5; }
+        .parfum-lp .catalog { background:var(--blue2); }
+        .parfum-lp .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .parfum-lp .product { position:relative; height:390px; border-radius:22px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; }
+        .parfum-lp .product img { width:100%; height:100%; object-fit:cover; transition:.5s; }
+        .parfum-lp .product:hover img { transform:scale(1.04); }
+        .parfum-lp .product:after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgba(10,28,41,.9),rgba(10,28,41,.05) 68%); pointer-events:none; }
+        .parfum-lp .product-copy { position:absolute; left:22px; right:22px; bottom:22px; z-index:2; color:#fff; pointer-events:none; }
+        .parfum-lp .product-copy small { color:#ffc06f; font-weight:800; letter-spacing:1px; }
+        .parfum-lp .product-copy h3 { font-size:23px; margin:6px 0 5px; }
+        .parfum-lp .product-copy p { font-size:13px; line-height:1.5; margin:0; color:#e4edf3; max-width:250px; }
+        .parfum-lp .process { background:#fff; }
+        .parfum-lp .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
+        .parfum-lp .step { border:1px solid var(--line); border-radius:20px; overflow:hidden; background:#fff; }
+        .parfum-lp .step img { width:100%; height:235px; display:block; object-fit:cover; }
+        .parfum-lp .step-copy { padding:20px; }
+        .parfum-lp .step-copy b { color:var(--orange); font-size:12px; letter-spacing:1px; }
+        .parfum-lp .step-copy h3 { margin:7px 0 7px; font-size:20px; }
+        .parfum-lp .step-copy p { margin:0; color:var(--muted); font-size:14px; line-height:1.55; }
+        .parfum-lp .academy { background:var(--paper); }
+        .parfum-lp .academy-grid { display:grid; grid-template-columns:1.07fr .93fr; gap:58px; align-items:center; }
+        .parfum-lp .academy-photo { position:relative; }
+        .parfum-lp .academy-photo img { display:block; width:100%; height:500px; object-fit:cover; border-radius:28px; box-shadow:var(--shadow); }
+        .parfum-lp .academy-badge { position:absolute; right:-18px; bottom:24px; background:var(--orange); color:#fff; padding:17px 20px; border-radius:16px; font-weight:800; }
+        .parfum-lp .academy-copy h2 { font-size:39px; line-height:1.16; letter-spacing:-.8px; margin:0 0 16px; }
+        .parfum-lp .academy-copy p { max-width:620px; margin:0; font-size:17px; line-height:1.65; color:var(--muted); }
+        .parfum-lp .academy-list { list-style:none; padding:0; margin:24px 0 28px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .parfum-lp .academy-list li { display:flex; align-items:flex-start; gap:11px; min-height:76px; padding:15px 16px; border:1px solid var(--line); border-radius:14px; background:#fff; font-size:14px; font-weight:700; line-height:1.45; box-shadow:0 7px 20px rgba(23,75,109,.05); }
+        .parfum-lp .academy-list li:before { content:'✓'; display:grid; place-items:center; flex:0 0 25px; width:25px; height:25px; margin-top:1px; border-radius:50%; background:#e4f7eb; color:#179a51; font-size:14px; font-weight:900; }
+        .parfum-lp .legal { background:var(--blue); color:#fff; }
+        .parfum-lp .legal .title .eyebrow { color:#dff3ff; }
+        .parfum-lp .legal .title p { color:#e5f3fb; }
+        .parfum-lp .legal-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+        .parfum-lp .legal-card { min-height:180px; background:#fff; border-radius:19px; padding:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:var(--ink); }
+        .parfum-lp .legal-card img { height:75px; width:100%; object-fit:contain; margin-bottom:16px; }
+        .parfum-lp .legal-card b { font-size:14px; }
+        .parfum-lp .clients { background:#fff; }
+        .parfum-lp .clients-card { max-width:980px; margin:auto; padding:28px; border:1px solid var(--line); border-radius:24px; background:#fff; box-shadow:var(--shadow); }
+        .parfum-lp .clients-card img { display:block; width:100%; height:auto; }
+        .parfum-lp .closing { padding:84px 20px; text-align:center; background:#fff; }
+        .parfum-lp .closing h2 { font-size:47px; line-height:1.08; letter-spacing:-1.8px; max-width:780px; margin:0 auto 16px; }
+        .parfum-lp .closing p { color:var(--muted); font-size:17px; margin:0 auto 26px; }
+        .parfum-lp .wa { position:fixed; right:20px; bottom:20px; z-index:20; width:58px; height:58px; border-radius:50%; background:#25d366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 14px 30px rgba(0,0,0,.22); font-size:32px; font-weight:900; padding-bottom: 2px; }
+        
+        .parfum-lp .hero-shade { background:linear-gradient(90deg,rgba(7,31,49,.93),rgba(7,31,49,.75) 43%,rgba(7,31,49,.1) 78%); }
+        .parfum-lp .hero-copy { max-width:700px; text-shadow:0 2px 18px rgba(0,0,0,.25); }
+        .parfum-lp .hero-copy .eyebrow { font-size:12px; color:#ffd092; }
+        .parfum-lp .hero h1 { font-size:62px; color:#fff; }
+        .parfum-lp .hero p { color:#fff; }
+        .parfum-lp .value-grid { grid-template-columns:.9fr 1.1fr; gap:72px; }
+        .parfum-lp .check { min-height:122px; border-radius:16px; background:#fff; box-shadow:0 8px 25px rgba(23,75,109,.06); }
+        .parfum-lp .check b { font-size:15px; }
+        .parfum-lp .check span { display:block; font-size:13px; line-height:1.5; color:var(--muted); margin-top:6px; }
+        .parfum-lp .academy-grid { grid-template-columns:.9fr 1.1fr; }
+        .parfum-lp .academy-collage { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:250px 220px; gap:10px; }
+        .parfum-lp .academy-collage img { width:100%; height:100%; object-fit:cover; border-radius:18px; }
+        .parfum-lp .academy-collage img:first-child { grid-row:1/3; }
+        
+        @media(max-width:760px) {
+          .parfum-lp .wrap { width:min(100% - 28px,1160px); }
+          .parfum-lp .section { padding:54px 0; }
+          .parfum-lp .title { margin-bottom:25px; }
+          .parfum-lp .title h2 { font-size:32px; }
+          .parfum-lp .title p { font-size:15px; }
+          .parfum-lp .hero { min-height:630px; align-items:flex-end; }
+          .parfum-lp .hero-bg { object-position:62% center; }
+          .parfum-lp .hero-shade { background:linear-gradient(0deg,rgba(7,29,46,.98),rgba(7,29,46,.84) 49%,rgba(7,29,46,.12) 82%); }
+          .parfum-lp .hero-copy { padding-bottom:70px; text-align:center; }
+          .parfum-lp .hero h1 { font-size:40px; letter-spacing:-1.7px; }
+          .parfum-lp .hero p { font-size:15px; }
+          .parfum-lp .hero .btn { width:100%; }
+          .parfum-lp .hero-trust { justify-content:center; gap:12px; flex-wrap:wrap; font-size:11px; }
+          .parfum-lp .metrics { margin-top:-28px; }
+          .parfum-lp .metric-card { grid-template-columns:1fr 1fr; padding:20px 16px; text-align:center; }
+          .parfum-lp .metric-card h2 { grid-column:1/-1; font-size:18px; margin-bottom:17px; }
+          .parfum-lp .metric { padding:0; border:0; }
+          .parfum-lp .metric+ .metric { border-left:1px solid var(--line); }
+          .parfum-lp .metric b { font-size:28px; }
+          .parfum-lp .metric span { font-size:10px; }
+          .parfum-lp .value-grid, .parfum-lp .academy-grid { grid-template-columns:1fr; gap:28px; }
+          .parfum-lp .value-copy h2 { font-size:32px; }
+          .parfum-lp .academy-copy h2 { font-size:28px; line-height:1.18; letter-spacing:-.35px; }
+          .parfum-lp .value-copy p, .parfum-lp .academy-copy p { font-size:15px; }
+          .parfum-lp .checks { gap:9px; }
+          .parfum-lp .check { min-height:142px; padding:14px; display:block; }
+          .parfum-lp .check i { margin-bottom:9px; }
+          .parfum-lp .check b { font-size:12px; }
+          .parfum-lp .check span { font-size:11px; }
+          .parfum-lp .product-grid { grid-template-columns:1fr 1fr; gap:9px; }
+          .parfum-lp .product { height:280px; border-radius:16px; }
+          .parfum-lp .product-copy { left:14px; right:12px; bottom:14px; }
+          .parfum-lp .product-copy h3 { font-size:17px; }
+          .parfum-lp .product-copy p { font-size:11px; }
+          .parfum-lp .process-grid { grid-template-columns:1fr; gap:10px; }
+          .parfum-lp .step { display:grid; grid-template-columns:42% 58%; min-height:145px; }
+          .parfum-lp .step img { height:100%; min-height:145px; }
+          .parfum-lp .step-copy { padding:15px; }
+          .parfum-lp .step-copy h3 { font-size:17px; }
+          .parfum-lp .step-copy p { font-size:12px; }
+          .parfum-lp .academy-list { grid-template-columns:1fr; gap:8px; margin:20px 0 24px; }
+          .parfum-lp .academy-list li { min-height:0; padding:13px 14px; font-size:14px; line-height:1.4; }
+          .parfum-lp .academy .btn { width:100%; }
+          .parfum-lp .academy-collage { grid-template-rows:190px 155px; gap:7px; }
+          .parfum-lp .academy-collage img { border-radius:13px; }
+          .parfum-lp .legal-grid { grid-template-columns:1fr 1fr; gap:9px; }
+          .parfum-lp .legal-card { min-height:145px; padding:15px; }
+          .parfum-lp .legal-card img { height:55px; }
+          .parfum-lp .clients-card { padding:12px; border-radius:16px; }
+          .parfum-lp .closing { padding:60px 18px 92px; }
+          .parfum-lp .closing h2 { font-size:34px; }
+          .parfum-lp .closing .btn { width:100%; }
+          .parfum-lp .wa { width:54px; height:54px; right:15px; bottom:15px; }
+        }
+      `}</style>
+      <div className="parfum-lp">
+        <main>
+          <section className="hero">
+            <img className="hero-bg" src="/assets/images/v2/parfum-hero-desktop.webp" alt="Koleksi botol parfum untuk pengembangan brand" />
+            <div className="hero-shade"></div>
+            <div className="wrap hero-copy">
+              <span className="eyebrow">#1 MAKLON PARFUM CUSTOM AROMA</span>
+              <h1>Wujudkan Brand Parfum dengan <em>Aroma Eksklusif</em> Milik Anda</h1>
+              <p>Dari konsep aroma hingga siap dipasarkan, Dreamlab membantu Anda mengembangkan parfum dengan formula khas yang sesuai target market.</p>
+              <a className="btn track" data-location="hero" href="/ads/thankyou/metaads/">Konsultasikan Signature Scent Anda &rarr;</a>
+              <div className="hero-trust"><span>1 Client, 1 Custom Formula</span><span>Legalitas Didampingi</span><span>Siap Produksi</span></div>
             </div>
+          </section>
 
-            <div className="space-y-6">
-              {[
-                { num: "01", title: "MOQ MENYESUAIKAN", desc: "Skala produksi dapat disesuaikan dengan kebutuhan pengembangan brand dan rencana bisnis Anda." },
-                { num: "02", title: "FORMULA EKSKLUSIF", desc: "Konsep 1 Client, 1 Custom Formula membantu brand membangun aroma dengan pembeda yang lebih kuat." },
-                { num: "03", title: "ONE-STOP MAKLON", desc: "Dari konsultasi, formulasi, sampling, desain, legalitas, produksi, hingga media promosi." }
-              ].map((val, i) => (
-                <div key={i} className="flex gap-6 items-start bg-[#F7F9FF] p-6 rounded-2xl border border-[#2056D7]/5">
-                  <span className="text-4xl font-black text-[#2056D7]/20 leading-none">{val.num}</span>
-                  <div>
-                    <h4 className="font-black text-[#111827] uppercase tracking-wide text-sm mb-2">{val.title}</h4>
-                    <p className="text-sm text-[#111827]/70 font-medium">{val.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. BRAND DEVELOPMENT SUPPORT */}
-      <section className="py-20 md:py-28 bg-[#2056D7] text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#3F78FF]/30 rounded-full blur-[100px] pointer-events-none" />
-        <div className="container mx-auto px-5 lg:px-8 max-w-5xl relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-block text-[10px] font-bold text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full uppercase tracking-widest mb-6 backdrop-blur-sm">
-              LEBIH DARI SEKADAR PABRIK
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.1] mb-6">
-              BRAND ANDA JUGA DIDAMPINGI<br />
-              <span className="text-[#FF6A1A]">UNTUK LEBIH SIAP MASUK KE MARKET</span>
-            </h2>
-            <p className="text-sm md:text-base text-white/80 font-medium leading-relaxed mb-12">
-              Dreamlab mendukung pengembangan brand melalui creative, branding, dan digital marketing agar produk tidak berhenti di tahap produksi saja.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-              {[
-                { icon: Paintbrush, text: "Creative & desain untuk visual brand" },
-                { icon: Target, text: "Branding agar identitas lebih mudah dikenali" },
-                { icon: Activity, text: "Digital marketing untuk menjangkau target audience" }
-              ].map((point, i) => (
-                <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#FF6A1A]/10 text-[#FF6A1A] flex items-center justify-center">
-                    <point.icon className="w-5 h-5" />
-                  </div>
-                  <p className="font-bold text-sm text-white">{point.text}</p>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-12">
-              <a
-                href="/ads/thankyou/metaads/"
-                className="inline-flex items-center justify-center gap-3 bg-[#FF6A1A] hover:bg-[#e55910] text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-[#FF6A1A]/20 text-sm uppercase tracking-wide"
-              >
-                TANYAKAN SUPPORT DIGITAL MARKETING →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. SOCIAL PROOF */}
-      <section className="py-20 md:py-24 bg-[#F7F9FF] border-b border-[#2056D7]/5">
-        <div className="container mx-auto px-5 lg:px-8 max-w-5xl text-center">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#111827] uppercase tracking-tight leading-[1.2] mb-12 max-w-2xl mx-auto">
-            DIPERCAYA UNTUK MENGEMBANGKAN BRAND<br />
-            DARI IDE SAMPAI SIAP DIPASARKAN
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#2056D7]/10 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-[#2056D7] mb-2">500++</span>
-              <span className="text-sm font-bold uppercase text-[#111827]/70 tracking-wider">Brand Telah Bekerja Sama</span>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#2056D7]/10 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-[#2056D7] mb-2">1000+</span>
-              <span className="text-sm font-bold uppercase text-[#111827]/70 tracking-wider">Produk Dikembangkan</span>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#2056D7]/10 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-[#2056D7] mb-2">GRADE A</span>
-              <span className="text-sm font-bold uppercase text-[#111827]/70 tracking-wider">Fasilitas Produksi CPKB</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. ALUR MAKLON */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-5 lg:px-8 max-w-6xl">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-black text-[#111827] uppercase tracking-tight leading-[1.15] mb-4">
-              DARI IDE AROMA<br className="hidden sm:block" />
-              <span className="text-[#FF6A1A]">SAMPAI BRAND SIAP MASUK MARKET</span>
-            </h2>
-            <p className="text-sm md:text-base text-[#111827]/70 font-medium">
-              Alur dibuat transparan agar Anda tahu apa yang terjadi di setiap tahap pengembangan produk.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { title: "KONSULTASI IDE", desc: "Diskusikan target pasar, positioning, karakter aroma, dan konsep produk." },
-              { title: "FORMULASI TEPAT", desc: "Tim R&D mengembangkan arah formula sesuai brief dan kebutuhan brand." },
-              { title: "PEMBUATAN SAMPLE", desc: "Sample disiapkan agar aroma, karakter, dan pengalaman produk dapat dievaluasi." },
-              { title: "DISKUSI HASIL", desc: "Hasil sample didiskusikan untuk mendapatkan formula yang paling sesuai." },
-              { title: "LEGALITAS & DESAIN", desc: "Persiapan BPOM, Halal, dan kebutuhan desain kemasan dilakukan secara terarah." },
-              { title: "PRODUKSI", desc: "Produk diproduksi mengikuti standar fasilitas dan quality control Dreamlab." },
-              { title: "MEDIA PROMOSI", desc: "Siapkan kebutuhan visual dan materi promosi agar brand lebih siap diluncurkan." },
-              { title: "PEMASARAN", desc: "Susun langkah pemasaran online maupun offline sesuai target audience brand." }
-            ].map((step, i) => (
-              <div key={i} className="bg-[#F7F9FF] border border-[#2056D7]/10 p-6 rounded-2xl relative overflow-hidden group hover:bg-white hover:border-[#3F78FF]/30 hover:shadow-lg transition-all">
-                <span className="absolute -top-4 -right-4 text-7xl font-black text-[#2056D7]/5 group-hover:text-[#2056D7]/10 transition-colors pointer-events-none select-none">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="relative z-10">
-                  <span className="inline-block bg-[#2056D7] text-white text-[10px] font-black px-2.5 py-1 rounded-md mb-4">
-                    TAHAP {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h4 className="font-black text-[#111827] uppercase text-sm mb-2">{step.title}</h4>
-                  <p className="text-[#111827]/70 text-xs sm:text-sm font-medium leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8. FINAL CTA */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-[#111827] via-[#1a388a] to-[#2056D7] text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/assets/Dreamlab-Maklon-Parfum.webp')] opacity-10 bg-cover bg-center mix-blend-overlay" />
-        <div className="container mx-auto px-5 lg:px-8 max-w-3xl relative z-10 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.1] mb-6">
-            SIAP MEMBANGUN BRAND PARFUM<br />
-            <span className="text-[#FF6A1A]">DENGAN SIGNATURE SCENT ANDA SENDIRI?</span>
-          </h2>
-          <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed mb-10 max-w-2xl mx-auto">
-            Konsultasikan ide, target pasar, dan arah aroma Anda bersama tim Dreamlab untuk menentukan langkah pengembangan produk yang paling sesuai.
-          </p>
-          <a
-            href="/ads/thankyou/metaads/"
-            className="inline-flex items-center justify-center gap-3 bg-[#FF6A1A] hover:bg-[#e55910] text-white font-bold py-5 px-10 rounded-xl transition-all shadow-lg shadow-[#FF6A1A]/20 text-sm sm:text-base uppercase tracking-wide w-full sm:w-auto"
-          >
-            KONSULTASI MAKLON PARFUM →
-          </a>
-        </div>
-      </section>
-
-      {/* 9. FOOTER */}
-      <footer className="bg-[#111827] text-white/60 py-12 md:py-16 border-t border-white/10 text-sm font-medium">
-        <div className="container mx-auto px-5 lg:px-8 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <div className="space-y-4">
-              <h4 className="text-white font-black text-lg uppercase tracking-widest">DREAMLAB COSMETICS</h4>
-              <p className="leading-relaxed max-w-xs">
-                Beauty Brand Development Partner<br />
-                Maklon Juaranya Formula
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:text-right">
-              <div>
-                <h5 className="text-white font-bold uppercase tracking-wider mb-3 text-xs">Marketing Office</h5>
-                <p className="leading-relaxed">
-                  Jl. Dukuh Kupang Timur XX No.77B<br />
-                  Sawahan, Surabaya
-                </p>
-              </div>
-              <div>
-                <h5 className="text-white font-bold uppercase tracking-wider mb-3 text-xs">Contact</h5>
-                <p>Email: Official@dreamlab.id</p>
+          <section className="metrics">
+            <div className="wrap">
+              <div className="metric-card">
+                <h2>Dipercaya untuk Mengembangkan Brand Beauty</h2>
+                <div className="metric"><b data-count="500">0++</b><span>Brand bekerja sama</span></div>
+                <div className="metric"><b data-count="1000">0+</b><span>Produk dikembangkan</span></div>
               </div>
             </div>
-          </div>
-          <div className="mt-12 pt-8 border-t border-white/10 text-center text-xs text-white/40">
-            <p>&copy; 2026 Dreamlab — PT Karya Impian Laboratoris. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+          </section>
 
-      {/* FLOATING WA BUTTON */}
-      <a
-        href="/ads/thankyou/metaads/"
-        className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
-        aria-label="Contact via WhatsApp"
-      >
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-      </a>
+          <section className="value section">
+            <div className="wrap value-grid">
+              <div className="value-copy">
+                <span className="eyebrow">FASILITAS &amp; KEUNTUNGAN MAKLON</span>
+                <h2>Semua Kebutuhan Brand Parfum Anda dalam Satu Partner</h2>
+                <p>Dreamlab mendampingi pengembangan formula, visual brand, legalitas, produksi, hingga persiapan pemasaran.</p>
+              </div>
+              <div className="checks">
+                <div className="check"><i>&#10003;</i><div><b>Custom Formula Eksklusif</b><span>Formula dikembangkan sesuai konsep brand Anda.</span></div></div>
+                <div className="check"><i>&#10003;</i><div><b>R&amp;D Perfumery</b><span>Karakter aroma dirancang bersama tim formulasi.</span></div></div>
+                <div className="check"><i>&#10003;</i><div><b>MOQ &amp; HPP Fleksibel</b><span>Skala produksi disesuaikan dengan kesiapan bisnis.</span></div></div>
+                <div className="check"><i>&#10003;</i><div><b>Support End-to-End</b><span>Desain, legalitas, produksi, dan digital marketing.</span></div></div>
+              </div>
+            </div>
+          </section>
 
-    </div>
+          <section className="catalog section">
+            <div className="wrap">
+              <div className="title">
+                <span className="eyebrow">KATALOG MAKLON PARFUM</span>
+                <h2>Pilihan Produk Parfum yang Bisa Anda Develop</h2>
+                <p>Tentukan produk sesuai positioning dan target market. Formula, karakter aroma, serta tampilannya dapat dikembangkan bersama Dreamlab.</p>
+              </div>
+              <div className="product-grid">
+                <a className="product" href="/ads/thankyou/metaads/">
+                  <img src="/new asset/parfum/edpp.webp" alt="Eau de Parfum" />
+                  <div className="product-copy"><small>BEST SELLER</small><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
+                </a>
+                <a className="product" href="/ads/thankyou/metaads/">
+                  <img src="/new asset/parfum/edt.webp" alt="Eau de Toilette" />
+                  <div className="product-copy"><small>DAILY WEAR</small><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
+                </a>
+                <a className="product" href="/ads/thankyou/metaads/">
+                  <img src="/new asset/parfum/edc.webp" alt="Eau de Cologne" />
+                  <div className="product-copy"><small>REFRESHING</small><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
+                </a>
+                <a className="product" href="/ads/thankyou/metaads/">
+                  <img src="/new asset/parfum/extrait-de-parfum.webp" alt="Extrait de Parfum" />
+                  <div className="product-copy"><small>PREMIUM</small><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
+                </a>
+                <a className="product" href="/ads/thankyou/metaads/">
+                  <img src="/new asset/parfum/body-mist.webp" alt="Body Mist" />
+                  <div className="product-copy"><small>HIGH REPEAT</small><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
+                </a>
+                <a className="product" href="/ads/thankyou/metaads/">
+                  <img src="/new asset/parfum/essential-oil.webp" alt="Essential Oil" />
+                  <div className="product-copy"><small>NATURAL</small><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section className="process section">
+            <div className="wrap">
+              <div className="title">
+                <span className="eyebrow">ALUR PENGEMBANGAN</span>
+                <h2>5 Langkah Mudah Wujudkan Brand Parfum Anda</h2>
+                <p>Setiap tahap didampingi agar proses membangun brand terasa lebih jelas dan terarah.</p>
+              </div>
+              <div className="process-grid">
+                <article className="step"><img src="/assets/images/Dreamlab-Pabrik-Parfum-Surabaya--1024x574.webp" alt="Konsultasi bersama tim Dreamlab" /><div className="step-copy"><b>01</b><h3>Konsultasi</h3><p>Menentukan target pasar, positioning, dan karakter aroma.</p></div></article>
+                <article className="step"><img src="/assets/images/blog/Dreamlab-Maklon-Parfum.webp" alt="Pembuatan sample parfum" /><div className="step-copy"><b>02</b><h3>Formulasi &amp; Sample</h3><p>R&amp;D meracik dan menyiapkan sampel untuk Anda evaluasi.</p></div></article>
+                <article className="step"><img src="/assets/images/blog/Dreamlab-pilihan-packaging-parfum.webp" alt="Pengembangan legalitas dan desain parfum" /><div className="step-copy"><b>03</b><h3>Legalitas &amp; Desain</h3><p>Legalitas diproses dan identitas visual produk disiapkan.</p></div></article>
+                <article className="step"><img src="/assets/images/blog/production-liquid-soap-detergent-disinfection-production-line-chemicals-factory-scaled.webp" alt="Produksi dan quality control parfum" /><div className="step-copy"><b>04</b><h3>Produksi &amp; Quality Control</h3><p>Produk diproduksi dan diperiksa untuk menjaga kualitas.</p></div></article>
+                <article className="step"><img src="/assets/images/Dreamlab-pilihan-packaging-parfum-1024x599.webp" alt="Delivery produk Dreamlab" /><div className="step-copy"><b>05</b><h3>Delivery</h3><p>Produk selesai dikemas dan siap dikirimkan kepada Anda.</p></div></article>
+              </div>
+            </div>
+          </section>
+
+          <section className="academy section">
+            <div className="wrap academy-grid">
+              <div className="academy-copy">
+                <span className="eyebrow">FREE BEAUTYPRENEUR COMMUNITY</span>
+                <h2>Hanya di Dreamlab, Brand Anda Bukan Sekadar Diproduksi, tetapi Juga Dibimbing untuk Bertumbuh</h2>
+                <p>Nikmati pendampingan praktis untuk memperkuat branding dan meningkatkan penjualan online.</p>
+                <ul className="academy-list">
+                  <li>Mentoring strategi digital marketing</li>
+                  <li>Panduan membangun branding dan positioning produk</li>
+                  <li>Strategi memasarkan dan menjual produk secara online</li>
+                  <li>Networking bersama komunitas beautypreneur</li>
+                </ul>
+                <a className="btn track" data-location="academy" href="/ads/thankyou/metaads/">Jadi Partner Dreamlab &rarr;</a>
+              </div>
+              <div className="academy-collage">
+                <img src="/assets/images/blog/Dreamlab-Dreamprenuer-Academy--1024x540.webp" alt="Komunitas beautypreneur Dreamlab" />
+                <img src="/assets/images/dreamlab_services_hero.webp" alt="Mentoring digital marketing" />
+                <img src="/assets/images/blog/maklon-kosmetik-bpom-bandar-lampung-hero.webp" alt="Sesi branding Dreamlab Academy" />
+              </div>
+            </div>
+          </section>
+
+          <section className="legal section">
+            <div className="wrap">
+              <div className="title">
+                <span className="eyebrow">LEGALITAS &amp; STANDAR PABRIK</span>
+                <h2>Brand Anda Lebih Terjamin dengan Standar yang Jelas</h2>
+                <p>Proses produksi dan legalitas didampingi agar produk Anda lebih siap dan aman masuk ke pasar.</p>
+              </div>
+              <div className="legal-grid">
+                <div className="legal-card"><img src="/assets/images/BPOM.webp" alt="Logo BPOM" /><b>Legalitas BPOM</b></div>
+                <div className="legal-card"><img src="/assets/images/hALAL-TRANSPARAN.webp" alt="Logo Halal Indonesia" /><b>Sertifikasi Halal</b></div>
+                <div className="legal-card"><img src="/assets/images/Dreamlab_maklon_cpkbgradeA-1024x640.webp" alt="Logo CPKB" /><b>Fasilitas CPKB Grade A</b></div>
+                <div className="legal-card"><img src="/assets/images/logo-hki-1-1024x1024.webp" alt="Logo HKI" /><b>Pendampingan HKI</b></div>
+              </div>
+            </div>
+          </section>
+
+          <section className="clients section">
+            <div className="wrap">
+              <div className="title">
+                <span className="eyebrow">OUR CLIENT</span>
+                <h2>Brand yang Telah Bertumbuh Bersama Dreamlab</h2>
+                <p>Dipercaya oleh berbagai brand beauty untuk mengembangkan produk yang siap bersaing di pasar.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="closing">
+            <span className="eyebrow">MULAI DARI IDE AROMA ANDA</span>
+            <h2>Wujudkan Brand Parfum dengan Formula yang Punya Karakter</h2>
+            <p>Konsultasikan konsep parfum Anda bersama tim Dreamlab.</p>
+            <a className="btn track" data-location="closing" href="/ads/thankyou/metaads/">Konsultasi Maklon Parfum &rarr;</a>
+          </section>
+        </main>
+        
+        <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/metaads/" aria-label="Konsultasi WhatsApp">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+        </a>
+      </div>
+    </>
   );
 }
