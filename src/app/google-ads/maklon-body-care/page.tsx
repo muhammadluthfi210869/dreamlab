@@ -159,9 +159,8 @@ export default function GoogleAdsMaklonBodyCare() {
             <Image className="hero-bg" src="/new asset/landing page/skincare.webp" alt="Koleksi produk body care untuk pengembangan brand" fill priority sizes="100vw" style={{ objectFit: "cover" }} />
             <div className="hero-shade"></div>
             <div className="wrap hero-copy">
-              <span className="eyebrow">#1 MAKLON BODY CARE CUSTOM AROMA</span>
+              <span className="eyebrow">#1 Maklon Bodycare</span>
               <h1><span>Mau Buat Brand Body Care Custom dengan</span> <em>Formula Eksklusif?</em></h1>
-              <p>Dreamlab membantu Anda mengembangkan produk body care dari konsep bahan aktif, formulasi, sample, legalitas, hingga siap diproduksi dan dipasarkan.</p>
               <a className="btn track" data-location="hero" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
               
             </div>
