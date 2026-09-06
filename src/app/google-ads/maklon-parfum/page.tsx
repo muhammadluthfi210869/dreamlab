@@ -280,16 +280,16 @@ export default function GoogleAdsMaklonParfum() {
           <section className="academy section">
             <div className="wrap academy-grid">
               <div className="academy-copy">
-                <span className="eyebrow">BRAND DEVELOPMENT SUPPORT</span>
-                <h2>BRAND ANDA BUKAN SEKADAR DIPRODUKSI, TAPI JUGA DIDAMPINGI UNTUK BERTUMBUH</h2>
+                <span className="eyebrow">FREE BEAUTYPRENEUR COMMUNITY</span>
+                <h2>Hanya di Dreamlab, Brand Anda Bukan Sekadar Diproduksi, tetapi Juga Dibimbing untuk Bertumbuh</h2>
                 <p>Nikmati pendampingan praktis untuk memperkuat branding dan meningkatkan penjualan online.</p>
                 <ul className="academy-list">
-                  <li>Creative</li>
-                  <li>Branding</li>
-                  <li>Digital Marketing</li>
-                  <li>Beautypreneur Community</li>
+                  <li>Mentoring strategi digital marketing</li>
+                  <li>Panduan membangun branding dan positioning produk</li>
+                  <li>Strategi memasarkan dan menjual produk secara online</li>
+                  <li>Networking bersama komunitas beautypreneur</li>
                 </ul>
-                <a className="btn track" data-location="academy" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
+                <a className="btn track" data-location="academy" href="/ads/thankyou/google-ads/">Jadi Partner Dreamlab &rarr;</a>
               </div>
               <div className="academy-collage">
                 <Image src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
