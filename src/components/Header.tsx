@@ -18,7 +18,9 @@ export default function Header() {
     pathname === "/ads/maklon-parfum/" || 
     pathname === "/ads/maklon-parfum" ||
     pathname === "/google-ads/maklon-parfum/" ||
-    pathname === "/google-ads/maklon-parfum"
+    pathname === "/google-ads/maklon-parfum" ||
+    pathname === "/google-ads/maklon-body-care/" ||
+    pathname === "/google-ads/maklon-body-care"
   ) return null;
 
   // Helper untuk menormalisasi trailing slash dari URL (Next.js trailingSlash: true)
