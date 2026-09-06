@@ -89,13 +89,15 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .product-copy p { font-size:14px; line-height:1.5; margin:0; color:#f8fbfd; opacity:0.95; max-width:250px; }
         .parfum-lp .process { background:#fff; }
         .parfum-lp .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-        .parfum-lp .step { position:relative; height:340px; border-radius:20px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; }
-        .parfum-lp .step img { width:100%; height:100%; display:block; object-fit:cover; }
-        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 0%, rgba(8,18,35,0.85) 100%); pointer-events:none; }
-        .parfum-lp .step-copy { position:absolute; bottom:24px; left:24px; right:24px; z-index:2; color:#fff; pointer-events:none; }
-        .parfum-lp .step-copy b { display:block; color:#ffc06f; font-size:12px; font-weight:800; letter-spacing:1px; margin-bottom:6px; }
-        .parfum-lp .step-copy h3 { margin:0 0 8px; font-size:22px; font-weight:800; text-transform:uppercase; text-shadow:0 1px 3px rgba(0,0,0,0.3); }
-        .parfum-lp .step-copy p { margin:0; color:#f8fbfd; font-size:14px; line-height:1.55; opacity:0.95; }
+        .parfum-lp .step { position:relative; height:340px; border-radius:20px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; }
+        .parfum-lp .step:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .parfum-lp .step img { width:100%; height:100%; display:block; object-fit:cover; position:relative; z-index:0; transition: transform 0.7s ease; }
+        .parfum-lp .step:hover img { transform: scale(1.06); }
+        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,15,30,0.96) 0%, rgba(5,15,30,0.82) 30%, rgba(5,15,30,0.35) 60%, rgba(5,15,30,0.05) 100%); pointer-events:none; z-index:1; }
+        .parfum-lp .step-copy { position:absolute; bottom:28px; left:28px; right:28px; z-index:2; color:#fff; pointer-events:none; }
+        .parfum-lp .step-copy b { display:block; color:var(--orange); font-size:14px; font-weight:800; letter-spacing:1px; margin-bottom:8px; text-transform:uppercase; }
+        .parfum-lp .step-copy h3 { margin:0 0 12px; font-size:26px; font-weight:800; text-transform:uppercase; color:#fff; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,0.35); }
+        .parfum-lp .step-copy p { margin:0; color:rgba(255,255,255,0.92); font-size:17px; line-height:1.55; }
         .parfum-lp .academy { background:var(--paper); }
         .parfum-lp .academy-grid { display:grid; grid-template-columns:1.07fr .93fr; gap:58px; align-items:center; }
         .parfum-lp .academy-photo { position:relative; }
@@ -174,8 +176,9 @@ export default function MaklonParfumAdsLP() {
           .parfum-lp .step { display:block; height:300px; min-height:auto; }
           .parfum-lp .step img { height:100%; min-height:auto; }
           .parfum-lp .step-copy { bottom:20px; left:20px; right:20px; padding:0; }
-          .parfum-lp .step-copy h3 { font-size:20px; margin-bottom:6px; }
-          .parfum-lp .step-copy p { font-size:13px; }
+          .parfum-lp .step-copy b { font-size:13px; margin-bottom:8px; }
+          .parfum-lp .step-copy h3 { font-size:22px; margin-bottom:10px; }
+          .parfum-lp .step-copy p { font-size:15px; }
           .parfum-lp .academy-list { grid-template-columns:1fr; gap:8px; margin:20px 0 24px; }
           .parfum-lp .academy-list li { min-height:0; padding:13px 14px; font-size:14px; line-height:1.4; }
           .parfum-lp .academy .btn { width:100%; }
@@ -275,11 +278,11 @@ export default function MaklonParfumAdsLP() {
                 <p>Setiap tahap didampingi agar proses membangun brand terasa lebih jelas dan terarah.</p>
               </div>
                             <div className="process-grid">
-                <article className="step"><Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi IDE" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 01</b><h3>KONSULTASI IDE</h3><p>Diskusikan konsep parfum, target market, karakter aroma, dan positioning brand Anda.</p></div></article>
-                <article className="step"><Image src="/assets/maklon-parfum/sample.webp" alt="Formulasi & Sample" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 02</b><h3>FORMULASI &amp; SAMPLE</h3><p>Tim R&amp;D mengembangkan formula dan sample parfum sesuai brief serta karakter brand.</p></div></article>
+                <article className="step"><Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi IDE" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 01</b><h3>KONSULTASI BRAND &amp; TARGET MARKET</h3><p>Diskusikan konsep parfum, target market, karakter aroma, dan positioning brand Anda.</p></div></article>
+                <article className="step"><Image src="/assets/maklon-parfum/sample.webp" alt="Formulasi & Sample" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 02</b><h3>FORMULASI &amp; SAMPLE AROMA</h3><p>Tim R&amp;D mengembangkan formula dan sample parfum sesuai brief serta karakter brand.</p></div></article>
                 <article className="step"><Image src="/assets/maklon-parfum/legal-design.webp" alt="Legalitas & Desain" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 03</b><h3>LEGALITAS &amp; DESAIN</h3><p>Setelah formula disetujui, proses dilanjutkan ke legalitas dan pengembangan desain kemasan.</p></div></article>
                 <article className="step"><Image src="/assets/maklon-parfum/production.webp" alt="Produksi & Quality Control" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 04</b><h3>PRODUKSI &amp; QUALITY CONTROL</h3><p>Produk diproduksi sesuai standar fasilitas Dreamlab dan melalui proses quality control.</p></div></article>
-                <article className="step"><Image src="/assets/maklon-parfum/delivery.webp" alt="Delivery" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 05</b><h3>DELIVERY</h3><p>Produk yang sudah selesai dipersiapkan untuk dikirim dan siap masuk ke tahap pemasaran.</p></div></article>
+                <article className="step"><Image src="/assets/maklon-parfum/delivery.webp" alt="Delivery" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 05</b><h3>DELIVERY &amp; SIAP LAUNCHING</h3><p>Produk yang sudah selesai dipersiapkan untuk dikirim dan siap masuk ke tahap pemasaran.</p></div></article>
               </div>
             </div>
           </section>
