@@ -30,12 +30,12 @@ export default function GoogleAdsMaklonBodyCare() {
         
         .bodycare-lp .hero { position:relative; min-height:85vh; display:flex; align-items:center; padding:100px 0 60px; background:#FAF9F6; overflow:hidden; }
         .bodycare-lp .hero-bg { opacity:1; object-position:82% center; }
-        .bodycare-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(18,28,45,0.95) 0%, rgba(18,28,45,0.7) 50%, rgba(18,28,45,0) 100%); z-index:10; }
-        .bodycare-lp .hero-copy { position:relative; z-index:20; color:#fff; max-width:700px; }
+        .bodycare-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 45%, rgba(255,255,255,0) 100%); z-index:10; }
+        .bodycare-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:700px; }
         .bodycare-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.2); border:1px solid var(--orange); color:#ffb732; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
         .bodycare-lp .hero h1 { font-size:52px; font-weight:900; line-height:1.1; margin:0 0 24px; text-transform:uppercase; letter-spacing:-1px; }
         .bodycare-lp .hero h1 em { color:var(--orange); font-style:italic; }
-        .bodycare-lp .hero p { font-size:18px; line-height:1.6; color:rgba(255,255,255,0.8); font-weight:500; margin:0 0 40px; }
+        .bodycare-lp .hero p { font-size:18px; line-height:1.6; color:#555; font-weight:500; margin:0 0 40px; }
         
         
         
@@ -56,7 +56,7 @@ export default function GoogleAdsMaklonBodyCare() {
         .bodycare-lp .title h2 { font-size:36px; font-weight:900; margin:12px 0 16px; text-transform:uppercase; line-height:1.15; }
         .bodycare-lp .title p { font-size:18px; color:#555; line-height:1.6; margin:0; }
 
-        .bodycare-lp .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .bodycare-lp .product-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
         .bodycare-lp .product { position:relative; height:390px; border-radius:18px; overflow:hidden; display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; }
         .bodycare-lp .product:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(8,18,35,0.25); z-index: 10; }
         .bodycare-lp .product img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.7s ease; }
@@ -69,16 +69,16 @@ export default function GoogleAdsMaklonBodyCare() {
         .bodycare-lp .process { background:#4898D3; color:#fff; }
         .bodycare-lp .process .title h2 { color:#fff; }
         .bodycare-lp .process .title p { color:rgba(255,255,255,0.78); }
-        .bodycare-lp .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-        .bodycare-lp .step { position:relative; height:340px; border-radius:20px; overflow:hidden; background:#367baf; box-shadow:var(--shadow); display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; }
+        .bodycare-lp .process-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:15px; }
+        .bodycare-lp .step { position:relative; height:400px; border-radius:20px; overflow:hidden; background:#367baf; box-shadow:var(--shadow); display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; }
         .bodycare-lp .step:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .bodycare-lp .step img { width:100%; height:100%; display:block; object-fit:cover; position:relative; z-index:0; transition: transform 0.7s ease; }
         .bodycare-lp .step:hover img { transform: scale(1.06); }
         .bodycare-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(45,115,165,0.96) 0%, rgba(45,115,165,0.75) 38%, rgba(45,115,165,0.20) 70%, transparent 100%); pointer-events:none; z-index:10; }
         .bodycare-lp .step-copy { position:absolute; bottom:28px; left:28px; right:28px; z-index:20; color:#fff; pointer-events:none; }
         .bodycare-lp .step-copy b { display:block; color:var(--orange); font-size:14px; font-weight:800; letter-spacing:1px; margin-bottom:8px; text-transform:uppercase; }
-        .bodycare-lp .step-copy h3 { margin:0 0 12px; font-size:26px; font-weight:800; text-transform:uppercase; color:#fff; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,0.35); }
-        .bodycare-lp .step-copy p { margin:0; color:rgba(255,255,255,0.92); font-size:17px; line-height:1.55; }
+        .bodycare-lp .step-copy h3 { margin:0 0 12px; font-size:18px; font-weight:800; text-transform:uppercase; color:#fff; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,0.35); }
+        .bodycare-lp .step-copy p { margin:0; color:rgba(255,255,255,0.92); font-size:14px; line-height:1.55; }
 
         .bodycare-lp .academy { background:var(--paper); }
         .bodycare-lp .academy-grid { display:grid; grid-template-columns:1.07fr .93fr; gap:58px; align-items:center; }
@@ -113,7 +113,7 @@ export default function GoogleAdsMaklonBodyCare() {
           .bodycare-lp .hero h1 { font-size:42px; }
           .bodycare-lp .checks { grid-template-columns:1fr 1fr; }
           .bodycare-lp .product-grid { grid-template-columns:1fr 1fr; }
-          .bodycare-lp .process-grid { grid-template-columns:1fr 1fr; }
+          .bodycare-lp .process-grid { grid-template-columns:repeat(3,1fr); gap: 16px; }
           .bodycare-lp .academy-grid { grid-template-columns:1fr; }
           .bodycare-lp .academy-collage { display:grid; margin-top:32px; }
         }
@@ -122,7 +122,7 @@ export default function GoogleAdsMaklonBodyCare() {
           .bodycare-lp .hero { padding:70px 0 40px; min-height:auto; }
           .bodycare-lp .hero h1 { font-size:32px; }
           .bodycare-lp .hero p { font-size:16px; }
-          .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(45,115,165,0.3) 0%, rgba(45,115,165,0.85) 50%, rgba(45,115,165,0.98) 100%); }
+          .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,1) 100%); }
           .bodycare-lp .metric-card { flex-direction:column; text-align:center; padding:30px 20px; gap:20px; margin-top:20px; }
           .bodycare-lp .checks { grid-template-columns:1fr; gap:12px; margin-top:24px; }
           .bodycare-lp .check { padding:16px; }
@@ -159,15 +159,37 @@ export default function GoogleAdsMaklonBodyCare() {
             <div className="hero-shade"></div>
             <div className="wrap hero-copy">
               <span className="eyebrow">#1 MAKLON BODY CARE CUSTOM AROMA</span>
-              <h1><span style={{color:"#fff"}}>Mau Buat Brand Body Care Custom dengan</span> <em>Formula Eksklusif?</em></h1>
+              <h1><span>Mau Buat Brand Body Care Custom dengan</span> <em>Formula Eksklusif?</em></h1>
               <p>Dreamlab membantu Anda mengembangkan produk body care dari konsep bahan aktif, formulasi, sample, legalitas, hingga siap diproduksi dan dipasarkan.</p>
               <a className="btn track" data-location="hero" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
               
             </div>
           </section>
 
-          <section className="metrics">
+          
+          <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px"}}>
             <div className="wrap">
+              <div className="title" style={{marginBottom: "20px"}}>
+                <span className="eyebrow">VALUE DREAMLAB</span>
+                <h2 style={{fontSize:"28px"}}>MENGAPA MEMILIH DREAMLAB?</h2>
+              </div>
+              <div className="checks" style={{marginTop: "0px", gridTemplateColumns: "repeat(4, 1fr)"}}>
+                <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>1 Klien 1 Formula</b><span>Formula eksklusif tidak pasaran</span></div>
+                <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>3 Bulan Siap Jual</b><span>Proses cepat dari nol</span></div>
+                <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>MOQ Fleksibel</b><span>Mulai brand tanpa ribet</span></div>
+                <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>BPOM & Halal</b><span>Terjamin kualitasnya</span></div>
+              </div>
+            </div>
+          </section>
+
+          <section className="metrics" style={{paddingTop: "20px", borderBottom: "none", backgroundColor: "#fdfdfd"}}>
+            <div className="wrap">
+              <div className="title" style={{marginBottom: "20px"}}>
+                <span className="eyebrow">PELUANG MARKET</span>
+                <h2 style={{fontSize:"28px"}}>TREND BODYCARE 2026</h2>
+                <p>Formula yang paling dicari oleh konsumen saat ini.</p>
+              </div>
+
               <div className="checks" style={{marginTop: "0px", gridTemplateColumns: "repeat(4, 1fr)"}}>
                 <div className="check"><i>&#10003;</i><b>Fokus Skin Barrier & Hidrasi</b></div>
                 <div className="check"><i>&#10003;</i><b>Tren Body Serum & Sunscreen</b></div>
