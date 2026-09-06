@@ -33,7 +33,7 @@ export default function GoogleAdsMaklonBodyCare() {
         .bodycare-lp .hero { position:relative; min-height:85vh; display:flex; align-items:center; padding:100px 0 60px; background:#FAF9F6; overflow:hidden; }
         .bodycare-lp .hero-bg { opacity:1; object-position:82% center; }
         .bodycare-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 45%, rgba(255,255,255,0) 100%); z-index:10; }
-        .bodycare-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:700px; }
+        .bodycare-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:760px; margin-left: 0; }
         .bodycare-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.2); border:1px solid var(--orange); color:#ffb732; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
         .bodycare-lp .hero h1 { font-size:52px; font-weight:900; line-height:1.1; margin:0 0 24px; text-transform:uppercase; letter-spacing:-1px; }
         .bodycare-lp .hero h1 em { color:var(--orange); font-style:italic; }
@@ -43,7 +43,7 @@ export default function GoogleAdsMaklonBodyCare() {
         
 
         
-          .bodycare-lp .metrics { position:relative; margin-top:-44px; z-index:3; }
+          .bodycare-lp .metrics { position:relative; margin-top:-44px; z-index:99; }
           .bodycare-lp .metric-card { background:#fff; border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); display:grid; grid-template-columns:1.4fr 1fr 1fr; align-items:center; padding:27px 32px; }
           .bodycare-lp .metric-card h2 { font-size:22px; line-height:1.3; margin:0; }
           .bodycare-lp .metric { padding-left:30px; border-left:1px solid var(--line); }
@@ -213,9 +213,9 @@ export default function GoogleAdsMaklonBodyCare() {
           </section>
 
           
-          <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px"}}>
+          <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px", position: "relative", zIndex: 50}}>
             <div className="wrap">
-              <div className="metric-card" style={{marginBottom: "40px", marginTop: "-100px", position: "relative", zIndex: 10}}>
+              <div className="metric-card" style={{marginBottom: "40px", marginTop: "-100px", position: "relative", zIndex: 99}}>
                 <h2>Dipercaya untuk Mengembangkan Brand Beauty</h2>
                 <div className="metric"><b data-count="500">0++</b><span>Brand bekerja sama</span></div>
                 <div className="metric"><b data-count="1000">0+</b><span>Produk dikembangkan</span></div>
