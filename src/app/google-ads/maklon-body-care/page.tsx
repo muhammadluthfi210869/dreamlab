@@ -43,25 +43,12 @@ export default function GoogleAdsMaklonBodyCare() {
         
 
         
-          .bodycare-lp .metrics { position:relative; margin-top:-44px; z-index:99; }
-          .bodycare-lp .metric-card { background:#fff; border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); display:grid; grid-template-columns:1.4fr 1fr 1fr; align-items:center; padding:27px 32px; }
-          .bodycare-lp .metric-card h2 { font-size:22px; line-height:1.3; margin:0; }
-          .bodycare-lp .metric { padding-left:30px; border-left:1px solid var(--line); }
-          .bodycare-lp .metric b { display:block; color:var(--blue); font-size:34px; }
-          .bodycare-lp .metric span { font-size:13px; color:var(--muted); }
-          @media (max-width: 1024px) {
-            .bodycare-lp .metric-card { grid-template-columns:1fr 1fr; padding:20px 16px; text-align:center; gap: 16px; }
-            .bodycare-lp .metric-card h2 { grid-column:1/-1; font-size:18px; margin-bottom:0px; }
-            .bodycare-lp .metric { padding:0; border:0; }
-            .bodycare-lp .metric+ .metric { border-left:1px solid var(--line); }
-            .bodycare-lp .metric b { font-size:28px; }
-          }
-
-          .bodycare-lp .metrics-orig { background:var(--paper); padding:40px 0; border-bottom:1px solid var(--line); }
-        .bodycare-lp .metric-card { background:#fff; border-radius:24px; padding:48px 40px; box-shadow:var(--shadow); display:grid; grid-template-columns:1fr 1fr; gap:40px; margin:-90px auto 40px; position:relative; z-index:10; max-width:800px; text-align:center; align-items:center; }
-        .bodycare-lp .metric { display:flex; flex-direction:column; align-items:center; justify-content:center; }
-        .bodycare-lp .metric b { font-size:64px; font-weight:900; color:var(--orange); line-height:1; letter-spacing:-1px; }
-        .bodycare-lp .metric span { font-size:18px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:1.5px; margin-top:12px; }
+          .bodycare-lp .metrics { position:relative; margin-top:-32px; z-index:50; width:calc(100% - 32px); max-width:760px; margin-left:auto; margin-right:auto; }
+          .bodycare-lp .metric-card { background:#FFFFFF; border:1px solid #E5EAF2; border-radius:24px; padding:28px; box-shadow:0 4px 20px rgba(0,0,0,0.04); display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); align-items:center; }
+          .bodycare-lp .stat { text-align:center; }
+          .bodycare-lp .stat.divider { border-left:1px solid #E5EAF2; }
+          .bodycare-lp .number { color:#2F6BFF; font-weight:800; font-size:48px; line-height:1; }
+          .bodycare-lp .label { margin-top:8px; color:#334155; font-weight:700; font-size:14px; line-height:1.35; letter-spacing:0.03em; text-transform:uppercase; }
         
           .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
           @media (max-width: 1024px) {
@@ -159,9 +146,9 @@ export default function GoogleAdsMaklonBodyCare() {
           .bodycare-lp .hero h1 { font-size:32px; }
           .bodycare-lp .hero p { font-size:16px; }
           .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,1) 100%); }
-          .bodycare-lp .metric-card { grid-template-columns:1fr; padding:40px 20px; gap:32px; margin-top:20px; }
-          .bodycare-lp .metric b { font-size:48px; }
-          .bodycare-lp .metric span { font-size:15px; }
+          .bodycare-lp .metric-card { grid-template-columns:1fr; padding:24px 16px; gap:24px; }
+          .bodycare-lp .stat.divider { border-left:none; border-top:1px solid #E5EAF2; padding-top:24px; }
+          .bodycare-lp .number { font-size:40px; }
           
           .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
           @media (max-width: 1024px) {
@@ -214,13 +201,18 @@ export default function GoogleAdsMaklonBodyCare() {
           </section>
 
           
-          <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px", position: "relative", zIndex: 50}}>
-            <div className="wrap">
-              <div className="metric-card" style={{position: "relative", zIndex: 99, maxWidth: "800px", margin: "-100px auto 40px"}}>
-                <div className="metric"><b data-count="500">0++</b><span>Brand Bekerja Sama</span></div>
-                <div className="metric"><b data-count="1000">0++</b><span>Produk Dikembangkan</span></div>
+          <section className="metrics">
+            <div className="metric-card">
+              <div className="stat">
+                <div className="number">500++</div>
+                <div className="label">BRAND TELAH BEKERJA SAMA</div>
               </div>
-              
+              <div className="stat divider">
+                <div className="number">1000+</div>
+                <div className="label">PRODUK TELAH DIKEMBANGKAN</div>
+              </div>
+            </div>
+            <div className="wrap">
               <div className="title" style={{marginBottom: "20px", marginTop: "20px"}}>
                 <h2 style={{fontSize:"28px"}}>MENGAPA MEMILIH DREAMLAB?</h2>
               </div>
@@ -323,33 +315,7 @@ export default function GoogleAdsMaklonBodyCare() {
             <a className="btn track" data-location="closing" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
         
-          <script dangerouslySetInnerHTML={{ __html: `
-            document.addEventListener("DOMContentLoaded", function() {
-              const observer = new IntersectionObserver(es => {
-                es.forEach(e => {
-                  if(!e.isIntersecting) return;
-                  document.querySelectorAll('[data-count]').forEach(el => {
-                    const target = +(el.getAttribute('data-count') || 0);
-                    let current = 0;
-                    const increment = target / 40;
-                    const updateCounter = () => {
-                      current += increment;
-                      if(current < target) {
-                        el.innerText = Math.ceil(current) + "++";
-                        setTimeout(updateCounter, 30);
-                      } else {
-                        el.innerText = target + "++";
-                      }
-                    };
-                    updateCounter();
-                  });
-                  observer.disconnect();
-                });
-              }, {threshold:.25});
-              const metrics = document.querySelector('.metric-card');
-              if(metrics) observer.observe(metrics);
-            });
-          `}} />
+
 
         </main>
         
