@@ -19,15 +19,15 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp img { max-width:100%; height:auto; }
         .parfum-lp a { text-decoration:none; color:inherit; }
         .parfum-lp .wrap { max-width:1160px; margin:0 auto; padding:0 24px; }
-        .parfum-lp .section { padding:80px 0; }
+        .parfum-lp .section { padding:64px 0; }
         
         .parfum-lp .btn { display:inline-block; background:var(--orange); color:#fff; font-weight:800; font-size:15px; letter-spacing:1px; text-transform:uppercase; padding:18px 40px; border-radius:50px; box-shadow:0 12px 24px rgba(217,138,0,0.3); transition:.2s; text-align:center; }
         .parfum-lp .btn:hover { transform:translateY(-2px); filter:saturate(1.08); }
         
         .parfum-lp .hero { position:relative; min-height:85vh; display:flex; align-items:center; padding:100px 0 60px; background:#000; overflow:hidden; }
         .parfum-lp .hero-bg { opacity:0.65; object-position:75% center; }
-        .parfum-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(18,28,45,0.95) 0%, rgba(18,28,45,0.7) 50%, rgba(18,28,45,0) 100%); z-index:1; }
-        .parfum-lp .hero-copy { position:relative; z-index:2; color:#fff; max-width:700px; margin:0; }
+        .parfum-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(18,28,45,0.95) 0%, rgba(18,28,45,0.7) 50%, rgba(18,28,45,0) 100%); z-index:10; }
+        .parfum-lp .hero-copy { position:relative; z-index:20; color:#fff; max-width:700px; margin:0; }
         .parfum-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.2); border:1px solid var(--orange); color:#ffb732; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
         .parfum-lp .hero h1 { font-size:52px; font-weight:900; line-height:1.1; margin:0 0 24px; text-transform:uppercase; letter-spacing:-1px; }
         .parfum-lp .hero h1 em { color:var(--orange); font-style:italic; }
@@ -48,11 +48,11 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .check b { display:block; font-size:16px; font-weight:800; margin-bottom:6px; text-transform:uppercase; }
         .parfum-lp .check span { font-size:14px; line-height:1.5; color:#555; }
 
-        .parfum-lp .title { text-align:center; max-width:700px; margin:0 auto 50px; }
-        .parfum-lp .title h2 { font-size:42px; font-weight:900; margin:16px 0 20px; text-transform:uppercase; line-height:1.15; }
+        .parfum-lp .title { text-align:center; max-width:700px; margin:0 auto 32px; }
+        .parfum-lp .title h2 { font-size:36px; font-weight:900; margin:12px 0 16px; text-transform:uppercase; line-height:1.15; }
         .parfum-lp .title p { font-size:18px; color:#555; line-height:1.6; margin:0; }
 
-        .parfum-lp .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+        .parfum-lp .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
         .parfum-lp .product { position:relative; height:390px; border-radius:18px; overflow:hidden; display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; }
         .parfum-lp .product:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(8,18,35,0.25); z-index: 10; }
         .parfum-lp .product img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.7s ease; }
@@ -63,14 +63,15 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .product-copy p { color:rgba(255,255,255,0.9); font-size:15px; margin:0; line-height:1.5; }
 
         .parfum-lp .process { background:var(--dark); color:#fff; }
-        .parfum-lp .process .title p { color:rgba(255,255,255,0.8); }
+        .parfum-lp .process .title h2 { color:#fff; }
+        .parfum-lp .process .title p { color:rgba(255,255,255,0.78); }
         .parfum-lp .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
         .parfum-lp .step { position:relative; height:340px; border-radius:20px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; }
         .parfum-lp .step:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .parfum-lp .step img { width:100%; height:100%; display:block; object-fit:cover; position:relative; z-index:0; transition: transform 0.7s ease; }
         .parfum-lp .step:hover img { transform: scale(1.06); }
-        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,15,30,0.96) 0%, rgba(5,15,30,0.82) 30%, rgba(5,15,30,0.35) 60%, rgba(5,15,30,0.05) 100%); pointer-events:none; z-index:1; }
-        .parfum-lp .step-copy { position:absolute; bottom:28px; left:28px; right:28px; z-index:2; color:#fff; pointer-events:none; }
+        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,15,30,0.96) 0%, rgba(5,15,30,0.75) 38%, rgba(5,15,30,0.20) 70%, transparent 100%); pointer-events:none; z-index:10; }
+        .parfum-lp .step-copy { position:absolute; bottom:28px; left:28px; right:28px; z-index:20; color:#fff; pointer-events:none; }
         .parfum-lp .step-copy b { display:block; color:var(--orange); font-size:14px; font-weight:800; letter-spacing:1px; margin-bottom:8px; text-transform:uppercase; }
         .parfum-lp .step-copy h3 { margin:0 0 12px; font-size:26px; font-weight:800; text-transform:uppercase; color:#fff; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,0.35); }
         .parfum-lp .step-copy p { margin:0; color:rgba(255,255,255,0.92); font-size:17px; line-height:1.55; }
@@ -80,8 +81,8 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .academy-photo { position:relative; }
         .parfum-lp .academy-photo img { display:block; width:100%; height:500px; object-fit:cover; border-radius:28px; box-shadow:var(--shadow); }
         .parfum-lp .academy-badge { position:absolute; right:-18px; bottom:24px; background:var(--orange); color:#fff; padding:17px 20px; border-radius:16px; font-weight:800; }
-        .parfum-lp .academy-copy h2 { font-size:42px; font-weight:900; margin:16px 0 20px; text-transform:uppercase; line-height:1.15; }
-        .parfum-lp .academy-copy p { font-size:18px; color:#555; line-height:1.6; margin:0 0 24px; }
+        .parfum-lp .academy-copy h2 { font-size:36px; font-weight:900; margin:12px 0 12px; text-transform:uppercase; line-height:1.15; }
+        .parfum-lp .academy-copy p { font-size:16px; color:#555; line-height:1.6; margin:0 0 24px; }
         .parfum-lp .academy-list { list-style:none; padding:0; margin:0 0 36px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .parfum-lp .academy-list li { background:#fff; border:1px solid var(--line); padding:16px 20px; border-radius:16px; font-weight:700; font-size:15px; display:flex; align-items:center; gap:12px; min-height:80px; }
         .parfum-lp .academy-list li:before { content:'✓'; color:var(--orange); font-size:18px; font-weight:900; }
@@ -94,12 +95,12 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .legal-card:hover { transform: translateY(-5px); border-color: var(--orange); }
         .parfum-lp .legal-card b { display:block; font-size:16px; font-weight:800; }
 
-        .parfum-lp .clients-card { background:#fff; border:1px solid var(--line); border-radius:32px; padding:48px; text-align:center; }
+        .parfum-lp .clients-card { background:#fff; border:1px solid var(--line); border-radius:32px; padding:32px; text-align:center; }
         .parfum-lp .clients-card img { max-width:980px; margin:0 auto; display:block; }
 
-        .parfum-lp .closing { text-align:center; background:#fff; padding:100px 24px; border-top:1px solid var(--line); }
-        .parfum-lp .closing h2 { font-size:48px; font-weight:900; margin:16px auto 20px; max-width:800px; text-transform:uppercase; line-height:1.15; }
-        .parfum-lp .closing p { font-size:20px; color:#555; margin:0 auto 40px; }
+        .parfum-lp .closing { text-align:center; background:#fff; padding:64px 24px; border-top:1px solid var(--line); }
+        .parfum-lp .closing h2 { font-size:42px; font-weight:900; margin:12px auto 16px; max-width:800px; text-transform:uppercase; line-height:1.15; }
+        .parfum-lp .closing p { font-size:18px; color:#555; margin:0 auto 24px; }
 
         .parfum-lp .wa { position:fixed; bottom:24px; right:24px; width:60px; height:60px; background:#25D366; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow:0 12px 24px rgba(37,211,102,0.3); z-index:90; transition:.2s; text-decoration:none; }
         .parfum-lp .wa:hover { transform:scale(1.1); }
@@ -113,7 +114,7 @@ export default function GoogleAdsMaklonParfum() {
           .parfum-lp .academy-collage { display:none; }
         }
         @media(max-width:768px){
-          .parfum-lp .section { padding:50px 0; }
+          .parfum-lp .section { padding:48px 0; }
           .parfum-lp .hero { padding:70px 0 40px; min-height:auto; }
           .parfum-lp .hero h1 { font-size:32px; }
           .parfum-lp .hero p { font-size:16px; }
@@ -121,7 +122,7 @@ export default function GoogleAdsMaklonParfum() {
           .parfum-lp .metric-card { flex-direction:column; text-align:center; padding:30px 20px; gap:20px; margin-top:20px; }
           .parfum-lp .checks { grid-template-columns:1fr; gap:12px; margin-top:24px; }
           .parfum-lp .check { padding:16px; }
-          .parfum-lp .title { margin-bottom:30px; }
+          .parfum-lp .title { margin-bottom:24px; }
           .parfum-lp .title h2 { font-size:28px; }
           .parfum-lp .title p { font-size:15px; }
           .parfum-lp .product-grid { grid-template-columns:1fr; gap:12px; }
@@ -143,7 +144,7 @@ export default function GoogleAdsMaklonParfum() {
           .parfum-lp .clients-card { padding:20px; border-radius:16px; }
           .parfum-lp .closing h2 { font-size:32px; }
           .parfum-lp .closing p { font-size:16px; }
-          .parfum-lp .closing { padding:60px 20px; }
+          .parfum-lp .closing { padding:48px 20px; }
           .parfum-lp .hero-trust { flex-direction:column; gap:12px; }
         }
       `}} />
@@ -173,7 +174,7 @@ export default function GoogleAdsMaklonParfum() {
           </section>
 
           {/* New 1 Client 1 Custom Formula & MOQ Section */}
-          <section className="section bg-gray-50 pb-0">
+          <section className="section bg-gray-50 py-16">
             <div className="wrap">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                 
@@ -218,7 +219,7 @@ export default function GoogleAdsMaklonParfum() {
             </div>
           </section>
 
-          <section className="catalog section pb-0 mt-8">
+          <section className="catalog section pb-0 mt-0">
             <div className="wrap">
               <div className="title">
                 <span className="eyebrow">PILIHAN PRODUK PARFUM</span>
@@ -269,7 +270,7 @@ export default function GoogleAdsMaklonParfum() {
                 <article className="step"><Image src="/assets/maklon-parfum/delivery.webp" alt="Delivery" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} /><div className="step-copy"><b>STEP 05</b><h3>DELIVERY &amp; SIAP LAUNCHING</h3><p>Produk yang selesai diproduksi dipersiapkan untuk pengiriman dan siap masuk ke tahap pemasaran.</p></div></article>
               </div>
               
-              <div style={{ textAlign: "center", marginTop: "48px" }}>
+              <div style={{ textAlign: "center", marginTop: "32px" }}>
                 <a className="btn track" data-location="process" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
               </div>
             </div>
