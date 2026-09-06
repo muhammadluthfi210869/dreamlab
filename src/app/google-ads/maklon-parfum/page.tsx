@@ -27,11 +27,11 @@ export default function GoogleAdsMaklonParfum() {
         .parfum-lp .hero { position:relative; min-height:85vh; display:flex; align-items:center; padding:100px 0 60px; background:#FAF9F6; overflow:hidden; }
         .parfum-lp .hero-bg { opacity:1; object-position:82% center; }
         .parfum-lp .hero-shade { position:absolute; inset:0; background:linear-gradient(to right, rgba(18,28,45,0.95) 0%, rgba(18,28,45,0.7) 50%, rgba(18,28,45,0) 100%); z-index:10; }
-        .parfum-lp .hero-copy { position:relative; z-index:20; color:var(--dark); max-width:700px; }
-        .parfum-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.1); border:1px solid var(--orange); color:#b87500; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
+        .parfum-lp .hero-copy { position:relative; z-index:20; color:#fff; max-width:700px; }
+        .parfum-lp .eyebrow { display:inline-block; background:rgba(217,138,0,0.2); border:1px solid var(--orange); color:#ffb732; padding:6px 14px; border-radius:30px; font-size:12px; font-weight:800; letter-spacing:1.5px; margin-bottom:24px; }
         .parfum-lp .hero h1 { font-size:52px; font-weight:900; line-height:1.1; margin:0 0 24px; text-transform:uppercase; letter-spacing:-1px; }
         .parfum-lp .hero h1 em { color:var(--orange); font-style:italic; }
-        .parfum-lp .hero p { font-size:18px; line-height:1.6; color:#555; font-weight:500; margin:0 0 40px; }
+        .parfum-lp .hero p { font-size:18px; line-height:1.6; color:rgba(255,255,255,0.8); font-weight:500; margin:0 0 40px; }
         
         
         
@@ -111,14 +111,14 @@ export default function GoogleAdsMaklonParfum() {
           .parfum-lp .product-grid { grid-template-columns:1fr 1fr; }
           .parfum-lp .process-grid { grid-template-columns:1fr 1fr; }
           .parfum-lp .academy-grid { grid-template-columns:1fr; }
-          .parfum-lp .academy-collage { display:none; }
+          .parfum-lp .academy-collage { display:grid; margin-top:32px; }
         }
         @media(max-width:768px){
           .parfum-lp .section { padding:48px 0; }
           .parfum-lp .hero { padding:70px 0 40px; min-height:auto; }
           .parfum-lp .hero h1 { font-size:32px; }
           .parfum-lp .hero p { font-size:16px; }
-          .parfum-lp .hero-shade { background:linear-gradient(to bottom, rgba(250,249,246,0.4) 0%, rgba(250,249,246,0.85) 50%, rgba(250,249,246,0.98) 100%); }
+          .parfum-lp .hero-shade { background:linear-gradient(to bottom, rgba(17,24,39,0.3) 0%, rgba(17,24,39,0.85) 50%, rgba(17,24,39,0.98) 100%); }
           .parfum-lp .metric-card { flex-direction:column; text-align:center; padding:30px 20px; gap:20px; margin-top:20px; }
           .parfum-lp .checks { grid-template-columns:1fr; gap:12px; margin-top:24px; }
           .parfum-lp .check { padding:16px; }
@@ -155,7 +155,7 @@ export default function GoogleAdsMaklonParfum() {
             <div className="hero-shade"></div>
             <div className="wrap hero-copy">
               <span className="eyebrow">#1 MAKLON PARFUM CUSTOM AROMA</span>
-              <h1>Mau Buat Brand Parfum Custom dengan <em>Aroma Eksklusif?</em></h1>
+              <h1><span style={{color:"#fff"}}>Mau Buat Brand Parfum Custom dengan</span> <em>Aroma Eksklusif?</em></h1>
               <p>Dreamlab membantu Anda mengembangkan parfum dari konsep aroma, formulasi, sample, legalitas, hingga siap diproduksi dan dipasarkan.</p>
               <a className="btn track" data-location="hero" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
               
