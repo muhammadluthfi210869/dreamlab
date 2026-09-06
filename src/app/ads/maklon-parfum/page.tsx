@@ -204,7 +204,7 @@ export default function MaklonParfumAdsLP() {
               <h1>Wujudkan Brand Parfum dengan <em>Aroma Eksklusif</em> Milik Anda</h1>
               <p>Dari konsep aroma hingga siap dipasarkan, Dreamlab membantu Anda mengembangkan parfum dengan formula khas yang sesuai target market.</p>
               <a className="btn track" data-location="hero" href="/ads/thankyou/metaads/">KONSULTASI BRAND ANDA &rarr;</a>
-              <div className="hero-trust"><span>1 Client, 1 Custom Formula</span><span>Legalitas Didampingi</span><span>Siap Produksi</span></div>
+              <div className="hero-trust"><span>1 Client, 1 Custom Formula</span><span>FREE LEGALITAS BPOM</span><span>Siap Produksi</span></div>
             </div>
           </section>
 
@@ -229,7 +229,7 @@ export default function MaklonParfumAdsLP() {
                 <div className="check"><i>&#10003;</i><div><b>Custom Formula Eksklusif</b><span>Formula dikembangkan sesuai konsep brand Anda.</span></div></div>
                 <div className="check"><i>&#10003;</i><div><b>R&amp;D Perfumery</b><span>Karakter aroma dirancang bersama tim formulasi.</span></div></div>
                 <div className="check"><i>&#10003;</i><div><b>MOQ &amp; HPP Fleksibel</b><span>Skala produksi disesuaikan dengan kesiapan bisnis.</span></div></div>
-                <div className="check"><i>&#10003;</i><div><b>Support End-to-End</b><span>Desain, legalitas, produksi, dan digital marketing.</span></div></div>
+                <div className="check"><i>&#10003;</i><div><b>Support End-to-End</b><span>FREE Pengurusan Legalitas BPOM, HKI, Halal, desain kemasan, dan digital marketing.</span></div></div>
               </div>
             </div>
           </section>
