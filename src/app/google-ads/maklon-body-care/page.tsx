@@ -48,7 +48,17 @@ export default function GoogleAdsMaklonBodyCare() {
         .bodycare-lp .metric { display:flex; flex-direction:column; }
         .bodycare-lp .metric b { font-size:42px; font-weight:900; color:var(--orange); line-height:1; }
         .bodycare-lp .metric span { font-size:14px; font-weight:600; color:var(--dark); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
-        .bodycare-lp .checks { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px; align-items: stretch; }
+        
+          .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
+          @media (max-width: 1024px) {
+            .bodycare-lp .value-checks { grid-template-columns:repeat(2, 1fr); }
+          }
+          @media (max-width: 768px) {
+            .bodycare-lp .value-checks { grid-template-columns:1fr; }
+            .bodycare-lp .process-grid { grid-template-columns:1fr; gap:16px; }
+          }
+
+          .bodycare-lp .checks { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px; align-items: stretch; }
         .bodycare-lp .check { display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; background:#fff; border:1px solid var(--line); padding:20px 16px; border-radius:20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         .bodycare-lp .check i { display:flex; align-items:center; justify-content:center; width:40px; height:40px; background:rgba(217,138,0,0.1); color:var(--orange); border-radius:50%; font-style:normal; font-size:20px; font-weight:900; flex-shrink:0; }
         .bodycare-lp .check b { display:block; font-size:14px; font-weight:800; text-transform:uppercase; margin:0; line-height:1.3; color:var(--dark); }
@@ -113,6 +123,16 @@ export default function GoogleAdsMaklonBodyCare() {
 
         @media(max-width:1024px){
           .bodycare-lp .hero h1 { font-size:42px; }
+          
+          .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
+          @media (max-width: 1024px) {
+            .bodycare-lp .value-checks { grid-template-columns:repeat(2, 1fr); }
+          }
+          @media (max-width: 768px) {
+            .bodycare-lp .value-checks { grid-template-columns:1fr; }
+            .bodycare-lp .process-grid { grid-template-columns:1fr; gap:16px; }
+          }
+
           .bodycare-lp .checks { grid-template-columns:1fr 1fr; }
           .bodycare-lp .product-grid { grid-template-columns:1fr 1fr; }
           .bodycare-lp .process-grid { grid-template-columns:repeat(3,1fr); gap: 16px; }
@@ -126,6 +146,16 @@ export default function GoogleAdsMaklonBodyCare() {
           .bodycare-lp .hero p { font-size:16px; }
           .bodycare-lp .hero-shade { background:linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,1) 100%); }
           .bodycare-lp .metric-card { flex-direction:column; text-align:center; padding:30px 20px; gap:20px; margin-top:20px; }
+          
+          .bodycare-lp .value-checks { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
+          @media (max-width: 1024px) {
+            .bodycare-lp .value-checks { grid-template-columns:repeat(2, 1fr); }
+          }
+          @media (max-width: 768px) {
+            .bodycare-lp .value-checks { grid-template-columns:1fr; }
+            .bodycare-lp .process-grid { grid-template-columns:1fr; gap:16px; }
+          }
+
           .bodycare-lp .checks { grid-template-columns:1fr; gap:12px; margin-top:24px; }
           .bodycare-lp .check { padding:16px; }
           .bodycare-lp .title { margin-bottom:24px; }
@@ -171,10 +201,10 @@ export default function GoogleAdsMaklonBodyCare() {
           <section className="metrics" style={{paddingBottom: "20px", paddingTop: "60px"}}>
             <div className="wrap">
               <div className="title" style={{marginBottom: "20px"}}>
-                <span className="eyebrow">VALUE DREAMLAB</span>
+                <span className="eyebrow">500++ BRAND BEKERJASAMA | 1000++ PRODUK</span>
                 <h2 style={{fontSize:"28px"}}>MENGAPA MEMILIH DREAMLAB?</h2>
               </div>
-              <div className="checks" style={{marginTop: "0px", gridTemplateColumns: "repeat(4, 1fr)"}}>
+              <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
                 <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>1 Klien 1 Formula</b><span>Formula eksklusif tidak pasaran</span></div>
                 <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>3 Bulan Siap Jual</b><span>Proses cepat dari nol</span></div>
                 <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>MOQ Fleksibel</b><span>Mulai brand tanpa ribet</span></div>
@@ -191,7 +221,7 @@ export default function GoogleAdsMaklonBodyCare() {
                 <p>Formula yang paling dicari oleh konsumen saat ini.</p>
               </div>
 
-              <div className="checks" style={{marginTop: "0px", gridTemplateColumns: "repeat(4, 1fr)"}}>
+              <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
                 <div className="check"><i>&#10003;</i><b>Fokus Skin Barrier & Hidrasi</b></div>
                 <div className="check"><i>&#10003;</i><b>Tren Body Serum & Sunscreen</b></div>
                 <div className="check"><i>&#10003;</i><b>Body Care Wangi Parfum Premium</b></div>
