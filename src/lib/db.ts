@@ -14,7 +14,11 @@ import { Pool } from 'pg';
  */
 
 function buildPool() {
-  const connectionString = process.env.DATABASE_URL;
+  const connectionString = 
+    process.env.database_DATABASE_URL ||
+    process.env.database_POSTGRES_URL ||
+    process.env.POSTGRES_URL || 
+    process.env.DATABASE_URL;
   if (!connectionString) {
     throw new Error(
       'DATABASE_URL belum di-set. Lihat .env.example / .env.local.'
