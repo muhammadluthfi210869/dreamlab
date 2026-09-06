@@ -239,8 +239,8 @@ export default function MaklonSkincareAdsLP() {
               <Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
               <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 01</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>KONSULTASI BRAND & TARGET MARKET</h3>
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow">STEP 01</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>KONSULTASI BRAND & TARGET MARKET</h3>
                 <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Diskusikan konsep produk, target market, positioning, dan benefit yang ingin dikembangkan.</p>
               </div>
             </div>
@@ -249,8 +249,8 @@ export default function MaklonSkincareAdsLP() {
               <Image src="/assets/maklon-parfum/sample.webp" alt="Formula & Sample" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
               <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 02</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>CUSTOM FORMULA & SAMPLE</h3>
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow">STEP 02</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>CUSTOM FORMULA & SAMPLE</h3>
                 <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Tim R&D mengembangkan formula dan sample sesuai kebutuhan serta karakter brand Anda.</p>
               </div>
             </div>
@@ -259,8 +259,8 @@ export default function MaklonSkincareAdsLP() {
               <Image src="/assets/maklon-parfum/legal-design.webp" alt="Legalitas & Desain" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
               <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 03</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>LEGALITAS & DESAIN</h3>
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow">STEP 03</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>LEGALITAS & DESAIN</h3>
                 <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Setelah formula disetujui, proses dilanjutkan ke legalitas dan desain kemasan.</p>
               </div>
             </div>
@@ -271,8 +271,8 @@ export default function MaklonSkincareAdsLP() {
               <Image src="/assets/maklon-parfum/production.webp" alt="Produksi" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
               <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 04</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>PRODUKSI & QUALITY CONTROL</h3>
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow">STEP 04</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>PRODUKSI & QUALITY CONTROL</h3>
                 <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Produk masuk ke tahap produksi dan melewati proses quality control.</p>
               </div>
             </div>
@@ -281,8 +281,8 @@ export default function MaklonSkincareAdsLP() {
               <Image src="/assets/maklon-parfum/delivery.webp" alt="Launching" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
               <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
-                <span className="text-xs font-bold tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 05</span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>SIAP LAUNCHING</h3>
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow">STEP 05</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white drop-shadow" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>SIAP LAUNCHING</h3>
                 <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm">Produk selesai diproduksi, dipersiapkan untuk dikirim dan mulai dipasarkan.</p>
               </div>
             </div>
