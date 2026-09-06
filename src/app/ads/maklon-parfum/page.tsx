@@ -7,7 +7,7 @@ export default function MaklonParfumAdsLP() {
   useMetaAdsCtaPixel("Maklon Parfum");
 
   useEffect(() => {
-    // Analytics & interaction script from HTML
+    // Analytics & interaction script from HTML export
     const dataLayer = (window as any).dataLayer = (window as any).dataLayer || [];
     dataLayer.push({event:'view_landing_page',service:'maklon_parfum'});
     document.querySelectorAll('.track').forEach(a=>a.addEventListener('click',()=>dataLayer.push({event:'cta_click',location:(a as HTMLElement).dataset.location,service:'maklon_parfum'})));
@@ -38,7 +38,7 @@ export default function MaklonParfumAdsLP() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
-        :root {--blue:#4299d4;--blue2:#eaf6ff;--orange:#f78c1f;--green:#235f42;--ink:#172b3a;--muted:#607485;--paper:#fffdf7;--white:#fff;--line:#dbeaf4;--shadow:0 18px 55px rgba(23,75,109,.12)}
+        :root{--blue:#4299d4;--blue2:#eaf6ff;--orange:#f78c1f;--green:#235f42;--ink:#172b3a;--muted:#607485;--paper:#fffdf7;--white:#fff;--line:#dbeaf4;--shadow:0 18px 55px rgba(23,75,109,.12)}
         .parfum-lp { box-sizing:border-box; scroll-behavior:smooth; margin:0; font-family:Helvetica,Arial,sans-serif; color:var(--ink); background:var(--paper) }
         .parfum-lp * { box-sizing:border-box; }
         .parfum-lp h2 { font-family:'Viga',Helvetica,Arial,sans-serif; font-weight:400; text-transform:uppercase; }
@@ -118,7 +118,7 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .closing { padding:84px 20px; text-align:center; background:#fff; }
         .parfum-lp .closing h2 { font-size:47px; line-height:1.08; letter-spacing:-1.8px; max-width:780px; margin:0 auto 16px; }
         .parfum-lp .closing p { color:var(--muted); font-size:17px; margin:0 auto 26px; }
-        .parfum-lp .wa { position:fixed; right:20px; bottom:20px; z-index:20; width:58px; height:58px; border-radius:50%; background:#25d366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 14px 30px rgba(0,0,0,.22); font-size:32px; font-weight:900; padding-bottom: 2px; }
+        .parfum-lp .wa { position:fixed; right:20px; bottom:20px; z-index:20; width:58px; height:58px; border-radius:50%; background:#25d366; color:#fff; display:grid; place-items:center; box-shadow:0 14px 30px rgba(0,0,0,.22); font-size:25px; font-weight:900; text-decoration: none; }
         
         .parfum-lp .hero-shade { background:linear-gradient(90deg,rgba(7,31,49,.93),rgba(7,31,49,.75) 43%,rgba(7,31,49,.1) 78%); }
         .parfum-lp .hero-copy { max-width:700px; text-shadow:0 2px 18px rgba(0,0,0,.25); }
@@ -193,7 +193,7 @@ export default function MaklonParfumAdsLP() {
       <div className="parfum-lp">
         <main>
           <section className="hero">
-            <img className="hero-bg" src="/assets/images/v2/parfum-hero-desktop.webp" alt="Koleksi botol parfum untuk pengembangan brand" />
+            <img className="hero-bg" src="/assets/maklon-parfum/hero-parfum.webp" alt="Koleksi botol parfum untuk pengembangan brand" />
             <div className="hero-shade"></div>
             <div className="wrap hero-copy">
               <span className="eyebrow">#1 MAKLON PARFUM CUSTOM AROMA</span>
@@ -239,27 +239,27 @@ export default function MaklonParfumAdsLP() {
               </div>
               <div className="product-grid">
                 <a className="product" href="/ads/thankyou/metaads/">
-                  <img src="/new asset/parfum/edpp.webp" alt="Eau de Parfum" />
+                  <img src="/assets/maklon-parfum/edp.webp" alt="Eau de Parfum" />
                   <div className="product-copy"><small>BEST SELLER</small><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
-                  <img src="/new asset/parfum/edt.webp" alt="Eau de Toilette" />
+                  <img src="/assets/maklon-parfum/edt.webp" alt="Eau de Toilette" />
                   <div className="product-copy"><small>DAILY WEAR</small><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
-                  <img src="/new asset/parfum/edc.webp" alt="Eau de Cologne" />
+                  <img src="/assets/maklon-parfum/edc.webp" alt="Eau de Cologne" />
                   <div className="product-copy"><small>REFRESHING</small><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
-                  <img src="/new asset/parfum/extrait-de-parfum.webp" alt="Extrait de Parfum" />
+                  <img src="/assets/maklon-parfum/extrait.webp" alt="Extrait de Parfum" />
                   <div className="product-copy"><small>PREMIUM</small><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
-                  <img src="/new asset/parfum/body-mist.webp" alt="Body Mist" />
+                  <img src="/assets/maklon-parfum/body-mist.webp" alt="Body Mist" />
                   <div className="product-copy"><small>HIGH REPEAT</small><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
                 </a>
                 <a className="product" href="/ads/thankyou/metaads/">
-                  <img src="/new asset/parfum/essential-oil.webp" alt="Essential Oil" />
+                  <img src="/assets/maklon-parfum/essential-oil.webp" alt="Essential Oil" />
                   <div className="product-copy"><small>NATURAL</small><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
                 </a>
               </div>
@@ -274,11 +274,11 @@ export default function MaklonParfumAdsLP() {
                 <p>Setiap tahap didampingi agar proses membangun brand terasa lebih jelas dan terarah.</p>
               </div>
               <div className="process-grid">
-                <article className="step"><img src="/assets/images/Dreamlab-Pabrik-Parfum-Surabaya--1024x574.webp" alt="Konsultasi bersama tim Dreamlab" /><div className="step-copy"><b>01</b><h3>Konsultasi</h3><p>Menentukan target pasar, positioning, dan karakter aroma.</p></div></article>
-                <article className="step"><img src="/assets/images/blog/Dreamlab-Maklon-Parfum.webp" alt="Pembuatan sample parfum" /><div className="step-copy"><b>02</b><h3>Formulasi &amp; Sample</h3><p>R&amp;D meracik dan menyiapkan sampel untuk Anda evaluasi.</p></div></article>
-                <article className="step"><img src="/assets/images/blog/Dreamlab-pilihan-packaging-parfum.webp" alt="Pengembangan legalitas dan desain parfum" /><div className="step-copy"><b>03</b><h3>Legalitas &amp; Desain</h3><p>Legalitas diproses dan identitas visual produk disiapkan.</p></div></article>
-                <article className="step"><img src="/assets/images/blog/production-liquid-soap-detergent-disinfection-production-line-chemicals-factory-scaled.webp" alt="Produksi dan quality control parfum" /><div className="step-copy"><b>04</b><h3>Produksi &amp; Quality Control</h3><p>Produk diproduksi dan diperiksa untuk menjaga kualitas.</p></div></article>
-                <article className="step"><img src="/assets/images/Dreamlab-pilihan-packaging-parfum-1024x599.webp" alt="Delivery produk Dreamlab" /><div className="step-copy"><b>05</b><h3>Delivery</h3><p>Produk selesai dikemas dan siap dikirimkan kepada Anda.</p></div></article>
+                <article className="step"><img src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi bersama tim Dreamlab" /><div className="step-copy"><b>01</b><h3>Konsultasi</h3><p>Menentukan target pasar, positioning, dan karakter aroma.</p></div></article>
+                <article className="step"><img src="/assets/maklon-parfum/sample.webp" alt="Pembuatan sample parfum" /><div className="step-copy"><b>02</b><h3>Formulasi &amp; Sample</h3><p>R&amp;D meracik dan menyiapkan sampel untuk Anda evaluasi.</p></div></article>
+                <article className="step"><img src="/assets/maklon-parfum/legal-design.webp" alt="Pengembangan legalitas dan desain parfum" /><div className="step-copy"><b>03</b><h3>Legalitas &amp; Desain</h3><p>Legalitas diproses dan identitas visual produk disiapkan.</p></div></article>
+                <article className="step"><img src="/assets/maklon-parfum/production.webp" alt="Produksi dan quality control parfum" /><div className="step-copy"><b>04</b><h3>Produksi &amp; Quality Control</h3><p>Produk diproduksi dan diperiksa untuk menjaga kualitas.</p></div></article>
+                <article className="step"><img src="/assets/maklon-parfum/delivery.webp" alt="Delivery produk Dreamlab" /><div className="step-copy"><b>05</b><h3>Delivery</h3><p>Produk selesai dikemas dan siap dikirimkan kepada Anda.</p></div></article>
               </div>
             </div>
           </section>
@@ -298,9 +298,9 @@ export default function MaklonParfumAdsLP() {
                 <a className="btn track" data-location="academy" href="/ads/thankyou/metaads/">Jadi Partner Dreamlab &rarr;</a>
               </div>
               <div className="academy-collage">
-                <img src="/assets/images/blog/Dreamlab-Dreamprenuer-Academy--1024x540.webp" alt="Komunitas beautypreneur Dreamlab" />
-                <img src="/assets/images/dreamlab_services_hero.webp" alt="Mentoring digital marketing" />
-                <img src="/assets/images/blog/maklon-kosmetik-bpom-bandar-lampung-hero.webp" alt="Sesi branding Dreamlab Academy" />
+                <img src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" />
+                <img src="/assets/maklon-parfum/academy-digital-marketing.webp" alt="Mentoring digital marketing" />
+                <img src="/assets/maklon-parfum/academy-branding.webp" alt="Sesi branding Dreamlab Academy" />
               </div>
             </div>
           </section>
@@ -313,10 +313,10 @@ export default function MaklonParfumAdsLP() {
                 <p>Proses produksi dan legalitas didampingi agar produk Anda lebih siap dan aman masuk ke pasar.</p>
               </div>
               <div className="legal-grid">
-                <div className="legal-card"><img src="/assets/images/BPOM.webp" alt="Logo BPOM" /><b>Legalitas BPOM</b></div>
-                <div className="legal-card"><img src="/assets/images/hALAL-TRANSPARAN.webp" alt="Logo Halal Indonesia" /><b>Sertifikasi Halal</b></div>
-                <div className="legal-card"><img src="/assets/images/Dreamlab_maklon_cpkbgradeA-1024x640.webp" alt="Logo CPKB" /><b>Fasilitas CPKB Grade A</b></div>
-                <div className="legal-card"><img src="/assets/images/logo-hki-1-1024x1024.webp" alt="Logo HKI" /><b>Pendampingan HKI</b></div>
+                <div className="legal-card"><img src="/assets/maklon-parfum/bpom.webp" alt="Logo BPOM" /><b>Legalitas BPOM</b></div>
+                <div className="legal-card"><img src="/assets/maklon-parfum/halal.webp" alt="Logo Halal Indonesia" /><b>Sertifikasi Halal</b></div>
+                <div className="legal-card"><img src="/assets/maklon-parfum/cpkb.webp" alt="Logo CPKB" /><b>Fasilitas CPKB Grade A</b></div>
+                <div className="legal-card"><img src="/assets/maklon-parfum/hki.webp" alt="Logo HKI" /><b>Pendampingan HKI</b></div>
               </div>
             </div>
           </section>
@@ -328,6 +328,7 @@ export default function MaklonParfumAdsLP() {
                 <h2>Brand yang Telah Bertumbuh Bersama Dreamlab</h2>
                 <p>Dipercaya oleh berbagai brand beauty untuk mengembangkan produk yang siap bersaing di pasar.</p>
               </div>
+              <div className="clients-card"><img src="/assets/maklon-parfum/our-clients.webp" alt="Logo client yang telah bekerja sama dengan Dreamlab" /></div>
             </div>
           </section>
 
@@ -340,7 +341,7 @@ export default function MaklonParfumAdsLP() {
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/metaads/" aria-label="Konsultasi WhatsApp">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+          ✆
         </a>
       </div>
     </>
