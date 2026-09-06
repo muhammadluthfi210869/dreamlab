@@ -226,6 +226,21 @@ export default function GoogleAdsMaklonBodyCare() {
             </div>
           </section>
 
+
+
+          
+
+          <section className="catalog section pb-0 mt-0" style={{paddingBottom: "64px"}}>
+            <div className="wrap" style={{maxWidth: "1280px"}}>
+              {bodycareData && filteredProducts.length > 0 && (
+                <ProductGrid products={filteredProducts} categorySlug={bodycareData.slug} />
+              )}
+              <div style={{ textAlign: "center", marginTop: "40px" }}>
+                <a className="btn" style={{background: "var(--dark)", color: "#fff"}} href="/produk/bodycare/">EXPLORE PRODUK LAINNYA &rarr;</a>
+              </div>
+            </div>
+          </section>
+
           <section className="metrics" style={{paddingTop: "20px", borderBottom: "none", backgroundColor: "#fdfdfd"}}>
             <div className="wrap">
               <div className="title" style={{marginBottom: "20px"}}>
@@ -238,19 +253,6 @@ export default function GoogleAdsMaklonBodyCare() {
                 <div className="check"><i>&#10003;</i><b>Tren Body Serum & Sunscreen</b></div>
                 <div className="check"><i>&#10003;</i><b>Body Care Wangi Parfum Premium</b></div>
                 <div className="check"><i>&#10003;</i><b>Infusi Bahan Aktif Skincare</b></div>
-              </div>
-            </div>
-          </section>
-
-          
-
-          <section className="catalog section pb-0 mt-0" style={{paddingBottom: "64px"}}>
-            <div className="wrap" style={{maxWidth: "1280px"}}>
-              {bodycareData && filteredProducts.length > 0 && (
-                <ProductGrid products={filteredProducts} categorySlug={bodycareData.slug} />
-              )}
-              <div style={{ textAlign: "center", marginTop: "40px" }}>
-                <a className="btn" style={{background: "var(--dark)", color: "#fff"}} href="/produk/bodycare/">EXPLORE PRODUK LAINNYA &rarr;</a>
               </div>
             </div>
           </section>
