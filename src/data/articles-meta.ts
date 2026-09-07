@@ -3292,26 +3292,5 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/maklon_kosmetik_blitar_dreamlab_11zon.jpg",
     "excerpt": "Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.",
     "readingMinutes": 5
-  },
-  {
-    "slug": "/panduan/tahapan-menentukan-target-market-skincare",
-    "title": "Tahapan Menentukan Target Market Bisnis Skincare | Panduan Lengkap",
-    "publishDate": "2026-09-07T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Panduan Bisnis Kosmetik",
-      "Maklon Kosmetik"
-    ],
-    "tags": [
-      "Target Market Skincare",
-      "Panduan Bisnis Kosmetik",
-      "Bisnis Skincare",
-      "Custom Formula",
-      "Dreamlab"
-    ],
-    "featuredImage": "/images/tahapan_menentukan_target+market _11zon.jpg",
-    "excerpt": "Panduan praktis tahapan menentukan target market bisnis skincare bagi pemula. Mulai dari riset demografi, problem kulit, segmentasi, hingga formulasi maklon Dreamlab.",
-    "readingMinutes": 7
-  }
-]
+  }]
 ;
