@@ -298,6 +298,7 @@ const nextConfig: NextConfig = {
       ['/thankyou-maklon', '/ads/thankyou/metaads/'],
       ['/linktree', '/contact-medsos/'],
       ['/links', '/contact-medsos/'],
+      ['/google-ads/deodorant', '/google-ads/maklon-deodorant/'],
     ];
 
     // 6. Preserve existing WordPress 301 redirects (old slugs → new slugs)
