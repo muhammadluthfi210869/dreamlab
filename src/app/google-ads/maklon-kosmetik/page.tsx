@@ -2,23 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { getProductDataV2 } from "@/data/products-v2";
 import SubCategoryGrid from "@/components/ProductPageV2/SubCategoryGrid";
-import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
 import { TrendingUp, PackageCheck, ArrowRight } from "lucide-react";
-
-// Dynamically import homepage blocks
-const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
-  ssr: true,
-  loading: () => <div className="py-20 bg-[#FAF9F6]" />
-});
-
-const ProductProcess = dynamic(() => import("@/components/ProductPageV2/ProductProcess"), {
-  ssr: true,
-  loading: () => <div className="py-20 bg-[#FAF9F6]" />
-});
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -272,15 +259,206 @@ export default function MaklonSkincareAdsLP() {
         </div>
       </section>
 
-      {/* 2.6. LOGO SCROLL - DI PERCAYA 500+ BRAND */}
-      <LogoScroll 
-        logos={aboutData.partnerLogos} 
-        headline={homepageData.trustedBrands.title}
-        subHeadline={homepageData.trustedBrands.subtitle}
-      />
+      {/* 3. 5 LANGKAH MUDAH */}
+      <section className="bg-white py-16 md:py-24 border-t border-neutral-100">
+        <div className="container-custom px-4">
+          <div className="text-center mb-12 md:mb-16">
+            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
+              ALUR PENGEMBANGAN
+            </span>
+            <h2 className="text-3xl md:text-[40px] font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display mb-4">
+              5 LANGKAH MUDAH<br />
+              <span className="text-[#2F6BFF]">WUJUDKAN BRAND KOSMETIK ANDA</span>
+            </h2>
+            <p className="text-sm md:text-base text-neutral-500 max-w-2xl mx-auto">
+              Dari ide hingga siap masuk market, setiap tahap didampingi bersama Dreamlab.
+            </p>
+          </div>
 
-      {/* 2.7. ALUR PROSES SECTION */}
-      <ProductProcess />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 01</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>KONSULTASI BRAND & TARGET MARKET</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Diskusikan konsep produk, target market, positioning, dan kebutuhan brand Anda.</p>
+              </div>
+            </div>
+            
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/sample.webp" alt="Formula & Sample" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 02</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>CUSTOM FORMULA & SAMPLE</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Tim R&D mengembangkan formula dan sample sesuai brief serta karakter produk yang ingin dibangun.</p>
+              </div>
+            </div>
+
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/legal-design.webp" alt="Legalitas & Desain" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 03</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>LEGALITAS & DESAIN</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Setelah formula disetujui, proses dilanjutkan ke legalitas dan pengembangan desain kemasan.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:px-24 md:px-12">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/production.webp" alt="Produksi" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 04</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>PRODUKSI & QUALITY CONTROL</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Produk masuk tahap produksi dan melewati proses quality control sesuai standar fasilitas Dreamlab.</p>
+              </div>
+            </div>
+
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/delivery.webp" alt="Launching" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-[#FF8A00] mb-2 block font-onest drop-shadow">STEP 05</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>SIAP LAUNCHING</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Produk yang selesai diproduksi dipersiapkan untuk pengiriman dan siap masuk ke tahap pemasaran.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 md:mt-16">
+            <a href="/ads/thankyou/google-ads/" className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25">
+              KONSULTASI BRAND ANDA <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. BEAUTY ACADEMY */}
+      <section className="bg-[#EEF4FF] py-16 md:py-24 border-t border-blue-100">
+        <div className="container-custom px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Left: Copy & Benefits */}
+            <div className="lg:col-span-7">
+              <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
+                BEAUTY ACADEMY
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-[36px] font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display mb-4">
+                HANYA DI DREAMLAB, BRAND ANDA BUKAN SEKADAR DIPRODUKSI, TETAPI JUGA <span className="text-[#2F6BFF]">DIBIMBING UNTUK BERTUMBUH</span>
+              </h2>
+              <p className="text-sm md:text-base text-neutral-600 leading-relaxed mb-8">
+                Dapatkan pendampingan untuk membantu brand lebih siap berkembang setelah produk diproduksi.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="bg-white border border-blue-100/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">01</span>
+                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">PRODUCT & BRAND DEVELOPMENT</h3>
+                  <p className="text-xs text-neutral-600 leading-relaxed">Membantu mempertajam konsep produk dan arah pengembangan brand.</p>
+                </div>
+
+                <div className="bg-white border border-blue-100/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">02</span>
+                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">BRANDING</h3>
+                  <p className="text-xs text-neutral-600 leading-relaxed">Membangun identitas brand agar lebih konsisten dan mudah dikenali.</p>
+                </div>
+
+                <div className="bg-white border border-blue-100/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">03</span>
+                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">DIGITAL MARKETING</h3>
+                  <p className="text-xs text-neutral-600 leading-relaxed">Membantu memahami strategi pemasaran digital untuk menjangkau target market.</p>
+                </div>
+
+                <div className="bg-white border border-blue-100/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">04</span>
+                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">BEAUTYPRENEUR COMMUNITY</h3>
+                  <p className="text-xs text-neutral-600 leading-relaxed">Terhubung dengan ekosistem dan komunitas beauty entrepreneur Dreamlab.</p>
+                </div>
+              </div>
+
+              <div>
+                <a
+                  href="/ads/thankyou/google-ads/"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20"
+                >
+                  KONSULTASI BRAND ANDA <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Right: Real Collage Images */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+              <div className="col-span-2 relative rounded-2xl overflow-hidden aspect-[16/10] shadow-[0_10px_25px_rgba(0,0,0,0.08)] border border-neutral-200/80 group">
+                <Image
+                  src="/assets/maklon-parfum/academy-community.webp"
+                  alt="Komunitas beautypreneur Dreamlab"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-neutral-200/80 group">
+                <Image
+                  src="/assets/maklon-parfum/academy-digital-marketing.webp"
+                  alt="Mentoring digital marketing"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-neutral-200/80 group">
+                <Image
+                  src="/assets/maklon-parfum/academy-branding.webp"
+                  alt="Sesi branding Dreamlab Academy"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 5. OUR CLIENT */}
+      <section className="py-16 md:py-20 bg-white border-t border-neutral-100">
+        <div className="container-custom px-4 text-center">
+          <div className="mb-10 md:mb-14">
+            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
+              OUR CLIENT
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-[38px] font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display max-w-3xl mx-auto mb-4">
+              DREAMLAB TELAH<br />
+              <span className="text-[#2F6BFF]">DIPERCAYA 500+ BRAND</span>
+            </h2>
+            <p className="text-sm md:text-base text-neutral-500 max-w-xl mx-auto font-medium">
+              Berbagai brand telah mempercayakan pengembangan produk beauty mereka bersama Dreamlab.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6 items-center max-w-5xl mx-auto">
+            {aboutData.partnerLogos.map((logo) => (
+              <div
+                key={logo.name}
+                className="relative h-20 sm:h-24 md:h-28 w-full flex items-center justify-center p-3 rounded-2xl bg-[#FAF9F6] border border-neutral-200/60 shadow-sm hover:shadow-md transition-all duration-300 group"
+              >
+                <Image
+                  src={logo.path}
+                  alt={logo.name}
+                  fill
+                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 33vw, 16vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
 
 
