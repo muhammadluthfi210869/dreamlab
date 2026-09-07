@@ -338,6 +338,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
+  color: #ffffff;
 }
 
 .legacy-content-wrapper .article-cta h3,
@@ -360,6 +361,14 @@
   line-height: 1.6;
   position: relative;
   text-align: center !important;
+}
+
+.legacy-content-wrapper .article-cta div {
+  color: #ffffff;
+}
+
+.legacy-content-wrapper .article-cta strong {
+  color: #ffffff;
 }
 
 .legacy-content-wrapper .cta-button {
