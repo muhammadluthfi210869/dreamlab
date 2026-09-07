@@ -238,6 +238,14 @@
     @apply text-[20px] md:text-[24px] font-bold text-brand-orange/90 flex items-center gap-2;
   }
 
+  [style*="text-align:center"] .article-h3,
+  [style*="text-align: center"] .article-h3,
+  [style*="text-align:center"] h3,
+  [style*="text-align: center"] h3 {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
   .article-content h4 {
     @apply text-[18px] md:text-[22px] font-bold;
   }
