@@ -2979,12 +2979,11 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Kosmetik",
       "Maklon Jember",
       "Custom Formula",
-      "Tapal Kuda",
       "Skincare BPOM"
     ],
-    "featuredImage": "/images/artikel-jember/maklon-kosmetik-jember-hero.jpg",
+    "featuredImage": "/images/maklon_kosmetik_jember_11zon.jpg.jpeg",
     "excerpt": "Bikin brand skincare BPOM tren terkini di Jember. Nikmati sistem 1-client 1-formula, MOQ fleksibel, dan legalitas resmi bersama Dreamlab maklon juaranya formula.",
-    "readingMinutes": 7
+    "readingMinutes": 6
   },
   {
     "slug": "/layanan-one-stop-maklon-kosmetik-dreamlab",
@@ -3231,10 +3230,10 @@ export const articlesMeta: ArticleMeta[] =
     "tags": [
       "Maklon Kosmetik",
       "Maklon Madiun",
-      "Custom Formula",
-      "Winning Product Skincare"
+      "Winning Product",
+      "Custom Formula"
     ],
-    "featuredImage": "/images/artikel-madiun/maklon-kosmetik-madiun-hero.jpg",
+    "featuredImage": "/images/maklon_kosmetik_madiun_11zon.jpg.jpeg",
     "excerpt": "Jasa maklon kosmetik untuk brand di Madiun, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.",
     "readingMinutes": 7
   },
@@ -3252,9 +3251,67 @@ export const articlesMeta: ArticleMeta[] =
       "Potensi Lokal Skincare",
       "Custom Formula"
     ],
-    "featuredImage": "/images/artikel-banyuwangi/maklon-kosmetik-banyuwangi-hero.jpg",
+    "featuredImage": "/images/maklon_kosmetik_banyuwangi _11zon.jpg.jpeg",
     "excerpt": "Jasa maklon kosmetik untuk brand di Banyuwangi, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.",
     "readingMinutes": 6
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-bekasi",
+    "title": "Jasa Maklon Kosmetik Bekasi: One Stop Partner Bangun Brand",
+    "publishDate": "2026-09-07T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Bekasi",
+      "Custom Formula",
+      "One Stop Maklon",
+      "Brand Kosmetik"
+    ],
+    "featuredImage": "/images/maklon_kosmetik_bekasi_11zon.jpg",
+    "excerpt": "Jasa maklon kosmetik Bekasi untuk membangun brand dari custom formula, sample, branding, legalitas, produksi hingga free support digital marketing.",
+    "readingMinutes": 6
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-blitar",
+    "title": "Jasa Maklon Kosmetik Blitar: Partner Brand & Free Digital Marketing",
+    "publishDate": "2026-09-07T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Blitar",
+      "Custom Formula",
+      "One Stop Maklon",
+      "Digital Marketing"
+    ],
+    "featuredImage": "/images/maklon_kosmetik_blitar_dreamlab_11zon.jpg",
+    "excerpt": "Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.",
+    "readingMinutes": 5
+  },
+  {
+    "slug": "/panduan/tahapan-menentukan-target-market-skincare",
+    "title": "Tahapan Menentukan Target Market Bisnis Skincare | Panduan Lengkap",
+    "publishDate": "2026-09-07T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Target Market Skincare",
+      "Panduan Bisnis Kosmetik",
+      "Bisnis Skincare",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/tahapan_menentukan_target+market _11zon.jpg",
+    "excerpt": "Panduan praktis tahapan menentukan target market bisnis skincare bagi pemula. Mulai dari riset demografi, problem kulit, segmentasi, hingga formulasi maklon Dreamlab.",
+    "readingMinutes": 7
   }
 ]
 ;
