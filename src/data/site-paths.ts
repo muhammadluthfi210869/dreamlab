@@ -329,7 +329,6 @@ export const SITE_PATHS: string[] = [
   "panduan-persentase-manfaat-niacinamide-skincare",
   "panduan/cara-menentukan-moq-produk-kosmetik",
   "panduan/komponen-biaya-maklon-skincare",
-  "panduan/tahapan-menentukan-target-market-skincare",
   "parfum",
   "parfum-arab-ide-bisnis-2026",
   "parfum-balm-vs-parfum-oil",

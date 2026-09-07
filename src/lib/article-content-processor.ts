@@ -231,7 +231,8 @@ function processHeadings(html: string): { html: string; headings: Heading[] } {
       // Exclude CTA headings and chart card headings from the TOC
       const isCtaHeading =
         /article-cta/i.test(attrs) ||
-        /konsultasi|diskusikan|partner selanjutnya|yuk,/i.test(text.toLowerCase());
+        /^(?:konsultasi|diskusikan|partner selanjutnya)/i.test(text.toLowerCase()) ||
+        /yuk,\s*(?:mulai|konsultasi)/i.test(text.toLowerCase());
       const isChartHeading = /penjualan 5 brand/i.test(text.toLowerCase());
 
       if (!isCtaHeading && !isChartHeading) {
