@@ -2,10 +2,18 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { getProductDataV2 } from "@/data/products-v2";
 import SubCategoryGrid from "@/components/ProductPageV2/SubCategoryGrid";
+import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
 import { TrendingUp, PackageCheck, ArrowRight } from "lucide-react";
+
+// Dynamically import homepage blocks
+const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
+  ssr: true,
+  loading: () => <div className="py-20 bg-[#FAF9F6]" />
+});
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -425,40 +433,12 @@ export default function MaklonSkincareAdsLP() {
         </div>
       </section>
 
-      {/* 5. OUR CLIENT */}
-      <section className="py-16 md:py-20 bg-white border-t border-neutral-100">
-        <div className="container-custom px-4 text-center">
-          <div className="mb-10 md:mb-14">
-            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
-              OUR CLIENT
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-[38px] font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display max-w-3xl mx-auto mb-4">
-              DREAMLAB TELAH<br />
-              <span className="text-[#2F6BFF]">DIPERCAYA 500+ BRAND</span>
-            </h2>
-            <p className="text-sm md:text-base text-neutral-500 max-w-xl mx-auto font-medium">
-              Berbagai brand telah mempercayakan pengembangan produk beauty mereka bersama Dreamlab.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6 items-center max-w-5xl mx-auto">
-            {aboutData.partnerLogos.map((logo) => (
-              <div
-                key={logo.name}
-                className="relative h-20 sm:h-24 md:h-28 w-full flex items-center justify-center p-3 rounded-2xl bg-[#FAF9F6] border border-neutral-200/60 shadow-sm hover:shadow-md transition-all duration-300 group"
-              >
-                <Image
-                  src={logo.path}
-                  alt={logo.name}
-                  fill
-                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 33vw, 16vw"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 5. OUR CLIENT - LOGO SCROLL */}
+      <LogoScroll 
+        logos={aboutData.partnerLogos} 
+        headline={homepageData.trustedBrands.title}
+        subHeadline={homepageData.trustedBrands.subtitle}
+      />
 
 
 
