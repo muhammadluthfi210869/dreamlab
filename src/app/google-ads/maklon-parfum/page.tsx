@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 
 export const metadata: Metadata = {
   title: "Maklon Parfum Custom Formula & Signature Scent | Dreamlab",
@@ -272,6 +273,9 @@ export default function GoogleAdsMaklonParfum() {
             <p>Mulai dari konsep aroma sampai siap masuk market bersama Dreamlab.</p>
             <a className="btn track" data-location="closing" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
+
+          {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+          <AdsCredibilitySection channel="google-ads" />
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/google-ads/" aria-label="Konsultasi WhatsApp">

@@ -12,6 +12,7 @@ import {
   FlaskConical
 } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
+import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -220,6 +221,9 @@ export default function HaircareMetaAdsLP() {
           </div>
         </div>
       </section>
+
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="metaads" />
 
       {/* FLOATING WA BUTTON */}
       <a

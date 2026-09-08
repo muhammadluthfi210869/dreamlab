@@ -13,6 +13,7 @@ import {
   PackageCheck, 
   Headphones
 } from "lucide-react";
+import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 
 // Dynamically import homepage blocks
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
@@ -490,6 +491,9 @@ export default function MaklonHairCareAdsLP() {
           </div>
         </div>
       </section>
+
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="google-ads" />
 
       {/* FLOATING WA BUTTON */}
       <a

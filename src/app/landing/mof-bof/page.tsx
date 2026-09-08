@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 import { Calculator, Tag, TrendingUp, MessageCircle, Gift, Award, Star, FlaskConical, Package, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -369,6 +370,9 @@ export default function LandingMofBofPage() {
           </p>
         </motion.div>
       </motion.section>
+
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="google-ads" />
 
       {/* ============ FOOTER ============ */}
       <footer className="py-8 bg-brand-orange border-t border-white/10">

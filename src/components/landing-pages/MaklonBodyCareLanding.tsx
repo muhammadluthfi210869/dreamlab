@@ -7,6 +7,7 @@ import { getProductDataV2 } from "@/data/products-v2";
 import ProductGrid from "@/components/ProductPageV2/ProductGrid";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 
 export default function MaklonBodyCareLanding({ source }: { source: "google_ads" | "meta_ads" }) {
   const ctaHref = source === "meta_ads" ? "/ads/thankyou/metaads/" : "/ads/thankyou/google-ads/";
@@ -314,6 +315,9 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
             <p>Mulai dari konsep formulasi sampai siap masuk market bersama Dreamlab.</p>
             <a className="btn track" data-location="closing" href={ctaHref}>KONSULTASI BRAND ANDA &rarr;</a>
           </section>
+
+          {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+          <AdsCredibilitySection ctaHref={ctaHref} channel={source === "meta_ads" ? "metaads" : "google-ads"} />
         
 
 

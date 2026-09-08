@@ -8,6 +8,7 @@ import SubCategoryGrid from "@/components/ProductPageV2/SubCategoryGrid";
 import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
 import { TrendingUp, PackageCheck, ArrowRight } from "lucide-react";
+import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 
 // Dynamically import homepage blocks
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
@@ -524,6 +525,9 @@ export default function MaklonSkincareAdsLP() {
           </div>
         </div>
       </section>
+
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="google-ads" />
 
       {/* FLOATING WA BUTTON */}
       <a

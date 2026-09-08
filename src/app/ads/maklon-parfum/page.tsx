@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import Image from "next/image";
+import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 
 export default function MaklonParfumAdsLP() {
   useMetaAdsCtaPixel("Maklon Parfum");
@@ -342,6 +343,9 @@ export default function MaklonParfumAdsLP() {
             <p>Konsultasikan konsep parfum Anda bersama tim Dreamlab.</p>
             <a className="btn track" data-location="closing" href="/ads/thankyou/metaads/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
+
+          {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+          <AdsCredibilitySection channel="metaads" />
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/metaads/" aria-label="Konsultasi WhatsApp">

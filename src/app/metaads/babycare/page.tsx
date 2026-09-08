@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, ShieldCheck, FlaskConical, Package, Award, Heart, Droplet } from 'lucide-react';
 import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
+import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -209,6 +210,9 @@ export default function BabyCareMetaAdsLP() {
           </Link>
         </motion.div>
       </motion.section>
+
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="metaads" />
 
       {/* ============ FOOTER ============ */}
       <footer className="py-8 bg-brand-orange border-t border-white/10">

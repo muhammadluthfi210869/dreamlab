@@ -15,6 +15,7 @@ import {
   Clock,
   Layers,
 } from 'lucide-react';
+import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 25 },
@@ -649,6 +650,9 @@ export default function GoogleAdsMaklonDeodorantPage() {
           </Link>
         </motion.div>
       </motion.section>
+
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="google-ads" />
 
       {/* ============ FOOTER ============ */}
       <footer className="py-8 bg-brand-orange border-t border-white/10">

@@ -28,7 +28,7 @@ export interface Agent {
 
 export const AGENTS: Agent[] = [
 
-  { id: 'cs1', phone: '087712232389', name: 'Jessica (CS 1)', active: false },
+  { id: 'cs1', phone: '087712232389', name: 'Jessica (CS 1)', active: true },
   { id: 'cs2', phone: '081952417051', name: 'Annisa (CS 2)', active: true },
   { id: 'cs3', phone: '087776550657', name: 'Diaz (CS 3)', active: true },
   { id: 'irma', phone: '085133188827', name: 'Bu Irma', active: true },
