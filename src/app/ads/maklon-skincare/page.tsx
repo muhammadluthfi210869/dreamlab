@@ -99,7 +99,7 @@ export default function MaklonSkincareAdsLP() {
               className="text-xs sm:text-sm text-brand-black/80 lg:text-brand-black/70 font-medium leading-relaxed mb-6 md:mb-8 max-w-xl lg:text-[18px] xl:text-[20px]"
               style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
             >
-              Wujudkan brand skincare yang siap bersaing di market melalui formula inovatif, custom ingredient, dan pendampingan dari awal hingga produk siap dipasarkan.
+              Wujudkan brand skincare dengan formula inovatif dan custom ingredient, hingga siap bersaing di market.
             </motion.p>
 
             <motion.div
