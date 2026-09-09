@@ -254,7 +254,17 @@ export default function MaklonHairCareAdsLP() {
         </div>
       </section>
 
-      {/* 4. TESTIMONI PARTNER */}
+      {/* 4. INTERACTIVE CERTIFICATION / TRUST SECTION (Tepat sebelum Brand / Client) */}
+      <AdsCredibilitySection channel="metaads" />
+
+      {/* 5. BRAND / OUR CLIENT - LOGO BERJALAN (DREAMLAB TELAH DIPERCAYA 500+ BRAND) */}
+      <LogoScroll 
+        logos={aboutData.partnerLogos} 
+        headline={homepageData.trustedBrands.title}
+        subHeadline={homepageData.trustedBrands.subtitle}
+      />
+
+      {/* 6. TESTIMONI PARTNER */}
       <section className="bg-[#FAF9F6] py-16 md:py-24 border-t border-neutral-100">
         <div className="container-custom px-4">
           <div className="text-center mb-12 max-w-3xl mx-auto">
@@ -339,14 +349,7 @@ export default function MaklonHairCareAdsLP() {
         </div>
       </section>
 
-      {/* 5. LOGO BERJALAN - DREAMLAB TELAH DIPERCAYA 500+ BRAND */}
-      <LogoScroll 
-        logos={aboutData.partnerLogos} 
-        headline={homepageData.trustedBrands.title}
-        subHeadline={homepageData.trustedBrands.subtitle}
-      />
-
-      {/* 6. CLOSING CTA — Homepage style background visual */}
+      {/* 7. CLOSING CTA — Homepage style background visual */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
         <motion.div
@@ -405,9 +408,6 @@ export default function MaklonHairCareAdsLP() {
           </div>
         </div>
       </section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="metaads" />
 
       {/* FLOATING WA BUTTON */}
       <a

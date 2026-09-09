@@ -399,6 +399,9 @@ export default function MaklonHairCareAdsLP() {
         </div>
       </section>
 
+      {/* INTERACTIVE CERTIFICATION / TRUST SECTION (Tepat sebelum Brand / Client) */}
+      <AdsCredibilitySection channel="google-ads" />
+
       {/* 2.6. LOGO SCROLL - DI PERCAYA 500+ BRAND */}
       <LogoScroll 
         logos={aboutData.partnerLogos} 
@@ -491,9 +494,6 @@ export default function MaklonHairCareAdsLP() {
           </div>
         </div>
       </section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="google-ads" />
 
       {/* FLOATING WA BUTTON */}
       <a

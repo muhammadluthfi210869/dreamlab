@@ -310,24 +310,8 @@ export default function MaklonParfumAdsLP() {
             </div>
           </section>
 
-          {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+          {/* INTERACTIVE CERTIFICATION / TRUST SECTION (Tepat sebelum Our Client) */}
           <AdsCredibilitySection channel="metaads" />
-
-          <section className="legal section">
-            <div className="wrap">
-              <div className="title">
-                <span className="eyebrow">LEGALITAS &amp; STANDAR PABRIK</span>
-                <h2>Brand Anda Lebih Terjamin dengan Standar yang Jelas</h2>
-                <p>Proses produksi dan legalitas didampingi agar produk Anda lebih siap dan aman masuk ke pasar.</p>
-              </div>
-              <div className="legal-grid">
-                <div className="legal-card"><Image src="/assets/maklon-parfum/bpom.webp" alt="bpom" width={200} height={100} loading="lazy" style={{ objectFit: "contain", width: "100%", height: "75px", marginBottom: "16px" }} /><b>Legalitas BPOM</b></div>
-                <div className="legal-card"><Image src="/assets/maklon-parfum/halal.webp" alt="halal" width={200} height={100} loading="lazy" style={{ objectFit: "contain", width: "100%", height: "75px", marginBottom: "16px" }} /><b>Sertifikasi Halal</b></div>
-                <div className="legal-card"><Image src="/assets/maklon-parfum/cpkb.webp" alt="cpkb" width={200} height={100} loading="lazy" style={{ objectFit: "contain", width: "100%", height: "75px", marginBottom: "16px" }} /><b>Fasilitas CPKB Grade A</b></div>
-                <div className="legal-card"><Image src="/assets/maklon-parfum/hki.webp" alt="hki" width={200} height={100} loading="lazy" style={{ objectFit: "contain", width: "100%", height: "75px", marginBottom: "16px" }} /><b>Pendampingan HKI</b></div>
-              </div>
-            </div>
-          </section>
 
           <section className="clients section">
             <div className="wrap">
