@@ -60,14 +60,11 @@ export default function MaklonSkincareAdsLP() {
             </div>
 
             <h1 className="hero-fade-in space-y-1.5 md:space-y-2 lg:space-y-3" style={{ animationDelay: "0.35s" }}>
-              <span className="block text-brand-orange text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] font-black leading-[1.05] tracking-tight max-w-[740px] uppercase font-display">
+              <span className="block text-brand-orange text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] font-black leading-[1.05] tracking-tight max-w-[740px] uppercase font-display md:whitespace-nowrap">
                 Maklon Kosmetik
               </span>
-              <span className="block text-brand-orange italic font-black text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] leading-[1.05] tracking-tight max-w-[740px] uppercase font-display">
-                Custom
-              </span>
-              <span className="block text-brand-black text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] font-black leading-[1.05] tracking-tight max-w-[740px] uppercase font-display">
-                Formula
+              <span className="block text-brand-black text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] font-black leading-[1.05] tracking-tight max-w-[740px] uppercase font-display md:whitespace-nowrap">
+                <span className="text-brand-orange italic">Custom</span> Formula
               </span>
             </h1>
 
