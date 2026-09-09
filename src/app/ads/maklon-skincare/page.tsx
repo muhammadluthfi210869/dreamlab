@@ -4,7 +4,15 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
+import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { homepageData } from "@/data/homepage";
+import { aboutData } from "@/data/about-us";
+
+const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
+  ssr: true,
+  loading: () => <div className="py-14 bg-white" />
+});
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -380,24 +388,12 @@ export default function MaklonSkincareAdsLP() {
       {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
       <AdsCredibilitySection channel="metaads" />
 
-      {/* 6. OUR CLIENT */}
-      <section className="bg-[#EEF4FF] py-16 md:py-24 border-t border-blue-100">
-        <div className="container-custom px-4 text-center">
-          <div className="mb-10 md:mb-16">
-            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
-              OUR CLIENT
-            </span>
-            <h2 className="text-3xl md:text-[40px] font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display max-w-3xl mx-auto">
-              DIPERCAYA 500+ BRAND<br />
-              UNTUK MENGEMBANGKAN PRODUK BEAUTY
-            </h2>
-          </div>
-          
-          <div className="max-w-4xl mx-auto bg-white p-6 md:p-12 rounded-3xl shadow-xl shadow-blue-900/5">
-            <Image src="/assets/maklon-parfum/our-clients.webp" alt="Client Logos" width={980} height={400} className="w-full h-auto mix-blend-multiply" sizes="(max-width: 768px) 100vw, 1000px" />
-          </div>
-        </div>
-      </section>
+      {/* 6. OUR CLIENT - LOGO BERJALAN */}
+      <LogoScroll 
+        logos={aboutData.partnerLogos} 
+        headline={homepageData.trustedBrands.title}
+        subHeadline={homepageData.trustedBrands.subtitle}
+      />
 
       {/* 7. FINAL CTA */}
       <section className="bg-white py-20 md:py-32 border-t border-neutral-100">

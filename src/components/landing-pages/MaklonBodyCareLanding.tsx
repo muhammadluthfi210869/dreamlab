@@ -7,7 +7,14 @@ import { getProductDataV2 } from "@/data/products-v2";
 import ProductGrid from "@/components/ProductPageV2/ProductGrid";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { aboutData } from "@/data/about-us";
+
+const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
+  ssr: true,
+  loading: () => <div className="py-14 bg-white" />
+});
 
 export default function MaklonBodyCareLanding({ source }: { source: "google_ads" | "meta_ads" }) {
   const ctaHref = source === "meta_ads" ? "/ads/thankyou/metaads/" : "/ads/thankyou/google-ads/";
@@ -301,16 +308,12 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
           {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
           <AdsCredibilitySection ctaHref={ctaHref} channel={source === "meta_ads" ? "metaads" : "google-ads"} />
 
-          <section className="clients section">
-            <div className="wrap">
-              <div className="title">
-                <span className="eyebrow">OUR CLIENT</span>
-                <h2>DIPERCAYA 500++ BRAND UNTUK MENGEMBANGKAN PRODUK BEAUTY</h2>
-                <p>Dipercaya oleh berbagai brand beauty untuk mengembangkan produk yang siap bersaing di pasar.</p>
-              </div>
-              <div className="clients-card"><Image src="/assets/maklon-parfum/our-clients.webp" alt="Logo client yang telah bekerja sama dengan Dreamlab" width={980} height={400} loading="lazy" style={{ width: "100%", height: "auto" }} /></div>
-            </div>
-          </section>
+          {/* BRAND / OUR CLIENT - LOGO BERJALAN */}
+          <LogoScroll 
+            logos={aboutData.partnerLogos} 
+            headline="DIPERCAYA 500+ BRAND UNTUK MENGEMBANGKAN PRODUK BEAUTY"
+            subHeadline="Dipercaya oleh berbagai brand beauty untuk mengembangkan produk yang siap bersaing di pasar."
+          />
 
           <section className="closing">
             <span className="eyebrow">MULAI DARI IDE BODY CARE ANDA</span>
