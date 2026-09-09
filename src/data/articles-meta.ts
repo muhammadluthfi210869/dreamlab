@@ -3261,7 +3261,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-07T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Commertional"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -3272,7 +3272,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/maklon_kosmetik_bekasi_11zon.jpg",
     "excerpt": "Jasa maklon kosmetik Bekasi untuk membangun brand dari custom formula, sample, branding, legalitas, produksi hingga free support digital marketing.",
-    "readingMinutes": 6
+    "readingMinutes": 8
   },
   {
     "slug": "/jasa-maklon-kosmetik-blitar",
@@ -3280,7 +3280,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-07T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Commertional"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -3291,6 +3291,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/maklon_kosmetik_blitar_dreamlab_11zon.jpg",
     "excerpt": "Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.",
-    "readingMinutes": 5
-  }]
+    "readingMinutes": 6
+  }
+]
 ;
