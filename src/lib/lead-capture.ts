@@ -52,44 +52,8 @@ function timeoutSignal(ms: number): AbortSignal {
 
 const CLIENT_VID_KEY = "dreamlab_vid_client";
 
-/**
- * Sticky assignment versi client (localStorage, per visitor).
- * Dipakai saat /next gagal (DB down) supaya visitor yang sama tetap dapat CS
- * yang SAMA di klik/reload berikutnya — tidak melompat ke CS lain.
- * Setiap kali /next sukses, pilihan server disimpan di sini juga, sehingga
- * kalau server sempat turun setelahnya, sticky tetap konsisten.
- */
-function stickyKeyFor(vid: string): string {
-  return `dreamlab_wa_sticky_${vid}`;
-}
-
-function readStickyAgent(vid: string): RoundRobinAgent | null {
-  if (!vid || typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(stickyKeyFor(vid));
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    if (parsed && typeof parsed.id === "string" && parsed.phoneNumber) {
-      return {
-        id: parsed.id,
-        name: parsed.name || parsed.id,
-        phoneNumber: parsed.phoneNumber,
-        orderIndex: Number(parsed.orderIndex ?? 0),
-      };
-    }
-    return null;
-  } catch {
-    return null; // korup -> biarkan di-assign ulang
-  }
-}
-
-function saveStickyAgent(vid: string, agent: RoundRobinAgent): void {
-  if (!vid || typeof window === "undefined") return;
-  try {
-    localStorage.setItem(stickyKeyFor(vid), JSON.stringify(agent));
-  } catch {
-    // localStorage penuh / privat -> abaikan, tidak kritis
-  }
+function saveStickyAgent(): void {
+  // No-op: round-robin state is managed globally on the server (Upstash Redis + Neon)
 }
 
 /**
@@ -116,10 +80,9 @@ function getClientVisitorId(): string {
 
 /**
  * Fallback lokal saat server/DB tidak terjangkau:
- * 1) kalau visitor sudah punya sticky (localStorage) & agent masih aktif → CS yang SAMA
- * 2) kalau baru → rotasi counter lokal dari AGENTS config, simpan sebagai sticky
+ * Fallback CS pertama yang aktif tanpa manipulasi counter browser.
  */
-function localFallbackAgent(_vid: string): RoundRobinAgent {
+function localFallbackAgent(): RoundRobinAgent {
   const active = AGENTS.filter((a) => a.active);
   if (active.length === 0) throw new Error("lead-capture: tidak ada agent aktif untuk fallback");
 
@@ -158,11 +121,11 @@ export async function getNextRoundRobinAgent(): Promise<RoundRobinAgent> {
       orderIndex: Number(data.orderIndex ?? 0),
     };
     // Sinkronkan sticky lokal dengan keputusan server (untuk masa DB down nanti).
-    saveStickyAgent(vid, agent);
+    saveStickyAgent();
     return agent;
   } catch (err) {
     console.error("[lead-capture] /next gagal, pakai fallback sticky lokal:", err);
-    return localFallbackAgent(vid);
+    return localFallbackAgent();
   }
 }
 
@@ -212,7 +175,7 @@ export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLe
       phoneNumber: json.phoneNumber,
       orderIndex: Number(json.orderIndex ?? 0),
     };
-    saveStickyAgent(vid, agent);
+    saveStickyAgent();
 
     return {
       agent,
@@ -221,7 +184,7 @@ export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLe
     };
   } catch (err) {
     console.error("[lead-capture] /convert gagal, pakai fallback lokal:", err);
-    const agent = localFallbackAgent(vid);
+    const agent = localFallbackAgent();
     const trackingCode = "LOCAL-" + Math.random().toString(36).slice(2, 10).toUpperCase();
     const waUrl = agent.phoneNumber ? `https://wa.me/${agent.phoneNumber}` : "";
     return { agent, trackingCode, waUrl };

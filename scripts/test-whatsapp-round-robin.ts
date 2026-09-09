@@ -18,28 +18,30 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { BUSDEV_LIST, getActiveBusdev, BusDevItem } from '../src/lib/busdev';
+import crypto from 'node:crypto';
+import { getActiveBusdev, BusDevItem } from '../src/lib/busdev';
 import { identifyLeadSource, normalizeSourceToLeadSource } from '../src/lib/lead-source';
-import { WHATSAPP_MESSAGES, getWhatsAppMessage, buildWhatsAppLeadUrl } from '../src/lib/whatsapp-messages';
+import { getWhatsAppMessage, buildWhatsAppLeadUrl } from '../src/lib/whatsapp-messages';
 
 // Mock in-memory atomic counter simulating Redis atomic INCR
 class MockAtomicRedis {
   private counter: number = 0;
-  private cache: Map<string, any> = new Map();
+  private cache: Map<string, unknown> = new Map();
   public isDown: boolean = false;
 
-  async incr(key: string): Promise<number> {
+  async incr(_key: string): Promise<number> {
+    void _key;
     if (this.isDown) throw new Error('Redis connection failed');
     this.counter += 1;
     return this.counter;
   }
 
-  async get(key: string): Promise<any> {
+  async get(key: string): Promise<unknown> {
     if (this.isDown) throw new Error('Redis connection failed');
     return this.cache.get(key) || null;
   }
 
-  async set(key: string, value: any): Promise<void> {
+  async set(key: string, value: unknown): Promise<void> {
     if (this.isDown) throw new Error('Redis connection failed');
     this.cache.set(key, value);
   }
@@ -53,10 +55,10 @@ class MockAtomicRedis {
 
 // Mock Neon DB simulating transactional audit log & fallback
 class MockNeonDb {
-  public assignments: Map<string, any> = new Map();
+  public assignments: Map<string, Record<string, unknown>> = new Map();
   public queryCount: number = 0;
 
-  async insertLeadAssignment(row: any): Promise<boolean> {
+  async insertLeadAssignment(row: Record<string, unknown> & { eventId: string }): Promise<boolean> {
     this.queryCount += 1;
     if (this.assignments.has(row.eventId)) {
       // ON CONFLICT (event_id) DO NOTHING

@@ -10,7 +10,6 @@ import { Pool } from 'pg';
 import { Redis } from '@upstash/redis';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
-import { BUSDEV_LIST, getActiveBusdev } from '../src/lib/busdev';
 import { hashIp, LeadAssignmentRecord } from '../src/lib/neon';
 
 dotenv.config({ path: '.env.local' });
@@ -38,8 +37,9 @@ async function verifyUpstashRedis() {
     await redis.del(testKey);
     console.log(`✅ Atomic INCR berjalan sempurna di Upstash Redis: ${seq1} -> ${seq2}`);
     return true;
-  } catch (err: any) {
-    console.log(`ℹ️ Upstash Redis live test di lingkungan lokal: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.log(`ℹ️ Upstash Redis live test di lingkungan lokal: ${msg}`);
     console.log('   (Di production Vercel, env disuplai oleh dashboard Vercel Integration).');
     return false;
   }
@@ -55,7 +55,6 @@ async function verifyNeonPostgreSQL() {
   }
 
   try {
-    const u = new URL(dbUrl);
     const pool = new Pool({
       connectionString: dbUrl,
       ssl: { rejectUnauthorized: false },
@@ -76,8 +75,9 @@ async function verifyNeonPostgreSQL() {
     }
     await pool.end();
     return true;
-  } catch (err: any) {
-    console.log(`ℹ️ Neon PostgreSQL live test: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.log(`ℹ️ Neon PostgreSQL live test: ${msg}`);
     return false;
   }
 }
