@@ -181,7 +181,7 @@ export function AdsCredibilitySection({
                   </div>
 
                   <h3
-                    className={`font-display font-black uppercase tracking-tight text-[#11253c] mt-3 transition-all duration-300 ${
+                    className={`font-display font-black uppercase tracking-tight text-[#11253c] mt-3 transition-all duration-300 whitespace-nowrap ${
                       isActive
                         ? 'text-lg lg:text-xl text-[#11253c]'
                         : 'text-xs lg:text-sm text-neutral-700'
@@ -243,12 +243,12 @@ export function AdsCredibilitySection({
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-black font-onest px-2 py-0.5 rounded bg-brand-orange text-white">
+                  <div className="flex items-center justify-between gap-1.5 mb-1 flex-wrap">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-[10px] font-black font-onest px-1.5 py-0.5 rounded bg-brand-orange text-white shrink-0">
                         {item.num}
                       </span>
-                      <h3 className="text-sm sm:text-base font-black text-[#11253c] font-display uppercase tracking-tight">
+                      <h3 className="text-sm sm:text-base font-black text-[#11253c] font-display uppercase tracking-tight whitespace-nowrap">
                         {item.title}
                       </h3>
                     </div>
