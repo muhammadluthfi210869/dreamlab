@@ -5,7 +5,7 @@
  * Menjaga kompatibilitas ke fungsi-fungsi sistem dan script verifikasi.
  */
 
-import { BUSDEV_LIST, BusDevItem, getActiveBusdev } from './busdev';
+import { BUSDEV_LIST, getActiveBusdev } from './busdev';
 
 export interface Agent {
   id: string;

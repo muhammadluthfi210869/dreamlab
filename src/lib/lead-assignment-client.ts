@@ -129,7 +129,7 @@ export async function assignLeadViaClient(
       // Tracking Analytics
       if (typeof window !== 'undefined') {
         // GTM dataLayer
-        const dl = (window as any).dataLayer;
+        const dl = (window as unknown as { dataLayer?: Array<Record<string, unknown>> }).dataLayer;
         if (Array.isArray(dl)) {
           dl.push({
             event: 'whatsapp_lead_assigned',

@@ -44,9 +44,9 @@ function isValidUuid(str: string): boolean {
 
 export async function POST(req: NextRequest) {
   try {
-    let body: any = {};
+    let body: Record<string, unknown> = {};
     try {
-      body = await req.json();
+      body = (await req.json()) as Record<string, unknown>;
     } catch {
       return NextResponse.json(
         { success: false, error: 'Invalid JSON request body' },

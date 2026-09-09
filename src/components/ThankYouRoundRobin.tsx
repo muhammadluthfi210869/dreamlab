@@ -28,7 +28,6 @@ export function ThankYouRoundRobin({
   messageMap,
   ctaLabel = "KONSULTASI BRAND ANDA SEKARANG",
 }: ThankYouRoundRobinProps) {
-  const [, setSource] = useState(defaultSource);
   const [assignment, setAssignment] = useState<LeadAssignmentResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [navigated, setNavigated] = useState(false);
@@ -39,14 +38,16 @@ export function ThankYouRoundRobin({
     const params = new URLSearchParams(window.location.search);
     const resolvedSource = params.get("source") || defaultSource;
 
-    setSource(resolvedSource);
     fireConversion(resolvedSource, params.get("event_id") || undefined);
 
+    const win = window as unknown as {
+      gtag?: (command: string, action: string, params: Record<string, unknown>) => void;
+    };
     if (
       normalizeLeadSource(resolvedSource) === "google-ads" &&
-      typeof (window as any).gtag === "function"
+      typeof win.gtag === "function"
     ) {
-      (window as any).gtag("event", "conversion", {
+      win.gtag("event", "conversion", {
         send_to: "AW-10940853039/hTv7CJOs-OwaEK_WgOEo",
       });
     }
