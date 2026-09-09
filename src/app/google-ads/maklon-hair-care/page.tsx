@@ -66,15 +66,12 @@ export default function MaklonHairCareAdsLP() {
               </div>
             </div>
 
-            <h1 className="hero-fade-in space-y-1.5 md:space-y-2 lg:space-y-3" style={{ animationDelay: "0.35s" }}>
-              <span className="block text-[#11253c] text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] font-black leading-[1.05] tracking-tight max-w-[740px] uppercase font-display">
+            <h1 className="hero-fade-in space-y-2 md:space-y-3" style={{ animationDelay: "0.35s" }}>
+              <span className="block text-[#11253c] text-[30px] sm:text-[42px] md:text-[50px] lg:text-[60px] xl:text-[68px] font-black leading-[1.08] tracking-tight max-w-[740px] uppercase font-display md:whitespace-nowrap">
                 MAKLON HAIR CARE
               </span>
-              <span className="block text-[#11253c] font-black text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] leading-[1.05] tracking-tight max-w-[740px] uppercase font-display">
-                CUSTOM
-              </span>
-              <span className="block text-brand-orange text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] xl:text-[80px] font-black leading-[1.05] tracking-tight max-w-[740px] uppercase font-display">
-                FORMULA
+              <span className="block text-brand-orange text-[21px] sm:text-[30px] md:text-[36px] lg:text-[44px] xl:text-[50px] font-black leading-[1.08] tracking-tight max-w-[740px] uppercase font-display md:whitespace-nowrap">
+                DENGAN CUSTOM FORMULA
               </span>
             </h1>
 

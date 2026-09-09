@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Plus, Minus, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 interface CertItem {
   id: string;
@@ -72,17 +72,10 @@ export function AdsCredibilitySection({
   // Desktop: active card on hover/focus (defaults to card 0)
   const [activeDesktop, setActiveDesktop] = useState<number>(0);
 
-  // Mobile: only ONE card open at a time, tap toggles (defaults to card 0)
-  const [activeMobile, setActiveMobile] = useState<number>(0);
-
-  const handleMobileToggle = (idx: number) => {
-    setActiveMobile((prev) => (prev === idx ? -1 : idx));
-  };
-
   return (
     <section
       aria-labelledby="certification-heading"
-      className={`py-16 md:py-24 ${
+      className={`py-14 md:py-20 ${
         bgLight ? 'bg-[#FAF9F6]' : 'bg-white'
       } border-t border-neutral-100 relative overflow-hidden ${className}`}
     >
@@ -96,7 +89,7 @@ export function AdsCredibilitySection({
         {/* ================================================== */}
         {/* SECTION HEADER                                     */}
         {/* ================================================== */}
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2F6BFF]/10 text-[#2F6BFF] text-[10px] md:text-xs font-black tracking-[0.2em] uppercase mb-3 font-onest">
             <ShieldCheck className="w-3.5 h-3.5" />
             STANDAR &amp; LEGALITAS RESMI
@@ -104,7 +97,7 @@ export function AdsCredibilitySection({
 
           <h2
             id="certification-heading"
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-[#11253c] tracking-tight leading-[1.15] uppercase font-display mb-3"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black text-[#11253c] tracking-tight leading-[1.15] uppercase font-display mb-3"
           >
             TIDAK PERLU KHAWATIR,{' '}
             <span className="text-brand-orange">DREAMLAB SUDAH BERSERTIFIKASI</span>
@@ -119,7 +112,7 @@ export function AdsCredibilitySection({
         {/* DESKTOP: 4 EXPANDING CARDS (HOVER / KEYBOARD FOCUS) */}
         {/* ================================================== */}
         <div
-          className="hidden md:flex flex-row gap-3.5 lg:gap-4.5 w-full items-stretch min-h-[380px] lg:min-h-[420px]"
+          className="hidden md:flex flex-row gap-3.5 lg:gap-4.5 w-full items-stretch min-h-[310px] lg:min-h-[340px]"
           role="region"
           aria-label="Interactive Certification Cards"
         >
@@ -140,7 +133,7 @@ export function AdsCredibilitySection({
                     setActiveDesktop(idx);
                   }
                 }}
-                className={`group relative overflow-hidden rounded-2xl lg:rounded-3xl border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex flex-col justify-between p-6 lg:p-7 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#2F6BFF] ${
+                className={`group relative overflow-hidden rounded-2xl lg:rounded-3xl border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex flex-col justify-between p-5 lg:p-6 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#2F6BFF] ${
                   isActive
                     ? 'flex-[2.4] bg-gradient-to-b from-white via-[#F4F8FF] to-[#EAF2FF] border-[#2F6BFF]/40 shadow-xl shadow-blue-900/5 ring-1 ring-[#2F6BFF]/25'
                     : 'flex-1 bg-white hover:bg-[#FAF9F6] border-neutral-200/80 shadow-xs hover:shadow-md'
@@ -169,29 +162,29 @@ export function AdsCredibilitySection({
                   </span>
                 </div>
 
-                {/* Center: Visual Emblem / Logo */}
-                <div className="my-auto py-4 flex flex-col items-center justify-center text-center">
+                {/* Center: Visual Emblem / Logo (Compact square shape) */}
+                <div className="my-auto py-3 flex flex-col items-center justify-center text-center">
                   <div
-                    className={`relative rounded-2xl p-3.5 bg-white border border-neutral-200/70 shadow-xs transition-all duration-500 flex items-center justify-center ${
+                    className={`relative rounded-xl p-2.5 bg-white border border-neutral-200/70 shadow-xs transition-all duration-500 flex items-center justify-center ${
                       isActive
-                        ? 'w-24 h-24 lg:w-28 lg:h-28 scale-105 shadow-md border-[#2F6BFF]/30'
-                        : 'w-16 h-16 lg:w-20 lg:h-20 grayscale-30 group-hover:grayscale-0'
+                        ? 'w-16 h-16 lg:w-20 lg:h-20 shadow-md border-[#2F6BFF]/30'
+                        : 'w-11 h-11 lg:w-13 lg:h-13 opacity-75 group-hover:opacity-100'
                     }`}
                   >
                     <Image
                       src={item.image}
                       alt={item.imageAlt}
-                      width={item.aspect === 'wide' ? 104 : 80}
-                      height={80}
+                      width={item.aspect === 'wide' ? 64 : 48}
+                      height={48}
                       className="object-contain max-h-full max-w-full transform transition-transform duration-500"
                     />
                   </div>
 
                   <h3
-                    className={`font-display font-black uppercase tracking-tight text-[#11253c] mt-4 transition-all duration-300 ${
+                    className={`font-display font-black uppercase tracking-tight text-[#11253c] mt-3 transition-all duration-300 ${
                       isActive
-                        ? 'text-xl lg:text-2xl text-[#11253c]'
-                        : 'text-sm lg:text-base text-neutral-700'
+                        ? 'text-lg lg:text-xl text-[#11253c]'
+                        : 'text-xs lg:text-sm text-neutral-700'
                     }`}
                   >
                     {item.title}
@@ -199,7 +192,7 @@ export function AdsCredibilitySection({
                 </div>
 
                 {/* Bottom: Description (Revealed smoothly on active) */}
-                <div className="w-full min-h-[64px] flex items-end">
+                <div className="w-full min-h-[56px] flex items-end">
                   <p
                     className={`text-xs lg:text-[13px] leading-relaxed font-sans font-medium text-neutral-600 transition-all duration-400 ${
                       isActive
@@ -224,103 +217,53 @@ export function AdsCredibilitySection({
         </div>
 
         {/* ================================================== */}
-        {/* MOBILE: ACCORDION TAP INTERACTION (+ / −)         */}
+        {/* MOBILE: DIRECT VIEW CARDS (NO TOGGLE / ACCORDION)  */}
         {/* ================================================== */}
         <div
           className="flex md:hidden flex-col gap-3 w-full"
           role="region"
           aria-label="Daftar Sertifikasi Dreamlab"
         >
-          {CERTIFICATIONS.map((item, idx) => {
-            const isOpen = activeMobile === idx;
-            return (
-              <article
-                key={item.id}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                  isOpen
-                    ? 'bg-gradient-to-b from-white to-[#F4F8FF] border-[#2F6BFF]/40 shadow-md ring-1 ring-[#2F6BFF]/25'
-                    : 'bg-white border-neutral-200/80 shadow-xs'
-                }`}
-              >
-                <button
-                  type="button"
-                  onClick={() => handleMobileToggle(idx)}
-                  aria-expanded={isOpen}
-                  aria-controls={`cert-mobile-desc-${item.id}`}
-                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={`text-[11px] font-black font-onest px-2.5 py-1 rounded transition-colors ${
-                        isOpen
-                          ? 'bg-brand-orange text-white'
-                          : 'bg-neutral-100 text-neutral-600'
-                      }`}
-                    >
-                      {item.num}
-                    </span>
-                    <h3 className="text-base sm:text-lg font-black text-[#11253c] font-display uppercase tracking-tight">
-                      {item.title}
-                    </h3>
-                  </div>
+          {CERTIFICATIONS.map((item) => (
+            <article
+              key={item.id}
+              className="bg-white rounded-2xl border border-neutral-200/80 p-4 shadow-xs"
+            >
+              <div className="flex items-start gap-3.5">
+                {/* Visual Emblem Square (Compact & Clean) */}
+                <div className="relative w-12 h-12 shrink-0 rounded-xl bg-[#F8FAFC] border border-neutral-200/70 p-1.5 flex items-center justify-center">
+                  <Image
+                    src={item.image}
+                    alt={item.imageAlt}
+                    width={item.aspect === 'wide' ? 44 : 32}
+                    height={32}
+                    className="object-contain max-h-full max-w-full"
+                  />
+                </div>
 
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                      isOpen
-                        ? 'bg-brand-orange/10 text-brand-orange'
-                        : 'bg-neutral-100 text-neutral-500'
-                    }`}
-                    aria-hidden="true"
-                  >
-                    {isOpen ? (
-                      <Minus className="w-4 h-4 text-brand-orange stroke-[2.5]" />
-                    ) : (
-                      <Plus className="w-4 h-4 text-neutral-600 stroke-[2.5]" />
-                    )}
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div
-                    id={`cert-mobile-desc-${item.id}`}
-                    className="px-4 pb-5 sm:px-5 sm:pb-6 pt-1 border-t border-neutral-100 animate-fadeIn"
-                  >
-                    <div className="flex items-center gap-4 pt-2">
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-white rounded-xl border border-neutral-200/70 p-2 shadow-xs flex items-center justify-center">
-                        <Image
-                          src={item.image}
-                          alt={item.imageAlt}
-                          width={item.aspect === 'wide' ? 84 : 64}
-                          height={64}
-                          className="object-contain max-h-full max-w-full"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <span className="inline-block text-[10px] font-bold text-[#2F6BFF] uppercase tracking-wider">
-                          {item.badge}
-                        </span>
-                        <p className="text-xs sm:text-sm text-neutral-600 font-medium leading-relaxed font-sans">
-                          {item.desc}
-                        </p>
-                      </div>
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-black font-onest px-2 py-0.5 rounded bg-brand-orange text-white">
+                        {item.num}
+                      </span>
+                      <h3 className="text-sm sm:text-base font-black text-[#11253c] font-display uppercase tracking-tight">
+                        {item.title}
+                      </h3>
                     </div>
+                    <span className="text-[9px] font-bold uppercase tracking-wider font-onest text-[#2F6BFF] bg-[#2F6BFF]/10 px-2 py-0.5 rounded-full shrink-0">
+                      {item.badge}
+                    </span>
                   </div>
-                )}
-              </article>
-            );
-          })}
-        </div>
 
-        {/* ================================================== */}
-        {/* TRUST MESSAGE (BELOW INTERACTIVE CARDS)            */}
-        {/* ================================================== */}
-        <div className="mt-12 md:mt-16 text-center max-w-3xl mx-auto px-4">
-          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#11253c] tracking-tight uppercase font-display mb-3">
-            SATU PARTNER, LEBIH TENANG MENGEMBANGKAN BRAND
-          </h3>
-          <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-medium leading-relaxed font-sans max-w-2xl mx-auto">
-            Mulai dari pengembangan formula hingga produksi, Dreamlab hadir sebagai One Stop Maklon Partner untuk membantu kebutuhan brand Anda.
-          </p>
+                  <p className="text-xs sm:text-[13px] text-neutral-600 font-medium leading-relaxed font-sans mt-1">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
