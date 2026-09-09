@@ -105,7 +105,10 @@ export default function MaklonHairCareAdsLP() {
               transition={{ delay: 1.4, duration: 0.8 }}
               className="text-neutral-600 font-sans text-sm sm:text-base md:text-lg leading-relaxed mb-8 max-w-2xl"
             >
-              Dreamlab membantu Anda mengubah ide menjadi produk siap jual melalui pengembangan formula, inovasi ingredient, desain kemasan, hingga legalitas produk.
+              <strong className="text-brand-black font-extrabold block mb-1">
+                BANGUN BRAND HAIRCARE TANPA RIBET ✨
+              </strong>
+              Mulai dari produk hingga siap market, plus FREE After-Sales Marketing Kit.
             </motion.p>
 
             <motion.div
