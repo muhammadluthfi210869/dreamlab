@@ -298,6 +298,9 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
             </div>
           </section>
 
+          {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+          <AdsCredibilitySection ctaHref={ctaHref} channel={source === "meta_ads" ? "metaads" : "google-ads"} />
+
           <section className="clients section">
             <div className="wrap">
               <div className="title">
@@ -315,12 +318,6 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
             <p>Mulai dari konsep formulasi sampai siap masuk market bersama Dreamlab.</p>
             <a className="btn track" data-location="closing" href={ctaHref}>KONSULTASI BRAND ANDA &rarr;</a>
           </section>
-
-          {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-          <AdsCredibilitySection ctaHref={ctaHref} channel={source === "meta_ads" ? "metaads" : "google-ads"} />
-        
-
-
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href={ctaHref} aria-label="Konsultasi WhatsApp">

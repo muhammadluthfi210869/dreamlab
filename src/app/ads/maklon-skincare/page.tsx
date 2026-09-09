@@ -377,6 +377,9 @@ export default function MaklonSkincareAdsLP() {
         </div>
       </section>
 
+      {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+      <AdsCredibilitySection channel="metaads" />
+
       {/* 6. OUR CLIENT */}
       <section className="bg-[#EEF4FF] py-16 md:py-24 border-t border-blue-100">
         <div className="container-custom px-4 text-center">
@@ -414,9 +417,6 @@ export default function MaklonSkincareAdsLP() {
           </a>
         </div>
       </section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="metaads" />
 
       {/* FLOATING WA BUTTON */}
       <a

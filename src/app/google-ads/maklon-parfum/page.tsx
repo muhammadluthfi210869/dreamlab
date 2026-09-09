@@ -256,6 +256,9 @@ export default function GoogleAdsMaklonParfum() {
             </div>
           </section>
 
+          {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+          <AdsCredibilitySection channel="google-ads" />
+
           <section className="clients section">
             <div className="wrap">
               <div className="title">
@@ -273,9 +276,6 @@ export default function GoogleAdsMaklonParfum() {
             <p>Mulai dari konsep aroma sampai siap masuk market bersama Dreamlab.</p>
             <a className="btn track" data-location="closing" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
-
-          {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-          <AdsCredibilitySection channel="google-ads" />
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/google-ads/" aria-label="Konsultasi WhatsApp">

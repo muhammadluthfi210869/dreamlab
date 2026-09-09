@@ -310,6 +310,9 @@ export default function MaklonParfumAdsLP() {
             </div>
           </section>
 
+          {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+          <AdsCredibilitySection channel="metaads" />
+
           <section className="legal section">
             <div className="wrap">
               <div className="title">
@@ -343,9 +346,6 @@ export default function MaklonParfumAdsLP() {
             <p>Konsultasikan konsep parfum Anda bersama tim Dreamlab.</p>
             <a className="btn track" data-location="closing" href="/ads/thankyou/metaads/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
-
-          {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-          <AdsCredibilitySection channel="metaads" />
         </main>
         
         <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/metaads/" aria-label="Konsultasi WhatsApp">

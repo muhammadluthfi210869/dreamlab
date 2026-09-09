@@ -434,6 +434,9 @@ export default function MaklonSkincareAdsLP() {
         </div>
       </section>
 
+      {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+      <AdsCredibilitySection channel="google-ads" />
+
       {/* 5. OUR CLIENT - LOGO SCROLL */}
       <LogoScroll 
         logos={aboutData.partnerLogos} 
@@ -525,9 +528,6 @@ export default function MaklonSkincareAdsLP() {
           </div>
         </div>
       </section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="google-ads" />
 
       {/* FLOATING WA BUTTON */}
       <a

@@ -585,6 +585,9 @@ export default function DeodorantMetaAdsLP() {
         </div>
       </section>
 
+      {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
+      <AdsCredibilitySection channel="metaads" />
+
       {/* ============ CTA ============ */}
       <motion.section
         className="py-20 md:py-28 bg-brand-orange text-white relative overflow-hidden"
@@ -615,9 +618,6 @@ export default function DeodorantMetaAdsLP() {
           </Link>
         </motion.div>
       </motion.section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="metaads" />
 
       {/* ============ FOOTER ============ */}
       <footer className="py-8 bg-brand-orange border-t border-white/10">
