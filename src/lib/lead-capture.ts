@@ -50,7 +50,6 @@ function timeoutSignal(ms: number): AbortSignal {
   return ctrl.signal;
 }
 
-const FALLBACK_COUNTER_KEY = "dreamlab_wa_fallback_index";
 const CLIENT_VID_KEY = "dreamlab_vid_client";
 
 /**
@@ -120,35 +119,19 @@ function getClientVisitorId(): string {
  * 1) kalau visitor sudah punya sticky (localStorage) & agent masih aktif → CS yang SAMA
  * 2) kalau baru → rotasi counter lokal dari AGENTS config, simpan sebagai sticky
  */
-function localFallbackAgent(vid: string): RoundRobinAgent {
+function localFallbackAgent(_vid: string): RoundRobinAgent {
   const active = AGENTS.filter((a) => a.active);
   if (active.length === 0) throw new Error("lead-capture: tidak ada agent aktif untuk fallback");
 
-  const sticky = readStickyAgent(vid);
-  if (sticky && active.some((a) => a.id === sticky.id)) {
-    return sticky;
-  }
-
-  let index = Math.floor(Math.random() * active.length);
-  if (typeof window !== "undefined") {
-    const stored = localStorage.getItem(FALLBACK_COUNTER_KEY);
-    if (stored !== null) {
-      const parsed = parseInt(stored, 10);
-      if (!isNaN(parsed)) {
-        index = parsed % active.length;
-      }
-    }
-    localStorage.setItem(FALLBACK_COUNTER_KEY, String((index + 1) % active.length));
-  }
-  const agent = active[index % active.length];
+  // Fallback server-side tunggal tanpa counter localStorage dan tanpa Math.random()
+  const agent = active[0];
 
   const fallbackAgent: RoundRobinAgent = {
     id: agent.id,
     name: agent.name || agent.id,
     phoneNumber: normalizePhone(agent.phone),
-    orderIndex: index % active.length,
+    orderIndex: 0,
   };
-  saveStickyAgent(vid, fallbackAgent);
   return fallbackAgent;
 }
 

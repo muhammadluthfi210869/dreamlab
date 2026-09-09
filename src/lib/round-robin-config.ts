@@ -1,109 +1,51 @@
 /**
-
  * round-robin-config.ts
-
  *
-
- * SATU-SATUNYA sumber data agent/CS untuk seluruh sistem round-robin.
-
- * Jangan duplikasi list ini di file lain — kalau perlu tambah/kurangi CS,
-
- * cukup edit array ini. Tidak perlu reset counter manual karena rotasi
-
- * dihitung ulang dari `activeAgents` setiap request (lihat roundRobin.ts).
-
+ * Meneruskan konfigurasi resmi dari BUSDEV_LIST (src/lib/busdev.ts).
+ * Menjaga kompatibilitas ke fungsi-fungsi sistem dan script verifikasi.
  */
 
+import { BUSDEV_LIST, BusDevItem, getActiveBusdev } from './busdev';
+
 export interface Agent {
-
-  id: string;      // identifier stabil, JANGAN diubah setelah dipakai (dipakai di cookie)
-
-  phone: string;   // format lokal, akan dinormalisasi ke format internasional saat dipakai
-
+  id: string;
+  phone: string;
   name?: string;
-
-  active: boolean; // set false untuk CS yang cuti/nonaktif tanpa menghapus dari array
-
+  active: boolean;
 }
 
-export const AGENTS: Agent[] = [
-
-  { id: 'cs1', phone: '087712232389', name: 'Jessica (CS 1)', active: true },
-  { id: 'cs2', phone: '081952417051', name: 'Annisa (CS 2)', active: true },
-  { id: 'cs3', phone: '087776550657', name: 'Diaz (CS 3)', active: true },
-  { id: 'irma', phone: '085133188827', name: 'Bu Irma', active: true },
-
-  // Pak Zaki (087867029842) sudah dihapus total dari rotasi — lihat
-  // db/migrations/00004_remove_pak_zaki.sql.
-
-  { id: 'bagir', phone: '087766466927', name: 'Pak Bagir', active: false },
-
-  // Tambah CS baru di sini kapan saja, contoh:
-
-  // { id: 'cs8', phone: '08xxxxxxxxxx', name: 'CS 8', active: true },
-
-];
+export const AGENTS: Agent[] = BUSDEV_LIST.map((b) => ({
+  id: b.id,
+  phone: b.phone,
+  name: b.name,
+  active: b.active,
+}));
 
 export function getActiveAgents(): Agent[] {
-
-  const active = AGENTS.filter((a) => a.active);
-
-  if (active.length === 0) {
-
-    throw new Error('Tidak ada agent aktif di AGENTS config');
-
-  }
-
-  return active;
-
+  return getActiveBusdev().map((b) => ({
+    id: b.id,
+    phone: b.phone,
+    name: b.name,
+    active: b.active,
+  }));
 }
 
 /**
- * Fallback darurat dipakai lead-assignment.ts kalau getNextAgent() (Redis)
- * gagal DAN getActiveAgents() juga gagal (semua agent kebetulan di-set
- * active: false — biasanya salah konfigurasi, bukan disengaja).
- *
- * Daripada funnel WA mati total (500 error) karena Error di atas tidak
- * pernah di-catch dua kali, fungsi ini SELALU mengembalikan satu Agent
- * kalau AGENTS tidak kosong — kalaupun harus mengabaikan flag `active`
- * sebagai upaya terakhir. Ini prioritaskan "lead tetap sampai ke manusia"
- * di atas "distribusi tetap rapi", karena skenario ini seharusnya sangat
- * jarang terjadi dan butuh perhatian manual segera (makanya di-log
- * sebagai error kritis).
- *
- * Distribusi: pakai counter modulo (deterministik per-instance), BUKAN
- * Math.random(). Math.random() secara teori uniform, tapi dalam burst
- * pendek (mis. 18 lead dalam 5 menit) bisa sangat tidak merata karena
- * tidak ada jaminan distribusi. Counter modulo memberi rotasi pasti:
- * panggilan ke-1 → CS[0], ke-2 → CS[1], dst — wrap-around otomatis.
- *
- * Caveat: counter ini per-instance serverless. Vercel tidak share memory
- * antar instance — 2 instance warm masing-masing punya counter sendiri.
- * Untuk distribusi lintas-instance deterministik, butuh Redis (lihat
- * getNextAgent di roundRobin.ts). Ini prioritas "tidak miring parah
- * dalam burst" di atas "sempurna lintas instance".
+ * Fallback darurat server-side
  */
 let _fbCounter = 0;
 export function pickEmergencyFallbackAgent(): Agent {
-  const active = AGENTS.filter((a) => a.active);
+  const active = getActiveAgents();
   if (active.length > 0) {
     const picked = active[_fbCounter % active.length];
-    _fbCounter = (_fbCounter + 1) >>> 0; // modulo-safe increment
+    _fbCounter = (_fbCounter + 1) >>> 0;
     return picked;
   }
 
-  if (AGENTS.length === 0) {
-    throw new Error(
-      'AGENTS kosong total di round-robin-config.ts — tidak ada nomor CS yang bisa dipakai sama sekali.'
-    );
-  }
-
-  console.error(
-    '[round-robin-config] KRITIS: semua agent di AGENTS berstatus nonaktif (active: false). ' +
-      'Fallback darurat acak ke AGENTS sambil abaikan flag active, supaya lead tetap tersalurkan. ' +
-      'Segera cek/perbaiki round-robin-config.ts.'
-  );
-  const picked = AGENTS[_fbCounter % AGENTS.length];
-  _fbCounter = (_fbCounter + 1) >>> 0;
-  return picked;
+  return {
+    id: BUSDEV_LIST[0].id,
+    name: BUSDEV_LIST[0].name,
+    phone: BUSDEV_LIST[0].phone,
+    active: true,
+  };
 }

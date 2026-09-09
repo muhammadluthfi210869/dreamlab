@@ -38,7 +38,7 @@ async function testRedirects(): Promise<RedirectTestResult[]> {
     '/our-client', '/career', '/terms-of-service', '/privacy-policy',
     '/maklon-skincare', '/maklon-body-care', '/maklon-baby-care',
     '/maklon-hair-care', '/maklon-foot-care', '/maklon-parfum',
-    '/maklon-decorative', '/maklon-pkrt',
+    '/maklon-decorative', '/maklon-pkrt', '/maklon-skincare/masker-wajah',
   ]);
 
   // 3. Test each mapping
