@@ -35,12 +35,24 @@ const inFlightRequests = new Map<string, Promise<LeadAssignmentResponse>>();
 // Session cache in-memory untuk menyimpan assignment per eventId selama tab terbuka
 const sessionCache = new Map<string, LeadAssignmentResponse>();
 
+function generateUuidV4(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 /**
- * Mendapatkan atau membuat UUID eventId yang stabil di client tab.
+ * Mendapatkan eventId dari sessionStorage atau membuat UUID baru.
+ * Di-persist di sessionStorage per tab browser agar stabil saat refresh.
  */
 export function getOrCreateEventId(explicitId?: string): string {
   if (explicitId && explicitId.trim() !== '') {
-    return explicitId;
+    return explicitId.trim();
   }
 
   if (typeof window !== 'undefined') {
@@ -49,10 +61,7 @@ export function getOrCreateEventId(explicitId?: string): string {
     if (existing) {
       return existing;
     }
-    const newId =
-      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-        ? crypto.randomUUID()
-        : 'evt_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    const newId = generateUuidV4();
     try {
       window.sessionStorage.setItem(sessionKey, newId);
     } catch {
@@ -61,7 +70,7 @@ export function getOrCreateEventId(explicitId?: string): string {
     return newId;
   }
 
-  return 'evt_' + Date.now();
+  return generateUuidV4();
 }
 
 /**
@@ -123,6 +132,10 @@ export async function assignLeadViaClient(
 
       const data: LeadAssignmentResponse = await res.json();
 
+      if (!data.success) {
+        throw new Error(data.error || 'Gagal melakukan assignment lead');
+      }
+
       // Simpan di session cache
       sessionCache.set(eventId, data);
 
@@ -144,25 +157,6 @@ export async function assignLeadViaClient(
       }
 
       return data;
-    } catch {
-      // Fallback lokal jika fetch network gagal (Irma)
-      const fallbackUrl = `https://wa.me/6285133188827?text=${encodeURIComponent(
-        'Halo Dreamlab, saya ingin konsultasi untuk membuat brand produk saya. Bisa dibantu?'
-      )}`;
-
-      const fallbackData: LeadAssignmentResponse = {
-        success: true,
-        assignmentId: 'fb_' + Date.now(),
-        source: opts.source || 'unknown',
-        sales: {
-          id: 'irma',
-          name: 'Irma',
-        },
-        whatsappUrl: fallbackUrl,
-      };
-
-      sessionCache.set(eventId, fallbackData);
-      return fallbackData;
     } finally {
       inFlightRequests.delete(eventId);
     }

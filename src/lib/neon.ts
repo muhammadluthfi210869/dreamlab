@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import crypto from 'crypto';
-import { BusDevItem, getActiveBusdev } from './busdev';
+import { getActiveBusdev } from './busdev';
 
 /**
  * neon.ts
@@ -84,15 +84,25 @@ export interface LeadAssignmentRecord {
   ipHash?: string | null;
 }
 
+export interface RecordAssignmentResult {
+  success: boolean;
+  error?: string;
+}
+
 /**
  * Menyimpan assignment WhatsApp ke tabel lead_assignments secara parameterized.
  * Idempotent terhadap event_id jika terjadi request bersamaan.
+ * Tidak menelan error: mencatat error secara terstruktur dan aman.
  */
 export async function recordLeadAssignment(
   record: LeadAssignmentRecord
-): Promise<boolean> {
+): Promise<RecordAssignmentResult> {
   const pool = getNeonPool();
-  if (!pool) return false;
+  if (!pool) {
+    const error = 'Neon pool not configured (check DATABASE_URL in Vercel)';
+    console.error(`[Neon Audit Log] ${error}`);
+    return { success: false, error };
+  }
 
   const query = `
     INSERT INTO lead_assignments (
@@ -138,9 +148,16 @@ export async function recordLeadAssignment(
 
   try {
     await pool.query(query, values);
-    return true;
-  } catch {
-    return false;
+    return { success: true };
+  } catch (err: unknown) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error('[Neon Audit Log] Gagal mencatat assignment ke database:', {
+      eventId: record.eventId,
+      source: record.source,
+      salesId: record.salesId,
+      error: errMsg,
+    });
+    return { success: false, error: errMsg };
   }
 }
 
@@ -181,23 +198,76 @@ export async function findAssignmentByEventId(
       return res.rows[0] as LeadAssignmentRecord;
     }
     return null;
-  } catch {
+  } catch (err: unknown) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error('[Neon DB] findAssignmentByEventId error:', errMsg);
     return null;
   }
 }
 
+export interface NeonAtomicAssignmentResult {
+  record: LeadAssignmentRecord;
+  isExisting: boolean;
+}
+
 /**
  * Fallback atomik rotasi via Neon PostgreSQL saat Upstash Redis gagal.
- * Menggunakan Postgres advisory transaction lock agar konkurensi tetap aman,
- * deterministik, dan adil tanpa Math.random() dan tanpa localStorage.
+ * Menggunakan Postgres advisory transaction lock.
+ * Pemilihan BusDev DAN penyimpanan assignment WAJIB terjadi dalam SATU
+ * transaksi sebelum COMMIT, mencegah race condition counter antar request concurrent.
  */
-export async function assignLeadViaNeonAtomic(): Promise<BusDevItem> {
+const _memoryFallbackAssignments = new Map<string, LeadAssignmentRecord>();
+let _neonFallbackCounter = 0;
+
+export async function assignAndRecordLeadViaNeonAtomic(params: {
+  id: string;
+  eventId: string;
+  source: string;
+  landingPage?: string | null;
+  referrer?: string | null;
+  utmSource?: string | null;
+  utmMedium?: string | null;
+  utmCampaign?: string | null;
+  messageKey?: string | null;
+  userAgent?: string | null;
+  ipHash?: string | null;
+}): Promise<NeonAtomicAssignmentResult> {
   const activeBusdev = getActiveBusdev();
   const pool = getNeonPool();
 
   if (!pool) {
-    // Jika Neon pool juga tidak tersedia, gunakan nomor fallback server-side pertama (Irma)
-    return activeBusdev[0];
+    // In-memory fallback untuk lingkungan lokal / test / emergency failover
+    if (_memoryFallbackAssignments.has(params.eventId)) {
+      return {
+        record: _memoryFallbackAssignments.get(params.eventId)!,
+        isExisting: true,
+      };
+    }
+
+    _neonFallbackCounter++;
+    const selectedIndex = (_neonFallbackCounter - 1) % activeBusdev.length;
+    const fallbackBusdev = activeBusdev[selectedIndex];
+
+    const fallbackRecord: LeadAssignmentRecord = {
+      id: params.id,
+      eventId: params.eventId,
+      source: params.source,
+      landingPage: params.landingPage,
+      referrer: params.referrer,
+      utmSource: params.utmSource,
+      utmMedium: params.utmMedium,
+      utmCampaign: params.utmCampaign,
+      messageKey: params.messageKey,
+      salesId: fallbackBusdev.id,
+      salesName: fallbackBusdev.name,
+      salesPhone: fallbackBusdev.phone,
+      status: 'fallback',
+      userAgent: params.userAgent,
+      ipHash: params.ipHash,
+    };
+
+    _memoryFallbackAssignments.set(params.eventId, fallbackRecord);
+    return { record: fallbackRecord, isExisting: false };
   }
 
   const client = await pool.connect();
@@ -206,19 +276,112 @@ export async function assignLeadViaNeonAtomic(): Promise<BusDevItem> {
     // Advisory lock key deterministik untuk round-robin Dreamlab: 981273912
     await client.query('SELECT pg_advisory_xact_lock(981273912)');
 
-    // Hitung total assignments yang sudah ada untuk mendapatkan index rotasi berikutnya
+    // 1. Periksa apakah eventId sudah ada di lead_assignments di dalam lock
+    const existingRes = await client.query(
+      `SELECT
+        id,
+        event_id AS "eventId",
+        source,
+        landing_page AS "landingPage",
+        referrer,
+        utm_source AS "utmSource",
+        utm_medium AS "utmMedium",
+        utm_campaign AS "utmCampaign",
+        message_key AS "messageKey",
+        sales_id AS "salesId",
+        sales_name AS "salesName",
+        sales_phone AS "salesPhone",
+        status,
+        user_agent AS "userAgent",
+        ip_hash AS "ipHash"
+      FROM lead_assignments
+      WHERE event_id = $1
+      LIMIT 1`,
+      [params.eventId]
+    );
+
+    if (existingRes.rows.length > 0) {
+      await client.query('COMMIT');
+      return {
+        record: existingRes.rows[0] as LeadAssignmentRecord,
+        isExisting: true,
+      };
+    }
+
+    // 2. Hitung total assignments yang sudah ada untuk mendapatkan index rotasi berikutnya
     const countRes = await client.query(
       'SELECT COUNT(*)::integer AS total FROM lead_assignments'
     );
-    const total = countRes.rows[0]?.total ?? 0;
-    const index = total % activeBusdev.length;
-    const selected = activeBusdev[index];
+    const total = Number(countRes.rows[0]?.total ?? 0);
+    const selectedBusDev = activeBusdev[total % activeBusdev.length];
 
+    const record: LeadAssignmentRecord = {
+      id: params.id,
+      eventId: params.eventId,
+      source: params.source,
+      landingPage: params.landingPage,
+      referrer: params.referrer,
+      utmSource: params.utmSource,
+      utmMedium: params.utmMedium,
+      utmCampaign: params.utmCampaign,
+      messageKey: params.messageKey,
+      salesId: selectedBusDev.id,
+      salesName: selectedBusDev.name,
+      salesPhone: selectedBusDev.phone,
+      status: 'assigned',
+      userAgent: params.userAgent,
+      ipHash: params.ipHash,
+    };
+
+    // 3. Simpan assignment ke tabel lead_assignments dalam transaksi yang SAMA sebelum COMMIT
+    await client.query(
+      `INSERT INTO lead_assignments (
+        id,
+        event_id,
+        source,
+        landing_page,
+        referrer,
+        utm_source,
+        utm_medium,
+        utm_campaign,
+        message_key,
+        sales_id,
+        sales_name,
+        sales_phone,
+        status,
+        assigned_at,
+        user_agent,
+        ip_hash
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW(), $14, $15
+      )`,
+      [
+        record.id,
+        record.eventId,
+        record.source,
+        record.landingPage || null,
+        record.referrer || null,
+        record.utmSource || null,
+        record.utmMedium || null,
+        record.utmCampaign || null,
+        record.messageKey || null,
+        record.salesId,
+        record.salesName,
+        record.salesPhone,
+        record.status,
+        record.userAgent || null,
+        record.ipHash || null,
+      ]
+    );
+
+    // 4. COMMIT keduanya sekaligus
     await client.query('COMMIT');
-    return selected;
-  } catch {
+    return { record, isExisting: false };
+  } catch (err: unknown) {
     await client.query('ROLLBACK').catch(() => {});
-    return activeBusdev[0];
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error('[Neon DB] Transaksi assignAndRecordLeadViaNeonAtomic gagal, rollback:', errMsg);
+    throw err;
   } finally {
     client.release();
   }

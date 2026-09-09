@@ -23,6 +23,7 @@ export default function WhatsAppLeadButton({
   ariaLabel = "Konsultasi via WhatsApp",
 }: WhatsAppLeadButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -30,6 +31,7 @@ export default function WhatsAppLeadButton({
       if (isLoading) return;
 
       setIsLoading(true);
+      setHasError(false);
       if (onClickBefore) {
         try {
           onClickBefore();
@@ -48,8 +50,8 @@ export default function WhatsAppLeadButton({
           window.location.href = assignment.whatsappUrl;
         }
       } catch {
-        // Fallback langsung ke wa.me
-        window.location.href = "https://wa.me/6285133188827?text=Halo%20Dreamlab";
+        // Jangan hardcode redirect ke 1 nomor; izinkan user mengklik ulang (retry)
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -89,6 +91,8 @@ export default function WhatsAppLeadButton({
           </svg>
           {loadingText}
         </span>
+      ) : hasError ? (
+        <span>Gagal terhubung. Klik untuk coba lagi</span>
       ) : (
         children
       )}

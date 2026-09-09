@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { getActiveBusdev, BUSDEV_LIST } from '@/lib/busdev';
 import {
-  incrementGlobalCounter,
-  getCachedLeadEvent,
+  atomicReserveAndAssignLeadEvent,
   cacheLeadEvent,
   CachedLeadAssignment,
 } from '@/lib/redis';
 import {
   recordLeadAssignment,
   findAssignmentByEventId,
-  assignLeadViaNeonAtomic,
+  assignAndRecordLeadViaNeonAtomic,
   hashIp,
 } from '@/lib/neon';
 import {
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Validasi eventId
+    // 1. Validasi ketat eventId: Wajib ada dan wajib berformat UUID v4
     const rawEventId = sanitizeString(body.eventId, 100);
     if (!rawEventId) {
       return NextResponse.json(
@@ -63,10 +62,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Gunakan eventId jika valid UUID, atau generate UUID fallback deterministik jika format tidak sesuai UUID
-    const eventId = isValidUuid(rawEventId)
-      ? rawEventId
-      : crypto.createHash('sha256').update(rawEventId).digest('hex').slice(0, 36);
+    if (!isValidUuid(rawEventId)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid eventId: must be a valid UUID v4' },
+        { status: 400, headers: NO_STORE_HEADERS }
+      );
+    }
+
+    const eventId = rawEventId.toLowerCase();
 
     // 2. Validasi & Sanitasi parameter input
     const landingPage = sanitizeString(body.landingPage, 1000);
@@ -107,87 +110,6 @@ export async function POST(req: NextRequest) {
         ? rawMessageKey
         : resolvedSource;
 
-    // 4. CEK IDEMPOTENSI (REDIS DULU, LALU NEON)
-    // Cegah double assignment akibat double click, StrictMode, atau retry
-    const cachedEvent = await getCachedLeadEvent(eventId);
-    if (cachedEvent) {
-      return NextResponse.json(
-        {
-          success: true,
-          assignmentId: cachedEvent.assignmentId,
-          source: cachedEvent.source,
-          sales: cachedEvent.sales,
-          whatsappUrl: cachedEvent.whatsappUrl,
-        },
-        { status: 200, headers: NO_STORE_HEADERS }
-      );
-    }
-
-    const existingDbRecord = await findAssignmentByEventId(eventId);
-    if (existingDbRecord) {
-      const messageText = getWhatsAppMessage(existingDbRecord.messageKey || messageKey);
-      const whatsappUrl = buildWhatsAppLeadUrl(existingDbRecord.salesPhone, messageText);
-      const assignmentPayload: CachedLeadAssignment = {
-        assignmentId: existingDbRecord.id,
-        source: existingDbRecord.source,
-        sales: {
-          id: existingDbRecord.salesId,
-          name: existingDbRecord.salesName,
-        },
-        whatsappUrl,
-      };
-      // Isi kembali cache Redis jika sempat hilang
-      await cacheLeadEvent(eventId, assignmentPayload).catch(() => {});
-
-      return NextResponse.json(
-        {
-          success: true,
-          ...assignmentPayload,
-        },
-        { status: 200, headers: NO_STORE_HEADERS }
-      );
-    }
-
-    // 5. ROUND ROBIN ASSIGNMENT (UPSTASH REDIS ATOMIK)
-    const activeBusdev = getActiveBusdev();
-    let selectedSales = activeBusdev[0];
-    let assignmentStatus: 'assigned' | 'fallback' = 'assigned';
-
-    const sequence = await incrementGlobalCounter();
-
-    if (typeof sequence === 'number' && sequence > 0) {
-      // Redis INCR atomik berhasil
-      const index = (sequence - 1) % activeBusdev.length;
-      selectedSales = activeBusdev[index];
-    } else {
-      // Redis tidak merespons -> gunakan fallback atomik Neon PostgreSQL
-      assignmentStatus = 'fallback';
-      try {
-        selectedSales = await assignLeadViaNeonAtomic();
-      } catch {
-        // Fallback darurat jika Neon juga bermasalah: nomor server-side tunggal (Irma)
-        selectedSales = activeBusdev[0] || BUSDEV_LIST[0];
-      }
-    }
-
-    const messageText = getWhatsAppMessage(messageKey);
-    const whatsappUrl = buildWhatsAppLeadUrl(selectedSales.phone, messageText);
-    const assignmentId = crypto.randomUUID();
-
-    const resultPayload: CachedLeadAssignment = {
-      assignmentId,
-      source: resolvedSource,
-      sales: {
-        id: selectedSales.id,
-        name: selectedSales.name,
-      },
-      whatsappUrl,
-    };
-
-    // 6. SIMPAN IDEMPOTENCY KE REDIS (TTL 7 hari)
-    await cacheLeadEvent(eventId, resultPayload).catch(() => {});
-
-    // 7. AUDIT LOGGING KE NEON POSTGRESQL (NON-BLOCKING KE CLIENT)
     const userAgent = req.headers.get('user-agent');
     const clientIp =
       req.headers.get('x-forwarded-for')?.split(',')[0] ||
@@ -195,36 +117,206 @@ export async function POST(req: NextRequest) {
       null;
     const ipHashed = hashIp(clientIp);
 
-    recordLeadAssignment({
-      id: assignmentId,
-      eventId,
-      source: resolvedSource,
-      landingPage,
-      referrer,
-      utmSource,
-      utmMedium,
-      utmCampaign,
-      messageKey,
-      salesId: selectedSales.id,
-      salesName: selectedSales.name,
-      salesPhone: selectedSales.phone,
-      status: assignmentStatus,
-      userAgent,
-      ipHash: ipHashed,
-    }).catch(() => {});
+    const activeBusdev = getActiveBusdev();
+    const assignmentId = crypto.randomUUID();
 
-    return NextResponse.json(
-      {
-        success: true,
-        assignmentId: resultPayload.assignmentId,
-        source: resultPayload.source,
-        sales: resultPayload.sales,
-        whatsappUrl: resultPayload.whatsappUrl,
-      },
-      { status: 200, headers: NO_STORE_HEADERS }
-    );
-  } catch {
-    // Fail-safe: jika terjadi error tidak terduga, jangan kembalikan 500 error kepada user
+    // 4. ATOMIC RESERVATION (UPSTASH REDIS LUA / SET NX)
+    // Menjamin eventId yang sama tidak pernah menaikkan counter lebih dari sekali
+    const reserveRes = await atomicReserveAndAssignLeadEvent(eventId);
+
+    if (reserveRes.status === 'CACHED') {
+      return NextResponse.json(
+        {
+          success: true,
+          assignmentId: reserveRes.assignment.assignmentId,
+          source: reserveRes.assignment.source,
+          sales: reserveRes.assignment.sales,
+          whatsappUrl: reserveRes.assignment.whatsappUrl,
+          auditLogStatus: 'cached',
+        },
+        {
+          status: 200,
+          headers: {
+            ...NO_STORE_HEADERS,
+            'X-Dreamlab-Assignment-Backend': 'redis-cache',
+            'X-Dreamlab-Audit-Status': 'cached',
+          },
+        }
+      );
+    }
+
+    if (
+      reserveRes.status === 'ASSIGNED' ||
+      reserveRes.status === 'RESERVED_SEQUENCE'
+    ) {
+      const sequence = reserveRes.sequence;
+      const index = (sequence - 1) % activeBusdev.length;
+      const selectedSales = activeBusdev[index];
+
+      const messageText = getWhatsAppMessage(messageKey);
+      const whatsappUrl = buildWhatsAppLeadUrl(selectedSales.phone, messageText);
+
+      const resultPayload: CachedLeadAssignment = {
+        assignmentId,
+        source: resolvedSource,
+        sales: {
+          id: selectedSales.id,
+          name: selectedSales.name,
+          phone: selectedSales.phone,
+        },
+        whatsappUrl,
+      };
+
+      // Simpan payload lengkap ke Redis (menggantikan marker RESERVED)
+      await cacheLeadEvent(eventId, resultPayload).catch(() => {});
+
+      // Catat audit log ke Neon PostgreSQL
+      const auditResult = await recordLeadAssignment({
+        id: assignmentId,
+        eventId,
+        source: resolvedSource,
+        landingPage,
+        referrer,
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        messageKey,
+        salesId: selectedSales.id,
+        salesName: selectedSales.name,
+        salesPhone: selectedSales.phone,
+        status: 'assigned',
+        userAgent,
+        ipHash: ipHashed,
+      });
+
+      const auditStatus = auditResult.success ? 'recorded' : 'failed';
+
+      return NextResponse.json(
+        {
+          success: true,
+          assignmentId: resultPayload.assignmentId,
+          source: resultPayload.source,
+          sales: resultPayload.sales,
+          whatsappUrl: resultPayload.whatsappUrl,
+          auditLogStatus: auditStatus,
+        },
+        {
+          status: 200,
+          headers: {
+            ...NO_STORE_HEADERS,
+            'X-Dreamlab-Assignment-Backend': 'redis',
+            'X-Dreamlab-Audit-Status': auditStatus,
+          },
+        }
+      );
+    }
+
+    // 5. FALLBACK ATOMIK NEON POSTGRESQL (Saat Upstash Redis tidak merespons)
+    // Pemilihan BusDev DAN penyimpanan wajib terjadi dalam 1 transaksi & advisory lock sebelum COMMIT
+    try {
+      // Cek DB apakah sudah ada record eventId
+      const existingDb = await findAssignmentByEventId(eventId);
+      if (existingDb) {
+        const messageText = getWhatsAppMessage(existingDb.messageKey || messageKey);
+        const whatsappUrl = buildWhatsAppLeadUrl(existingDb.salesPhone, messageText);
+        return NextResponse.json(
+          {
+            success: true,
+            assignmentId: existingDb.id,
+            source: existingDb.source,
+            sales: {
+              id: existingDb.salesId,
+              name: existingDb.salesName,
+            },
+            whatsappUrl,
+            auditLogStatus: 'recorded',
+          },
+          {
+            status: 200,
+            headers: {
+              ...NO_STORE_HEADERS,
+              'X-Dreamlab-Assignment-Backend': 'neon-idempotent',
+              'X-Dreamlab-Audit-Status': 'recorded',
+            },
+          }
+        );
+      }
+
+      const neonAssignment = await assignAndRecordLeadViaNeonAtomic({
+        id: assignmentId,
+        eventId,
+        source: resolvedSource,
+        landingPage,
+        referrer,
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        messageKey,
+        userAgent,
+        ipHash: ipHashed,
+      });
+
+      const messageText = getWhatsAppMessage(neonAssignment.record.messageKey || messageKey);
+      const whatsappUrl = buildWhatsAppLeadUrl(neonAssignment.record.salesPhone, messageText);
+
+      return NextResponse.json(
+        {
+          success: true,
+          assignmentId: neonAssignment.record.id,
+          source: neonAssignment.record.source,
+          sales: {
+            id: neonAssignment.record.salesId,
+            name: neonAssignment.record.salesName,
+          },
+          whatsappUrl,
+          auditLogStatus: 'recorded',
+        },
+        {
+          status: 200,
+          headers: {
+            ...NO_STORE_HEADERS,
+            'X-Dreamlab-Assignment-Backend': 'neon-atomic',
+            'X-Dreamlab-Audit-Status': 'recorded',
+          },
+        }
+      );
+    } catch (neonErr: unknown) {
+      const errMsg = neonErr instanceof Error ? neonErr.message : String(neonErr);
+      console.error('[Assign Route] Neon fallback failed:', errMsg);
+
+      // Server-side fallback darurat
+      const emergencyBusdev = activeBusdev[0] || BUSDEV_LIST[0];
+      const defaultUrl = buildWhatsAppLeadUrl(
+        emergencyBusdev.phone,
+        getWhatsAppMessage(messageKey)
+      );
+
+      return NextResponse.json(
+        {
+          success: true,
+          assignmentId,
+          source: resolvedSource,
+          sales: {
+            id: emergencyBusdev.id,
+            name: emergencyBusdev.name,
+          },
+          whatsappUrl: defaultUrl,
+          auditLogStatus: 'failed',
+        },
+        {
+          status: 200,
+          headers: {
+            ...NO_STORE_HEADERS,
+            'X-Dreamlab-Assignment-Backend': 'server-fallback',
+            'X-Dreamlab-Audit-Status': 'failed',
+          },
+        }
+      );
+    }
+  } catch (unexpectedErr: unknown) {
+    const errMsg = unexpectedErr instanceof Error ? unexpectedErr.message : String(unexpectedErr);
+    console.error('[Assign Route] Unexpected error:', errMsg);
+
     const fallbackBusdev = BUSDEV_LIST[0];
     const defaultUrl = buildWhatsAppLeadUrl(
       fallbackBusdev.phone,
@@ -241,8 +333,16 @@ export async function POST(req: NextRequest) {
           name: fallbackBusdev.name,
         },
         whatsappUrl: defaultUrl,
+        auditLogStatus: 'failed',
       },
-      { status: 200, headers: NO_STORE_HEADERS }
+      {
+        status: 200,
+        headers: {
+          ...NO_STORE_HEADERS,
+          'X-Dreamlab-Assignment-Backend': 'server-catch-all',
+          'X-Dreamlab-Audit-Status': 'failed',
+        },
+      }
     );
   }
 }

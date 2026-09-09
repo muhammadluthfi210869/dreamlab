@@ -30,6 +30,8 @@ export function ThankYouRoundRobin({
 }: ThankYouRoundRobinProps) {
   const [assignment, setAssignment] = useState<LeadAssignmentResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
   const [navigated, setNavigated] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -69,6 +71,9 @@ export function ThankYouRoundRobin({
       messageKey = intentSource;
     }
 
+    setError(null);
+    setLoading(true);
+
     assignLeadViaClient({
       eventId: eventIdParam,
       source: resolvedSource,
@@ -84,15 +89,17 @@ export function ThankYouRoundRobin({
         setAssignment(res);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err: unknown) => {
         if (cancelled) return;
         setLoading(false);
+        const msg = err instanceof Error ? err.message : "Gagal menghubungkan ke Business Development";
+        setError(msg);
       });
 
     return () => {
       cancelled = true;
     };
-  }, [defaultSource, messageMap]);
+  }, [defaultSource, messageMap, retryCount]);
 
   const redirectToWhatsApp = useCallback(() => {
     if (!assignment || !assignment.whatsappUrl || navigated) return;
@@ -157,20 +164,37 @@ export function ThankYouRoundRobin({
           </div>
 
           <div className="space-y-4 pt-2">
-            <button
-              type="button"
-              onClick={redirectToWhatsApp}
-              disabled={!isReady}
-              className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 w-full sm:w-auto min-w-[320px]"
-            >
-              <MessageCircle className="w-5 h-5 shrink-0" />
-              <span>{ctaLabel}</span>
-            </button>
+            {!error && (
+              <button
+                type="button"
+                onClick={redirectToWhatsApp}
+                disabled={!isReady}
+                className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 w-full sm:w-auto min-w-[320px]"
+              >
+                <MessageCircle className="w-5 h-5 shrink-0" />
+                <span>{ctaLabel}</span>
+              </button>
+            )}
 
             {loading && (
               <p className="text-xs text-neutral-400 font-medium animate-pulse">
                 Menyiapkan tim kami...
               </p>
+            )}
+
+            {error && (
+              <div className="space-y-3">
+                <p className="text-sm text-red-600 font-medium">
+                  Koneksi terputus. Mohon klik tombol di bawah untuk mencoba kembali.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setRetryCount((c) => c + 1)}
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand-orange text-white font-bold text-sm shadow hover:bg-brand-orange/90 transition-all"
+                >
+                  Coba Lagi
+                </button>
+              </div>
             )}
 
             {isReady && (

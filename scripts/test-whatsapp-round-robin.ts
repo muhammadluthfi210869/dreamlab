@@ -18,32 +18,44 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import crypto from 'node:crypto';
 import { getActiveBusdev, BusDevItem } from '../src/lib/busdev';
 import { identifyLeadSource, normalizeSourceToLeadSource } from '../src/lib/lead-source';
 import { getWhatsAppMessage, buildWhatsAppLeadUrl } from '../src/lib/whatsapp-messages';
 
-// Mock in-memory atomic counter simulating Redis atomic INCR
+/// Mock in-memory atomic counter simulating Redis atomic Lua script reservation
 class MockAtomicRedis {
   private counter: number = 0;
   private cache: Map<string, unknown> = new Map();
   public isDown: boolean = false;
 
-  async incr(_key: string): Promise<number> {
-    void _key;
+  async atomicReserveAndAssign(eventId: string): Promise<{
+    status: 'CACHED' | 'ASSIGNED';
+    sequence?: number;
+    assignment?: unknown;
+  }> {
     if (this.isDown) throw new Error('Redis connection failed');
+    const eventKey = `dreamlab:lead-event:${eventId}`;
+    const existing = this.cache.get(eventKey);
+    if (existing) {
+      if (typeof existing === 'string' && existing.startsWith('RESERVED:')) {
+        const seq = parseInt(existing.replace('RESERVED:', ''), 10);
+        return { status: 'ASSIGNED', sequence: seq };
+      }
+      return { status: 'CACHED', assignment: existing };
+    }
     this.counter += 1;
-    return this.counter;
-  }
-
-  async get(key: string): Promise<unknown> {
-    if (this.isDown) throw new Error('Redis connection failed');
-    return this.cache.get(key) || null;
+    const seq = this.counter;
+    this.cache.set(eventKey, `RESERVED:${seq}`);
+    return { status: 'ASSIGNED', sequence: seq };
   }
 
   async set(key: string, value: unknown): Promise<void> {
     if (this.isDown) throw new Error('Redis connection failed');
     this.cache.set(key, value);
+  }
+
+  getCounter(): number {
+    return this.counter;
   }
 
   reset() {
@@ -58,20 +70,30 @@ class MockNeonDb {
   public assignments: Map<string, Record<string, unknown>> = new Map();
   public queryCount: number = 0;
 
-  async insertLeadAssignment(row: Record<string, unknown> & { eventId: string }): Promise<boolean> {
+  async assignAndRecordLeadViaNeonAtomic(params: {
+    id: string;
+    eventId: string;
+    source: string;
+    busdevs: BusDevItem[];
+  }): Promise<{ record: Record<string, unknown>; isExisting: boolean }> {
     this.queryCount += 1;
-    if (this.assignments.has(row.eventId)) {
-      // ON CONFLICT (event_id) DO NOTHING
-      return false;
+    // Transactional advisory lock simulation
+    if (this.assignments.has(params.eventId)) {
+      return { record: this.assignments.get(params.eventId)!, isExisting: true };
     }
-    this.assignments.set(row.eventId, row);
-    return true;
-  }
-
-  async atomicFallbackAssign(busdevs: BusDevItem[]): Promise<BusDevItem> {
     const total = this.assignments.size;
-    const index = total % busdevs.length;
-    return busdevs[index];
+    const busdev = params.busdevs[total % params.busdevs.length];
+    const record = {
+      id: params.id,
+      eventId: params.eventId,
+      source: params.source,
+      salesId: busdev.id,
+      salesName: busdev.name,
+      salesPhone: busdev.phone,
+      status: 'assigned',
+    };
+    this.assignments.set(params.eventId, record);
+    return { record, isExisting: false };
   }
 
   reset() {
@@ -94,18 +116,9 @@ async function simulateAssignEndpoint(body: {
   messageKey?: string;
 }) {
   const eventId = body.eventId;
+  const activeBusdev = getActiveBusdev();
 
-  // 1. Cek cache idempotensi (Redis)
-  try {
-    const cached = await mockRedis.get(`dreamlab:lead-event:${eventId}`);
-    if (cached) {
-      return { ...cached, wasCached: true };
-    }
-  } catch {
-    // Redis down, continue
-  }
-
-  // 2. Normalisasi Source
+  // 1. Normalisasi Source
   let resolvedSource = normalizeSourceToLeadSource(body.source);
   if (resolvedSource === 'unknown' && !body.source) {
     resolvedSource = identifyLeadSource({
@@ -118,23 +131,45 @@ async function simulateAssignEndpoint(body: {
     });
   }
 
-  // 3. Round Robin
-  const activeBusdev = getActiveBusdev();
   let selectedBusdev: BusDevItem;
   let status: 'assigned' | 'fallback' = 'assigned';
+  let wasCached = false;
+  const assignmentId = crypto.randomUUID();
 
+  // 2. Atomic Redis Reservation
   try {
-    const seq = await mockRedis.incr('dreamlab:round-robin:global');
+    const reserveRes = await mockRedis.atomicReserveAndAssign(eventId);
+    if (reserveRes.status === 'CACHED') {
+      const cached = reserveRes.assignment as Record<string, unknown> & {
+        sales: { id: string; name: string };
+        whatsappUrl: string;
+      };
+      return { ...cached, wasCached: true };
+    }
+    const seq = reserveRes.sequence!;
     const index = (seq - 1) % activeBusdev.length;
     selectedBusdev = activeBusdev[index];
   } catch {
+    // Redis down -> Fallback Neon Atomic Transaction (Selection & Insert in 1 Tx)
     status = 'fallback';
-    selectedBusdev = await mockNeon.atomicFallbackAssign(activeBusdev);
+    const neonRes = await mockNeon.assignAndRecordLeadViaNeonAtomic({
+      id: assignmentId,
+      eventId,
+      source: resolvedSource,
+      busdevs: activeBusdev,
+    });
+    selectedBusdev = {
+      id: neonRes.record.salesId as string,
+      name: neonRes.record.salesName as string,
+      phone: neonRes.record.salesPhone as string,
+      active: true,
+      order: 1,
+    };
+    if (neonRes.isExisting) wasCached = true;
   }
 
   const messageText = getWhatsAppMessage(body.messageKey || resolvedSource);
   const whatsappUrl = buildWhatsAppLeadUrl(selectedBusdev.phone, messageText);
-  const assignmentId = crypto.randomUUID();
 
   const result = {
     success: true,
@@ -146,24 +181,23 @@ async function simulateAssignEndpoint(body: {
     },
     whatsappUrl,
     status,
-    wasCached: false,
+    wasCached,
   };
 
-  // Simpan ke Redis cache
+  // Simpan ke Redis cache (menggantikan marker RESERVED)
   try {
     await mockRedis.set(`dreamlab:lead-event:${eventId}`, result);
   } catch {}
 
-  // Simpan ke Neon DB
-  await mockNeon.insertLeadAssignment({
-    id: assignmentId,
-    eventId,
-    source: resolvedSource,
-    salesId: selectedBusdev.id,
-    salesName: selectedBusdev.name,
-    salesPhone: selectedBusdev.phone,
-    status,
-  });
+  // Simpan ke Neon audit log jika bukan fallback
+  if (status === 'assigned') {
+    await mockNeon.assignAndRecordLeadViaNeonAtomic({
+      id: assignmentId,
+      eventId,
+      source: resolvedSource,
+      busdevs: activeBusdev,
+    });
+  }
 
   return result;
 }
