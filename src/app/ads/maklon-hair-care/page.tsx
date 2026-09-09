@@ -2,9 +2,18 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import dynamic from "next/dynamic";
+import { ArrowRight, CheckCircle2, Star, ShieldCheck } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { homepageData } from "@/data/homepage";
+import { aboutData } from "@/data/about-us";
+
+// Dynamically import LogoScroll
+const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
+  ssr: true,
+  loading: () => <div className="py-14 bg-white" />
+});
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -167,7 +176,177 @@ export default function MaklonHairCareAdsLP() {
         </div>
       </section>
 
-      {/* 3. CLOSING CTA — Homepage style background visual */}
+      {/* 3. 5 LANGKAH MUDAH WUJUDKAN BRAND KOSMETIK ANDA */}
+      <section className="bg-white py-16 md:py-24 border-t border-neutral-100">
+        <div className="container-custom px-4">
+          <div className="text-center mb-12 md:mb-16">
+            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest mb-3 block">
+              ALUR PENGEMBANGAN
+            </span>
+            <h2 className="text-3xl md:text-[40px] font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display mb-4">
+              5 LANGKAH MUDAH<br />
+              <span className="text-brand-orange">WUJUDKAN BRAND KOSMETIK ANDA</span>
+            </h2>
+            <p className="text-sm md:text-base text-neutral-500 max-w-2xl mx-auto font-sans">
+              Dari ide hingga siap masuk market, setiap tahap didampingi bersama Dreamlab.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi Brand" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-brand-orange mb-2 block font-onest drop-shadow">STEP 01</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>KONSULTASI BRAND & TARGET MARKET</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Diskusikan konsep produk, target market, positioning, dan kebutuhan brand Anda bersama formulator Dreamlab.</p>
+              </div>
+            </div>
+            
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/sample.webp" alt="Formula & Sample" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-brand-orange mb-2 block font-onest drop-shadow">STEP 02</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>CUSTOM FORMULA & SAMPLE</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Tim R&D meracik formula unik dan sample fisik eksklusif (1 Client = 1 Formula) hingga benar-benar sesuai standar Anda.</p>
+              </div>
+            </div>
+
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/legal-design.webp" alt="Legalitas & Desain" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-brand-orange mb-2 block font-onest drop-shadow">STEP 03</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>LEGALITAS & DESAIN KEMASAN</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Setelah formula disetujui, kami urus notifikasi resmi BPOM, sertifikasi Halal, serta desain label & kemasan produk.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:px-24 md:px-12">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/production.webp" alt="Produksi CPKB" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-brand-orange mb-2 block font-onest drop-shadow">STEP 04</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>PRODUKSI CPKB & QUALITY CONTROL</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Produksi massal higienis di pabrik berstandar CPKB Grade A dengan pengujian kualitas ketat setiap batch.</p>
+              </div>
+            </div>
+
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image src="/assets/maklon-parfum/delivery.webp" alt="Siap Jualan" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-brand-orange mb-2 block font-onest drop-shadow">STEP 05</span>
+                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow" style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>SIAP LAUNCHING & JUALAN</h3>
+                <p className="text-[13px] text-white/95 leading-relaxed font-medium drop-shadow-sm" style={{ color: "rgba(255,255,255,0.95)" }}>Produk siap dikirim, didukung konsultasi positioning dan strategi pemasaran digital untuk langsung mencetak omset.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 md:mt-16">
+            <a href="/ads/thankyou/metaads/" className="inline-flex items-center gap-2 px-10 py-5 bg-brand-orange hover:bg-[#D98200] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-brand-orange/25">
+              KONSULTASI BRAND ANDA <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. TESTIMONI PARTNER */}
+      <section className="bg-[#FAF9F6] py-16 md:py-24 border-t border-neutral-100">
+        <div className="container-custom px-4">
+          <div className="text-center mb-12 max-w-3xl mx-auto">
+            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-brand-orange uppercase font-onest mb-3 block">
+              TESTIMONI PARTNER
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-black tracking-tight leading-[1.1] uppercase font-display mb-4">
+              APA KATA <span className="text-brand-orange">PARTNER KAMI</span>
+            </h2>
+            <p className="text-sm md:text-base text-neutral-500 font-sans max-w-xl mx-auto">
+              Testimoni nyata dari pemilik brand dan salon kecantikan yang telah memproduksi produk unggulan mereka di Dreamlab.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="bg-white p-7 md:p-8 rounded-2xl border border-neutral-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm text-neutral-600 leading-relaxed italic mb-6 font-sans">
+                  &ldquo;Awalnya ragu bikin hair tonic & shampoo sendiri untuk salon. Ternyata tim RnD Dreamlab sangat responsif saat revisi sample sampai hasilnya pas banget. Klien salon kami suka dan penjualan produk salon naik 3x lipat!&rdquo;
+                </p>
+              </div>
+              <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-extrabold text-brand-black font-display uppercase">dr. Kevin H.</h4>
+                  <p className="text-xs text-neutral-400 font-medium">Owner Hair & Beauty Clinic</p>
+                </div>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded-full border border-green-200">
+                  <ShieldCheck className="w-3.5 h-3.5" /> BPOM Terbit
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-white p-7 md:p-8 rounded-2xl border border-neutral-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm text-neutral-600 leading-relaxed italic mb-6 font-sans">
+                  &ldquo;Formula sulfate-free dan scalp care serum dari Dreamlab bener-bener berkarakter. Nggak cuma wangi, tapi efeknya bikin rambut rontok berkurang nyata. Batch pertama sold out dalam waktu 3 minggu.&rdquo;
+                </p>
+              </div>
+              <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-extrabold text-brand-black font-display uppercase">Fiona Angeline</h4>
+                  <p className="text-xs text-neutral-400 font-medium">Founder Hair Care Brand</p>
+                </div>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-orange/10 text-brand-orange text-[10px] font-bold rounded-full border border-brand-orange/20">
+                  Custom Formula
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-white p-7 md:p-8 rounded-2xl border border-neutral-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-1 text-amber-400 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm text-neutral-600 leading-relaxed italic mb-6 font-sans">
+                  &ldquo;Sebagai pemula, MOQ fleksibel dari Dreamlab sangat membantu kami tes pasar tanpa beban modal besar. Struktur HPP transparan, legalitas beres, dan kami diberi mentoring digital marketing gratis.&rdquo;
+                </p>
+              </div>
+              <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-extrabold text-brand-black font-display uppercase">Rian Pratama</h4>
+                  <p className="text-xs text-neutral-400 font-medium">Barbershop & Grooming Owner</p>
+                </div>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-full border border-blue-200">
+                  MOQ Fleksibel
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. LOGO BERJALAN - DREAMLAB TELAH DIPERCAYA 500+ BRAND */}
+      <LogoScroll 
+        logos={aboutData.partnerLogos} 
+        headline={homepageData.trustedBrands.title}
+        subHeadline={homepageData.trustedBrands.subtitle}
+      />
+
+      {/* 6. CLOSING CTA — Homepage style background visual */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
         <motion.div
