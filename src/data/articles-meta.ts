@@ -3299,7 +3299,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-10T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Commertional"
+      "Navigational"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -3310,7 +3310,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/maklon-kosmetik-solo.jpg",
     "excerpt": "Jasa maklon kosmetik Solo untuk membangun brand dengan custom formula, sample, branding, legalitas, produksi, dan support digital marketing.",
-    "readingMinutes": 6
+    "readingMinutes": 7
   },
   {
     "slug": "/peluang-brand-skincare-purwokerto",
@@ -3318,7 +3318,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-10T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Skincare"
+      "Navigational"
     ],
     "tags": [
       "Skincare Purwokerto",
@@ -3328,7 +3328,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/maklon-kosmetik-purwokerto.jpg",
     "excerpt": "Ingin membangun brand skincare di Purwokerto? Temukan peluang produk, custom formula, dan pengembangan brand bersama Dreamlab sebagai partner maklon.",
-    "readingMinutes": 5
+    "readingMinutes": 7
   }
 ]
 ;
