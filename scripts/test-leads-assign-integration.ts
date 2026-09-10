@@ -6,6 +6,11 @@
  * validasi UUID 400, failover transactional advisory lock Neon, dan keadilan distribusi.
  */
 
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+
 import { NextRequest } from 'next/server';
 import crypto from 'crypto';
 import { POST } from '../src/app/api/leads/assign/route';

@@ -210,15 +210,6 @@ export interface NeonAtomicAssignmentResult {
   isExisting: boolean;
 }
 
-/**
- * Fallback atomik rotasi via Neon PostgreSQL saat Upstash Redis gagal.
- * Menggunakan Postgres advisory transaction lock.
- * Pemilihan BusDev DAN penyimpanan assignment WAJIB terjadi dalam SATU
- * transaksi sebelum COMMIT, mencegah race condition counter antar request concurrent.
- */
-const _memoryFallbackAssignments = new Map<string, LeadAssignmentRecord>();
-let _neonFallbackCounter = 0;
-
 export async function assignAndRecordLeadViaNeonAtomic(params: {
   id: string;
   eventId: string;
@@ -236,38 +227,7 @@ export async function assignAndRecordLeadViaNeonAtomic(params: {
   const pool = getNeonPool();
 
   if (!pool) {
-    // In-memory fallback untuk lingkungan lokal / test / emergency failover
-    if (_memoryFallbackAssignments.has(params.eventId)) {
-      return {
-        record: _memoryFallbackAssignments.get(params.eventId)!,
-        isExisting: true,
-      };
-    }
-
-    _neonFallbackCounter++;
-    const selectedIndex = (_neonFallbackCounter - 1) % activeBusdev.length;
-    const fallbackBusdev = activeBusdev[selectedIndex];
-
-    const fallbackRecord: LeadAssignmentRecord = {
-      id: params.id,
-      eventId: params.eventId,
-      source: params.source,
-      landingPage: params.landingPage,
-      referrer: params.referrer,
-      utmSource: params.utmSource,
-      utmMedium: params.utmMedium,
-      utmCampaign: params.utmCampaign,
-      messageKey: params.messageKey,
-      salesId: fallbackBusdev.id,
-      salesName: fallbackBusdev.name,
-      salesPhone: fallbackBusdev.phone,
-      status: 'fallback',
-      userAgent: params.userAgent,
-      ipHash: params.ipHash,
-    };
-
-    _memoryFallbackAssignments.set(params.eventId, fallbackRecord);
-    return { record: fallbackRecord, isExisting: false };
+    throw new Error('Neon database pool unavailable (DATABASE_URL missing or unconfigured)');
   }
 
   const client = await pool.connect();

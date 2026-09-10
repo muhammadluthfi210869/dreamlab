@@ -204,7 +204,7 @@ export async function POST(req: NextRequest) {
           status: 200,
           headers: {
             ...NO_STORE_HEADERS,
-            'X-Dreamlab-Assignment-Backend': 'redis',
+            'X-Dreamlab-Assignment-Backend': 'redis-atomic',
             'X-Dreamlab-Audit-Status': auditStatus,
           },
         }
@@ -235,7 +235,7 @@ export async function POST(req: NextRequest) {
             status: 200,
             headers: {
               ...NO_STORE_HEADERS,
-              'X-Dreamlab-Assignment-Backend': 'neon-idempotent',
+              'X-Dreamlab-Assignment-Backend': 'neon-transaction-lock',
               'X-Dreamlab-Audit-Status': 'recorded',
             },
           }
@@ -275,7 +275,7 @@ export async function POST(req: NextRequest) {
           status: 200,
           headers: {
             ...NO_STORE_HEADERS,
-            'X-Dreamlab-Assignment-Backend': 'neon-atomic',
+            'X-Dreamlab-Assignment-Backend': 'neon-transaction-lock',
             'X-Dreamlab-Audit-Status': 'recorded',
           },
         }
@@ -284,7 +284,7 @@ export async function POST(req: NextRequest) {
       const errMsg = neonErr instanceof Error ? neonErr.message : String(neonErr);
       console.error('[Assign Route] Neon fallback failed:', errMsg);
 
-      // Server-side fallback darurat
+      // Server-side emergency fallback (saat Redis DAN Neon keduanya tidak dapat diakses)
       const emergencyBusdev = activeBusdev[0] || BUSDEV_LIST[0];
       const defaultUrl = buildWhatsAppLeadUrl(
         emergencyBusdev.phone,
@@ -307,7 +307,7 @@ export async function POST(req: NextRequest) {
           status: 200,
           headers: {
             ...NO_STORE_HEADERS,
-            'X-Dreamlab-Assignment-Backend': 'server-fallback',
+            'X-Dreamlab-Assignment-Backend': 'emergency_fallback',
             'X-Dreamlab-Audit-Status': 'failed',
           },
         }
@@ -339,7 +339,7 @@ export async function POST(req: NextRequest) {
         status: 200,
         headers: {
           ...NO_STORE_HEADERS,
-          'X-Dreamlab-Assignment-Backend': 'server-catch-all',
+          'X-Dreamlab-Assignment-Backend': 'emergency_fallback',
           'X-Dreamlab-Audit-Status': 'failed',
         },
       }
