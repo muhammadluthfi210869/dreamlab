@@ -2,7 +2,7 @@
  * busdev.ts
  *
  * Konfigurasi resmi dan tunggal untuk seluruh BusDev aktif di Dreamlab.
- * Urutan rotasi round-robin: Irma -> Annisa -> Diaz -> Diva -> Irma.
+ * Urutan rotasi round-robin: Irma -> Annisa -> Diaz -> Jessica -> Irma.
  * Nomor telepon menggunakan format internasional tanpa tanda '+', spasi, atau tanda hubung.
  */
 
@@ -37,8 +37,8 @@ export const BUSDEV_LIST: readonly BusDevItem[] = [
     order: 3,
   },
   {
-    id: "diva",
-    name: "Diva",
+    id: "jessica",
+    name: "Jessica",
     phone: "6287712232389",
     active: true,
     order: 4,
