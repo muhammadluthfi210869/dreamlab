@@ -54,12 +54,16 @@ export async function POST(req: NextRequest) {
     }
 
     // 1. Validasi ketat eventId: Wajib ada dan wajib berformat UUID v4
-    const rawEventId = sanitizeString(body.eventId, 100);
+    let rawEventId = sanitizeString(body.eventId, 100);
     if (!rawEventId) {
       return NextResponse.json(
         { success: false, error: 'eventId is required' },
         { status: 400, headers: NO_STORE_HEADERS }
       );
+    }
+
+    if (rawEventId.startsWith('meta_')) {
+      rawEventId = rawEventId.slice(5);
     }
 
     if (!isValidUuid(rawEventId)) {
@@ -100,6 +104,8 @@ export async function POST(req: NextRequest) {
       'meta-parfum',
       'meta-skincare',
       'meta-haircare',
+      'meta-deodorant',
+      'meta-babycare',
       'google-ads',
       'social-media',
       'google-organic',

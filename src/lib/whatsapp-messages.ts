@@ -14,6 +14,12 @@ export const WHATSAPP_MESSAGES: Record<string, string> = {
   "meta-haircare":
     "Halo Dreamlab, saya melihat iklan Meta Ads haircare dan ingin konsultasi membuat brand haircare. Bisa dibantu?",
 
+  "meta-deodorant":
+    "Halo Dreamlab, saya melihat iklan Meta Ads deodorant dan ingin konsultasi membuat brand deodorant. Bisa dibantu?",
+
+  "meta-babycare":
+    "Halo Dreamlab, saya melihat iklan Meta Ads baby care dan ingin konsultasi membuat brand baby care. Bisa dibantu?",
+
   "google-ads":
     "Halo Dreamlab, saya mengetahui Dreamlab dari Google Ads dan ingin konsultasi mengenai brand saya. Bisa dibantu?",
 

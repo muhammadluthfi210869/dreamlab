@@ -46,20 +46,35 @@ function generateUuidV4(): string {
   });
 }
 
+const UUID_V4_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 /**
  * Mendapatkan eventId dari sessionStorage atau membuat UUID baru.
  * Di-persist di sessionStorage per tab browser agar stabil saat refresh.
  */
 export function getOrCreateEventId(explicitId?: string): string {
   if (explicitId && explicitId.trim() !== '') {
-    return explicitId.trim();
+    let clean = explicitId.trim();
+    if (clean.startsWith('meta_')) {
+      clean = clean.slice(5);
+    }
+    if (UUID_V4_REGEX.test(clean)) {
+      return clean;
+    }
   }
 
   if (typeof window !== 'undefined') {
     const sessionKey = 'dreamlab_lead_event_id';
     const existing = window.sessionStorage.getItem(sessionKey);
     if (existing) {
-      return existing;
+      let clean = existing.trim();
+      if (clean.startsWith('meta_')) {
+        clean = clean.slice(5);
+      }
+      if (UUID_V4_REGEX.test(clean)) {
+        return clean;
+      }
     }
     const newId = generateUuidV4();
     try {

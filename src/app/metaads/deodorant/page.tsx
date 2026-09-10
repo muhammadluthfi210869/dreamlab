@@ -144,7 +144,7 @@ export default function DeodorantMetaAdsLP() {
               variants={fadeUp}
             >
               <Link
-                href="/ads/thankyou/metaads/"
+                href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
                 className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
@@ -462,7 +462,7 @@ export default function DeodorantMetaAdsLP() {
 
           <div className="text-center mt-12 md:mt-16">
             <Link
-              href="/ads/thankyou/metaads/"
+              href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
               className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25"
             >
               <span>KONSULTASI BRAND DEODORANT ANDA</span>
@@ -542,7 +542,7 @@ export default function DeodorantMetaAdsLP() {
 
               <div>
                 <Link
-                  href="/ads/thankyou/metaads/"
+                  href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20"
                 >
                   <span>KONSULTASI BERSAMA DREAMLAB</span>
@@ -610,7 +610,7 @@ export default function DeodorantMetaAdsLP() {
             sampai strategi go-to-market. Hubungi kami sekarang, tim kami siap mendampingi.
           </p>
           <Link
-            href="/ads/thankyou/metaads/"
+            href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
           >
             <MessageCircle className="w-5 h-5 shrink-0" />

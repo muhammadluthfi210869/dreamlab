@@ -14,14 +14,14 @@ import { useEffect } from "react";
  * Menghindari AddToCart lama yang tidak sesuai funnel Meta Ads.
  */
 function makeEventId(): string {
-  let id = "meta_";
-  try {
-    const uuid = crypto.randomUUID ? crypto.randomUUID() : "";
-    id += uuid || `${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
-  } catch {
-    id += `${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
   }
-  return id;
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 export function useMetaAdsCtaPixel(contentName: string): void {

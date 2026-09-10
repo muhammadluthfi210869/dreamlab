@@ -189,7 +189,14 @@ export function ThankYouRoundRobin({
                 </p>
                 <button
                   type="button"
-                  onClick={() => setRetryCount((c) => c + 1)}
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      try {
+                        window.sessionStorage.removeItem("dreamlab_lead_event_id");
+                      } catch {}
+                    }
+                    setRetryCount((c) => c + 1);
+                  }}
                   className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand-orange text-white font-bold text-sm shadow hover:bg-brand-orange/90 transition-all"
                 >
                   Coba Lagi
