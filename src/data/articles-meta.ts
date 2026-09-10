@@ -3292,6 +3292,25 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/maklon_kosmetik_blitar_dreamlab_11zon.jpg",
     "excerpt": "Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.",
     "readingMinutes": 6
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-solo",
+    "title": "Jasa Maklon Kosmetik Solo (Surakarta): Mitra Wirausaha Brand Kosmetik Lokal",
+    "publishDate": "2026-09-10T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Commertional"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Solo",
+      "Maklon Surakarta",
+      "Custom Formula",
+      "Brand Kosmetik"
+    ],
+    "featuredImage": "/images/maklon-kosmetik-solo.jpg",
+    "excerpt": "Jasa maklon kosmetik Solo untuk membangun brand dengan custom formula, sample, branding, legalitas, produksi, dan support digital marketing.",
+    "readingMinutes": 6
   }
 ]
 ;
