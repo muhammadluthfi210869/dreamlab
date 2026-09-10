@@ -211,7 +211,7 @@ export default function MaklonParfumAdsLP() {
               <span className="eyebrow">#1 MAKLON PARFUM CUSTOM AROMA</span>
               <h1>Wujudkan Brand Parfum dengan <em>Aroma Eksklusif</em> Milik Anda</h1>
               <p>Dari konsep aroma hingga siap dipasarkan, Dreamlab membantu Anda mengembangkan parfum dengan formula khas yang sesuai target market.</p>
-              <a className="btn track" data-location="hero" href="/ads/thankyou/metaads/">KONSULTASI BRAND ANDA &rarr;</a>
+              <a className="btn track" data-location="hero" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">KONSULTASI BRAND ANDA &rarr;</a>
               <div className="hero-trust"><span>1 Client, 1 Custom Formula</span><span>FREE LEGALITAS BPOM</span><span>Siap Produksi</span></div>
             </div>
           </section>
@@ -250,27 +250,27 @@ export default function MaklonParfumAdsLP() {
                 <p>Tentukan produk sesuai positioning dan target market. Formula, karakter aroma, serta tampilannya dapat dikembangkan bersama Dreamlab.</p>
               </div>
               <div className="product-grid">
-                <a className="product" href="/ads/thankyou/metaads/">
+                <a className="product" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/edp.webp" alt="Eau de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/metaads/">
+                <a className="product" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/edt.webp" alt="Eau de Toilette" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/metaads/">
+                <a className="product" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/edc.webp" alt="Eau de Cologne" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/metaads/">
+                <a className="product" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/extrait.webp" alt="Extrait de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/metaads/">
+                <a className="product" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/body-mist.webp" alt="Body Mist" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/metaads/">
+                <a className="product" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/essential-oil.webp" alt="Essential Oil" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
                 </a>
@@ -307,7 +307,7 @@ export default function MaklonParfumAdsLP() {
                   <li>Strategi memasarkan dan menjual produk secara online</li>
                   <li>Networking bersama komunitas beautypreneur</li>
                 </ul>
-                <a className="btn track" data-location="academy" href="/ads/thankyou/metaads/">Jadi Partner Dreamlab &rarr;</a>
+                <a className="btn track" data-location="academy" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">Jadi Partner Dreamlab &rarr;</a>
               </div>
               <div className="academy-collage">
                 <Image src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
@@ -331,11 +331,11 @@ export default function MaklonParfumAdsLP() {
             <span className="eyebrow">MULAI DARI IDE AROMA ANDA</span>
             <h2>Wujudkan Brand Parfum dengan Formula yang Punya Karakter</h2>
             <p>Konsultasikan konsep parfum Anda bersama tim Dreamlab.</p>
-            <a className="btn track" data-location="closing" href="/ads/thankyou/metaads/">KONSULTASI BRAND ANDA &rarr;</a>
+            <a className="btn track" data-location="closing" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
         </main>
         
-        <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/metaads/" aria-label="Konsultasi WhatsApp">
+        <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/" aria-label="Konsultasi WhatsApp">
           ✆
         </a>
       </div>

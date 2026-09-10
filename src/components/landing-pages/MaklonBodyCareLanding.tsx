@@ -10,6 +10,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 import { aboutData } from "@/data/about-us";
+import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
   ssr: true,
@@ -17,7 +18,11 @@ const LogoScroll = dynamic(() => import("@/components/LogoScroll"), {
 });
 
 export default function MaklonBodyCareLanding({ source }: { source: "google_ads" | "meta_ads" }) {
-  const ctaHref = source === "meta_ads" ? "/ads/thankyou/metaads/" : "/ads/thankyou/google-ads/";
+  useMetaAdsCtaPixel(source === "meta_ads" ? "Maklon Body Care" : "");
+
+  const ctaHref = source === "meta_ads"
+    ? "/ads/thankyou/metaads/?source=meta-bodycare&from=/maklon-bodycare-ads/"
+    : "/ads/thankyou/google-ads/?source=google-bodycare&from=/google-ads/maklon-body-care/";
   const bodycareData = getProductDataV2("bodycare");
   const targetSlugs = ["body-serum", "body-scrub", "body-wash", "underarm-cream"];
   const filteredProducts = bodycareData?.products?.filter(p => targetSlugs.includes(p.slug)) || [];

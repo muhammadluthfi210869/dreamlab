@@ -11,6 +11,15 @@ export const metadata: Metadata = {
   },
 };
 
+const WA_MSGS: Record<string, string> = {
+  "google-parfum": buildWaMessage("produk parfum", "google-ads"),
+  "google-skincare": buildWaMessage("produk skincare", "google-ads"),
+  "google-haircare": buildWaMessage("produk haircare", "google-ads"),
+  "google-deodorant": buildWaMessage("produk deodorant", "google-ads"),
+  "google-kosmetik": buildWaMessage("produk kosmetik", "google-ads"),
+  "google-bodycare": buildWaMessage("produk body care", "google-ads"),
+};
+
 export default function ThankYouGoogleAds() {
   return (
     <ThankYouRoundRobin
@@ -18,6 +27,7 @@ export default function ThankYouGoogleAds() {
       title="Terima Kasih!"
       description="Kami sudah menerima minat Anda. Sekarang, saatnya ngobrol langsung dengan tim kami."
       message={buildWaMessage("produk kosmetik", "google-ads")}
+      messageMap={WA_MSGS}
     />
   );
 }

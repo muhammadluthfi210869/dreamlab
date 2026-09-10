@@ -168,7 +168,7 @@ export default function GoogleAdsMaklonDeodorantPage() {
               variants={fadeUp}
             >
               <Link
-                href="/ads/thankyou/google-ads/"
+                href="/ads/thankyou/google-ads/?source=google-deodorant&from=/google-ads/maklon-deodorant/"
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-extrabold py-4 px-9 rounded-full transition-all duration-300 shadow-[0_15px_30px_rgba(243,146,0,0.3)] hover:-translate-y-0.5 text-sm uppercase tracking-wider"
               >
                 {/* WhatsApp SVG Icon */}
@@ -495,7 +495,7 @@ export default function GoogleAdsMaklonDeodorantPage() {
 
           <div className="text-center mt-12 md:mt-16">
             <Link
-              href="/ads/thankyou/google-ads/"
+              href="/ads/thankyou/google-ads/?source=google-deodorant&from=/google-ads/maklon-deodorant/"
               className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25"
             >
               <span>KONSULTASI BRAND DEODORANT ANDA</span>
@@ -575,7 +575,7 @@ export default function GoogleAdsMaklonDeodorantPage() {
 
               <div>
                 <Link
-                  href="/ads/thankyou/google-ads/"
+                  href="/ads/thankyou/google-ads/?source=google-deodorant&from=/google-ads/maklon-deodorant/"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20"
                 >
                   <span>KONSULTASI BERSAMA DREAMLAB</span>
@@ -642,7 +642,7 @@ export default function GoogleAdsMaklonDeodorantPage() {
             tim formulator Dreamlab tanpa komitmen awal. Kami siap membantu dari nol sampai siap jual.
           </p>
           <Link
-            href="/ads/thankyou/google-ads/"
+            href="/ads/thankyou/google-ads/?source=google-deodorant&from=/google-ads/maklon-deodorant/"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
           >
             {/* WhatsApp Icon */}
@@ -668,7 +668,7 @@ export default function GoogleAdsMaklonDeodorantPage() {
 
       {/* FLOATING WHATSAPP BUTTON */}
       <Link
-        href="/ads/thankyou/google-ads/"
+        href="/ads/thankyou/google-ads/?source=google-deodorant&from=/google-ads/maklon-deodorant/"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Konsultasi via WhatsApp"
       >

@@ -165,7 +165,7 @@ export default function GoogleAdsMaklonParfum() {
               <span className="eyebrow">#1 MAKLON PARFUM CUSTOM AROMA</span>
               <h1><span style={{color:"#fff"}}>Mau Buat Brand Parfum Custom dengan</span> <em>Aroma Eksklusif?</em></h1>
               <p>Dreamlab membantu Anda mengembangkan parfum dari konsep aroma, formulasi, sample, legalitas, hingga siap diproduksi dan dipasarkan.</p>
-              <a className="btn track" data-location="hero" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
+              <a className="btn track" data-location="hero" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">KONSULTASI BRAND ANDA &rarr;</a>
               
             </div>
           </section>
@@ -192,27 +192,27 @@ export default function GoogleAdsMaklonParfum() {
                 <p>Kami memfasilitasi pembuatan berbagai jenis parfum mulai dari Body Mist hingga Extrait de Parfum.</p>
               </div>
               <div className="product-grid">
-                <a className="product" href="/ads/thankyou/google-ads/">
+                <a className="product" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/edp.webp" alt="Eau de Parfum" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/google-ads/">
+                <a className="product" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/edt.webp" alt="Eau de Toilette" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/google-ads/">
+                <a className="product" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/edc.webp" alt="Eau de Cologne" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/google-ads/">
+                <a className="product" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/extrait.webp" alt="Extrait de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/google-ads/">
+                <a className="product" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/body-mist.webp" alt="Body Mist" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
                 </a>
-                <a className="product" href="/ads/thankyou/google-ads/">
+                <a className="product" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">
                   <Image src="/assets/maklon-parfum/essential-oil.webp" alt="Essential Oil" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="product-copy"><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
                 </a>
@@ -236,7 +236,7 @@ export default function GoogleAdsMaklonParfum() {
               </div>
               
               <div style={{ textAlign: "center", marginTop: "32px" }}>
-                <a className="btn track" data-location="process" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
+                <a className="btn track" data-location="process" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">KONSULTASI BRAND ANDA &rarr;</a>
               </div>
             </div>
           </section>
@@ -253,7 +253,7 @@ export default function GoogleAdsMaklonParfum() {
                   <li>Strategi memasarkan dan menjual produk secara online</li>
                   <li>Networking bersama komunitas beautypreneur</li>
                 </ul>
-                <a className="btn track" data-location="academy" href="/ads/thankyou/google-ads/">Jadi Partner Dreamlab &rarr;</a>
+                <a className="btn track" data-location="academy" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">Jadi Partner Dreamlab &rarr;</a>
               </div>
               <div className="academy-collage">
                 <Image src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
@@ -277,11 +277,11 @@ export default function GoogleAdsMaklonParfum() {
             <span className="eyebrow">MULAI DARI IDE AROMA ANDA</span>
             <h2>SIAP MEMBANGUN BRAND PARFUM ANDA?</h2>
             <p>Mulai dari konsep aroma sampai siap masuk market bersama Dreamlab.</p>
-            <a className="btn track" data-location="closing" href="/ads/thankyou/google-ads/">KONSULTASI BRAND ANDA &rarr;</a>
+            <a className="btn track" data-location="closing" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/">KONSULTASI BRAND ANDA &rarr;</a>
           </section>
         </main>
         
-        <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/google-ads/" aria-label="Konsultasi WhatsApp">
+        <a className="wa track" data-location="floating-whatsapp" href="/ads/thankyou/google-ads/?source=google-parfum&from=/google-ads/maklon-parfum/" aria-label="Konsultasi WhatsApp">
           ✆
         </a>
       </div>

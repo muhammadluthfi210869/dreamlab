@@ -53,7 +53,8 @@ export function normalizeSourceToLeadSource(raw?: string | null): LeadSource {
     r === "googleads" ||
     r === "google-cpc" ||
     r === "cpc" ||
-    r === "gads"
+    r === "gads" ||
+    (r.startsWith("google-") && r !== "google-organic" && r !== "google-search")
   ) {
     return "google-ads";
   }

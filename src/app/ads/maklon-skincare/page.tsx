@@ -128,7 +128,7 @@ export default function MaklonSkincareAdsLP() {
               className="flex flex-col items-start gap-3"
             >
               <a
-                href="/ads/thankyou/metaads/"
+                href="/ads/thankyou/metaads/?source=meta-skincare&from=/ads/maklon-skincare/"
                 className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-[#FF8A00] hover:bg-brand-black text-white font-bold py-4 px-10 rounded-xl transition-all duration-500 shadow-[0_15px_30px_rgba(246,145,30,0.15)] hover:-translate-y-1"
               >
                 <span className="uppercase tracking-[0.2em] text-[10px] font-onest">KONSULTASIKAN BRAND ANDA SEKARANG</span>
@@ -298,7 +298,7 @@ export default function MaklonSkincareAdsLP() {
           </div>
 
           <div className="text-center mt-12 md:mt-16">
-            <a href="/ads/thankyou/metaads/" className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-xl font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25">
+            <a href="/ads/thankyou/metaads/?source=meta-skincare&from=/ads/maklon-skincare/" className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-xl font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25">
               KONSULTASI BRAND ANDA <ArrowRight className="w-5 h-5" />
             </a>
           </div>
@@ -342,7 +342,7 @@ export default function MaklonSkincareAdsLP() {
 
               <div>
                 <a
-                  href="/ads/thankyou/metaads/"
+                  href="/ads/thankyou/metaads/?source=meta-skincare&from=/ads/maklon-skincare/"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-xl font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20"
                 >
                   JADI PARTNER DREAMLAB <ArrowRight className="w-4 h-4" />
@@ -408,7 +408,7 @@ export default function MaklonSkincareAdsLP() {
           <p className="text-sm md:text-lg text-neutral-500 mb-10 md:mb-14">
             Mulai dari konsep hingga custom formula bersama tim Dreamlab.
           </p>
-          <a href="/ads/thankyou/metaads/" className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-12 py-5 bg-[#2F6BFF] text-white rounded-xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#2052CC] hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-[#2F6BFF]/25">
+          <a href="/ads/thankyou/metaads/?source=meta-skincare&from=/ads/maklon-skincare/" className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-12 py-5 bg-[#2F6BFF] text-white rounded-xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#2052CC] hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-[#2F6BFF]/25">
             KONSULTASI BRAND ANDA <ArrowRight className="w-5 h-5" />
           </a>
         </div>
@@ -416,7 +416,7 @@ export default function MaklonSkincareAdsLP() {
 
       {/* FLOATING WA BUTTON */}
       <a
-        href="/ads/thankyou/metaads/"
+        href="/ads/thankyou/metaads/?source=meta-skincare&from=/ads/maklon-skincare/"
         className="fixed bottom-6 right-6 z-50 bg-[#25d366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
         aria-label="Contact via WhatsApp"
       >
