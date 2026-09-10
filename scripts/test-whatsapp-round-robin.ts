@@ -2,7 +2,7 @@
  * scripts/test-whatsapp-round-robin.ts
  *
  * Pengujian komprehensif sistem pembagian lead WhatsApp Dreamlab:
- * 1. Empat event berurutan menghasilkan Irma -> Annisa -> Diaz -> Diva.
+ * 1. Empat event berurutan menghasilkan Irma -> Annisa -> Diaz -> Jessica.
  * 2. Event kelima kembali ke Irma.
  * 3. Empat puluh event unik menghasilkan distribusi tepat 10:10:10:10.
  * 4. Lima puluh request concurrent menghasilkan selisih maksimal 1 antar-BusDev.
@@ -207,7 +207,7 @@ async function runAllTests() {
   console.log('   PENGUJIAN SISTEM PEMBAGIAN LEAD WHATSAPP DREAMLAB');
   console.log('====================================================\n');
 
-  // Test 1 & 2: Rotasi 4 event berurutan -> Irma -> Annisa -> Diaz -> Diva -> Irma
+  // Test 1 & 2: Rotasi 4 event berurutan -> Irma -> Annisa -> Diaz -> Jessica -> Irma
   mockRedis.reset();
   mockNeon.reset();
   console.log('▶ Test 1 & 2: Verifikasi urutan rotasi 4 BusDev + rotasi ke-5 kembali ke awal');
@@ -220,15 +220,15 @@ async function runAllTests() {
   assert.equal(res1.sales.id, 'irma', 'Event 1 harus Irma');
   assert.equal(res2.sales.id, 'annisa', 'Event 2 harus Annisa');
   assert.equal(res3.sales.id, 'diaz', 'Event 3 harus Diaz');
-  assert.equal(res4.sales.id, 'diva', 'Event 4 harus Diva');
+  assert.equal(res4.sales.id, 'jessica', 'Event 4 harus Jessica');
   assert.equal(res5.sales.id, 'irma', 'Event 5 harus kembali ke Irma');
-  console.log('  ✓ 1. Irma -> 2. Annisa -> 3. Diaz -> 4. Diva -> 5. Irma: PASSED');
+  console.log('  ✓ 1. Irma -> 2. Annisa -> 3. Diaz -> 4. Jessica -> 5. Irma: PASSED');
 
   // Test 3: 40 event unik menghasilkan distribusi tepat 10:10:10:10
   mockRedis.reset();
   mockNeon.reset();
   console.log('\n▶ Test 3: Simulasi 40 event unik (harus rata sempurna: 10 per BusDev)');
-  const counts: Record<string, number> = { irma: 0, annisa: 0, diaz: 0, diva: 0 };
+  const counts: Record<string, number> = { irma: 0, annisa: 0, diaz: 0, jessica: 0 };
   for (let i = 1; i <= 40; i++) {
     const res = await simulateAssignEndpoint({ eventId: `evt-unique-${i}` });
     counts[res.sales.id] = (counts[res.sales.id] || 0) + 1;
@@ -237,8 +237,8 @@ async function runAllTests() {
   assert.equal(counts.irma, 10, 'Irma harus tepat 10');
   assert.equal(counts.annisa, 10, 'Annisa harus tepat 10');
   assert.equal(counts.diaz, 10, 'Diaz harus tepat 10');
-  assert.equal(counts.diva, 10, 'Diva harus tepat 10');
-  console.log(`  ✓ Distribusi 40 leads: Irma=${counts.irma}, Annisa=${counts.annisa}, Diaz=${counts.diaz}, Diva=${counts.diva}: PASSED (Rata Sempurna)`);
+  assert.equal(counts.jessica, 10, 'Jessica harus tepat 10');
+  console.log(`  ✓ Distribusi 40 leads: Irma=${counts.irma}, Annisa=${counts.annisa}, Diaz=${counts.diaz}, Jessica=${counts.jessica}: PASSED (Rata Sempurna)`);
 
   // Test 4: 50 request concurrent menghasilkan selisih maksimal 1 antar-BusDev
   mockRedis.reset();
@@ -248,7 +248,7 @@ async function runAllTests() {
     simulateAssignEndpoint({ eventId: `evt-concurrent-${i + 1}` })
   );
   const concurrentResults = await Promise.all(concurrentPromises);
-  const concurrentCounts: Record<string, number> = { irma: 0, annisa: 0, diaz: 0, diva: 0 };
+  const concurrentCounts: Record<string, number> = { irma: 0, annisa: 0, diaz: 0, jessica: 0 };
   for (const r of concurrentResults) {
     concurrentCounts[r.sales.id] = (concurrentCounts[r.sales.id] || 0) + 1;
   }
