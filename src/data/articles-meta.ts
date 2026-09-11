@@ -3220,6 +3220,54 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
+    "slug": "/jasa-maklon-exfoliating-toner-aha-bha-pha-bpom",
+    "title": "Jasa Maklon Exfoliating Toner AHA BHA PHA BPOM",
+    "publishDate": "2026-09-11T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "jasa maklon",
+      "exfoliating toner",
+      "AHA",
+      "BHA",
+      "PHA",
+      "BPOM",
+      "maklon toner",
+      "skincare",
+      "chemical exfoliant",
+      "1 Client 1 Formula"
+    ],
+    "featuredImage": "/asset artikel/jasa-maklon-exfoliating-toner-aha-bha-pha-bpom/maklon_exfoliate_toner_11zon.jpg",
+    "excerpt": "Eksplorasi jasa maklon exfoliating toner AHA, BHA, PHA. Konsultasi konsep, R&D, sample, BPOM, hingga produksi bersama Dreamlab.",
+    "readingMinutes": 7
+  },
+  {
+    "slug": "/jasa-maklon-underarm-brightening-cream",
+    "title": "Jasa Maklon Underarm Brightening Cream BPOM",
+    "publishDate": "2026-09-11T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "jasa maklon",
+      "underarm brightening",
+      "underarm cream",
+      "BPOM",
+      "body care",
+      "brightening cream",
+      "niacinamide",
+      "custom formula",
+      "1 Client 1 Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/asset artikel/jasa-maklon-underarm-brightening-cream/maklon_under_cream_11zon.jpg",
+    "excerpt": "Kembangkan brand underarm brightening cream bersama Dreamlab. Mulai konsultasi, custom formula, sample, BPOM, hingga produksi.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
