@@ -34,18 +34,26 @@ Gunakan pattern dari entry sebelumnya. Field wajib:
 Grep "nama-artikel-kebab-case" 'C:\GAWE\Web Dev\Porto Aureon\CRAWL WEBSITE DREAMLAB\dreamlab-site\src\data\articles.ts'
 ```
 
-### Step 2 — Generate meta ringan
-**WAJIB** setelah edit `articles.ts` agar artikel muncul di halaman `/news-blog` & sitemap:
+### Step 2 — Generate meta ringan + image-dims manifest
+**WAJIB** setelah edit `articles.ts` ATAU menambah gambar baru di `public/`:
 
 ```powershell
 cd 'C:\GAWE\Web Dev\Porto Aureon\CRAWL WEBSITE DREAMLAB\dreamlab-site'
 node scripts/gen-articles-meta.mjs
+node scripts/gen-image-dims.mjs
 ```
 
-Output normal:
+**WAJIB keduanya!** Jika image baru ditambahkan tapi `gen-image-dims.mjs` tidak dijalankan:
+- Vercel build tidak punya manifest untuk image baru
+- Request ke URL image akan match catch-all `[...slug]` route
+- Serve HTML 404 page (43KB) disguised as 200
+- Browser render broken image icon
+
+Output normal `gen-image-dims.mjs`:
 ```
-Generated ...src/data/articles-meta.ts with N+1 articles (XX KB)
+[gen-image-dims] 1469 gambar ter-manifest (0 gagal parse) -> ...src/data/image-dims.json (143.7 KB)
 ```
+Hitung harus naik +N sesuai jumlah image baru.
 
 ### Step 3 — Verifikasi build lokal (optional, untuk sanity check)
 ```powershell
