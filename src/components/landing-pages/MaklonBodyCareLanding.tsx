@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import Script from "next/script";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { getProductDataV2 } from "@/data/products-v2";
 import ProductGrid from "@/components/ProductPageV2/ProductGrid";
 import { useState, useEffect } from "react";
@@ -227,7 +227,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
               <div className="title" style={{marginBottom: "20px", marginTop: "60px"}}>
                 <h2 style={{fontSize:"28px"}}>MENGAPA MEMILIH DREAMLAB?</h2>
               </div>
-              <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
+              <div className="checks value-checks" style={{marginTop: "0px"}}>
                 <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>1 Klien 1 Formula</b><span>Formula eksklusif tidak pasaran</span></div>
                 <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>3 Bulan Siap Jual</b><span>Proses cepat dari nol</span></div>
                 <div className="check" style={{background: "#fff", borderColor:"var(--orange)"}}><i>&#10003;</i><b>MOQ Fleksibel</b><span>Mulai brand tanpa ribet</span></div>
@@ -258,7 +258,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
                 <p>Formula yang paling dicari oleh konsumen saat ini.</p>
               </div>
 
-              <div className="checks" style={{marginTop: "0px"}} className="checks value-checks">
+              <div className="checks value-checks" style={{marginTop: "0px"}}>
                 <div className="check"><i>&#10003;</i><b>Barrier & Hydration</b></div>
                 <div className="check"><i>&#10003;</i><b>Body Serum & Sunscreen</b></div>
                 <div className="check"><i>&#10003;</i><b>Signature Fragrance</b></div>

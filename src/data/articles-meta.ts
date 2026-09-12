@@ -1204,7 +1204,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/maklon-hairmist",
-    "title": "Solusi maklon hiar mist terpercaya",
+    "title": "Solusi maklon hair mist terpercaya",
     "publishDate": "2025-11-30T02:22:33+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -1214,7 +1214,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Haircare"
     ],
     "featuredImage": "7050-2.webp",
-    "excerpt": "Dreamlab menawarkan layanan lengkap untuk maklon hiar mist, haircare,jasa maklon haircare yang memudahkan brand mencapai Target",
+    "excerpt": "Dreamlab menawarkan layanan lengkap untuk maklon hair mist, haircare,jasa maklon haircare yang memudahkan brand mencapai Target",
     "readingMinutes": 7
   },
   {

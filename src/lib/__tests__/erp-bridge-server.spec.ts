@@ -352,7 +352,7 @@ describe('decideBridge — VPS failure (G)', () => {
         http: [() => ({ status: 500, body: { error: 'vps-down' } })],
         invalid: [() => ({ status: 200, body: { bad: 'shape' } })],
         network: [() => 'throw'],
-        'not-configured': [null], // env is set to '' below; handler never fires
+        'not-configured': [null as any], // env is set to '' below; handler never fires
       };
       const handlers = scenarioHandlers[scenario] ?? [];
       const { fetchImpl, calls } = makeMockFetch(handlers);

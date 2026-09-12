@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 import {
   convertLeadCapture,
   type RoundRobinAgent,
@@ -353,7 +353,10 @@ export default function PromoKemerdekaanThankYouGoogleAds() {
                 {ready ? (
                   <CheckCircle2 className="w-5 h-5 shrink-0" />
                 ) : (
-                  <Loader2 className="w-5 h-5 shrink-0 animate-spin" />
+                  <svg className="w-5 h-5 shrink-0 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                  </svg>
                 )}
                 <span>Lanjut Konsultasi via WhatsApp</span>
               </button>

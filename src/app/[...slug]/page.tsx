@@ -81,6 +81,7 @@ interface Article {
     title: string;
     description: string;
   };
+  faqs?: { question: string; answer: string }[];
 }
 
 interface PageProps {

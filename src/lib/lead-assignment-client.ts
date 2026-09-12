@@ -28,6 +28,7 @@ export interface LeadAssignmentResponse {
     name: string;
   };
   whatsappUrl: string;
+  error?: string;
 }
 
 // In-flight cache untuk mencegah race condition double click atau React Strict Mode
@@ -123,7 +124,7 @@ export async function assignLeadViaClient(
         utmCampaign = utmCampaign || params.get('utm_campaign') || undefined;
       }
 
-      const res = await fetch('/api/leads/assign', {
+      const res = await fetch('/api/leads/assign/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
