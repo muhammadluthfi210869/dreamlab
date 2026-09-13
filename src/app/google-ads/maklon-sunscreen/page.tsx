@@ -162,21 +162,7 @@ export default function MaklonSunscreenAdsLP() {
               <h1 className="text-[34px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-black leading-[1.08] tracking-tight text-[#212120] uppercase font-display">
                 WUJUDKAN BRAND <span className="text-[#F6911E]">SUNSCREEN ANDA</span> SENDIRI
               </h1>
-              <p className="text-[#4898D3] text-base sm:text-lg md:text-xl font-black uppercase tracking-wide flex items-center gap-2">
-                <Sun className="w-5 h-5 text-[#F6911E] fill-current" />
-                Proteksi Spektrum Luas • Zero White-Cast • Standar CPKB &amp; BPOM
-              </p>
             </motion.div>
-
-            {/* Sub-headline Copywriting */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: premiumEase }}
-              className="text-[#454543] text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-medium"
-            >
-              Kembangkan produk tabir surya impian Anda bersama Dreamlab. Tersedia pilihan formula <strong>Physical, Hybrid, Chemical, Tone Up, hingga Gel</strong> dengan perlindungan SPF 30 sampai SPF 50+ PA++++ yang ringan, cepat meresap, dan nyaman untuk iklim tropis.
-            </motion.p>
 
             {/* Single CTA Button */}
             <motion.div
@@ -345,7 +331,7 @@ export default function MaklonSunscreenAdsLP() {
               KATALOG SEDIAAN MAKLON SUNSCREEN
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#212120] uppercase font-display leading-tight">
-              5 Formulasi Sunscreen <span className="text-[#4898D3]">Paling Diminati Konsumen</span>
+              5 SUNSCREEN YANG BISA <span className="text-[#4898D3]">ANDA KEMBANGKAN</span>
             </h2>
             <p className="text-sm md:text-base text-neutral-500 font-medium">
               Eksplorasi formula tabir surya resmi Dreamlab. Setiap varian dirancang spesifik untuk kebutuhan tipe kulit, gaya hidup, dan segmen pasar yang berbeda.
@@ -431,86 +417,52 @@ export default function MaklonSunscreenAdsLP() {
                 </div>
               </motion.div>
             ))}
-
-            {/* Custom Formula Callout Box (Filling 6th grid spot) */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5, ease: premiumEase }}
-              className="bg-gradient-to-br from-[#212120] to-[#162734] border border-neutral-700 rounded-[28px] p-8 text-white flex flex-col justify-between shadow-xl"
-            >
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#F6911E] text-white flex items-center justify-center shadow-lg">
-                  <Sun className="w-7 h-7" />
-                </div>
-                <span className="text-xs font-black tracking-widest text-[#F6911E] uppercase block">
-                  CUSTOM SPECIFICATION
-                </span>
-                <h3 className="text-2xl font-black uppercase font-display leading-tight">
-                  Punya Ide Formula Sunscreen Kustom Lain?
-                </h3>
-                <p className="text-sm text-neutral-300 leading-relaxed">
-                  Ingin menambahkan bahan aktif khusus seperti Ceramide, Ectoin, Mugwort, Peptide, atau membuat format <em>sunscreen spray</em> &amp; <em>sunscreen stick</em>? Tim R&amp;D Dreamlab siap meraciknya khusus untuk brand Anda.
-                </p>
-              </div>
-
-              <div className="pt-6">
-                <a
-                  href={GOOGLE_ADS_SUNSCREEN_CTA}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#F6911E] hover:bg-white hover:text-[#212120] text-white font-black py-4 px-6 rounded-full transition-all duration-300 text-xs uppercase tracking-wider shadow-lg"
-                >
-                  <span>Diskusikan Formula Khusus Anda</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
           </div>
 
         </div>
       </section>
 
       {/* =========================================================================
-          4. PROBLEM & SOLUSI + FASILITAS FREE (MOQ FLEKSIBEL & BONUS EKSKLUSIF)
+          4. KEUNTUNGAN MAKLON DI DREAMLAB & FASILITAS FREE
           ========================================================================= */}
-      <section className="py-16 md:py-24 bg-[#1b2a22] text-white relative overflow-hidden">
-        {/* Ambient Glows */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#F6911E]/10 blur-[130px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#4898D3]/10 blur-[130px] rounded-full pointer-events-none" />
+      <section className="py-16 md:py-24 bg-[#EBF5FB] text-[#212120] relative overflow-hidden border-y border-[#4898D3]/20">
+        {/* Ambient Soft Glows */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#4898D3]/15 blur-[130px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#F6911E]/10 blur-[130px] rounded-full pointer-events-none" />
 
         <div className="container-custom relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* Left: Problem & Solusi Copy */}
+            {/* Left: Keuntungan Maklon di Dreamlab */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#2A5841] border border-white/10 rounded-full text-xs font-bold text-[#FFFFFB]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#4898D3]/15 border border-[#4898D3]/30 rounded-full text-xs font-black text-[#4898D3]">
                 <Sun className="w-3.5 h-3.5 text-[#F6911E]" />
                 <span>SOLUSI MAKLON SUNSCREEN TROPIS</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase font-display leading-[1.1] text-white">
-                Formula Tanpa Residu White Cast. <span className="text-[#F6911E]">MOQ Fleksibel</span> &amp; Bebas Pusing!
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase font-display leading-[1.1] text-[#212120]">
+                KEUNTUNGAN MAKLON <span className="text-[#4898D3]">DI DREAMLAB</span>
               </h2>
 
-              <p className="text-neutral-300 text-sm md:text-base leading-relaxed font-normal">
-                Banyak brand sunscreen gagal di pasar karena formula yang lengket, membuat wajah tampak abu-abu, atau menyumbat pori-pori. Dreamlab merancang formula ramah iklim tropis dengan <strong>MOQ Fleksibel</strong> agar Anda dapat menguji respon pasar tanpa terbebani modal besar di awal.
+              <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-medium">
+                Dapatkan pendampingan menyeluruh dari pabrik berstandar CPKB Grade A. Mulai dari formula eksklusif anti-white cast, legalitas BPOM &amp; Halal tuntas, hingga simulasi bisnis transparan agar produk sunscreen Anda siap bersaing di pasar kecantikan nasional.
               </p>
 
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-3">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#F6911E]">
+              <div className="p-6 rounded-2xl bg-white border border-[#4898D3]/25 shadow-sm space-y-3">
+                <p className="text-xs font-black uppercase tracking-wider text-[#F6911E]">
                   Keuntungan Bermitra Bersama Dreamlab:
                 </p>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-200">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-700 font-medium">
                   <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F6911E] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#4898D3] shrink-0" />
                     <span><strong>MOQ Fleksibel:</strong> Mulai produksi pertama tanpa risiko stok mati (dead stock).</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F6911E] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#4898D3] shrink-0" />
                     <span><strong>Uji In-Vitro/In-Vivo:</strong> Validasi nilai klaim SPF &amp; PA akurat sesuai regulasi.</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F6911E] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#4898D3] shrink-0" />
                     <span><strong>Packaging Anti-Bocor:</strong> Pilihan botol tube, airless pump, &amp; spray kedap udara.</span>
                   </li>
                 </ul>
@@ -518,7 +470,7 @@ export default function MaklonSunscreenAdsLP() {
 
               <a
                 href={GOOGLE_ADS_SUNSCREEN_CTA}
-                className="inline-flex items-center justify-center gap-2.5 bg-[#F6911E] hover:bg-white hover:text-[#212120] text-white font-black py-4 px-8 rounded-full transition-all duration-300 text-xs sm:text-sm uppercase tracking-wider shadow-xl"
+                className="inline-flex items-center justify-center gap-2.5 bg-[#F6911E] hover:bg-[#212120] text-white font-black py-4 px-8 rounded-full transition-all duration-300 text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#F6911E]/25 hover:-translate-y-0.5"
               >
                 <span>Dapatkan Skema MOQ &amp; Simulasi Biaya</span>
                 <ArrowRight className="w-4 h-4" />
@@ -529,65 +481,65 @@ export default function MaklonSunscreenAdsLP() {
             <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4.5">
               
               {/* Free 1 */}
-              <div className="bg-white/10 border border-white/15 rounded-2xl p-6 backdrop-blur-md hover:bg-white/15 transition-colors duration-300">
+              <div className="bg-white border border-[#4898D3]/20 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="w-12 h-12 rounded-xl bg-[#F6911E] text-white flex items-center justify-center mb-4 shadow-md">
                   <Palette className="w-6 h-6" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#F6911E] block mb-1">
                   GRATIS / FREE
                 </span>
-                <h3 className="text-base font-black uppercase text-white font-display mb-2">
+                <h3 className="text-base font-black uppercase text-[#212120] font-display mb-2">
                   Desain Logo &amp; Kemasan Tube
                 </h3>
-                <p className="text-xs text-neutral-300 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
                   Tim desainer in-house Dreamlab merancang kemasan tube, pump, atau botol sunscreen yang elegan, eye-catching, dan sesuai regulasi label BPOM.
                 </p>
               </div>
 
               {/* Free 2 */}
-              <div className="bg-white/10 border border-white/15 rounded-2xl p-6 backdrop-blur-md hover:bg-white/15 transition-colors duration-300">
+              <div className="bg-white border border-[#4898D3]/20 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="w-12 h-12 rounded-xl bg-[#4898D3] text-white flex items-center justify-center mb-4 shadow-md">
                   <Layers className="w-6 h-6" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#4898D3] block mb-1">
                   GRATIS / FREE
                 </span>
-                <h3 className="text-base font-black uppercase text-white font-display mb-2">
+                <h3 className="text-base font-black uppercase text-[#212120] font-display mb-2">
                   Konsultasi Bisnis &amp; HPP
                 </h3>
-                <p className="text-xs text-neutral-300 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
                   Diskusi penetapan target segmen pasar, perhitungan HPP transparan, serta strategi harga jual kompetitif untuk margin keuntungan maksimal.
                 </p>
               </div>
 
               {/* Free 3 */}
-              <div className="bg-white/10 border border-white/15 rounded-2xl p-6 backdrop-blur-md hover:bg-white/15 transition-colors duration-300">
+              <div className="bg-white border border-[#4898D3]/20 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="w-12 h-12 rounded-xl bg-[#2A5841] text-white flex items-center justify-center mb-4 shadow-md">
                   <ImageIcon className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 block mb-1">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#2A5841] block mb-1">
                   GRATIS / FREE
                 </span>
-                <h3 className="text-base font-black uppercase text-white font-display mb-2">
+                <h3 className="text-base font-black uppercase text-[#212120] font-display mb-2">
                   Marketing Kit &amp; Photo Product
                 </h3>
-                <p className="text-xs text-neutral-300 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
                   Foto produk studio komersial beresolusi tinggi siap pakai untuk materi iklan TikTok Ads, feeds Instagram, dan banner marketplace Anda.
                 </p>
               </div>
 
               {/* Free 4 */}
-              <div className="bg-white/10 border border-white/15 rounded-2xl p-6 backdrop-blur-md hover:bg-white/15 transition-colors duration-300">
+              <div className="bg-white border border-[#4898D3]/20 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center mb-4 shadow-md">
                   <Sun className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-purple-300 block mb-1">
+                <span className="text-[10px] font-black uppercase tracking-widest text-purple-600 block mb-1">
                   GRATIS / FREE
                 </span>
-                <h3 className="text-base font-black uppercase text-white font-display mb-2">
+                <h3 className="text-base font-black uppercase text-[#212120] font-display mb-2">
                   Custom Sample Formula
                 </h3>
-                <p className="text-xs text-neutral-300 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
                   Uji coba tekstur, aroma, kecepatan penyerapan, dan uji bebas white-cast secara langsung hingga Anda puas sebelum produksi massal dimulai.
                 </p>
               </div>
@@ -700,113 +652,173 @@ export default function MaklonSunscreenAdsLP() {
       />
 
       {/* =========================================================================
-          6. ALUR KERJA (4 LANGKAH CEPAT & TERARAH)
+          6. 5 LANGKAH MUDAH WUJUDKAN BRAND SUNSCREEN
           ========================================================================= */}
       <section className="bg-white py-16 md:py-24 border-t border-neutral-100">
-        <div className="container-custom">
+        <div className="container-custom px-4">
           
-          <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16 space-y-3">
-            <span className="text-[11px] font-black tracking-[0.25em] text-[#F6911E] uppercase block">
-              ALUR KERJA TERSTRUKTUR
+          <div className="text-center mb-12 md:mb-16">
+            <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#F6911E] uppercase font-onest mb-3 block">
+              ALUR PENGEMBANGAN PRODUK
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#212120] uppercase font-display leading-tight">
-              4 Langkah Mudah <span className="text-[#4898D3]">Ciptakan Brand Sunscreen</span> Anda
+            <h2 className="text-3xl md:text-[40px] font-black text-[#212120] tracking-tight leading-[1.1] uppercase font-display mb-4">
+              5 LANGKAH MUDAH<br />
+              <span className="text-[#4898D3]">WUJUDKAN BRAND SUNSCREEN ANDA</span>
             </h2>
-            <p className="text-sm md:text-base text-neutral-500 font-medium">
-              Dari tahap perumusan SPF/PA hingga produk siap didistribusikan, seluruh proses didampingi secara komprehensif.
+            <p className="text-sm md:text-base text-neutral-500 max-w-2xl mx-auto font-medium">
+              Dari konsep awal hingga produk siap edar, seluruh proses dipandu langkah demi langkah oleh tim spesialis Dreamlab.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Row 1: 3 Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             
             {/* Step 1 */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-900 shadow-lg border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1.5">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image
                 src="/assets/maklon-parfum/consultation.webp"
-                alt="Konsultasi Maklon Sunscreen"
+                alt="Konsultasi Brand Sunscreen"
                 fill
-                className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                sizes="(max-width: 768px) 100vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#11253c]/95 via-[#11253c]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-black tracking-widest text-[#F6911E] mb-2 block">
-                  LANGKAH 01
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow" style={{ color: "#ffffff" }}>
+                  STEP 01
                 </span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">
-                  Konsultasi Konsep &amp; SPF
+                <h3
+                  className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow"
+                  style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                >
+                  KONSULTASI KONSEP &amp; TARGET PASAR
                 </h3>
-                <p className="text-xs text-neutral-200 leading-relaxed">
-                  Diskusikan konsep sunscreen (Physical, Hybrid, Gel), tingkat SPF/PA, target konsumen, dan profil tekstur impian Anda.
+                <p
+                  className="text-[13px] text-white leading-relaxed font-medium drop-shadow-sm !text-white"
+                  style={{ color: "#ffffff" }}
+                >
+                  Diskusikan konsep sunscreen (Physical, Hybrid, Chemical, Gel), profil tekstur, tingkat SPF/PA, dan target harga jual yang diinginkan.
                 </p>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-900 shadow-lg border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1.5">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image
                 src="/assets/maklon-parfum/sample.webp"
-                alt="Riset Formulasi R&D Sunscreen"
+                alt="Pengembangan Formula & Sample Sunscreen"
                 fill
-                className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                sizes="(max-width: 768px) 100vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#11253c]/95 via-[#11253c]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-black tracking-widest text-[#F6911E] mb-2 block">
-                  LANGKAH 02
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow" style={{ color: "#ffffff" }}>
+                  STEP 02
                 </span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">
-                  Riset &amp; Sampel R&amp;D
+                <h3
+                  className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow"
+                  style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                >
+                  PENGEMBANGAN CUSTOM FORMULA &amp; SAMPLE
                 </h3>
-                <p className="text-xs text-neutral-200 leading-relaxed">
-                  Tim formulator R&amp;D meracik formula khusus dan mengirimkan prototipe sampel untuk uji tekstur &amp; bebas white-cast.
+                <p
+                  className="text-[13px] text-white leading-relaxed font-medium drop-shadow-sm !text-white"
+                  style={{ color: "#ffffff" }}
+                >
+                  Tim formulator R&amp;D meracik formula khusus dan mengirimkan sampel tester untuk uji tekstur, kenyamanan, &amp; bebas white-cast.
                 </p>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-900 shadow-lg border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1.5">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image
                 src="/assets/maklon-parfum/legal-design.webp"
-                alt="Izin BPOM & Desain Packaging Sunscreen"
+                alt="Legalitas BPOM & Desain Packaging Sunscreen"
                 fill
-                className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                sizes="(max-width: 768px) 100vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#11253c]/95 via-[#11253c]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-black tracking-widest text-[#F6911E] mb-2 block">
-                  LANGKAH 03
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow" style={{ color: "#ffffff" }}>
+                  STEP 03
                 </span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">
-                  Legalitas &amp; Desain Kemasan
+                <h3
+                  className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow"
+                  style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                >
+                  LEGALITAS BPOM, HALAL &amp; PACKAGING
                 </h3>
-                <p className="text-xs text-neutral-200 leading-relaxed">
-                  Pengurusan notifikasi resmi BPOM, sertifikasi Halal, serta perancangan desain kemasan tube/pump siap cetak.
+                <p
+                  className="text-[13px] text-white leading-relaxed font-medium drop-shadow-sm !text-white"
+                  style={{ color: "#ffffff" }}
+                >
+                  Registrasi izin edar BPOM, uji nilai SPF in-vitro/in-vivo, sertifikasi Halal, serta perancangan desain kemasan botol/tube siap cetak.
                 </p>
               </div>
             </div>
 
+          </div>
+
+          {/* Row 2: 2 Steps (Centered) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:px-24 md:px-12">
+            
             {/* Step 4 */}
-            <div className="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-900 shadow-lg border border-neutral-200/80 transition-all duration-300 hover:-translate-y-1.5">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
               <Image
                 src="/assets/maklon-parfum/production.webp"
-                alt="Produksi CPKB Grade A dan QC Sunscreen"
+                alt="Produksi Higienis CPKB & Quality Control Sunscreen"
                 fill
-                className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                sizes="(max-width: 768px) 100vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#11253c]/95 via-[#11253c]/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                <span className="text-xs font-black tracking-widest text-[#F6911E] mb-2 block">
-                  LANGKAH 04
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow" style={{ color: "#ffffff" }}>
+                  STEP 04
                 </span>
-                <h3 className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display">
-                  Produksi &amp; Siap Kirim
+                <h3
+                  className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow"
+                  style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                >
+                  PRODUKSI HIGIENIS CPKB &amp; QUALITY CONTROL
                 </h3>
-                <p className="text-xs text-neutral-200 leading-relaxed">
-                  Produksi massal di fasilitas higienis CPKB Grade A, uji stabilitas dan QC menyeluruh, siap dipasarkan ke publik.
+                <p
+                  className="text-[13px] text-white leading-relaxed font-medium drop-shadow-sm !text-white"
+                  style={{ color: "#ffffff" }}
+                >
+                  Produksi massal berstandar CPKB Grade A dengan kontrol kualitas ketat untuk menjamin keamanan &amp; kestabilan formula sediaan sunscreen.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/9] bg-neutral-100 shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.22)] border border-neutral-200/80 transition-all duration-400 hover:-translate-y-1">
+              <Image
+                src="/assets/maklon-parfum/delivery.webp"
+                alt="Produk Selesai Siap Kirim & Launching"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/95 via-[#0F1E36]/60 via-45% to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full p-6 text-white drop-shadow-md">
+                <span className="text-xs font-black tracking-widest text-white mb-2 block font-onest drop-shadow" style={{ color: "#ffffff" }}>
+                  STEP 05
+                </span>
+                <h3
+                  className="text-lg font-black uppercase tracking-wide mb-2 leading-tight font-display text-white !text-white drop-shadow"
+                  style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                >
+                  PRODUK SELESAI SIAP KIRIM &amp; LAUNCHING
+                </h3>
+                <p
+                  className="text-[13px] text-white leading-relaxed font-medium drop-shadow-sm !text-white"
+                  style={{ color: "#ffffff" }}
+                >
+                  Produk sunscreen dikemas rapi, lulus uji mutu akhir, dan siap dikirim ke gudang Anda untuk peluncuran brand ke pasar nasional.
                 </p>
               </div>
             </div>
