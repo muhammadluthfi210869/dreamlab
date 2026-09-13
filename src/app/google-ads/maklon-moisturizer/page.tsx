@@ -94,40 +94,6 @@ export default function MaklonMoisturizerAdsLP() {
               <h1 className="text-[34px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-black leading-[1.08] tracking-tight text-[#212120] uppercase font-display">
                 Wujudkan Brand <span className="text-[#F6911E]">Moisturizer High-End</span> Milikmu
               </h1>
-              <p className="text-[#2A5841] text-lg sm:text-xl md:text-2xl font-black uppercase tracking-wide flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#F6911E] fill-current" />
-                Formula Eksklusif &amp; Skin Barrier Expert
-              </p>
-            </motion.div>
-
-            {/* Sub-headline Copywriting */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: premiumEase }}
-              className="text-[#454543] text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-medium"
-            >
-              Ciptakan lini pelembap signature berdaya saing tinggi: tekstur <em>water-gel</em> meleleh seketika, mengunci hidrasi 72 jam, meredakan jerawat, dan memperbaiki <em>skin barrier</em> secara klinis dengan standar fasilitas CPKB Grade A &amp; BPOM.
-            </motion.p>
-
-            {/* Single CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: premiumEase }}
-              className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-            >
-              <a
-                href={GOOGLE_ADS_MOISTURIZER_CTA}
-                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#F6911E] hover:bg-[#212120] text-white font-black py-4 px-8 md:px-10 rounded-full transition-all duration-300 shadow-[0_15px_30px_rgba(246,145,30,0.3)] hover:-translate-y-1 text-xs md:text-sm uppercase tracking-wider"
-              >
-                {/* WhatsApp SVG Icon */}
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.019-5.117-2.875-6.976C16.592 1.899 14.116.88 11.986.88 6.548.88 2.122 5.3 2.119 10.74c-.002 1.706.452 3.37 1.312 4.848l-.994 3.629 3.73-.973zm11.366-6.726c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
-                </svg>
-                <span>Konsultasikan Custom Formula Moisturizer Anda</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
             </motion.div>
 
             {/* Counter Data Social Proof Bar */}
