@@ -39,7 +39,7 @@ const sunscreenCatalog = [
     id: "physical-sunscreen",
     name: "Physical Sunscreen",
     tag: "Mineral & Sensitive Skin",
-    image: "/new asset/icon-packing-design/sunscreen/physical-sunscreen.webp",
+    image: "/new asset/skincare&facecare/physical-sunscreen.webp",
     description:
       "Sunscreen mineral murni dengan Zinc Oxide & Titanium Dioxide yang memantulkan sinar UV seketika. Zero chemical irritation, bebas white cast, sangat aman untuk kulit sensitif, anak, dan ibu hamil.",
     spfPa: "SPF 50+ PA++++",
@@ -52,7 +52,7 @@ const sunscreenCatalog = [
     id: "hybrid-sunscreen",
     name: "Hybrid Sunscreen",
     tag: "Best Seller • Dual Protection",
-    image: "/new asset/icon-packing-design/sunscreen/hybrid-sunscreen.webp",
+    image: "/new asset/make up/hybrid-sunscreen.webp",
     description:
       "Menggabungkan keunggulan filter mineral dan kimia dalam satu sediaan mutakhir. Menawarkan keamanan mineral filter dan tekstur ultra-ringan kimia tanpa rasa lengket atau white cast.",
     spfPa: "SPF 50+ PA++++",
@@ -65,7 +65,7 @@ const sunscreenCatalog = [
     id: "chemical-sunscreen",
     name: "Chemical Sunscreen",
     tag: "Ultra-Lightweight • Invisible Finish",
-    image: "/new asset/icon-packing-design/sunscreen/chemical-sunscreen.webp",
+    image: "/new asset/skincare&facecare/chemical-sunscreen.webp",
     description:
       "Filter generasi terbaru yang menyerap sinar UV dan mengubahnya menjadi energi panas aman. Tekstur seringan air, langsung meresap, dan sempurna sebagai base primer makeup tanpa residu.",
     spfPa: "SPF 50+ PA++++",
@@ -78,7 +78,7 @@ const sunscreenCatalog = [
     id: "tone-up-sunscreen",
     name: "Tone Up Sunscreen",
     tag: "K-Beauty • Instant Glowing",
-    image: "/new asset/icon-packing-design/sunscreen/tone-up-sunscreen.webp",
+    image: "/new asset/skincare&facecare/tone-up-suncreen.webp",
     description:
       "Tren K-Beauty yang memadukan proteksi UV spektrum luas dengan efek mencerahkan instan. Mengandung pearl pigments halus untuk kulit tampak cerah bercahaya alami sejak aplikasi pertama.",
     spfPa: "SPF 50+ PA++++",
@@ -91,7 +91,7 @@ const sunscreenCatalog = [
     id: "sunscreen-gel",
     name: "Sunscreen Gel",
     tag: "Oil-Free • Cooling Sensation",
-    image: "/new asset/icon-packing-design/sunscreen/sunscreen-gel.webp",
+    image: "/new asset/skincare&facecare/sunscreen-gel.webp",
     description:
       "Formulasi gel berbasis air dengan sensasi dingin menyejukkan. Oil-free, non-comedogenic, dan sangat ringan — solusi tepat bagi pemilik kulit berminyak yang enggan memakai krim tebal.",
     spfPa: "SPF 50+ PA++++",
@@ -371,7 +371,7 @@ export default function MaklonSunscreenAdsLP() {
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-contain p-6 group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div
