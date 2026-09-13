@@ -22,6 +22,7 @@ const staticRoutes = [
   '/ads/thankyou/google', '/ads/thankyou/google-ads', '/ads/thankyou/metaads', '/ads/thankyou-medsos',
   '/google-ads/maklon-body-care', '/google-ads/maklon-hair-care',
   '/google-ads/maklon-kosmetik', '/google-ads/maklon-parfum',
+  '/google-ads/maklon-deodorant', '/google-ads/maklon-moisturizer',
   '/metaads/babycare', '/metaads/deodorant', '/metaads/haircare',
   '/metaads/parfum', '/metaads/skincare',
   '/hair-care/metaads', '/parfum/metaads', '/skincare-face-care/metaads',
