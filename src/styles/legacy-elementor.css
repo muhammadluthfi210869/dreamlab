@@ -323,68 +323,77 @@
 }
 
 .legacy-content-wrapper .article-cta {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  border-radius: 24px;
-  padding: 36px 48px;
-  margin: 40px auto;
+  background: linear-gradient(135deg, #0b1528 0%, #112240 50%, #0a192f 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 24px !important;
+  padding: 44px 40px !important;
+  margin: 44px auto !important;
   text-align: center !important;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  color: #ffffff;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
 }
 
 .legacy-content-wrapper .article-cta h3,
-.legacy-content-wrapper .article-cta h2 {
-  color: #ffffff;
-  font-size: 22px;
-  font-weight: 800;
-  margin: 0 0 10px;
-  line-height: 1.3;
-  position: relative;
+.legacy-content-wrapper .article-cta h2,
+.legacy-content-wrapper .article-cta .cta-title,
+.legacy-content-wrapper .article-cta p[style*="font-weight:800"],
+.legacy-content-wrapper .article-cta p[style*="font-weight: 800"] {
+  color: #ffffff !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  margin: 0 0 14px !important;
+  line-height: 1.35 !important;
+  position: relative !important;
   text-align: center !important;
-  display: block;
-  width: 100%;
+  display: block !important;
+  width: 100% !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6) !important;
 }
 
 .legacy-content-wrapper .article-cta p {
-  color: #a0aec0;
-  font-size: 14px;
-  margin: 0 0 20px;
-  line-height: 1.6;
-  position: relative;
+  color: #f8fafc !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  margin: 0 0 24px !important;
+  line-height: 1.65 !important;
+  position: relative !important;
   text-align: center !important;
+  max-width: 680px !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
-.legacy-content-wrapper .article-cta div {
-  color: #ffffff;
-}
-
-.legacy-content-wrapper .article-cta strong {
-  color: #ffffff;
-}
-
-.legacy-content-wrapper .cta-button {
-  background: linear-gradient(135deg, #D98A00 0%, #e6a020 50%, #f0b830 100%);
+.legacy-content-wrapper .article-cta div,
+.legacy-content-wrapper .article-cta strong,
+.legacy-content-wrapper .article-cta span {
   color: #ffffff !important;
-  padding: 16px 44px;
-  border-radius: 50px;
-  font-weight: 800;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  letter-spacing: 0.5px;
+}
+
+.legacy-content-wrapper .cta-button,
+.legacy-content-wrapper .article-cta .cta-button {
+  background: linear-gradient(135deg, #E59800 0%, #F5A623 50%, #FFB830 100%) !important;
+  color: #ffffff !important;
+  padding: 16px 46px !important;
+  border-radius: 50px !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 16px !important;
+  letter-spacing: 0.5px !important;
   text-align: center !important;
-  position: relative;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  position: relative !important;
+  box-shadow: 0 8px 25px rgba(229, 152, 0, 0.45) !important;
+  transition: all 0.25s ease !important;
+  white-space: nowrap !important;
 }
 
 @media (max-width: 767px) {

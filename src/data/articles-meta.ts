@@ -3220,6 +3220,53 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
+    "slug": "/jasa-maklon-exfoliating-toner-aha-bha-pha-bpom",
+    "title": "Jasa Maklon Exfoliating Toner AHA BHA PHA: Formula Lembut untuk Kebutuhan Kulit",
+    "publishDate": "2026-09-11T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Informational"
+    ],
+    "tags": [
+      "jasa maklon",
+      "exfoliating toner",
+      "AHA",
+      "BHA",
+      "PHA",
+      "BPOM",
+      "maklon toner",
+      "skincare",
+      "chemical exfoliant",
+      "1 Client 1 Formula"
+    ],
+    "excerpt": "Buat brand exfoliating toner AHA, BHA, atau PHA bersama Dreamlab. Custom formula, sample, pendampingan BPOM hingga produksi untuk kebutuhan brand Anda.",
+    "readingMinutes": 4
+  },
+  {
+    "slug": "/jasa-maklon-underarm-brightening-cream",
+    "title": "Jasa Maklon Underarm Brightening Cream BPOM",
+    "publishDate": "2026-09-11T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Informational"
+    ],
+    "tags": [
+      "jasa maklon",
+      "underarm brightening",
+      "underarm cream",
+      "BPOM",
+      "body care",
+      "brightening cream",
+      "niacinamide",
+      "custom formula",
+      "1 Client 1 Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/asset artikel/jasa-maklon-underarm-brightening-cream/maklon_under_cream_11zon.jpg",
+    "excerpt": "Kembangkan brand underarm brightening cream bersama Dreamlab. Custom formula, sample, branding, legalitas BPOM hingga produksi.",
+    "readingMinutes": 5
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
@@ -3292,6 +3339,43 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/maklon_kosmetik_blitar_dreamlab_11zon.jpg",
     "excerpt": "Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.",
     "readingMinutes": 6
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-solo",
+    "title": "Jasa Maklon Kosmetik Solo (Surakarta): Mitra Wirausaha Brand Kosmetik Lokal",
+    "publishDate": "2026-09-10T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Navigational"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Solo",
+      "Maklon Surakarta",
+      "Custom Formula",
+      "Brand Kosmetik"
+    ],
+    "featuredImage": "/images/maklon-kosmetik-solo.jpg",
+    "excerpt": "Jasa maklon kosmetik Solo untuk membangun brand dengan custom formula, sample, branding, legalitas, produksi, dan support digital marketing.",
+    "readingMinutes": 7
+  },
+  {
+    "slug": "/peluang-brand-skincare-purwokerto",
+    "title": "Peluang Brand Skincare di Purwokerto Bersama Partner Terpercaya Dreamlab",
+    "publishDate": "2026-09-10T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Navigational"
+    ],
+    "tags": [
+      "Skincare Purwokerto",
+      "Maklon Skincare",
+      "Custom Formula",
+      "Brand Skincare"
+    ],
+    "featuredImage": "/images/maklon-kosmetik-purwokerto.jpg",
+    "excerpt": "Ingin membangun brand skincare di Purwokerto? Temukan peluang produk, custom formula, dan pengembangan brand bersama Dreamlab sebagai partner maklon.",
+    "readingMinutes": 7
   }
 ]
 ;
