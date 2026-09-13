@@ -3239,6 +3239,7 @@ export const articlesMeta: ArticleMeta[] =
       "chemical exfoliant",
       "1 Client 1 Formula"
     ],
+    "featuredImage": "/asset artikel/jasa-maklon-exfoliating-toner-aha-bha-pha-bpom/maklon_exfoliate_toner_11zon.jpg",
     "excerpt": "Buat brand exfoliating toner AHA, BHA, atau PHA bersama Dreamlab. Custom formula, sample, pendampingan BPOM hingga produksi untuk kebutuhan brand Anda.",
     "readingMinutes": 4
   },
@@ -3264,7 +3265,29 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/asset artikel/jasa-maklon-underarm-brightening-cream/maklon_under_cream_11zon.jpg",
     "excerpt": "Kembangkan brand underarm brightening cream bersama Dreamlab. Custom formula, sample, branding, legalitas BPOM hingga produksi.",
-    "readingMinutes": 5
+    "readingMinutes": 7
+  },
+  {
+    "slug": "/beautypreneur-batch-2-dreamlab",
+    "title": "Beautypreneur Batch 2 Dreamlab: Learn, Network & Scale untuk Membangun Brand Skincare",
+    "publishDate": "2026-09-13T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Event",
+      "Dreampreneur Beauty Academy"
+    ],
+    "tags": [
+      "Beautypreneur",
+      "Beautypreneur Batch 2",
+      "Bisnis Skincare",
+      "Maklon Skincare",
+      "Product Development Skincare",
+      "Dreamlab"
+    ],
+    "featuredImage": "/assets/images/blog/beautypreneur-batch-2-dreamlab-bangun-brand.jpg",
+    "excerpt": "Beautypreneur Batch 2 Dreamlab: ruang inkubasi & akselerasi bisnis skincare melalui pilar Learn, Network, dan Scale untuk membangun brand berkelanjutan.",
+    "readingMinutes": 11
   },
   {
     "slug": "/jasa-maklon-kosmetik-madiun",
