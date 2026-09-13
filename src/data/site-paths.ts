@@ -115,6 +115,7 @@ export const SITE_PATHS: string[] = [
   "google-ads/maklon-kosmetik",
   "google-ads/maklon-moisturizer",
   "google-ads/maklon-parfum",
+  "google-ads/maklon-sunscreen",
   "hair-care",
   "hair-care/metaads",
   "hair-treatment-ampoule-maklon-haircare-dreamlab",
