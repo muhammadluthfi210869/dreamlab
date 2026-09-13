@@ -20,9 +20,6 @@ const GONE_PATTERNS = [
   '/juaranyaformula/',
   // Thin product sub-categories — template only, 0 traffic, 0 backlink value
   '/produk/pkrt/',
-  // Dead thankyou/landing pages — no SEO value, 0 clicks
-  '/thankyou-page',
-  '/thankyoupage-google',
   // Landing pages — no SEO value
   '/landing/',
   // Floating buttons preview page — template only, no content
@@ -228,6 +225,10 @@ export function proxy(request: NextRequest) {
     '/maklon-decorative/': '/produk/decorative/',
     '/maklon-foot-care': '/produk/footcare/',
     '/maklon-foot-care/': '/produk/footcare/',
+    '/thankyoupage-google': '/ads/thankyou/google-ads/',
+    '/thankyoupage-google/': '/ads/thankyou/google-ads/',
+    '/thankyou-page': '/thankyou/google/',
+    '/thankyou-page/': '/thankyou/google/',
   };
   const legacyRedirect = LEGACY_PATH_REDIRECTS[pathname];
   if (legacyRedirect) {

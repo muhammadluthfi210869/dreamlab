@@ -26,8 +26,14 @@ export interface LeadAssignmentResponse {
   sales: {
     id: string;
     name: string;
+    phone?: string;
   };
   whatsappUrl: string;
+  timing?: {
+    redisMs?: number;
+    neonMs?: number;
+    totalMs?: number;
+  };
   error?: string;
 }
 
@@ -36,7 +42,7 @@ const inFlightRequests = new Map<string, Promise<LeadAssignmentResponse>>();
 // Session cache in-memory untuk menyimpan assignment per eventId selama tab terbuka
 const sessionCache = new Map<string, LeadAssignmentResponse>();
 
-function generateUuidV4(): string {
+export function generateUuidV4(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
   }
@@ -51,8 +57,9 @@ const UUID_V4_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 /**
- * Mendapatkan eventId dari sessionStorage atau membuat UUID baru.
- * Di-persist di sessionStorage per tab browser agar stabil saat refresh.
+ * Mendapatkan eventId yang valid (UUID v4).
+ * - Jika explicitId diberikan dan valid UUID, gunakan (idempotent untuk journey yang sama / page refresh).
+ * - Jika tidak diberikan, buat UUID v4 baru (CTA baru menghasilkan assignment baru, tidak terjebak).
  */
 export function getOrCreateEventId(explicitId?: string): string {
   if (explicitId && explicitId.trim() !== '') {
@@ -63,27 +70,6 @@ export function getOrCreateEventId(explicitId?: string): string {
     if (UUID_V4_REGEX.test(clean)) {
       return clean;
     }
-  }
-
-  if (typeof window !== 'undefined') {
-    const sessionKey = 'dreamlab_lead_event_id';
-    const existing = window.sessionStorage.getItem(sessionKey);
-    if (existing) {
-      let clean = existing.trim();
-      if (clean.startsWith('meta_')) {
-        clean = clean.slice(5);
-      }
-      if (UUID_V4_REGEX.test(clean)) {
-        return clean;
-      }
-    }
-    const newId = generateUuidV4();
-    try {
-      window.sessionStorage.setItem(sessionKey, newId);
-    } catch {
-      // Ignore if sessionStorage is disabled/full
-    }
-    return newId;
   }
 
   return generateUuidV4();
@@ -97,7 +83,7 @@ export async function assignLeadViaClient(
 ): Promise<LeadAssignmentResponse> {
   const eventId = getOrCreateEventId(opts.eventId);
 
-  // Jika sudah ada di cache sesi lokal, gunakan kembali (idempotensi cepat)
+  // Jika sudah ada di cache sesi lokal, gunakan kembali (idempotensi cepat per eventId)
   if (sessionCache.has(eventId)) {
     return sessionCache.get(eventId)!;
   }

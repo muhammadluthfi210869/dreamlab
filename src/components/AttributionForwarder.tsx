@@ -45,6 +45,32 @@ export default function AttributionForwarder() {
           changed = true;
         }
       }
+
+      // Teruskan landing page asal ('from')
+      if (!qs.has("from") && window.location.pathname) {
+        qs.set("from", window.location.pathname);
+        changed = true;
+      }
+
+      // Teruskan 'source' jika ada di URL saat ini
+      const currentSource = current.get("source");
+      if (currentSource && !qs.has("source")) {
+        qs.set("source", currentSource);
+        changed = true;
+      }
+
+      // Generate fresh event_id untuk setiap klik CTA baru
+      if (!qs.has("event_id")) {
+        const freshId =
+          typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+            ? crypto.randomUUID()
+            : null;
+        if (freshId) {
+          qs.set("event_id", freshId);
+          changed = true;
+        }
+      }
+
       if (!changed) return;
 
       target.setAttribute("href", `${base}?${qs.toString()}`);

@@ -1,15 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle } from "lucide-react";
-import { fireConversion } from "@/lib/tracking";
+import { fireAssignedLeadTracking } from "@/lib/tracking";
 import {
   assignLeadViaClient,
   type LeadAssignmentResponse,
 } from "@/lib/lead-assignment-client";
-import { normalizeLeadSource } from "@/lib/lead-source";
 
 type ThankYouRoundRobinProps = {
   defaultSource: string;
@@ -25,7 +24,6 @@ export function ThankYouRoundRobin({
   defaultSource,
   title,
   description,
-  message,
   messageMap,
   ctaLabel = "KONSULTASI BRAND ANDA SEKARANG",
 }: ThankYouRoundRobinProps) {
@@ -34,37 +32,32 @@ export function ThankYouRoundRobin({
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
   const [navigated, setNavigated] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Conversion tracking awal (Google Ads & Meta Pixel)
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const resolvedSource = params.get("source") || defaultSource;
-
-    fireConversion(resolvedSource, params.get("event_id") || undefined);
-
-    const win = window as unknown as {
-      gtag?: (command: string, action: string, params: Record<string, unknown>) => void;
-    };
-    if (
-      normalizeLeadSource(resolvedSource) === "google-ads" &&
-      typeof win.gtag === "function"
-    ) {
-      win.gtag("event", "conversion", {
-        send_to: "AW-10940853039/hTv7CJOs-OwaEK_WgOEo",
-      });
-    }
-  }, [defaultSource]);
-
-  // Assignment via POST /api/leads/assign (Backend terpusat, tanpa localStorage)
+  // Assignment via POST /api/leads/assign -> Tracking lengkap -> Immediate redirect
   useEffect(() => {
     let cancelled = false;
+    const tStart = performance.now();
 
     const params = new URLSearchParams(window.location.search);
     const resolvedSource = params.get("source") || defaultSource;
     const intentSource = params.get("source") || "";
     const fromParam = params.get("from") || undefined;
-    const eventIdParam = params.get("event_id") || undefined;
+    let eventIdParam = params.get("event_id") || undefined;
+
+    // Jika URL belum memiliki event_id, generate UUID v4 baru dan simpan ke URL
+    // via replaceState agar saat user refresh (F5), event_id tetap sama (idempotent).
+    if (!eventIdParam && typeof window !== "undefined") {
+      const freshId =
+        typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+          ? crypto.randomUUID()
+          : undefined;
+      if (freshId) {
+        eventIdParam = freshId;
+        params.set("event_id", freshId);
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.replaceState(null, "", newUrl);
+      }
+    }
 
     // Tentukan messageKey jika cocok dengan map
     let messageKey: string | undefined = undefined;
@@ -89,11 +82,70 @@ export function ThankYouRoundRobin({
         if (cancelled) return;
         setAssignment(res);
         setLoading(false);
+
+        const tAssignment = performance.now();
+        const assignmentDuration = Math.round(tAssignment - tStart);
+
+        // Firing seluruh event konversi SEBELUM redirect:
+        // - Meta Pixel Lead (eventID matching untuk dedup CAPI)
+        // - Google Ads conversion via gtag
+        // - GA4 generate_lead via gtag
+        // - GTM dataLayer (lead_assigned & conversion)
+        // - TikTok Pixel Lead
+        // - NexERP CRM via navigator.sendBeacon
+        const tTrackingStart = performance.now();
+        const trackingResult = fireAssignedLeadTracking({
+          source: res.source || resolvedSource,
+          eventId: eventIdParam || res.assignmentId,
+          assignmentId: res.assignmentId,
+          sales: res.sales,
+          whatsappUrl: res.whatsappUrl,
+          landingPage: fromParam || window.location.pathname,
+          utmSource: params.get("utm_source") || undefined,
+          utmMedium: params.get("utm_medium") || undefined,
+          utmCampaign: params.get("utm_campaign") || undefined,
+        });
+
+        const tTracking = performance.now();
+        const trackingDuration = Math.round(tTracking - tTrackingStart);
+        const totalDuration = Math.round(tTracking - tStart);
+
+        if (!trackingResult.success) {
+          console.warn(
+            "[Tracking] Sebagian tracking gagal dicatat, tetapi alur redirect tetap berlanjut:",
+            trackingResult.errors
+          );
+        }
+
+        // Catat metrik durasi funnel ke dataLayer untuk audit
+        if (typeof window !== "undefined") {
+          const win = window as any;
+          win.dataLayer = win.dataLayer || [];
+          win.dataLayer.push({
+            event: "funnel_performance",
+            timing: {
+              assignmentMs: assignmentDuration,
+              serverRedisMs: res.timing?.redisMs,
+              serverTotalMs: res.timing?.totalMs,
+              trackingMs: trackingDuration,
+              totalUntilRedirectMs: totalDuration,
+            },
+          });
+        }
+
+        // Langsung redirect ke URL WhatsApp sales tanpa delay buatan 500ms
+        if (res.whatsappUrl) {
+          setNavigated(true);
+          window.location.href = res.whatsappUrl;
+        }
       })
       .catch((err: unknown) => {
         if (cancelled) return;
         setLoading(false);
-        const msg = err instanceof Error ? err.message : "Gagal menghubungkan ke Business Development";
+        const msg =
+          err instanceof Error
+            ? err.message
+            : "Gagal menghubungkan ke Business Development";
         setError(msg);
       });
 
@@ -102,35 +154,23 @@ export function ThankYouRoundRobin({
     };
   }, [defaultSource, messageMap, retryCount]);
 
-  const redirectToWhatsApp = useCallback(() => {
-    if (!assignment || !assignment.whatsappUrl || navigated) return;
+  const isReady = Boolean(assignment) && Boolean(assignment?.whatsappUrl);
+
+  const handleManualClick = () => {
+    if (!isReady || !assignment?.whatsappUrl) return;
     setNavigated(true);
-
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-
-    window.location.href = assignment.whatsappUrl;
-  }, [assignment, navigated]);
-
-  // Auto-redirect setelah assignment siap (hanya sekali, timer 500ms)
-  useEffect(() => {
-    if (!assignment || !assignment.whatsappUrl || navigated) return;
-
-    timerRef.current = setTimeout(() => {
-      redirectToWhatsApp();
-    }, 500);
-
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
+    if (typeof window !== "undefined") {
+      const win = window as any;
+      if (win.dataLayer) {
+        win.dataLayer.push({
+          event: "whatsapp_manual_click",
+          sales_id: assignment.sales.id,
+          assignment_id: assignment.assignmentId,
+        });
       }
-    };
-  }, [assignment, navigated, redirectToWhatsApp]);
-
-  const isReady = Boolean(assignment) && !navigated;
+    }
+    window.location.href = assignment.whatsappUrl;
+  };
 
   return (
     <div className="landing-page-ads min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white flex flex-col">
@@ -168,7 +208,7 @@ export function ThankYouRoundRobin({
             {!error && (
               <button
                 type="button"
-                onClick={redirectToWhatsApp}
+                onClick={handleManualClick}
                 disabled={!isReady}
                 className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 w-full sm:w-auto min-w-[320px]"
               >
@@ -185,30 +225,24 @@ export function ThankYouRoundRobin({
 
             {error && (
               <div className="space-y-4 pt-2">
-                <a
-                  href={`https://wa.me/6287776550657?text=${encodeURIComponent(message || "Halo Dreamlab, saya ingin konsultasi produk")}`}
+                <button
+                  type="button"
+                  onClick={() => setRetryCount((c) => c + 1)}
                   className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 text-white min-w-[320px]"
                 >
                   <MessageCircle className="w-5 h-5 shrink-0" />
-                  <span>Hubungi WhatsApp Sekarang</span>
-                </a>
+                  <span>Hubungi WhatsApp (Coba Hubungkan Ulang)</span>
+                </button>
                 <div className="flex items-center justify-center gap-2 pt-1">
                   <p className="text-xs text-neutral-400 font-medium">
                     Sistem round-robin lambat?
                   </p>
                   <button
                     type="button"
-                    onClick={() => {
-                      if (typeof window !== "undefined") {
-                        try {
-                          window.sessionStorage.removeItem("dreamlab_lead_event_id");
-                        } catch {}
-                      }
-                      setRetryCount((c) => c + 1);
-                    }}
+                    onClick={() => setRetryCount((c) => c + 1)}
                     className="text-xs text-brand-orange font-bold hover:underline"
                   >
-                    Coba Hubungkan Ulang
+                    Coba Lagi
                   </button>
                 </div>
               </div>
@@ -218,7 +252,9 @@ export function ThankYouRoundRobin({
               <div className="flex items-center justify-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <p className="text-xs text-neutral-400 font-medium">
-                  Menghubungkan Anda ke tim kami...
+                  {navigated
+                    ? "Mengarahkan ke WhatsApp..."
+                    : "Menghubungkan Anda ke tim kami..."}
                 </p>
               </div>
             )}

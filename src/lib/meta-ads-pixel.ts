@@ -13,6 +13,8 @@ import { useEffect } from "react";
  *
  * Menghindari AddToCart lama yang tidak sesuai funnel Meta Ads.
  */
+import { ATTRIBUTION_PARAMS } from "@/lib/lead-routing";
+
 function makeEventId(): string {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return crypto.randomUUID();
@@ -35,8 +37,30 @@ export function useMetaAdsCtaPixel(contentName: string): void {
       if (typeof fbq === "function") {
         fbq("track", "Lead", { content_name: contentName, content_category: "Landing Page Ads" }, { eventID });
       }
-      const sep = el.href.includes("?") ? "&" : "?";
-      window.location.assign(`${el.href}${sep}event_id=${encodeURIComponent(eventID)}`);
+
+      // Parse target URL dan teruskan parameter atribusi serta 'from'
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://dreamlab.id";
+      const targetUrl = new URL(el.getAttribute("href") || el.href, origin);
+      const current = new URLSearchParams(window.location.search);
+
+      for (const key of ATTRIBUTION_PARAMS) {
+        const val = current.get(key);
+        if (val && !targetUrl.searchParams.has(key)) {
+          targetUrl.searchParams.set(key, val);
+        }
+      }
+
+      if (!targetUrl.searchParams.has("source")) {
+        targetUrl.searchParams.set("source", current.get("source") || "metaads");
+      }
+
+      if (!targetUrl.searchParams.has("from")) {
+        targetUrl.searchParams.set("from", window.location.pathname);
+      }
+
+      targetUrl.searchParams.set("event_id", eventID);
+
+      window.location.assign(targetUrl.toString());
     };
     ctas.forEach((el) => el.addEventListener("click", handler));
     return () => ctas.forEach((el) => el.removeEventListener("click", handler));

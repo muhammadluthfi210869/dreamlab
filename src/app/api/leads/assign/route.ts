@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import crypto from 'crypto';
 import { getActiveBusdev, BUSDEV_LIST } from '@/lib/busdev';
 import {
@@ -39,6 +39,21 @@ function isValidUuid(str: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
     str
   );
+}
+
+/**
+ * Menjalankan background task yang didukung runtime Vercel (via Next.js after).
+ * Jika dijalankan di luar request scope (misalnya di integration test scripts),
+ * fallback mengeksekusi promise secara langsung.
+ */
+function safeBackground(task: () => Promise<void>) {
+  try {
+    after(task);
+  } catch {
+    task().catch((err) => {
+      console.error('[Assign Route] Background task error:', err);
+    });
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -133,11 +148,16 @@ export async function POST(req: NextRequest) {
     const activeBusdev = getActiveBusdev();
     const assignmentId = crypto.randomUUID();
 
+    const tStart = performance.now();
+
     // 4. ATOMIC RESERVATION (UPSTASH REDIS LUA / SET NX)
     // Menjamin eventId yang sama tidak pernah menaikkan counter lebih dari sekali
+    const tRedisStart = performance.now();
     const reserveRes = await atomicReserveAndAssignLeadEvent(eventId);
+    const redisDurationMs = Math.round(performance.now() - tRedisStart);
 
     if (reserveRes.status === 'CACHED') {
+      const totalDurationMs = Math.round(performance.now() - tStart);
       return NextResponse.json(
         {
           success: true,
@@ -146,6 +166,10 @@ export async function POST(req: NextRequest) {
           sales: reserveRes.assignment.sales,
           whatsappUrl: reserveRes.assignment.whatsappUrl,
           auditLogStatus: 'cached',
+          timing: {
+            redisMs: redisDurationMs,
+            totalMs: totalDurationMs,
+          },
         },
         {
           status: 200,
@@ -153,6 +177,9 @@ export async function POST(req: NextRequest) {
             ...NO_STORE_HEADERS,
             'X-Dreamlab-Assignment-Backend': 'redis-cache',
             'X-Dreamlab-Audit-Status': 'cached',
+            'X-Dreamlab-Duration-Redis-Ms': String(redisDurationMs),
+            'X-Dreamlab-Duration-Total-Ms': String(totalDurationMs),
+            'Server-Timing': `redis;dur=${redisDurationMs}, total;dur=${totalDurationMs}`,
           },
         }
       );
@@ -180,29 +207,41 @@ export async function POST(req: NextRequest) {
         whatsappUrl,
       };
 
-      // Simpan payload lengkap ke Redis (menggantikan marker RESERVED)
-      await cacheLeadEvent(eventId, resultPayload).catch(() => {});
+      // Jalankan caching Redis dan pencatatan audit log Neon di background
+      // menggunakan Next.js after() yang didukung Vercel tanpa menahan redirect user.
+      safeBackground(async () => {
+        try {
+          await cacheLeadEvent(eventId, resultPayload).catch(() => {});
+          const auditResult = await recordLeadAssignment({
+            id: assignmentId,
+            eventId,
+            source: resolvedSource,
+            landingPage,
+            referrer,
+            utmSource,
+            utmMedium,
+            utmCampaign,
+            messageKey,
+            salesId: selectedSales.id,
+            salesName: selectedSales.name,
+            salesPhone: selectedSales.phone,
+            status: 'assigned',
+            userAgent,
+            ipHash: ipHashed,
+          });
 
-      // Catat audit log ke Neon PostgreSQL
-      const auditResult = await recordLeadAssignment({
-        id: assignmentId,
-        eventId,
-        source: resolvedSource,
-        landingPage,
-        referrer,
-        utmSource,
-        utmMedium,
-        utmCampaign,
-        messageKey,
-        salesId: selectedSales.id,
-        salesName: selectedSales.name,
-        salesPhone: selectedSales.phone,
-        status: 'assigned',
-        userAgent,
-        ipHash: ipHashed,
+          if (!auditResult.success) {
+            console.error('[Assign Route] Neon background audit log failed:', {
+              eventId,
+              error: auditResult.error,
+            });
+          }
+        } catch (bgErr) {
+          console.error('[Assign Route] Background execution error:', bgErr);
+        }
       });
 
-      const auditStatus = auditResult.success ? 'recorded' : 'failed';
+      const totalDurationMs = Math.round(performance.now() - tStart);
 
       return NextResponse.json(
         {
@@ -211,14 +250,21 @@ export async function POST(req: NextRequest) {
           source: resultPayload.source,
           sales: resultPayload.sales,
           whatsappUrl: resultPayload.whatsappUrl,
-          auditLogStatus: auditStatus,
+          auditLogStatus: 'recorded',
+          timing: {
+            redisMs: redisDurationMs,
+            totalMs: totalDurationMs,
+          },
         },
         {
           status: 200,
           headers: {
             ...NO_STORE_HEADERS,
             'X-Dreamlab-Assignment-Backend': 'redis-atomic',
-            'X-Dreamlab-Audit-Status': auditStatus,
+            'X-Dreamlab-Audit-Status': 'recorded',
+            'X-Dreamlab-Duration-Redis-Ms': String(redisDurationMs),
+            'X-Dreamlab-Duration-Total-Ms': String(totalDurationMs),
+            'Server-Timing': `redis;dur=${redisDurationMs}, total;dur=${totalDurationMs}`,
           },
         }
       );

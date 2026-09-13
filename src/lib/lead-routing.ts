@@ -63,14 +63,30 @@ export function buildThankyouUrl(opts: {
   if (opts.from) params.set('from', opts.from);
   if (opts.cta) params.set('cta', opts.cta);
 
-  // Teruskan atribusi iklan (gclid/fbclid/utm_*) dari URL halaman saat ini
-  // ke halaman thankyou — khusus tombol CTA yang navigasi programatik
-  // (bukan <a>), sehingga konversi ads tetap ter-atribusi ke klik.
+  // Teruskan atribusi iklan (gclid/fbclid/ttclid/utm_*) dan landing page asal ('from')
+  // ke halaman thankyou sehingga konversi ads tetap ter-atribusi ke klik.
   if (typeof window !== 'undefined') {
+    if (!params.has('from') && window.location.pathname) {
+      params.set('from', window.location.pathname);
+    }
     const cur = new URLSearchParams(window.location.search);
     for (const key of ATTRIBUTION_PARAMS) {
       const val = cur.get(key);
       if (val && !params.has(key)) params.set(key, val);
+    }
+    const currentSource = cur.get('source');
+    if (currentSource && !params.has('source')) {
+      params.set('source', currentSource);
+    }
+    // Generate fresh event_id untuk CTA click baru agar terhindar dari locking event lama
+    if (!params.has('event_id')) {
+      const freshEventId =
+        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : undefined;
+      if (freshEventId) {
+        params.set('event_id', freshEventId);
+      }
     }
   }
 

@@ -195,7 +195,7 @@ const nextConfig: NextConfig = {
     // These preserve SEO equity from old site structure + fix GSC 404 errors
     // NOTE: With trailingSlash: true, source patterns match BOTH with and without trailing slash
     const legacyRedirects: Array<[string, string]> = [
-      ['/thankyoupage-google', '/'],
+      ['/thankyoupage-google', '/ads/thankyou/google-ads/'],
       ['/contact-form-dreamlab', '/contact-us/'],
       ['/cms_block_cat/pop-up-form', '/'],
       ['/e-floating-buttons/popup-website', '/'],
