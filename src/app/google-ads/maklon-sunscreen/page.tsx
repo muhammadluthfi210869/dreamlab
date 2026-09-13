@@ -215,108 +215,6 @@ export default function MaklonSunscreenAdsLP() {
         </div>
       </section>
 
-      {/* =========================================================================
-          2. CARD NILAI UTAMA (3 KOLOM)
-          - R&D Proteksi UV Spektrum Luas
-          - 1-Client 1-Formula Eksklusif
-          - Uji In-Vitro/In-Vivo, BPOM & Halal Tuntas
-          ========================================================================= */}
-      <section className="py-16 md:py-24 bg-white border-y border-neutral-100">
-        <div className="container-custom">
-          
-          <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16 space-y-3">
-            <span className="text-[11px] font-black tracking-[0.25em] text-[#F6911E] uppercase block">
-              KEUNGGULAN MAKLON SUNSCREEN DREAMLAB
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#212120] uppercase font-display leading-tight">
-              Standar R&amp;D Tertinggi untuk <span className="text-[#F6911E]">Proteksi UV Kulit Tropis</span>
-            </h2>
-            <p className="text-sm md:text-base text-neutral-500 font-medium">
-              Sains formulasi photostable, kenyamanan sensori tanpa rasa dempul, dan jaminan sertifikasi resmi.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            
-            {/* Card 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: premiumEase }}
-              className="group bg-[#FFFFFB] border border-[#F6911E]/20 hover:border-[#F6911E] rounded-[24px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#F6911E]/10 text-[#F6911E] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Sun className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-black uppercase text-[#212120] font-display leading-snug">
-                  Proteksi Broad Spectrum Teruji
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed font-medium">
-                  Menggunakan UV filter generasi terbaru (Tinosorb, Uvinul, Zinc Oxide). Photostable, stabil pada suhu panas tropis, tidak perih di mata, serta proteksi maksimal UVA, UVB, &amp; Blue Light.
-                </p>
-              </div>
-              <div className="pt-6 mt-6 border-t border-neutral-100 flex items-center gap-2 text-xs font-bold text-[#F6911E]">
-                <CheckCircle2 className="w-4 h-4 text-[#F6911E]" />
-                <span>Uji In-Vitro &amp; In-Vivo SPF Valid</span>
-              </div>
-            </motion.div>
-
-            {/* Card 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1, ease: premiumEase }}
-              className="group bg-[#FFFFFB] border border-[#4898D3]/20 hover:border-[#4898D3] rounded-[24px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
-            >
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#4898D3]/10 text-[#4898D3] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Sparkles className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-black uppercase text-[#212120] font-display leading-snug">
-                  1-Client 1-Formula Eksklusif
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed font-medium">
-                  Bukan sunscreen generik pasaran. Setiap formula diracik privat sesuai preferensi finish brand Anda: <em>dewy glow, matte velvet, breathable,</em> hingga <em>water-burst cooling</em>.
-                </p>
-              </div>
-              <div className="pt-6 mt-6 border-t border-neutral-100 flex items-center gap-2 text-xs font-bold text-[#4898D3]">
-                <CheckCircle2 className="w-4 h-4 text-[#4898D3]" />
-                <span>Zero White Cast &amp; Bebas Residu Abu-abu</span>
-              </div>
-            </motion.div>
-
-            {/* Card 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: premiumEase }}
-              className="group bg-[#FFFFFB] border border-[#2A5841]/20 hover:border-[#2A5841] rounded-[24px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#2A5841]/10 text-[#2A5841] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <ShieldCheck className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-black uppercase text-[#212120] font-display leading-snug">
-                  Legalitas BPOM &amp; Halal Tuntas
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed font-medium">
-                  Diproduksi di pabrik bersertifikasi CPKB Grade A. Dreamlab mengurus seluruh perizinan notifikasi izin edar BPOM, sertifikasi Halal, hingga klaim dermatologi resmi sampai siap edar.
-                </p>
-              </div>
-              <div className="pt-6 mt-6 border-t border-neutral-100 flex items-center gap-2 text-xs font-bold text-[#2A5841]">
-                <CheckCircle2 className="w-4 h-4 text-[#2A5841]" />
-                <span>100% Aman, Legal &amp; Siap Jual</span>
-              </div>
-            </motion.div>
-
-          </div>
-
-        </div>
-      </section>
 
       {/* =========================================================================
           3. SECTION KATALOG PRODUK SUNSCREEN
@@ -447,26 +345,6 @@ export default function MaklonSunscreenAdsLP() {
               <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-medium">
                 Dapatkan pendampingan menyeluruh dari pabrik berstandar CPKB Grade A. Mulai dari formula eksklusif anti-white cast, legalitas BPOM &amp; Halal tuntas, hingga simulasi bisnis transparan agar produk sunscreen Anda siap bersaing di pasar kecantikan nasional.
               </p>
-
-              <div className="p-6 rounded-2xl bg-white border border-[#4898D3]/25 shadow-sm space-y-3">
-                <p className="text-xs font-black uppercase tracking-wider text-[#F6911E]">
-                  Keuntungan Bermitra Bersama Dreamlab:
-                </p>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-700 font-medium">
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#4898D3] shrink-0" />
-                    <span><strong>MOQ Fleksibel:</strong> Mulai produksi pertama tanpa risiko stok mati (dead stock).</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#4898D3] shrink-0" />
-                    <span><strong>Uji In-Vitro/In-Vivo:</strong> Validasi nilai klaim SPF &amp; PA akurat sesuai regulasi.</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#4898D3] shrink-0" />
-                    <span><strong>Packaging Anti-Bocor:</strong> Pilihan botol tube, airless pump, &amp; spray kedap udara.</span>
-                  </li>
-                </ul>
-              </div>
 
               <a
                 href={GOOGLE_ADS_SUNSCREEN_CTA}
