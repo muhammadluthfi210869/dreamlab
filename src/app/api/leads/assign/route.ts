@@ -12,7 +12,8 @@ import {
   assignAndRecordLeadViaNeonAtomic,
   hashIp,
 } from '@/lib/neon';
-import { insertLead } from '@/lib/round-robin-db';
+import { convertLead } from '@/lib/round-robin-db';
+import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import {
   identifyLeadSource,
   normalizeSourceToLeadSource,
@@ -42,55 +43,20 @@ function isValidUuid(str: string): boolean {
   );
 }
 
-/** Kode tracking deterministik dari event_id → replay event yang sama tidak
- *  membuat lead ganda di PostgreSQL `leads` (ON CONFLICT DO NOTHING). */
-function deterministicTrackingCode(eventId: string, at: Date = new Date()): string {
-  const ymd = `${at.getFullYear()}${String(at.getMonth() + 1).padStart(2, '0')}${String(
-    at.getDate()
-  ).padStart(2, '0')}`;
-  return `DL-${ymd}-${eventId.slice(0, 6).toUpperCase()}`;
-}
-
 /**
- * Dual-write lead ke PostgreSQL `leads` (DB round-robin VPS) supaya pipeline
- * ERP OmniCRM (pull-sync + webhook) melihat assignment yang dibuat jalur
- * Redis/Neon ini. BusDev TIDAK di-round-robin ulang — pakai hasil assignment
- * yang sudah ada (murni INSERT). Kegagalan hanya di-log, tidak pernah
- * mengganggu redirect WhatsApp user.
+ * Hash eventId (UUID hex) → indeks BusDev, untuk emergency fallback yang
+ * merata antar instance serverless tanpa state bersama. Tanpa seed, fallback
+ * lama (counter in-process) tetap dipakai.
  */
-function dualWriteLeadToPg(args: {
-  eventId: string;
-  source: string;
-  landingPage: string | null;
-  referrer: string | null;
-  utmSource: string | null;
-  utmMedium: string | null;
-  utmCampaign: string | null;
-  intent: string;
-  salesName: string;
-  salesPhone: string;
-}) {
-  safeBackground(async () => {
-    try {
-      const { trackingCode } = await insertLead({
-        trackingCode: deterministicTrackingCode(args.eventId),
-        source: args.source,
-        pageUrl: args.landingPage || undefined,
-        referrer: args.referrer || undefined,
-        utmSource: args.utmSource || undefined,
-        utmMedium: args.utmMedium || undefined,
-        utmCampaign: args.utmCampaign || undefined,
-        intent: args.intent,
-        visitorId: args.eventId,
-        sessionId: args.eventId,
-        assignedName: args.salesName,
-        assignedPhone: args.salesPhone,
-      });
-      console.log('[Assign Route] PG dual-write OK:', trackingCode);
-    } catch (err) {
-      console.error('[Assign Route] PG dual-write failed:', err);
-    }
-  });
+function emergencyPick(seed: string | null, active: readonly { id: string; name: string; phone: string }[]) {
+  if (seed) {
+    const hex = seed.replace(/[^0-9a-fA-F]/g, '').slice(0, 8) || '0';
+    const idx = parseInt(hex, 16) % active.length;
+    const picked = active[idx];
+    return { id: picked.id, name: picked.name, phone: picked.phone };
+  }
+  const fallback = pickEmergencyFallbackAgent();
+  return { id: fallback.id, name: fallback.name || fallback.id, phone: fallback.phone };
 }
 
 /**
@@ -197,6 +163,19 @@ export async function POST(req: NextRequest) {
       null;
     const ipHashed = hashIp(clientIp);
 
+    // Fingerprint visitor stabil dari client (localStorage). Bila tidak ada,
+    // pakai eventId supaya tetap ada kunci visitor_id untuk dedup 24 jam.
+    const visitorId = sanitizeString(body.visitorId, 100) || eventId;
+
+    // Flag test: selaraskan dengan heuristik deteksi test di PostgreSQL
+    // (p_is_test / intent / page_url / visitor_id 'test_%').
+    const isTest =
+      body.test === true ||
+      body.test_rr === true ||
+      /test/i.test(visitorId) ||
+      /test/i.test(landingPage || '') ||
+      /test/i.test(referrer || '');
+
     const activeBusdev = getActiveBusdev();
     const assignmentId = crypto.randomUUID();
 
@@ -237,11 +216,125 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (
-      reserveRes.status === 'ASSIGNED' ||
-      reserveRes.status === 'RESERVED_SEQUENCE'
-    ) {
-      const sequence = reserveRes.sequence;
+    // Sequence Redis (bila reservasi berhasil) — HANYA dipakai untuk rotasi
+    // fallback saat engine PG mati.
+    const sequence =
+      reserveRes.status === 'ASSIGNED' || reserveRes.status === 'RESERVED_SEQUENCE'
+        ? reserveRes.sequence
+        : null;
+
+    // 5. PRIMARY: PG WAVE ENGINE (assign_and_insert_lead)
+    // Pemilihan BusDev + sticky + dedup 24 jam + INSERT ke tabel `leads`
+    // terjadi atomik di database (advisory lock + Strict Spread Guard).
+    // Redis di route ini HANYA idempotency guard untuk eventId — pemilihan
+    // BusDev bukan lagi rotasi buta `(seq-1)%n` yang hasilnya di-dual-write
+    // dan mengotori daily_leads (akar penyebab ketimpangan sebelum 00014).
+    try {
+      const conv = await convertLead({
+        visitorId,
+        intent: messageKey ?? resolvedSource,
+        source: resolvedSource,
+        pageUrl: landingPage || undefined,
+        referrer: referrer || undefined,
+        utmSource: utmSource || undefined,
+        utmMedium: utmMedium || undefined,
+        utmCampaign: utmCampaign || undefined,
+        sessionId: eventId,
+        isTest,
+      });
+
+      const messageText = getWhatsAppMessage(messageKey);
+      const whatsappUrl = buildWhatsAppLeadUrl(conv.phoneNumber, messageText);
+
+      const resultPayload: CachedLeadAssignment = {
+        assignmentId,
+        source: resolvedSource,
+        sales: {
+          id: conv.id,
+          name: conv.name,
+          phone: conv.phoneNumber,
+        },
+        whatsappUrl,
+      };
+
+      // Caching Redis (idempotensi replay) + audit log Neon di background via
+      // after() — tidak pernah menahan redirect user. Traffic test tidak
+      // di-cache ke Redis agar Redis tetap bersih.
+      safeBackground(async () => {
+        try {
+          if (!isTest) {
+            await cacheLeadEvent(eventId, resultPayload).catch(() => {});
+          }
+          const auditResult = await recordLeadAssignment({
+            id: assignmentId,
+            eventId,
+            source: resolvedSource,
+            landingPage,
+            referrer,
+            utmSource,
+            utmMedium,
+            utmCampaign,
+            messageKey,
+            salesId: conv.id,
+            salesName: conv.name,
+            salesPhone: conv.phoneNumber,
+            status: 'assigned',
+            userAgent,
+            ipHash: ipHashed,
+          });
+
+          if (!auditResult.success) {
+            console.error('[Assign Route] Neon background audit log failed:', {
+              eventId,
+              error: auditResult.error,
+            });
+          }
+        } catch (bgErr) {
+          console.error('[Assign Route] Background execution error:', bgErr);
+        }
+      });
+
+      const totalDurationMs = Math.round(performance.now() - tStart);
+
+      return NextResponse.json(
+        {
+          success: true,
+          assignmentId: resultPayload.assignmentId,
+          source: resultPayload.source,
+          sales: resultPayload.sales,
+          whatsappUrl: resultPayload.whatsappUrl,
+          trackingCode: conv.trackingCode,
+          auditLogStatus: 'recorded',
+          timing: {
+            redisMs: redisDurationMs,
+            totalMs: totalDurationMs,
+          },
+        },
+        {
+          status: 200,
+          headers: {
+            ...NO_STORE_HEADERS,
+            'X-Dreamlab-Assignment-Backend': 'pg-wave',
+            'X-Dreamlab-Audit-Status': 'recorded',
+            'X-Dreamlab-Duration-Redis-Ms': String(redisDurationMs),
+            'X-Dreamlab-Duration-Total-Ms': String(totalDurationMs),
+            'Server-Timing': `redis;dur=${redisDurationMs}, total;dur=${totalDurationMs}`,
+          },
+        }
+      );
+    } catch (pgErr: unknown) {
+      const pgErrMsg = pgErr instanceof Error ? pgErr.message : String(pgErr);
+      console.error(
+        '[Assign Route] PG wave engine gagal, lanjut ke rotasi Redis:',
+        pgErrMsg
+      );
+    }
+
+    // 6. FALLBACK A — PG mati: rotasi Redis dari sequence atomik.
+    // Masih merata (urutan bergilir), tapi TANPA wave guard; lead tidak
+    // tertulis ke tabel `leads` sampai PG sehat kembali (tidak ada lagi
+    // dual-write buta yang mengotori daily_leads).
+    if (sequence !== null) {
       const index = (sequence - 1) % activeBusdev.length;
       const selectedSales = activeBusdev[index];
 
@@ -259,8 +352,6 @@ export async function POST(req: NextRequest) {
         whatsappUrl,
       };
 
-      // Jalankan caching Redis dan pencatatan audit log Neon di background
-      // menggunakan Next.js after() yang didukung Vercel tanpa menahan redirect user.
       safeBackground(async () => {
         try {
           await cacheLeadEvent(eventId, resultPayload).catch(() => {});
@@ -293,21 +384,6 @@ export async function POST(req: NextRequest) {
         }
       });
 
-      // Dual-write ke PostgreSQL `leads` → ERP OmniCRM pull-sync/webhook
-      // tetap melihat semua assignment walau dibuat jalur Redis.
-      dualWriteLeadToPg({
-        eventId,
-        source: resolvedSource,
-        landingPage,
-        referrer,
-        utmSource,
-        utmMedium,
-        utmCampaign,
-        intent: messageKey ?? resolvedSource,
-        salesName: selectedSales.name,
-        salesPhone: selectedSales.phone,
-      });
-
       const totalDurationMs = Math.round(performance.now() - tStart);
 
       return NextResponse.json(
@@ -327,7 +403,7 @@ export async function POST(req: NextRequest) {
           status: 200,
           headers: {
             ...NO_STORE_HEADERS,
-            'X-Dreamlab-Assignment-Backend': 'redis-atomic',
+            'X-Dreamlab-Assignment-Backend': 'redis-wave-fallback',
             'X-Dreamlab-Audit-Status': 'recorded',
             'X-Dreamlab-Duration-Redis-Ms': String(redisDurationMs),
             'X-Dreamlab-Duration-Total-Ms': String(totalDurationMs),
@@ -337,7 +413,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 5. FALLBACK ATOMIK NEON POSTGRESQL (Saat Upstash Redis tidak merespons)
+    // 7. FALLBACK B — ATOMIK NEON POSTGRESQL (Saat Redis DAN PG utama sama-sama tidak merespons)
     // Pemilihan BusDev DAN penyimpanan wajib terjadi dalam 1 transaksi & advisory lock sebelum COMMIT
     try {
       // Cek DB apakah sudah ada record eventId
@@ -385,18 +461,9 @@ export async function POST(req: NextRequest) {
       const messageText = getWhatsAppMessage(neonAssignment.record.messageKey || messageKey);
       const whatsappUrl = buildWhatsAppLeadUrl(neonAssignment.record.salesPhone, messageText);
 
-      dualWriteLeadToPg({
-        eventId,
-        source: resolvedSource,
-        landingPage,
-        referrer,
-        utmSource,
-        utmMedium,
-        utmCampaign,
-        intent: neonAssignment.record.messageKey || messageKey || resolvedSource,
-        salesName: neonAssignment.record.salesName,
-        salesPhone: neonAssignment.record.salesPhone,
-      });
+      // Catatan: TIDAK ada dual-write ke PG di sini — jalur ini hanya aktif
+      // saat PG utama mati, dan assignment buta yang ditulis belakangan justru
+      // mengotori daily_leads wave engine. Neon di sini murni audit/rekaman.
 
       return NextResponse.json(
         {
@@ -423,8 +490,11 @@ export async function POST(req: NextRequest) {
       const errMsg = neonErr instanceof Error ? neonErr.message : String(neonErr);
       console.error('[Assign Route] Neon fallback failed:', errMsg);
 
-      // Server-side emergency fallback (saat Redis DAN Neon keduanya tidak dapat diakses)
-      const emergencyBusdev = activeBusdev[0] || BUSDEV_LIST[0];
+      // Server-side emergency fallback (saat Redis, PG, DAN Neon tidak dapat
+      // diakses). Hash eventId → merata tanpa state bersama antar instance,
+      // bukan selalu index 0 (yang dulu menumpuk lead ke BusDev pertama).
+      const emergencyPool = activeBusdev.length > 0 ? activeBusdev : BUSDEV_LIST;
+      const emergencyBusdev = emergencyPick(eventId, emergencyPool);
       const defaultUrl = buildWhatsAppLeadUrl(
         emergencyBusdev.phone,
         getWhatsAppMessage(messageKey)
@@ -456,7 +526,10 @@ export async function POST(req: NextRequest) {
     const errMsg = unexpectedErr instanceof Error ? unexpectedErr.message : String(unexpectedErr);
     console.error('[Assign Route] Unexpected error:', errMsg);
 
-    const fallbackBusdev = BUSDEV_LIST[0];
+    // Emergency merata: hash seed acak (unexpected error = tidak ada eventId
+    // yang dijamin tersedia di scope ini).
+    const unexpectedSeed = crypto.randomUUID();
+    const fallbackBusdev = emergencyPick(unexpectedSeed, BUSDEV_LIST);
     const defaultUrl = buildWhatsAppLeadUrl(
       fallbackBusdev.phone,
       getWhatsAppMessage('default')
@@ -465,7 +538,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        assignmentId: crypto.randomUUID(),
+        assignmentId: unexpectedSeed,
         source: 'unknown',
         sales: {
           id: fallbackBusdev.id,

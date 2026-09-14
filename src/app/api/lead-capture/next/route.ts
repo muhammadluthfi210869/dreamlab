@@ -31,7 +31,8 @@ export async function GET(req: NextRequest) {
     return res;
   } catch (err) {
     console.error('[lead-capture/next] Gagal ambil agent dari DB, fallback ke random active agent:', err);
-    const fallback = pickEmergencyFallbackAgent();
+    // Seed visitorId → pilihan merata deterministik antar instance serverless
+    const fallback = pickEmergencyFallbackAgent(getOrCreateVisitorId(req));
     return NextResponse.json(
       {
         id: fallback.id,

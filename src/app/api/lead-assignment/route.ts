@@ -33,7 +33,8 @@ export async function GET(req: NextRequest) {
     return res;
   } catch (error) {
     console.error('Lead assignment error from DB, fallback:', error);
-    const fallback = pickEmergencyFallbackAgent();
+    // Seed visitorId → pilihan merata deterministik antar instance serverless
+    const fallback = pickEmergencyFallbackAgent(getOrCreateVisitorId(req));
     return NextResponse.json(
       {
         phone: normalizePhone(fallback.phone),

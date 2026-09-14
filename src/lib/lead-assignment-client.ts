@@ -56,6 +56,64 @@ export function generateUuidV4(): string {
 const UUID_V4_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
+const VISITOR_ID_KEY = 'dl_visitor_id';
+
+/**
+ * Fingerprint visitor yang STABIL lintas klik/halaman/tab (localStorage).
+ * Ini kunci agar dedup 24 jam + sticky wave engine benar-benar aktif:
+ * tanpa fingerprint, setiap klik CTA = eventId baru = lead baru lagi,
+ * sehingga satu orang bisa menaikkan kuota BusDev berkali-kali.
+ *
+ * Urutan: localStorage → sessionStorage → UUID ephemeral (storage diblokir).
+ */
+export function getOrCreateVisitorId(): string {
+  if (typeof window === 'undefined') return '';
+
+  try {
+    const stored =
+      window.localStorage.getItem(VISITOR_ID_KEY) ||
+      window.sessionStorage.getItem(VISITOR_ID_KEY);
+    if (stored && /^[0-9a-zA-Z_-]{16,64}$/.test(stored)) {
+      // Replikasikan ke storage lain agar konsisten lintas mode
+      try {
+        window.localStorage.setItem(VISITOR_ID_KEY, stored);
+      } catch {
+        /* abaikan */
+      }
+      return stored;
+    }
+
+    const fresh = generateUuidV4();
+    let persisted = false;
+    try {
+      window.localStorage.setItem(VISITOR_ID_KEY, fresh);
+      persisted = true;
+    } catch {
+      try {
+        window.sessionStorage.setItem(VISITOR_ID_KEY, fresh);
+        persisted = true;
+      } catch {
+        /* storage diblokir (private mode) — tetap pakai ephemeral */
+      }
+    }
+    void persisted;
+    return fresh;
+  } catch {
+    return generateUuidV4();
+  }
+}
+
+/** Flag test dari URL (?test=1 / ?test_rr=true) — selaras dengan server. */
+function isTestModeFromUrl(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('test') === '1' || params.get('test_rr') === 'true';
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Mendapatkan eventId yang valid (UUID v4).
  * - Jika explicitId diberikan dan valid UUID, gunakan (idempotent untuk journey yang sama / page refresh).
@@ -82,6 +140,7 @@ export async function assignLeadViaClient(
   opts: LeadAssignmentRequest = {}
 ): Promise<LeadAssignmentResponse> {
   const eventId = getOrCreateEventId(opts.eventId);
+  const visitorId = getOrCreateVisitorId();
 
   // Jika sudah ada di cache sesi lokal, gunakan kembali (idempotensi cepat per eventId)
   if (sessionCache.has(eventId)) {
@@ -118,6 +177,8 @@ export async function assignLeadViaClient(
         cache: 'no-store',
         body: JSON.stringify({
           eventId,
+          visitorId,
+          test: isTestModeFromUrl() || undefined,
           source: opts.source,
           landingPage,
           referrer,

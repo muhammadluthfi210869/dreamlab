@@ -31,15 +31,26 @@ export function getActiveAgents(): Agent[] {
 }
 
 /**
- * Fallback darurat server-side
+ * Fallback darurat server-side.
+ *
+ * `seed` (eventId / visitorId) → pilihan deterministik via hash hex, sehingga
+ * pembagian merata antar instance serverless TANPA perlu state bersama
+ * (counter in-process lama tidak dibagikan antar instance). Tanpa seed,
+ * tetap pakai rotasi counter lokal sebagai pilihan terakhir.
  */
 let _fbCounter = 0;
-export function pickEmergencyFallbackAgent(): Agent {
+export function pickEmergencyFallbackAgent(seed?: string | null): Agent {
   const active = getActiveAgents();
   if (active.length > 0) {
-    const picked = active[_fbCounter % active.length];
-    _fbCounter = (_fbCounter + 1) >>> 0;
-    return picked;
+    let idx: number;
+    if (seed) {
+      const hex = seed.replace(/[^0-9a-fA-F]/g, '').slice(0, 8) || '0';
+      idx = parseInt(hex, 16) % active.length;
+    } else {
+      idx = _fbCounter % active.length;
+      _fbCounter = (_fbCounter + 1) >>> 0;
+    }
+    return active[idx];
   }
 
   return {

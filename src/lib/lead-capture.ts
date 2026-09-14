@@ -80,20 +80,27 @@ function getClientVisitorId(): string {
 
 /**
  * Fallback lokal saat server/DB tidak terjangkau:
- * Fallback CS pertama yang aktif tanpa manipulasi counter browser.
+ * Pilihan merata via hash vid/eventId (deterministik, TANPA Math.random() dan
+ * TANPA counter browser). Dulu selalu active[0] → menumpuk lead ke BusDev
+ * pertama setiap kali server down.
  */
-function localFallbackAgent(): RoundRobinAgent {
+function localFallbackAgent(seed?: string): RoundRobinAgent {
   const active = AGENTS.filter((a) => a.active);
   if (active.length === 0) throw new Error("lead-capture: tidak ada agent aktif untuk fallback");
 
-  // Fallback server-side tunggal tanpa counter localStorage dan tanpa Math.random()
-  const agent = active[0];
+  let idx = 0;
+  const s = seed || (typeof getClientVisitorId === "function" ? getClientVisitorId() : "");
+  if (s) {
+    const hex = s.replace(/[^0-9a-fA-F]/g, "").slice(0, 8) || "0";
+    idx = parseInt(hex, 16) % active.length;
+  }
+  const agent = active[idx];
 
   const fallbackAgent: RoundRobinAgent = {
     id: agent.id,
     name: agent.name || agent.id,
     phoneNumber: normalizePhone(agent.phone),
-    orderIndex: 0,
+    orderIndex: idx,
   };
   return fallbackAgent;
 }
@@ -125,7 +132,7 @@ export async function getNextRoundRobinAgent(): Promise<RoundRobinAgent> {
     return agent;
   } catch (err) {
     console.error("[lead-capture] /next gagal, pakai fallback sticky lokal:", err);
-    return localFallbackAgent();
+    return localFallbackAgent(vid);
   }
 }
 
@@ -190,7 +197,7 @@ export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLe
     };
   } catch (err) {
     console.error("[lead-capture] /convert gagal, pakai fallback lokal:", err);
-    const agent = localFallbackAgent();
+    const agent = localFallbackAgent(vid);
     const trackingCode = "LOCAL-" + Math.random().toString(36).slice(2, 10).toUpperCase();
     const waUrl = agent.phoneNumber ? `https://wa.me/${agent.phoneNumber}` : "";
     return { agent, trackingCode, waUrl, isTest };

@@ -65,7 +65,8 @@ export async function POST(req: NextRequest) {
     return res;
   } catch (err) {
     console.error('[lead-capture/convert] Gagal assign+track lead, fallback ke random active agent:', err);
-    const fallback = pickEmergencyFallbackAgent();
+    // Seed visitorId → pilihan merata deterministik antar instance serverless
+    const fallback = pickEmergencyFallbackAgent(getOrCreateVisitorId(req));
     const phone = normalizePhone(fallback.phone);
     const trackingCode = `DL-LOCAL-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
     const waUrl = `https://wa.me/${phone}`;
