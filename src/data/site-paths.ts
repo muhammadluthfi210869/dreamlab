@@ -97,6 +97,7 @@ export const SITE_PATHS: string[] = [
   "decorative",
   "dreamlab-kolaborasi-di-klifm-bongkar-strategi-bisnis-kosmetik",
   "dupe-parfum-nagita-slavina-tahan-lama",
+  "ectoin-vs-ceramide-skin-barrier",
   "en",
   "en/about-us",
   "en/contact-us",

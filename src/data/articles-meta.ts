@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/ectoin-vs-ceramide-skin-barrier",
+    "title": "Ectoin vs Ceramide: Pilih Hero Ingredient Skin Barrier Mana? | Dreamlab",
+    "publishDate": "2026-09-14T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Informational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Ectoin vs Ceramide",
+      "Skin Barrier",
+      "Hero Ingredient",
+      "Maklon Skincare",
+      "Ceramide",
+      "Ectoin",
+      "Custom Formula"
+    ],
+    "featuredImage": "/asset artikel/MK Ectoin vs Ceramide/ectoinvsceramide_11zon.jpg",
+    "excerpt": "Bedah perbandingan Ectoin vs Ceramide untuk skin barrier. Temukan pilihan produk terbaik dan wujudkan custom formula eksklusif bersama Dreamlab.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/maklon-lip-serum-bpom",
     "title": "Jasa Maklon Lip Serum BPOM: Riset Formula Adaptif pH & Tren Hybrid Lip Care",
     "publishDate": "2026-09-03T00:00:00+00:00",
