@@ -10,11 +10,14 @@ import { getActiveBusdev } from './busdev';
  */
 
 function getConnectionString(): string | undefined {
+  // Sinkron dengan db.ts (cutover 2026-09-14): DATABASE_URL paling utama supaya
+  // pool audit "neon" ini ikut menunjuk DB resmi yang sama (Biznet). Var
+  // database_* hanya fallback legacy bila DB utama tidak dikonfigurasi.
   return (
-    process.env.database_DATABASE_URL ||
-    process.env.database_POSTGRES_URL ||
+    process.env.DATABASE_URL ||
     process.env.POSTGRES_URL ||
-    process.env.DATABASE_URL
+    process.env.database_DATABASE_URL ||
+    process.env.database_POSTGRES_URL
   );
 }
 

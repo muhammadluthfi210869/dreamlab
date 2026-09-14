@@ -14,11 +14,18 @@ import { Pool } from 'pg';
  */
 
 function buildPool() {
-  const connectionString = 
+  // URUTAN PENTING (cutover Neon→Biznet 2026-09-14): DATABASE_URL PALING AWAL.
+  // Wave engine (assign_and_insert_lead + daily_leads) wajib punya SATU sumber
+  // kebenaran. Vercel project masih punya env var warisan integrasi Neon
+  // (database_DATABASE_URL); selama rantai lama (Neon-first) dia menang, prod
+  // menulis ke Neon sementara sidecar/ERP menulis ke Biznet → dua wave engine
+  // balancing sendiri-sendiri dan lead tidak pernah merata secara global.
+  // Rantai sekarang: DATABASE_URL → POSTGRES_URL → (fallback legacy Neon).
+  const connectionString =
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
     process.env.database_DATABASE_URL ||
-    process.env.database_POSTGRES_URL ||
-    process.env.POSTGRES_URL || 
-    process.env.DATABASE_URL;
+    process.env.database_POSTGRES_URL;
   if (!connectionString) {
     throw new Error(
       'DATABASE_URL belum di-set. Lihat .env.example / .env.local.'
