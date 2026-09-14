@@ -133,6 +133,7 @@ export interface ConvertLeadCaptureResult {
   agent: RoundRobinAgent;
   trackingCode: string;
   waUrl: string;
+  isTest?: boolean;
   /** True when Batch 2 ERP bridge produced this result (vs legacy VPS-only). */
   erpBridge?: boolean;
   /** Canonical ERP tracking code, distinct from the legacy VPS code. */
@@ -157,13 +158,17 @@ const LEAD_API_BASE =
  * Kalau API gagal → fallback lokal + kode LOCAL-... (chat tetap jalan secara merata).
  */
 export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLeadCaptureResult> {
-  const vid = getClientVisitorId();
+  const isTest = Boolean(
+    data.isTest ||
+    (typeof window !== "undefined" && (window.location.search.includes("test_rr=true") || window.location.search.includes("test=1")))
+  );
+  const vid = isTest ? `test_${getClientVisitorId()}` : getClientVisitorId();
 
   try {
     const res = await fetch(`${LEAD_API_BASE}/convert`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(vid ? { ...data, visitorId: vid } : data),
+      body: JSON.stringify(vid ? { ...data, visitorId: vid, isTest } : { ...data, isTest }),
       signal: timeoutSignal(CLIENT_FETCH_TIMEOUT_MS),
     });
     if (!res.ok) throw new Error("lead-capture/convert " + res.statusText);
@@ -181,13 +186,14 @@ export async function convertLeadCapture(data: TrackLeadData): Promise<ConvertLe
       agent,
       trackingCode: json.trackingCode || "LOCAL",
       waUrl: json.waUrl || "",
+      isTest: Boolean(isTest || json.isTest),
     };
   } catch (err) {
     console.error("[lead-capture] /convert gagal, pakai fallback lokal:", err);
     const agent = localFallbackAgent();
     const trackingCode = "LOCAL-" + Math.random().toString(36).slice(2, 10).toUpperCase();
     const waUrl = agent.phoneNumber ? `https://wa.me/${agent.phoneNumber}` : "";
-    return { agent, trackingCode, waUrl };
+    return { agent, trackingCode, waUrl, isTest };
   }
 }
 
@@ -242,6 +248,7 @@ export interface TrackLeadData {
   sessionId?: string;
   assignedName?: string;
   assignedPhone?: string;
+  isTest?: boolean;
 }
 
 export async function trackLead(

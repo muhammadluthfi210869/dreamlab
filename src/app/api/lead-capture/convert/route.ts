@@ -19,6 +19,11 @@ export async function POST(req: NextRequest) {
         ? body.visitorId
         : null;
     const visitorId = bodyVid || getOrCreateVisitorId(req);
+    const isTest =
+      Boolean(body.isTest) ||
+      req.nextUrl.searchParams.get('test_rr') === 'true' ||
+      req.nextUrl.searchParams.get('test') === '1' ||
+      (typeof body.pageUrl === 'string' && (body.pageUrl.includes('test_rr=true') || body.pageUrl.includes('test=1')));
 
     const result = await convertLead({
       intent: body.intent,
@@ -37,6 +42,7 @@ export async function POST(req: NextRequest) {
       perusahaan: body.perusahaan,
       hp: body.hp,
       produk: body.produk,
+      isTest,
     });
 
     const res = NextResponse.json(
@@ -47,11 +53,14 @@ export async function POST(req: NextRequest) {
         orderIndex: result.orderIndex,
         trackingCode: result.trackingCode,
         waUrl: result.waUrl,
+        isTest: Boolean(isTest),
       },
       { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' } }
     );
 
-    setVisitorCookieIfNew(res, req, visitorId);
+    if (!isTest) {
+      setVisitorCookieIfNew(res, req, visitorId);
+    }
 
     return res;
   } catch (err) {

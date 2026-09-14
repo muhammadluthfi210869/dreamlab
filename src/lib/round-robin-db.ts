@@ -45,7 +45,7 @@ function generateTrackingCode(): string {
  *
  * `visitorId` null/'' → tetap rotasi biasa (tanpa sticky) sebagai fallback.
  */
-export async function getNextAgentFromDb(visitorId?: string | null): Promise<DbAgent> {
+export async function getNextAgentFromDb(visitorId?: string | null, isTest?: boolean): Promise<DbAgent> {
   const client = await pool.connect();
   try {
     const res = await client.query<{
@@ -55,8 +55,8 @@ export async function getNextAgentFromDb(visitorId?: string | null): Promise<DbA
       order_index: number;
     }>(
       `SELECT agent_id, agent_name, agent_phone, order_index
-         FROM assign_next_agent($1)`,
-      [visitorId || null]
+         FROM assign_next_agent($1, $2)`,
+      [visitorId || null, isTest || false]
     );
 
     const row = res.rows[0];
@@ -98,6 +98,7 @@ export interface LeadInput {
   produk?: string;
   /** Kode tracking deterministik (mis. dari event_id) untuk idempotensi. */
   trackingCode?: string;
+  isTest?: boolean;
 }
 
 export interface TrackResult {
@@ -114,29 +115,18 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
 
   const vid = data.visitorId || null;
 
-  // Dedup selektif: visitor yang SAMA konversi lagi dalam 2 menit dengan
-  // intent ATAU halaman yang SAMA → balas kode lama (double-click, re-render,
-  // navigasi cepat), jangan bikin lead baru.
-  // PENTING: hanya dedup kalau nilai pembanding ($2 intent / $3 page_url)
-  // tidak kosong. Kalau kedua-duanya kosong, JANGAN dedup — kalau tidak,
-  // visitor yang menanyakan produk BEDA (tanpa data page_url) salah
-  // dianggap kunjungan ulang dan lead-nya HILANG (data loss).
-  // Visitor yang sama tapi produk/halaman BEDA → lead baru, sticky tetap
-  // memastikan CS yang sama.
-  if (vid) {
+  // Dedup 24 jam: visitor yang SAMA konversi lagi dalam 24 jam
+  // cukup increment visit_count, jangan bikin lead baru.
+  if (vid && !data.isTest) {
     const existing = await pool.query<{ tracking_code: string }>(
       `SELECT tracking_code
          FROM leads
         WHERE visitor_id = $1
-          AND created_at > NOW() - INTERVAL '2 minutes'
-          AND (
-            (COALESCE($2, '') <> '' AND COALESCE(intent, '') = $2)
-            OR
-            (COALESCE($3, '') <> '' AND COALESCE(page_url, '') = $3)
-          )
+          AND created_at > NOW() - INTERVAL '24 hours'
+          AND is_test IS NOT TRUE
         ORDER BY id DESC
         LIMIT 1`,
-      [vid, data.intent || '', data.pageUrl || '']
+      [vid]
     );
     if (existing.rows[0]) {
       await pool.query(
@@ -151,8 +141,8 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
     `INSERT INTO leads
        (tracking_code, assigned_to, assigned_phone, source, page_url, page_title,
         referrer, utm_source, utm_medium, utm_campaign, device_type, browser,
-        session_id, intent, visitor_id, visit_count, nama, perusahaan, hp, produk)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
+        session_id, intent, visitor_id, visit_count, nama, perusahaan, hp, produk, is_test)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
      ON CONFLICT (tracking_code) DO NOTHING`,
     [
       trackingCode,
@@ -170,11 +160,12 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
       data.sessionId ?? null,
       data.intent ?? null,
       vid,
-      1, // visit_count
+      1,
       data.nama ?? null,
       data.perusahaan ?? null,
       data.hp ?? null,
       data.produk ?? null,
+      data.isTest || false,
     ]
   );
 
@@ -208,7 +199,7 @@ export async function convertLead(data: LeadInput): Promise<ConvertLeadResult> {
     wa_url: string;
   }>(
     `SELECT agent_id, agent_name, agent_phone, order_index, tracking_code, wa_url
-       FROM assign_and_insert_lead($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)`,
+       FROM assign_and_insert_lead($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)`,
     [
       data.visitorId || null,
       data.intent ?? null,
@@ -226,6 +217,7 @@ export async function convertLead(data: LeadInput): Promise<ConvertLeadResult> {
       data.perusahaan ?? null,
       data.hp ?? null,
       data.produk ?? null,
+      data.isTest || false,
     ]
   );
 
@@ -250,12 +242,75 @@ export interface DbLeadStats {
   totalRotations: number; // jumlah visitor unik yang pernah di-assign
 }
 
+export interface WaveAuditAgent {
+  agentId: string;
+  agentName: string;
+  agentPhone: string;
+  dailyLeads: number;
+  weeklyLeads: number;
+  lastLeadTime: string | null;
+  currentWave: number;
+  targetLeadsForWave: number;
+  leadsToTarget: number;
+  priorityRank: number;
+  isEligibleNext: boolean;
+  guardStatus: string;
+}
+
+export interface WaveAuditStatus {
+  batchSize: number;
+  maxSpread: number;
+  isBalanced: boolean;
+  activeAgents: WaveAuditAgent[];
+}
+
+/** Audit status Wave / Batch Quota Allocation */
+export async function getRoundRobinWaveStatus(batchSize: number = 3): Promise<WaveAuditStatus> {
+  const res = await pool.query<{
+    agent_id: string;
+    agent_name: string;
+    agent_phone: string;
+    daily_leads: number;
+    weekly_leads: number;
+    last_lead_time: string | null;
+    current_wave: number;
+    target_leads_for_wave: number;
+    leads_to_target: number;
+    max_spread: number;
+    priority_rank: number;
+    is_eligible_next: boolean;
+    guard_status: string;
+  }>('SELECT * FROM get_round_robin_wave_status($1)', [batchSize]);
+
+  const maxSpread = res.rows.length > 0 ? Number(res.rows[0].max_spread) : 0;
+  return {
+    batchSize,
+    maxSpread,
+    isBalanced: maxSpread <= 1,
+    activeAgents: res.rows.map((r) => ({
+      agentId: String(r.agent_id),
+      agentName: r.agent_name,
+      agentPhone: r.agent_phone,
+      dailyLeads: Number(r.daily_leads),
+      weeklyLeads: Number(r.weekly_leads),
+      lastLeadTime: r.last_lead_time,
+      currentWave: Number(r.current_wave),
+      targetLeadsForWave: Number(r.target_leads_for_wave),
+      leadsToTarget: Number(r.leads_to_target),
+      priorityRank: Number(r.priority_rank),
+      isEligibleNext: Boolean(r.is_eligible_next),
+      guardStatus: r.guard_status,
+    })),
+  };
+}
+
 /** Statistik dari DB (pengganti Redis lama yang sudah stale). */
 export async function getDbLeadStats(): Promise<DbLeadStats> {
   const agentRes = await pool.query<{ agent_id: string; count: number }>(
     `SELECT COALESCE(b.id::text, 'unknown') AS agent_id, count(l.id)::int AS count
        FROM leads l
        LEFT JOIN busdevs b ON b.name = l.assigned_to
+      WHERE l.is_test IS NOT TRUE
       GROUP BY COALESCE(b.id::text, 'unknown')
       ORDER BY agent_id`
   );
@@ -265,7 +320,7 @@ export async function getDbLeadStats(): Promise<DbLeadStats> {
   }
 
   const totalRes = await pool.query<{ total: number }>(
-    `SELECT count(*)::int AS total FROM leads`
+    `SELECT count(*)::int AS total FROM leads WHERE is_test IS NOT TRUE`
   );
   const rotRes = await pool.query<{ n: number }>(
     `SELECT count(*)::int AS n FROM visitor_assignments`
@@ -277,3 +332,4 @@ export async function getDbLeadStats(): Promise<DbLeadStats> {
     totalRotations: Number(rotRes.rows[0]?.n ?? 0),
   };
 }
+

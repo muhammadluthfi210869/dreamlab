@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDbLeadStats } from '@/lib/round-robin-db';
+import { getDbLeadStats, getRoundRobinWaveStatus } from '@/lib/round-robin-db';
 import { isInternalRequestAuthorized } from '@/lib/internal-auth';
 
 export const dynamic = 'force-dynamic';
@@ -11,6 +11,7 @@ export const revalidate = 0;
  * totalLeads    = semua lead tersimpan
  * totalRotations= jumlah visitor unik yang di-assign (baris visitor_assignments)
  * stickyServes  = lead dari visitor yang sama (repeat visit)
+ * waveAudit     = status Wave/Batch Quota Allocation & Strict Spread Guard
  */
 export async function GET(req: NextRequest) {
   if (!isInternalRequestAuthorized(req)) {
@@ -20,7 +21,13 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const stats = await getDbLeadStats();
+  const [stats, waveAudit] = await Promise.all([
+    getDbLeadStats(),
+    getRoundRobinWaveStatus(3).catch((err) => {
+      console.error('Failed to get wave status:', err);
+      return null;
+    }),
+  ]);
 
   const total = Object.values(stats.countsByAgentId).reduce((sum, c) => sum + c, 0);
   const breakdown = Object.entries(stats.countsByAgentId)
@@ -41,7 +48,9 @@ export async function GET(req: NextRequest) {
       stickyServes,
       stickyRatePercent,
       breakdown,
+      waveAudit,
     },
     { headers: { 'Cache-Control': 'no-store, max-age=0' } }
   );
 }
+
