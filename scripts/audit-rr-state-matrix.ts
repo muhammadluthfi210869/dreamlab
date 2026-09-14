@@ -8,9 +8,12 @@
 
 import { Pool } from "pg";
 
-const URL =
-  process.env.DATABASE_URL ||
-  "postgresql://dreamlab1:HaaE-B9APXWXM1Fnw8VZSbXv@103.93.134.215:6432/dreamlab";
+// Tanpa fallback kredensial hardcoded (rotasi password 2026-09-14).
+const URL = process.env.DATABASE_URL;
+if (!URL) {
+  console.error('DATABASE_URL wajib diset. Jalankan dengan --env-file=.env.local');
+  process.exit(1);
+}
 
 const pool = new Pool({ connectionString: URL, max: 10, connectionTimeoutMillis: 5000 });
 const q = async (sql: string, params: any[] = []) =>
