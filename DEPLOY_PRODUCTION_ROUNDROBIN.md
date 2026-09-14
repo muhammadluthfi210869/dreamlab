@@ -3,6 +3,17 @@
 > Tanggal: 2026-07-31
 > Status: **siap deploy** — tinggal eksekusi langkah di bawah.
 
+> **UPDATE 2026-09-14 — CUTOVER SELESAI, SINGLE DB BIZNET.**
+> Vercel prod kini WAJIB menunjuk PostgreSQL `dreamlab` di VPS Biznet
+> (`103.93.134.215:6432`, PgBouncer). Neon sudah **RETIRED**: data historisnya
+> (leads, lead_assignments, visitor_assignments, rr_counter) digabung ke Biznet
+> via `node --env-file=.env.local --env-file=.env.vercel.tmp scripts/merge-neon-to-biznet.mjs`
+> (idempotent — jalankan ulang setelah switch untuk menangkap selisih).
+> Prioritas env var di `src/lib/db.ts`/`src/lib/neon.ts` sudah ditukar
+> (`DATABASE_URL` paling utama) supaya sisa var integrasi Neon
+> (`database_DATABASE_URL` dsb.) tidak bisa membajak koneksi lagi.
+> Roster resmi = 4 agen sesuai `src/lib/busdev.ts`.
+
 ## Ringkasan arsitektur baru
 
 ```

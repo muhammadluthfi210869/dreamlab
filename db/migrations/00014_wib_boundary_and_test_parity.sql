@@ -21,8 +21,10 @@
 -- 3. Logika seleksi wave, advisory lock 987654321, sticky 30 hari, dan dedup
 --    24 jam TIDAK diubah.
 --
--- PENTING: jalankan file ini di KEDUA database — Neon (Vercel prod) DAN
--- PostgreSQL di Biznet VPS (dipakai lead-svc sidecar).
+-- PENTING (update 2026-09-14): Biznet VPS adalah SATU-SATUNYA DB produksi —
+-- file ini SUDAN diterapkan di sana (+ pembersihan overload lama). Neon sudah
+-- RETIRED (data historis digabung via scripts/merge-neon-to-biznet.mjs); jalankan
+-- ulang di sini hanya jika DB baru dibuat.
 -- ============================================================
 
 BEGIN;

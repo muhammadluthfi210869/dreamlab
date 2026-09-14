@@ -46,8 +46,11 @@ async function verifyUpstashRedis() {
 }
 
 async function verifyNeonPostgreSQL() {
-  console.log('\n--- 2. VERIFIKASI NEON POSTGRESQL ---');
-  const dbUrl = process.env.database_DATABASE_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL;
+  // RETIRED 2026-09-14: Neon bukan lagi DB produksi. Nama fungsi dipertahankan
+  // untuk kompatibilitas pemanggil; yang diverifikasi kini DB resmi (Biznet).
+  // Rantai prioritas mengikuti src/lib/db.ts: DATABASE_URL paling utama.
+  console.log('\n--- 2. VERIFIKASI DATABASE RESMI (Biznet; Neon retired) ---');
+  const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.database_DATABASE_URL;
 
   if (!dbUrl) {
     console.log('⚠️  Env DATABASE_URL belum diset di lokal (tersedia di dashboard Vercel).');
@@ -62,7 +65,7 @@ async function verifyNeonPostgreSQL() {
     });
 
     const res = await pool.query('SELECT NOW() AS current_time');
-    console.log(`✅ Koneksi Neon PostgreSQL berhasil (Database time: ${res.rows[0].current_time})`);
+    console.log(`✅ Koneksi DB resmi (Biznet) berhasil (Database time: ${res.rows[0].current_time})`);
 
     // Verifikasi tabel lead_assignments ada
     const tableCheck = await pool.query(
