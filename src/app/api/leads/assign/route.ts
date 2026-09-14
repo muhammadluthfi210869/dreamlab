@@ -12,6 +12,7 @@ import {
   assignAndRecordLeadViaNeonAtomic,
   hashIp,
 } from '@/lib/neon';
+import { insertLead } from '@/lib/round-robin-db';
 import {
   identifyLeadSource,
   normalizeSourceToLeadSource,
@@ -39,6 +40,57 @@ function isValidUuid(str: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
     str
   );
+}
+
+/** Kode tracking deterministik dari event_id → replay event yang sama tidak
+ *  membuat lead ganda di PostgreSQL `leads` (ON CONFLICT DO NOTHING). */
+function deterministicTrackingCode(eventId: string, at: Date = new Date()): string {
+  const ymd = `${at.getFullYear()}${String(at.getMonth() + 1).padStart(2, '0')}${String(
+    at.getDate()
+  ).padStart(2, '0')}`;
+  return `DL-${ymd}-${eventId.slice(0, 6).toUpperCase()}`;
+}
+
+/**
+ * Dual-write lead ke PostgreSQL `leads` (DB round-robin VPS) supaya pipeline
+ * ERP OmniCRM (pull-sync + webhook) melihat assignment yang dibuat jalur
+ * Redis/Neon ini. BusDev TIDAK di-round-robin ulang — pakai hasil assignment
+ * yang sudah ada (murni INSERT). Kegagalan hanya di-log, tidak pernah
+ * mengganggu redirect WhatsApp user.
+ */
+function dualWriteLeadToPg(args: {
+  eventId: string;
+  source: string;
+  landingPage: string | null;
+  referrer: string | null;
+  utmSource: string | null;
+  utmMedium: string | null;
+  utmCampaign: string | null;
+  intent: string;
+  salesName: string;
+  salesPhone: string;
+}) {
+  safeBackground(async () => {
+    try {
+      const { trackingCode } = await insertLead({
+        trackingCode: deterministicTrackingCode(args.eventId),
+        source: args.source,
+        pageUrl: args.landingPage || undefined,
+        referrer: args.referrer || undefined,
+        utmSource: args.utmSource || undefined,
+        utmMedium: args.utmMedium || undefined,
+        utmCampaign: args.utmCampaign || undefined,
+        intent: args.intent,
+        visitorId: args.eventId,
+        sessionId: args.eventId,
+        assignedName: args.salesName,
+        assignedPhone: args.salesPhone,
+      });
+      console.log('[Assign Route] PG dual-write OK:', trackingCode);
+    } catch (err) {
+      console.error('[Assign Route] PG dual-write failed:', err);
+    }
+  });
 }
 
 /**
@@ -241,6 +293,21 @@ export async function POST(req: NextRequest) {
         }
       });
 
+      // Dual-write ke PostgreSQL `leads` → ERP OmniCRM pull-sync/webhook
+      // tetap melihat semua assignment walau dibuat jalur Redis.
+      dualWriteLeadToPg({
+        eventId,
+        source: resolvedSource,
+        landingPage,
+        referrer,
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        intent: messageKey ?? resolvedSource,
+        salesName: selectedSales.name,
+        salesPhone: selectedSales.phone,
+      });
+
       const totalDurationMs = Math.round(performance.now() - tStart);
 
       return NextResponse.json(
@@ -317,6 +384,19 @@ export async function POST(req: NextRequest) {
 
       const messageText = getWhatsAppMessage(neonAssignment.record.messageKey || messageKey);
       const whatsappUrl = buildWhatsAppLeadUrl(neonAssignment.record.salesPhone, messageText);
+
+      dualWriteLeadToPg({
+        eventId,
+        source: resolvedSource,
+        landingPage,
+        referrer,
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        intent: neonAssignment.record.messageKey || messageKey || resolvedSource,
+        salesName: neonAssignment.record.salesName,
+        salesPhone: neonAssignment.record.salesPhone,
+      });
 
       return NextResponse.json(
         {

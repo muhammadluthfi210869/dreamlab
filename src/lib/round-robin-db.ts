@@ -96,6 +96,8 @@ export interface LeadInput {
   perusahaan?: string;
   hp?: string;
   produk?: string;
+  /** Kode tracking deterministik (mis. dari event_id) untuk idempotensi. */
+  trackingCode?: string;
 }
 
 export interface TrackResult {
@@ -105,7 +107,7 @@ export interface TrackResult {
 
 /** Simpan lead ke tabel `leads` (dipanggil server-side dari API route). */
 export async function insertLead(data: LeadInput): Promise<TrackResult> {
-  const trackingCode = generateTrackingCode();
+  const trackingCode = data.trackingCode || generateTrackingCode();
   const waUrl = data.assignedPhone
     ? `https://wa.me/${normalizePhone(data.assignedPhone)}`
     : '';
@@ -150,7 +152,8 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
        (tracking_code, assigned_to, assigned_phone, source, page_url, page_title,
         referrer, utm_source, utm_medium, utm_campaign, device_type, browser,
         session_id, intent, visitor_id, visit_count, nama, perusahaan, hp, produk)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`,
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
+     ON CONFLICT (tracking_code) DO NOTHING`,
     [
       trackingCode,
       data.assignedName ?? null,
