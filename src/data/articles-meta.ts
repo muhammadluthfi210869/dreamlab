@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-kosmetik-mataram-lombok",
+    "title": "Jasa Maklon Kosmetik Mataram Lombok Free Custom Formula | Dreamlab",
+    "publishDate": "2026-09-14T02:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Commercial",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Lombok",
+      "Maklon Kosmetik Mataram",
+      "Jasa Maklon Kosmetik",
+      "Bikin Brand Skincare",
+      "Custom Formula",
+      "CPKB Grade A",
+      "Maklon Skincare BPOM"
+    ],
+    "featuredImage": "/asset artikel/MK Lombok/maklon_kosmetik_lombok _11zon.jpg",
+    "excerpt": "Bangun brand kosmetik Anda bersama jasa maklon kosmetik Mataram Lombok. Dreamlab membantu mulai dari custom formula, produksi, hingga pengembangan brand.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/moq-maklon-skincare-untuk-pemula",
     "title": "Cara Menentukan MOQ Brand Skincare untuk Pemula | Dreamlab",
     "publishDate": "2026-09-14T01:00:00+00:00",
