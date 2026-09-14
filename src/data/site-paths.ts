@@ -292,6 +292,7 @@ export const SITE_PATHS: string[] = [
   "metaads/parfum",
   "metaads/skincare",
   "moq-maklon-kosmetik",
+  "moq-maklon-skincare-untuk-pemula",
   "mudahnya-menjadi-owner-parfum-sendiri-ciptakan-brand-wewangian-eksklusif-tanpa-ribet",
   "news-blog",
   "news-blog/page/10",

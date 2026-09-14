@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/moq-maklon-skincare-untuk-pemula",
+    "title": "Cara Menentukan MOQ Brand Skincare untuk Pemula | Dreamlab",
+    "publishDate": "2026-09-14T01:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Informational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "MOQ Maklon Skincare",
+      "MOQ 100 vs 1000",
+      "Bikin Brand Skincare",
+      "Maklon Kosmetik Pemula",
+      "Strategi Bisnis Skincare",
+      "HPP Skincare",
+      "Dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK MOQ  Mulai brand skincare 100  vs 1000/moq100_vs_1000_11zon.jpg",
+    "excerpt": "Bingung memilih MOQ brand skincare 100 atau 1.000? Pelajari strategi produksi, validasi market, affiliate, HPP, dan cara menentukan MOQ bersama partner maklon Dreamlab.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/ectoin-vs-ceramide-skin-barrier",
     "title": "Ectoin vs Ceramide: Pilih Hero Ingredient Skin Barrier Mana? | Dreamlab",
     "publishDate": "2026-09-14T00:00:00+00:00",
