@@ -31,7 +31,7 @@ export const articlesMeta: ArticleMeta[] =
       "CPKB Grade A",
       "Maklon Skincare BPOM"
     ],
-    "featuredImage": "/asset artikel/MK Lombok/maklon_kosmetik_lombok _11zon.jpg",
+    "featuredImage": "/images/artikel-lombok/maklon_kosmetik_lombok_11zon.jpg",
     "excerpt": "Bangun brand kosmetik Anda bersama jasa maklon kosmetik Mataram Lombok. Dreamlab membantu mulai dari custom formula, produksi, hingga pengembangan brand.",
     "readingMinutes": 9
   },
@@ -54,7 +54,7 @@ export const articlesMeta: ArticleMeta[] =
       "HPP Skincare",
       "Dreamlab"
     ],
-    "featuredImage": "/asset artikel/MK MOQ  Mulai brand skincare 100  vs 1000/moq100_vs_1000_11zon.jpg",
+    "featuredImage": "/images/artikel-moq-pemula/cara_memilih_moq_brandskincare_11zon.jpg",
     "excerpt": "Bingung memilih MOQ brand skincare 100 atau 1.000? Pelajari strategi produksi, validasi market, affiliate, HPP, dan cara menentukan MOQ bersama partner maklon Dreamlab.",
     "readingMinutes": 9
   },
@@ -77,7 +77,7 @@ export const articlesMeta: ArticleMeta[] =
       "Ectoin",
       "Custom Formula"
     ],
-    "featuredImage": "/asset artikel/MK Ectoin vs Ceramide/ectoinvsceramide_11zon.jpg",
+    "featuredImage": "/images/artikel-ectoin-vs-ceramide/perbedaan_ectoin_vs_ceramide_11zon.jpg",
     "excerpt": "Bedah perbandingan Ectoin vs Ceramide untuk skin barrier. Temukan pilihan produk terbaik dan wujudkan custom formula eksklusif bersama Dreamlab.",
     "readingMinutes": 7
   },
