@@ -398,19 +398,36 @@
 
 @media (max-width: 767px) {
   .legacy-content-wrapper .article-cta {
-    padding: 28px 28px;
-    border-radius: 18px;
+    padding: 28px 16px !important;
+    border-radius: 18px !important;
+    margin: 28px 0 !important;
   }
-  .legacy-content-wrapper .article-cta h3 {
-    font-size: 18px;
+  .legacy-content-wrapper .article-cta h3,
+  .legacy-content-wrapper .article-cta h2,
+  .legacy-content-wrapper .article-cta .cta-title {
+    font-size: 20px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 10px !important;
   }
-  .legacy-content-wrapper .cta-button {
-    padding: 14px 32px;
-    font-size: 14px;
-    white-space: normal;
-    width: 100%;
-    max-width: 320px;
-    box-sizing: border-box;
+  .legacy-content-wrapper .article-cta p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+    padding: 0 4px !important;
+  }
+  .legacy-content-wrapper .cta-button,
+  .legacy-content-wrapper .article-cta .cta-button {
+    padding: 14px 18px !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    text-align: center !important;
   }
 }
 
@@ -771,6 +788,39 @@
   font-weight: 700;
   color: #1a1a2e;
   background-color: #faf8f5;
+}
+
+@media (max-width: 768px) {
+  .legacy-content-wrapper .article-table-wrap {
+    margin: 18px 0 24px !important;
+    border-radius: 12px !important;
+  }
+  .legacy-content-wrapper .table-scroll-hint {
+    display: block !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #a06b00 !important;
+    background: #fffbf2 !important;
+    padding: 8px 12px !important;
+    text-align: right !important;
+  }
+  .legacy-content-wrapper .article-comparison-table {
+    min-width: 480px !important;
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+  }
+  .legacy-content-wrapper .article-comparison-table th,
+  .legacy-content-wrapper .article-comparison-table td {
+    padding: 10px 12px !important;
+  }
+  .legacy-content-wrapper .article-comparison-table th:first-child,
+  .legacy-content-wrapper .article-comparison-table td:first-child {
+    min-width: 115px !important;
+    width: 24% !important;
+    white-space: normal !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
 }
 
 /* 2. Responsive Badge / Pill Grid (Amino Acids, Ingredients) */
