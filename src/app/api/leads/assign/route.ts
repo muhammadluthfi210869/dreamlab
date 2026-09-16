@@ -244,7 +244,8 @@ export async function POST(req: NextRequest) {
       });
 
       const messageText = getWhatsAppMessage(messageKey);
-      const whatsappUrl = buildWhatsAppLeadUrl(conv.phoneNumber, messageText);
+      const trackingSuffix = conv.trackingCode ? ` [Kode: ${conv.trackingCode}]` : '';
+      const whatsappUrl = buildWhatsAppLeadUrl(conv.phoneNumber, `${messageText}${trackingSuffix}`);
 
       const resultPayload: CachedLeadAssignment = {
         assignmentId,
@@ -339,7 +340,8 @@ export async function POST(req: NextRequest) {
       const selectedSales = activeBusdev[index];
 
       const messageText = getWhatsAppMessage(messageKey);
-      const whatsappUrl = buildWhatsAppLeadUrl(selectedSales.phone, messageText);
+      const trackingSuffix = eventId ? ` [Kode: ${eventId}]` : '';
+      const whatsappUrl = buildWhatsAppLeadUrl(selectedSales.phone, `${messageText}${trackingSuffix}`);
 
       const resultPayload: CachedLeadAssignment = {
         assignmentId,
