@@ -14,6 +14,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   if (
+    pathname?.startsWith("/lead-monitor") ||
     pathname === "/dreampreneur-batch-2/thankyou/" || 
     pathname === "/ads/maklon-parfum/" || 
     pathname === "/ads/maklon-parfum" ||
