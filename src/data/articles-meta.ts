@@ -13,6 +13,30 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/copper-tripeptide-1-anti-aging-skincare",
+    "title": "Potensi Membuat Skincare Anti-Aging dengan Copper Tripeptide-1 | Dreamlab",
+    "publishDate": "2026-09-16T02:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Commercial",
+      "Maklon Skincare",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Copper Tripeptide-1",
+      "Copper Peptide",
+      "GHK-Cu",
+      "Skincare Anti-Aging",
+      "Custom Formula",
+      "Maklon Skincare",
+      "PDRN",
+      "Slow Aging"
+    ],
+    "featuredImage": "/images/artikel-copper-peptide/wujudkan-brand-anti-aging-copper-tripeptide-hero.png",
+    "excerpt": "Pelajari cara mengembangkan skincare anti-aging dengan Copper Tripeptide-1, fungsi bahan aktifnya, kombinasi PDRN dan Hyaluronic Acid, serta ide custom formula untuk brand Anda.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-mataram-lombok",
     "title": "Jasa Maklon Kosmetik Mataram Lombok Free Custom Formula | Dreamlab",
     "publishDate": "2026-09-14T02:00:00+00:00",

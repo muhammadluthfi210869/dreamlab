@@ -93,6 +93,7 @@ export const SITE_PATHS: string[] = [
   "contact-medsos",
   "contact-us",
   "contoh-kalimat-iklan-kosmetik-unik",
+  "copper-tripeptide-1-anti-aging-skincare",
   "cysteamine-alternatif-hydroquinone",
   "decorative",
   "dreamlab-kolaborasi-di-klifm-bongkar-strategi-bisnis-kosmetik",
