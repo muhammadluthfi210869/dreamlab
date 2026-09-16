@@ -3,6 +3,7 @@ import pool, { resetPool } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+export const maxDuration = 30;
 
 const NO_STORE_HEADERS = {
   'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
@@ -129,25 +130,14 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Connect ke DB dengan retry resilien
-    let client;
-    let hasError = false;
     let updatedRows = 0;
     let finalTrackingCode = trackingCode;
     let assignedBusdev = busdevName;
 
     try {
-      try {
-        client = await pool.connect();
-      } catch (connErr) {
-        console.warn('[lead-capture/confirm] Pool connect failed, resetting pool and retrying...', connErr);
-        resetPool();
-        client = await pool.connect();
-      }
-
       if (trackingCode) {
         // 1. Coba update exact match pada tracking_code atau ILIKE
-        const updateRes = await client.query(
+        const updateRes = await pool.query(
           `UPDATE leads
               SET status = 'confirmed',
                   wa_profile_name = COALESCE($1, wa_profile_name),
@@ -169,7 +159,7 @@ export async function POST(req: NextRequest) {
 
         // 2. Update juga di tabel lead_assignments jika ada
         try {
-          await client.query(
+          await pool.query(
             `UPDATE lead_assignments
                 SET status = 'confirmed',
                     wa_profile_name = COALESCE($1, wa_profile_name),
@@ -187,7 +177,7 @@ export async function POST(req: NextRequest) {
         if (updatedRows === 0) {
           // Jika lead belum ada (misal chat masuk langsung tanpa lewat web form),
           // catat sebagai confirmed lead untuk busdev terkait
-          await client.query(
+          await pool.query(
             `INSERT INTO leads
                (tracking_code, assigned_to, status, wa_profile_name, wa_phone, wa_message, confirmed_at, source)
              VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')
@@ -199,7 +189,7 @@ export async function POST(req: NextRequest) {
       } else {
         // Jika visitor menghapus [Kode: ...], coba cocokkan ke lead 'assigned' terbaru milik Busdev tersebut hari ini
         if (busdevName !== 'Unassigned') {
-          const fallbackRes = await client.query(
+          const fallbackRes = await pool.query(
             `UPDATE leads
                 SET status = 'confirmed',
                     wa_profile_name = COALESCE($1, wa_profile_name),
@@ -229,7 +219,7 @@ export async function POST(req: NextRequest) {
         if (updatedRows === 0) {
           const autoCode = `DL-DIR-${Date.now().toString(36).toUpperCase()}`;
           finalTrackingCode = autoCode;
-          await client.query(
+          await pool.query(
             `INSERT INTO leads
                (tracking_code, assigned_to, status, wa_profile_name, wa_phone, wa_message, confirmed_at, source)
              VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')`,
@@ -252,12 +242,9 @@ export async function POST(req: NextRequest) {
         { status: 200, headers: NO_STORE_HEADERS }
       );
     } catch (err: any) {
-      hasError = true;
+      console.error('[lead-capture/confirm] Query error:', err);
+      resetPool();
       throw err;
-    } finally {
-      if (client) {
-        client.release(hasError);
-      }
     }
   } catch (err: any) {
     console.error('[lead-capture/confirm] Error:', err);
