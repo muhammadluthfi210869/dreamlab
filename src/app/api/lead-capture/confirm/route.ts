@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import pool, { resetPool } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -129,13 +129,22 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Connect ke DB
-    const client = await pool.connect();
+    // Connect ke DB dengan retry resilien
+    let client;
+    let hasError = false;
     let updatedRows = 0;
     let finalTrackingCode = trackingCode;
     let assignedBusdev = busdevName;
 
     try {
+      try {
+        client = await pool.connect();
+      } catch (connErr) {
+        console.warn('[lead-capture/confirm] Pool connect failed, resetting pool and retrying...', connErr);
+        resetPool();
+        client = await pool.connect();
+      }
+
       if (trackingCode) {
         // 1. Coba update exact match pada tracking_code atau ILIKE
         const updateRes = await client.query(
@@ -242,8 +251,13 @@ export async function POST(req: NextRequest) {
         },
         { status: 200, headers: NO_STORE_HEADERS }
       );
+    } catch (err: any) {
+      hasError = true;
+      throw err;
     } finally {
-      client.release();
+      if (client) {
+        client.release(hasError);
+      }
     }
   } catch (err: any) {
     console.error('[lead-capture/confirm] Error:', err);
