@@ -92,6 +92,7 @@ const categoryMappings: Record<string, string> = {
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  skipTrailingSlashRedirect: true,
   output: 'standalone', // self-host di VPS tanpa Vercel (proses Node murni)
   // lucide-react v1.x punya bug resolusi tipe di sebagian nama ikon (ikon ada
   // di runtime, tapi tipe .d.ts tidak ter-resolve oleh moduleResolution bundler
