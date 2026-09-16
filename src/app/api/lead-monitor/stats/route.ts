@@ -3,6 +3,7 @@ import pool from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+export const maxDuration = 30;
 
 const NO_STORE_HEADERS = {
   'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
@@ -14,8 +15,9 @@ export async function GET(req: NextRequest) {
   const period = url.searchParams.get('period') || 'today';
   const search = url.searchParams.get('search') || '';
 
-  const client = await pool.connect();
+  let client;
   try {
+    client = await pool.connect();
     // 1. Filter waktu (Asia/Jakarta boundary)
     let timeClause = '';
     if (period === 'today') {
@@ -139,6 +141,8 @@ export async function GET(req: NextRequest) {
       { status: 500, headers: NO_STORE_HEADERS }
     );
   } finally {
-    client.release();
+    if (client) {
+      client.release();
+    }
   }
 }

@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Copy,
   Check,
+  AlertCircle,
 } from "lucide-react";
 
 interface LeadItem {
@@ -68,11 +69,14 @@ export default function LeadMonitorPage() {
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
   // Fetch data dari API
   const fetchData = useCallback(
     async (isManual = false) => {
       if (isManual) setRefreshing(true);
       try {
+        setErrorMsg(null);
         const queryParams = new URLSearchParams({
           busdev: selectedBusdev,
           period: selectedPeriod,
@@ -80,7 +84,10 @@ export default function LeadMonitorPage() {
         });
 
         const res = await fetch(`/api/lead-monitor/stats?${queryParams.toString()}`);
-        if (!res.ok) throw new Error("Gagal mengambil data monitoring");
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || `Server status ${res.status}`);
+        }
         const json = await res.json();
 
         if (json.success) {
@@ -89,8 +96,9 @@ export default function LeadMonitorPage() {
           setBreakdown(json.busdevBreakdown || []);
           setLastUpdated(new Date());
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Error loading lead monitor:", err);
+        setErrorMsg(err?.message || "Gagal menghubungkan ke database");
       } finally {
         setLoading(false);
         setRefreshing(false);
@@ -270,6 +278,25 @@ export default function LeadMonitorPage() {
 
       {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-5 space-y-5">
+        {/* Error Alert Banner */}
+        {errorMsg && (
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-3 text-xs text-amber-900 flex items-center justify-between gap-3 shadow-2xs">
+            <div className="flex items-center gap-2.5">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                <strong>Koneksi Database Terhambat:</strong> {errorMsg}. Mencoba kembali secara otomatis...
+              </span>
+            </div>
+            <button
+              onClick={() => fetchData(true)}
+              disabled={refreshing}
+              className="px-2.5 py-1 bg-amber-600 text-white rounded-md text-[11px] font-medium hover:bg-amber-700 transition shrink-0"
+            >
+              {refreshing ? "Memuat..." : "Coba Sekarang"}
+            </button>
+          </div>
+        )}
+
         {/* Compact KPI Cards (1 Row, 4 Columns) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
           {/* Card 1: Total Kunjungan Web */}

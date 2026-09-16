@@ -61,11 +61,10 @@ function buildPool() {
     ssl,
     max: poolMax,
     idleTimeoutMillis: 30000,
-    // Fail-fast: kalau DB tidak terjangkau (mis. firewall/network), kegagalan
-    // harus cepat (≤3 dtk) supaya klien langsung jatuh ke fallback lokal —
-    // bukan menunggu 8 dtk seperti sebelumnya (keluhan "lemot").
-    connectionTimeoutMillis: 3000,
-    statement_timeout: 5000,
+    // Resilient timeout: cross-border serverless (AWS Singapore -> Biznet Jakarta)
+    // butuh waktu TCP/TLS handshake lebih longgar dari 3s. Default 10s.
+    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 10000),
+    statement_timeout: Number(process.env.DB_STATEMENT_TIMEOUT_MS ?? 15000),
   });
 }
 
