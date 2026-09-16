@@ -13,6 +13,28 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-kosmetik-tulungagung",
+    "title": "Maklon Kosmetik Tulungagung Free Custom Formula & BPOM | Dreamlab",
+    "publishDate": "2026-09-16T03:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Commercial",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Tulungagung",
+      "Jasa Maklon Kosmetik",
+      "Bikin Brand Skincare",
+      "Custom Formula",
+      "Maklon Skincare BPOM",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-tulungagung/maklon-kosmetik-tulungagung-hero.jpg",
+    "excerpt": "Bangun brand kosmetik Anda bersama Dreamlab, partner maklon kosmetik Tulungagung. Dapatkan custom formula, BPOM, Halal, desain kemasan, dan MOQ fleksibel.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/copper-tripeptide-1-anti-aging-skincare",
     "title": "Potensi Membuat Skincare Anti-Aging dengan Copper Tripeptide-1 | Dreamlab",
     "publishDate": "2026-09-16T02:00:00+00:00",
