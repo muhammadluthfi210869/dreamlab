@@ -60,15 +60,31 @@ function buildPool() {
     password: decodeURIComponent(u.password),
     ssl,
     max: poolMax,
-    idleTimeoutMillis: 30000,
-    // Resilient timeout: cross-border serverless (AWS Singapore -> Biznet Jakarta)
-    // butuh waktu TCP/TLS handshake lebih longgar dari 3s. Default 10s.
-    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 10000),
+    idleTimeoutMillis: 5000,
+    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 8000),
     statement_timeout: Number(process.env.DB_STATEMENT_TIMEOUT_MS ?? 15000),
+    keepAlive: true,
+    keepAliveInitialDelayMillis: 10000,
   });
+
+  p.on('error', (err) => {
+    console.warn('[db] Unexpected error on idle client:', err?.message);
+    resetPool();
+  });
+
+  return p;
 }
 
 let _pool: Pool | null = null;
+
+export function resetPool(): void {
+  if (_pool) {
+    try {
+      _pool.end().catch(() => {});
+    } catch {}
+    _pool = null;
+  }
+}
 
 function getPool(): Pool {
   if (!_pool) {

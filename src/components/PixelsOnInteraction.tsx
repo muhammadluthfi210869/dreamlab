@@ -1,12 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const META_PIXEL_ID = '1178862663474674';
 const TIKTOK_PIXEL_ID = 'D0A8CHRC77UD5RFHJ6E0';
 
 export function PixelsOnInteraction() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    if (pathname?.startsWith('/lead-monitor')) return;
+
     const events = ['scroll', 'mousedown', 'touchstart', 'keydown', 'pointerdown'];
     let loaded = false;
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import pool, { resetPool } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -68,14 +68,28 @@ export async function GET(req: NextRequest) {
 
   const t0 = Date.now();
   try {
-    const res = await pool.query<{
-      active_busdevs: number;
-      has_convert_fn: boolean;
-    }>(
-      `SELECT
-         (SELECT count(*)::int FROM busdevs WHERE is_active) AS active_busdevs,
-         EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn`
-    );
+    let res;
+    try {
+      res = await pool.query<{
+        active_busdevs: number;
+        has_convert_fn: boolean;
+      }>(
+        `SELECT
+           (SELECT count(*)::int FROM busdevs WHERE is_active) AS active_busdevs,
+           EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn`
+      );
+    } catch (firstErr) {
+      console.warn('[health/round-robin] First attempt failed, retrying with fresh pool...', (firstErr as Error).message);
+      resetPool();
+      res = await pool.query<{
+        active_busdevs: number;
+        has_convert_fn: boolean;
+      }>(
+        `SELECT
+           (SELECT count(*)::int FROM busdevs WHERE is_active) AS active_busdevs,
+           EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn`
+      );
+    }
     latencyMs = Date.now() - t0;
     db = {
       activeBusdevs: res.rows[0]?.active_busdevs ?? 0,

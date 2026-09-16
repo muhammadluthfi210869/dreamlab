@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import pool, { resetPool } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -16,8 +16,15 @@ export async function GET(req: NextRequest) {
   const search = url.searchParams.get('search') || '';
 
   let client;
+  let hasError = false;
   try {
-    client = await pool.connect();
+    try {
+      client = await pool.connect();
+    } catch (connErr: any) {
+      console.warn('[lead-monitor/stats] Stale pooled connection, resetting and retrying...', connErr?.message);
+      resetPool();
+      client = await pool.connect();
+    }
     // 1. Filter waktu (Asia/Jakarta boundary)
     let timeClause = '';
     if (period === 'today') {
@@ -135,6 +142,7 @@ export async function GET(req: NextRequest) {
       { status: 200, headers: NO_STORE_HEADERS }
     );
   } catch (err: any) {
+    hasError = true;
     console.error('[lead-monitor/stats] Error:', err);
     return NextResponse.json(
       { success: false, error: err?.message || 'Failed to fetch lead stats' },
@@ -142,7 +150,7 @@ export async function GET(req: NextRequest) {
     );
   } finally {
     if (client) {
-      client.release();
+      client.release(hasError);
     }
   }
 }

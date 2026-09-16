@@ -1,6 +1,7 @@
 'use client';
 
 import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 
 const GTM_ID = 'GTM-PMBQDG9H';
 const GA4_ID = 'G-T5SZRCDS0T';
@@ -8,6 +9,9 @@ const META_PIXEL_ID = '1178862663474674';
 const TIKTOK_PIXEL_ID = 'D0A8CHRC77UD5RFHJ6E0';
 
 export function TrackingScripts() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/lead-monitor')) return null;
+
   return (
     <>
       {/* Google Tag Manager — deferred to idle time */}
