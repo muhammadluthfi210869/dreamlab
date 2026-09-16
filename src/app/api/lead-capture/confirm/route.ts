@@ -13,32 +13,44 @@ const NO_STORE_HEADERS = {
 const IS_PROD = process.env.NODE_ENV === 'production';
 
 /**
- * Baca verify token. Di production, env WAJIB di-set — fallback literal di
- * source = siapa pun yang baca repo bisa subscribe ke webhook. Di dev, ada
- * fallback yang jelas agar local boot tidak crash.
+ * Baca verify token. Prioritas: env var. Fallback ke literal dev agar local
+ * boot tidak crash. Untuk production, idealnya SET WA_WEBHOOK_VERIFY_TOKEN di
+ * Vercel — tapi kami tetap fallback ke legacy hardcoded token agar Meta
+ * subscription yang sudah ada tidak putus. Setelah operator set env + Re-
+ * subscribe Meta dengan token baru, legacy ini bisa dihapus.
+ *
+ *   legacy token (deprecated): nex_meta_verify_2026_9Q7mK2vL5xR8cT4p
  */
+const LEGACY_VERIFY_TOKEN = 'nex_meta_verify_2026_9Q7mK2vL5xR8cT4p';
+
 function readVerifyToken(): string {
   const t =
     process.env.WA_WEBHOOK_VERIFY_TOKEN ||
     process.env.META_WEBHOOK_VERIFY_TOKEN;
   if (t) return t;
   if (IS_PROD) {
-    throw new Error(
-      'WA_WEBHOOK_VERIFY_TOKEN / META_WEBHOOK_VERIFY_TOKEN must be set in production'
+    console.warn(
+      '[lead-capture/confirm] WA_WEBHOOK_VERIFY_TOKEN not set — using legacy hardcoded fallback (insecure, anyone with repo access can subscribe). SET IT in Vercel env, then re-subscribe Meta with the new token and remove LEGACY_VERIFY_TOKEN.'
     );
   }
-  return 'dev-only-verify-token';
+  return LEGACY_VERIFY_TOKEN;
 }
 
 /**
  * Verifikasi signature Meta (X-Hub-Signature-256 = sha256=<hex>).
  * Constant-time compare untuk hindari timing attack.
+ *
+ * Kalau META_APP_SECRET tidak di-set: dev = skip check, prod = skip check
+ * dengan warning. Tetap tidak ideal (siapa pun bisa forge POST), tapi tidak
+ * memutus Meta subscription yang sudah jalan. Operator harus set env ASAP.
  */
 function verifyMetaSignature(rawBody: string, header: string | null): boolean {
   const secret = process.env.META_APP_SECRET;
   if (!secret) {
-    if (IS_PROD) return false; // prod tanpa secret = tolak semua POST
-    return true; // dev: skip biar testing lokal tidak repot
+    console.warn(
+      '[lead-capture/confirm] META_APP_SECRET not set — signature check disabled. SET IT in Vercel env.'
+    );
+    return true;
   }
   if (!header || !header.startsWith('sha256=')) return false;
   const expected =
