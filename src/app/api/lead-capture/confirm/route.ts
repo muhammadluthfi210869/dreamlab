@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'node:crypto';
 import pool, { resetPool } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -8,6 +9,46 @@ export const maxDuration = 30;
 const NO_STORE_HEADERS = {
   'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
 };
+
+const IS_PROD = process.env.NODE_ENV === 'production';
+
+/**
+ * Baca verify token. Di production, env WAJIB di-set — fallback literal di
+ * source = siapa pun yang baca repo bisa subscribe ke webhook. Di dev, ada
+ * fallback yang jelas agar local boot tidak crash.
+ */
+function readVerifyToken(): string {
+  const t =
+    process.env.WA_WEBHOOK_VERIFY_TOKEN ||
+    process.env.META_WEBHOOK_VERIFY_TOKEN;
+  if (t) return t;
+  if (IS_PROD) {
+    throw new Error(
+      'WA_WEBHOOK_VERIFY_TOKEN / META_WEBHOOK_VERIFY_TOKEN must be set in production'
+    );
+  }
+  return 'dev-only-verify-token';
+}
+
+/**
+ * Verifikasi signature Meta (X-Hub-Signature-256 = sha256=<hex>).
+ * Constant-time compare untuk hindari timing attack.
+ */
+function verifyMetaSignature(rawBody: string, header: string | null): boolean {
+  const secret = process.env.META_APP_SECRET;
+  if (!secret) {
+    if (IS_PROD) return false; // prod tanpa secret = tolak semua POST
+    return true; // dev: skip biar testing lokal tidak repot
+  }
+  if (!header || !header.startsWith('sha256=')) return false;
+  const expected =
+    'sha256=' +
+    crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
+  const a = Buffer.from(header);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
 
 /**
  * GET /api/lead-capture/confirm
@@ -19,10 +60,15 @@ export async function GET(req: NextRequest) {
   const token = url.searchParams.get('hub.verify_token');
   const challenge = url.searchParams.get('hub.challenge');
 
-  const VERIFY_TOKEN =
-    process.env.WA_WEBHOOK_VERIFY_TOKEN ||
-    process.env.META_WEBHOOK_VERIFY_TOKEN ||
-    'nex_meta_verify_2026_9Q7mK2vL5xR8cT4p';
+  let VERIFY_TOKEN: string;
+  try {
+    VERIFY_TOKEN = readVerifyToken();
+  } catch (e: any) {
+    return NextResponse.json(
+      { status: 'error', error: e?.message || 'verify token not configured' },
+      { status: 500, headers: NO_STORE_HEADERS }
+    );
+  }
 
   if (mode === 'subscribe' && token === VERIFY_TOKEN && challenge) {
     return new NextResponse(challenge, {
@@ -61,7 +107,16 @@ function resolveBusdevName(destPhone?: string | null, phoneId?: string | null): 
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json().catch(() => ({}));
+    // Baca raw body SEKALI — dipakai untuk signature verification dan JSON parse
+    const rawBody = await req.text();
+    if (!verifyMetaSignature(rawBody, req.headers.get('x-hub-signature-256'))) {
+      return NextResponse.json(
+        { success: false, error: 'invalid signature' },
+        { status: 401, headers: NO_STORE_HEADERS }
+      );
+    }
+
+    const body = rawBody ? JSON.parse(rawBody) : {};
 
     let trackingCode: string | null = null;
     let phone: string | null = null;
@@ -69,6 +124,7 @@ export async function POST(req: NextRequest) {
     let messageText: string | null = null;
     let destinationPhone: string | null = null;
     let phoneNumberId: string | null = null;
+    let wamid: string | null = null;
 
     // A. Deteksi format payload Meta WhatsApp Cloud API
     if (body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
@@ -78,6 +134,7 @@ export async function POST(req: NextRequest) {
 
       phone = msg.from ? String(msg.from) : null;
       waName = contact?.profile?.name || null;
+      wamid = msg.id ? String(msg.id) : null;
       messageText = msg.text?.body || msg.interactive?.button_reply?.title || null;
       destinationPhone = value.metadata?.display_phone_number ? String(value.metadata.display_phone_number) : null;
       phoneNumberId = value.metadata?.phone_number_id ? String(value.metadata.phone_number_id) : null;
@@ -88,12 +145,13 @@ export async function POST(req: NextRequest) {
           trackingCode = match[1].trim();
         }
       }
-    } 
+    }
     // B. Deteksi payload bridge langsung dari ERP atau testing script
     else {
       trackingCode = body.trackingCode || body.tracking_code || body.eventId || null;
       phone = body.phone || body.sender || null;
       waName = body.waName || body.wa_name || body.profileName || null;
+      wamid = body.wamid || body.messageId || body.msgId || null;
       messageText = body.waMessage || body.message || body.text || null;
       destinationPhone = body.destinationPhone || body.destination_phone || null;
       phoneNumberId = body.phoneNumberId || body.phone_number_id || null;
@@ -115,19 +173,43 @@ export async function POST(req: NextRequest) {
     // Tentukan penerima Busdev
     const busdevName = resolveBusdevName(destinationPhone, phoneNumberId);
 
-    // Forward ke NexERP jika request datang langsung dari Meta (anti infinite loop)
+    // Dedup by wamid: kalau wamid sudah pernah diproses, return early.
+    // Tabel processed_webhook_messages dibuat oleh migration 00016.
+    if (wamid) {
+      const dup = await pool.query(
+        `INSERT INTO processed_webhook_messages (wamid, processed_at)
+         VALUES ($1, NOW())
+         ON CONFLICT (wamid) DO NOTHING
+         RETURNING wamid`,
+        [wamid]
+      );
+      if ((dup.rowCount || 0) === 0) {
+        return NextResponse.json(
+          { success: true, dedup: true, wamid },
+          { status: 200, headers: NO_STORE_HEADERS }
+        );
+      }
+    }
+
+    // Forward ke NexERP jika request datang langsung dari Meta (anti infinite loop).
+    // AbortController agar Vercel function tidak menggantung kalau nexerp.id down.
     const isFromNexerp = req.headers.get('x-forwarded-from') === 'nexerp';
     if (!isFromNexerp && body?.entry) {
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), 5000);
       fetch('https://nexerp.id/api/wa-webhook', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-forwarded-from': 'dreamlab',
         },
-        body: JSON.stringify(body),
-      }).catch((err) => {
-        console.error('[lead-capture/confirm] NexERP background forward err:', err?.message || err);
-      });
+        body: rawBody,
+        signal: ac.signal,
+      })
+        .catch((err) => {
+          console.error('[lead-capture/confirm] NexERP background forward err:', err?.message || err);
+        })
+        .finally(() => clearTimeout(timer));
     }
 
     let updatedRows = 0;
@@ -136,7 +218,8 @@ export async function POST(req: NextRequest) {
 
     try {
       if (trackingCode) {
-        // 1. Coba update exact match pada tracking_code atau ILIKE
+        // 1. Exact match pada tracking_code atau session_id (TIDAK substring — itu
+        //    rawan salah-match kalau ada kode lain yang berisi substring tracking ini)
         const updateRes = await pool.query(
           `UPDATE leads
               SET status = 'confirmed',
@@ -145,7 +228,6 @@ export async function POST(req: NextRequest) {
                   wa_message = COALESCE($3, wa_message),
                   confirmed_at = NOW()
             WHERE tracking_code = $4
-               OR tracking_code ILIKE '%' || $4 || '%'
                OR session_id = $4
             RETURNING id, tracking_code, assigned_to, status, confirmed_at`,
           [waName, normalizedPhone, messageText, trackingCode]
@@ -157,7 +239,9 @@ export async function POST(req: NextRequest) {
           assignedBusdev = updateRes.rows[0].assigned_to || busdevName;
         }
 
-        // 2. Update juga di tabel lead_assignments jika ada
+        // 2. Update juga di tabel lead_assignments jika ada.
+        //    Bedakan antara "tabel tidak ada" (abaikan) dan "tabel ada tapi query
+        //    gagal" (log + propagate) — yang terakhir visible di logs.
         try {
           await pool.query(
             `UPDATE lead_assignments
@@ -170,8 +254,13 @@ export async function POST(req: NextRequest) {
                  OR id::text = $4`,
             [waName, normalizedPhone, messageText, trackingCode]
           );
-        } catch {
-          // Abaikan jika tabel lead_assignments tidak ada di pool ini
+        } catch (e: any) {
+          if (e?.code === '42P01') {
+            // undefined_table — tabel memang tidak ada di DB ini, OK
+          } else {
+            console.error('[lead-capture/confirm] lead_assignments update error:', e?.message || e);
+            throw e;
+          }
         }
 
         if (updatedRows === 0) {
@@ -215,14 +304,17 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        // Jika tetap belum tercocokkan, catat sebagai confirmed direct chat
+        // Jika tetap belum tercocokkan, catat sebagai confirmed direct chat.
+        // Pakai gen_random_uuid() untuk menghindari collision pada concurrent
+        // request (Date.now().toString(36) base36 bisa collide dalam 1 ms).
         if (updatedRows === 0) {
-          const autoCode = `DL-DIR-${Date.now().toString(36).toUpperCase()}`;
+          const autoCode = `DL-DIR-${crypto.randomUUID()}`;
           finalTrackingCode = autoCode;
           await pool.query(
             `INSERT INTO leads
                (tracking_code, assigned_to, status, wa_profile_name, wa_phone, wa_message, confirmed_at, source)
-             VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')`,
+             VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')
+             ON CONFLICT (tracking_code) DO NOTHING`,
             [autoCode, busdevName, waName, normalizedPhone, messageText]
           );
           updatedRows = 1;
