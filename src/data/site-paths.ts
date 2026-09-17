@@ -16,6 +16,7 @@ export const SITE_PATHS: string[] = [
   "affiliate-kol-brand-skincare",
   "ai-data-cara-brand-kosmetik-baru-menemukan-formula-viral",
   "alat-pengencang-wajah",
+  "alpha-arbutin-vs-tranexamic-acid",
   "asa-maklon-antiperspirant-terpercaya",
   "astaxanthin-mengapa-bahan-aktif-ini-sedang-naik-daun-di-industri-kosmetik",
   "atur-kosmetik-halal-dreamlab",

@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/alpha-arbutin-vs-tranexamic-acid",
+    "title": "Alpha Arbutin vs Tranexamic Acid: Mana yang Lebih Bagus? | Dreamlab",
+    "publishDate": "2026-09-17T03:00:00+00:00",
+    "author": "Dreamlab Formulasi & Riset",
+    "categories": [
+      "Commercial",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Alpha Arbutin vs Tranexamic Acid",
+      "Brightening Skincare",
+      "Hero Ingredient Brightening",
+      "Skincare Flek Hitam",
+      "Custom Formula Skincare",
+      "Maklon Serum Brightening",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-alpha-arbutin/5_ingredient_terbaik_untuk_brightening_hero.jpg",
+    "excerpt": "Alpha Arbutin vs Tranexamic Acid, mana yang lebih cocok untuk flek dan kulit kusam? Kenali perbedaannya, fungsi, dan pilihan hero ingredient untuk skincare brightening.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/maklon-kosmetik-tulungagung",
     "title": "Maklon Kosmetik Tulungagung Free Custom Formula & BPOM | Dreamlab",
     "publishDate": "2026-09-16T03:00:00+00:00",
