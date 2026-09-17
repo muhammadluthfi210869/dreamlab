@@ -54,7 +54,7 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Serum Brightening",
       "Dreamlab"
     ],
-    "featuredImage": "/images/artikel-alpha-arbutin/5_ingredient_terbaik_untuk_brightening_hero.jpg",
+    "featuredImage": "/images/artikel-alpha-arbutin/pilihan_produk_skincare_11zon.jpg",
     "excerpt": "Alpha Arbutin vs Tranexamic Acid, mana yang lebih cocok untuk flek dan kulit kusam? Kenali perbedaannya, fungsi, dan pilihan hero ingredient untuk skincare brightening.",
     "readingMinutes": 9
   },
