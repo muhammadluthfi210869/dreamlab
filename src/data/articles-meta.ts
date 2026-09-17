@@ -827,18 +827,23 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/maklon-parfum-dreamlab",
-    "title": "Pabrik Maklon Parfum Expert di Jawa Timur Dreamlab",
-    "publishDate": "2025-09-15T23:36:56+00:00",
+    "title": "Pabrik Maklon Parfum untuk Bangun Brand Anda Bersama Dreamlab",
+    "publishDate": "2026-09-17T08:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
-    ],
-    "tags": [
+      "Maklon Kosmetik",
       "Maklon Parfum"
     ],
+    "tags": [
+      "Maklon Parfum",
+      "Pabrik Parfum",
+      "Custom Formula",
+      "Beauty Brand Development Partner",
+      "Dreamlab"
+    ],
     "featuredImage": "aromatic-perfume-bottles-background-scaled.webp",
-    "excerpt": "Pabrik maklon parfum di Jawa Timur dengan kapasitas produksi 5 juta pcs per tahun. Custom aroma eksklusif, BPOM, dan CPKB Grade A.",
-    "readingMinutes": 3
+    "excerpt": "Pabrik maklon parfum Dreamlab: Beauty Brand Development Partner untuk bangun brand wewangian sendiri. Custom formula, legalitas BPOM, hingga MOQ fleksibel.",
+    "readingMinutes": 13
   },
   {
     "slug": "/astaxanthin-mengapa-bahan-aktif-ini-sedang-naik-daun-di-industri-kosmetik",
