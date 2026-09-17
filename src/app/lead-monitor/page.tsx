@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback, useMemo } from "react";
 import {
-  MessageCircle,
   MessageSquare,
   Phone,
   TrendingUp,
@@ -17,6 +16,9 @@ import {
   Copy,
   Check,
   AlertCircle,
+  Users,
+  Calendar,
+  CalendarRange,
 } from "lucide-react";
 
 interface LeadItem {
@@ -49,9 +51,22 @@ interface BusdevBreakdown {
   dropoff_clicks: number;
 }
 
+function getWibDate(offsetDays = 0): string {
+  const now = new Date();
+  const target = new Date(now.getTime() + offsetDays * 24 * 60 * 60 * 1000);
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(target);
+}
+
 export default function LeadMonitorPage() {
-  const [selectedBusdev, setSelectedBusdev] = useState<string>("Annisa");
+  const [selectedBusdev, setSelectedBusdev] = useState<string>("all");
   const [selectedPeriod, setSelectedPeriod] = useState<string>("today");
+  const [startDate, setStartDate] = useState<string>(() => getWibDate(0));
+  const [endDate, setEndDate] = useState<string>(() => getWibDate(0));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [autoRefresh, setAutoRefresh] = useState<boolean>(true);
 
@@ -68,7 +83,6 @@ export default function LeadMonitorPage() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // Fetch data dari API
@@ -82,6 +96,9 @@ export default function LeadMonitorPage() {
           period: selectedPeriod,
           search: searchQuery,
         });
+
+        if (startDate) queryParams.set("startDate", startDate);
+        if (endDate) queryParams.set("endDate", endDate);
 
         const res = await fetch(`/api/lead-monitor/stats?${queryParams.toString()}`);
         if (!res.ok) {
@@ -104,7 +121,7 @@ export default function LeadMonitorPage() {
         setRefreshing(false);
       }
     },
-    [selectedBusdev, selectedPeriod, searchQuery]
+    [selectedBusdev, selectedPeriod, startDate, endDate, searchQuery]
   );
 
   useEffect(() => {
@@ -147,6 +164,26 @@ export default function LeadMonitorPage() {
     });
   };
 
+  const handlePeriodPreset = (preset: string) => {
+    setSelectedPeriod(preset);
+    if (preset === "today") {
+      setStartDate(getWibDate(0));
+      setEndDate(getWibDate(0));
+    } else if (preset === "yesterday") {
+      setStartDate(getWibDate(-1));
+      setEndDate(getWibDate(-1));
+    } else if (preset === "7d") {
+      setStartDate(getWibDate(-7));
+      setEndDate(getWibDate(0));
+    } else if (preset === "30d") {
+      setStartDate(getWibDate(-30));
+      setEndDate(getWibDate(0));
+    } else if (preset === "all") {
+      setStartDate("");
+      setEndDate("");
+    }
+  };
+
   // Hitung total clicks per busdev dari breakdown
   const busdevTotals = useMemo(() => {
     const map: Record<string, { total: number; confirmed: number }> = {};
@@ -155,6 +192,18 @@ export default function LeadMonitorPage() {
       map[name] = { total: b.total_clicks, confirmed: b.confirmed_chats };
     }
     return map;
+  }, [breakdown]);
+
+  // Daftar BusDev yang tersedia
+  const busdevList = useMemo(() => {
+    const defaults = ["Annisa", "Jessica", "Diaz", "Irma"];
+    const names = new Set(defaults);
+    for (const b of breakdown) {
+      if (b.busdev_name && b.busdev_name !== "Unassigned") {
+        names.add(b.busdev_name);
+      }
+    }
+    return Array.from(names);
   }, [breakdown]);
 
   return (
@@ -180,30 +229,8 @@ export default function LeadMonitorPage() {
             </div>
           </div>
 
-          {/* Top Right Controls */}
-          <div className="flex items-center gap-2">
-            {/* Time Period Filter Pills */}
-            <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60">
-              {[
-                { id: "today", label: "Hari Ini" },
-                { id: "7d", label: "7 Hari" },
-                { id: "30d", label: "30 Hari" },
-                { id: "all", label: "Semua" },
-              ].map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => setSelectedPeriod(p.id)}
-                  className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
-                    selectedPeriod === p.id
-                      ? "bg-white text-slate-900 font-semibold shadow-2xs"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
-
+          {/* Top Right Quick Controls */}
+          <div className="flex items-center gap-2.5">
             {/* Auto Refresh Toggle */}
             <button
               onClick={() => setAutoRefresh(!autoRefresh)}
@@ -227,50 +254,11 @@ export default function LeadMonitorPage() {
               <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-orange-500" : "text-slate-500"}`} />
               <span className="hidden sm:inline">Refresh</span>
             </button>
-          </div>
-        </div>
-
-        {/* Sub-Header: BusDev Tabs */}
-        <div className="border-t border-slate-100 bg-slate-50/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 h-11 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-1 overflow-x-auto w-full sm:w-auto py-1">
-              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mr-2 shrink-0">
-                BusDev:
-              </span>
-              {["Annisa", "Jessica", "Diaz", "Irma", "all"].map((b) => {
-                const label = b === "all" ? "Semua BusDev" : b;
-                const isSelected = selectedBusdev.toLowerCase() === b.toLowerCase();
-                const countInfo = b === "all" ? null : busdevTotals[b];
-
-                return (
-                  <button
-                    key={b}
-                    onClick={() => setSelectedBusdev(b)}
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all whitespace-nowrap ${
-                      isSelected
-                        ? "bg-slate-900 text-white shadow-2xs font-semibold"
-                        : "bg-transparent text-slate-600 hover:bg-slate-200/60"
-                    }`}
-                  >
-                    <span>{label}</span>
-                    {countInfo && (
-                      <span
-                        className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                          isSelected ? "bg-slate-700 text-emerald-300" : "bg-slate-200/80 text-slate-600"
-                        }`}
-                      >
-                        {countInfo.confirmed}/{countInfo.total}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
 
             {/* Last updated timestamp */}
-            <div className="hidden lg:flex items-center gap-1.5 text-[11px] text-slate-400 shrink-0 font-mono">
+            <div className="hidden lg:flex items-center gap-1.5 text-[11px] text-slate-400 shrink-0 font-mono ml-1">
               <Clock className="w-3 h-3 text-slate-400" />
-              <span>Update: {lastUpdated ? formatWib(lastUpdated.toISOString()) : "—"}</span>
+              <span>{lastUpdated ? formatWib(lastUpdated.toISOString()) : "—"}</span>
             </div>
           </div>
         </div>
@@ -296,6 +284,103 @@ export default function LeadMonitorPage() {
             </button>
           </div>
         )}
+
+        {/* Unified Filter Toolbar Card (BusDev Dropdown + Custom Date Range) */}
+        <div className="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-4">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
+            {/* Filter Group: BusDev Dropdown + Date Range */}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* BusDev Dropdown Selector (Bukan Navbar) */}
+              <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 shadow-2xs">
+                <Users className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                <span className="text-xs font-semibold text-slate-700">BusDev:</span>
+                <select
+                  value={selectedBusdev}
+                  onChange={(e) => setSelectedBusdev(e.target.value)}
+                  className="text-xs bg-transparent font-medium text-slate-800 focus:outline-hidden cursor-pointer"
+                >
+                  <option value="all">Semua BusDev (Total: {kpi.totalClicks})</option>
+                  {busdevList.map((name) => {
+                    const stats = busdevTotals[name];
+                    const label = stats ? `${name} (${stats.confirmed}/${stats.total} lead)` : name;
+                    return (
+                      <option key={name} value={name}>
+                        {label}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              {/* Date Presets Pills */}
+              <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60 overflow-x-auto">
+                {[
+                  { id: "today", label: "Hari Ini" },
+                  { id: "yesterday", label: "Kemarin" },
+                  { id: "7d", label: "7 Hari" },
+                  { id: "30d", label: "30 Hari" },
+                  { id: "all", label: "Semua Waktu" },
+                ].map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => handlePeriodPreset(p.id)}
+                    className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+                      selectedPeriod === p.id
+                        ? "bg-white text-slate-900 font-semibold shadow-2xs"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Custom Date Range: Dari ... Ke ... */}
+              <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs text-slate-600 shadow-2xs">
+                <CalendarRange className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <span className="text-[11px] font-medium text-slate-500">Dari:</span>
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                    setSelectedPeriod("custom");
+                  }}
+                  className="bg-transparent text-xs font-mono text-slate-800 focus:outline-hidden cursor-pointer"
+                />
+                <span className="text-[11px] font-medium text-slate-400">s/d</span>
+                <input
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                    setSelectedPeriod("custom");
+                  }}
+                  className="bg-transparent text-xs font-mono text-slate-800 focus:outline-hidden cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* Right Badge: Active Filter Status */}
+            <div className="flex items-center gap-2 text-xs text-slate-500 shrink-0">
+              {selectedPeriod === "custom" && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                  Rentang Kustom: {startDate || "—"} s/d {endDate || "—"}
+                </span>
+              )}
+              {selectedBusdev !== "all" && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedBusdev("all")}
+                  className="text-[11px] text-slate-500 hover:text-slate-800 underline transition"
+                >
+                  Reset BusDev
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* Compact KPI Cards (1 Row, 4 Columns) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
@@ -419,7 +504,41 @@ export default function LeadMonitorPage() {
                 ) : leads.length === 0 ? (
                   <tr>
                     <td colSpan={9} className="py-10 text-center text-slate-400">
-                      Tidak ada data lead untuk filter ini.
+                      <p className="font-medium text-slate-600 mb-1">
+                        Tidak ada data lead untuk filter ini
+                      </p>
+                      <p className="text-xs text-slate-400 mb-3">
+                        {selectedPeriod === "today"
+                          ? "Belum ada lead baru yang tercatat untuk hari ini. Riwayat sebelumnya tetap aman."
+                          : selectedPeriod === "yesterday"
+                          ? "Tidak ada lead yang tercatat pada hari kemarin untuk filter ini."
+                          : "Coba sesuaikan rentang tanggal, kata kunci pencarian, atau pilih Semua BusDev."}
+                      </p>
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handlePeriodPreset("7d")}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
+                        >
+                          Lihat 7 Hari Terakhir
+                        </button>
+                        {selectedBusdev !== "all" && (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedBusdev("all")}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
+                          >
+                            Tampilkan Semua BusDev
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => handlePeriodPreset("all")}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
+                        >
+                          Semua Waktu
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ) : (

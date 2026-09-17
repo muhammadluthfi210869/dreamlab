@@ -11,9 +11,15 @@ const NO_STORE_HEADERS = {
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
-  const busdevFilter = url.searchParams.get('busdev') || 'Annisa';
+  const busdevFilter = url.searchParams.get('busdev') || 'all';
   const period = url.searchParams.get('period') || 'today';
+  const startDate = url.searchParams.get('startDate') || '';
+  const endDate = url.searchParams.get('endDate') || '';
   const search = url.searchParams.get('search') || '';
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const validStart = dateRegex.test(startDate) ? startDate : null;
+  const validEnd = dateRegex.test(endDate) ? endDate : null;
 
   let client;
   let hasError = false;
@@ -25,14 +31,24 @@ export async function GET(req: NextRequest) {
       resetPool();
       client = await pool.connect();
     }
-    // 1. Filter waktu (Asia/Jakarta boundary)
+    // 1. Filter waktu (Asia/Jakarta boundary yang presisi untuk timestamptz)
     let timeClause = '';
-    if (period === 'today') {
-      timeClause = `AND created_at >= (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta')::date`;
+    if (validStart && validEnd) {
+      timeClause = `AND created_at >= ('${validStart}'::date AT TIME ZONE 'Asia/Jakarta') AND created_at < (('${validEnd}'::date + 1) AT TIME ZONE 'Asia/Jakarta')`;
+    } else if (validStart) {
+      timeClause = `AND created_at >= ('${validStart}'::date AT TIME ZONE 'Asia/Jakarta')`;
+    } else if (validEnd) {
+      timeClause = `AND created_at < (('${validEnd}'::date + 1) AT TIME ZONE 'Asia/Jakarta')`;
+    } else if (period === 'today') {
+      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
+    } else if (period === 'yesterday') {
+      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '1 day' AND created_at < (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
     } else if (period === '7d') {
-      timeClause = `AND created_at >= (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta')::date - INTERVAL '7 days'`;
+      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '7 days'`;
     } else if (period === '30d') {
-      timeClause = `AND created_at >= (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta')::date - INTERVAL '30 days'`;
+      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '30 days'`;
+    } else if (period === 'all') {
+      timeClause = '';
     }
 
     // 2. Filter BusDev
@@ -127,6 +143,8 @@ export async function GET(req: NextRequest) {
         filter: {
           busdev: busdevFilter,
           period,
+          startDate: validStart,
+          endDate: validEnd,
           search,
         },
         kpi: {
