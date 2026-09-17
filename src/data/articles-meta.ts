@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/symwhite-377-vs-niacinamide",
+    "title": "SymWhite 377 vs Niacinamide: Mana yang Cocok untuk Brightening? | Dreamlab",
+    "publishDate": "2026-09-17T06:00:00+00:00",
+    "author": "Dreamlab Formulasi & Riset",
+    "categories": [
+      "Commercial",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "SymWhite 377 vs Niacinamide",
+      "Brightening Skincare",
+      "Hero Ingredient Brightening",
+      "Dark Spot Care",
+      "Custom Formula Skincare",
+      "Maklon Skincare",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-symwhite-niacinamide/hero_perbedaanwymwhitw377vs niacinamide _11zon.jpeg",
+    "excerpt": "SymWhite 377 vs Niacinamide, mana yang cocok untuk produk brightening? Kenali perbedaan, fungsi, dan cara memilih hero ingredient untuk brand skincare Anda.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/alpha-arbutin-vs-tranexamic-acid",
     "title": "Alpha Arbutin vs Tranexamic Acid: Mana yang Lebih Bagus? | Dreamlab",
     "publishDate": "2026-09-17T03:00:00+00:00",

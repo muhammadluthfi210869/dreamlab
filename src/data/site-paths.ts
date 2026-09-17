@@ -531,6 +531,7 @@ export const SITE_PATHS: string[] = [
   "strategi-brand-viral-tiktok",
   "strategi-tiktok-shop-campaign-gratis",
   "sunscreen-spf-yang-cocok-untuk-kegiatan",
+  "symwhite-377-vs-niacinamide",
   "terms-of-service",
   "thankyou-medsos",
   "thankyou-page",
