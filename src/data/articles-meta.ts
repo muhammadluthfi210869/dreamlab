@@ -13,6 +13,28 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-kosmetik-lamongan",
+    "title": "Jasa Maklon Kosmetik Lamongan untuk Bangun Brand Sendiri | Dreamlab",
+    "publishDate": "2026-09-17T07:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Navigational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Lamongan",
+      "Jasa Maklon Kosmetik",
+      "Bikin Brand Skincare",
+      "Peluang Bisnis Lamongan",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-lamongan/maklon-kosmetik-lamongan-hero.jpg",
+    "excerpt": "Ingin membangun brand kosmetik dari Lamongan? Temukan peluang bisnis skincare, parfum, haircare, bodycare, dan personal care bersama Dreamlab.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/symwhite-377-vs-niacinamide",
     "title": "SymWhite 377 vs Niacinamide: Mana yang Cocok untuk Brightening? | Dreamlab",
     "publishDate": "2026-09-17T06:00:00+00:00",
