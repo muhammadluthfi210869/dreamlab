@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/redensyl-haircare",
+    "title": "Mengembangkan Brand Haircare dengan Redensyl | Dreamlab",
+    "publishDate": "2026-09-17T10:00:00+00:00",
+    "author": "Dreamlab Riset & Formulasi",
+    "categories": [
+      "Informational",
+      "Haircare",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Redensyl Haircare",
+      "Inovasi Formula Rambut",
+      "Maklon Haircare",
+      "Hair Fall Care",
+      "Scalp Care",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-redensyl-haircare/hero-haircare-redensyl.jpg",
+    "excerpt": "Mengenal Redensyl sebagai ingredient haircare dan bagaimana active ingredient dapat dikembangkan menjadi formula rambut dan kulit kepala bersama tim R&D Dreamlab.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/affiliate-vs-kol-brand-skincare",
     "title": "Affiliate vs KOL: Strategi Marketing untuk Brand Skincare Pemula | Dreamlab",
     "publishDate": "2026-09-17T09:00:00+00:00",

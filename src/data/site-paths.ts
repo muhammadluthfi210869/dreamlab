@@ -517,6 +517,7 @@ export const SITE_PATHS: string[] = [
   "rahasia-perawatan-rambut-keriting-tetap-sehat-lembut-dan-terdefinisi",
   "reampreneur-beauty-academy-maklon-kosmetik",
   "rebranding-produk-kosmetik",
+  "redensyl-haircare",
   "rekomendasi-maklon-kosmetik-terbaik-dreamlab",
   "rekomendasi-maklon-kosmetik-yogyakarta",
   "rekomendasi-skincare-musim-hujan-agar-kulit-tetap-sehat-dan-lembap",
