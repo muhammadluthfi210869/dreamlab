@@ -13,6 +13,28 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-kosmetik-ponorogo",
+    "title": "Jasa Maklon Kosmetik Ponorogo | Free Request HPP | Dreamlab",
+    "publishDate": "2026-09-17T08:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Navigational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Ponorogo",
+      "Jasa Maklon Kosmetik",
+      "Request HPP Kosmetik",
+      "Bikin Brand Skincare",
+      "Custom Formula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-ponorogo/maklon-kosmetik-ponorogo-hero.jpg",
+    "excerpt": "Ingin mulai brand kosmetik dari Ponorogo? Konsultasikan produk Anda bersama Dreamlab — Juaranya Formula dan lakukan free request HPP untuk melihat pricing fit produk.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-lamongan",
     "title": "Jasa Maklon Kosmetik Lamongan untuk Bangun Brand Sendiri | Dreamlab",
     "publishDate": "2026-09-17T07:00:00+00:00",
