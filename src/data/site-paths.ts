@@ -14,6 +14,7 @@ export const SITE_PATHS: string[] = [
   "ads/thankyou/google-ads",
   "ads/thankyou/metaads",
   "affiliate-kol-brand-skincare",
+  "affiliate-vs-kol-brand-skincare",
   "ai-data-cara-brand-kosmetik-baru-menemukan-formula-viral",
   "alat-pengencang-wajah",
   "alpha-arbutin-vs-tranexamic-acid",

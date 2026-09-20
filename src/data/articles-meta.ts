@@ -13,6 +13,28 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/affiliate-vs-kol-brand-skincare",
+    "title": "Affiliate vs KOL: Strategi Marketing untuk Brand Skincare Pemula | Dreamlab",
+    "publishDate": "2026-09-17T09:00:00+00:00",
+    "author": "Dreamlab Growth & Marketing",
+    "categories": [
+      "Informational",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Affiliate vs KOL",
+      "Strategi Marketing Skincare",
+      "TikTok Affiliate Skincare",
+      "KOL Marketing",
+      "Brand Skincare Pemula",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-affiliate-kol/stratgey-affiliate-vs-kol-hero.jpg",
+    "excerpt": "Bingung memilih affiliate atau KOL untuk brand skincare? Pelajari perbedaannya, cara mencari affiliate fit, dan strategi 30 hari untuk memulai affiliate marketing.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-ponorogo",
     "title": "Jasa Maklon Kosmetik Ponorogo | Free Request HPP | Dreamlab",
     "publishDate": "2026-09-17T08:00:00+00:00",
