@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-kosmetik-magetan",
+    "title": "Jasa Maklon Kosmetik Magetan HPP, MOQ & Custom Formula | Dreamlab",
+    "publishDate": "2026-09-17T11:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Navigational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Magetan",
+      "Jasa Maklon Skincare Magetan",
+      "HPP Maklon Kosmetik",
+      "MOQ Fleksibel Maklon",
+      "Custom Formula Dreamlab",
+      "Brand Kosmetik Magetan",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-magetan/maklon-kosmetik-magetan-hero.jpg",
+    "excerpt": "Cari jasa maklon kosmetik Magetan? Buat skincare, haircare, bodycare, parfum, dan babycare dengan HPP fleksibel, MOQ fleksibel, serta custom formula bersama Dreamlab.",
+    "readingMinutes": 6
+  },
+  {
     "slug": "/redensyl-haircare",
     "title": "Mengembangkan Brand Haircare dengan Redensyl | Dreamlab",
     "publishDate": "2026-09-17T10:00:00+00:00",

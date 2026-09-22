@@ -143,6 +143,7 @@ export const SITE_PATHS: string[] = [
   "jasa-maklon-kosmetik-di-jember",
   "jasa-maklon-kosmetik-lamongan",
   "jasa-maklon-kosmetik-madiun",
+  "jasa-maklon-kosmetik-magetan",
   "jasa-maklon-kosmetik-mataram-lombok",
   "jasa-maklon-kosmetik-ponorogo",
   "jasa-maklon-kosmetik-probolinggo",
