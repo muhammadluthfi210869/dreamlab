@@ -66,6 +66,7 @@ export const SITE_PATHS: string[] = [
   "cara-membuka-offline-store-kosmetik-2026",
   "cara-memutihkan-ketiak",
   "cara-menentukan-harga-jual-produk-kosmetik",
+  "cara-menentukan-usp-produk-kosmetik",
   "cara-menghilangkan-ketombe",
   "cara-meracik-handbody-pemutih-alami",
   "cara-mulai-bisnis-skincare-dari-nol",

@@ -13,6 +13,28 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/cara-menentukan-usp-produk-kosmetik",
+    "title": "Cara & Contoh Menentukan USP Produk Kosmetik | Dreamlab",
+    "publishDate": "2026-09-17T12:00:00+00:00",
+    "author": "Dreamlab Brand Strategy & Marketing",
+    "categories": [
+      "Navigational",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "USP Produk Kosmetik",
+      "Unique Selling Proposition",
+      "Strategi Brand Skincare",
+      "Diferensiasi Produk Kecantikan",
+      "Panduan Bisnis Kosmetik",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-usp-produk-kosmetik/hero-cara-menentukan-usp.jpg",
+    "excerpt": "Pelajari cara menentukan USP produk kosmetik, menemukan pembeda brand, menganalisis kompetitor, hingga mengembangkan produk yang sesuai dengan target market.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-magetan",
     "title": "Jasa Maklon Kosmetik Magetan HPP, MOQ & Custom Formula | Dreamlab",
     "publishDate": "2026-09-17T11:00:00+00:00",
