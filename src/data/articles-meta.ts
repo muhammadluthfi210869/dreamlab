@@ -392,23 +392,27 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/jasa-maklon-kosmetik-probolinggo",
-    "title": "Jasa Maklon Kosmetik Probolinggo: Panduan Lengkap Membangun Brand Skincare BPOM dari Nol",
-    "publishDate": "2026-09-01T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
+    "title": "Jasa Maklon Kosmetik Probolinggo Pabrik CPKB Grade A | Dreamlab",
+    "publishDate": "2026-09-24T13:15:00+00:00",
+    "author": "Dreamlab Business Development",
     "categories": [
-      "Maklon Kosmetik"
+      "Navigational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "tags": [
-      "Maklon Kosmetik",
-      "Probolinggo",
-      "Maklon Skincare",
-      "BPOM",
-      "Jawa Timur",
-      "Custom Formula"
+      "Maklon Kosmetik Probolinggo",
+      "Jasa Maklon Kosmetik Probolinggo",
+      "Pabrik CPKB Grade A",
+      "Maklon Skincare Probolinggo",
+      "Custom Formula Dreamlab",
+      "MOQ Fleksibel Maklon",
+      "One Stop Maklon Service",
+      "Dreamlab"
     ],
-    "featuredImage": "/images/artikel-probolinggo/jasa-maklon-kosmetik-probolinggo-hero.jpeg",
-    "excerpt": "Cari jasa maklon kosmetik Probolinggo? Wujudkan brand skincare BPOM Anda bersama Dreamlab, maklon juaranya formula dengan sistem 1 client 1 custom formula.",
-    "readingMinutes": 8
+    "featuredImage": "/images/artikel-jasa-maklon-kosmetik-probolinggo/hero-maklon-kosmetik-probolinggo.jpg",
+    "excerpt": "Cari jasa maklon kosmetik Probolinggo? Kembangkan skincare, bodycare, haircare, babycare, dan parfum dengan custom formula dan MOQ fleksibel bersama Dreamlab.",
+    "readingMinutes": 7
   },
   {
     "slug": "/ide-produk-pore-care-maklon-skincare",
