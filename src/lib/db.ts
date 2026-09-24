@@ -52,7 +52,7 @@ function buildPool() {
 
   const poolMax = Number(process.env.DATABASE_POOL_MAX ?? 5);
 
-  return new Pool({
+  const p = new Pool({
     host: u.hostname,
     port: Number(u.port || 5432),
     database: decodeURIComponent(u.pathname.replace(/^\//, '')),
@@ -67,7 +67,7 @@ function buildPool() {
     keepAliveInitialDelayMillis: 10000,
   });
 
-  p.on('error', (err) => {
+  p.on('error', (err: any) => {
     console.warn('[db] Unexpected error on idle client:', err?.message);
     resetPool();
   });
@@ -90,7 +90,7 @@ function getPool(): Pool {
   if (!_pool) {
     _pool = buildPool();
   }
-  return _pool;
+  return _pool!;
 }
 
 // Lazy Pool: hanya dibangun saat benar-benar dipakai (runtime), bukan saat

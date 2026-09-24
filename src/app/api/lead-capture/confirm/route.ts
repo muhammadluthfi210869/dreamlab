@@ -105,14 +105,14 @@ function resolveBusdevName(destPhone?: string | null, phoneId?: string | null): 
   const cleanDest = (destPhone || '').replace(/[^0-9]/g, '');
   const pId = String(phoneId || '').trim();
 
-  // Annisa: ID 116397311522216 | WA +62 819-5241-7051
-  if (pId === '116397311522216' || cleanDest.endsWith('81952417051')) return 'Annisa';
-  // Irma: ID 815864727920156 | WA +62 881-0272-40339
-  if (pId === '815864727920156' || cleanDest.endsWith('881027240339')) return 'Irma';
-  // Jessica: WA 0812-8362-6294
-  if (cleanDest.endsWith('81283626294')) return 'Jessica';
-  // Diaz: WA 0812-9026-2100
-  if (cleanDest.endsWith('81290262100')) return 'Diaz';
+  // Annisa / Nisa: WA +62 819-5241-7051 | WABA 116397311522216 | Phone ID 105186819325503
+  if (pId === '116397311522216' || pId === '105186819325503' || cleanDest.endsWith('81952417051')) return 'Annisa';
+  // Irma: WA +62 851-3318-8827 | Alt WA +62 881-0272-40339 | WABA 815864727920156 | Phone ID 915133341684796
+  if (pId === '815864727920156' || pId === '915133341684796' || cleanDest.endsWith('85133188827') || cleanDest.endsWith('881027240339')) return 'Irma';
+  // Diaz: WA +62 877-7655-0657 | Alt WA 0812-9026-2100
+  if (cleanDest.endsWith('87776550657') || cleanDest.endsWith('81290262100')) return 'Diaz';
+  // Jessica: WA +62 877-1223-2389 | Alt WA 0812-8362-6294
+  if (cleanDest.endsWith('87712232389') || cleanDest.endsWith('81283626294')) return 'Jessica';
 
   return 'Unassigned';
 }

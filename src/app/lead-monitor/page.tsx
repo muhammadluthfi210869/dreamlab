@@ -15,10 +15,8 @@ import {
   ExternalLink,
   Copy,
   Check,
-  AlertCircle,
   Users,
-  Calendar,
-  CalendarRange,
+  CalendarDays,
 } from "lucide-react";
 
 interface LeadItem {
@@ -270,7 +268,7 @@ export default function LeadMonitorPage() {
         {errorMsg && (
           <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-3 text-xs text-amber-900 flex items-center justify-between gap-3 shadow-2xs">
             <div className="flex items-center gap-2.5">
-              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+              <HelpCircle className="w-4 h-4 text-amber-600 shrink-0" />
               <span>
                 <strong>Koneksi Database Terhambat:</strong> {errorMsg}. Mencoba kembali secara otomatis...
               </span>
@@ -338,7 +336,7 @@ export default function LeadMonitorPage() {
 
               {/* Custom Date Range: Dari ... Ke ... */}
               <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs text-slate-600 shadow-2xs">
-                <CalendarRange className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <CalendarDays className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                 <span className="text-[11px] font-medium text-slate-500">Dari:</span>
                 <input
                   type="date"
@@ -617,7 +615,7 @@ export default function LeadMonitorPage() {
                         <td className="py-2.5 px-3.5 whitespace-nowrap">
                           {isConfirmed && lead.wa_profile_name ? (
                             <span className="font-semibold text-emerald-800 flex items-center gap-1">
-                              <MessageCircle className="w-3 h-3 text-emerald-600" />
+                              <MessageSquare className="w-3 h-3 text-emerald-600" />
                               {lead.wa_profile_name}
                             </span>
                           ) : (
