@@ -356,6 +356,7 @@ export const SITE_PATHS: string[] = [
   "peluang-bangun-brand-moisturizer-pdrn",
   "peluang-bisnis-deodorant-ditrend-sport",
   "peluang-bisnis-hair-care-keratin",
+  "peluang-bisnis-parfum",
   "peluang-bisnis-skincare-irt",
   "peluang-brand-skincare-purwokerto",
   "peluang-feminim-care-dalam-bisnis-pasar-yang-menjanjikan",

@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/peluang-bisnis-parfum",
+    "title": "Peluang Bisnis Parfum Tentukan Aroma, Harga di Market | Dreamlab",
+    "publishDate": "2026-09-17T13:00:00+00:00",
+    "author": "Dreamlab Fragrance & Formulation",
+    "categories": [
+      "Navigational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Peluang Bisnis Parfum",
+      "Maklon Parfum",
+      "Bisnis Parfum Brand Sendiri",
+      "Custom Formula Parfum",
+      "Harga Parfum",
+      "Aroma Parfum Tren",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-peluang-bisnis-parfum/hero-peluang-bisnis-parfum.png",
+    "excerpt": "Pelajari peluang bisnis parfum, cara menentukan aroma dan harga, memilih jenis produk, hingga membuat custom formula parfum bersama Dreamlab.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/cara-menentukan-usp-produk-kosmetik",
     "title": "Cara & Contoh Menentukan USP Produk Kosmetik | Dreamlab",
     "publishDate": "2026-09-17T12:00:00+00:00",
