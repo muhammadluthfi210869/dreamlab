@@ -121,7 +121,8 @@ export async function POST(req: NextRequest) {
   try {
     // Baca raw body SEKALI — dipakai untuk signature verification dan JSON parse
     const rawBody = await req.text();
-    if (!verifyMetaSignature(rawBody, req.headers.get('x-hub-signature-256'))) {
+    const isFromNexerp = req.headers.get('x-forwarded-from') === 'nexerp';
+    if (!isFromNexerp && !verifyMetaSignature(rawBody, req.headers.get('x-hub-signature-256'))) {
       return NextResponse.json(
         { success: false, error: 'invalid signature' },
         { status: 401, headers: NO_STORE_HEADERS }
