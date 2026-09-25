@@ -13,6 +13,30 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-kosmetik-situbondo",
+    "title": "Jasa Maklon Kosmetik Situbondo MOQ Fleksibel untuk Brand Pemula | Dreamlab",
+    "publishDate": "2026-09-25T02:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Navigational",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Situbondo",
+      "Jasa Maklon Kosmetik Situbondo",
+      "MOQ Fleksibel Maklon",
+      "Brand Kosmetik Pemula",
+      "Custom Formula Dreamlab",
+      "Maklon Skincare Situbondo",
+      "Beautypreneur Academy",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-jasa-maklon-kosmetik-situbondo/hero-maklon-kosmetik-situbondo.png",
+    "excerpt": "Ingin punya brand kosmetik dari Situbondo? Pelajari cara memulai brand, custom formula, MOQ fleksibel, hingga pendampingan beautypreneur bersama Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/peluang-bisnis-parfum",
     "title": "Peluang Bisnis Parfum Tentukan Aroma, Harga di Market | Dreamlab",
     "publishDate": "2026-09-17T13:00:00+00:00",
