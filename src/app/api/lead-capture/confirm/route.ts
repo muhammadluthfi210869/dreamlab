@@ -107,10 +107,10 @@ function resolveBusdevName(destPhone?: string | null, phoneId?: string | null): 
 
   // Annisa / Nisa: WA +62 819-5241-7051 | WABA 116397311522216 | Phone ID 105186819325503
   if (pId === '116397311522216' || pId === '105186819325503' || cleanDest.endsWith('81952417051')) return 'Annisa';
-  // Irma: WA +62 851-3318-8827 | Alt WA +62 881-0272-40339 | WABA 815864727920156 | Phone ID 915133341684796
-  if (pId === '815864727920156' || pId === '915133341684796' || cleanDest.endsWith('85133188827') || cleanDest.endsWith('881027240339')) return 'Irma';
-  // Diaz: WA +62 877-7655-0657 | Alt WA 0812-9026-2100
-  if (cleanDest.endsWith('87776550657') || cleanDest.endsWith('81290262100')) return 'Diaz';
+  // Irma: WA +62 851-3318-8827 | Alt WA +62 881-0272-40339 | WABA 321060871092518 (Phone ID 290340704173604) / WABA 815864727920156 (Phone ID 915133341684796)
+  if (pId === '321060871092518' || pId === '290340704173604' || pId === '815864727920156' || pId === '915133341684796' || cleanDest.endsWith('85133188827') || cleanDest.endsWith('881027240339')) return 'Irma';
+  // Diaz: WA +62 877-7655-0657 | WABA 148982938307527 | Phone ID 198659679989033 | Alt WA 0812-9026-2100
+  if (pId === '148982938307527' || pId === '198659679989033' || cleanDest.endsWith('87776550657') || cleanDest.endsWith('81290262100')) return 'Diaz';
   // Jessica: WA +62 877-1223-2389 | Alt WA 0812-8362-6294
   if (cleanDest.endsWith('87712232389') || cleanDest.endsWith('81283626294')) return 'Jessica';
 
@@ -206,7 +206,6 @@ export async function POST(req: NextRequest) {
 
     // Forward ke NexERP jika request datang langsung dari Meta (anti infinite loop).
     // AbortController agar Vercel function tidak menggantung kalau nexerp.id down.
-    const isFromNexerp = req.headers.get('x-forwarded-from') === 'nexerp';
     if (!isFromNexerp && body?.entry) {
       const ac = new AbortController();
       const timer = setTimeout(() => ac.abort(), 5000);
