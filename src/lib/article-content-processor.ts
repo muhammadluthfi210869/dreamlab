@@ -432,7 +432,9 @@ function processFaq(html: string): string {
     const firstFaq = c.indexOf('<details');
     if (firstFaq !== -1) {
       const before = c.slice(0, firstFaq);
-      const prevHeading = /<h[23]\b[^>]*>[\s\S]*?<\/h[23]>\s*$/i.test(before);
+      const prevHeading =
+        /<h[23]\b[^>]*>[\s\S]*?<\/h[23]>(?:\s*<[^>]+>)*\s*$/i.test(before) ||
+        /<h[23]\b[^>]*>[^<]*(?:faq|tanya|pertanyaan)[^<]*<\/h[23]>/i.test(before);
       if (!prevHeading) {
         c =
           before +
