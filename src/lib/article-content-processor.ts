@@ -29,7 +29,12 @@ function decodeEntities(s: string): string {
     .replace(/&#x201d;/gi, '"')
     .replace(/&#x2026;/gi, '...')
     .replace(/&#x2014;/gi, '--')
-    .replace(/&#x2013;/gi, '-');
+    .replace(/&#x2013;/gi, '-')
+    .replace(/&rarr;/gi, '→')
+    .replace(/&amp;rarr;/gi, '→')
+    .replace(/&#8594;/gi, '→')
+    .replace(/&larr;/gi, '←')
+    .replace(/&#8592;/gi, '←');
 }
 
 function stripTags(html: string): string {
@@ -271,10 +276,10 @@ function injectToc(html: string, toc: string | null): string {
  * 4. CTA: inline navy → .article-cta; auto bila tak ada                *
  * ------------------------------------------------------------------ */
 function absorbInlineCtas(html: string): string {
-  // Only target actual CTA container divs that have a navy background and are not already .article-cta or .data-chart-card
+  // Only target actual CTA container divs that have a navy background and are not already structured CTAs or data-chart-card
   const nodes = findElementSpans(html, 'div').filter((o) => {
     const isNavyBg = /(?:background|background-color):\s*[^;"]*(?:linear-gradient|#1a1a2e|#16213e|#0f3460)/i.test(o.attrs);
-    const isAlreadyCta = /class="[^"]*article-cta[^"]*"/i.test(o.attrs);
+    const isAlreadyCta = /class="[^"]*(?:article-cta|dl-closing-cta|dl-main-cta|dl-mid-cta)[^"]*"/i.test(o.attrs);
     const isChart = /class="[^"]*data-chart-card[^"]*"/i.test(o.attrs);
     return isNavyBg && !isAlreadyCta && !isChart;
   });
@@ -296,7 +301,8 @@ function absorbInlineCtas(html: string): string {
     const title = textContentOf(h3m?.[1] || '') || CTA_TITLE;
     const desc = pText.filter((t) => t !== title).join(' ') || CTA_BODY;
     const href = /href=["']([^"']*)["']/i.exec(aM?.[1] || '')?.[1] || THANKYOU_URL;
-    const btnText = aM ? textContentOf(aM[2]) || CTA_BUTTON_TEXT : CTA_BUTTON_TEXT;
+    const rawBtn = aM ? textContentOf(aM[2]) || CTA_BUTTON_TEXT : CTA_BUTTON_TEXT;
+    const btnText = rawBtn.replace(/&amp;rarr;/gi, '→').replace(/&rarr;/gi, '→');
     replacements.push({
       start: s.start,
       end: s.closeEnd,
@@ -434,7 +440,7 @@ function processFaq(html: string): string {
       const before = c.slice(0, firstFaq);
       const prevHeading =
         /<h[23]\b[^>]*>[\s\S]*?<\/h[23]>(?:\s*<[^>]+>)*\s*$/i.test(before) ||
-        /<h[23]\b[^>]*>[^<]*(?:faq|tanya|pertanyaan)[^<]*<\/h[23]>/i.test(before);
+        /<h[23]\b[^>]*>(?:(?!<\/h[23]>)[\s\S])*?(?:pertanyaan|faq|tanya\s*jawab)[\s\S]*?<\/h[23]>/i.test(before);
       if (!prevHeading) {
         c =
           before +
@@ -454,6 +460,8 @@ function microCleanup(html: string): string {
     .replace(/<br\b[^>]*\/?>\s*<br\b[^>]*\/?>/gi, '<br>')
     .replace(/<br\b[^>]*\/?>/gi, '<br>')
     .replace(EMOJI_RE, '')
+    .replace(/&amp;rarr;/gi, '→')
+    .replace(/&rarr;/gi, '→')
     .replace(/\s{3,}/g, ' ')
     .trim();
 }

@@ -882,25 +882,48 @@
   }
 }
 
-/* 4. Responsive Mid-Article CTA Banner */
+/* 4. Responsive Mid-Article CTA Banner - Centered */
 .legacy-content-wrapper .dl-mid-cta {
   background: #f4f0eb;
   border: 1px solid #e0d8cc;
-  border-radius: 14px;
-  padding: 20px 24px;
-  margin: 28px 0;
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin: 32px auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
   gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.legacy-content-wrapper .dl-mid-cta div {
+  text-align: center;
+  max-width: 640px;
+}
+
+.legacy-content-wrapper .dl-mid-cta h3 {
+  text-align: center !important;
+  margin: 0 0 6px !important;
+}
+
+.legacy-content-wrapper .dl-mid-cta p {
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.legacy-content-wrapper .dl-mid-cta a {
+  align-self: center !important;
+  text-align: center !important;
+  margin: 0 auto !important;
 }
 
 @media (max-width: 640px) {
   .legacy-content-wrapper .dl-mid-cta {
-    flex-direction: column !important;
-    text-align: center !important;
-    padding: 20px 18px !important;
+    padding: 24px 18px !important;
+    border-radius: 14px !important;
   }
   .legacy-content-wrapper .dl-mid-cta a {
     width: 100% !important;
@@ -909,26 +932,61 @@
   }
 }
 
-/* 5. Article Main CTA Dark Gradient Box */
-.legacy-content-wrapper .dl-main-cta {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  border-radius: 24px;
-  padding: 36px 28px;
-  margin: 32px 0 40px;
-  text-align: center;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-  position: relative;
-  overflow: hidden;
+/* 5. Article Main CTA Dark Gradient Box - Centered */
+.legacy-content-wrapper .dl-main-cta,
+.legacy-content-wrapper .dl-closing-cta {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+  border-radius: 24px !important;
+  padding: 36px 28px !important;
+  margin: 36px auto 44px !important;
+  text-align: center !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+.legacy-content-wrapper .dl-main-cta h2,
+.legacy-content-wrapper .dl-main-cta h3,
+.legacy-content-wrapper .dl-closing-cta h2,
+.legacy-content-wrapper .dl-closing-cta h3 {
+  color: #ffffff !important;
+  text-align: center !important;
+  margin: 0 auto 14px !important;
+}
+
+.legacy-content-wrapper .dl-main-cta p,
+.legacy-content-wrapper .dl-closing-cta p {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.legacy-content-wrapper .dl-main-cta a,
+.legacy-content-wrapper .dl-closing-cta a {
+  align-self: center !important;
+  text-align: center !important;
+  margin: 0 auto !important;
 }
 
 @media (max-width: 640px) {
-  .legacy-content-wrapper .dl-main-cta {
+  .legacy-content-wrapper .dl-main-cta,
+  .legacy-content-wrapper .dl-closing-cta {
     padding: 28px 18px !important;
     border-radius: 18px !important;
   }
-  .legacy-content-wrapper .dl-main-cta a {
+  .legacy-content-wrapper .dl-main-cta a,
+  .legacy-content-wrapper .dl-closing-cta a {
     width: 100% !important;
-    box-sizing: border-box;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     padding: 14px 20px !important;
+    text-align: center !important;
   }
 }
+
