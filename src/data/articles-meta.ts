@@ -55,7 +55,7 @@ export const articlesMeta: ArticleMeta[] =
       "Aroma Parfum Tren",
       "Dreamlab"
     ],
-    "featuredImage": "/images/artikel-peluang-bisnis-parfum/hero-peluang-bisnis-parfum.png",
+    "featuredImage": "/images/artikel-peluang-bisnis-parfum/cover-peluang-bisnis-parfum.jpg",
     "excerpt": "Pelajari peluang bisnis parfum, cara menentukan aroma dan harga, memilih jenis produk, hingga membuat custom formula parfum bersama Dreamlab.",
     "readingMinutes": 9
   },

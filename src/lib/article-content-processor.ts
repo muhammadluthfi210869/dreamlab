@@ -302,7 +302,7 @@ function absorbInlineCtas(html: string): string {
     const desc = pText.filter((t) => t !== title).join(' ') || CTA_BODY;
     const href = /href=["']([^"']*)["']/i.exec(aM?.[1] || '')?.[1] || THANKYOU_URL;
     const rawBtn = aM ? textContentOf(aM[2]) || CTA_BUTTON_TEXT : CTA_BUTTON_TEXT;
-    const btnText = rawBtn.replace(/&amp;rarr;/gi, '→').replace(/&rarr;/gi, '→');
+    const btnText = rawBtn.replace(/&amp;r[aa]r\s*;?/gi, '').replace(/&r[aa]r\s*;?/gi, '').replace(/→/g, '').trim();
     replacements.push({
       start: s.start,
       end: s.closeEnd,
@@ -460,6 +460,7 @@ function microCleanup(html: string): string {
     .replace(/<br\b[^>]*\/?>\s*<br\b[^>]*\/?>/gi, '<br>')
     .replace(/<br\b[^>]*\/?>/gi, '<br>')
     .replace(EMOJI_RE, '')
+    .replace(/\s*(?:&amp;r[aa]r\s*;?|&r[aa]r\s*;?|→)\s*<\/a>/gi, '</a>')
     .replace(/&amp;rarr;/gi, '→')
     .replace(/&rarr;/gi, '→')
     .replace(/\s{3,}/g, ' ')
