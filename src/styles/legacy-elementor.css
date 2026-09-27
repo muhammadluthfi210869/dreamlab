@@ -723,6 +723,21 @@
   position: relative;
 }
 
+.legacy-content-wrapper .article-table-wrap table {
+  min-width: 820px !important;
+  width: 100% !important;
+  table-layout: auto !important;
+}
+
+.legacy-content-wrapper .article-table-wrap table th,
+.legacy-content-wrapper .article-table-wrap table td {
+  box-sizing: border-box !important;
+}
+
+.legacy-content-wrapper .article-table-wrap table th {
+  white-space: nowrap !important;
+}
+
 .legacy-content-wrapper .article-table-wrap::-webkit-scrollbar {
   height: 6px;
 }
