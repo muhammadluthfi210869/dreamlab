@@ -22,8 +22,8 @@ Git push ttp bisa (`git add -A && git commit -m "..." && git push origin master`
 
 # Article Creation Workflow
 
-Simpan prompt ini dan gunakan setiap kali bikin artikel baru.
-Gunakan `skill` tool untuk load `dreamlab-seo-article` sebelum mulai — panduan lengkap ada di `.opencode/skills/dreamlab-seo-article/SKILL.md`.
+> **PANDUAN MUTLAK**: Sebelum membuat atau merevisi artikel apa pun, **WAJIB** membaca dan mematuhi seluruh aturan dalam [STANDAR-ARTIKEL-DREAMLAB.md](./STANDAR-ARTIKEL-DREAMLAB.md).
+> Seluruh standar kontras warna, anti-sesak tabel mobile, zero-redundancy, 0 emoji (SVG icons only), penempatan gambar, dan checklist QC di dokumen tersebut bersifat wajib.
 
 ## Steps (urutan wajib)
 
