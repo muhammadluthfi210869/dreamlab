@@ -13,6 +13,30 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/red-flag-green-flag-pabrik-maklon-skincare",
+    "title": "Kenali Red Flag & Green Flag Pabrik Maklon Skincare | Dreamlab",
+    "publishDate": "2026-09-27T08:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik",
+      "Navigational"
+    ],
+    "tags": [
+      "Red Flag Pabrik Maklon",
+      "Green Flag Maklon Skincare",
+      "Pabrik Maklon Skincare",
+      "Cara Memilih Maklon Skincare",
+      "Custom Formula Dreamlab",
+      "MOQ Maklon Skincare",
+      "Maklon Kosmetik BPOM",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-red-flag-green-flag-pabrik-maklon-skincare/hero-red-flag-green-flag-pabrik-maklon-skincare.jpg",
+    "excerpt": "Jangan salah pilih vendor! Kenali red flag dan green flag tempat produksi skincare. Pastikan transparansi formula, opsi visit, dan MOQ yang rasional.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-situbondo",
     "title": "Jasa Maklon Kosmetik Situbondo MOQ Fleksibel untuk Brand Pemula | Dreamlab",
     "publishDate": "2026-09-25T02:00:00+00:00",
