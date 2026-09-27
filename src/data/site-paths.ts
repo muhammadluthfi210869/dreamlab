@@ -242,6 +242,7 @@ export const SITE_PATHS: string[] = [
   "maklon-kosmetik-bpom-bandar-lampung",
   "maklon-kosmetik-cepat-produksi-untuk-restock-brand",
   "maklon-kosmetik-ibu-hamil",
+  "maklon-kosmetik-infused-whitening-bpom",
   "maklon-kosmetik-jakarta-dreamlab-2026",
   "maklon-kosmetik-jakarta-skala-besar",
   "maklon-kosmetik-jayapura",

@@ -13,6 +13,30 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-kosmetik-infused-whitening-bpom",
+    "title": "Jasa Maklon Infused Whitening BPOM: Bikin Brand Pencerah | Dreamlab",
+    "publishDate": "2026-09-27T10:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik",
+      "Commercial"
+    ],
+    "tags": [
+      "Maklon Infused Whitening",
+      "Jasa Maklon Kosmetik",
+      "Maklon Kosmetik BPOM",
+      "Body Bleaching BPOM",
+      "Lotion Pencerah BPOM",
+      "Custom Formula Dreamlab",
+      "Pabrik Maklon CPKB Grade A",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-maklon-kosmetik-infused-whitening-bpom/hero-maklon-kosmetik-infused-whitening-bpom.webp",
+    "excerpt": "Bangun brand infused whitening BPOM yang aman dan efektif. Nikmati sistem 1-client 1-formula, fasilitas CPKB Grade A, dan MOQ fleksibel bersama Dreamlab.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/tips-memilih-maklon-kosmetik-bpom",
     "title": "Tips Memilih Maklon Kosmetik BPOM untuk Brand Pemula | Dreamlab",
     "publishDate": "2026-09-27T09:00:00+00:00",
