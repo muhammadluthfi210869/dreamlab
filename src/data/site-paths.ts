@@ -547,6 +547,7 @@ export const SITE_PATHS: string[] = [
   "thankyou/google",
   "tips-membuat-hand-sanitizer-bisnis",
   "tips-membuat-konten-viral",
+  "tips-memilih-maklon-kosmetik-bpom",
   "tips-sukses-bisnis-parfum",
   "tren-aroma-parfum-2026-terbaru",
   "tren-brand-kosmetik-lokal-2025",

@@ -13,6 +13,30 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/tips-memilih-maklon-kosmetik-bpom",
+    "title": "Tips Memilih Maklon Kosmetik BPOM untuk Brand Pemula | Dreamlab",
+    "publishDate": "2026-09-27T09:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik",
+      "Informational"
+    ],
+    "tags": [
+      "Tips Memilih Maklon Kosmetik",
+      "Maklon Kosmetik BPOM",
+      "Maklon Skincare Pemula",
+      "Rahasia Formula Kosmetik",
+      "Pabrik Maklon CPKB Grade A",
+      "MOQ Maklon Fleksibel",
+      "Maklon Kosmetik Partner Growth",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-tips-memilih-maklon-kosmetik-bpom/hero-tips-memilih-maklon-kosmetik-bpom.jpg",
+    "excerpt": "Panduan lengkap cara memilih maklon kosmetik BPOM untuk brand pemula: cek legalitas CPKB Grade A, perlindungan formula 1 Client 1 Custom Formula, hingga MOQ fleksibel.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/red-flag-green-flag-pabrik-maklon-skincare",
     "title": "Kenali Red Flag & Green Flag Pabrik Maklon Skincare | Dreamlab",
     "publishDate": "2026-09-27T08:00:00+00:00",
