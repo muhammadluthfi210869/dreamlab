@@ -10,6 +10,7 @@ import { fireConversion } from '@/lib/tracking';
 
 export interface LeadAssignmentRequest {
   eventId?: string;
+  phone?: string;
   source?: string;
   landingPage?: string;
   referrer?: string;
@@ -59,12 +60,12 @@ const UUID_V4_REGEX =
 const VISITOR_ID_KEY = 'dl_visitor_id';
 
 /**
- * Fingerprint visitor yang STABIL lintas klik/halaman/tab (localStorage).
- * Ini kunci agar dedup 24 jam + sticky wave engine benar-benar aktif:
- * tanpa fingerprint, setiap klik CTA = eventId baru = lead baru lagi,
- * sehingga satu orang bisa menaikkan kuota BusDev berkali-kali.
+ * Fingerprint visitor yang STABIL lintas klik/halaman/tab (localStorage & Cookie).
+ * Ini kunci agar dedup 24 jam + sticky browser benar-benar aktif:
+ * tanpa fingerprint yang sama, setiap klik CTA = lead baru lagi,
+ * sehingga satu orang di browser yang sama bisa double chat / ganti BusDev.
  *
- * Urutan: localStorage → sessionStorage → UUID ephemeral (storage diblokir).
+ * Urutan: localStorage → sessionStorage → Cookie dreamlab_vid → UUID ephemeral baru.
  */
 export function getOrCreateVisitorId(): string {
   if (typeof window === 'undefined') return '';
@@ -81,6 +82,19 @@ export function getOrCreateVisitorId(): string {
         /* abaikan */
       }
       return stored;
+    }
+
+    // Fallback ke cookie dreamlab_vid jika ada
+    if (typeof document !== 'undefined') {
+      const match = document.cookie.match(/(?:^|;\s*)dreamlab_vid=([^;]+)/);
+      if (match && match[1] && /^[0-9a-zA-Z_-]{16,64}$/.test(match[1])) {
+        try {
+          window.localStorage.setItem(VISITOR_ID_KEY, match[1]);
+        } catch {
+          /* abaikan */
+        }
+        return match[1];
+      }
     }
 
     const fresh = generateUuidV4();
@@ -159,6 +173,7 @@ export async function assignLeadViaClient(
       let utmSource = opts.utmSource;
       let utmMedium = opts.utmMedium;
       let utmCampaign = opts.utmCampaign;
+      let clientPhone = opts.phone;
 
       if (typeof window !== 'undefined') {
         landingPage = landingPage || window.location.pathname;
@@ -167,6 +182,41 @@ export async function assignLeadViaClient(
         utmSource = utmSource || params.get('utm_source') || undefined;
         utmMedium = utmMedium || params.get('utm_medium') || undefined;
         utmCampaign = utmCampaign || params.get('utm_campaign') || undefined;
+
+        if (!clientPhone) {
+          clientPhone =
+            params.get('phone') ||
+            params.get('hp') ||
+            params.get('wa') ||
+            params.get('nomor') ||
+            undefined;
+        }
+
+        if (!clientPhone) {
+          try {
+            clientPhone = window.localStorage.getItem('dl_client_phone') || undefined;
+          } catch {
+            /* abaikan */
+          }
+        }
+      }
+
+      // Normalisasi nomor telepon klien
+      if (clientPhone) {
+        let clean = clientPhone.replace(/[^0-9]/g, '');
+        if (clean.startsWith('0')) {
+          clean = '62' + clean.slice(1);
+        }
+        if (clean.length >= 9) {
+          clientPhone = clean;
+          try {
+            window.localStorage.setItem('dl_client_phone', clean);
+          } catch {
+            /* abaikan */
+          }
+        } else {
+          clientPhone = undefined;
+        }
       }
 
       const res = await fetch('/api/leads/assign/', {
@@ -178,6 +228,7 @@ export async function assignLeadViaClient(
         body: JSON.stringify({
           eventId,
           visitorId,
+          phone: clientPhone,
           test: isTestModeFromUrl() || undefined,
           source: opts.source,
           landingPage,
@@ -201,6 +252,20 @@ export async function assignLeadViaClient(
 
       // Simpan di session cache
       sessionCache.set(eventId, data);
+
+      // Simpan sticky sales dan client phone di browser
+      if (typeof window !== 'undefined') {
+        try {
+          if (data.sales) {
+            window.localStorage.setItem('dl_sticky_sales', JSON.stringify(data.sales));
+          }
+          if (clientPhone) {
+            window.localStorage.setItem('dl_client_phone', clientPhone);
+          }
+        } catch {
+          /* abaikan */
+        }
+      }
 
       // Tracking Analytics
       if (typeof window !== 'undefined') {

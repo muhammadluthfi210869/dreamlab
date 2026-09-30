@@ -79,11 +79,14 @@ export async function GET(req: NextRequest) {
     }
 
     // A. Query KPI Summary untuk BusDev terpilih
+    // Catatan: total_clicks mengukur klik CTA dari website/iklan (source != 'wa-direct').
+    // Chat langsung tanpa tracking code dari WA dihitung terpisah sebagai direct_chats.
     const kpiQuery = `
       SELECT 
-        COUNT(*)::int AS total_clicks,
-        COUNT(*) FILTER (WHERE status = 'confirmed')::int AS confirmed_chats,
-        COUNT(*) FILTER (WHERE status IS NULL OR status != 'confirmed')::int AS dropoff_clicks
+        COUNT(*) FILTER (WHERE source != 'wa-direct')::int AS total_clicks,
+        COUNT(*) FILTER (WHERE status = 'confirmed' AND source != 'wa-direct')::int AS confirmed_chats,
+        COUNT(*) FILTER (WHERE (status IS NULL OR status != 'confirmed') AND source != 'wa-direct')::int AS dropoff_clicks,
+        COUNT(*) FILTER (WHERE source = 'wa-direct')::int AS direct_chats
       FROM leads
       WHERE is_test IS NOT TRUE
         ${timeClause}
@@ -91,7 +94,7 @@ export async function GET(req: NextRequest) {
         ${searchClause}
     `;
     const kpiRes = await client.query(kpiQuery, queryParams);
-    const kpi = kpiRes.rows[0] || { total_clicks: 0, confirmed_chats: 0, dropoff_clicks: 0 };
+    const kpi = kpiRes.rows[0] || { total_clicks: 0, confirmed_chats: 0, dropoff_clicks: 0, direct_chats: 0 };
     const convRate = kpi.total_clicks > 0 
       ? Number(((kpi.confirmed_chats / kpi.total_clicks) * 100).toFixed(1)) 
       : 0;
@@ -100,9 +103,10 @@ export async function GET(req: NextRequest) {
     const breakdownQuery = `
       SELECT 
         COALESCE(assigned_to, 'Unassigned') AS busdev_name,
-        COUNT(*)::int AS total_clicks,
-        COUNT(*) FILTER (WHERE status = 'confirmed')::int AS confirmed_chats,
-        COUNT(*) FILTER (WHERE status IS NULL OR status != 'confirmed')::int AS dropoff_clicks
+        COUNT(*) FILTER (WHERE source != 'wa-direct')::int AS total_clicks,
+        COUNT(*) FILTER (WHERE status = 'confirmed' AND source != 'wa-direct')::int AS confirmed_chats,
+        COUNT(*) FILTER (WHERE (status IS NULL OR status != 'confirmed') AND source != 'wa-direct')::int AS dropoff_clicks,
+        COUNT(*) FILTER (WHERE source = 'wa-direct')::int AS direct_chats
       FROM leads
       WHERE is_test IS NOT TRUE
         ${timeClause}
@@ -151,6 +155,7 @@ export async function GET(req: NextRequest) {
           totalClicks: kpi.total_clicks,
           confirmedChats: kpi.confirmed_chats,
           dropoffClicks: kpi.dropoff_clicks,
+          directChats: kpi.direct_chats || 0,
           conversionRate: convRate,
         },
         busdevBreakdown: breakdownRes.rows,

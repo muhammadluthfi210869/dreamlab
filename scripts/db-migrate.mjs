@@ -11,7 +11,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import pg from 'pg';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString =
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_URL ||
+  process.env.database_DATABASE_URL;
 if (!connectionString) {
   console.error('❌ DATABASE_URL belum di-set.');
   console.error('   Contoh: DATABASE_URL="postgresql://user:pass@host:5432/dreamlab" npm run db:migrate');

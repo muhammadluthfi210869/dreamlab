@@ -1,4 +1,4 @@
-import pool from './db';
+import pool, { queryWithRetry } from './db';
 
 /**
  * round-robin-db.ts
@@ -45,36 +45,33 @@ function generateTrackingCode(): string {
  *
  * `visitorId` null/'' → tetap rotasi biasa (tanpa sticky) sebagai fallback.
  */
-export async function getNextAgentFromDb(visitorId?: string | null, isTest?: boolean): Promise<DbAgent> {
-  const client = await pool.connect();
-  try {
-    const res = await client.query<{
-      agent_id: number;
-      agent_name: string;
-      agent_phone: string;
-      order_index: number;
-    }>(
-      `SELECT agent_id, agent_name, agent_phone, order_index
-         FROM assign_next_agent($1, $2)`,
-      [visitorId || null, isTest || false]
-    );
+export async function getNextAgentFromDb(
+  visitorId?: string | null,
+  isTest?: boolean,
+  phone?: string | null
+): Promise<DbAgent> {
+  const res = await queryWithRetry<{
+    agent_id: number;
+    agent_name: string;
+    agent_phone: string;
+    order_index: number;
+  }>(
+    `SELECT agent_id, agent_name, agent_phone, order_index
+       FROM assign_next_agent($1, $2, null, null, $3)`,
+    [visitorId || null, isTest || false, phone || null]
+  );
 
-    const row = res.rows[0];
-    if (!row) {
-      throw new Error('assign_next_agent tidak mengembalikan agent');
-    }
-
-    return {
-      id: String(row.agent_id),
-      name: row.agent_name || `CS ${row.agent_id}`,
-      phoneNumber: normalizePhone(row.agent_phone),
-      orderIndex: row.order_index,
-    };
-  } catch (err) {
-    throw err;
-  } finally {
-    client.release();
+  const row = res.rows[0];
+  if (!row) {
+    throw new Error('assign_next_agent tidak mengembalikan agent');
   }
+
+  return {
+    id: String(row.agent_id),
+    name: row.agent_name || `CS ${row.agent_id}`,
+    phoneNumber: normalizePhone(row.agent_phone),
+    orderIndex: row.order_index,
+  };
 }
 
 export interface LeadInput {
@@ -190,7 +187,7 @@ export interface ConvertLeadResult {
  * semuanya server-side → 1 API call + 1 query → latency jauh lebih rendah.
  */
 export async function convertLead(data: LeadInput): Promise<ConvertLeadResult> {
-  const res = await pool.query<{
+  const res = await queryWithRetry<{
     agent_id: number;
     agent_name: string;
     agent_phone: string;

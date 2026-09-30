@@ -42,6 +42,12 @@ export function ThankYouRoundRobin({
     const resolvedSource = params.get("source") || defaultSource;
     const intentSource = params.get("source") || "";
     const fromParam = params.get("from") || undefined;
+    const phoneParam =
+      params.get("phone") ||
+      params.get("hp") ||
+      params.get("wa") ||
+      params.get("nomor") ||
+      undefined;
     let eventIdParam = params.get("event_id") || undefined;
 
     // Jika URL belum memiliki event_id, generate UUID v4 baru dan simpan ke URL
@@ -70,6 +76,7 @@ export function ThankYouRoundRobin({
 
     assignLeadViaClient({
       eventId: eventIdParam,
+      phone: phoneParam,
       source: resolvedSource,
       landingPage: fromParam || window.location.pathname,
       referrer: document.referrer,

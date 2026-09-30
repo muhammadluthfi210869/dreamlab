@@ -316,20 +316,77 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        // Jika tetap belum tercocokkan, catat sebagai confirmed direct chat.
-        // Pakai gen_random_uuid() untuk menghindari collision pada concurrent
-        // request (Date.now().toString(36) base36 bisa collide dalam 1 ms).
+        // Jika tetap belum tercocokkan, cek apakah pengirim ini sudah pernah chat direct dalam 24 jam terakhir.
+        // Jika ya, cukup update pesan terakhir & waktu konfirmasi (jangan spam baris lead baru).
         if (updatedRows === 0) {
-          const autoCode = `DL-DIR-${crypto.randomUUID()}`;
-          finalTrackingCode = autoCode;
+          if (normalizedPhone) {
+            const existingDirectRes = await pool.query(
+              `UPDATE leads
+                  SET wa_message = COALESCE($1, wa_message),
+                      wa_profile_name = COALESCE($2, wa_profile_name),
+                      confirmed_at = NOW(),
+                      visit_count = visit_count + 1
+                WHERE id = (
+                  SELECT id FROM leads
+                   WHERE wa_phone = $3
+                     AND source = 'wa-direct'
+                     AND created_at >= NOW() - INTERVAL '24 hours'
+                   ORDER BY created_at DESC
+                   LIMIT 1
+                )
+                RETURNING id, tracking_code, assigned_to, status`,
+              [messageText, waName, normalizedPhone]
+            );
+
+            if ((existingDirectRes.rowCount || 0) > 0) {
+              updatedRows = existingDirectRes.rowCount || 0;
+              finalTrackingCode = existingDirectRes.rows[0].tracking_code;
+              assignedBusdev = existingDirectRes.rows[0].assigned_to;
+            }
+          }
+
+          if (updatedRows === 0) {
+            const autoCode = `DL-DIR-${crypto.randomUUID()}`;
+            finalTrackingCode = autoCode;
+            await pool.query(
+              `INSERT INTO leads
+                 (tracking_code, assigned_to, status, wa_profile_name, wa_phone, wa_message, confirmed_at, source)
+               VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')
+               ON CONFLICT (tracking_code) DO NOTHING`,
+              [autoCode, busdevName, waName, normalizedPhone, messageText]
+            );
+            updatedRows = 1;
+          }
+        }
+      }
+
+      // 3. Update phone_assignments agar nomor prospek ini terkunci ke BusDev ini (Phone Sticky)
+      // "menggunakan nomor yang sama tidak bisa ke busdev lainnya"
+      if (
+        normalizedPhone &&
+        normalizedPhone.length >= 9 &&
+        assignedBusdev &&
+        assignedBusdev !== 'Unassigned'
+      ) {
+        try {
           await pool.query(
-            `INSERT INTO leads
-               (tracking_code, assigned_to, status, wa_profile_name, wa_phone, wa_message, confirmed_at, source)
-             VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')
-             ON CONFLICT (tracking_code) DO NOTHING`,
-            [autoCode, busdevName, waName, normalizedPhone, messageText]
+            `INSERT INTO phone_assignments (phone_number, agent_id, created_at, last_seen, expires_at)
+             SELECT $1, b.id, NOW(), NOW(), NOW() + INTERVAL '180 days'
+               FROM busdevs b
+              WHERE b.is_active = true
+                AND (b.name ILIKE '%' || $2 || '%' OR $2 ILIKE '%' || b.name || '%')
+              LIMIT 1
+             ON CONFLICT (phone_number)
+             DO UPDATE SET agent_id = EXCLUDED.agent_id,
+                           last_seen = NOW(),
+                           expires_at = NOW() + INTERVAL '180 days'`,
+            [normalizedPhone, assignedBusdev]
           );
-          updatedRows = 1;
+        } catch (phoneErr: any) {
+          console.error(
+            '[lead-capture/confirm] phone_assignments error:',
+            phoneErr?.message || phoneErr
+          );
         }
       }
 

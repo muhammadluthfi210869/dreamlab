@@ -532,7 +532,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-jasa-maklon-kosmetik-probolinggo/hero-maklon-kosmetik-probolinggo.jpg",
     "excerpt": "Cari jasa maklon kosmetik Probolinggo? Kembangkan skincare, bodycare, haircare, babycare, dan parfum dengan custom formula dan MOQ fleksibel bersama Dreamlab.",
-    "readingMinutes": 7
+    "readingMinutes": 6
   },
   {
     "slug": "/ide-produk-pore-care-maklon-skincare",
