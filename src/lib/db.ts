@@ -101,7 +101,8 @@ export async function queryWithRetry<R extends any = any>(
   params?: any[]
 ): Promise<{ rows: R[]; rowCount: number | null }> {
   try {
-    return await pool.query(text, params);
+    const res = await pool.query(text, params);
+    return { rows: res.rows as R[], rowCount: res.rowCount };
   } catch (err: any) {
     const msg = String(err?.message || '');
     const isConnErr =
@@ -114,7 +115,8 @@ export async function queryWithRetry<R extends any = any>(
     if (isConnErr) {
       console.warn('[db] Connection error detected, resetting pool and retrying...', msg);
       resetPool();
-      return await pool.query(text, params);
+      const retryRes = await pool.query(text, params);
+      return { rows: retryRes.rows as R[], rowCount: retryRes.rowCount };
     }
     throw err;
   }
