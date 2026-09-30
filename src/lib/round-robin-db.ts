@@ -45,7 +45,11 @@ function generateTrackingCode(): string {
  *
  * `visitorId` null/'' → tetap rotasi biasa (tanpa sticky) sebagai fallback.
  */
-export async function getNextAgentFromDb(visitorId?: string | null, isTest?: boolean): Promise<DbAgent> {
+export async function getNextAgentFromDb(
+  visitorId?: string | null,
+  isTest?: boolean,
+  phone?: string | null
+): Promise<DbAgent> {
   const client = await pool.connect();
   try {
     const res = await client.query<{
@@ -55,8 +59,8 @@ export async function getNextAgentFromDb(visitorId?: string | null, isTest?: boo
       order_index: number;
     }>(
       `SELECT agent_id, agent_name, agent_phone, order_index
-         FROM assign_next_agent($1, $2)`,
-      [visitorId || null, isTest || false]
+         FROM assign_next_agent($1, $2, null, null, $3)`,
+      [visitorId || null, isTest || false, phone || null]
     );
 
     const row = res.rows[0];

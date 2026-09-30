@@ -163,9 +163,13 @@ export async function POST(req: NextRequest) {
       null;
     const ipHashed = hashIp(clientIp);
 
-    // Fingerprint visitor stabil dari client (localStorage). Bila tidak ada,
-    // pakai eventId supaya tetap ada kunci visitor_id untuk dedup 24 jam.
-    const visitorId = sanitizeString(body.visitorId, 100) || eventId;
+    // Nomor telepon prospek jika tersedia (untuk penguncian nomor sticky)
+    const clientPhone = sanitizeString(body.phone || body.hp || body.phoneNumber, 30);
+
+    // Fingerprint visitor stabil dari client (localStorage / cookie dreamlab_vid).
+    // Kunci agar browser yang sama tidak pernah di-assign ke BusDev berbeda.
+    const visitorCookie = req.cookies.get('dreamlab_vid')?.value;
+    const visitorId = sanitizeString(body.visitorId, 100) || visitorCookie || eventId;
 
     // Flag test: selaraskan dengan heuristik deteksi test di PostgreSQL
     // (p_is_test / intent / page_url / visitor_id 'test_%').
@@ -232,6 +236,7 @@ export async function POST(req: NextRequest) {
     try {
       const conv = await convertLead({
         visitorId,
+        hp: clientPhone || undefined,
         intent: messageKey ?? resolvedSource,
         source: resolvedSource,
         pageUrl: landingPage || undefined,
@@ -247,11 +252,18 @@ export async function POST(req: NextRequest) {
       const trackingSuffix = conv.trackingCode ? ` [Kode: ${conv.trackingCode}]` : '';
       const whatsappUrl = buildWhatsAppLeadUrl(conv.phoneNumber, `${messageText}${trackingSuffix}`);
 
+      const busdevSlug =
+        conv.name?.toLowerCase().includes('irma') ? 'irma' :
+        conv.name?.toLowerCase().includes('annisa') ? 'annisa' :
+        conv.name?.toLowerCase().includes('diaz') ? 'diaz' :
+        conv.name?.toLowerCase().includes('jessica') ? 'jessica' :
+        conv.id;
+
       const resultPayload: CachedLeadAssignment = {
         assignmentId,
         source: resolvedSource,
         sales: {
-          id: conv.id,
+          id: busdevSlug,
           name: conv.name,
           phone: conv.phoneNumber,
         },
@@ -297,7 +309,7 @@ export async function POST(req: NextRequest) {
 
       const totalDurationMs = Math.round(performance.now() - tStart);
 
-      return NextResponse.json(
+      const res = NextResponse.json(
         {
           success: true,
           assignmentId: resultPayload.assignmentId,
@@ -323,6 +335,18 @@ export async function POST(req: NextRequest) {
           },
         }
       );
+
+      if (!isTest && visitorId && !req.cookies.get('dreamlab_vid')) {
+        res.cookies.set('dreamlab_vid', visitorId, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+          maxAge: 60 * 60 * 24 * 365,
+        });
+      }
+
+      return res;
     } catch (pgErr: unknown) {
       const pgErrMsg = pgErr instanceof Error ? pgErr.message : String(pgErr);
       console.error(
