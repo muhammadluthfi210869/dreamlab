@@ -13,6 +13,30 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/rincihan-biaya-membuat-brand-haircare-bpom",
+    "title": "Peluang Bisnis Haircare & Rincian Biaya Maklon Custom BPOM | Dreamlab",
+    "publishDate": "2026-09-30T10:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik",
+      "Commercial"
+    ],
+    "tags": [
+      "Biaya Maklon Haircare",
+      "Peluang Bisnis Haircare",
+      "Maklon Haircare BPOM",
+      "HPP Haircare",
+      "Maklon Hair Tonic",
+      "Custom Formula Dreamlab",
+      "Pabrik Maklon Kosmetik",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-rincihan-biaya-membuat-brand-haircare-bpom/cover_rincihan_biaya_membuat_brand_haircare.webp",
+    "excerpt": "Temukan peluang bisnis haircare dari masalah rambut sehari-hari. Simak rincian komposisi biaya maklon tonic anti-rontok dengan custom formula di Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/maklon-kosmetik-infused-whitening-bpom",
     "title": "Jasa Maklon Infused Whitening BPOM: Bikin Brand Pencerah | Dreamlab",
     "publishDate": "2026-09-27T10:00:00+00:00",
