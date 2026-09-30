@@ -61,7 +61,7 @@ function buildPool() {
     ssl,
     max: poolMax,
     idleTimeoutMillis: 5000,
-    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 8000),
+    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 4000),
     statement_timeout: Number(process.env.DB_STATEMENT_TIMEOUT_MS ?? 15000),
     keepAlive: true,
     keepAliveInitialDelayMillis: 10000,
@@ -91,6 +91,33 @@ function getPool(): Pool {
     _pool = buildPool();
   }
   return _pool!;
+}
+
+/**
+ * Eksekusi query dengan 1x auto-retry jika koneksi serverless stale/terputus.
+ */
+export async function queryWithRetry<R extends any = any>(
+  text: string,
+  params?: any[]
+): Promise<{ rows: R[]; rowCount: number | null }> {
+  try {
+    return await pool.query(text, params);
+  } catch (err: any) {
+    const msg = String(err?.message || '');
+    const isConnErr =
+      msg.includes('timeout') ||
+      msg.includes('closed') ||
+      msg.includes('Connection terminated') ||
+      msg.includes('connection refused') ||
+      err?.code === 'ECONNRESET' ||
+      err?.code === '57P01';
+    if (isConnErr) {
+      console.warn('[db] Connection error detected, resetting pool and retrying...', msg);
+      resetPool();
+      return await pool.query(text, params);
+    }
+    throw err;
+  }
 }
 
 // Lazy Pool: hanya dibangun saat benar-benar dipakai (runtime), bukan saat
