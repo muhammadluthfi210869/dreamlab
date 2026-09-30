@@ -13,6 +13,29 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-kosmetik-klinik-kecantikan",
+    "title": "Maklon Kosmetik Klinik: Custom Formula Skincare Dokter BPOM | Dreamlab",
+    "publishDate": "2026-09-30T14:30:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik",
+      "Commercial"
+    ],
+    "tags": [
+      "Maklon Kosmetik Klinik",
+      "Skincare Dokter BPOM",
+      "Custom Formula Klinik",
+      "Maklon Skincare Medis",
+      "Pabrik Maklon CPKB Grade A",
+      "MOQ Maklon Skincare",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-maklon-kosmetik-klinik-kecantikan/cover_maklon_kosmetik_klinik.webp",
+    "excerpt": "Bikin in-house brand skincare klinik Anda berstandar BPOM. Nikmati sistem 1-client 1-formula, fasilitas CPKB Grade A, dan MOQ fleksibel dari Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/rincihan-biaya-membuat-brand-haircare-bpom",
     "title": "Peluang Bisnis Haircare & Rincian Biaya Maklon Custom BPOM | Dreamlab",
     "publishDate": "2026-09-30T10:00:00+00:00",
