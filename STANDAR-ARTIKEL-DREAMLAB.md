@@ -34,61 +34,137 @@ Dokumen ini adalah **panduan absolut dan tidak dapat ditawar** untuk seluruh pro
 
 ---
 
-## 2. Aturan Standar Tabel Komparasi (Mobile & Desktop Friendly)
+## 2. Aturan Standar Tabel Komparasi & Finansial (Responsive Desktop & Mobile UI/UX)
 
-Agar tabel komparasi tidak menyempit di layar HP dan tidak mengalami tabrakan warna teks vs background:
+Di layar desktop, tabel lebar 3-4 kolom sangat nyaman dibaca berdampingan. Namun di layar ponsel (mobile viewport 360px–430px), tabel horizontal lebar sering kali membuat pengguna lelah menggeser ke kanan dan kehilangan konteks label baris di kolom pertama.
 
-### Template Kode HTML Tabel Wajib:
+Oleh karena itu, gunakan **Pola Responsive Switcher**:
+- **Desktop View (`hidden md:block`)**: Menampilkan tabel multi-kolom horizontal yang rapi dan elegan.
+- **Mobile View (`block md:hidden`)**: Menampilkan komponen kartu (Card) yang compact, bebas geser (0 horizontal scroll), mudah dibaca vertikal (one-thumb friendly).
+
+---
+
+### Pola A: Simulasi Finansial / Unit Economics (Hybrid Financial Receipt Card)
+Gunakan pola ini untuk tabel rincian biaya, simulasi HPP, pemotongan komisi/ads, dan laba bersih.
+
+#### 1. Versi Desktop (`hidden md:block`):
 ```html
-<div class="article-table-wrap" style="margin:28px 0;border:1px solid #cbd5e1;border-radius:14px;overflow:hidden;background:#ffffff;box-shadow:0 4px 14px rgba(0,0,0,0.04)">
-  <!-- Header Bar Navigasi Mobile -->
-  <div style="background:#f1f5f9;padding:12px 18px;border-bottom:1px solid #cbd5e1;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#475569">
-    <span style="display:flex;align-items:center;gap:8px;font-weight:700">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D98A00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path><path d="M2 12H22"></path></svg>
-      Judul Komparasi / Parameter Evaluasi
-    </span>
-    <span style="font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:4px 10px;border-radius:6px;letter-spacing:0.3px">⇄ Geser ke samping</span>
-  </div>
-  
-  <!-- Container Horizontal Scroll -->
-  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;display:block">
-    <table style="width:100%;min-width:820px;border-collapse:collapse;text-align:left;font-size:13.5px;line-height:1.6;table-layout:auto">
-      <thead>
-        <tr>
-          <!-- Kolom 1: Slate Dark dengan teks putih tegas -->
-          <th style="padding:16px 18px;font-weight:800;color:#ffffff !important;background:#1e293b !important;border-right:1px solid #334155;white-space:nowrap !important;min-width:200px;text-transform:uppercase;font-size:12px;letter-spacing:0.5px">Parameter Evaluasi Bisnis</th>
-          
-          <!-- Kolom 2: Red Alert Soft -->
-          <th style="padding:16px 18px;font-weight:800;color:#991b1b !important;background:#fef2f2 !important;border-right:1px solid #fecdd3;white-space:nowrap !important;min-width:200px;font-size:13px">Skema Ekstrem Terlalu Kecil (100 Pcs)</th>
-          
-          <!-- Kolom 3: Amber Warning Soft -->
-          <th style="padding:16px 18px;font-weight:800;color:#92400e !important;background:#fffbeb !important;border-right:1px solid #fde68a;white-space:nowrap !important;min-width:200px;font-size:13px">Skema Produksi Masif (5.000 Pcs)</th>
-          
-          <!-- Kolom 4: Emerald Recommendation Soft -->
-          <th style="padding:16px 18px;font-weight:800;color:#065f46 !important;background:#ecfdf5 !important;white-space:nowrap !important;min-width:220px;font-size:13px">
-            Skema Uji Pasar Terukur (500&ndash;1.000 Pcs)
-            <span style="display:inline-block;background:#10b981;color:#ffffff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle;letter-spacing:0.5px">REKOMENDASI</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-bottom:1px solid #f1f5f9">
-          <td style="padding:14px 18px;font-weight:700;color:#0f172a !important;background:#f8fafc !important;border-right:1px solid #e2e8f0;white-space:nowrap !important">Beban Biaya Legalitas per Unit</td>
-          <td style="padding:14px 18px;color:#4b5563;border-right:1px solid #f1f5f9">Sangat mahal (biaya BPOM/uji lab membebani 100 botol)</td>
-          <td style="padding:14px 18px;color:#4b5563;border-right:1px solid #f1f5f9">Sangat murah (terbagi rata ke volume masif)</td>
-          <td style="padding:14px 18px;font-weight:600;color:#166534;background:#f0fdf4">Seimbang dan masuk akal untuk sediaan baru</td>
-        </tr>
-        <!-- Baris lainnya mengikuti pola serupa -->
-      </tbody>
-    </table>
+<div class="hidden md:block">
+  <div class="article-table-wrap" style="margin:28px 0;border:1px solid #cbd5e1;border-radius:14px;overflow:hidden;background:#ffffff;box-shadow:0 4px 14px rgba(0,0,0,0.04)">
+    <div style="background:#f1f5f9;padding:12px 18px;border-bottom:1px solid #cbd5e1;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#475569">
+      <span style="display:flex;align-items:center;gap:8px;font-weight:700">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D98A00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"></path><path d="M6 8L2 12L6 16"></path><path d="M2 12H22"></path></svg>
+        Simulasi Finansial Unit Ekonomi
+      </span>
+      <span style="font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;padding:4px 10px;border-radius:6px;letter-spacing:0.3px">&#8644; Geser ke samping</span>
+    </div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;display:block">
+      <table style="width:100%;min-width:820px;border-collapse:collapse;text-align:left;font-size:13.5px;line-height:1.6;table-layout:auto">
+        <thead>
+          <tr>
+            <th style="padding:16px 18px;font-weight:800;color:#ffffff !important;background:#1e293b !important;border-right:1px solid #334155;white-space:nowrap !important;min-width:280px;text-transform:uppercase;font-size:12px;letter-spacing:0.5px">Komponen Biaya</th>
+            <th style="padding:16px 18px;font-weight:800;color:#0f172a !important;background:#f8fafc !important;border-right:1px solid #e2e8f0;white-space:nowrap !important;min-width:240px;font-size:13px">Persentase / Nilai Acuan</th>
+            <th style="padding:16px 18px;font-weight:800;color:#0f172a !important;background:#f8fafc !important;white-space:nowrap !important;min-width:220px;font-size:13px">Nominal per Botol (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Baris data -->
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 ```
 
-### Aturan Wajib Tabel:
-- `min-width: 820px !important;` (atau min. `760px`) wajib dipasang pada elemen `table`.
-- Seluruh tag `<th>` dan parameter pertama `<td>` wajib menggunakan `white-space: nowrap !important;`.
-- Header parameter pertama yang berlatar gelap `#1e293b` **wajib** menyertakan `color: #ffffff !important;`.
+#### 2. Versi Mobile (`block md:hidden`):
+```html
+<div class="block md:hidden" style="margin:24px 0">
+  <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,0.05)">
+    <!-- Header Struk Finansial -->
+    <div style="background:#1e293b;color:#ffffff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <span style="font-weight:800;font-size:13.5px;letter-spacing:0.3px">Simulasi Unit Ekonomi Produk</span>
+      </div>
+      <span style="background:#334155;color:#e2e8f0;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px">Per Botol</span>
+    </div>
+
+    <!-- Harga Jual Ritel Target -->
+    <div style="background:#f8fafc;padding:14px 18px;border-bottom:2px dashed #cbd5e1;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:13px;font-weight:800;color:#0f172a">Harga Jual Ritel</div>
+        <div style="font-size:11.5px;color:#64748b">Marketplace (100% Acuan)</div>
+      </div>
+      <div style="font-size:17px;font-weight:800;color:#0f172a">Rp89.000</div>
+    </div>
+
+    <!-- Rincian Beban Biaya -->
+    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+        <div>
+          <div style="font-weight:600;color:#334155">HPP Produk</div>
+          <div style="font-size:11px;color:#64748b">Biaya Manufaktur Dreamlab</div>
+        </div>
+        <div style="font-weight:700;color:#475569;white-space:nowrap">(Rp25.000)</div>
+      </div>
+      <!-- Ulangi untuk item beban lainnya -->
+    </div>
+
+    <!-- Total Beban -->
+    <div style="background:#fef2f2;padding:12px 18px;border-top:1px dashed #fca5a5;border-bottom:1px solid #fecdd3;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:13px;font-weight:700;color:#991b1b">Total Beban Pengeluaran</div>
+      <div style="font-size:14.5px;font-weight:800;color:#991b1b">(Rp57.815)</div>
+    </div>
+
+    <!-- Estimasi Laba Bersih -->
+    <div style="background:#ecfdf5;padding:16px 18px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:13.5px;font-weight:800;color:#065f46">Estimasi Laba Bersih</div>
+        <div style="font-size:11.5px;color:#047857;font-weight:600">Margin Bersih ~35%</div>
+      </div>
+      <div style="font-size:19px;font-weight:800;color:#065f46">Rp31.185</div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+### Pola B: Komparasi Paket / Skema MOQ (Mobile Tier Cards)
+Gunakan pola ini untuk membandingkan 3 skema pesanan (misal: 100 vs 300 vs 1.000 Pcs).
+
+#### 1. Versi Desktop (`hidden md:block`):
+Tetap menggunakan tabel komparasi 4 kolom dengan header warna kategori (Slate untuk Parameter, Soft Red untuk Mikro, Soft Amber untuk Penyeimbang, Soft Emerald untuk Komprehensif).
+
+#### 2. Versi Mobile (`block md:hidden`):
+Ubah menjadi susunan 3 kartu vertikal di mana kartu skema rekomendasi diberi aksen border tebal dan badge highlight `REKOMENDASI`:
+```html
+<div class="block md:hidden" style="margin:24px 0">
+  <div style="background:#f1f5f9;padding:10px 14px;border-radius:10px;margin-bottom:16px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#334155">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D98A00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+    <span>Komparasi Skema MOQ Maklon Klinik</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <!-- Card 1: Mikro (100 Pcs) -->
+    <div style="background:#ffffff;border:1px solid #fecdd3;border-radius:14px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.03)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #fee2e2">
+        <div style="font-size:15px;font-weight:800;color:#991b1b">Skema Mikro</div>
+        <span style="background:#fee2e2;color:#991b1b;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px">100 Pcs</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:13px">
+        <div>
+          <span style="font-weight:700;color:#64748b;display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">Tujuan &amp; Profil Penggunaan</span>
+          <span style="color:#334155;line-height:1.5">Uji kecocokan formula secara internal...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Penyeimbang (300 Pcs) -->
+    <!-- Card 3: Rekomendasi (1.000 Pcs) ber-border #10b981 dan background #f0fdf4 -->
+  </div>
+</div>
+```
 
 ---
 

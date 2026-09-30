@@ -57,7 +57,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-rincihan-biaya-membuat-brand-haircare-bpom/cover_rincihan_biaya_membuat_brand_haircare.webp",
     "excerpt": "Temukan peluang bisnis haircare dari masalah rambut sehari-hari. Simak rincian komposisi biaya maklon tonic anti-rontok dengan custom formula di Dreamlab.",
-    "readingMinutes": 8
+    "readingMinutes": 9
   },
   {
     "slug": "/maklon-kosmetik-infused-whitening-bpom",
