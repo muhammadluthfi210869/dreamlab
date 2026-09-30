@@ -73,10 +73,16 @@ export async function GET(req: NextRequest) {
       res = await pool.query<{
         active_busdevs: number;
         has_convert_fn: boolean;
+        has_phone_table: boolean;
+        db_name: string;
+        server_ip: string;
       }>(
         `SELECT
            (SELECT count(*)::int FROM busdevs WHERE is_active) AS active_busdevs,
-           EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn`
+           EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn,
+           EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name = 'phone_assignments') AS has_phone_table,
+           current_database() AS db_name,
+           inet_server_addr()::text AS server_ip`
       );
     } catch (firstErr) {
       console.warn('[health/round-robin] First attempt failed, retrying with fresh pool...', (firstErr as Error).message);
@@ -84,17 +90,26 @@ export async function GET(req: NextRequest) {
       res = await pool.query<{
         active_busdevs: number;
         has_convert_fn: boolean;
+        has_phone_table: boolean;
+        db_name: string;
+        server_ip: string;
       }>(
         `SELECT
            (SELECT count(*)::int FROM busdevs WHERE is_active) AS active_busdevs,
-           EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn`
+           EXISTS(SELECT 1 FROM pg_proc WHERE proname = 'assign_and_insert_lead') AS has_convert_fn,
+           EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name = 'phone_assignments') AS has_phone_table,
+           current_database() AS db_name,
+           inet_server_addr()::text AS server_ip`
       );
     }
     latencyMs = Date.now() - t0;
     db = {
       activeBusdevs: res.rows[0]?.active_busdevs ?? 0,
       hasConvertFn: Boolean(res.rows[0]?.has_convert_fn),
-    };
+      hasPhoneTable: Boolean(res.rows[0]?.has_phone_table),
+      dbName: res.rows[0]?.db_name ?? '',
+      serverIp: res.rows[0]?.server_ip ?? '',
+    } as any;
   } catch (err) {
     error = (err as Error).message;
     latencyMs = Date.now() - t0;
