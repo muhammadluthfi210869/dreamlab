@@ -19,9 +19,9 @@ Dokumen ini adalah **panduan absolut dan tidak dapat ditawar** untuk seluruh pro
    - **DILARANG KERAS** warna teks sama atau mirip dengan warna latar (misal: teks hitam di background hitam/gelap, atau teks putih di background putih/terang).
    - Seluruh teks wajib memiliki rasio kontras tinggi (minimal 4.5:1 untuk teks normal, 3:1 untuk teks tebal/besar) agar terbaca sempurna di layar monitor desktop maupun ponsel dalam mode terang (*Light Mode*) dan mode gelap paksa (*Dark Mode/Theme*).
 
-4. **Tabel Wajib Horizontal Scroll di Mobile (Anti-Sesak / Anti-Squish)**:
-   - Dilarang membuat tabel yang menyusut dan memotong kata secara vertikal per suku kata (seperti *"PARA METE R EVAL UASI"*).
-   - Tabel wajib dibungkus dengan container responsive berfitur horizontal swipe dengan `min-width: 820px !important;` dan `white-space: nowrap !important;` pada header.
+4. **Tabel Compact di Desktop & Responsive di Mobile (NO Desktop Horizontal Scroll)**:
+   - **Desktop View (>= 768px)**: Tabel wajib **compact**, berukuran pas 100% dengan kontainer artikel (`width: 100%; table-layout: fixed;`), kata-kata dibungkus normal (*word-wrap: break-word*), teks proporsional, dan **TIDAK ADA horizontal scrollbar** serta **TIDAK ADA badge "Geser ke samping"**.
+   - **Mobile View (< 768px)**: Gunakan komponen kartu compact (*Card Switcher* seperti *Financial Receipt Card* atau *MOQ Tier Cards*) agar pengguna ponsel tidak perlu swipe horizontal. Jika tabel biasa tetap dipakai di mobile, bungkus dengan container `overflow-x: auto;` agar tidak sesak.
 
 5. **NO EMOJI - Gunakan Inline SVG Icon Profesional**:
    - **Dilarang keras memakai emoji kartun bawaan perangkat** (seperti `🔮`, `🎨`, `📱`, `📸`, `🔬`, `📜`, `🏭`, `🤝`, `⚠️`, `✔`, `🎯`, `🧴`, `🌡️`) karena menurunkan citra profesionalitas industri farmasi/kosmetik.

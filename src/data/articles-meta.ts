@@ -33,7 +33,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-maklon-kosmetik-klinik-kecantikan/cover_maklon_kosmetik_klinik.webp",
     "excerpt": "Bikin in-house brand skincare klinik Anda berstandar BPOM. Nikmati sistem 1-client 1-formula, fasilitas CPKB Grade A, dan MOQ fleksibel dari Dreamlab.",
-    "readingMinutes": 9
+    "readingMinutes": 8
   },
   {
     "slug": "/rincihan-biaya-membuat-brand-haircare-bpom",

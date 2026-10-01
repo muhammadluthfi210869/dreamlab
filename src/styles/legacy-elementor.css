@@ -713,29 +713,68 @@
 /* 1. Comparison Tables Mobile Scroll & Readability */
 .legacy-content-wrapper .article-table-wrap {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   margin: 24px 0 32px;
   border-radius: 14px;
-  border: 1px solid #e8e3d8;
+  border: 1px solid #cbd5e1;
   background: #ffffff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
   position: relative;
+  overflow: hidden;
 }
 
-.legacy-content-wrapper .article-table-wrap table {
-  min-width: 820px !important;
-  width: 100% !important;
-  table-layout: auto !important;
+/* DESKTOP (>= 768px): COMPACT TABLE - NO HORIZONTAL SCROLL */
+@media (min-width: 768px) {
+  .legacy-content-wrapper .article-table-wrap {
+    overflow-x: visible !important;
+  }
+  .legacy-content-wrapper .article-table-wrap > div[style*="overflow-x"] {
+    overflow-x: visible !important;
+  }
+  .legacy-content-wrapper .article-table-wrap table {
+    min-width: 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+  .legacy-content-wrapper .article-table-wrap table th,
+  .legacy-content-wrapper .article-table-wrap table td {
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    padding: 11px 13px !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+  .legacy-content-wrapper .article-table-wrap table th {
+    font-size: 12px !important;
+    letter-spacing: 0.3px !important;
+  }
+  .legacy-content-wrapper .article-table-wrap .dl-scroll-badge,
+  .legacy-content-wrapper .article-table-wrap .table-scroll-hint,
+  .legacy-content-wrapper .table-scroll-hint {
+    display: none !important;
+  }
 }
 
-.legacy-content-wrapper .article-table-wrap table th,
-.legacy-content-wrapper .article-table-wrap table td {
-  box-sizing: border-box !important;
-}
-
-.legacy-content-wrapper .article-table-wrap table th {
-  white-space: nowrap !important;
+/* MOBILE (< 768px): HORIZONTAL SCROLLABLE */
+@media (max-width: 767px) {
+  .legacy-content-wrapper .article-table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .legacy-content-wrapper .article-table-wrap table {
+    min-width: 720px !important;
+    width: 100% !important;
+    table-layout: auto !important;
+  }
+  .legacy-content-wrapper .article-table-wrap table th,
+  .legacy-content-wrapper .article-table-wrap table td {
+    box-sizing: border-box !important;
+  }
+  .legacy-content-wrapper .article-table-wrap table th {
+    white-space: nowrap !important;
+  }
 }
 
 .legacy-content-wrapper .article-table-wrap::-webkit-scrollbar {
