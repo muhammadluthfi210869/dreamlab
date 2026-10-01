@@ -253,21 +253,47 @@ Alur proses maklon di Dreamlab wajib ditampilkan secara **berurutan vertikal ke 
 
 ## 6. Standar Banner Closing CTA & FAQ
 
-### Closing CTA (Hanya 1 di Akhir Artikel):
+### Closing CTA (Gambar 2 Standard - H2 & Paragraf di Body, Diikuti Compact dl-main-cta):
+> [!IMPORTANT]
+> **DILARANG** menggabungkan judul H2 dan paragraf penjelas ke dalam kotak biru raksasa (Gambar 1).
+> **WAJIB** memisahkan judul H2 (`Yuk Kolaborasi...`) dan paragraf pengantar di atas background putih artikel biasa (seperti Gambar 2), kemudian diikuti box compact `.dl-main-cta` yang berisi badge, value prop pendek, dan tombol oranye.
+
 ```html
-<div id="konsultasi-maklon" class="dl-closing-cta" style="background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);color:#ffffff;border-radius:20px;padding:36px 32px;margin:44px 0;text-align:center;box-shadow:0 10px 25px -5px rgba(15,23,42,0.15)">
-  <h2 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 14px">Yuk Kolaborasi Brand dengan Dreamlab</h2>
-  <p style="color:#cbd5e1;font-size:15px;line-height:1.75;margin:0 auto 16px;max-width:680px">
-    Paragraf penutup yang mengajak calon founder berkolaborasi dan berkonsultasi secara gratis...
-  </p>
-  <p style="color:#fbbf24;font-size:15px;font-weight:700;margin:0 0 24px">
-    Konsultasikan ide produk Anda sekarang bersama Dreamlab &mdash; Maklon Juaranya Formula!
-  </p>
-  <div style="display:flex;justify-content:center;width:100%">
-    <a href="https://dreamlab.id/contact-us/" style="display:inline-block;background:#D98A00;color:#ffffff;font-size:16px;font-weight:700;padding:16px 36px;border-radius:50px;text-decoration:none;transition:all 0.2s ease;box-shadow:0 4px 14px rgba(217,138,0,0.4);max-width:100%;text-align:center;word-break:break-word;white-space:normal;box-sizing:border-box">Konsultasi Maklon Kosmetik Sekarang</a>
-  </div>
+<h2 id="yuk-kolaborasi-brand-dengan-dreamlab">Yuk Kolaborasi Brand dengan Dreamlab</h2>
+
+<p>Bersama Dreamlab, Anda bisa meluncurkan brand impian tanpa harus memikirkan rumitnya formulasi laboratorium, tingginya modal mendirikan pabrik sendiri, birokrasi perizinan BPOM dan Halal, hingga risiko stok menumpuk. Anda cukup berfokus pada strategi penjualan dan membangun identitas merek, sementara seluruh proses produksi berstandar CPKB Grade A dengan prinsip eksklusif 1-client 1-formula kami tangani hingga tuntas.</p>
+
+<p>Konsultasikan ide formulasi produk Anda sekarang bersama Dreamlab &mdash; Maklon Juaranya Formula!</p>
+
+<div class="dl-main-cta">
+  <div style="position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(217,138,0,0.12) 0%,transparent 70%);border-radius:50%"></div>
+  <div style="position:absolute;bottom:-40px;left:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(217,138,0,0.08) 0%,transparent 70%);border-radius:50%"></div>
+  <span style="color:#f0b830;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;display:inline-block;position:relative">WUJUDKAN BRAND IMPIAN ANDA</span>
+  <p style="color:#ffffff;font-size:16px;font-weight:600;margin:0 0 24px;line-height:1.8;position:relative">Diskusikan ide produk kosmetik, simulasi HPP, dan formula eksklusif Anda bersama Dreamlab &mdash; Juaranya Formula!</p>
+  <a href="https://dreamlab.id/contact-us/" style="background:linear-gradient(135deg,#D98A00 0%,#e6a020 50%,#f0b830 100%);color:#ffffff;padding:16px 44px;border-radius:50px;font-weight:800;text-decoration:none;display:inline-block;font-size:15px;box-shadow:0 4px 20px rgba(217,138,0,0.35);letter-spacing:0.5px;position:relative">HUBUNGI DREAMLAB SEKARANG &rarr;</a>
 </div>
 ```
+
+---
+
+## 7. Standar Layout List & Katalog Produk (Desktop & Mobile Editorial Flow)
+
+1. **Katalog Produk ("Produk yang Bisa Anda Kembangkan")**:
+   - **Format 1 Kolom Vertikal (1 Row/Column)**: Dilarang menggunakan grid 2-kolom (`dl-products-grid`). Gunakan container flex vertikal (`dl-products-list` dengan `flex-direction: column; gap: 16px`).
+   - **Box Bersih TANPA ICON**: Tidak menggunakan kotak ikon warna-warni atau SVG di dalam kartu produk. Cukup judul H3 yang tegas, paragraf penjelasan, dan link katalog produk `&rarr;`.
+   ```html
+   <div class="dl-products-list" style="display:flex;flex-direction:column;gap:16px;margin:28px 0">
+     <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;padding:22px 24px;box-shadow:0 2px 6px rgba(0,0,0,0.02)">
+       <h3 id="nama-produk" style="font-size:17px;font-weight:800;color:#111827;margin:0 0 6px">Nama Produk</h3>
+       <p style="font-size:14px;color:#4b5563;line-height:1.65;margin:0 0 10px">Penjelasan spesifikasi dan keunggulan formulasi produk...</p>
+       <a href="https://dreamlab.id/produk/..." style="color:#D98A00;font-weight:700;font-size:13.5px;text-decoration:none">Jelajahi Katalog Maklon &rarr;</a>
+     </div>
+   </div>
+   ```
+
+2. **Daftar Masalah / Peluang / Fitur (Gambar 3 Standard)**:
+   - Hindari layout grid 2-kolom jika jumlah kartu ganjil (seperti 3 item) karena menyisakan ruang kosong canggung di sebelah kanan pada desktop.
+   - Gunakan alur artikel alami **1 kolom ke bawah** (`dl-feature-list` dengan `flex-direction: column; gap: 18px`) sehingga pembaca desktop maupun mobile membaca artikel dengan ritme vertikal yang konsisten.
 
 ### FAQ Section (Hanya 1 di Akhir Artikel):
 ```html
