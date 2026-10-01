@@ -724,18 +724,24 @@
 
 /* DESKTOP (>= 768px): COMPACT TABLE - NO HORIZONTAL SCROLL */
 @media (min-width: 768px) {
+  .article-table-wrap,
   .legacy-content-wrapper .article-table-wrap {
-    overflow-x: visible !important;
+    overflow-x: hidden !important;
+    overflow: hidden !important;
   }
-  .legacy-content-wrapper .article-table-wrap > div[style*="overflow-x"] {
-    overflow-x: visible !important;
+  .article-table-wrap > div,
+  .legacy-content-wrapper .article-table-wrap > div {
+    overflow-x: hidden !important;
   }
+  .article-table-wrap table,
   .legacy-content-wrapper .article-table-wrap table {
     min-width: 100% !important;
     max-width: 100% !important;
     width: 100% !important;
     table-layout: fixed !important;
   }
+  .article-table-wrap table th,
+  .article-table-wrap table td,
   .legacy-content-wrapper .article-table-wrap table th,
   .legacy-content-wrapper .article-table-wrap table td {
     box-sizing: border-box !important;
@@ -746,10 +752,15 @@
     font-size: 13px !important;
     line-height: 1.55 !important;
   }
+  .article-table-wrap table th,
   .legacy-content-wrapper .article-table-wrap table th {
     font-size: 12px !important;
     letter-spacing: 0.3px !important;
   }
+  .dl-scroll-badge,
+  .table-scroll-hint,
+  .article-table-wrap .dl-scroll-badge,
+  .article-table-wrap .table-scroll-hint,
   .legacy-content-wrapper .article-table-wrap .dl-scroll-badge,
   .legacy-content-wrapper .article-table-wrap .table-scroll-hint,
   .legacy-content-wrapper .table-scroll-hint {
