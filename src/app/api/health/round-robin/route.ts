@@ -146,3 +146,31 @@ export async function GET(req: NextRequest) {
     headers: { 'Cache-Control': 'no-store, max-age=0' },
   });
 }
+
+export async function POST(req: NextRequest) {
+  if (!isAuthorized(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const updateRes = await pool.query(
+      "UPDATE busdevs SET is_active = false WHERE id = '4' OR phone = '085133188827' OR lower(name) = 'irma' RETURNING id, name, phone, is_active"
+    );
+    await pool.query(
+      "UPDATE busdevs SET is_active = false WHERE phone NOT IN ('081952417051', '087776550657', '087712232389')"
+    );
+    const deleteSticky = await pool.query(
+      "DELETE FROM visitor_assignments WHERE agent_id = 4 OR agent_id IN (SELECT id::int FROM busdevs WHERE lower(name) = 'irma' OR phone = '085133188827')"
+    );
+    const current = await pool.query('SELECT id, name, phone, is_active FROM busdevs ORDER BY id');
+
+    return NextResponse.json({
+      success: true,
+      updated: updateRes.rows,
+      clearedSticky: deleteSticky.rowCount,
+      currentBusdevs: current.rows,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
+}
