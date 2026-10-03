@@ -19,7 +19,7 @@ export const BUSDEV_LIST: readonly BusDevItem[] = [
     id: "irma",
     name: "Irma",
     phone: "6285133188827",
-    active: true,
+    active: false,
     order: 1,
   },
   {
@@ -54,7 +54,7 @@ export function getActiveBusdev(): BusDevItem[] {
   const active = BUSDEV_LIST.filter((sales) => sales.active).sort((a, b) => a.order - b.order);
   if (active.length === 0) {
     // Fallback darurat jika seluruh BusDev tidak sengaja di-set nonaktif
-    return [BUSDEV_LIST[0]];
+    return [BUSDEV_LIST.find((s) => s.active) ?? BUSDEV_LIST[1] ?? BUSDEV_LIST[0]];
   }
   return active;
 }

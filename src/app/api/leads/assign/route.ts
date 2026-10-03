@@ -519,7 +519,7 @@ export async function POST(req: NextRequest) {
       // Server-side emergency fallback (saat Redis, PG, DAN Neon tidak dapat
       // diakses). Hash eventId → merata tanpa state bersama antar instance,
       // bukan selalu index 0 (yang dulu menumpuk lead ke BusDev pertama).
-      const emergencyPool = activeBusdev.length > 0 ? activeBusdev : BUSDEV_LIST;
+      const emergencyPool = activeBusdev.length > 0 ? activeBusdev : getActiveBusdev();
       const emergencyBusdev = emergencyPick(eventId, emergencyPool);
       const defaultUrl = buildWhatsAppLeadUrl(
         emergencyBusdev.phone,
@@ -555,7 +555,7 @@ export async function POST(req: NextRequest) {
     // Emergency merata: hash seed acak (unexpected error = tidak ada eventId
     // yang dijamin tersedia di scope ini).
     const unexpectedSeed = crypto.randomUUID();
-    const fallbackBusdev = emergencyPick(unexpectedSeed, BUSDEV_LIST);
+    const fallbackBusdev = emergencyPick(unexpectedSeed, getActiveBusdev());
     const defaultUrl = buildWhatsAppLeadUrl(
       fallbackBusdev.phone,
       getWhatsAppMessage('default')

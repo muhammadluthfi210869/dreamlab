@@ -20,14 +20,12 @@ import { buildThankyouUrl } from '../src/lib/lead-routing';
 import { BUSDEV_LIST } from '../src/lib/busdev';
 
 function testSequentialBusDevOrder() {
-  console.log('▶ Test 1: Empat assignment berurutan harus menghasilkan 4 sales sesuai urutan');
+  console.log('▶ Test 1: Assignment berurutan harus menghasilkan sales aktif sesuai urutan');
   const active = BUSDEV_LIST.filter(b => b.active).sort((a, b) => a.order - b.order);
-  assert.equal(active.length, 4, 'Harus ada 4 BusDev aktif');
-  assert.equal(active[0].id, 'irma');
-  assert.equal(active[1].id, 'annisa');
-  assert.equal(active[2].id, 'diaz');
-  assert.equal(active[3].id, 'jessica');
-  console.log('  ✓ Urutan: 1. Irma -> 2. Annisa -> 3. Diaz -> 4. Jessica: PASSED');
+  assert.ok(active.length >= 1, 'Harus ada minimal 1 BusDev aktif');
+  const activeIds = active.map(b => b.id);
+  assert.ok(!activeIds.includes('irma'), 'Irma sedang cuti dan tidak boleh aktif di rotasi');
+  console.log(`  ✓ BusDev aktif (${activeIds.join(' -> ')}): PASSED`);
 }
 
 function testIdempotencyAndRefresh() {

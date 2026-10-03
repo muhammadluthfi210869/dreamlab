@@ -53,10 +53,11 @@ export function pickEmergencyFallbackAgent(seed?: string | null): Agent {
     return active[idx];
   }
 
+  const fallback = BUSDEV_LIST.find((b) => b.active) ?? BUSDEV_LIST[0];
   return {
-    id: BUSDEV_LIST[0].id,
-    name: BUSDEV_LIST[0].name,
-    phone: BUSDEV_LIST[0].phone,
-    active: true,
+    id: fallback.id,
+    name: fallback.name,
+    phone: fallback.phone,
+    active: fallback.active,
   };
 }
