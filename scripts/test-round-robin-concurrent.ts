@@ -26,14 +26,21 @@ async function main() {
   }
 
   console.log('Results from 60 concurrent requests:', JSON.stringify(counts));
+
+  // Verifikasi Irma sama sekali tidak masuk
+  if (counts['Irma']) {
+    console.error('❌ CRITICAL FAILURE: Irma received leads in concurrent test!', counts);
+    process.exit(1);
+  }
+
   const vals = Object.values(counts);
   const min = Math.min(...vals);
   const max = Math.max(...vals);
   const diff = max - min;
 
   console.log(`Min: ${min}, Max: ${max}, Diff: ${diff}`);
-  if (diff <= 1 && Object.keys(counts).length === 4) {
-    console.log('✅ CONCURRENT BURST EQUALITY PASSED: 15 leads per rep with diff <= 1!');
+  if (diff <= 1 && Object.keys(counts).length === 3) {
+    console.log('✅ CONCURRENT BURST EQUALITY PASSED: 20 leads per rep (Annisa, Diaz, Jessica) with diff <= 1 and Irma is completely excluded!');
     process.exit(0);
   } else {
     console.error('❌ CONCURRENT BURST FAILED:', { diff, counts });

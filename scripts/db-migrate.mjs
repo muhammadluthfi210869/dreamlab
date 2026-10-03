@@ -10,6 +10,10 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import pg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+dotenv.config();
 
 const connectionString =
   process.env.DATABASE_URL ||
@@ -22,13 +26,21 @@ if (!connectionString) {
 }
 
 const u = new URL(connectionString);
+const sslMode = u.searchParams.get('sslmode') ?? '';
+let ssl;
+if (sslMode === 'require') {
+  ssl = { rejectUnauthorized: false };
+} else if (sslMode === 'verify-ca' || sslMode === 'verify-full') {
+  ssl = { rejectUnauthorized: true };
+}
+
 const pool = new pg.Pool({
   host: u.hostname,
   port: Number(u.port || 5432),
   database: decodeURIComponent(u.pathname.replace(/^\//, '')),
   user: decodeURIComponent(u.username),
   password: decodeURIComponent(u.password),
-  ssl: { rejectUnauthorized: false },
+  ssl,
   max: 2,
   connectionTimeoutMillis: 10000,
 });

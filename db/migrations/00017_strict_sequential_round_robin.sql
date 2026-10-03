@@ -27,13 +27,13 @@
 BEGIN;
 
 -- 1. Normalisasi data agen di tabel busdevs
-UPDATE busdevs SET name = 'Irma', is_active = true WHERE phone = '085133188827';
+UPDATE busdevs SET name = 'Irma', is_active = false WHERE phone = '085133188827';
 UPDATE busdevs SET name = 'Annisa', is_active = true WHERE phone = '081952417051';
 UPDATE busdevs SET name = 'Diaz', is_active = true WHERE phone = '087776550657';
 UPDATE busdevs SET name = 'Jessica', is_active = true WHERE phone = '087712232389';
 
 -- Nonaktifkan agen non-aktif jika ada
-UPDATE busdevs SET is_active = false WHERE phone NOT IN ('085133188827', '081952417051', '087776550657', '087712232389');
+UPDATE busdevs SET is_active = false WHERE phone NOT IN ('081952417051', '087776550657', '087712232389');
 
 -- Pastikan tabel rr_counter siap
 CREATE TABLE IF NOT EXISTS rr_counter (

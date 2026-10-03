@@ -36,6 +36,10 @@
 BEGIN;
 
 -- Fix 1: assign_next_agent() ----------------------------------------
+DROP FUNCTION IF EXISTS assign_next_agent(TEXT, BOOLEAN);
+DROP FUNCTION IF EXISTS assign_next_agent(TEXT, BOOLEAN, TEXT, TEXT);
+DROP FUNCTION IF EXISTS assign_next_agent(TEXT, BOOLEAN, TEXT, TEXT, TEXT);
+
 CREATE OR REPLACE FUNCTION assign_next_agent(p_visitor_id TEXT)
 RETURNS TABLE(agent_id BIGINT, agent_name TEXT, agent_phone TEXT, order_index INT)
 LANGUAGE plpgsql
@@ -110,6 +114,8 @@ END;
 $$;
 
 -- Fix 2: assign_and_insert_lead() -----------------------------------
+DROP FUNCTION IF EXISTS assign_and_insert_lead(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, BOOLEAN);
+
 CREATE OR REPLACE FUNCTION assign_and_insert_lead(
   p_visitor_id   TEXT,
   p_intent       TEXT,
@@ -258,7 +264,7 @@ $$;
 -- Verifikasi: pastikan kedua fungsi tetap bisa dipanggil
 DO $$
 BEGIN
-  PERFORM assign_next_agent(NULL);
+  PERFORM assign_next_agent(NULL::text);
   PERFORM assign_and_insert_lead(
     NULL, NULL, 'direct', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
   );

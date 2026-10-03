@@ -71,10 +71,10 @@ async function main() {
     process.exit(1);
   }
 
-  // 3. TEST FRESH VISITORS ROUND ROBIN (Visitor baru tanpa nomor & browser baru harus berputar rata 1:1:1:1)
-  console.log('\n▶ Test 3: Rotasi 16 visitor baru murni (harus 4 per BusDev, selisih 0)');
+  // 3. TEST FRESH VISITORS ROUND ROBIN (Visitor baru tanpa nomor & browser baru harus berputar rata ke 3 BusDev)
+  console.log('\n▶ Test 3: Rotasi 15 visitor baru murni (harus 5 per BusDev, selisih 0)');
   const counts: Record<string, number> = {};
-  for (let i = 1; i <= 16; i++) {
+  for (let i = 1; i <= 15; i++) {
     const freshRes = await convertLead({
       visitorId: `fresh-vid-${Date.now()}-${i}`,
       intent: 'fresh',
@@ -85,11 +85,18 @@ async function main() {
     counts[freshRes.name] = (counts[freshRes.name] || 0) + 1;
   }
 
-  console.log('  Hasil distribusi 16 visitor baru:', JSON.stringify(counts));
+  console.log('  Hasil distribusi 15 visitor baru:', JSON.stringify(counts));
+
+  // Verifikasi Irma sama sekali tidak masuk
+  if (counts['Irma']) {
+    console.error('  ✗ CRITICAL FAILURE: Irma received lead in sticky test!', counts);
+    process.exit(1);
+  }
+
   const vals = Object.values(counts);
   const diff = Math.max(...vals) - Math.min(...vals);
-  if (diff <= 1 && Object.keys(counts).length === 4) {
-    console.log(`  ✓ Lolos: 16 visitor baru terdistribusi rata ke 4 BusDev (selisih: ${diff}).`);
+  if (diff <= 1 && Object.keys(counts).length === 3) {
+    console.log(`  ✓ Lolos: 15 visitor baru terdistribusi rata ke 3 BusDev (Annisa, Diaz, Jessica) (selisih: ${diff}) dan Irma nihil.`);
   } else {
     console.error(`  ✗ Gagal distribusi:`, { diff, counts });
     process.exit(1);
