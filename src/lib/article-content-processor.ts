@@ -21,20 +21,48 @@ function decodeEntities(s: string): string {
   return s
     .replace(/&nbsp;/gi, ' ')
     .replace(/&#xa0;/gi, ' ')
+    .replace(/&#160;/gi, ' ')
     .replace(/&amp;/gi, '&')
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
-    .replace(/&#x2019;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&apos;/gi, "'")
+    .replace(/&ldquo;/gi, '"')
+    .replace(/&rdquo;/gi, '"')
+    .replace(/&lsquo;/gi, "'")
+    .replace(/&rsquo;/gi, "'")
+    .replace(/&#8220;/gi, '"')
+    .replace(/&#8221;/gi, '"')
+    .replace(/&#8216;/gi, "'")
+    .replace(/&#8217;/gi, "'")
     .replace(/&#x201c;/gi, '"')
     .replace(/&#x201d;/gi, '"')
-    .replace(/&#x2026;/gi, '...')
+    .replace(/&#x2018;/gi, "'")
+    .replace(/&#x2019;/gi, "'")
+    .replace(/&mdash;/gi, '--')
+    .replace(/&ndash;/gi, '-')
+    .replace(/&#8212;/gi, '--')
+    .replace(/&#8211;/gi, '-')
     .replace(/&#x2014;/gi, '--')
     .replace(/&#x2013;/gi, '-')
+    .replace(/&hellip;/gi, '...')
+    .replace(/&#8230;/gi, '...')
+    .replace(/&#x2026;/gi, '...')
+    .replace(/&bull;/gi, '•')
+    .replace(/&#8226;/gi, '•')
     .replace(/&rarr;/gi, '→')
     .replace(/&amp;rarr;/gi, '→')
     .replace(/&#8594;/gi, '→')
     .replace(/&larr;/gi, '←')
-    .replace(/&#8592;/gi, '←');
+    .replace(/&#8592;/gi, '←')
+    .replace(/&#(\d+);/g, (_, dec) => {
+      const n = Number(dec);
+      return n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : '';
+    })
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => {
+      const n = parseInt(hex, 16);
+      return !isNaN(n) && n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : '';
+    });
 }
 
 function stripTags(html: string): string {
