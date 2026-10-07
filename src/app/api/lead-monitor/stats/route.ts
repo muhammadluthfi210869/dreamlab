@@ -12,6 +12,7 @@ const NO_STORE_HEADERS = {
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const busdevFilter = url.searchParams.get('busdev') || 'all';
+  const statusFilter = url.searchParams.get('status') || 'all';
   const period = url.searchParams.get('period') || 'today';
   const startDate = url.searchParams.get('startDate') || '';
   const endDate = url.searchParams.get('endDate') || '';
@@ -33,13 +34,7 @@ export async function GET(req: NextRequest) {
     }
     // 1. Filter waktu (Asia/Jakarta boundary yang presisi untuk timestamptz)
     let timeClause = '';
-    if (validStart && validEnd) {
-      timeClause = `AND created_at >= ('${validStart}'::date AT TIME ZONE 'Asia/Jakarta') AND created_at < (('${validEnd}'::date + 1) AT TIME ZONE 'Asia/Jakarta')`;
-    } else if (validStart) {
-      timeClause = `AND created_at >= ('${validStart}'::date AT TIME ZONE 'Asia/Jakarta')`;
-    } else if (validEnd) {
-      timeClause = `AND created_at < (('${validEnd}'::date + 1) AT TIME ZONE 'Asia/Jakarta')`;
-    } else if (period === 'today') {
+    if (period === 'today') {
       timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
     } else if (period === 'yesterday') {
       timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '1 day' AND created_at < (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
@@ -49,6 +44,14 @@ export async function GET(req: NextRequest) {
       timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '30 days'`;
     } else if (period === 'all') {
       timeClause = '';
+    } else if (validStart && validEnd) {
+      timeClause = `AND created_at >= ('${validStart} 00:00:00+07'::timestamptz) AND created_at < (('${validEnd}'::date + 1) || ' 00:00:00+07')::timestamptz`;
+    } else if (validStart) {
+      timeClause = `AND created_at >= ('${validStart} 00:00:00+07'::timestamptz)`;
+    } else if (validEnd) {
+      timeClause = `AND created_at < (('${validEnd}'::date + 1) || ' 00:00:00+07')::timestamptz`;
+    } else {
+      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
     }
 
     // 2. Filter BusDev
@@ -65,13 +68,23 @@ export async function GET(req: NextRequest) {
       paramIndex++;
     }
 
-    // 3. Filter Search
+    // 3. Filter Status (all, confirmed, dropoff)
+    let statusClause = '';
+    if (statusFilter === 'confirmed') {
+      statusClause = "AND status = 'confirmed'";
+    } else if (statusFilter === 'dropoff') {
+      statusClause = "AND (status IS NULL OR status != 'confirmed') AND source != 'wa-direct'";
+    }
+
+    // 4. Filter Search
     let searchClause = '';
     if (search) {
       searchClause = `AND (
         tracking_code ILIKE $${paramIndex}
         OR wa_profile_name ILIKE $${paramIndex}
         OR wa_phone ILIKE $${paramIndex}
+        OR hp ILIKE $${paramIndex}
+        OR nama ILIKE $${paramIndex}
         OR page_url ILIKE $${paramIndex}
       )`;
       queryParams.push(`%${search}%`);
@@ -79,8 +92,6 @@ export async function GET(req: NextRequest) {
     }
 
     // A. Query KPI Summary untuk BusDev terpilih
-    // Catatan: total_clicks mengukur klik CTA dari website/iklan (source != 'wa-direct').
-    // Chat langsung tanpa tracking code dari WA dihitung terpisah sebagai direct_chats.
     const kpiQuery = `
       SELECT 
         COUNT(*) FILTER (WHERE source != 'wa-direct')::int AS total_clicks,
@@ -99,19 +110,24 @@ export async function GET(req: NextRequest) {
       ? Number(((kpi.confirmed_chats / kpi.total_clicks) * 100).toFixed(1)) 
       : 0;
 
-    // B. Query Breakdown Per Semua BusDev (untuk tab counter)
+    // B. Query Breakdown Per Semua BusDev (dengan status aktif/nonaktif dari tabel busdevs)
+    const breakdownTimeClause = timeClause ? timeClause.replace(/created_at/g, 'l.created_at') : '';
     const breakdownQuery = `
       SELECT 
-        COALESCE(assigned_to, 'Unassigned') AS busdev_name,
-        COUNT(*) FILTER (WHERE source != 'wa-direct')::int AS total_clicks,
-        COUNT(*) FILTER (WHERE status = 'confirmed' AND source != 'wa-direct')::int AS confirmed_chats,
-        COUNT(*) FILTER (WHERE (status IS NULL OR status != 'confirmed') AND source != 'wa-direct')::int AS dropoff_clicks,
-        COUNT(*) FILTER (WHERE source = 'wa-direct')::int AS direct_chats
-      FROM leads
-      WHERE is_test IS NOT TRUE
-        ${timeClause}
-      GROUP BY assigned_to
-      ORDER BY total_clicks DESC
+        b.name AS busdev_name,
+        b.is_active,
+        COUNT(l.id) FILTER (WHERE l.source != 'wa-direct')::int AS total_clicks,
+        COUNT(l.id) FILTER (WHERE l.status = 'confirmed' AND l.source != 'wa-direct')::int AS confirmed_chats,
+        COUNT(l.id) FILTER (WHERE (l.status IS NULL OR l.status != 'confirmed') AND l.source != 'wa-direct')::int AS dropoff_clicks,
+        COUNT(l.id) FILTER (WHERE l.source = 'wa-direct')::int AS direct_chats
+      FROM busdevs b
+      LEFT JOIN leads l ON (
+        (l.assigned_to = b.name OR l.assigned_phone = regexp_replace(b.phone, '[^0-9]', '', 'g'))
+        AND l.is_test IS NOT TRUE
+        ${breakdownTimeClause}
+      )
+      GROUP BY b.name, b.is_active, b.id
+      ORDER BY b.is_active DESC, total_clicks DESC, b.id ASC
     `;
     const breakdownRes = await client.query(breakdownQuery);
 
@@ -126,15 +142,24 @@ export async function GET(req: NextRequest) {
         page_url,
         page_title,
         status,
+        nama,
+        hp,
         wa_profile_name,
         wa_phone,
+        COALESCE(wa_phone, hp) AS display_phone,
         wa_message,
         created_at,
-        confirmed_at
+        confirmed_at,
+        CASE 
+          WHEN confirmed_at IS NOT NULL 
+          THEN ROUND(EXTRACT(EPOCH FROM (confirmed_at - created_at)))::int
+          ELSE NULL
+        END AS latency_seconds
       FROM leads
       WHERE is_test IS NOT TRUE
         ${timeClause}
         ${busdevClause}
+        ${statusClause}
         ${searchClause}
       ORDER BY created_at DESC
       LIMIT 150
@@ -146,6 +171,7 @@ export async function GET(req: NextRequest) {
         success: true,
         filter: {
           busdev: busdevFilter,
+          status: statusFilter,
           period,
           startDate: validStart,
           endDate: validEnd,

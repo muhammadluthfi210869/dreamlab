@@ -28,11 +28,15 @@ interface LeadItem {
   page_url: string | null;
   page_title: string | null;
   status: string | null;
+  nama?: string | null;
+  hp?: string | null;
   wa_profile_name: string | null;
   wa_phone: string | null;
+  display_phone?: string | null;
   wa_message: string | null;
   created_at: string;
   confirmed_at: string | null;
+  latency_seconds?: number | null;
 }
 
 interface KPIStats {
@@ -44,6 +48,7 @@ interface KPIStats {
 
 interface BusdevBreakdown {
   busdev_name: string;
+  is_active?: boolean;
   total_clicks: number;
   confirmed_chats: number;
   dropoff_clicks: number;
@@ -60,8 +65,19 @@ function getWibDate(offsetDays = 0): string {
   }).format(target);
 }
 
+function formatLatency(seconds: number | null | undefined): string {
+  if (seconds === null || seconds === undefined) return "—";
+  if (seconds < 60) return `${seconds} dtk`;
+  const mins = Math.floor(seconds / 60);
+  const remSecs = seconds % 60;
+  if (mins < 60) return `${mins}m ${remSecs > 0 ? remSecs + 's' : ''}`;
+  const hrs = Math.floor(mins / 60);
+  return `${hrs}j ${mins % 60}m`;
+}
+
 export default function LeadMonitorPage() {
   const [selectedBusdev, setSelectedBusdev] = useState<string>("all");
+  const [selectedStatus, setSelectedStatus] = useState<string>("all"); // 'all' | 'confirmed' | 'dropoff'
   const [selectedPeriod, setSelectedPeriod] = useState<string>("today");
   const [startDate, setStartDate] = useState<string>(() => getWibDate(0));
   const [endDate, setEndDate] = useState<string>(() => getWibDate(0));
@@ -91,12 +107,15 @@ export default function LeadMonitorPage() {
         setErrorMsg(null);
         const queryParams = new URLSearchParams({
           busdev: selectedBusdev,
+          status: selectedStatus,
           period: selectedPeriod,
           search: searchQuery,
         });
 
-        if (startDate) queryParams.set("startDate", startDate);
-        if (endDate) queryParams.set("endDate", endDate);
+        if (selectedPeriod === "custom") {
+          if (startDate) queryParams.set("startDate", startDate);
+          if (endDate) queryParams.set("endDate", endDate);
+        }
 
         const res = await fetch(`/api/lead-monitor/stats?${queryParams.toString()}`);
         if (!res.ok) {
@@ -119,7 +138,7 @@ export default function LeadMonitorPage() {
         setRefreshing(false);
       }
     },
-    [selectedBusdev, selectedPeriod, startDate, endDate, searchQuery]
+    [selectedBusdev, selectedStatus, selectedPeriod, startDate, endDate, searchQuery]
   );
 
   useEffect(() => {
@@ -184,10 +203,10 @@ export default function LeadMonitorPage() {
 
   // Hitung total clicks per busdev dari breakdown
   const busdevTotals = useMemo(() => {
-    const map: Record<string, { total: number; confirmed: number }> = {};
+    const map: Record<string, { total: number; confirmed: number; isActive?: boolean }> = {};
     for (const b of breakdown) {
       const name = b.busdev_name;
-      map[name] = { total: b.total_clicks, confirmed: b.confirmed_chats };
+      map[name] = { total: b.total_clicks, confirmed: b.confirmed_chats, isActive: b.is_active };
     }
     return map;
   }, [breakdown]);
@@ -300,7 +319,8 @@ export default function LeadMonitorPage() {
                   <option value="all">Semua BusDev (Total: {kpi.totalClicks})</option>
                   {busdevList.map((name) => {
                     const stats = busdevTotals[name];
-                    const label = stats ? `${name} (${stats.confirmed}/${stats.total} lead)` : name;
+                    const statusNote = stats?.isActive === false ? " (Nonaktif)" : "";
+                    const label = stats ? `${name}${statusNote} (${stats.confirmed}/${stats.total} lead)` : name;
                     return (
                       <option key={name} value={name}>
                         {label}
@@ -452,18 +472,57 @@ export default function LeadMonitorPage() {
         {/* Audit Table Section */}
         <div className="bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden">
           {/* Table Toolbar */}
-          <div className="px-4 py-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white">
-            <div className="flex items-center gap-2">
+          <div className="px-4 py-3 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+            <div className="flex flex-wrap items-center gap-2.5">
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                 Riwayat Validasi Lead
               </h2>
               <span className="text-[11px] font-mono font-medium px-2 py-0.2 rounded-full bg-slate-100 text-slate-600 border border-slate-200/60">
                 {leads.length} data
               </span>
+
+              {/* Status Filter Tabs (Semua / Valid / Drop-off) */}
+              <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60 ml-1">
+                <button
+                  type="button"
+                  onClick={() => setSelectedStatus("all")}
+                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all ${
+                    selectedStatus === "all"
+                      ? "bg-white text-slate-900 font-semibold shadow-2xs"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  Semua ({kpi.totalClicks})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedStatus("confirmed")}
+                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all flex items-center gap-1.5 ${
+                    selectedStatus === "confirmed"
+                      ? "bg-white text-emerald-700 font-semibold shadow-2xs"
+                      : "text-slate-500 hover:text-emerald-700"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Chat Masuk ({kpi.confirmedChats})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedStatus("dropoff")}
+                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all flex items-center gap-1.5 ${
+                    selectedStatus === "dropoff"
+                      ? "bg-white text-amber-700 font-semibold shadow-2xs"
+                      : "text-slate-500 hover:text-amber-700"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  Drop-off ({kpi.dropoffClicks})
+                </button>
+              </div>
             </div>
 
             {/* Compact Search Input */}
-            <div className="relative w-full sm:w-64">
+            <div className="relative w-full md:w-64">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -483,36 +542,44 @@ export default function LeadMonitorPage() {
                   <th className="py-2.5 px-3.5 w-10 text-center">#</th>
                   <th className="py-2.5 px-3.5">Status Validasi</th>
                   <th className="py-2.5 px-3.5">Waktu Klik</th>
-                  <th className="py-2.5 px-3.5">Tracking Code</th>
-                  <th className="py-2.5 px-3.5">Asal Halaman & Kampanye</th>
+                  <th className="py-2.5 px-3.5">Waktu Chat</th>
+                  <th className="py-2.5 px-3.5">Latency (Selisih)</th>
+                  <th className="py-2.5 px-3.5">No. HP Pengirim</th>
                   <th className="py-2.5 px-3.5">BusDev</th>
                   <th className="py-2.5 px-3.5">Display Name WA</th>
-                  <th className="py-2.5 px-3.5">No. HP Pengirim</th>
-                  <th className="py-2.5 px-3.5">Waktu Chat</th>
+                  <th className="py-2.5 px-3.5">Tracking Code</th>
+                  <th className="py-2.5 px-3.5">Asal Halaman & Kampanye</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
-                    <td colSpan={9} className="py-10 text-center text-slate-400">
+                    <td colSpan={10} className="py-10 text-center text-slate-400">
                       <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-slate-400" />
                       Memuat data audit...
                     </td>
                   </tr>
                 ) : leads.length === 0 ? (
                   <tr>
-                    <td colSpan={9} className="py-10 text-center text-slate-400">
+                    <td colSpan={10} className="py-10 text-center text-slate-400">
                       <p className="font-medium text-slate-600 mb-1">
                         Tidak ada data lead untuk filter ini
                       </p>
                       <p className="text-xs text-slate-400 mb-3">
                         {selectedPeriod === "today"
-                          ? "Belum ada lead baru yang tercatat untuk hari ini. Riwayat sebelumnya tetap aman."
-                          : selectedPeriod === "yesterday"
-                          ? "Tidak ada lead yang tercatat pada hari kemarin untuk filter ini."
-                          : "Coba sesuaikan rentang tanggal, kata kunci pencarian, atau pilih Semua BusDev."}
+                          ? "Belum ada lead baru yang tercatat untuk filter ini hari ini."
+                          : "Coba sesuaikan rentang tanggal, status validasi, atau pilih Semua BusDev."}
                       </p>
                       <div className="flex items-center justify-center gap-2">
+                        {selectedStatus !== "all" && (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedStatus("all")}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
+                          >
+                            Tampilkan Semua Status
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => handlePeriodPreset("7d")}
@@ -520,28 +587,14 @@ export default function LeadMonitorPage() {
                         >
                           Lihat 7 Hari Terakhir
                         </button>
-                        {selectedBusdev !== "all" && (
-                          <button
-                            type="button"
-                            onClick={() => setSelectedBusdev("all")}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
-                          >
-                            Tampilkan Semua BusDev
-                          </button>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => handlePeriodPreset("all")}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
-                        >
-                          Semua Waktu
-                        </button>
                       </div>
                     </td>
                   </tr>
                 ) : (
                   leads.map((lead, idx) => {
                     const isConfirmed = lead.status === "confirmed";
+                    const clientPhone = lead.display_phone || lead.wa_phone || lead.hp;
+                    const phoneSource = lead.wa_phone ? "WA" : lead.hp ? "Form Web" : null;
 
                     return (
                       <tr
@@ -576,32 +629,54 @@ export default function LeadMonitorPage() {
                           <div className="text-[10px] text-slate-400 font-sans">{formatDateWib(lead.created_at)}</div>
                         </td>
 
-                        {/* Tracking Code */}
+                        {/* Waktu Chat Masuk */}
                         <td className="py-2.5 px-3.5 whitespace-nowrap">
-                          <button
-                            onClick={() => copyToClipboard(lead.tracking_code)}
-                            className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-1.5 py-0.5 rounded transition-all"
-                            title="Klik untuk salin kode"
-                          >
-                            <span>{lead.tracking_code}</span>
-                            {copiedCode === lead.tracking_code ? (
-                              <Check className="w-3 h-3 text-emerald-600" />
-                            ) : (
-                              <Copy className="w-2.5 h-2.5 text-slate-400" />
-                            )}
-                          </button>
+                          {isConfirmed && lead.confirmed_at ? (
+                            <div className="font-mono text-[11px] text-emerald-700">
+                              <div>{formatWib(lead.confirmed_at)}</div>
+                              <div className="text-[10px] text-emerald-500 font-sans">{formatDateWib(lead.confirmed_at)}</div>
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 text-[10px] italic">
+                              Belum kirim
+                            </span>
+                          )}
                         </td>
 
-                        {/* Asal Halaman */}
-                        <td className="py-2.5 px-3.5 max-w-[240px]">
-                          <div className="text-slate-800 font-medium truncate" title={lead.page_url || ""}>
-                            {lead.page_url || "/thankyou"}
-                          </div>
-                          <div className="text-[10px] text-slate-400">
-                            <span className="px-1 py-0.2 rounded bg-slate-100 text-slate-600 font-mono text-[9px] uppercase">
-                              {lead.source || "direct"}
+                        {/* Latency (Selisih Waktu) */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap font-mono text-[11px]">
+                          {isConfirmed ? (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                              {formatLatency(lead.latency_seconds)}
                             </span>
-                          </div>
+                          ) : (
+                            <span className="text-amber-600 text-[10px] font-sans">
+                              Drop-off
+                            </span>
+                          )}
+                        </td>
+
+                        {/* No. HP Klien (Universal with Form Fallback) */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap font-mono text-[11px]">
+                          {clientPhone ? (
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-slate-900 font-semibold">{clientPhone}</span>
+                              {phoneSource && (
+                                <span
+                                  className={`text-[9px] px-1.5 py-0.2 rounded font-sans font-medium uppercase ${
+                                    phoneSource === "WA"
+                                      ? "bg-emerald-100 text-emerald-800"
+                                      : "bg-amber-100 text-amber-800"
+                                  }`}
+                                  title={phoneSource === "WA" ? "Nomor WhatsApp pengirim" : "Nomor formulir web sebelum drop-off"}
+                                >
+                                  {phoneSource}
+                                </span>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
                         </td>
 
                         {/* BusDev */}
@@ -623,26 +698,32 @@ export default function LeadMonitorPage() {
                           )}
                         </td>
 
-                        {/* No. HP WA */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap font-mono text-[11px]">
-                          {isConfirmed && lead.wa_phone ? (
-                            <span className="text-slate-900 font-semibold">{lead.wa_phone}</span>
-                          ) : (
-                            <span className="text-slate-300">—</span>
-                          )}
+                        {/* Tracking Code */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          <button
+                            onClick={() => copyToClipboard(lead.tracking_code)}
+                            className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-1.5 py-0.5 rounded transition-all"
+                            title="Klik untuk salin kode"
+                          >
+                            <span>{lead.tracking_code}</span>
+                            {copiedCode === lead.tracking_code ? (
+                              <Check className="w-3 h-3 text-emerald-600" />
+                            ) : (
+                              <Copy className="w-2.5 h-2.5 text-slate-400" />
+                            )}
+                          </button>
                         </td>
 
-                        {/* Waktu Chat Masuk */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap">
-                          {isConfirmed && lead.confirmed_at ? (
-                            <span className="text-emerald-700 font-mono text-[11px]">
-                              {formatWib(lead.confirmed_at)}
+                        {/* Asal Halaman */}
+                        <td className="py-2.5 px-3.5 max-w-[200px]">
+                          <div className="text-slate-800 font-medium truncate" title={lead.page_url || ""}>
+                            {lead.page_url || "/thankyou"}
+                          </div>
+                          <div className="text-[10px] text-slate-400">
+                            <span className="px-1 py-0.2 rounded bg-slate-100 text-slate-600 font-mono text-[9px] uppercase">
+                              {lead.source || "direct"}
                             </span>
-                          ) : (
-                            <span className="text-slate-400 text-[10px] italic">
-                              Belum kirim
-                            </span>
-                          )}
+                          </div>
                         </td>
                       </tr>
                     );
