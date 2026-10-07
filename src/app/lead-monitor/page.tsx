@@ -469,6 +469,137 @@ export default function LeadMonitorPage() {
           </div>
         </div>
 
+        {/* 4 Cards Performa Tiap BusDev */}
+        <div className="space-y-2.5">
+          <div className="flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <Users className="w-3.5 h-3.5 text-slate-500" />
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Performa Tiap Sales (BusDev)
+              </h2>
+            </div>
+            <span className="text-[11px] text-slate-400 hidden sm:inline">
+              Klik card untuk memfilter riwayat per sales
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+            {["Annisa", "Diaz", "Jessica", "Irma"].map((targetName) => {
+              const b = breakdown.find(
+                (item) => item.busdev_name.toLowerCase() === targetName.toLowerCase()
+              ) || {
+                busdev_name: targetName,
+                is_active: targetName !== "Irma",
+                total_clicks: 0,
+                confirmed_chats: 0,
+                dropoff_clicks: 0,
+                direct_chats: 0,
+              };
+
+              const isSelected = selectedBusdev.toLowerCase() === targetName.toLowerCase();
+              const convPct =
+                b.total_clicks > 0
+                  ? ((b.confirmed_chats / b.total_clicks) * 100).toFixed(0) + "%"
+                  : "0%";
+
+              const badgeColors: Record<string, { bg: string; text: string; initial: string }> = {
+                annisa: { bg: "bg-indigo-50 border-indigo-200 text-indigo-700", text: "text-indigo-600", initial: "AN" },
+                diaz: { bg: "bg-blue-50 border-blue-200 text-blue-700", text: "text-blue-600", initial: "DZ" },
+                jessica: { bg: "bg-emerald-50 border-emerald-200 text-emerald-700", text: "text-emerald-600", initial: "JS" },
+                irma: { bg: "bg-slate-100 border-slate-200 text-slate-500", text: "text-slate-500", initial: "IR" },
+              };
+              const color = badgeColors[targetName.toLowerCase()] || badgeColors.annisa;
+
+              return (
+                <div
+                  key={targetName}
+                  onClick={() => {
+                    if (isSelected) {
+                      setSelectedBusdev("all");
+                    } else {
+                      setSelectedBusdev(targetName);
+                    }
+                  }}
+                  className={`bg-white rounded-xl p-3.5 sm:p-4 border transition-all cursor-pointer select-none flex flex-col justify-between ${
+                    isSelected
+                      ? "border-emerald-500 ring-2 ring-emerald-500/20 bg-emerald-50/10 shadow-xs"
+                      : "border-slate-200/90 hover:border-slate-300 hover:shadow-2xs shadow-2xs"
+                  }`}
+                >
+                  {/* Card Header: Avatar, Name, Status Pill */}
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`w-6 h-6 rounded-md flex items-center justify-center font-bold text-[10px] border ${color.bg}`}
+                      >
+                        {color.initial}
+                      </div>
+                      <span className="text-xs font-bold text-slate-800">
+                        {targetName}
+                      </span>
+                    </div>
+                    {b.is_active === false ? (
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 border border-slate-200">
+                        Nonaktif
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                        <span className="w-1 h-1 rounded-full bg-emerald-500" />
+                        Aktif
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Main Metric: Jumlah yang Chat */}
+                  <div className="my-1">
+                    <span className="text-[10px] uppercase font-semibold text-slate-400 tracking-wider block">
+                      Chat Masuk (Valid)
+                    </span>
+                    <div className="flex items-baseline gap-2 mt-0.5">
+                      <span className="text-2xl font-bold font-mono tracking-tight text-emerald-600">
+                        {b.confirmed_chats}
+                      </span>
+                      <span className="text-[11px] font-medium text-slate-500">
+                        chat
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Sub Metrics: Total Klik & Drop-off */}
+                  <div className="pt-2 mt-2 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px]">
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-semibold">
+                        Total Klik
+                      </span>
+                      <span className="font-mono font-bold text-slate-700">
+                        {b.total_clicks}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-amber-600/80 block text-[10px] uppercase font-semibold">
+                        Drop-off
+                      </span>
+                      <span className="font-mono font-bold text-amber-600">
+                        {b.dropoff_clicks}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Footer note: Conversion & Filter Indicator */}
+                  <div className="mt-2 pt-1.5 border-t border-slate-50 flex items-center justify-between text-[10px] text-slate-400">
+                    <span>
+                      Konversi: <strong className="text-slate-600 font-mono">{convPct}</strong>
+                    </span>
+                    {isSelected && (
+                      <span className="text-emerald-600 font-semibold">Filter Aktif ✓</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Audit Table Section */}
         <div className="bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden">
           {/* Table Toolbar */}
