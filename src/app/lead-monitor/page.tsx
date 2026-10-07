@@ -17,6 +17,7 @@ import {
   Check,
   Users,
   CalendarDays,
+  Info,
 } from "lucide-react";
 
 interface LeadItem {
@@ -189,15 +190,18 @@ export default function LeadMonitorPage() {
     } else if (preset === "yesterday") {
       setStartDate(getWibDate(-1));
       setEndDate(getWibDate(-1));
+    } else if (preset === "since_new_system") {
+      setStartDate("2026-10-06");
+      setEndDate(getWibDate(0));
     } else if (preset === "7d") {
-      setStartDate(getWibDate(-7));
+      setStartDate("2026-10-06");
       setEndDate(getWibDate(0));
     } else if (preset === "30d") {
-      setStartDate(getWibDate(-30));
+      setStartDate("2026-10-06");
       setEndDate(getWibDate(0));
     } else if (preset === "all") {
-      setStartDate("");
-      setEndDate("");
+      setStartDate("2026-10-06");
+      setEndDate(getWibDate(0));
     }
   };
 
@@ -335,8 +339,8 @@ export default function LeadMonitorPage() {
                 {[
                   { id: "today", label: "Hari Ini" },
                   { id: "yesterday", label: "Kemarin" },
-                  { id: "7d", label: "7 Hari" },
-                  { id: "30d", label: "30 Hari" },
+                  { id: "since_new_system", label: "Sejak Sistem Baru (06 Okt)" },
+                  { id: "7d", label: "7 Hari (Sistem Baru)" },
                   { id: "all", label: "Semua Waktu" },
                 ].map((p) => (
                   <button
@@ -397,6 +401,16 @@ export default function LeadMonitorPage() {
                 </button>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* Baseline Info Banner */}
+        <div className="bg-blue-50/80 border border-blue-200/70 rounded-xl px-4 py-2.5 text-xs text-blue-900 flex items-start sm:items-center justify-between gap-3 shadow-2xs">
+          <div className="flex items-center gap-2.5">
+            <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5 sm:mt-0" />
+            <p className="text-[11.5px] leading-relaxed text-blue-800">
+              <strong className="font-semibold text-blue-900">Baseline Sistem Terpadu:</strong> Pelacakan presisi MacroDroid & Confirmed Auto-Balancer aktif mulai <strong>06 Oktober 2026</strong>. Filter preset dibatasi mulai tanggal ini agar perbandingan performa antar sales adil tanpa bias data lama.
+            </p>
           </div>
         </div>
 

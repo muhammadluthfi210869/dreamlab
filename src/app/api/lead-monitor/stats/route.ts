@@ -33,17 +33,23 @@ export async function GET(req: NextRequest) {
       client = await pool.connect();
     }
     // 1. Filter waktu (Asia/Jakarta boundary yang presisi untuk timestamptz)
+    // Titik awal sistem tracking baru MacroDroid + Confirmed Round Robin resmi aktif: 06 Okt 2026 00:00 WIB
+    const SYSTEM_LAUNCH_DATE = "'2026-10-06 00:00:00+07'::timestamptz";
+
     let timeClause = '';
     if (period === 'today') {
       timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
     } else if (period === 'yesterday') {
       timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '1 day' AND created_at < (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
+    } else if (period === 'since_new_system') {
+      timeClause = `AND created_at >= ${SYSTEM_LAUNCH_DATE}`;
     } else if (period === '7d') {
-      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '7 days'`;
+      // Clamp ke launch date agar tidak menarik data bias sebelum sistem terpasang
+      timeClause = `AND created_at >= GREATEST((date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '7 days', ${SYSTEM_LAUNCH_DATE})`;
     } else if (period === '30d') {
-      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '30 days'`;
+      timeClause = `AND created_at >= GREATEST((date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '30 days', ${SYSTEM_LAUNCH_DATE})`;
     } else if (period === 'all') {
-      timeClause = '';
+      timeClause = `AND created_at >= ${SYSTEM_LAUNCH_DATE}`;
     } else if (validStart && validEnd) {
       timeClause = `AND created_at >= ('${validStart} 00:00:00+07'::timestamptz) AND created_at < (('${validEnd}'::date + 1) || ' 00:00:00+07')::timestamptz`;
     } else if (validStart) {
