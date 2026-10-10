@@ -25,9 +25,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-30T14:30:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Maklon Kosmetik",
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik",
-      "Commercial"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik Klinik",
@@ -63,9 +64,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-30T10:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Maklon Kosmetik",
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik",
-      "Commercial"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Biaya Maklon Haircare",
@@ -106,10 +108,10 @@ export const articles: Article[] = [
   "publishDate": "2026-09-27T10:00:00+00:00",
   "author": "Dreamlab Business Development",
   "categories": [
-    "Maklon Kosmetik",
-    "Panduan Bisnis Kosmetik",
-    "Commercial"
-  ],
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Infused Whitening",
     "Jasa Maklon Kosmetik",
@@ -134,9 +136,9 @@ export const articles: Article[] = [
     "publishDate": "2026-09-27T09:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik",
-      "Maklon Kosmetik",
-      "Informational"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips Memilih Maklon Kosmetik",
@@ -162,9 +164,9 @@ export const articles: Article[] = [
     "publishDate": "2026-09-27T08:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik",
-      "Maklon Kosmetik",
-      "Navigational"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Red Flag Pabrik Maklon",
@@ -190,10 +192,10 @@ export const articles: Article[] = [
   "publishDate": "2026-09-25T02:00:00+00:00",
   "author": "Dreamlab Business Development",
   "categories": [
-    "Navigational",
-    "Maklon Kosmetik",
-    "Panduan Bisnis Kosmetik"
-  ],
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Kosmetik Situbondo",
     "Jasa Maklon Kosmetik Situbondo",
@@ -218,9 +220,9 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T13:00:00+00:00",
     "author": "Dreamlab Fragrance & Formulation",
     "categories": [
-      "Navigational",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Peluang Bisnis Parfum",
@@ -258,7 +260,7 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T12:00:00+00:00",
     "author": "Dreamlab Brand Strategy & Marketing",
     "categories": [
-      "Navigational",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
@@ -298,9 +300,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T11:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Navigational",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik Magetan",
@@ -339,8 +342,8 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T10:00:00+00:00",
     "author": "Dreamlab Riset & Formulasi",
     "categories": [
-      "Informational",
-      "Haircare",
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -388,7 +391,7 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T09:00:00+00:00",
     "author": "Dreamlab Growth & Marketing",
     "categories": [
-      "Informational",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
@@ -436,9 +439,9 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T08:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Navigational",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik Ponorogo",
@@ -484,9 +487,9 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T07:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Navigational",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik Lamongan",
@@ -532,9 +535,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T06:00:00+00:00",
     "author": "Dreamlab Formulasi & Riset",
     "categories": [
-      "Commercial",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "SymWhite 377 vs Niacinamide",
@@ -581,9 +585,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-17T03:00:00+00:00",
     "author": "Dreamlab Formulasi & Riset",
     "categories": [
-      "Commercial",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Alpha Arbutin vs Tranexamic Acid",
@@ -630,9 +635,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-16T03:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Commercial",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik Tulungagung",
@@ -670,9 +676,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-16T02:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Commercial",
-      "Maklon Skincare",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Copper Tripeptide-1",
@@ -708,9 +715,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-14T02:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Commercial",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik Lombok",
@@ -749,9 +757,9 @@ export const articles: Article[] = [
     "publishDate": "2026-09-14T01:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Informational",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "MOQ Maklon Skincare",
@@ -790,9 +798,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-14T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Informational",
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Ectoin vs Ceramide",
@@ -831,8 +840,10 @@ export const articles: Article[] = [
     "publishDate": "2026-09-03T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -855,6 +866,7 @@ export const articles: Article[] = [
     "publishDate": "2026-09-02T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -879,9 +891,10 @@ export const articles: Article[] = [
   "publishDate": "2026-09-01T00:00:00+00:00",
   "author": "Dreamlab Maklon Kosmetik",
   "categories": [
-    "Maklon Kosmetik",
-    "Panduan Bisnis Kosmetik"
-  ],
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Skincare",
     "MOQ Fleksibel",
@@ -903,10 +916,10 @@ export const articles: Article[] = [
   "publishDate": "2026-09-24T13:15:00+00:00",
   "author": "Dreamlab Business Development",
   "categories": [
-    "Navigational",
-    "Maklon Kosmetik",
-    "Panduan Bisnis Kosmetik"
-  ],
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Kosmetik Probolinggo",
     "Jasa Maklon Kosmetik Probolinggo",
@@ -932,8 +945,9 @@ export const articles: Article[] = [
       "publishDate": "2026-08-17T00:00:00+00:00",
       "author": "Dreamlab Maklon Kosmetik",
       "categories": [
-          "Maklon Skincare"
-      ],
+      "Formula Kosmetik",
+      "Maklon Kosmetik"
+    ],
       "tags": [
           "Pore Care",
           "Maklon Skincare",
@@ -956,6 +970,7 @@ export const articles: Article[] = [
     "publishDate": "2026-08-17T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -979,6 +994,8 @@ export const articles: Article[] = [
     "publishDate": "2026-08-16T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1002,6 +1019,7 @@ export const articles: Article[] = [
     "publishDate": "2026-08-16T00:00:00+00:00",
     "author": "Tim Dreamlab",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1022,6 +1040,8 @@ export const articles: Article[] = [
     "publishDate": "2026-04-15T22:29:33+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1041,6 +1061,8 @@ export const articles: Article[] = [
     "publishDate": "2026-04-25T14:49:43+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1060,6 +1082,7 @@ export const articles: Article[] = [
     "publishDate": "2026-04-18T16:05:52+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1079,6 +1102,9 @@ export const articles: Article[] = [
     "publishDate": "2026-04-24T06:55:04+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1098,6 +1124,8 @@ export const articles: Article[] = [
     "publishDate": "2026-04-23T16:40:55+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1136,7 +1164,10 @@ export const articles: Article[] = [
     "publishDate": "2026-04-14T20:38:53+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -1155,7 +1186,9 @@ export const articles: Article[] = [
     "publishDate": "2026-04-14T20:58:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -1174,7 +1207,9 @@ export const articles: Article[] = [
     "publishDate": "2026-03-27T07:31:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -1193,7 +1228,9 @@ export const articles: Article[] = [
     "publishDate": "2026-04-18T13:30:51+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -1212,7 +1249,9 @@ export const articles: Article[] = [
     "publishDate": "2026-04-18T12:25:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Skincare"
@@ -1231,7 +1270,9 @@ export const articles: Article[] = [
     "publishDate": "2026-04-25T15:09:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1250,6 +1291,9 @@ export const articles: Article[] = [
     "publishDate": "2026-04-23T16:19:13+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1269,7 +1313,9 @@ export const articles: Article[] = [
     "publishDate": "2026-03-25T09:30:09+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1288,6 +1334,8 @@ export const articles: Article[] = [
     "publishDate": "2026-04-14T21:16:16+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1326,6 +1374,7 @@ export const articles: Article[] = [
     "publishDate": "2026-03-27T06:16:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1345,6 +1394,8 @@ export const articles: Article[] = [
     "publishDate": "2026-03-26T08:26:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1383,7 +1434,9 @@ export const articles: Article[] = [
     "publishDate": "2025-12-18T09:10:27+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1402,6 +1455,8 @@ export const articles: Article[] = [
     "publishDate": "2025-10-22T09:14:13+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1421,7 +1476,10 @@ export const articles: Article[] = [
     "publishDate": "2025-12-18T09:40:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1459,7 +1517,9 @@ export const articles: Article[] = [
     "publishDate": "2026-03-20T08:51:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1478,7 +1538,9 @@ export const articles: Article[] = [
     "publishDate": "2025-12-14T01:03:10+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1497,6 +1559,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-26T15:05:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1516,7 +1579,9 @@ export const articles: Article[] = [
     "publishDate": "2025-11-25T04:18:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1535,6 +1600,7 @@ export const articles: Article[] = [
     "publishDate": "2025-12-28T03:16:30+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1554,6 +1620,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-13T06:28:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1573,6 +1640,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-19T07:58:22+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1592,7 +1660,10 @@ export const articles: Article[] = [
     "publishDate": "2025-10-28T08:44:56+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1611,6 +1682,8 @@ export const articles: Article[] = [
     "publishDate": "2025-09-27T16:52:01+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1630,7 +1703,9 @@ export const articles: Article[] = [
     "publishDate": "2025-10-28T09:23:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1649,6 +1724,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-22T03:18:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1687,9 +1764,8 @@ export const articles: Article[] = [
   "publishDate": "2026-09-17T08:00:00+00:00",
   "author": "Dreamlab Maklon Kosmetik",
   "categories": [
-    "Maklon Kosmetik",
-    "Maklon Parfum"
-  ],
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Parfum",
     "Pabrik Parfum",
@@ -1733,6 +1809,8 @@ export const articles: Article[] = [
     "publishDate": "2025-09-24T16:25:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1752,6 +1830,7 @@ export const articles: Article[] = [
     "publishDate": "2025-08-21T00:23:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1771,7 +1850,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-12T09:49:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -1790,6 +1871,8 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T16:27:29+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1809,6 +1892,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-11T09:19:08+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1828,6 +1912,8 @@ export const articles: Article[] = [
     "publishDate": "2026-09-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1852,6 +1938,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-19T03:12:42+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1871,6 +1959,8 @@ export const articles: Article[] = [
     "publishDate": "2026-01-25T01:33:28+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1890,6 +1980,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-10T08:40:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1909,6 +2001,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-18T09:40:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -1966,6 +2059,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T15:44:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -1985,6 +2079,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-02T20:43:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2004,6 +2099,8 @@ export const articles: Article[] = [
     "publishDate": "2025-09-22T06:30:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2023,6 +2120,8 @@ export const articles: Article[] = [
     "publishDate": "2026-03-20T17:43:32+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2042,6 +2141,7 @@ export const articles: Article[] = [
     "publishDate": "2026-02-22T12:16:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2061,6 +2161,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-24T07:40:35+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2080,6 +2181,7 @@ export const articles: Article[] = [
     "publishDate": "2026-03-25T07:08:45+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2099,7 +2201,10 @@ export const articles: Article[] = [
     "publishDate": "2025-10-24T08:32:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -2118,7 +2223,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-17T04:18:17+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Skincare"
@@ -2156,6 +2263,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-10T09:20:23+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2213,6 +2322,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-30T02:48:07+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2232,6 +2343,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-28T08:28:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2270,6 +2382,8 @@ export const articles: Article[] = [
     "publishDate": "2025-12-14T01:26:01+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2403,6 +2517,8 @@ export const articles: Article[] = [
     "publishDate": "2025-08-20T19:56:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2422,6 +2538,9 @@ export const articles: Article[] = [
     "publishDate": "2025-12-17T08:20:28+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2441,6 +2560,7 @@ export const articles: Article[] = [
     "publishDate": "2025-12-28T00:34:07+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2479,6 +2599,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-24T19:26:03+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -2517,7 +2638,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-21T11:03:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2536,7 +2659,9 @@ export const articles: Article[] = [
     "publishDate": "2025-12-17T07:17:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2555,6 +2680,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-27T05:52:05+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2574,7 +2701,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-21T10:46:45+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -2593,7 +2722,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-17T04:30:45+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2612,7 +2743,9 @@ export const articles: Article[] = [
     "publishDate": "2025-12-17T07:48:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2631,7 +2764,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-21T10:26:58+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2650,6 +2785,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-22T06:00:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2669,7 +2805,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-13T14:11:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2688,6 +2826,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-27T06:57:35+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2707,7 +2846,9 @@ export const articles: Article[] = [
     "publishDate": "2025-11-24T18:57:41+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -2726,6 +2867,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T16:00:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2745,6 +2887,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-22T09:28:21+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2764,6 +2907,7 @@ export const articles: Article[] = [
     "publishDate": "2025-03-11T04:04:12+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2783,6 +2927,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-21T15:38:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2802,6 +2947,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T16:15:05+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2821,6 +2967,8 @@ export const articles: Article[] = [
     "publishDate": "2026-03-20T18:52:51+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2840,6 +2988,7 @@ export const articles: Article[] = [
     "publishDate": "2025-07-29T16:52:30+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2859,7 +3008,9 @@ export const articles: Article[] = [
     "publishDate": "2026-02-22T09:47:22+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -2878,7 +3029,9 @@ export const articles: Article[] = [
     "publishDate": "2025-12-18T09:58:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Skincare"
@@ -2897,7 +3050,9 @@ export const articles: Article[] = [
     "publishDate": "2025-11-13T04:43:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Skincare"
@@ -2916,6 +3071,7 @@ export const articles: Article[] = [
     "publishDate": "2025-12-01T14:18:22+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2935,6 +3091,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-18T19:07:15+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2954,6 +3111,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-27T08:48:22+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -2973,7 +3131,9 @@ export const articles: Article[] = [
     "publishDate": "2025-11-10T08:14:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -2992,7 +3152,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-11T15:50:41+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3011,6 +3173,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-18T07:34:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3030,7 +3193,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-18T05:16:09+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -3049,6 +3214,7 @@ export const articles: Article[] = [
     "publishDate": "2026-03-20T16:24:22+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3068,6 +3234,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-18T05:59:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3087,6 +3254,8 @@ export const articles: Article[] = [
     "publishDate": "2026-03-25T06:19:20+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3106,6 +3275,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-13T11:04:56+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3125,6 +3295,8 @@ export const articles: Article[] = [
     "publishDate": "2025-09-24T23:44:43+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3144,7 +3316,10 @@ export const articles: Article[] = [
     "publishDate": "2025-07-16T09:27:19+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3163,6 +3338,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-27T16:36:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3182,7 +3358,9 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T16:54:15+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -3201,6 +3379,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-15T20:12:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3239,6 +3420,8 @@ export const articles: Article[] = [
     "publishDate": "2025-03-16T10:21:17+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3258,7 +3441,9 @@ export const articles: Article[] = [
     "publishDate": "2025-03-16T10:17:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3277,7 +3462,9 @@ export const articles: Article[] = [
     "publishDate": "2026-02-22T07:57:03+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Dreampreneur Beauty Academy"
+      "Event",
+      "Dreampreneur Beauty Academy",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreampreneur Beauty Academy"
@@ -3296,6 +3483,8 @@ export const articles: Article[] = [
     "publishDate": "2025-08-17T19:03:12+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3315,6 +3504,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-13T10:31:32+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3334,7 +3524,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-22T06:50:57+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3353,6 +3545,7 @@ export const articles: Article[] = [
     "publishDate": "2025-08-21T00:10:35+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3372,6 +3565,8 @@ export const articles: Article[] = [
     "publishDate": "2025-08-20T20:12:45+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3391,7 +3586,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-27T17:23:13+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3410,7 +3607,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-11T09:56:21+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3448,6 +3647,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-21T15:49:19+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3486,6 +3686,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-24T09:14:46+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3505,6 +3706,7 @@ export const articles: Article[] = [
     "publishDate": "2025-11-13T04:02:34+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3524,7 +3726,9 @@ export const articles: Article[] = [
     "publishDate": "2025-07-29T16:39:29+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3543,6 +3747,7 @@ export const articles: Article[] = [
     "publishDate": "2025-08-16T08:47:31+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3562,7 +3767,9 @@ export const articles: Article[] = [
     "publishDate": "2025-08-10T23:49:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3581,7 +3788,9 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T15:54:23+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3600,6 +3809,7 @@ export const articles: Article[] = [
     "publishDate": "2025-08-11T00:04:11+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3619,6 +3829,8 @@ export const articles: Article[] = [
     "publishDate": "2025-07-29T17:02:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3638,7 +3850,9 @@ export const articles: Article[] = [
     "publishDate": "2025-11-18T19:19:03+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Men Grooming"
@@ -3657,6 +3871,8 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T09:23:51+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3676,6 +3892,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T09:11:16+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3695,7 +3912,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-13T12:44:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3714,6 +3933,8 @@ export const articles: Article[] = [
     "publishDate": "2025-09-18T05:35:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3733,7 +3954,9 @@ export const articles: Article[] = [
     "publishDate": "2025-08-20T19:34:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3752,7 +3975,9 @@ export const articles: Article[] = [
     "publishDate": "2025-08-17T18:46:21+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3771,6 +3996,8 @@ export const articles: Article[] = [
     "publishDate": "2025-10-22T09:02:47+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3790,7 +4017,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-13T09:44:31+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3809,7 +4038,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-11T16:37:32+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3828,6 +4059,7 @@ export const articles: Article[] = [
     "publishDate": "2025-09-12T09:29:28+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -3847,6 +4079,9 @@ export const articles: Article[] = [
     "publishDate": "2026-05-31T07:54:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3866,7 +4101,9 @@ export const articles: Article[] = [
     "publishDate": "2026-05-27T04:49:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3885,6 +4122,9 @@ export const articles: Article[] = [
     "publishDate": "2026-05-27T04:23:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3904,6 +4144,8 @@ export const articles: Article[] = [
     "publishDate": "2026-05-24T12:32:12+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3923,6 +4165,8 @@ export const articles: Article[] = [
     "publishDate": "2026-05-23T19:01:46+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3961,6 +4205,9 @@ export const articles: Article[] = [
     "publishDate": "2026-05-23T18:06:56+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -3980,7 +4227,9 @@ export const articles: Article[] = [
     "publishDate": "2026-05-23T16:43:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -3999,6 +4248,8 @@ export const articles: Article[] = [
     "publishDate": "2026-05-14T05:32:29+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4037,7 +4288,9 @@ export const articles: Article[] = [
     "publishDate": "2026-03-26T08:10:30+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -4056,6 +4309,7 @@ export const articles: Article[] = [
     "publishDate": "2026-03-25T07:36:41+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4075,6 +4329,8 @@ export const articles: Article[] = [
     "publishDate": "2026-03-20T19:41:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4094,6 +4350,8 @@ export const articles: Article[] = [
     "publishDate": "2026-02-22T08:27:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4113,6 +4371,8 @@ export const articles: Article[] = [
     "publishDate": "2026-01-26T09:54:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4132,7 +4392,9 @@ export const articles: Article[] = [
     "publishDate": "2026-01-24T12:46:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -4170,6 +4432,7 @@ export const articles: Article[] = [
     "publishDate": "2025-12-14T02:29:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4208,6 +4471,8 @@ export const articles: Article[] = [
     "publishDate": "2025-11-22T05:19:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4246,6 +4511,8 @@ export const articles: Article[] = [
     "publishDate": "2025-10-20T06:27:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4265,6 +4532,7 @@ export const articles: Article[] = [
     "publishDate": "2025-10-19T16:38:53+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -4284,6 +4552,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-25T00:15:10+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4303,7 +4574,9 @@ export const articles: Article[] = [
     "publishDate": "2025-09-13T11:51:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Tips & Trick"
@@ -4322,7 +4595,9 @@ export const articles: Article[] = [
     "publishDate": "2025-07-29T00:02:38+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Kosmetik"
@@ -4379,6 +4654,8 @@ export const articles: Article[] = [
     "publishDate": "2026-06-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4398,6 +4675,7 @@ export const articles: Article[] = [
     "publishDate": "2026-06-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
       "Panduan Bisnis Kosmetik"
     ],
     "tags": [
@@ -4417,7 +4695,9 @@ export const articles: Article[] = [
     "publishDate": "2026-07-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Dreamlab Pedia"
@@ -4436,6 +4716,8 @@ export const articles: Article[] = [
     "publishDate": "2026-07-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4493,6 +4775,8 @@ export const articles: Article[] = [
     "publishDate": "2026-07-19T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4531,7 +4815,10 @@ export const articles: Article[] = [
     "publishDate": "2026-07-25T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Event"
+      "Event",
+      "Dreampreneur Beauty Academy",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "tags": [
       "Event",
@@ -4642,6 +4929,8 @@ export const articles: Article[] = [
     "publishDate": "2026-08-02T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4662,6 +4951,8 @@ export const articles: Article[] = [
     "publishDate": "2026-08-09T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
       "Maklon Kosmetik"
     ],
     "tags": [
@@ -4687,7 +4978,7 @@ export const articles: Article[] = [
     "publishDate": "2026-08-10T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-        "Maklon Kosmetik"
+      "Maklon Kosmetik"
     ],
     "tags": [
         "Maklon Kosmetik",
@@ -4712,8 +5003,8 @@ export const articles: Article[] = [
   "publishDate": "2026-08-18T00:00:00+00:00",
   "author": "Dreamlab Maklon Kosmetik",
   "categories": [
-    "Maklon Kosmetik"
-  ],
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Kosmetik",
     "Jasa Maklon",
@@ -4736,8 +5027,11 @@ export const articles: Article[] = [
   "publishDate": "2026-08-18T00:00:00+00:00",
   "author": "Dreamlab Maklon Kosmetik",
   "categories": [
-    "Maklon Kosmetik"
-  ],
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
   "tags": [
     "Maklon Kosmetik",
     "Maklon Parfum",
@@ -4758,7 +5052,9 @@ export const articles: Article[] = [
     "title": "Maklon Kosmetik Mojokerto Terbaik dan Terlengkap untuk Bangun Brand Anda",
     "publishDate": "2026-08-23T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
-    "categories": ["Maklon Kosmetik"],
+    "categories": [
+      "Maklon Kosmetik"
+    ],
     "tags": ["Maklon Kosmetik","Mojokerto","Jawa Timur"],
     "featuredImage": "/images/artikel-mojokerto/maklon-kosmetik-mojokerto-hero.jpg",
     "excerpt": "Cari maklon kosmetik Mojokerto untuk membangun brand sendiri? Kembangkan skincare, parfum, body care, baby care hingga hair care dengan custom formula bersama Dreamlab.",
@@ -4773,7 +5069,12 @@ export const articles: Article[] = [
     "title": "Produk Hair Care Keratin Masih Punya Peluang Besar untuk Bisnis Anda",
     "publishDate": "2026-08-23T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
-    "categories": ["Maklon Kosmetik"],
+    "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
     "tags": ["Hair Care","Keratin","Maklon Kosmetik","Peluang Bisnis","Dreamlab"],
     "featuredImage": "/images/artikel-keratin/peluang-bisnis-hair-care-keratin-hero.jpg",
     "excerpt": "Keratin tetap menjadi peluang besar untuk bisnis hair care. Pelajari insight pasar, custom formula, alur produk, dan strategi pemasaran bersama Dreamlab.",
@@ -4788,7 +5089,9 @@ export const articles: Article[] = [
     "title": "Maklon Kosmetik Makassar: Bangun Brand Kosmetik Anda Bersama Partner Produksi yang Tepat",
     "publishDate": "2026-08-29T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
-    "categories": ["Maklon Kosmetik"],
+    "categories": [
+      "Maklon Kosmetik"
+    ],
     "tags": ["Maklon Kosmetik","Makassar","Sulawesi Selatan","Custom Formula","Dreamlab"],
     "featuredImage": "/images/artikel-makassar/maklon-kosmetik-makassar-hero.jpg",
     "excerpt": "Cari maklon kosmetik Makassar? Dreamlab membantu pengembangan skincare, parfum, body care, hair care, dan baby care dengan custom formula hingga digital marketing.",
@@ -4803,7 +5106,12 @@ export const articles: Article[] = [
     "title": "Maklon Kosmetik Bengkulu: Custom Formula, BPOM & Partner untuk Bangun Brand Skincare Anda",
     "publishDate": "2026-08-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
-    "categories": ["Maklon Kosmetik", "Panduan Bisnis Kosmetik"],
+    "categories": [
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
+    ],
     "tags": ["Maklon Kosmetik", "Bengkulu", "Custom Formula", "Skincare", "BPOM", "Dreamlab"],
     "featuredImage": "/images/artikel-bengkulu/maklon-kosmetik-bengkulu-hero.jpg",
     "excerpt": "Cari maklon kosmetik Bengkulu? Dreamlab membantu pengembangan skincare, serum, sunscreen, body care hingga parfum dengan custom formula, BPOM, dan MOQ fleksibel.",
@@ -4819,8 +5127,10 @@ export const articles: Article[] = [
     "publishDate": "2026-08-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -4844,8 +5154,9 @@ export const articles: Article[] = [
     "publishDate": "2026-08-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Bisnis Skincare",
@@ -4868,7 +5179,8 @@ export const articles: Article[] = [
     "publishDate": "2026-09-11T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Informational"
+      "Formula Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "jasa maklon",
@@ -4910,7 +5222,8 @@ export const articles: Article[] = [
     "publishDate": "2026-09-11T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Informational"
+      "Formula Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "jasa maklon",
@@ -4953,9 +5266,11 @@ export const articles: Article[] = [
     "publishDate": "2026-09-13T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik",
       "Event",
-      "Dreampreneur Beauty Academy"
+      "Dreampreneur Beauty Academy",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Beautypreneur",
@@ -4994,9 +5309,10 @@ export const articles: Article[] = [
     "publishDate": "2026-10-10T14:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Parfum",
-      "Panduan Bisnis Parfum",
-      "Commercial"
+      "Formula Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Solid Perfume",

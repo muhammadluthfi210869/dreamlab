@@ -44,7 +44,7 @@ function getReadingTime(article: { readingMinutes: number }) {
   return Math.max(1, article.readingMinutes || 1);
 }
 
-const PILLAR_CATEGORIES = ['Maklon Kosmetik', 'Panduan Bisnis Kosmetik', 'Dreampreneur Beauty Academy', 'Event'];
+const PILLAR_CATEGORIES = ['Maklon Kosmetik', 'Panduan Bisnis', 'Formula Kosmetik', 'Event'];
 const POSTS_PER_PAGE = 12;
 
 export default function BlogArchivePage() {

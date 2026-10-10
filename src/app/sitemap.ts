@@ -39,7 +39,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Halaman hub katalog produk (breadcrumb semua produk menunjuk ke sini)
     '/produk',
     '/category/maklon-kosmetik',
+    '/category/panduan-bisnis',
     '/category/panduan-bisnis-kosmetik',
+    '/category/formula-kosmetik',
+    '/category/event',
     '/category/dreampreneur-beauty-academy',
   ].map(route => ({
     url: `${baseUrl}${route}/`,
