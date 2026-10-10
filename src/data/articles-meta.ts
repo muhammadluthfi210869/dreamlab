@@ -3760,6 +3760,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 11
   },
   {
+    "slug": "/maklon-solid-perfume-parfum-balm-bpom",
+    "title": "Maklon Solid Perfume (Parfum Balm) BPOM: Inovasi Wewangian Bebas Tumpah yang Sedang Viral di Pasar Lokal",
+    "publishDate": "2026-10-10T14:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Parfum",
+      "Panduan Bisnis Parfum",
+      "Commercial"
+    ],
+    "tags": [
+      "Maklon Solid Perfume",
+      "Maklon Parfum Balm",
+      "Parfum Bebas Tumpah",
+      "Pabrik Parfum BPOM",
+      "Jasa Maklon Parfum",
+      "Dreamlab"
+    ],
+    "featuredImage": "/assets/images/blog/Dreamlab-pilihan-packaging-parfum.webp",
+    "excerpt": "Peluang bisnis maklon solid perfume (parfum balm) resmi BPOM di Dreamlab. Inovasi wewangian bebas tumpah, ramah bepergian, hemat modal, dan margin ritel tebal.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
