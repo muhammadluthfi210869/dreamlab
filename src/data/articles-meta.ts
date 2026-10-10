@@ -3781,6 +3781,26 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/maklon-parfum-bisnis-parfum",
+    "title": "Maklon Parfum: Cara Memulai Bisnis Parfum Bersama One Stop Maklon Dreamlab",
+    "publishDate": "2026-10-11T07:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Parfum",
+      "Bisnis Parfum",
+      "One Stop Maklon",
+      "Custom Aroma Parfum",
+      "Pabrik Parfum BPOM",
+      "Dreamlab"
+    ],
+    "featuredImage": "/assets/images/blog/Dreamlab-Maklon-Parfum.webp",
+    "excerpt": "Panduan lengkap maklon parfum bersama One Stop Maklon Dreamlab. Dari custom aroma R&D Perfumery, desain kemasan, izin BPOM, hingga support Beauty Academy.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
