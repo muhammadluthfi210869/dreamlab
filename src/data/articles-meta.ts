@@ -4086,7 +4086,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-maklon-solid-perfume-parfum-balm-bpom/pabrik_maklon_solid_parfum_hero.webp",
     "excerpt": "Peluang bisnis maklon solid perfume (parfum balm) resmi BPOM di Dreamlab. Inovasi wewangian bebas tumpah, ramah bepergian, hemat modal, dan margin ritel tebal.",
-    "readingMinutes": 10
+    "readingMinutes": 9
   },
   {
     "slug": "/jasa-maklon-kosmetik-madiun",
