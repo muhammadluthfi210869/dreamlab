@@ -3777,9 +3777,9 @@ export const articlesMeta: ArticleMeta[] =
       "Jasa Maklon Parfum",
       "Dreamlab"
     ],
-    "featuredImage": "/assets/images/blog/Dreamlab-pilihan-packaging-parfum.webp",
+    "featuredImage": "/images/artikel-maklon-solid-perfume-parfum-balm-bpom/pabrik_maklon_solid_parfum_hero.webp",
     "excerpt": "Peluang bisnis maklon solid perfume (parfum balm) resmi BPOM di Dreamlab. Inovasi wewangian bebas tumpah, ramah bepergian, hemat modal, dan margin ritel tebal.",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "slug": "/jasa-maklon-kosmetik-madiun",
