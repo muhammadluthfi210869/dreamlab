@@ -3796,7 +3796,7 @@ export const articlesMeta: ArticleMeta[] =
       "Pabrik Parfum BPOM",
       "Dreamlab"
     ],
-    "featuredImage": "/assets/images/blog/Dreamlab-Maklon-Parfum.webp",
+    "featuredImage": "/assets/images/blog/maklon-parfum-partner-bisnis-hero.webp",
     "excerpt": "Panduan lengkap maklon parfum bersama One Stop Maklon Dreamlab. Dari custom aroma R&D Perfumery, desain kemasan, izin BPOM, hingga support Beauty Academy.",
     "readingMinutes": 11
   },
