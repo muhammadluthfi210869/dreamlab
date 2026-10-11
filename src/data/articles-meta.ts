@@ -3782,7 +3782,7 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/maklon-parfum-bisnis-parfum",
-    "title": "Maklon Parfum: Cara Memulai Bisnis Parfum Bersama One Stop Maklon Dreamlab",
+    "title": "Partner Bisnis Parfum: Free Custom Formula dan Branding",
     "publishDate": "2026-10-11T07:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
