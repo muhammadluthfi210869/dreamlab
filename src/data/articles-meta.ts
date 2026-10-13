@@ -13,6 +13,66 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/rekomendasi-maklon-parfum-terbaik",
+    "title": "5 Rekomendasi Maklon Parfum Terbaik di Indonesia untuk Brand Lokal | Dreamlab",
+    "publishDate": "2026-10-10T10:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "maklon parfum",
+      "rekomendasi maklon parfum",
+      "parfum brand lokal",
+      "pabrik parfum",
+      "custom formula parfum",
+      "Dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Rekomendasi Maklon Parfum/maklo_parfum_terbaik_11zon_cover.jpg",
+    "excerpt": "Cari rekomendasi maklon parfum terbaik di Indonesia? Simak 5 pilihan maklon untuk brand, dari custom formula, R&D, packaging, legalitas hingga produksi.",
+    "readingMinutes": 8
+  },
+  {
+    "slug": "/extrait-de-parfum-vs-eau-de-parfum",
+    "title": "Extrait de Parfum vs Eau de Parfum: Mana yang Lebih Menguntungkan? | Dreamlab",
+    "publishDate": "2026-10-12T10:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Extrait de Parfum",
+      "Eau de Parfum",
+      "EDP vs Extrait",
+      "bisnis parfum",
+      "maklon parfum",
+      "Dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Perbedaan Extrait vs EDP/perbedaan_extrait_vs_EDP_11zon.jpg",
+    "excerpt": "Extrait de Parfum vs Eau de Parfum, mana yang lebih menguntungkan untuk bisnis parfum? Kenali perbedaannya, HPP, positioning, hingga cara membuat brand parfum.",
+    "readingMinutes": 6
+  },
+  {
+    "slug": "/cara-meracik-parfum-untuk-dijual",
+    "title": "Panduan Meracik Parfum untuk Dijual & Memulai Brand Sendiri | Dreamlab",
+    "publishDate": "2026-10-13T10:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "meracik parfum",
+      "cara meracik parfum",
+      "bisnis parfum",
+      "formulasi parfum",
+      "maklon parfum",
+      "Dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Panduan Meracik Parfum/panduan_meracik_parfum_11zon.jpg",
+    "excerpt": "Pelajari cara meracik parfum untuk dijual, mulai dari menentukan target market, konsep aroma, formulasi, kemasan, legalitas, produksi hingga strategi membangun brand parfum sendiri.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/maklon-kosmetik-klinik-kecantikan",
     "title": "Maklon Kosmetik Klinik: Custom Formula Skincare Dokter BPOM | Dreamlab",
     "publishDate": "2026-09-30T14:30:00+00:00",
