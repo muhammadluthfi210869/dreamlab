@@ -230,6 +230,7 @@ async function runIntegrationTests() {
   if (passedTests !== totalTests) {
     process.exit(1);
   }
+  process.exit(0);
 }
 
 runIntegrationTests().catch((err) => {

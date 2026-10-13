@@ -129,7 +129,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = rawBody ? JSON.parse(rawBody) : {};
+    let body: any = {};
+    if (rawBody) {
+      try {
+        body = JSON.parse(rawBody);
+      } catch (parseErr: any) {
+        console.warn('[lead-capture/confirm] JSON.parse failed, falling back to regex extraction:', parseErr?.message);
+        body = {};
+      }
+    }
 
     let trackingCode: string | null = null;
     let phone: string | null = null;
@@ -159,7 +167,7 @@ export async function POST(req: NextRequest) {
         }
       }
     }
-    // B. Deteksi payload bridge langsung dari ERP atau testing script
+    // B. Deteksi payload bridge langsung dari ERP, MacroDroid, atau testing script
     else {
       trackingCode = body.trackingCode || body.tracking_code || body.eventId || null;
       phone = body.phone || body.sender || null;
@@ -173,6 +181,41 @@ export async function POST(req: NextRequest) {
         const match = messageText.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i);
         if (match) {
           trackingCode = match[1].trim();
+        }
+      }
+    }
+
+    // C. Resilient fallback extraction jika body malformed (misal Android MacroDroid dengan karakter newline/petik)
+    if (rawBody) {
+      if (!trackingCode) {
+        const match = rawBody.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i);
+        if (match) {
+          trackingCode = match[1].trim();
+        } else {
+          const fieldMatch = rawBody.match(/"(?:trackingCode|tracking_code|eventId)"\s*:\s*"([^"\r\n]+)"/i);
+          if (fieldMatch) trackingCode = fieldMatch[1].trim();
+        }
+      }
+
+      if (!phone) {
+        const phoneMatch = rawBody.match(/"(?:phone|sender|waPhone|wa_phone)"\s*:\s*"([^"\r\n]+)"/i);
+        if (phoneMatch) phone = phoneMatch[1].trim();
+      }
+
+      if (!waName) {
+        const nameMatch = rawBody.match(/"(?:waName|wa_name|profileName|senderName)"\s*:\s*"([^"\r\n]+)"/i);
+        if (nameMatch) waName = nameMatch[1].trim();
+      }
+
+      if (!destinationPhone) {
+        const destMatch = rawBody.match(/"(?:destinationPhone|destination_phone)"\s*:\s*"([^"\r\n]+)"/i);
+        if (destMatch) destinationPhone = destMatch[1].trim();
+      }
+
+      if (!messageText) {
+        const msgMatch = rawBody.match(/"(?:waMessage|message|text)"\s*:\s*"([\s\S]*?)"\s*[,}]/i);
+        if (msgMatch) {
+          messageText = msgMatch[1].trim();
         }
       }
     }

@@ -503,7 +503,7 @@ export default function LeadMonitorPage() {
                 (item) => item.busdev_name.toLowerCase() === targetName.toLowerCase()
               ) || {
                 busdev_name: targetName,
-                is_active: targetName !== "Irma",
+                is_active: true,
                 total_clicks: 0,
                 confirmed_chats: 0,
                 dropoff_clicks: 0,
@@ -520,7 +520,7 @@ export default function LeadMonitorPage() {
                 annisa: { bg: "bg-indigo-50 border-indigo-200 text-indigo-700", text: "text-indigo-600", initial: "AN" },
                 diaz: { bg: "bg-blue-50 border-blue-200 text-blue-700", text: "text-blue-600", initial: "DZ" },
                 jessica: { bg: "bg-emerald-50 border-emerald-200 text-emerald-700", text: "text-emerald-600", initial: "JS" },
-                irma: { bg: "bg-slate-100 border-slate-200 text-slate-500", text: "text-slate-500", initial: "IR" },
+                irma: { bg: "bg-amber-50 border-amber-200 text-amber-700", text: "text-amber-600", initial: "IR" },
               };
               const color = badgeColors[targetName.toLowerCase()] || badgeColors.annisa;
 
