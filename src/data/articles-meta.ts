@@ -50,7 +50,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/asset artikel/MK Perbedaan Extrait vs EDP/perbedaan_extrait_vs_EDP_11zon.jpg",
     "excerpt": "Extrait de Parfum vs Eau de Parfum, mana yang lebih menguntungkan untuk bisnis parfum? Kenali perbedaannya, HPP, positioning, hingga cara membuat brand parfum.",
-    "readingMinutes": 7
+    "readingMinutes": 6
   },
   {
     "slug": "/cara-meracik-parfum-untuk-dijual",
@@ -70,7 +70,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/asset artikel/MK Panduan Meracik Parfum/panduan_meracik_parfum_11zon.jpg",
     "excerpt": "Pelajari cara meracik parfum untuk dijual, mulai dari menentukan target market, konsep aroma, formulasi, kemasan, legalitas, produksi hingga strategi membangun brand parfum sendiri.",
-    "readingMinutes": 8
+    "readingMinutes": 7
   },
   {
     "slug": "/maklon-kosmetik-klinik-kecantikan",
