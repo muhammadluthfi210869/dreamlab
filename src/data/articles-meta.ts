@@ -13,6 +13,63 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-kosmetik-tangerang",
+    "title": "Maklon Kosmetik Tangerang | Ribuan Brand Diproduksi Dreamlab",
+    "publishDate": "2026-10-14T06:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "maklon kosmetik tangerang",
+      "pabrik kosmetik tangerang",
+      "maklon skincare tangerang",
+      "custom formula kosmetik",
+      "dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Parfum Tanggerang/pabrik_kosmetik_&_skincare_tangerang _11zon.jpg",
+    "excerpt": "Cari maklon kosmetik Tangerang? Dreamlab membantu pengembangan brand skincare dan kosmetik dengan custom formula, produksi, legalitas, hingga support Beauty Academy.",
+    "readingMinutes": 6
+  },
+  {
+    "slug": "/apakah-brand-parfum-wajib-bpom",
+    "title": "Apakah Parfum Wajib BPOM? Panduan Legalitas Brand Parfum | Dreamlab",
+    "publishDate": "2026-10-14T06:15:00+00:00",
+    "author": "Dreamlab Regulatory & Compliance",
+    "categories": [
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "apakah parfum wajib bpom",
+      "izin bpom parfum",
+      "legalitas brand parfum",
+      "notifikasi kosmetika parfum",
+      "maklon parfum bpom"
+    ],
+    "featuredImage": "/asset artikel/MK Parfum BPOM/pentingnya_bpom_untuk_brand_parfum__11zon.jpg",
+    "excerpt": "Apakah brand parfum wajib BPOM? Pelajari aturan notifikasi kosmetika, risiko menjual parfum tanpa legalitas, serta cara menyiapkan brand parfum bersama maklon.",
+    "readingMinutes": 7
+  },
+  {
+    "slug": "/cara-menentukan-harga-jual-parfum",
+    "title": "Cara Menentukan Harga Jual Parfum Marketplace agar Untung | Dreamlab",
+    "publishDate": "2026-10-14T06:30:00+00:00",
+    "author": "Dreamlab Financial & Business Development",
+    "categories": [
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "cara menentukan harga jual parfum",
+      "hitung hpp parfum",
+      "harga jual parfum marketplace",
+      "margin parfum online",
+      "maklon parfum dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Menentukan Harga Parfum/Cara_menentukan_harga_jual _11zon.jpg",
+    "excerpt": "Panduan cara menentukan harga jual parfum di marketplace: hitung HPP, biaya admin, operasional packing, ROAS iklan, dan maklon parfum berizin BPOM.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/rekomendasi-maklon-parfum-terbaik",
     "title": "5 Rekomendasi Maklon Parfum Terbaik di Indonesia untuk Brand Lokal | Dreamlab",
     "publishDate": "2026-10-10T10:00:00+00:00",
