@@ -361,6 +361,7 @@ export const SITE_PATHS: string[] = [
   "parfum-arab-ide-bisnis-2026",
   "parfum-balm-vs-parfum-oil",
   "parfum-inspired-peluang-bisnis",
+  "parfum-pheromone",
   "parfum-pheromone-bisnis-parfum",
   "parfum/metaads",
   "peluang-bangun-brand-moisturizer-pdrn",

@@ -13,6 +13,25 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/parfum-pheromone",
+    "title": "Parfum Pheromone: Inovasi Fragrance untuk Brand Parfum | Dreamlab",
+    "publishDate": "2026-10-16T12:00:00+00:00",
+    "author": "Dreamlab Perfumery Development",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "parfum pheromone",
+      "maklon parfum",
+      "custom formula parfum",
+      "bisnis parfum",
+      "dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Parfum Pheromone/maklon_parfum_custom _11zon.jpg",
+    "excerpt": "Kenali konsep parfum pheromone, bagaimana aroma memengaruhi persepsi, dan bagaimana Dreamlab mengembangkan custom formula untuk brand parfum.",
+    "readingMinutes": 6
+  },
+  {
     "slug": "/maklon-kosmetik-tangerang",
     "title": "Maklon Kosmetik Tangerang | Ribuan Brand Diproduksi Dreamlab",
     "publishDate": "2026-10-14T06:00:00+00:00",
