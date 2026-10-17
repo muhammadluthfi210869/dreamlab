@@ -3962,8 +3962,8 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-17T22:30:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik",
-      "Maklon Skincare"
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "tags": [
       "Budget Marketing Skincare",
