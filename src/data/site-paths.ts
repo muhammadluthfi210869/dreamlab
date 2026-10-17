@@ -559,6 +559,7 @@ export const SITE_PATHS: string[] = [
   "thankyou-medsos",
   "thankyou-page",
   "thankyou/google",
+  "tinted-sunscreen-vs-chemical-sunscreen",
   "tips-membuat-hand-sanitizer-bisnis",
   "tips-membuat-konten-viral",
   "tips-memilih-maklon-kosmetik-bpom",

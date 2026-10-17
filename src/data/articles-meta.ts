@@ -3979,6 +3979,27 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 12
   },
   {
+    "slug": "/tinted-sunscreen-vs-chemical-sunscreen",
+    "title": "Tinted Sunscreen vs Chemical Sunscreen: Kenali Produk dan Peluang Market Sebelum Membuat Brand",
+    "publishDate": "2026-10-17T23:25:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Sunscreen",
+      "Tinted Sunscreen",
+      "Chemical Sunscreen",
+      "Sunscreen BPOM",
+      "Custom Formula Sunscreen",
+      "Bisnis Skincare"
+    ],
+    "featuredImage": "/images/artikel-tinted-sunscreen-vs-chemical-sunscreen/tinted_vs_chemical_sunscreen_cover.jpg",
+    "excerpt": "Apa perbedaan tinted sunscreen dan chemical sunscreen? Kenali karakter, pengguna, market, peluang, hingga cara membuat brand sunscreen custom bersama Dreamlab.",
+    "readingMinutes": 13
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
