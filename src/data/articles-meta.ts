@@ -3957,6 +3957,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 8
   },
   {
+    "slug": "/budget-marketing-brand-skincare",
+    "title": "Cara Mengatur Budget Marketing Brand Skincare Baru dengan Tepat",
+    "publishDate": "2026-10-17T22:30:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Maklon Skincare"
+    ],
+    "tags": [
+      "Budget Marketing Skincare",
+      "Bisnis Skincare",
+      "MOQ Skincare",
+      "Meta Ads Skincare",
+      "TikTok Shop Skincare",
+      "KOL Skincare",
+      "Maklon Kosmetik"
+    ],
+    "featuredImage": "/images/artikel-budget-marketing-brand-skincare/cara_mengatur_budget_marketing_brand_skincare_cover.jpg",
+    "excerpt": "Baru membangun brand skincare? Pelajari cara membagi budget Rp10 juta untuk produksi, MOQ, content creator, KOL, affiliate, Meta Ads, hingga strategi scale.",
+    "readingMinutes": 12
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

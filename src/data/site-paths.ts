@@ -53,6 +53,7 @@ export const SITE_PATHS: string[] = [
   "body-care",
   "body-care-2",
   "brand-lip-gloss",
+  "budget-marketing-brand-skincare",
   "cara-ampuh-memutihkan-ketiak",
   "cara-bangun-brand-deodoran-sendiri",
   "cara-bisnis-skincare-dari-nol",
