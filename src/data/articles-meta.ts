@@ -3937,6 +3937,26 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 11
   },
   {
+    "slug": "/brand-lip-gloss",
+    "title": "Ingin Brand Lip Gloss Anda Menang? Kenali Market Sebelum Produksi",
+    "publishDate": "2026-10-17T08:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Lip Gloss",
+      "Bisnis Lip Gloss",
+      "Lip Oil Gloss",
+      "Plumping Gloss",
+      "Custom Formula"
+    ],
+    "featuredImage": "/images/artikel-brand-lip-gloss/peluang_membuat_brand_lip_gloss.jpg",
+    "excerpt": "Ingin membuat brand lip gloss? Pelajari peluang bisnis, tren produk, ingredients, kondisi market, hingga alur maklon lip gloss bersama Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
