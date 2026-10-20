@@ -13,6 +13,44 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/jasa-maklon-skincare-palembang",
+    "title": "Maklon Kosmetik Palembang: Buat Brand Skincare BPOM Sendiri | Dreamlab",
+    "publishDate": "2026-10-20T10:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "maklon kosmetik palembang",
+      "maklon skincare palembang",
+      "pabrik skincare palembang",
+      "buat brand skincare palembang",
+      "dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Palembang/maklon_kosmetik_palembang _11zon.jpg",
+    "excerpt": "Ingin membuat brand kosmetik atau skincare di Palembang? Kenali pilihan produk, custom formula, MOQ, biaya, hingga proses produksi bersama Dreamlab.",
+    "readingMinutes": 5
+  },
+  {
+    "slug": "/maklon-skincare-malang",
+    "title": "Maklon Skincare Malang untuk Brand Baru: Custom Formula | Dreamlab",
+    "publishDate": "2026-10-20T10:15:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "maklon skincare malang",
+      "maklon kosmetik malang",
+      "pabrik kosmetik malang",
+      "custom formula skincare malang",
+      "dreamlab"
+    ],
+    "featuredImage": "/asset artikel/MK Malang/maklon_skincare_&_kosmetik_malang_11zon.jpg",
+    "excerpt": "Ingin membuat brand skincare di Malang? Temukan layanan custom formula, sample, packaging, legalitas, dan produksi skincare bersama Dreamlab.",
+    "readingMinutes": 5
+  },
+  {
     "slug": "/parfum-pheromone",
     "title": "Parfum Pheromone: Inovasi Fragrance untuk Brand Parfum | Dreamlab",
     "publishDate": "2026-10-16T12:00:00+00:00",
