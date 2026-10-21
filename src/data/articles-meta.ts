@@ -4055,7 +4055,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-modal-bisnis-parfum/cover-modal-bisnis-parfum.webp",
     "excerpt": "Berapa modal bisnis parfum? Bandingkan refill dan brand sendiri: modal awal, HPP, margin, legalitas BPOM, dan risiko. Lengkap dengan simulasi.",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "slug": "/jasa-maklon-kosmetik-madiun",
