@@ -4079,7 +4079,7 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
-    "slug": "/cara-menyiapkan-stok-ramadan-brand-kosmetik/",
+    "slug": "/cara-menyiapkan-stok-ramadan-brand-kosmetik",
     "title": "Stok Ramadan 2027: 10 Tips untuk Brand Kosmetik | Dreamlab",
     "publishDate": "2026-10-21T08:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
@@ -4100,7 +4100,7 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
-    "slug": "/cara-pindah-maklon-skincare/",
+    "slug": "/cara-pindah-maklon-skincare",
     "title": "Cara Pindah Maklon Skincare dengan Aman | Dreamlab",
     "publishDate": "2026-10-21T08:15:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
@@ -4121,7 +4121,7 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
-    "slug": "/maklon-kosmetik-tarakan/",
+    "slug": "/maklon-kosmetik-tarakan",
     "title": "Maklon Kosmetik & Skincare Tarakan | Dreamlab",
     "publishDate": "2026-10-21T08:30:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",

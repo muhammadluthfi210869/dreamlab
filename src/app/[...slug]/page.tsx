@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const pathStr = `/${resolvedParams.slug.join('/')}`;
   const seoData = await getSEOData(pathStr);
   const articlesList = await getArticles();
-  const article = articlesList.find(a => a.slug === resolvedParams.slug.join('/') || a.slug === pathStr);
+  const article = articlesList.find(a => normalizeSlug(a.slug) === normalizeSlug(pathStr));
   const maklonPage = getMaklonPage(pathStr);
 
   if (!article && !maklonPage && !seoData) {
@@ -184,9 +184,7 @@ export default async function DynamicPage({ params }: PageProps) {
   const seoData = await getSEOData(pathStr);
   const articlesList = await getArticles();
   const article = articlesList.find(a => 
-    a.slug === resolvedParams.slug.join('/') || 
-    a.slug === pathStr || 
-    a.slug === pathStr.replace(/^\//, '')
+    normalizeSlug(a.slug) === normalizeSlug(pathStr)
   );
 
   // Only render as Article if there is actual content, otherwise treat as Programmatic Service Page
