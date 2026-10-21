@@ -4116,7 +4116,7 @@ export const articlesMeta: ArticleMeta[] =
       "kontrak maklon skincare",
       "formula skincare milik siapa"
     ],
-    "featuredImage": "/assets/images/blog/artikel-cta.png",
+    "featuredImage": "/asset artikel/MK Cara Pindah Maklon/cara_pindah_brand_kosmetik_skincare_11zon.jpg",
     "excerpt": "Mau pindah maklon skincare? Amankan formula, merek, notifikasi BPOM, dan stok sebelum memutus kontrak. Panduan langkah demi langkah tanpa ganggu penjualan.",
     "readingMinutes": 10
   },
