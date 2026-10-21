@@ -5799,3 +5799,12 @@ export const articles: Article[] = [
   }
 }
 ];
+
+// City pages are maintained separately to keep their commercial intent and local
+// distinctions auditable. Jember replaces its existing URL; the other two are new.
+for (const cityArticle of cityArticles) {
+  const existingIndex = articles.findIndex((article) => article.slug === cityArticle.slug);
+  if (existingIndex >= 0) articles[existingIndex] = cityArticle;
+  else articles.push(cityArticle);
+}
+
