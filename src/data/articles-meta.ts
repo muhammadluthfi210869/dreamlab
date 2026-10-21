@@ -3617,21 +3617,21 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/jasa-maklon-kosmetik-di-jember",
-    "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
-    "publishDate": "2026-09-02T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
+    "title": "Jasa Maklon Kosmetik di Jember, Ini Solusinya",
+    "publishDate": "2026-07-28T00:00:00+00:00",
+    "author": "Apoteker Penanggung Jawab Dreamlab",
     "categories": [
       "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik",
       "Maklon Jember",
-      "Custom Formula",
-      "Skincare BPOM"
+      "Jasa Maklon",
+      "Brand Kosmetik"
     ],
-    "featuredImage": "/images/maklon_kosmetik_jember_11zon.jpg.jpeg",
-    "excerpt": "Bikin brand skincare BPOM tren terkini di Jember. Nikmati sistem 1-client 1-formula, MOQ fleksibel, dan legalitas resmi bersama Dreamlab maklon juaranya formula.",
-    "readingMinutes": 6
+    "featuredImage": "maklon-kosmetik-jember-hero.webp",
+    "excerpt": "Mau bikin brand kosmetik dari Jember? Dreamlab maklon kosmetik bantu dari riset formula, BPOM, sampai produk jadi. Konsultasi gratis sekarang.",
+    "readingMinutes": 7
   },
   {
     "slug": "/layanan-one-stop-maklon-kosmetik-dreamlab",
@@ -4079,115 +4079,66 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
-    "slug": "/jasa-maklon-kosmetik-madiun",
-    "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
-    "publishDate": "2026-09-02T00:00:00+00:00",
+    "slug": "/cara-menyiapkan-stok-ramadan-brand-kosmetik/",
+    "title": "Stok Ramadan 2027: 10 Tips untuk Brand Kosmetik | Dreamlab",
+    "publishDate": "2026-10-21T08:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "stok ramadan brand kosmetik",
+      "persiapan stok ramadan",
+      "cara menghitung stok ramadan",
+      "produksi skincare ramadan",
+      "peak season ramadan",
+      "stok lebaran online shop"
+    ],
+    "featuredImage": "/asset artikel/MK Stok Ramadhan/cara_mengatur_stock_pada_saat_ramadhan_11zon.jpg",
+    "excerpt": "Ramadan 2027 diperkirakan mulai 8 Februari. Pelajari cara menghitung stok, kalender mundur produksi, dan tips agar brand kosmetik tidak kehabisan stok.",
+    "readingMinutes": 10
+  },
+  {
+    "slug": "/cara-pindah-maklon-skincare/",
+    "title": "Cara Pindah Maklon Skincare dengan Aman | Dreamlab",
+    "publishDate": "2026-10-21T08:15:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "cara pindah maklon skincare",
+      "pindah maklon kosmetik",
+      "ganti pabrik maklon",
+      "notifikasi BPOM ganti produsen",
+      "kontrak maklon skincare",
+      "formula skincare milik siapa"
+    ],
+    "featuredImage": "/assets/images/blog/artikel-cta.png",
+    "excerpt": "Mau pindah maklon skincare? Amankan formula, merek, notifikasi BPOM, dan stok sebelum memutus kontrak. Panduan langkah demi langkah tanpa ganggu penjualan.",
+    "readingMinutes": 10
+  },
+  {
+    "slug": "/maklon-kosmetik-tarakan/",
+    "title": "Maklon Kosmetik & Skincare Tarakan | Dreamlab",
+    "publishDate": "2026-10-21T08:30:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
       "Maklon Kosmetik"
     ],
     "tags": [
-      "Maklon Kosmetik",
-      "Maklon Madiun",
-      "Winning Product",
-      "Custom Formula"
+      "maklon kosmetik tarakan",
+      "maklon skincare tarakan",
+      "tempat produksi skincare tarakan",
+      "bikin brand skincare tarakan",
+      "maklon kosmetik kalimantan utara",
+      "pabrik kosmetik kalimantan"
     ],
-    "featuredImage": "/images/maklon_kosmetik_madiun_11zon.jpg.jpeg",
-    "excerpt": "Jasa maklon kosmetik untuk brand di Madiun, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.",
-    "readingMinutes": 7
-  },
-  {
-    "slug": "/jasa-maklon-kosmetik-banyuwangi",
-    "title": "Jasa Maklon Kosmetik Banyuwangi, Free Custom Formula | Dreamlab",
-    "publishDate": "2026-09-02T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Maklon Kosmetik"
-    ],
-    "tags": [
-      "Maklon Kosmetik",
-      "Maklon Banyuwangi",
-      "Potensi Lokal Skincare",
-      "Custom Formula"
-    ],
-    "featuredImage": "/images/maklon_kosmetik_banyuwangi _11zon.jpg.jpeg",
-    "excerpt": "Jasa maklon kosmetik untuk brand di Banyuwangi, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.",
-    "readingMinutes": 6
-  },
-  {
-    "slug": "/jasa-maklon-kosmetik-bekasi",
-    "title": "Jasa Maklon Kosmetik Bekasi: One Stop Partner Bangun Brand",
-    "publishDate": "2026-09-07T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Commertional"
-    ],
-    "tags": [
-      "Maklon Kosmetik",
-      "Maklon Bekasi",
-      "Custom Formula",
-      "One Stop Maklon",
-      "Brand Kosmetik"
-    ],
-    "featuredImage": "/images/maklon_kosmetik_bekasi_11zon.jpg",
-    "excerpt": "Jasa maklon kosmetik Bekasi untuk membangun brand dari custom formula, sample, branding, legalitas, produksi hingga free support digital marketing.",
-    "readingMinutes": 8
-  },
-  {
-    "slug": "/jasa-maklon-kosmetik-blitar",
-    "title": "Jasa Maklon Kosmetik Blitar: Partner Brand & Free Digital Marketing",
-    "publishDate": "2026-09-07T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Commertional"
-    ],
-    "tags": [
-      "Maklon Kosmetik",
-      "Maklon Blitar",
-      "Custom Formula",
-      "One Stop Maklon",
-      "Digital Marketing"
-    ],
-    "featuredImage": "/images/maklon_kosmetik_blitar_dreamlab_11zon.jpg",
-    "excerpt": "Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.",
-    "readingMinutes": 6
-  },
-  {
-    "slug": "/jasa-maklon-kosmetik-solo",
-    "title": "Jasa Maklon Kosmetik Solo (Surakarta): Mitra Wirausaha Brand Kosmetik Lokal",
-    "publishDate": "2026-09-10T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Navigational"
-    ],
-    "tags": [
-      "Maklon Kosmetik",
-      "Maklon Solo",
-      "Maklon Surakarta",
-      "Custom Formula",
-      "Brand Kosmetik"
-    ],
-    "featuredImage": "/images/maklon-kosmetik-solo.jpg",
-    "excerpt": "Jasa maklon kosmetik Solo untuk membangun brand dengan custom formula, sample, branding, legalitas, produksi, dan support digital marketing.",
-    "readingMinutes": 7
-  },
-  {
-    "slug": "/peluang-brand-skincare-purwokerto",
-    "title": "Peluang Brand Skincare di Purwokerto Bersama Partner Terpercaya Dreamlab",
-    "publishDate": "2026-09-10T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Navigational"
-    ],
-    "tags": [
-      "Skincare Purwokerto",
-      "Maklon Skincare",
-      "Custom Formula",
-      "Brand Skincare"
-    ],
-    "featuredImage": "/images/maklon-kosmetik-purwokerto.jpg",
-    "excerpt": "Ingin membangun brand skincare di Purwokerto? Temukan peluang produk, custom formula, dan pengembangan brand bersama Dreamlab sebagai partner maklon.",
-    "readingMinutes": 7
+    "featuredImage": "/asset artikel/MK Tarakan/maklon_kosmetik_dan_skincare_di_tarakan _11zon.jpg",
+    "excerpt": "Cari tempat produksi skincare untuk brand Anda di Tarakan? Simak cara memilih maklon, peluang pasar Kaltara, 5 ide produk pemula, dan alur maklonnya.",
+    "readingMinutes": 9
   }
 ]
 ;
