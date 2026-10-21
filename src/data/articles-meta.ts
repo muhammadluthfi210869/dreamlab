@@ -4058,6 +4058,27 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/maklon-parfum-halal",
+    "title": "Maklon Parfum Halal: Wajib Halal Diundur ke 2028, Kenapa Brand Parfum Tetap Perlu Siap Sekarang?",
+    "publishDate": "2026-10-21T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "tags": [
+      "maklon parfum halal",
+      "parfum wajib halal",
+      "sertifikat halal parfum",
+      "wajib halal kosmetik 2028",
+      "alkohol parfum halal",
+      "biaya sertifikasi halal kosmetik"
+    ],
+    "featuredImage": "/images/artikel-maklon-parfum-halal/maklon-parfum-halal-dreamlab-cover.webp",
+    "excerpt": "Wajib halal kosmetik diundur ke 17 Oktober 2028. Simak artinya untuk brand parfum, biaya dan lama sertifikasi, aturan alkohol, dan cara maklon parfum halal.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
