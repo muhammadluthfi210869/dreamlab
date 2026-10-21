@@ -4038,6 +4038,26 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 13
   },
   {
+    "slug": "/modal-bisnis-parfum",
+    "title": "Modal Bisnis Parfum: Refill atau Brand Sendiri, Mana yang Lebih Untung?",
+    "publishDate": "2026-10-21T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "modal bisnis parfum",
+      "maklon parfum",
+      "parfum refill",
+      "brand parfum sendiri",
+      "bisnis parfum"
+    ],
+    "featuredImage": "/images/artikel-modal-bisnis-parfum/cover-modal-bisnis-parfum.webp",
+    "excerpt": "Berapa modal bisnis parfum? Bandingkan refill dan brand sendiri: modal awal, HPP, margin, legalitas BPOM, dan risiko. Lengkap dengan simulasi.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
