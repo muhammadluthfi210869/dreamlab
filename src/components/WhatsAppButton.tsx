@@ -41,7 +41,7 @@ export default function WhatsAppButton() {
     window.location.assign(buildThankyouUrl({ source, ctx, from, cta: 'whatsapp-button-global' }));
   }, []);
 
-  if (isDreampreneurThankYou || pathname?.startsWith("/lead-monitor")) {
+  if (pathname?.includes("thankyou") || pathname?.startsWith("/lead-monitor")) {
     return null;
   }
 

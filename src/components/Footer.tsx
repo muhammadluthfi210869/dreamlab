@@ -12,10 +12,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   // Bahasa di-detect client-side dari pathname → layout tetap static & cacheable.
   const pathname = usePathname();
-  const isEn = pathname.startsWith("/en");
+  const isEn = Boolean(pathname?.startsWith("/en"));
   const L = (p: string) => localizeHref(p, isEn);
 
-  if (pathname?.startsWith("/lead-monitor") || pathname === "/dreampreneur-batch-2/thankyou/") return null;
+  if (pathname?.startsWith("/lead-monitor") || pathname?.includes("thankyou")) return null;
 
   return (
     <footer className="bg-[#1A1A1A] text-white pt-20 pb-10">

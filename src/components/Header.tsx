@@ -15,7 +15,7 @@ export default function Header() {
 
   if (
     pathname?.startsWith("/lead-monitor") ||
-    pathname === "/dreampreneur-batch-2/thankyou/" || 
+    pathname?.includes("thankyou") || 
     pathname === "/ads/maklon-parfum/" || 
     pathname === "/ads/maklon-parfum" ||
     pathname === "/google-ads/maklon-parfum/" ||

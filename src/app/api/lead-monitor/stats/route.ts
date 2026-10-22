@@ -97,13 +97,20 @@ export async function GET(req: NextRequest) {
       paramIndex++;
     }
 
-    // A. Query KPI Summary untuk BusDev terpilih
+    // A. Query KPI Summary untuk BusDev terpilih (Menghitung Manusia / Nomor HP Unik)
     const kpiQuery = `
       SELECT 
         COUNT(*) FILTER (WHERE source != 'wa-direct')::int AS total_clicks,
-        COUNT(*) FILTER (WHERE status = 'confirmed' AND source != 'wa-direct')::int AS confirmed_chats,
+        COUNT(DISTINCT COALESCE(NULLIF(wa_phone, ''), NULLIF(hp, ''), tracking_code)) 
+          FILTER (
+            WHERE status = 'confirmed' 
+              AND source != 'wa-direct'
+              AND (wa_message IS NULL OR wa_message NOT ILIKE '%memeriksa pesan baru%')
+              AND (wa_message IS NULL OR wa_message NOT ILIKE '%legalitas sertifikasi bpom%')
+          )::int AS confirmed_chats,
         COUNT(*) FILTER (WHERE (status IS NULL OR status != 'confirmed') AND source != 'wa-direct')::int AS dropoff_clicks,
-        COUNT(*) FILTER (WHERE source = 'wa-direct')::int AS direct_chats
+        COUNT(DISTINCT COALESCE(NULLIF(wa_phone, ''), NULLIF(hp, ''), tracking_code)) 
+          FILTER (WHERE source = 'wa-direct')::int AS direct_chats
       FROM leads
       WHERE is_test IS NOT TRUE
         ${timeClause}
@@ -116,16 +123,23 @@ export async function GET(req: NextRequest) {
       ? Number(((kpi.confirmed_chats / kpi.total_clicks) * 100).toFixed(1)) 
       : 0;
 
-    // B. Query Breakdown Per Semua BusDev (dengan status aktif/nonaktif dari tabel busdevs)
+    // B. Query Breakdown Per Semua BusDev (Menghitung Manusia / Nomor HP Unik)
     const breakdownTimeClause = timeClause ? timeClause.replace(/created_at/g, 'l.created_at') : '';
     const breakdownQuery = `
       SELECT 
         b.name AS busdev_name,
         b.is_active,
         COUNT(l.id) FILTER (WHERE l.source != 'wa-direct')::int AS total_clicks,
-        COUNT(l.id) FILTER (WHERE l.status = 'confirmed' AND l.source != 'wa-direct')::int AS confirmed_chats,
+        COUNT(DISTINCT COALESCE(NULLIF(l.wa_phone, ''), NULLIF(l.hp, ''), l.tracking_code)) 
+          FILTER (
+            WHERE l.status = 'confirmed' 
+              AND l.source != 'wa-direct'
+              AND (l.wa_message IS NULL OR l.wa_message NOT ILIKE '%memeriksa pesan baru%')
+              AND (l.wa_message IS NULL OR l.wa_message NOT ILIKE '%legalitas sertifikasi bpom%')
+          )::int AS confirmed_chats,
         COUNT(l.id) FILTER (WHERE (l.status IS NULL OR l.status != 'confirmed') AND l.source != 'wa-direct')::int AS dropoff_clicks,
-        COUNT(l.id) FILTER (WHERE l.source = 'wa-direct')::int AS direct_chats
+        COUNT(DISTINCT COALESCE(NULLIF(l.wa_phone, ''), NULLIF(l.hp, ''), l.tracking_code)) 
+          FILTER (WHERE l.source = 'wa-direct')::int AS direct_chats
       FROM busdevs b
       LEFT JOIN leads l ON (
         (l.assigned_to = b.name OR l.assigned_phone = regexp_replace(b.phone, '[^0-9]', '', 'g'))
