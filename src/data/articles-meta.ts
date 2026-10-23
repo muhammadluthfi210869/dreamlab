@@ -4141,6 +4141,73 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/maklon-kosmetik-balikpapan",
+    "title": "Maklon Kosmetik & Skincare BPOM Terlengkap Balikpapan | Dreamlab",
+    "publishDate": "2026-10-23T08:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "maklon kosmetik balikpapan",
+      "maklon skincare balikpapan",
+      "jasa maklon kosmetik balikpapan",
+      "pabrik kosmetik balikpapan",
+      "bikin brand skincare sendiri balikpapan",
+      "maklon kosmetik kalimantan timur",
+      "maklon skincare BPOM"
+    ],
+    "featuredImage": "/asset artikel/MK BalikPapan/maklon_kosmetik_balikpapan_11zon.jpg",
+    "excerpt": "Jual skincare brand orang lain di Balikpapan? Saatnya punya brand BPOM sendiri. Simak ide produk laris, estimasi biaya, dan alur maklonnya.",
+    "readingMinutes": 10
+  },
+  {
+    "slug": "/cara-menghitung-stok-promo",
+    "title": "Cara Menghitung Stok Promo 11.11 sampai 12.12 | Dreamlab",
+    "publishDate": "2026-10-23T08:15:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "cara menghitung stok promo",
+      "stok 12.12",
+      "stok harbolnas",
+      "safety stock skincare",
+      "rumus stok pengaman",
+      "reorder point",
+      "stok habis saat promo",
+      "repeat order maklon"
+    ],
+    "featuredImage": "/asset artikel/MK Management Stock/strategy_stock_management_peak_Season.jpg",
+    "excerpt": "Rumus stok promo double date untuk brand kosmetik: pengali lonjakan, stok pengaman, contoh hitungan, dan kapan harus order ke maklon agar tidak kehabisan.",
+    "readingMinutes": 10
+  },
+  {
+    "slug": "/ide-bisnis-gift-set-parfum",
+    "title": "7 Ide Gift Set Parfum Natal & Ramadan + Modal | Dreamlab",
+    "publishDate": "2026-10-23T08:30:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Parfum",
+      "Bisnis Parfum"
+    ],
+    "tags": [
+      "ide bisnis gift set parfum",
+      "gift set parfum",
+      "hampers parfum lebaran",
+      "gift set parfum natal",
+      "discovery set parfum",
+      "modal bisnis parfum",
+      "maklon parfum gift set"
+    ],
+    "featuredImage": "/asset artikel/MK Gift Parfume/ide_bisnis_parfum_package_11zon.jpg",
+    "excerpt": "Ide bisnis gift set parfum untuk Natal dan Ramadan: discovery set, duo signature, hampers Lebaran, lengkap dengan simulasi modal dan jadwal produksinya.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
