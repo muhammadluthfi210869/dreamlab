@@ -4208,6 +4208,48 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/maklon-kosmetik-toraja",
+    "title": "Maklon Kosmetik Toraja: Bisnis Beauty Tanpa Pabrik Sendiri",
+    "publishDate": "2026-10-24T08:00:00+00:00",
+    "author": "Tim Dreamlab",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "maklon kosmetik Toraja",
+      "bisnis kosmetik Toraja",
+      "pabrik kosmetik Sulawesi Selatan",
+      "brand skincare lokal Toraja",
+      "produk kecantikan kopi Toraja",
+      "maklon kosmetik Indonesia",
+      "cara membuat brand kosmetik sendiri"
+    ],
+    "featuredImage": "/asset artikel/MK Toraja/Pabrik_maklon_kosmetik_toraja_11zon.jpg",
+    "excerpt": "Mau bikin brand kosmetik dari Toraja? Simak peluang bisnis, 5 ide produk khas Toraja, dan cara maklon di pabrik CPKB bersama Dreamlab. Konsultasi gratis.",
+    "readingMinutes": 8
+  },
+  {
+    "slug": "/maklon-kosmetik-bpom-halal-depok",
+    "title": "Maklon Kosmetik BPOM & Halal untuk Brand Lokal Depok",
+    "publishDate": "2026-10-24T08:00:00+00:00",
+    "author": "Tim Dreamlab",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "maklon kosmetik BPOM",
+      "maklon skincare Depok",
+      "brand skincare lokal",
+      "maklon kosmetik halal",
+      "cara jadi brand owner skincare",
+      "pabrik kosmetik BPOM",
+      "maklon kosmetik Indonesia"
+    ],
+    "featuredImage": "/asset artikel/MK Depok/jasa_maklon_kosmetik_depok _11zon.jpg",
+    "excerpt": "Mau jadi brand owner skincare di Depok? Maklon kosmetik BPOM & Halal di Dreamlab: formula eksklusif, izin diurus, konsultasi online gratis.",
+    "readingMinutes": 6
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-madiun",
     "title": "Jasa Maklon Kosmetik Madiun | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
