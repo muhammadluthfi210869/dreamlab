@@ -185,6 +185,14 @@ export default function MaklonParfumAdsLP() {
           50% { transform:scale(1.3); opacity:0.5; }
           100% { transform:scale(0.9); opacity:1; }
         }
+        body:has([aria-modal="true"]) .parfum-lp .wa,
+        body.lead-modal-open .parfum-lp .wa,
+        .lead-modal-open .parfum-lp .wa {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
 
         /* Mobile & Responsive */
         @media(max-width:960px) and (min-width:761px) {

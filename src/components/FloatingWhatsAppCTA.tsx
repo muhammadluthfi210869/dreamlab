@@ -65,6 +65,14 @@ export function FloatingWhatsAppCTA({
             font-size: 13px;
           }
         }
+        body:has([aria-modal="true"]) .dreamlab-floating-wa,
+        body.lead-modal-open .dreamlab-floating-wa,
+        .lead-modal-open .dreamlab-floating-wa {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
       `}</style>
       <button
         type="button"

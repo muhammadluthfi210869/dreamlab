@@ -128,6 +128,18 @@ export function LeadQualificationModal({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
+  // Hide floating buttons & manage modal state on body
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('lead-modal-open');
+    } else {
+      document.body.classList.remove('lead-modal-open');
+    }
+    return () => {
+      document.body.classList.remove('lead-modal-open');
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const resolvedCategory =
@@ -268,7 +280,7 @@ export function LeadQualificationModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto animate-fadeIn"
+      className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto animate-fadeIn lead-qualification-modal"
       role="dialog"
       aria-modal="true"
       onClick={(e) => {
