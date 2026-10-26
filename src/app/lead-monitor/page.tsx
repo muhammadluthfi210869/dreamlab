@@ -7,7 +7,6 @@ import {
   TrendingUp,
   RefreshCw,
   Search,
-  CheckCircle2,
   HelpCircle,
   Clock,
   ArrowUpRight,
@@ -40,6 +39,11 @@ interface LeadItem {
   created_at: string;
   confirmed_at: string | null;
   latency_seconds?: number | null;
+  // Hasil penggabungan baris yang sama (nomor sama dalam 24 jam)
+  duplicate_count?: number;
+  merged_tracking_codes?: string[];
+  busdevs?: string[];
+  last_seen_at?: string;
   // Hasil form kualifikasi (kosong untuk klik WA biasa)
   is_form_lead?: boolean;
   produk?: string | null;
@@ -51,6 +55,13 @@ interface LeadItem {
   crm_sync_status?: string | null;
   wa_clicked_at?: string | null;
   whatsapp_phone_e164?: string | null;
+}
+
+interface ListMeta {
+  rawRows: number;
+  mergedAway: number;
+  rawCapped: boolean;
+  tabCounts: { valid: number; confirmed: number; dropoff: number; all: number };
 }
 
 interface QualificationSummary {
@@ -118,7 +129,7 @@ function formatLatency(seconds: number | null | undefined): string {
 
 export default function LeadMonitorPage() {
   const [selectedBusdev, setSelectedBusdev] = useState<string>("all");
-  const [selectedStatus, setSelectedStatus] = useState<string>("all"); // 'all' | 'confirmed' | 'dropoff'
+  const [selectedStatus, setSelectedStatus] = useState<string>("valid"); // 'valid' (chat + hasil form, default) | 'confirmed' | 'dropoff' | 'all'
   const [selectedPeriod, setSelectedPeriod] = useState<string>("today");
   const [startDate, setStartDate] = useState<string>(() => getWibDate(0));
   const [endDate, setEndDate] = useState<string>(() => getWibDate(0));
@@ -141,6 +152,7 @@ export default function LeadMonitorPage() {
   const [qualificationReady, setQualificationReady] = useState<boolean>(true);
   const [freshIds, setFreshIds] = useState<Set<number>>(new Set());
   const [newLeadNotice, setNewLeadNotice] = useState<string | null>(null);
+  const [listMeta, setListMeta] = useState<ListMeta | null>(null);
 
   // Deteksi lead baru antar polling. Di-reset saat filter berubah supaya hasil
   // filter baru tidak ditandai "baru" semua.
@@ -208,6 +220,7 @@ export default function LeadMonitorPage() {
           setKpi(json.kpi);
           setQualification(json.qualification || null);
           setQualificationReady(json.qualificationColumnsReady !== false);
+          setListMeta(json.listMeta || null);
           setLeads(incoming);
           setBreakdown(json.busdevBreakdown || []);
           setLastUpdated(new Date());
@@ -388,7 +401,7 @@ export default function LeadMonitorPage() {
         )}
 
         {/* Peringatan migrasi: kolom form kualifikasi belum ada di database */}
-        {!qualificationReady && (
+        {!qualificationReady && (qualification?.form_total ?? 0) > 0 && (
           <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-xs text-red-900 flex items-start gap-2.5 shadow-2xs">
             <HelpCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
             <span>
@@ -830,44 +843,43 @@ export default function LeadMonitorPage() {
               <span className="text-[11px] font-mono font-medium px-2 py-0.2 rounded-full bg-slate-100 text-slate-600 border border-slate-200/60">
                 {leads.length} data
               </span>
+              {listMeta && listMeta.mergedAway > 0 && (
+                <span
+                  className="text-[11px] text-slate-400"
+                  title="Baris dengan nomor yang sama dalam 24 jam digabung jadi satu lead (aturan yang sama dengan dedup sistem)."
+                >
+                  {listMeta.mergedAway} baris duplikat digabung
+                </span>
+              )}
 
-              {/* Status Filter Tabs (Semua / Valid / Drop-off) */}
+              {/* Status Filter Tabs: default = Chat + Form (tanpa drop-off biasa) */}
               <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60 ml-1">
-                <button
-                  type="button"
-                  onClick={() => setSelectedStatus("all")}
-                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all ${
-                    selectedStatus === "all"
-                      ? "bg-white text-slate-900 font-semibold shadow-2xs"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  Semua ({kpi.totalClicks})
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedStatus("confirmed")}
-                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all flex items-center gap-1.5 ${
-                    selectedStatus === "confirmed"
-                      ? "bg-white text-emerald-700 font-semibold shadow-2xs"
-                      : "text-slate-500 hover:text-emerald-700"
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  Chat Masuk ({kpi.confirmedChats})
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedStatus("dropoff")}
-                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all flex items-center gap-1.5 ${
-                    selectedStatus === "dropoff"
-                      ? "bg-white text-amber-700 font-semibold shadow-2xs"
-                      : "text-slate-500 hover:text-amber-700"
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                  Drop-off ({kpi.dropoffClicks})
-                </button>
+                {(() => {
+                  const tc = listMeta?.tabCounts;
+                  const plus = listMeta?.rawCapped ? "+" : "";
+                  const tabs = [
+                    { id: "valid", label: "Chat + Form", count: tc?.valid ?? kpi.confirmedChats, dot: "bg-emerald-500", active: "text-emerald-700", hover: "hover:text-emerald-700" },
+                    { id: "confirmed", label: "Chat Masuk", count: tc?.confirmed ?? kpi.confirmedChats, dot: "bg-emerald-300", active: "text-emerald-700", hover: "hover:text-emerald-700" },
+                    { id: "dropoff", label: "Drop-off", count: tc?.dropoff ?? kpi.dropoffClicks, dot: "bg-amber-500", active: "text-amber-700", hover: "hover:text-amber-700" },
+                    { id: "all", label: "Semua", count: tc?.all ?? kpi.totalClicks, dot: "bg-slate-400", active: "text-slate-900", hover: "hover:text-slate-800" },
+                  ];
+                  return tabs.map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => setSelectedStatus(t.id)}
+                      className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all flex items-center gap-1.5 ${
+                        selectedStatus === t.id
+                          ? `bg-white ${t.active} font-semibold shadow-2xs`
+                          : `text-slate-500 ${t.hover}`
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full ${t.dot}`} />
+                      {t.label} ({t.count}
+                      {plus})
+                    </button>
+                  ));
+                })()}
               </div>
             </div>
 
@@ -912,7 +924,6 @@ export default function LeadMonitorPage() {
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-500 font-semibold text-[11px] tracking-wide">
                   <th className="py-2.5 px-3.5 w-10 text-center">#</th>
-                  <th className="py-2.5 px-3.5">Status Validasi</th>
                   <th className="py-2.5 px-3.5">Waktu Klik</th>
                   <th className="py-2.5 px-3.5">Waktu Chat</th>
                   <th className="py-2.5 px-3.5">Latency (Selisih)</th>
@@ -927,14 +938,14 @@ export default function LeadMonitorPage() {
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
-                    <td colSpan={11} className="py-10 text-center text-slate-400">
+                    <td colSpan={10} className="py-10 text-center text-slate-400">
                       <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-slate-400" />
                       Memuat data audit...
                     </td>
                   </tr>
                 ) : leads.length === 0 ? (
                   <tr>
-                    <td colSpan={11} className="py-10 text-center text-slate-400">
+                    <td colSpan={10} className="py-10 text-center text-slate-400">
                       <p className="font-medium text-slate-600 mb-1">
                         Tidak ada data lead untuk filter ini
                       </p>
@@ -984,21 +995,6 @@ export default function LeadMonitorPage() {
                         {/* Number */}
                         <td className="py-2.5 px-3.5 text-center text-slate-400 font-mono text-[11px]">
                           {idx + 1}
-                        </td>
-
-                        {/* Status Chip */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap">
-                          {isConfirmed ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                              Chat Masuk
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200/80">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                              {lead.is_form_lead ? "Form, belum chat" : "Hanya Klik"}
-                            </span>
-                          )}
                         </td>
 
                         {/* Waktu Klik */}
@@ -1062,6 +1058,14 @@ export default function LeadMonitorPage() {
                           <span className="font-semibold text-slate-800">
                             {lead.assigned_to}
                           </span>
+                          {(lead.busdevs?.length ?? 0) > 1 && (
+                            <span
+                              className="ml-1.5 text-[9px] font-semibold px-1 py-0.5 rounded bg-red-50 text-red-700 border border-red-200"
+                              title={`Prospek ini tercatat di beberapa BusDev: ${lead.busdevs!.join(", ")}`}
+                            >
+                              Ganda: {lead.busdevs!.join(" / ")}
+                            </span>
+                          )}
                         </td>
 
                         {/* Kualifikasi Form */}
@@ -1121,6 +1125,14 @@ export default function LeadMonitorPage() {
                               <Copy className="w-2.5 h-2.5 text-slate-400" />
                             )}
                           </button>
+                          {(lead.duplicate_count ?? 0) > 0 && (
+                            <div
+                              className="mt-1 text-[10px] text-slate-400"
+                              title={`Digabung dari baris: ${(lead.merged_tracking_codes ?? []).join(", ")}`}
+                            >
+                              +{lead.duplicate_count} baris digabung
+                            </div>
+                          )}
                         </td>
 
                         {/* Asal Halaman */}

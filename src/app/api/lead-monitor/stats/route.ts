@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool, { resetPool } from '@/lib/db';
+import { mergeLeads, matchesStatusView, type MergeableLead } from '@/lib/lead-merge';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const maxDuration = 30;
+
+// Baris mentah yang diambil sebelum digabung per nomor, dan jumlah baris yang ditampilkan.
+const RAW_ROW_CAP = 800;
+const DISPLAY_ROW_CAP = 150;
 
 const NO_STORE_HEADERS = {
   'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
@@ -121,13 +126,9 @@ export async function GET(req: NextRequest) {
       paramIndex++;
     }
 
-    // 3. Filter Status (all, confirmed, dropoff)
-    let statusClause = '';
-    if (statusFilter === 'confirmed') {
-      statusClause = "AND status = 'confirmed'";
-    } else if (statusFilter === 'dropoff') {
-      statusClause = "AND (status IS NULL OR status != 'confirmed') AND source != 'wa-direct'";
-    }
+    // 3. Filter Status (valid, all, confirmed, dropoff) diterapkan SETELAH baris digabung per nomor,
+    // supaya prospek yang sama (klik + chat + form) dinilai sebagai satu lead.
+    const statusView = ['valid', 'all', 'confirmed', 'dropoff'].includes(statusFilter) ? statusFilter : 'all';
 
     // 4. Filter Search
     let searchClause = '';
@@ -199,7 +200,7 @@ export async function GET(req: NextRequest) {
     `;
     const breakdownRes = await client.query(breakdownQuery);
 
-    // C. Query Daftar Detail Leads (terbaru ke terlama, limit 150)
+    // C. Query Daftar Detail Leads (terbaru ke terlama, digabung per nomor lalu dipotong DISPLAY_ROW_CAP)
     const listQuery = `
       SELECT 
         id,
@@ -240,13 +241,22 @@ export async function GET(req: NextRequest) {
       WHERE is_test IS NOT TRUE
         ${timeClause}
         ${busdevClause}
-        ${statusClause}
         ${searchClause}
         ${kindClause}
       ORDER BY created_at DESC
-      LIMIT 150
+      LIMIT ${RAW_ROW_CAP}
     `;
     const listRes = await client.query(listQuery, queryParams);
+
+    const rawRows = listRes.rows as MergeableLead[];
+    const mergedAll = mergeLeads(rawRows);
+    const tabCounts = {
+      valid: mergedAll.filter((l) => matchesStatusView(l, 'valid')).length,
+      confirmed: mergedAll.filter((l) => matchesStatusView(l, 'confirmed')).length,
+      dropoff: mergedAll.filter((l) => matchesStatusView(l, 'dropoff')).length,
+      all: mergedAll.length,
+    };
+    const visibleLeads = mergedAll.filter((l) => matchesStatusView(l, statusView)).slice(0, DISPLAY_ROW_CAP);
 
     // D. Ringkasan form kualifikasi (tidak ikut filter status/kind agar angkanya
     // selalu menggambarkan funnel form untuk periode + BusDev terpilih).
@@ -326,7 +336,13 @@ export async function GET(req: NextRequest) {
           conversionRate: convRate,
         },
         busdevBreakdown: breakdownRes.rows,
-        leads: listRes.rows,
+        leads: visibleLeads,
+        listMeta: {
+          rawRows: rawRows.length,
+          mergedAway: rawRows.length - mergedAll.length,
+          rawCapped: rawRows.length >= RAW_ROW_CAP,
+          tabCounts,
+        },
         serverTime: new Date().toISOString(),
       },
       { status: 200, headers: NO_STORE_HEADERS }
