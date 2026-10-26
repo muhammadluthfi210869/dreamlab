@@ -136,8 +136,8 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .product-badge { position:absolute; top:16px; right:16px; z-index:2; display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:99px; background:rgba(255,255,255,0.92); color:var(--ink); font-size:12px; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:background 0.2s ease, color 0.2s ease; }
         .parfum-lp .product:hover .product-badge { background:var(--orange); color:#fff; }
         .parfum-lp .product-copy { position:absolute; left:24px; right:24px; bottom:24px; z-index:2; color:#fff; }
-        .parfum-lp .product-copy h3 { font-size:24px; font-weight:800; margin:0 0 6px; }
-        .parfum-lp .product-copy p { margin:0; font-size:13px; color:#dbebf6; }
+        .parfum-lp .product-copy h3 { font-size:24px; font-weight:800; margin:0 0 6px; color:#ffffff !important; text-shadow:0 2px 8px rgba(0,0,0,0.75); }
+        .parfum-lp .product-copy p { margin:0; font-size:13px; color:#ffffff !important; text-shadow:0 1px 4px rgba(0,0,0,0.65); opacity:0.95; }
 
         /* Process Steps */
         .parfum-lp .process { background:#2571a8; color:#fff; }
@@ -237,8 +237,8 @@ export default function MaklonParfumAdsLP() {
           .parfum-lp .product { height:280px; border-radius:16px; }
           .parfum-lp .product-badge { top:10px; right:10px; font-size:10px; padding:4px 10px; opacity:0.95; }
           .parfum-lp .product-copy { left:16px; right:16px; bottom:18px; }
-          .parfum-lp .product-copy h3 { font-size:20px; }
-          .parfum-lp .product-copy p { font-size:11px; line-height:1.4; }
+          .parfum-lp .product-copy h3 { font-size:20px; color:#ffffff !important; text-shadow:0 2px 8px rgba(0,0,0,0.75); }
+          .parfum-lp .product-copy p { font-size:11px; line-height:1.4; color:#ffffff !important; text-shadow:0 1px 4px rgba(0,0,0,0.65); }
           
           /* Process Mobile */
           .parfum-lp .process-grid { grid-template-columns:1fr; gap:14px; }
@@ -401,7 +401,10 @@ export default function MaklonParfumAdsLP() {
                 >
                   <Image src="/assets/maklon-parfum/edp.webp" alt="Eau de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
-                  <div className="product-copy"><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
+                  <div className="product-copy">
+                    <h3 style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.75)" }}>Eau de Parfum</h3>
+                    <p style={{ color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.65)", opacity: 0.95 }}>Karakter aroma intens dan elegan.</p>
+                  </div>
                 </div>
                 <div
                   className="product track"
@@ -412,7 +415,10 @@ export default function MaklonParfumAdsLP() {
                 >
                   <Image src="/assets/maklon-parfum/edt.webp" alt="Eau de Toilette" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
-                  <div className="product-copy"><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
+                  <div className="product-copy">
+                    <h3 style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.75)" }}>Eau de Toilette</h3>
+                    <p style={{ color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.65)", opacity: 0.95 }}>Segar dan nyaman untuk pemakaian harian.</p>
+                  </div>
                 </div>
                 <div
                   className="product track"
@@ -423,7 +429,10 @@ export default function MaklonParfumAdsLP() {
                 >
                   <Image src="/assets/maklon-parfum/edc.webp" alt="Eau de Cologne" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
-                  <div className="product-copy"><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
+                  <div className="product-copy">
+                    <h3 style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.75)" }}>Eau de Cologne</h3>
+                    <p style={{ color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.65)", opacity: 0.95 }}>Ringan dengan kesan menyegarkan.</p>
+                  </div>
                 </div>
                 <div
                   className="product track"
@@ -434,7 +443,10 @@ export default function MaklonParfumAdsLP() {
                 >
                   <Image src="/assets/maklon-parfum/extrait.webp" alt="Extrait de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
-                  <div className="product-copy"><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
+                  <div className="product-copy">
+                    <h3 style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.75)" }}>Extrait de Parfum</h3>
+                    <p style={{ color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.65)", opacity: 0.95 }}>Konsentrasi tinggi untuk lini premium.</p>
+                  </div>
                 </div>
                 <div
                   className="product track"
@@ -445,7 +457,10 @@ export default function MaklonParfumAdsLP() {
                 >
                   <Image src="/assets/maklon-parfum/body-mist.webp" alt="Body Mist" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
-                  <div className="product-copy"><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
+                  <div className="product-copy">
+                    <h3 style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.75)" }}>Body Mist</h3>
+                    <p style={{ color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.65)", opacity: 0.95 }}>Ringan, praktis, dan mudah digunakan ulang.</p>
+                  </div>
                 </div>
                 <div
                   className="product track"
@@ -456,7 +471,10 @@ export default function MaklonParfumAdsLP() {
                 >
                   <Image src="/assets/maklon-parfum/essential-oil.webp" alt="Essential Oil" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
-                  <div className="product-copy"><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
+                  <div className="product-copy">
+                    <h3 style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.75)" }}>Essential Oil</h3>
+                    <p style={{ color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.65)", opacity: 0.95 }}>Eksplorasi aroma dari bahan esensial.</p>
+                  </div>
                 </div>
               </div>
             </div>
