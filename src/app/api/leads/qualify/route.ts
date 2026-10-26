@@ -108,31 +108,14 @@ export async function POST(req: NextRequest) {
 
     if (!quantityRange) {
       return NextResponse.json(
-        { success: false, error: 'Rencana kuantitas produksi wajib dipilih' },
+        { success: false, error: 'Rencana kuantitas produksi (MOQ) wajib dipilih' },
         { status: 400, headers: NO_STORE_HEADERS }
       );
     }
 
-    if (!budgetRange) {
-      return NextResponse.json(
-        { success: false, error: 'Estimasi budget produksi wajib dipilih' },
-        { status: 400, headers: NO_STORE_HEADERS }
-      );
-    }
-
-    if (!productionTimeline) {
-      return NextResponse.json(
-        { success: false, error: 'Timeline produksi wajib dipilih' },
-        { status: 400, headers: NO_STORE_HEADERS }
-      );
-    }
-
-    if (!businessStatus) {
-      return NextResponse.json(
-        { success: false, error: 'Status bisnis wajib dipilih' },
-        { status: 400, headers: NO_STORE_HEADERS }
-      );
-    }
+    const safeBudgetRange = budgetRange || '-';
+    const safeProductionTimeline = productionTimeline || '-';
+    const safeBusinessStatus = businessStatus || '-';
 
     // 2. Segment and references
     const leadSegment = computeLeadSegment(quantityRange);
@@ -193,9 +176,9 @@ export async function POST(req: NextRequest) {
          WHERE tracking_code = $16 OR tracking_code = $7`,
         [
           quantityRange,
-          budgetRange,
-          productionTimeline,
-          businessStatus,
+          safeBudgetRange,
+          safeProductionTimeline,
+          safeBusinessStatus,
           leadSegment,
           'Marketing Qualified',
           inquiryRef,
@@ -224,9 +207,9 @@ export async function POST(req: NextRequest) {
         inquiryReference: inquiryRef,
         category,
         quantityRange,
-        budgetRange,
-        productionTimeline,
-        businessStatus,
+        budgetRange: safeBudgetRange,
+        productionTimeline: safeProductionTimeline,
+        businessStatus: safeBusinessStatus,
         leadSegment,
         fullName: fullName.trim(),
         whatsappPhone: cleanPhone,
@@ -269,16 +252,17 @@ export async function POST(req: NextRequest) {
       crmSyncStatus = 'failed';
     }
 
-    // 6. Generate formatted WhatsApp message per Section 9 specs
-    // Note: No financial info is exposed in the prefilled message!
+    // 6. Generate formatted WhatsApp message delivering Nama, Mau Buat Apa, dan MOQ ke BD
     const waMessageText = [
-      'Halo Dreamlab, saya sudah mengisi formulir konsultasi produksi.',
+      'Halo Dreamlab, saya ingin konsultasi produksi maklon.',
       '',
-      `Kode konsultasi: ${inquiryRef}`,
-      `Kategori produk: ${category}`,
-      `Estimasi produksi: ${quantityRange}`,
+      `Nama: ${fullName.trim()}`,
+      `Mau Buat Apa: ${category}`,
+      `MOQ / Rencana Produksi: ${quantityRange}`,
+      `Nomor WhatsApp: ${cleanPhone}`,
+      `Kode Konsultasi: ${inquiryRef}`,
       '',
-      'Saya ingin melanjutkan konsultasi dengan tim Dreamlab. Terima kasih.',
+      'Saya ingin melanjutkan diskusi dengan tim Business Consultant Dreamlab. Terima kasih!',
     ].join('\n');
 
     const whatsappUrl = `https://wa.me/${assignedSalesPhone}?text=${encodeURIComponent(waMessageText)}`;

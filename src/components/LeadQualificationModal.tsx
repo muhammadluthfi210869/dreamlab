@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useId } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { trackLeadEvent } from '@/lib/lead-analytics';
 
@@ -14,59 +14,30 @@ export interface LeadQualificationModalProps {
   campaign?: string;
 }
 
-const CATEGORIES = ['Skincare', 'Bodycare', 'Haircare', 'Makeup', 'Parfum', 'Other'];
+const CATEGORIES = ['Parfum', 'Skincare', 'Bodycare', 'Haircare', 'Lainnya'];
 
 const QUANTITY_OPTIONS = [
-  '100–499 pcs',
-  '500–999 pcs',
-  '1.000–4.999 pcs',
-  '5.000+ pcs',
-  'Belum menentukan',
-];
-
-const BUDGET_OPTIONS = [
-  'Di bawah Rp10 juta',
-  'Rp10–15 juta',
-  'Rp15–30 juta',
-  'Di atas Rp30 juta',
-  'Belum menentukan budget',
-];
-
-const TIMELINE_OPTIONS = [
-  'Dalam 1 bulan',
-  '1–3 bulan',
-  '3–6 bulan',
-  'Lebih dari 6 bulan',
-  'Masih riset',
-];
-
-const BUSINESS_STATUS_OPTIONS = [
-  'Sudah memiliki brand kosmetik',
-  'Sedang mempersiapkan brand',
-  'Baru mengeksplorasi bisnis',
+  { value: '500–999 pcs', label: '500 – 999 pcs', badge: 'Rekomendasi MOQ', highlight: true },
+  { value: '1.000–4.999 pcs', label: '1.000 – 4.999 pcs', badge: 'Skala Berkembang' },
+  { value: '5.000+ pcs', label: '5.000+ pcs', badge: 'Skala Besar' },
+  { value: '100–499 pcs', label: '100 – 499 pcs', badge: 'Uji Pasar' },
 ];
 
 export function LeadQualificationModal({
   isOpen,
   onClose,
   defaultCategory = 'Parfum',
-  source = 'paid-ads',
+  source = 'meta-ads',
   channel = 'metaads',
   landingPage = '',
   campaign = '',
 }: LeadQualificationModalProps) {
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1); // 4 = Success Screen
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [category, setCategory] = useState<string>(defaultCategory);
-  const [otherCategory, setOtherCategory] = useState<string>('');
-  const [quantityRange, setQuantityRange] = useState<string>('');
-  const [budgetRange, setBudgetRange] = useState<string>('');
-  const [productionTimeline, setProductionTimeline] = useState<string>('');
-  const [businessStatus, setBusinessStatus] = useState<string>('');
-  
-  // Step 3
+  const [customProduct, setCustomProduct] = useState<string>('');
+  const [quantityRange, setQuantityRange] = useState<string>('500–999 pcs');
   const [fullName, setFullName] = useState<string>('');
   const [whatsappPhone, setWhatsappPhone] = useState<string>('');
-  const [brandOrCompany, setBrandOrCompany] = useState<string>('');
   const [consent, setConsent] = useState<boolean>(true);
 
   // Submission & Result state
@@ -79,7 +50,7 @@ export function LeadQualificationModal({
     assignedSales: { name: string; phone: string };
   } | null>(null);
 
-  // Keep default category synced
+  // Sync default category
   useEffect(() => {
     if (defaultCategory) {
       setCategory(defaultCategory);
@@ -94,11 +65,11 @@ export function LeadQualificationModal({
         source,
         channel,
         step: 1,
-        category: category === 'Other' && otherCategory ? otherCategory : category,
+        category,
         campaign,
       });
     }
-  }, [isOpen]);
+  }, [isOpen, source, channel, category, campaign]);
 
   // Handle ESC key
   useEffect(() => {
@@ -113,68 +84,30 @@ export function LeadQualificationModal({
 
   if (!isOpen) return null;
 
-  const resolvedCategory = category === 'Other' && otherCategory.trim() ? otherCategory.trim() : category;
-
-  const handleStep1Next = () => {
-    setError(null);
-    if (!resolvedCategory) {
-      setError('Silakan pilih salah satu kategori produk.');
-      return;
-    }
-    if (!quantityRange) {
-      setError('Silakan pilih rencana kuantitas produksi Anda.');
-      return;
-    }
-
-    trackLeadEvent('qualification_step_completed', {
-      source,
-      channel,
-      step: 1,
-      category: resolvedCategory,
-      quantityRange,
-      campaign,
-    });
-    setStep(2);
-  };
-
-  const handleStep2Next = () => {
-    setError(null);
-    if (!budgetRange) {
-      setError('Silakan pilih estimasi budget produksi Anda.');
-      return;
-    }
-    if (!productionTimeline) {
-      setError('Silakan pilih rencana timeline produksi Anda.');
-      return;
-    }
-    if (!businessStatus) {
-      setError('Silakan pilih status kesiapan bisnis Anda.');
-      return;
-    }
-
-    trackLeadEvent('qualification_step_completed', {
-      source,
-      channel,
-      step: 2,
-      category: resolvedCategory,
-      quantityRange,
-      campaign,
-    });
-    setStep(3);
-  };
+  const resolvedCategory = category === 'Lainnya' && customProduct.trim() ? customProduct.trim() : category;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
     if (!fullName.trim() || fullName.trim().length < 2) {
-      setError('Nama lengkap wajib diisi (minimal 2 huruf).');
+      setError('Silakan isi nama lengkap Anda (minimal 2 karakter).');
       return;
     }
 
     const cleanPhone = whatsappPhone.replace(/[^0-9]/g, '');
     if (!cleanPhone || cleanPhone.length < 9) {
-      setError('Nomor WhatsApp tidak valid. Masukkan nomor yang benar (misal: 081234567890).');
+      setError('Silakan masukkan nomor WhatsApp yang valid (contoh: 081234567890).');
+      return;
+    }
+
+    if (!resolvedCategory) {
+      setError('Silakan pilih jenis produk yang ingin Anda buat.');
+      return;
+    }
+
+    if (!quantityRange) {
+      setError('Silakan pilih estimasi kuantitas produksi (MOQ).');
       return;
     }
 
@@ -186,7 +119,6 @@ export function LeadQualificationModal({
     setSubmitting(true);
 
     try {
-      // Gather attribution parameters from URL
       const searchParams = new URLSearchParams(window.location.search);
       const utmSource = searchParams.get('utm_source') || undefined;
       const utmMedium = searchParams.get('utm_medium') || undefined;
@@ -196,7 +128,6 @@ export function LeadQualificationModal({
       const gclid = searchParams.get('gclid') || undefined;
       const fbclid = searchParams.get('fbclid') || undefined;
 
-      // Visitor fingerprint if available
       let visitorId = '';
       try {
         visitorId = localStorage.getItem('dl_visitor_id') || localStorage.getItem('dreamlab_vid_client') || '';
@@ -210,12 +141,8 @@ export function LeadQualificationModal({
         body: JSON.stringify({
           category: resolvedCategory,
           quantityRange,
-          budgetRange,
-          productionTimeline,
-          businessStatus,
           fullName: fullName.trim(),
           whatsappPhone: cleanPhone,
-          brandOrCompany: brandOrCompany.trim() || undefined,
           source,
           channel,
           landingPage: landingPage || window.location.pathname,
@@ -241,130 +168,110 @@ export function LeadQualificationModal({
         inquiryReference: data.inquiryReference,
         whatsappUrl: data.whatsappUrl,
         leadSegment: data.leadSegment,
-        assignedSales: data.assignedSales,
+        assignedSales: data.assignedSales || { name: 'Business Consultant Dreamlab', phone: '' },
       });
 
-      // Track successful submission
-      trackLeadEvent('qualification_submitted', {
+      trackLeadEvent('qualification_completed', {
         source,
         channel,
-        step: 3,
         category: resolvedCategory,
         quantityRange,
         leadSegment: data.leadSegment,
         inquiryReference: data.inquiryReference,
-        campaign: utmCampaign,
+        campaign,
       });
 
-      // Move to Success Handoff screen
-      setStep(4);
+      setIsSuccess(true);
     } catch (err: any) {
       console.error('[LeadQualificationModal] Submit error:', err);
-      setError(err?.message || 'Terjadi gangguan jaringan. Mohon periksa koneksi Anda dan coba lagi.');
+      setError(err?.message || 'Terjadi gangguan jaringan. Silakan periksa koneksi Anda dan coba lagi.');
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handleWhatsAppClick = () => {
-    if (!resultData?.whatsappUrl) return;
+  const handleWhatsAppHandoffClick = () => {
+    if (!resultData) return;
 
-    // Log the click separately
-    try {
-      fetch('/api/leads/qualify/wa-click/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ inquiryReference: resultData.inquiryReference }),
-        keepalive: true,
-      });
-    } catch {
-      /* ignore */
-    }
+    fetch('/api/leads/qualify/wa-click/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        inquiryReference: resultData.inquiryReference,
+      }),
+    }).catch(() => {});
 
-    trackLeadEvent('whatsapp_clicked', {
+    trackLeadEvent('whatsapp_handoff_clicked', {
       source,
       channel,
       category: resolvedCategory,
       quantityRange,
-      leadSegment: resultData.leadSegment,
       inquiryReference: resultData.inquiryReference,
+      campaign,
     });
-
-    window.open(resultData.whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm transition-opacity"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-fadeIn"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="modal-headline"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
-      <div
-        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-neutral-100 flex flex-col max-h-[92vh] animate-in fade-in zoom-in-95 duration-200"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header with Brand Accent & Progress */}
-        <div className="bg-gradient-to-r from-[#FAF9F6] via-white to-[#FFF8F0] px-6 pt-6 pb-4 border-b border-neutral-100 relative">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#D98A00] animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#D98A00]">
-                {step === 4 ? 'Formulir Diterima' : `Konsultasi Produksi — Langkah ${step} dari 3`}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="text-neutral-400 hover:text-neutral-700 p-1.5 rounded-full hover:bg-neutral-100 transition-colors"
-              aria-label="Tutup Formulir"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden my-auto transition-all transform scale-100">
+        {/* Header */}
+        <div className="relative px-5 py-4 sm:px-6 sm:py-5 border-b border-slate-100 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 text-white">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="Tutup form"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div className="flex items-center gap-2 mb-1">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#D98A00]/20 text-[#F5A623] border border-[#D98A00]/40">
+              Konsultasi Maklon Resmi
+            </span>
           </div>
 
-          {/* Progress Bar (hidden on success) */}
-          {step < 4 && (
-            <div className="w-full bg-neutral-100 h-1.5 rounded-full overflow-hidden">
-              <div
-                className="bg-[#D98A00] h-full transition-all duration-300 rounded-full"
-                style={{ width: `${(step / 3) * 100}%` }}
-              />
-            </div>
-          )}
+          <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white">
+            {isSuccess ? 'Rencana Produksi Siap Dikonsultasikan' : 'Konsultasikan Rencana Produksi Anda'}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-300 mt-1">
+            {isSuccess
+              ? 'Terhubung langsung dengan tim Business Consultant Dreamlab.'
+              : 'Dapatkan estimasi MOQ, kalkulasi biaya, dan sampel formula eksklusif.'}
+          </p>
         </div>
 
-        {/* Scrollable Form Body */}
-        <div className="px-6 py-5 overflow-y-auto flex-1">
+        {/* Content Body */}
+        <div className="p-5 sm:p-6 max-h-[80vh] overflow-y-auto">
           {error && (
-            <div className="mb-4 p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm rounded-xl flex items-start gap-2.5">
-              <svg className="w-4 h-4 text-red-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <div className="mb-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs sm:text-sm flex items-start gap-2.5">
+              <svg className="w-4 h-4 text-red-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>{error}</span>
             </div>
           )}
 
-          {/* ================= STEP 1: PRODUCTION NEEDS ================= */}
-          {step === 1 && (
-            <div className="space-y-5">
+          {!isSuccess ? (
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+              {/* 1. Mau Buat Produk Apa? */}
               <div>
-                <h2 id="modal-headline" className="text-xl sm:text-2xl font-black text-neutral-900 leading-tight">
-                  Yuk, Ceritakan Produk yang Ingin Anda Buat
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-500 mt-1.5">
-                  Bantu tim Dreamlab memahami kebutuhan Anda agar konsultasi lebih tepat.
-                </p>
-              </div>
-
-              {/* Product Category */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2">
-                  Kategori Produk
+                <label className="block text-xs sm:text-sm font-semibold text-slate-800 mb-2">
+                  1. Mau buat produk apa? <span className="text-red-500">*</span>
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   {CATEGORIES.map((cat) => {
                     const isSelected = category === cat;
                     return (
@@ -372,362 +279,219 @@ export function LeadQualificationModal({
                         type="button"
                         key={cat}
                         onClick={() => setCategory(cat)}
-                        className={`py-2.5 px-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all duration-200 text-left flex items-center justify-between ${
+                        className={`py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all text-center ${
                           isSelected
-                            ? 'bg-[#FFF9F0] border-[#D98A00] text-[#D98A00] shadow-sm font-bold'
-                            : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
+                            ? 'bg-[#0f172a] text-white border-[#0f172a] shadow-sm'
+                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
                         }`}
                       >
-                        <span>{cat}</span>
-                        {isSelected && <span className="text-[#D98A00] font-black text-xs">✓</span>}
+                        {cat}
                       </button>
                     );
                   })}
                 </div>
-
-                {category === 'Other' && (
+                {category === 'Lainnya' && (
                   <input
                     type="text"
-                    value={otherCategory}
-                    onChange={(e) => setOtherCategory(e.target.value)}
-                    placeholder="Tuliskan jenis produk Anda..."
-                    className="mt-2.5 w-full text-xs sm:text-sm px-3.5 py-2.5 border border-neutral-300 rounded-xl focus:outline-none focus:border-[#D98A00]"
+                    value={customProduct}
+                    onChange={(e) => setCustomProduct(e.target.value)}
+                    placeholder="Sebutkan jenis produk Anda (misal: Lip Serum, Pomade...)"
+                    className="mt-2.5 w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-[#D98A00] focus:ring-2 focus:ring-[#D98A00]/20 outline-none"
+                    autoFocus
                   />
                 )}
               </div>
 
-              {/* Planned Production Quantity */}
+              {/* 2. Mau Produksi Berapa? (MOQ) */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2">
-                  Rencana Kuantitas Produksi
+                <label className="block text-xs sm:text-sm font-semibold text-slate-800 mb-2">
+                  2. Mau produksi berapa pcs? (Rencana MOQ) <span className="text-red-500">*</span>
                 </label>
-                <div className="space-y-2">
-                  {QUANTITY_OPTIONS.map((qty) => {
-                    const isSelected = quantityRange === qty;
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                  {QUANTITY_OPTIONS.map((opt) => {
+                    const isSelected = quantityRange === opt.value;
                     return (
-                      <button
-                        type="button"
-                        key={qty}
-                        onClick={() => setQuantityRange(qty)}
-                        className={`w-full py-2.5 px-4 rounded-xl border text-xs sm:text-sm font-medium transition-all duration-200 text-left flex items-center justify-between ${
+                      <div
+                        key={opt.value}
+                        onClick={() => setQuantityRange(opt.value)}
+                        className={`p-3 rounded-xl border cursor-pointer select-none transition-all relative ${
                           isSelected
-                            ? 'bg-[#FFF9F0] border-[#D98A00] text-[#D98A00] shadow-sm font-bold'
-                            : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
+                            ? 'bg-[#D98A00]/10 border-[#D98A00] ring-1 ring-[#D98A00]'
+                            : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50'
                         }`}
                       >
-                        <span>{qty}</span>
-                        <span
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-[#D98A00] bg-[#D98A00]' : 'border-neutral-300'
-                          }`}
-                        >
-                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </span>
-                      </button>
+                        <div className="flex items-center justify-between mb-1">
+                          <span
+                            className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
+                              opt.highlight
+                                ? 'bg-[#D98A00] text-white'
+                                : 'bg-slate-100 text-slate-600'
+                            }`}
+                          >
+                            {opt.badge}
+                          </span>
+                          <span
+                            className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                              isSelected ? 'border-[#D98A00] bg-[#D98A00]' : 'border-slate-300'
+                            }`}
+                          >
+                            {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </span>
+                        </div>
+                        <div className="text-xs sm:text-sm font-bold text-slate-900 mt-1">
+                          {opt.label}
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
               </div>
 
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={handleStep1Next}
-                  className="w-full py-3.5 px-6 rounded-2xl bg-[#D98A00] hover:bg-[#B87500] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-[#D98A00]/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  Lanjut ke Kesiapan Produksi &rarr;
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* ================= STEP 2: BUSINESS & READINESS ================= */}
-          {step === 2 && (
-            <div className="space-y-5">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-black text-neutral-900 leading-tight">
-                  Seberapa Siap Rencana Produksi Anda?
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-500 mt-1.5">
-                  Informasi ini membantu kami menyiapkan formulasi dan simulasi biaya yang realistis.
-                </p>
-              </div>
-
-              {/* Estimated Production Budget */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2">
-                  Estimasi Budget Produksi
-                </label>
-                <div className="space-y-1.5">
-                  {BUDGET_OPTIONS.map((bgt) => {
-                    const isSelected = budgetRange === bgt;
-                    return (
-                      <button
-                        type="button"
-                        key={bgt}
-                        onClick={() => setBudgetRange(bgt)}
-                        className={`w-full py-2.5 px-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all text-left flex items-center justify-between ${
-                          isSelected
-                            ? 'bg-[#FFF9F0] border-[#D98A00] text-[#D98A00] font-bold shadow-sm'
-                            : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
-                        }`}
-                      >
-                        <span>{bgt}</span>
-                        <span
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-[#D98A00] bg-[#D98A00]' : 'border-neutral-300'
-                          }`}
-                        >
-                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Planned Timeline */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2">
-                  Target Timeline Peluncuran
-                </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {TIMELINE_OPTIONS.map((tml) => {
-                    const isSelected = productionTimeline === tml;
-                    return (
-                      <button
-                        type="button"
-                        key={tml}
-                        onClick={() => setProductionTimeline(tml)}
-                        className={`py-2 px-3 rounded-xl border text-xs sm:text-sm font-medium transition-all text-left flex items-center justify-between ${
-                          isSelected
-                            ? 'bg-[#FFF9F0] border-[#D98A00] text-[#D98A00] font-bold shadow-sm'
-                            : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
-                        }`}
-                      >
-                        <span>{tml}</span>
-                        {isSelected && <span className="text-[#D98A00] text-xs">✓</span>}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Business Status */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2">
-                  Status Bisnis Anda
-                </label>
-                <div className="space-y-1.5">
-                  {BUSINESS_STATUS_OPTIONS.map((status) => {
-                    const isSelected = businessStatus === status;
-                    return (
-                      <button
-                        type="button"
-                        key={status}
-                        onClick={() => setBusinessStatus(status)}
-                        className={`w-full py-2.5 px-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all text-left flex items-center justify-between ${
-                          isSelected
-                            ? 'bg-[#FFF9F0] border-[#D98A00] text-[#D98A00] font-bold shadow-sm'
-                            : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
-                        }`}
-                      >
-                        <span>{status}</span>
-                        <span
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-[#D98A00] bg-[#D98A00]' : 'border-neutral-300'
-                          }`}
-                        >
-                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setStep(1)}
-                  className="py-3 px-4 rounded-2xl border border-neutral-200 text-neutral-600 hover:bg-neutral-50 font-bold text-sm transition-colors"
-                >
-                  &larr; Kembali
-                </button>
-                <button
-                  type="button"
-                  onClick={handleStep2Next}
-                  className="flex-1 py-3.5 px-6 rounded-2xl bg-[#D98A00] hover:bg-[#B87500] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-[#D98A00]/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  Lanjut ke Informasi Kontak &rarr;
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* ================= STEP 3: CONTACT INFORMATION ================= */}
-          {step === 3 && (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-black text-neutral-900 leading-tight">
-                  Hubungkan dengan Tim Dreamlab
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-500 mt-1.5">
-                  Tim Business Development Dreamlab akan menyiapkan ringkasan konsultasi sesuai data Anda.
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">
-                  Nama Lengkap <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Contoh: Jessica Angeline"
-                  className="w-full text-xs sm:text-sm px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:border-[#D98A00] transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">
-                  Nomor WhatsApp Aktif <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 text-xs font-semibold">
-                    🇮🇩 +62
-                  </span>
+              {/* 3. Kontak (Nama & WhatsApp) */}
+              <div className="space-y-3 pt-1 border-t border-slate-100">
+                <div>
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-800 mb-1">
+                    3. Nama Lengkap <span className="text-red-500">*</span>
+                  </label>
                   <input
-                    type="tel"
+                    type="text"
                     required
-                    value={whatsappPhone}
-                    onChange={(e) => setWhatsappPhone(e.target.value)}
-                    placeholder="81234567890"
-                    className="w-full text-xs sm:text-sm pl-16 pr-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:border-[#D98A00] transition-colors"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Contoh: Rina Anggraini"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-[#D98A00] focus:ring-2 focus:ring-[#D98A00]/20 outline-none"
                   />
                 </div>
-                <p className="text-[11px] text-neutral-400 mt-1">
-                  Digunakan untuk konfirmasi dan chat konsultasi via WhatsApp resmi Dreamlab.
-                </p>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-800 mb-1">
+                    4. Nomor WhatsApp Aktif <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-xs sm:text-sm">
+                      +62
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      value={whatsappPhone}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/[^0-9]/g, '');
+                        setWhatsappPhone(val);
+                      }}
+                      placeholder="81234567890"
+                      className="w-full pl-12 pr-3.5 py-2.5 text-xs sm:text-sm font-mono rounded-xl border border-slate-200 focus:border-[#D98A00] focus:ring-2 focus:ring-[#D98A00]/20 outline-none"
+                    />
+                  </div>
+                  <p className="text-[11px] text-slate-400 mt-1">
+                    Nomor digunakan untuk pengiriman estimasi penawaran dan konfirmasi sampel formula.
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">
-                  Nama Brand atau Perusahaan <span className="text-neutral-400 font-normal">(Opsional)</span>
-                </label>
+              {/* Persetujuan */}
+              <div className="flex items-start gap-2 pt-1">
                 <input
-                  type="text"
-                  value={brandOrCompany}
-                  onChange={(e) => setBrandOrCompany(e.target.value)}
-                  placeholder="Contoh: Glow Studio / Belum Ada"
-                  className="w-full text-xs sm:text-sm px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:border-[#D98A00] transition-colors"
+                  type="checkbox"
+                  id="consent-checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 rounded border-slate-300 text-[#D98A00] focus:ring-[#D98A00]"
                 />
-              </div>
-
-              {/* Privacy Policy & Consent */}
-              <div className="pt-2">
-                <label className="flex items-start gap-2.5 cursor-pointer text-xs text-neutral-600">
-                  <input
-                    type="checkbox"
-                    checked={consent}
-                    onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-0.5 rounded text-[#D98A00] focus:ring-[#D98A00] border-neutral-300"
-                  />
-                  <span>
-                    Saya menyetujui data ini digunakan tim Dreamlab untuk konsultasi &amp; penawaran resmi.{' '}
-                    <Link
-                      href="/privacy-policy/"
-                      target="_blank"
-                      className="text-[#D98A00] underline font-semibold hover:text-[#B87500]"
-                    >
-                      Kebijakan Privasi
-                    </Link>
-                  </span>
+                <label htmlFor="consent-checkbox" className="text-[11px] text-slate-500 leading-tight">
+                  Saya menyetujui dihubungi oleh tim konsultan Dreamlab mengenai rencana maklon dan penawaran terkait.{' '}
+                  <Link href="/privacy-policy/" target="_blank" className="text-[#D98A00] underline">
+                    Kebijakan Privasi
+                  </Link>
                 </label>
               </div>
 
-              <div className="flex items-center gap-3 pt-3">
-                <button
-                  type="button"
-                  disabled={submitting}
-                  onClick={() => setStep(2)}
-                  className="py-3 px-4 rounded-2xl border border-neutral-200 text-neutral-600 hover:bg-neutral-50 font-bold text-sm transition-colors"
-                >
-                  &larr; Kembali
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="flex-1 py-3.5 px-6 rounded-2xl bg-[#D98A00] hover:bg-[#B87500] disabled:bg-neutral-300 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-[#D98A00]/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2"
-                >
-                  {submitting ? (
-                    <>
-                      <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                      <span>Menyimpan Rencana...</span>
-                    </>
-                  ) : (
-                    <span>Lanjut Konsultasi via WhatsApp &rarr;</span>
-                  )}
-                </button>
-              </div>
+              {/* Submit CTA */}
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#D98A00] to-[#F5A623] hover:from-[#c27b00] hover:to-[#e0961b] shadow-lg shadow-[#D98A00]/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+              >
+                {submitting ? (
+                  <>
+                    <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                    </svg>
+                    <span>Menghubungkan ke Konsultan...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Kirim & Hubungi Konsultan Dreamlab</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </>
+                )}
+              </button>
             </form>
-          )}
-
-          {/* ================= STEP 4: SUCCESS & WA HANDOFF ================= */}
-          {step === 4 && resultData && (
-            <div className="py-2 text-center space-y-5 animate-in fade-in duration-300">
-              <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+          ) : (
+            /* STEP 2: SUCCESS & WHATSAPP HANDOFF */
+            <div className="py-2 text-center space-y-4">
+              <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-inner">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
 
               <div>
-                <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200 rounded-full text-[11px] font-mono font-bold text-[#D98A00] mb-2.5">
-                  Kode Konsultasi: {resultData.inquiryReference}
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                  Data Konsultasi Berhasil Terkirim
                 </span>
-                <h2 className="text-xl sm:text-2xl font-black text-neutral-900 leading-tight">
-                  Terima Kasih! Rencana Produksi Anda Sudah Kami Terima.
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md mx-auto leading-relaxed">
-                  Selanjutnya, Anda bisa melanjutkan konsultasi bersama tim Dreamlab melalui WhatsApp.
+                <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-2">
+                  Lanjutkan Diskusi Langsung via WhatsApp
+                </h4>
+                <p className="text-xs text-slate-500 mt-1">
+                  Business Consultant Dreamlab siap memberikan rincian MOQ dan proposal formula produk Anda.
                 </p>
               </div>
 
-              {/* Consultation Summary Box */}
-              <div className="bg-[#FAF9F6] border border-neutral-200/80 rounded-2xl p-4 text-left text-xs space-y-2">
-                <div className="flex justify-between items-center text-neutral-500 pb-1.5 border-b border-neutral-200/50">
-                  <span>Kategori Produk</span>
-                  <span className="font-bold text-neutral-800">{resolvedCategory}</span>
+              {/* Delivery Summary Box */}
+              <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 text-left text-xs space-y-1.5">
+                <div className="flex justify-between items-center pb-1.5 border-b border-slate-200 text-slate-500">
+                  <span>Kode Konsultasi</span>
+                  <span className="font-mono font-bold text-slate-800">{resultData?.inquiryReference}</span>
                 </div>
-                <div className="flex justify-between items-center text-neutral-500 pb-1.5 border-b border-neutral-200/50">
-                  <span>Estimasi Produksi</span>
-                  <span className="font-bold text-neutral-800">{quantityRange}</span>
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Nama:</span>
+                  <span className="font-semibold text-slate-900">{fullName}</span>
                 </div>
-                <div className="flex justify-between items-center text-neutral-500">
-                  <span>Dedicated BD Support</span>
-                  <span className="font-bold text-neutral-800">{resultData.assignedSales.name}</span>
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Mau Buat Apa:</span>
+                  <span className="font-semibold text-slate-900">{resolvedCategory}</span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Rencana MOQ:</span>
+                  <span className="font-semibold text-[#D98A00]">{quantityRange}</span>
+                </div>
+                <div className="flex justify-between items-center pt-1 border-t border-slate-200 text-slate-500 text-[11px]">
+                  <span>Konsultan Bertugas:</span>
+                  <span className="font-medium text-emerald-700">{resultData?.assignedSales?.name || 'Tim Konsultan'}</span>
                 </div>
               </div>
 
-              {/* Action Button: Lanjut ke WhatsApp */}
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={handleWhatsAppClick}
-                  className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-black text-sm sm:text-base shadow-xl shadow-[#25D366]/30 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3"
-                >
-                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.019-5.117-2.875-6.976C16.592 1.899 14.116.88 11.986.88 6.548.88 2.122 5.3 2.119 10.74c-.002 1.706.452 3.37 1.312 4.848l-.994 3.629 3.73-.973zm11.366-6.726c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
-                  </svg>
-                  <span>Lanjut ke WhatsApp</span>
-                </button>
-                <p className="text-[11px] text-neutral-400 mt-2">
-                  Format pesan konsultasi otomatis terisi rapi di aplikasi WhatsApp Anda.
-                </p>
-              </div>
+              {/* Direct WhatsApp CTA */}
+              <a
+                href={resultData?.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleWhatsAppHandoffClick}
+                className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white bg-[#25D366] hover:bg-[#20bd5a] shadow-lg shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg>
+                <span>Lanjut Chat WhatsApp dengan Tim Konsultan</span>
+              </a>
+
+              <p className="text-[11px] text-slate-400">
+                Pesan WhatsApp sudah terisi otomatis dengan nama, jenis produk, dan rencana kuantitas Anda.
+              </p>
             </div>
           )}
         </div>
