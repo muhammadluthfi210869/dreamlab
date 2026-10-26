@@ -37,14 +37,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-20T10:15:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "maklon skincare malang",
       "maklon kosmetik malang",
       "pabrik kosmetik malang",
       "custom formula skincare malang",
-      "dreamlab"
+      "dreamlab",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Malang/maklon_skincare_&_kosmetik_malang_11zon.jpg",
     "excerpt": "Ingin membuat brand skincare di Malang? Temukan layanan custom formula, sample, packaging, legalitas, dan produksi skincare bersama Dreamlab.",
@@ -56,14 +57,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-16T12:00:00+00:00",
     "author": "Dreamlab Perfumery Development",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
       "parfum pheromone",
       "maklon parfum",
       "custom formula parfum",
       "bisnis parfum",
-      "dreamlab"
+      "dreamlab",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Parfum Pheromone/maklon_parfum_custom _11zon.jpg",
     "excerpt": "Kenali konsep parfum pheromone, bagaimana aroma memengaruhi persepsi, dan bagaimana Dreamlab mengembangkan custom formula untuk brand parfum.",
@@ -94,14 +96,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-14T06:15:00+00:00",
     "author": "Dreamlab Regulatory & Compliance",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "apakah parfum wajib bpom",
       "izin bpom parfum",
       "legalitas brand parfum",
       "notifikasi kosmetika parfum",
-      "maklon parfum bpom"
+      "maklon parfum bpom",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Parfum BPOM/pentingnya_bpom_untuk_brand_parfum__11zon.jpg",
     "excerpt": "Apakah brand parfum wajib BPOM? Pelajari aturan notifikasi kosmetika, risiko menjual parfum tanpa legalitas, serta cara menyiapkan brand parfum bersama maklon.",
@@ -113,14 +116,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-14T06:30:00+00:00",
     "author": "Dreamlab Financial & Business Development",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "cara menentukan harga jual parfum",
       "hitung hpp parfum",
       "harga jual parfum marketplace",
       "margin parfum online",
-      "maklon parfum dreamlab"
+      "maklon parfum dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Menentukan Harga Parfum/Cara_menentukan_harga_jual _11zon.jpg",
     "excerpt": "Panduan cara menentukan harga jual parfum di marketplace: hitung HPP, biaya admin, operasional packing, ROAS iklan, dan maklon parfum berizin BPOM.",
@@ -132,7 +136,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-10T10:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "maklon parfum",
@@ -140,7 +144,8 @@ export const articlesMeta: ArticleMeta[] =
       "parfum brand lokal",
       "pabrik parfum",
       "custom formula parfum",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Rekomendasi Maklon Parfum/maklo_parfum_terbaik_11zon_cover.jpg",
     "excerpt": "Cari rekomendasi maklon parfum terbaik di Indonesia? Simak 5 pilihan maklon untuk brand, dari custom formula, R&D, packaging, legalitas hingga produksi.",
@@ -172,7 +177,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-13T10:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "meracik parfum",
@@ -180,7 +185,8 @@ export const articlesMeta: ArticleMeta[] =
       "bisnis parfum",
       "formulasi parfum",
       "maklon parfum",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Panduan Meracik Parfum/panduan_meracik_parfum_11zon.jpg",
     "excerpt": "Pelajari cara meracik parfum untuk dijual, mulai dari menentukan target market, konsep aroma, formulasi, kemasan, legalitas, produksi hingga strategi membangun brand parfum sendiri.",
@@ -213,8 +219,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-30T10:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "Biaya Maklon Haircare",
@@ -224,7 +229,9 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Hair Tonic",
       "Custom Formula Dreamlab",
       "Pabrik Maklon Kosmetik",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-rincihan-biaya-membuat-brand-haircare-bpom/cover_rincihan_biaya_membuat_brand_haircare.webp",
     "excerpt": "Temukan peluang bisnis haircare dari masalah rambut sehari-hari. Simak rincian komposisi biaya maklon tonic anti-rontok dengan custom formula di Dreamlab.",
@@ -258,8 +265,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-27T09:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "Tips Memilih Maklon Kosmetik",
@@ -269,7 +275,9 @@ export const articlesMeta: ArticleMeta[] =
       "Pabrik Maklon CPKB Grade A",
       "MOQ Maklon Fleksibel",
       "Maklon Kosmetik Partner Growth",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-tips-memilih-maklon-kosmetik-bpom/hero-tips-memilih-maklon-kosmetik-bpom.jpg",
     "excerpt": "Panduan lengkap cara memilih maklon kosmetik BPOM untuk brand pemula: cek legalitas CPKB Grade A, perlindungan formula 1 Client 1 Custom Formula, hingga MOQ fleksibel.",
@@ -281,8 +289,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-27T08:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Red Flag Pabrik Maklon",
@@ -292,7 +299,8 @@ export const articlesMeta: ArticleMeta[] =
       "Custom Formula Dreamlab",
       "MOQ Maklon Skincare",
       "Maklon Kosmetik BPOM",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-red-flag-green-flag-pabrik-maklon-skincare/hero-red-flag-green-flag-pabrik-maklon-skincare.jpg",
     "excerpt": "Jangan salah pilih vendor! Kenali red flag dan green flag tempat produksi skincare. Pastikan transparansi formula, opsi visit, dan MOQ yang rasional.",
@@ -326,8 +334,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-17T13:00:00+00:00",
     "author": "Dreamlab Fragrance & Formulation",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Peluang Bisnis Parfum",
@@ -336,7 +343,8 @@ export const articlesMeta: ArticleMeta[] =
       "Custom Formula Parfum",
       "Harga Parfum",
       "Aroma Parfum Tren",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-peluang-bisnis-parfum/cover-peluang-bisnis-parfum.jpg",
     "excerpt": "Pelajari peluang bisnis parfum, cara menentukan aroma dan harga, memilih jenis produk, hingga membuat custom formula parfum bersama Dreamlab.",
@@ -348,8 +356,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-17T12:00:00+00:00",
     "author": "Dreamlab Brand Strategy & Marketing",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "USP Produk Kosmetik",
@@ -390,7 +397,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-17T10:00:00+00:00",
     "author": "Dreamlab Riset & Formulasi",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Redensyl Haircare",
@@ -399,7 +406,8 @@ export const articlesMeta: ArticleMeta[] =
       "Hair Fall Care",
       "Scalp Care",
       "Custom Formula",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-redensyl-haircare/hero-haircare-redensyl.jpg",
     "excerpt": "Mengenal Redensyl sebagai ingredient haircare dan bagaimana active ingredient dapat dikembangkan menjadi formula rambut dan kulit kepala bersama tim R&D Dreamlab.",
@@ -411,8 +419,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-17T09:00:00+00:00",
     "author": "Dreamlab Growth & Marketing",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Affiliate vs KOL",
@@ -420,7 +427,8 @@ export const articlesMeta: ArticleMeta[] =
       "TikTok Affiliate Skincare",
       "KOL Marketing",
       "Brand Skincare Pemula",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-affiliate-kol/stratgey-affiliate-vs-kol-hero.jpg",
     "excerpt": "Bingung memilih affiliate atau KOL untuk brand skincare? Pelajari perbedaannya, cara mencari affiliate fit, dan strategi 30 hari untuk memulai affiliate marketing.",
@@ -472,7 +480,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-17T06:00:00+00:00",
     "author": "Dreamlab Formulasi & Riset",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "SymWhite 377 vs Niacinamide",
@@ -481,7 +489,8 @@ export const articlesMeta: ArticleMeta[] =
       "Dark Spot Care",
       "Custom Formula Skincare",
       "Maklon Skincare",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-symwhite-niacinamide/hero_perbedaanwymwhitw377vs niacinamide _11zon.jpeg",
     "excerpt": "SymWhite 377 vs Niacinamide, mana yang cocok untuk produk brightening? Kenali perbedaan, fungsi, dan cara memilih hero ingredient untuk brand skincare Anda.",
@@ -493,7 +502,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-17T03:00:00+00:00",
     "author": "Dreamlab Formulasi & Riset",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Alpha Arbutin vs Tranexamic Acid",
@@ -502,7 +511,8 @@ export const articlesMeta: ArticleMeta[] =
       "Skincare Flek Hitam",
       "Custom Formula Skincare",
       "Maklon Serum Brightening",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-alpha-arbutin/pilihan_produk_skincare_11zon.jpg",
     "excerpt": "Alpha Arbutin vs Tranexamic Acid, mana yang lebih cocok untuk flek dan kulit kusam? Kenali perbedaannya, fungsi, dan pilihan hero ingredient untuk skincare brightening.",
@@ -534,7 +544,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-16T02:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Copper Tripeptide-1",
@@ -544,7 +554,8 @@ export const articlesMeta: ArticleMeta[] =
       "Custom Formula",
       "Maklon Skincare",
       "PDRN",
-      "Slow Aging"
+      "Slow Aging",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/images/artikel-copper-peptide/wujudkan-brand-anti-aging-copper-tripeptide-hero.png",
     "excerpt": "Pelajari cara mengembangkan skincare anti-aging dengan Copper Tripeptide-1, fungsi bahan aktifnya, kombinasi PDRN dan Hyaluronic Acid, serta ide custom formula untuk brand Anda.",
@@ -598,7 +609,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-14T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Ectoin vs Ceramide",
@@ -607,7 +618,8 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Skincare",
       "Ceramide",
       "Ectoin",
-      "Custom Formula"
+      "Custom Formula",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-ectoin-vs-ceramide/perbedaan_ectoin_vs_ceramide_11zon.jpg",
     "excerpt": "Bedah perbandingan Ectoin vs Ceramide untuk skin barrier. Temukan pilihan produk terbaik dan wujudkan custom formula eksklusif bersama Dreamlab.",
@@ -619,7 +631,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-03T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -638,7 +650,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-02T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "Maklon Sunscreen Hybrid",
@@ -646,7 +658,8 @@ export const articlesMeta: ArticleMeta[] =
       "Jasa Maklon Sunscreen BPOM",
       "Custom Formula Sunscreen",
       "Pabrik Maklon Sunscreen",
-      "Bikin Brand Sunscreen Sendiri"
+      "Bikin Brand Sunscreen Sendiri",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/images/artikel-sunscreen/maklon-sunscreen-hybrid-hero.jpg",
     "excerpt": "Buat brand sunscreen hybrid & tinted sunscreen berizin BPOM bersama Dreamlab. Custom formula tanpa white-cast, proteksi UV teruji, dan sistem 1 client 1 formula.",
@@ -658,14 +671,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Maklon Skincare",
       "MOQ Fleksibel",
       "Uji Pasar",
       "BPOM",
-      "Custom Formula"
+      "Custom Formula",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/images/artikel-moq-fleksibel/maklon-skincare-moq-fleksibel-hero.jpg",
     "excerpt": "Uji pasar brand skincare impian Anda dengan skema maklon skincare MOQ fleksibel. Nikmati sistem 1-client 1-formula berstandar CPKB resmi Dreamlab.",
@@ -699,7 +713,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-17T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Pore Care",
@@ -707,7 +721,8 @@ export const articlesMeta: ArticleMeta[] =
       "Skincare Routine",
       "Hero Ingredient",
       "Custom Formula",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-pore-care/maklon-kosmetik-pore-care-hero.png",
     "excerpt": "8 ide produk pore care untuk brand skincare: cleansing oil, cleanser, serum, clay mask, hingga sunscreen. Eksplorasi hero ingredient bersama Dreamlab.",
@@ -736,12 +751,13 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-16T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Moisturizer",
       "PDRN",
-      "Skincare"
+      "Skincare",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-pdrn/pdrn-niacinamide-concept.jpeg",
     "excerpt": "PDRN mulai menarik perhatian pasar skincare. Pelajari peluang membangun brand moisturizer PDRN dengan formula, konsep, dan positioning yang relevan.",
@@ -753,12 +769,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-16T00:00:00+00:00",
     "author": "Tim Dreamlab",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Klinik Kecantikan",
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-klinik/hero-crm-klinik.png",
     "excerpt": "5 cara menaikkan omzet klinik kecantikan: maksimalkan database pasien dengan CRM, produk after-treatment, toko online, membership, dan reaktivasi pasien.",
@@ -770,11 +786,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-15T22:29:33+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Maklon Personal Care"
+      "Maklon Personal Care",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Maklon-Deodoran-terbaik-BPOM-.webp",
     "excerpt": "Ingin punya brand deodorant sendiri? Dreamlab menyediakan jasa maklon deodorant dengan formulasi terbaik, izin BPOM, dan MOQ fleksibel.",
@@ -786,11 +803,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-25T14:49:43+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Footcare"
+      "Maklon Footcare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "maklon_produk_perawatankaki.webp",
     "excerpt": "Foot care produk masih underrated tapi pasarnya terus tumbuh. Pelajari jenis produk, cara maklon, dan alur produksi di Dreamlab",
@@ -802,11 +819,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-18T16:05:52+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Cara-menentukan-hpp-kosmetik--1024x684.webp",
     "excerpt": "Pelajari cara hitung HPP produk kosmetik yang benar agar profit maksimal. Lengkap dengan rumus, simulasi tabel, dan tips memilih Dreamlab",
@@ -818,11 +835,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-24T06:55:04+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "jasa-maklon-hair-care-indonesia-1024x666.webp",
     "excerpt": "Hindari 10 kesalahan fatal saat memulai brand hair care lewat maklon: formulasi, pH, BPOM, MOQ, hingga pilih mitra yang tepat.",
@@ -834,11 +851,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-23T16:40:55+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "cara-buat-parfum-sendiri-dengan-maklon.webp",
     "excerpt": "Panduan lengkap cara buat parfum brand sendiri lewat jasa maklon: formulasi, sampling, BPOM, hingga produk siap jual. Konsultasi gratis",
@@ -850,10 +867,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-28T23:36:20+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Maklon_Kosmetik_terbaik_sertifikat_BPOM-CPKB_Grade-A.webp",
     "excerpt": "Pabrik maklon kosmetik bersertifikasi CPKB Grade A bukan. Pelajari risiko, manfaat. Dreamlab jadi pilihan 500+ brand Indonesia.",
@@ -865,10 +883,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-14T20:38:53+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Formula Kosmetik"
     ],
     "featuredImage": "Dreamlab_bahan-aktif-skincare-paling-dicari-.webp",
     "excerpt": "Panduan lengkap bahan aktif skincare paling dicari konsumen Indonesia retinol, niacinamide, vitamin C, AHA/BHA. Cocok untuk brand owner.",
@@ -895,10 +914,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-27T07:31:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Membuat-brand-lipcare-sendiri.webp",
     "excerpt": "Cek biaya maklon lipstik terbaru 2026. Dreamlab adalah partner strategis dengan formula eksklusif (1 client 1 formula), izin BPOM,",
@@ -910,11 +930,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-18T13:30:51+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "oem-odm-maklon-kosmetik-.webp",
     "excerpt": "Bingung pilih OEM atau ODM untuk brand kosmetikmu? Pelajari perbedaan, kelebihan, dan kekurangannya. mulai maklon di Dreamlab",
@@ -926,11 +946,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-18T12:25:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Skincare"
+      "Bisnis Skincare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Buat-Brand-Deodorant_Balm.webp",
     "excerpt": "Temukan peluang bisnis deodorant balm dengan custom formula. Pelajari keunggulan tekstur, jaminan BPOM, dan dukungan after sales eksklusif",
@@ -942,10 +962,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-25T15:09:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Dreamlab_maklon_cpkbgradeA-1024x640.webp",
     "excerpt": "Cari pabrik maklon kosmetik bersertifikasi CPKB Grade A dan Halal? Dreamlab solusinya. Formulasi custom, pendampingan BPOM, MOQ bersahabat",
@@ -957,10 +978,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-23T16:19:13+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Formula Kosmetik"
     ],
     "featuredImage": "panduan-persentase_niacinamide-_skincare.webp",
     "excerpt": "Panduan lengkap persentase Niacinamide 2%, 5%, dan 10% — manfaat, efek, dan produk yang tepat untuk kulitmu.",
@@ -987,11 +1009,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-04-14T21:16:16+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Baby Care"
+      "Maklon Baby Care",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Buat-brand-produk-bayi.webp",
     "excerpt": "Mau punya brand skincare atau baby care sendiri? Peluang bisnis skincare ibu rumah tangga Free BPOM, formulasi custom & biaya fleksibel!",
@@ -1018,10 +1040,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-27T06:16:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Jenis-vitamin-C-untuk-mengatasi-masalah-kulit--1024x671.webp",
     "excerpt": "Cek jenis Vitamin C paling efektif untuk whitening dan produk skincare yang bisa Anda buat di Dreamlab. Jasa maklon BPOM",
@@ -1093,10 +1116,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-18T09:40:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "35842-1.webp",
     "excerpt": "Pelajari 8 tren global kecantikan 2026 dari ADA Cosmetics. Wujudkan brand inovatif dengan Smart Formula, BPOM",
@@ -1123,11 +1147,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-20T08:51:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Cara-membuat-HB-Dosting-sendiri-untuk-bisnis-pemula.webp",
     "excerpt": "Simak cara membuat HB Dosting sendiri dengan modal terjangkau & MOQ fleksibel di Dreamlab. Legal BPOM & Halal. Konsultasi GRATIS sekarang!",
@@ -1184,10 +1208,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-28T03:16:30+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Formula Kosmetik"
     ],
     "featuredImage": "542131.webp",
     "excerpt": "Mau sukses seperti brand parfum lokal HMNS atau Saff & Co? Temukan inspirasi parfum lokal aroma teh di sini. Maklon di Dreamla",
@@ -1199,10 +1224,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-13T06:28:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "37110.webp",
     "excerpt": "Gen Z bisa jadi brandpreneur! Intip 5 ide bisnis kreatif dengan peluang besar & tips praktis memulainya, cocok buat pemula.",
@@ -1274,11 +1300,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-22T03:18:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "14568443-1.webp",
     "excerpt": "Panduan lengkap cara memulai brand body mist dari nol. Modal fleksibel, custom aroma, BPOM, dan MOQ terjangkau untuk pemula.",
@@ -1324,10 +1350,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-24T16:25:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Formula Kosmetik"
     ],
     "featuredImage": "young-beautiful-blonde-girl-cares-face-skin-with-moisturizer-front-mirror-scaled.webp",
     "excerpt": "Astaxanthin menjadi jawaban untuk masalah kulit di usia matang. manfaatnya untuk atasi flek hitam & penuaan dini",
@@ -1339,11 +1366,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-21T00:23:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "high-angle-view-coffee-cup-table-scaled.webp",
     "excerpt": "Pelajari cara membuat masker wajah organik yang praktis, aman, dan cocok untuk semua jenis kulit. Resep alami untuk hasil maksimal",
@@ -1370,10 +1397,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T16:27:29+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Formula Kosmetik"
     ],
     "featuredImage": "cosmetic-skin-care-products-anti-aging-procedures-beauty-salon-scaled.webp",
     "excerpt": "Bahas bahan aktif skincare terbaru yang jadi primadona di 2025 dan bagaimana Dreamlab mengembangkan formulanya.",
@@ -1385,10 +1413,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-11T09:19:08+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Grafis-Artikel-WEB-Dreamlab.webp",
     "excerpt": "Mulai 2026, produk kosmetik wajib bersertifikat halal. Dreamlab siap bantu brand Anda membuat produk halal dan taat aturan sejak awal.",
@@ -1400,8 +1429,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Maklon Parfum",
@@ -1409,7 +1437,8 @@ export const articlesMeta: ArticleMeta[] =
       "Extrait de Parfum",
       "BPOM",
       "MOQ Kecil",
-      "Custom Formula"
+      "Custom Formula",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-parfum/biaya-maklon-parfum-hero.jpg",
     "excerpt": "Panduan lengkap rincian biaya maklon parfum, simulasi modal MOQ kecil hingga Extrait de Parfum BPOM, estimasi HPP, dan strategi margin profit bersama Dreamlab.",
@@ -1421,10 +1450,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-19T03:12:42+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "604-1.webp",
     "excerpt": "Pabrik Parfum Surabaya dengan MOQ fleksibel jadi solusi terbaik untuk pemula. Mulai brand parfummu dengan formulasi profesional dan legalitas",
@@ -1436,10 +1466,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-01-25T01:33:28+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "2150254643-1.webp",
     "excerpt": "Cari jasa maklon parfum MOQ fleksibel? Dreamlab tawarkan custom aroma premium, free BPOM, & legalitas lengkap. Yuk bangun brand parfummu.",
@@ -1451,10 +1482,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-10T08:40:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "7606.webp",
     "excerpt": "Mulai bisnis parfum arab hanya 20 juta! Gratis BPOM & formula eksklusif dari tim perfumery Dreamlab. Ciptakan aroma arab mewah untuk brandmu",
@@ -1466,10 +1498,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-18T09:40:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Formula Kosmetik"
     ],
     "featuredImage": "15309097-2.webp",
     "excerpt": "Kenali 5 jenis alkohol yang digunakan pada parfum dan fungsinya. Pelajari mana yang aman, halal, dan cocok untuk brand parfummu.",
@@ -1511,10 +1544,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T15:44:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "organic-cosmetic-product-with-dreamy-aesthetic-fresh-background-scaled.webp",
     "excerpt": "Temukan proses lengkap bagaimana ide viral di media sosial diubah menjadi produk nyata melalui layanan maklon Dreamlab.",
@@ -1526,10 +1560,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-02T20:43:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Formula Kosmetik"
     ],
     "featuredImage": "groom-meeting-details-jacket-shoes-watches-buttons-wedding-day-scaled.webp",
     "excerpt": "Parfum Nagita Slavina dan artis lain kini bisa Anda jadikan brand sendiri! Pelajari rahasia top notes & base notes high-end.",
@@ -1541,11 +1576,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-22T06:30:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "still-life-cosmetic-products-scaled.webp",
     "excerpt": "Ingin memulai bisnis parfum inspired? Pelajari 5 jenis parfum yang sedang tren. Dreamlab siap menjadi mitra maklon dengan \"Juara Formula\"",
@@ -1557,11 +1593,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-20T17:43:32+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "cara-membuat-toner-sendiri-di-rumah-f.webp",
     "excerpt": "Pelajari cara membuat toner dari cuka apel untuk eksfoliasi alami. Cek bahan, takaran aman, & manfaatnya. Ubah ide DIY Anda menjadi brand",
@@ -1573,10 +1609,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-02-22T12:16:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Formula Kosmetik"
     ],
     "featuredImage": "Dreamlab-Kuasai-Pasar-Skincare-2026.webp",
     "excerpt": "Ingin kuasai pasar skincare 2026? Dreamlab hadirkan rahasia formulasi Biotech PDRN & Madecassoside. Solusi maklon premium, aman BPOM & Halal",
@@ -1588,10 +1625,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-24T07:40:35+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Formula Kosmetik"
     ],
     "featuredImage": "woman-using-medicine-help-with-rosacea-skin-condition-scaled.webp",
     "excerpt": "Kenali perbedaan parfum balm dan parfum oil, dua varian parfum natural yang bisa kamu maklon bersama Dreamlab. Yuk Konsultasi Sekarang!",
@@ -1618,10 +1656,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-24T08:32:36+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Formula Kosmetik"
     ],
     "featuredImage": "close-up-skin-pores-face-care-routine-scaled.webp",
     "excerpt": "Temukan bahan aktif skincare yang ampuh untuk jerawat agar kulit bersih, sehat, dan bebas dari masalah jerawat membandel.",
@@ -1648,10 +1687,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-24T06:53:07+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "2149369960-1.webp",
     "excerpt": "Ingin punya brand skincare anti-aging viral? Manfaatkan teknologi NAD+ untuk regenerasi sel. Simak peluang bisnis maklon skincare NAD+",
@@ -1663,10 +1703,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-10T09:20:23+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Screenshot-2025-11-10-at-16.13.40.webp",
     "excerpt": "Mulai bisnis set skincare dengan MOQ mulai 500 pcs. Dapatkan panduan lengkap: pilih produk, custom kemasan, urus BPOM, dan strategi bundling harga.",
@@ -1693,10 +1734,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-24T07:50:15+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "jars-with-cosmetic-cream-1-1-scaled.webp",
     "excerpt": "Cari pabrik skincare Aceh BPOM terlengkap? Dreamlab hadir dengan jasa maklon OEM/ODM, formula juara (NAD+), jaminan Halal MU",
@@ -1708,10 +1750,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-30T02:48:07+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "woman-smiling-while-applying-hydrating-skincare-mist-with-dewy-glowing-skin-1-scaled.webp",
     "excerpt": "Face Mist Serum adalah inovasi baru dalam maklon face mist serum dengan formula ringan dan efektif. Hasilnya memberikan glow pada kulit",
@@ -1858,10 +1901,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-20T19:56:14+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "24075-scaled.webp",
     "excerpt": "Ingin punya brand deodoran sendiri? Ini panduan lengkap bahan aktif terbaik, tren pasar 2025 dan tips bikin produk laris!",
@@ -1873,11 +1917,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-17T08:20:28+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "2149345804-1.webp",
     "excerpt": "Pelajari inovasi produk haircare masa depan bersama Dreamlab. Dapatkan layanan jasa maklon haircare BPOM dengan MOQ kompetitif",
@@ -1889,10 +1934,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-28T00:34:07+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "7248-1.webp",
     "excerpt": "Ingin punya brand sampo psoriasis sendiri? Dreamlab sediakan maklon sampo formula juara kualitas dunia (dupe brand global). Proses mudah",
@@ -1904,10 +1950,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-20T06:50:42+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "arrangement-natural-argan-oil-dropper-scaled.webp",
     "excerpt": "Produk hair vitamin lokal Indonesia viral di Korea! Temukan alasan, tren, dan peluang bisnis maklon kosmetik terbaik bersama Dreamlab.",
@@ -1919,10 +1966,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-24T19:26:03+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "2152001451-1.webp",
     "excerpt": "Produk haircare yang sedang tren: shampoo anti-rontok, scalp serum, hair mist, hingga hybrid haircare. Cari tahu tren dan buat produknya",
@@ -1964,10 +2012,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-17T07:17:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "473319-1.webp",
     "excerpt": "Ingin punya brand skincare sendiri? Pelajari apa itu maklon moisturizer, inovasi terbaru, hingga biaya MOQ fleksibel",
@@ -1979,10 +2028,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-27T05:52:05+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "108814-1.webp",
     "excerpt": "Formulasi Witch Hazel untuk kulit berminyak adalah salah satu kombinasi terbaik untuk menciptakan produk skincare vira disukai konsumen.",
@@ -2009,10 +2059,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-01-17T04:30:45+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "2148978192-1-1.webp",
     "excerpt": "Cari pabrik maklon kosmetik di Sidoarjo? Dreamlab dengan fasilitas CPKB Grade A, formulasi R&D, dan pendampingan BPOM. Hanya 30 menit dari Surabaya.",
@@ -2024,11 +2075,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-17T07:48:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Sampul-WEB-1.webp",
     "excerpt": "Bangun bisnis skincare Glow Glasskin setara efek hydroquinone dengan formula Cystamine yang aman & BPOM. Promo Desember mulai 19,5 Juta",
@@ -2055,11 +2107,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-22T06:00:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "2149230962-1.webp",
     "excerpt": "Cara menentukan harga jual produk kosmetik dengan tepat, lengkap dengan COGS, HPP, dan simulasi harga maklon skincare.",
@@ -2086,10 +2138,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-27T06:57:35+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Screenshot-2025-11-27-at-13.55.17.webp",
     "excerpt": "Ingin memulai bisnis kosmetik tanpa ribet? Temukan alasan mengapa sistem Private Label dan ODM menjadi solusi terbaik bagi pemula",
@@ -2101,10 +2154,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-24T18:57:41+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "132577-1.webp",
     "excerpt": "Flywheel Marketing adalah kunci pertumbuhan brand skincare. Dreamlab bantu kamu membuat produk yang market fit",
@@ -2116,10 +2170,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T16:00:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "close-up-view-cosmetic-bottles-jars-containers-sprays-white-wooden-background-beauty-concept-with-copy-space-scaled.webp",
     "excerpt": "Pelajari strategi membangun komunitas pelanggan setia di kalangan Gen Z melalui pengalaman, value, dan kolaborasi produk.",
@@ -2131,10 +2186,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-22T09:28:21+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "close-up-beauty-blogger-talking-about-cosmetic-products-isolated-scaled.webp",
     "excerpt": "Temukan 5 ide bisnis kosmetik paling menjanjikan di 2026! Pelajari cara menentukan margin, membangun brand.",
@@ -2146,10 +2202,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-03-11T04:04:12+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Artikel-1.webp",
     "excerpt": "Ingin mulai bisnis kosmetik dari nol? Dreamlab bantu kamu wujudkan brand skincare sendiri dengan proses mudah dan hasil berkualitas",
@@ -2206,10 +2263,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-07-29T16:52:30+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "toilet-bag-with-products-assortment-scaled.webp",
     "excerpt": "Babycare kini bukan hanya soal kelembutan. Formulasi aman, tanpa paraben, dan transparansi bahan menjadi standar.",
@@ -2221,11 +2279,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-02-22T09:47:22+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Dreamlab-pilihan-packaging-parfum.webp",
     "excerpt": "Mau brand parfummu terlihat premium? Intip jenis packaging box parfum paling bagus di 2026. Dari Hardbox mewah hingga finishing emas.",
@@ -2237,10 +2295,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-12-18T09:58:44+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Bisnis Skincare"
+      "Bisnis Skincare",
+      "Formula Kosmetik"
     ],
     "featuredImage": "5495-1.webp",
     "excerpt": "Pelajari tren aroma parfum 2026 dari B Futurist. Dari Gourmand 2.0 hingga Neuro-Scent. Maklon mudah di Dreamlab dengan MOQ rendah",
@@ -2252,10 +2311,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-13T04:43:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Skincare"
+      "Bisnis Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "woman-uniform-controlling-machinery-scaled.webp",
     "excerpt": "Dreamlab bantu kamu dari konsep hingga produk siap jual. Cek layanan maklon skincare lengkap & konsultasi gratisnya!",
@@ -2312,11 +2372,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-10T08:14:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "2149230962.webp",
     "excerpt": "Mulai bisnis parfum merk sendiri dengan maklon parfum Dreamlab mulai 19 juta. Free BPOM & kualitas terjamin, cocok untuk brand pemula.",
@@ -2343,11 +2403,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-18T07:34:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "portrait-beautiful-young-asian-woman-reviews-uses-cosmetics-sofa-scaled.webp",
     "excerpt": "Pentingnya Personal Branding dalam Industri Kosmetik. Tips Untuk Brand Owner.",
@@ -2359,11 +2419,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-18T05:16:09+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "notebook-with-toolls-notes-about-affiliate-marketing-concept-scaled.webp",
     "excerpt": "Optimalkan brand skincare kamu dengan affiliate marketing & kol beauty. Pelajari cara kerjanya dan tips suksesnya di sini!",
@@ -2405,11 +2465,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-25T06:19:20+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "manfaat-lulur-ampas-kopi.webp",
     "excerpt": "Temukan manfaat lulur ampas kopi untuk mencerahkan kulit & menyamarkan selulit. Pelajari cara buat DIY & peluang bisnis maklon lulur",
@@ -2421,11 +2481,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-13T11:04:56+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "young-asian-women-showing-clothes-sale-online-social-with-smartphone-customers-from-home-network-technology-concept-scaled.webp",
     "excerpt": "Pelajari strategi membuat konten brand yang mudah viral: hook kuat, tren, konten visual, influencer, dan Influencer",
@@ -2437,11 +2498,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-24T23:44:43+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "woman-doing-her-selfcare-ritual-scaled.webp",
     "excerpt": "Ingin tahu cara membuat brand dupe body lotion viral? Pelajari 5 inspirasi produk high-end dari Eropa & Korea.",
@@ -2468,10 +2530,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-27T16:36:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "beautiful-girl-sitting-bed-with-beauty-products-scaled.webp",
     "excerpt": "Ingin tahu formula body whitening yang sukses? Pelajari rahasia Niacinamide & Glutathione untuk produk cepat putih.",
@@ -2483,10 +2546,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T16:54:15+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "organic-cosmetic-product-with-dreamy-aesthetic-fresh-background-1-1-scaled.webp",
     "excerpt": "Industri kecantikan global sedang menghadapi dua tantangan besar: krisis air dan perubahan iklim.",
@@ -2498,10 +2562,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-15T20:12:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "young-woman-applying-with-finger-white-moisturizing-cream-hand-scaled.webp",
     "excerpt": "Cara mudah maklon produk body serum impianmu di Dreamlab dengan sertifikasi BPOM & Halal.Body serum AHA jadi tren body care 2025",
@@ -2513,10 +2578,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-15T19:49:33+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "cosmetic-containers-with-half-orange-scaled.webp",
     "excerpt": "Dreamlab siap bantu maklon body wash dan body serum dengan bahan aman, halal, dan bersertifikat BPOM. Formulasi custom, MOQ fleksibel",
@@ -2543,11 +2609,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-03-16T10:17:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Artikel-2.webp",
     "excerpt": "Ingin punya brand parfum sendiri? Dreamlab bantu kamu ciptakan parfum eksklusif dengan proses maklon cepat, mudah, dan hasil premium.",
@@ -2574,10 +2640,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-17T19:03:12+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Screenshot-2025-08-18-at-01.57.43.webp",
     "excerpt": "Laporan industri kecantikan 2025: tren skincare, kebangkitan makeup, wellness beauty, hingga pertumbuhan pasar kosmetik global & Indonesia.",
@@ -2589,10 +2656,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-13T10:31:32+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "businessman-with-online-marketing-scaled.webp",
     "excerpt": "Pelajari cara mengoptimalkan penjualan di TikTok Shop dengan fitur promosi. Gunakan analisis kompetitor, tools optimasi",
@@ -2619,11 +2687,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-21T00:10:35+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "24459-scaled.webp",
     "excerpt": "Temukan 5 tips membuat hand sanitizer efektif dan aman. Cocok untuk ide bisnis personal care yang laris di market",
@@ -2635,10 +2703,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-20T20:12:45+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "sunscreens-colored-background-top-view-scaled.webp",
     "excerpt": "Yuk intip 6 tren sunscreen terbaru yang lagi viral di 2025. Semua bisa jadi ide bisnis baru yang menjanjikan, cocok buat brand kosmetik lokal",
@@ -2710,10 +2779,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-22T06:09:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "handsome-man-cleaning-face-skin-with-batting-cotton-pads-gray-background-looking-camera-scaled.webp",
     "excerpt": "Inovasi kosmetik olahraga hadir menjawab tren pasar. Temukan 3 produk unggulan sport-friendly yang mendukung gaya hidup aktif",
@@ -2740,10 +2810,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-13T04:02:34+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Men Grooming"
+      "Bisnis Men Grooming",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "2147638135.webp",
     "excerpt": "Bisnis men grooming makin dilirik! Intip cara mudah bikin brand perawatan pria sendiri lewat maklon kosmetik bersama Dreamlab.",
@@ -2755,11 +2826,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-07-29T16:39:29+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Skincare-Product-Display-Mockup-PSD-Template-09-scaled.webp",
     "excerpt": "Temukan tren bisnis skincare 2025, besarnya peluang pasar, modal yang dibutuhkan, dan strategi membangun brand skincare sukses.",
@@ -2771,10 +2843,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-16T08:47:31+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "notebook-with-toolls-notes-about-brand-scaled.webp",
     "excerpt": "Ingin brand kosmetikmu dikenal luas? Simak tips dan strategi agar branding bisnis kosmetikmu cepat melejit.",
@@ -2786,10 +2859,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-10T23:49:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Screenshot-2025-08-11-at-06.30.57.webp",
     "excerpt": "Temukan produk body care viral 2025 yang booming di TikTok dan Shopee! Produksi brandmu bareng Dreamlab Maklon Kosmetik.",
@@ -2801,10 +2875,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T15:54:23+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "beauty-care-age-hand-skin-products-elderly-lady-applying-expensive-cosmetics-scaled.webp",
     "excerpt": "Langkah-langkah membangun brand skincare viral di 2025 menggunakan strategi TikTok, storytelling, dan kolaborasi dengan Dreamlab.",
@@ -2831,10 +2906,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-07-29T17:02:37+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "medium-shot-korean-woman-posing-with-serum-bottle-scaled.webp",
     "excerpt": "Ingin membangun brand skincare yang berkualitas dan tahan lama di pasaran? Dreamlab hadir dengan solusi maklon skincare lengkap",
@@ -2846,11 +2922,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-18T19:19:03+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Men Grooming"
+      "Bisnis Men Grooming",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "2148696708-1.webp",
     "excerpt": "Skincare pria lagi booming! Simak 3 produk basic yang wajib pria punya, tips pilih produk, dan peluang bisnis skincare pria dengan maklon Dreamlab.",
@@ -2862,10 +2938,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T09:23:51+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "AIpreneur"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "side-view-woman-working-photography-studio-scaled.webp",
     "excerpt": "Pelajari bagaimana teknologi AI membantu brand menciptakan produk skincare yang cepat viral dan relevan dengan pasar 2025",
@@ -2877,10 +2954,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T09:11:16+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "arrangement-with-plastic-white-containers-scaled.webp",
     "excerpt": "Pelajari tren dan perubahan besar dalam industri kosmetik Indonesia tahun 2025, dari kemasan ramah lingkungan, personalisasi produk.",
@@ -2907,10 +2985,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-18T05:35:18+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Personal Care"
+      "Personal Care",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "female-pink-bathrobe-using-spray-1-scaled.webp",
     "excerpt": "Tertarik memulai bisnis feminim care? Pelajari peluang pasar, strategi marketing, produk potensial, dan solusi maklon cepat bersama Dreamlab.",
@@ -2922,10 +3001,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-20T19:34:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Screenshot-2025-08-21-at-02.27.42.webp",
     "excerpt": "Ingin tahu berapa MOQ maklon skincare di Dreamlab? Pelajari jumlah minimal pemesanan dan tips penting bagi pebisnis skincare pemula",
@@ -2937,11 +3017,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-08-17T18:46:21+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "633372a1-4e2a-440a-befa-06211c3af63b.webp",
     "excerpt": "Produk moisturizer Dreamlab cetak omset tinggi! Peluang emas bagi kamu yang ingin memulai bisnis skincare sendiri—modal kecil, potensi cuan besar.",
@@ -2953,11 +3033,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-22T09:02:47+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Personal Care"
+      "Personal Care",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "smiling-woman-applying-rollon-deodorant-beige-background-closeup.webp",
     "excerpt": "Ikuti langkah- langkah agar ketiak cerah dalam satu minggu. Produk rekomendasi untuk ketiak hitam. Buat Produkmu sekarang!",
@@ -2969,10 +3049,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-13T09:44:31+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "close-up-body-butter-recipient-scaled.webp",
     "excerpt": "Dapatkan pemahaman mendalam kenapa klaim whitening / brightening menjadi strategi branding paling efektif di Indonesia",
@@ -2984,11 +3065,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-11T16:37:32+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "top-view-male-self-care-items-scaled.webp",
     "excerpt": "Pahami tren man care di Indonesia, produk potensial, dan berapa MOQ yang sesuai. Dreamlab siap bantu kamu produksi man care.",
@@ -3000,10 +3082,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-12T09:29:28+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "woman-holding-samsung-note-10-plus-with-streaming-service-media-video-tiktok-scaled.webp",
     "excerpt": "Pelajari strategi jualan di TikTok Shop tanpa biaya: manfaatkan campaign gratis, optimalkan konten FYP, gunakan hashtag relevan",
@@ -3015,11 +3098,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-31T07:54:40+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "maklon-dry-shampoo.png",
     "excerpt": "Bayangkan ini: rambut lepek di tengah hari, meeting 30 menit lagi, tidak ada waktu keramas. Di sinilahÂ dry shampooÂ jadi penyelamat —",
@@ -3046,10 +3129,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-27T04:23:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Formula Kosmetik"
     ],
     "featuredImage": "maklon-parfum-pheromone.png",
     "excerpt": "Apa Itu Parfum Pheromone? Parfum pheromone adalah jenis parfum yang diformulasikan dengan bahan-bahan yang terinspirasi dari pheromone — senyawa kimia",
@@ -3061,10 +3145,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-24T12:32:12+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Dreamlab-Maklon-Parfum.webp",
     "excerpt": "Pasar parfum lokal di Indonesia sedang mengalami masa keemasan. Kesadaran masyarakat akan penampilan, didukung tren&nbsp;signature scent&nbsp;di kalangan milenial dan Gen",
@@ -3091,10 +3176,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-23T18:38:20+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Dreamlab_bahan-aktif-skincare-paling-dicari-.webp",
     "excerpt": "Industri kecantikan tidak pernah berhenti berevolusi. Setelah era glass skin, skin minimalism, dan barrier repair, kini tren yang paling banyak",
@@ -3106,10 +3192,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-23T18:06:56+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "Maklon-Skincare-Anti-Flek-Profesional-di-Dreamlab.webp",
     "excerpt": "Sunscreen kini bukan lagi sekadar produk pelengkap ia sudah menjadi kebutuhan harian jutaan perempuan Indonesia. Tren ini membuka peluang besar",
@@ -3121,11 +3208,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-23T16:43:59+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "panduan-bikin-brand-skincare-dreamlab.png",
     "excerpt": "Memiliki brand skincare sendiri bukan lagi mimpi yang jauh. Di tahun 2026 ini, industri kecantikan Indonesia terus bertumbuh pesat —",
@@ -3137,11 +3224,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-05-14T05:32:29+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "Buat-Brand-Deodorant_Balm.webp",
     "excerpt": "Kamu sudah punya nama brand. Sudah tahu mau jual ke siapa. Tapi masih bingung: gimana caranya bikin produk all day",
@@ -3183,10 +3270,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-25T07:36:41+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Formula Kosmetik"
     ],
     "featuredImage": "bahan-aktif-jerawat.png",
     "excerpt": "Jerawat merupakan masalah kulit yang membutuhkan penanganan dengan bahan aktif yang tepat. Dalam dunia skincare, setiap bahan aktif memiliki fungsi",
@@ -3198,10 +3286,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-03-20T19:41:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "jasa-maklon-sabun-mandi.jpg",
     "excerpt": "Industri perawatan tubuh (personal care) terus berkembang pesat, dan sabun mandi tetap menjadi produk dengan tingkat repeat order tertinggi di",
@@ -3213,10 +3302,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-02-22T08:27:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "jasa-maklon-parfum-jakarta-.png",
     "excerpt": "Industri wewangian di Indonesia diprediksi akan mencapai puncaknya pada tahun 2026. Bukan lagi sekadar kebutuhan tersier, parfum telah bertransformasi menjadi",
@@ -3228,10 +3318,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-01-26T09:54:48+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "1587-1.webp",
     "excerpt": "Industri wewangian di tanah air sedang berada di puncaknya. Memilih maklon parfum BPOM Indonesia adalah langkah awal yang paling krusial",
@@ -3303,11 +3394,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-11-22T05:19:06+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Bodycare"
+      "Maklon Bodycare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "17891-1.jpg",
     "excerpt": "Di 2026 kamu ingin jadi boss skincare ? Memulai bisnis skincare dari nol kini menjadi peluang besar bagi para pemula",
@@ -3334,10 +3425,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-20T06:27:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Parfum"
+      "Maklon Parfum",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "maklon-parfum-pheromone.png",
     "excerpt": "Parfum&nbsp;Arab&nbsp;kini&nbsp;semakin&nbsp;populer&nbsp;di&nbsp;kalangan&nbsp;milenial&nbsp;Indonesia&nbsp;—&nbsp;pencarian&nbsp;online&nbsp;terkait&nbsp;&#8220;parfum&nbsp;Arab&#8221;&nbsp;meningkat&nbsp;signifikan&nbsp;dalam&nbsp;beberapa&nbsp;tahun&nbsp;terakhir,&nbsp;menandakan&nbsp;minat&nbsp;pasar&nbsp;yang&nbsp;tumbuh.&nbsp;Keunikan&nbsp;aroma&nbsp;dan&nbsp;daya&nbsp;tahan&nbsp;wangi&nbsp;membuat&nbsp;parfum&nbsp;arab&nbsp;menjadi&nbsp;pilihan&nbsp;gaya&nbsp;hidup&nbsp;dan&nbsp;ekspresi&nbsp;diri&nbsp;bagi&nbsp;banyak&nbsp;anak&nbsp;muda. Tren&nbsp;ini&nbsp;didorong&nbsp;oleh&nbsp;meningkatnya&nbsp;kesadaran&nbsp;akan&nbsp;kualitas&nbsp;bahan&nbsp;dan&nbsp;kombinasi&nbsp;sentuhan&nbsp;wewangian&nbsp;khas&nbsp;Timur&nbsp;Tengah,&nbsp;sehingga&nbsp;membuka&nbsp;peluang&nbsp;bisnis&nbsp;menarik&nbsp;bagi&nbsp;entrepreneur,&nbsp;reseller,&nbsp;dan&nbsp;pemilik&nbsp;brand&nbsp;baru.&nbsp;Dengan&nbsp;bantuan&nbsp;maklon&nbsp;parfum&nbsp;arab,&nbsp;Anda&nbsp;bisa&nbsp;masuk&nbsp;ke&nbsp;pasar&nbsp;ini&nbsp;lebih&nbsp;cepat&nbsp;tanpa&nbsp;modal&nbsp;pabrik&nbsp;besar. Dreamlab&nbsp;hadir&nbsp;sebagai&nbsp;solusi&nbsp;maklon&nbsp;yang&nbsp;membantu&nbsp;Anda&nbsp;mulai&nbsp;bisnis&nbsp;parfum&nbsp;Arab&nbsp;dengan&nbsp;proses&nbsp;produksi&nbsp;terstandar&nbsp;dan&nbsp;opsi&nbsp;formula&nbsp;siap&nbsp;pakai.&nbsp;Baca&nbsp;5&nbsp;rekomendasi&nbsp;parfum&nbsp;Arab&nbsp;yang&nbsp;cocok&nbsp;dijadikan&nbsp;bisnis&nbsp;di&nbsp;bagian&nbsp;bawah&nbsp;untuk&nbsp;ide&nbsp;produk&nbsp;dan&nbsp;positioning&nbsp;pasar. Fenomena&nbsp;Parfum&nbsp;Arab&nbsp;di&nbsp;Kalangan&nbsp;Milenial&nbsp;Indonesia Minat&nbsp;terhadap&nbsp;parfum&nbsp;Arab&nbsp;di&nbsp;kalangan&nbsp;milenial&nbsp;Indonesia&nbsp;terus&nbsp;naik&nbsp;—&nbsp;pencarian&nbsp;dan&nbsp;permintaan&nbsp;menunjukkan&nbsp;tren&nbsp;positif&nbsp;karena&nbsp;keunikan&nbsp;aroma&nbsp;dan&nbsp;kesan&nbsp;mewah&nbsp;yang&nbsp;ditimbulkannya.&nbsp;Parfum&nbsp;Arab&nbsp;menawarkan&nbsp;pengalaman&nbsp;wewangian&nbsp;berbeda&nbsp;dibanding&nbsp;parfum&nbsp;konvensional:&nbsp;aroma&nbsp;lebih&nbsp;kaya,&nbsp;komposisi&nbsp;kompleks,&nbsp;dan&nbsp;wangi&nbsp;yang&nbsp;lebih&nbsp;tahan&nbsp;lama. Sejarah&nbsp;Singkat&nbsp;Parfum&nbsp;Arab&nbsp;dan&nbsp;Perkembangannya Asalusul&nbsp;parfum&nbsp;Arab&nbsp;berakar&nbsp;pada&nbsp;peradaban&nbsp;Timur&nbsp;Tengah,&nbsp;di&nbsp;mana&nbsp;minyak&nbsp;wangi&nbsp;dipakai&nbsp;dalam&nbsp;upacara&nbsp;keagamaan,&nbsp;pengobatan,&nbsp;dan&nbsp;sebagai&nbsp;penanda&nbsp;status&nbsp;sosial.&nbsp;Perdagangan&nbsp;rempah&nbsp;dan&nbsp;bahan&nbsp;aromatik&nbsp;membuka&nbsp;akses&nbsp;ke bahan&nbsp;langka&nbsp;sehingga&nbsp;lahirlah&nbsp;kombinasi&nbsp;arab&nbsp;aroma&nbsp;yang&nbsp;khas&nbsp;—&nbsp;dari&nbsp;floral&nbsp;halus&nbsp;hingga&nbsp;oriental&nbsp;yang&nbsp;intens Seiring&nbsp;waktu,&nbsp;teknik&nbsp;distilasi&nbsp;dan&nbsp;blending&nbsp;berkembang&nbsp;sehingga&nbsp;menciptakan&nbsp;variasi&nbsp;wewangian&nbsp;yang&nbsp;luas;&nbsp;setiap&nbsp;wilayah&nbsp;membawa&nbsp;sentuhan&nbsp;lokal&nbsp;pada&nbsp;komposisi,&nbsp;misalnya&nbsp;oud&nbsp;Yaman&nbsp;yang&nbsp;pekat&nbsp;versus&nbsp;oud&nbsp;kayu&nbsp;lokal&nbsp;dari&nbsp;Asia&nbsp;Tenggara. Komponen Keterangan Bahan&nbsp;Baku Minyak&nbsp;esensial,&nbsp;rempah-rempah,&nbsp;oud,&nbsp;amber Proses&nbsp;Pembuatan Distilasi,&nbsp;ekstraksi,&nbsp;blending&nbsp;—&nbsp;mengutamakan&nbsp;bahan&nbsp;premium Karakteristik Aroma&nbsp;kuat,&nbsp;tahan&nbsp;lama,&nbsp;eksotis;&nbsp;sering&nbsp;meninggalkan&nbsp;kesan&nbsp;mewah Baca Juga :",
@@ -3349,10 +3441,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-10-19T16:38:53+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "blue-model-career-kit-arrangement-scaled.jpg",
     "excerpt": "Industri kecantikan sedang berubah cepat. Perkembangan teknologi formulasi, meningkatnya kesadaran akan bahan alami, dan dominasi media sosial telah menggeser cara",
@@ -3364,11 +3457,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-25T00:15:10+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "beauty-set-made-natural-organic-cosmetic-massage-oil-cream-serum-scaled.jpg",
     "excerpt": "Dalam beberapa tahun terakhir, tren perawatan rambut telah bergeser dari sekadar merawat batang rambut ke fokus pada kesehatan kulit kepala.",
@@ -3380,11 +3473,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-09-13T11:51:39+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Tips & Trick"
+      "Tips & Trick",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "minimal-assortment-beauty-products-scaled.jpg",
     "excerpt": "Industri parfum di Indonesia menunjukkan pertumbuhan yang stabil. Data dari beberapa laporan menyebutkan bahwa parfum lokal makin diminati, daya beli",
@@ -3396,11 +3489,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2025-07-29T00:02:38+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Bisnis Kosmetik"
+      "Bisnis Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "front-view-skin-oil-droppers-composition-scaled.jpg",
     "excerpt": "Maklon Skincare Terpercaya untuk Pemilik Brand Baru Mengapa Maklon Skincare Menjadi Solusi Terbaik untuk Brand BaruIndustri skincare terus berkembang pesat,",
@@ -3442,11 +3536,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-06-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Baby Care"
+      "Maklon Baby Care",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "panduan_membuat_produk_bayi.png",
     "excerpt": "Mau bisnis produk bayi tapi bingung mulai dari mana? Panduan lengkap: potensi pasar, tren, biaya produksi, hingga cara maklon produk bayi BPOM bersama Dreamlab.",
@@ -3458,10 +3553,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-06-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
-      "Dreamlab Pedia"
+      "Dreamlab Pedia",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "perbedaan_bpomnotifikasi_vs_izinedar.png",
     "excerpt": "Bingung beda notifikasi BPOM dan izin edar kosmetik? Panduan lengkap: syarat, biaya, proses, dan mana yang wajib untuk produkmu. Konsultasi gratis Dreamlab!",
@@ -3488,11 +3584,11 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-07-01T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
-      "Maklon Skincare"
+      "Maklon Skincare",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "biaya_membuat_brand_skincare.png",
     "excerpt": "Panduan lengkap biaya buat brand serum wajah sendiri: hitung HPP, komponen produksi, dan cara mulai. Konsultasi gratis di Dreamlab.",
@@ -3534,11 +3630,12 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-07-19T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
-      "Maklon Kosmetik"
+      "Maklon Kosmetik",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "peluang-bisnis-deodorant.png",
     "excerpt": "Manfaatkan tren gaya hidup aktif Indonesia untuk bisnis deodorant. Peluang pasar tumbuh 6,18% per tahun, maklon custom formula, dan strategi brand sejak awal.",
@@ -3565,15 +3662,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-07-25T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Event",
       "KLi FM",
       "Sensesoul",
       "SYD",
-      "Studi Kasus"
+      "Studi Kasus",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "dreamlab_bersama_klifm_surabaya.png",
     "excerpt": "Dreamlab di KLi FM bongkar strategi pendampingan klien, dari MOQ fleksibel sampai punya pasar Australia. Konsultasi gratis, cek di sini.",
@@ -3585,13 +3682,14 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-07-26T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Maklon Kosmetik",
       "Trend Aroma",
       "Custom Parfum",
-      "2026"
+      "2026",
+      "Formula Kosmetik"
     ],
     "featuredImage": "Trend_parfum_2026_Gourmand.png",
     "excerpt": "Kenali 2 trend aroma parfum yang paling disukai market 2026 versi Dreamlab, sebelum kamu bikin brand parfum sendiri. Konsultasi gratis, cek di sini.",
@@ -3613,24 +3711,6 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "maklon-kosmetik-gresik-hero.png",
     "excerpt": "Cari maklon kosmetik di Gresik? Dreamlab siap bantu dari riset formula, BPOM, sampai produk jadi. One stop service, 1 klien 1 formula. Konsultasi gratis.",
-    "readingMinutes": 6
-  },
-  {
-    "slug": "/jasa-maklon-kosmetik-di-jember",
-    "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
-    "publishDate": "2026-09-02T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Maklon Kosmetik"
-    ],
-    "tags": [
-      "Maklon Kosmetik",
-      "Maklon Jember",
-      "Custom Formula",
-      "Skincare BPOM"
-    ],
-    "featuredImage": "/images/maklon_kosmetik_jember_11zon.jpg.jpeg",
-    "excerpt": "Bikin brand skincare BPOM tren terkini di Jember. Nikmati sistem 1-client 1-formula, MOQ fleksibel, dan legalitas resmi bersama Dreamlab maklon juaranya formula.",
     "readingMinutes": 6
   },
   {
@@ -3657,15 +3737,16 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-02T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Tren & Inovasi"
     ],
     "tags": [
       "Maklon Kosmetik",
       "Face Mist",
       "Ide Bisnis Skincare",
       "Maklon Skincare",
-      "One Stop Service"
+      "One Stop Service",
+      "Panduan Bisnis",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "maklon_kosmetik_aquamist.jpg",
     "excerpt": "Mau bikin brand face mist sendiri? Simak kenapa face mist lagi dicari, strategi harga jual, pemasaran, dan cara mulai bareng Dreamlab maklon kosmetik.",
@@ -3738,7 +3819,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-18T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -3774,14 +3855,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-23T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Hair Care",
       "Keratin",
       "Maklon Kosmetik",
       "Peluang Bisnis",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-keratin/peluang-bisnis-hair-care-keratin-hero.jpg",
     "excerpt": "Keratin tetap menjadi peluang besar untuk bisnis hair care. Pelajari insight pasar, custom formula, alur produk, dan strategi pemasaran bersama Dreamlab.",
@@ -3832,7 +3914,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -3840,7 +3922,8 @@ export const articlesMeta: ArticleMeta[] =
       "Sabun Natural",
       "Custom Formula",
       "Body Care",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/images/artikel-sabun-herbal/sabun-herbal-peluang-brand-natural-hero.jpg",
     "excerpt": "Ingin membuat brand sabun herbal? Pelajari peluang sabun natural, perbandingan sabun batang vs cair, ide produk, faktor biaya, dan custom formula bersama Dreamlab.",
@@ -3852,15 +3935,15 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-08-30T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Bisnis Skincare",
       "Brand Skincare Sendiri",
       "Maklon Skincare",
       "Custom Formula",
-      "Dreamlab"
+      "Dreamlab",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-bisnis-skincare/alasan-memulai-bisnis-brand-skincare-hero.jpg",
     "excerpt": "Ingin memulai bisnis skincare? Pelajari cara memilih produk berdasarkan demand pasar, menemukan solusi masalah customer, hingga alur maklon 8 langkah bersama Dreamlab.",
@@ -3872,7 +3955,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-11T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "jasa maklon",
@@ -3884,7 +3967,8 @@ export const articlesMeta: ArticleMeta[] =
       "maklon toner",
       "skincare",
       "chemical exfoliant",
-      "1 Client 1 Formula"
+      "1 Client 1 Formula",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/asset artikel/jasa-maklon-exfoliating-toner-aha-bha-pha-bpom/maklon_exfoliate_toner_11zon.jpg",
     "excerpt": "Buat brand exfoliating toner AHA, BHA, atau PHA bersama Dreamlab. Custom formula, sample, pendampingan BPOM hingga produksi untuk kebutuhan brand Anda.",
@@ -3896,7 +3980,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-11T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Formula Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "jasa maklon",
@@ -3908,7 +3992,8 @@ export const articlesMeta: ArticleMeta[] =
       "niacinamide",
       "custom formula",
       "1 Client 1 Formula",
-      "Dreamlab"
+      "Dreamlab",
+      "Formula Kosmetik"
     ],
     "featuredImage": "/asset artikel/jasa-maklon-underarm-brightening-cream/maklon_under_cream_11zon.jpg",
     "excerpt": "Kembangkan brand underarm brightening cream bersama Dreamlab. Custom formula, sample, branding, legalitas BPOM hingga produksi.",
@@ -3920,7 +4005,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-13T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Event"
+      "Event & Aktivitas"
     ],
     "tags": [
       "Beautypreneur",
@@ -3928,7 +4013,8 @@ export const articlesMeta: ArticleMeta[] =
       "Bisnis Skincare",
       "Maklon Skincare",
       "Product Development Skincare",
-      "Dreamlab"
+      "Dreamlab",
+      "Event"
     ],
     "featuredImage": "/assets/images/blog/beautypreneur-batch-2-dreamlab-bangun-brand.jpg",
     "excerpt": "Beautypreneur Batch 2 Dreamlab: ruang inkubasi & akselerasi bisnis skincare melalui pilar Learn, Network, dan Scale untuk membangun brand berkelanjutan.",
@@ -3940,7 +4026,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-10T14:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "Maklon Solid Perfume",
@@ -3948,7 +4034,8 @@ export const articlesMeta: ArticleMeta[] =
       "Parfum Bebas Tumpah",
       "Pabrik Parfum BPOM",
       "Jasa Maklon Parfum",
-      "Dreamlab"
+      "Dreamlab",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/images/artikel-maklon-solid-perfume-parfum-balm-bpom/pabrik_maklon_solid_parfum_hero.webp",
     "excerpt": "Peluang bisnis maklon solid perfume (parfum balm) resmi BPOM di Dreamlab. Inovasi wewangian bebas tumpah, ramah bepergian, hemat modal, dan margin ritel tebal.",
@@ -3960,7 +4047,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-11T07:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik"
+      "Formula & R&D"
     ],
     "tags": [
       "Maklon Parfum",
@@ -3968,7 +4055,8 @@ export const articlesMeta: ArticleMeta[] =
       "One Stop Maklon",
       "Custom Aroma Parfum",
       "Pabrik Parfum BPOM",
-      "Dreamlab"
+      "Dreamlab",
+      "Maklon Kosmetik"
     ],
     "featuredImage": "/assets/images/blog/maklon-parfum-partner-bisnis-hero.webp",
     "excerpt": "Panduan lengkap maklon parfum bersama One Stop Maklon Dreamlab. Dari custom aroma R&D Perfumery, desain kemasan, izin BPOM, hingga support Beauty Academy.",
@@ -4000,8 +4088,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-17T22:30:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis"
     ],
     "tags": [
       "Budget Marketing Skincare",
@@ -4010,7 +4097,8 @@ export const articlesMeta: ArticleMeta[] =
       "Meta Ads Skincare",
       "TikTok Shop Skincare",
       "KOL Skincare",
-      "Maklon Kosmetik"
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-budget-marketing-brand-skincare/cara_mengatur_budget_marketing_brand_skincare_cover.jpg",
     "excerpt": "Baru membangun brand skincare? Pelajari cara membagi budget Rp10 juta untuk produksi, MOQ, content creator, KOL, affiliate, Meta Ads, hingga strategi scale.",
@@ -4043,7 +4131,6 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-21T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik",
       "Panduan Bisnis"
     ],
     "tags": [
@@ -4051,7 +4138,8 @@ export const articlesMeta: ArticleMeta[] =
       "maklon parfum",
       "parfum refill",
       "brand parfum sendiri",
-      "bisnis parfum"
+      "bisnis parfum",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-modal-bisnis-parfum/cover-modal-bisnis-parfum.webp",
     "excerpt": "Berapa modal bisnis parfum? Bandingkan refill dan brand sendiri: modal awal, HPP, margin, legalitas BPOM, dan risiko. Lengkap dengan simulasi.",
@@ -4063,8 +4151,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-21T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Legalitas & Regulasi"
     ],
     "tags": [
       "maklon parfum halal",
@@ -4072,7 +4159,9 @@ export const articlesMeta: ArticleMeta[] =
       "sertifikat halal parfum",
       "wajib halal kosmetik 2028",
       "alkohol parfum halal",
-      "biaya sertifikasi halal kosmetik"
+      "biaya sertifikasi halal kosmetik",
+      "Maklon Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/images/artikel-maklon-parfum-halal/maklon-parfum-halal-dreamlab-cover.webp",
     "excerpt": "Wajib halal kosmetik diundur ke 17 Oktober 2028. Simak artinya untuk brand parfum, biaya dan lama sertifikasi, aturan alkohol, dan cara maklon parfum halal.",
@@ -4084,7 +4173,6 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-21T08:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik",
       "Panduan Bisnis"
     ],
     "tags": [
@@ -4093,7 +4181,8 @@ export const articlesMeta: ArticleMeta[] =
       "cara menghitung stok ramadan",
       "produksi skincare ramadan",
       "peak season ramadan",
-      "stok lebaran online shop"
+      "stok lebaran online shop",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Stok Ramadhan/cara_mengatur_stock_pada_saat_ramadhan_11zon.jpg",
     "excerpt": "Ramadan 2027 diperkirakan mulai 8 Februari. Pelajari cara menghitung stok, kalender mundur produksi, dan tips agar brand kosmetik tidak kehabisan stok.",
@@ -4105,7 +4194,6 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-21T08:15:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis Kosmetik",
       "Panduan Bisnis"
     ],
     "tags": [
@@ -4114,7 +4202,8 @@ export const articlesMeta: ArticleMeta[] =
       "ganti pabrik maklon",
       "notifikasi BPOM ganti produsen",
       "kontrak maklon skincare",
-      "formula skincare milik siapa"
+      "formula skincare milik siapa",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Cara Pindah Maklon/cara_pindah_brand_kosmetik_skincare_11zon.jpg",
     "excerpt": "Mau pindah maklon skincare? Amankan formula, merek, notifikasi BPOM, dan stok sebelum memutus kontrak. Panduan langkah demi langkah tanpa ganggu penjualan.",
@@ -4167,8 +4256,6 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-23T08:15:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Bisnis Kosmetik",
-      "Panduan Bisnis Kosmetik",
       "Panduan Bisnis"
     ],
     "tags": [
@@ -4179,7 +4266,9 @@ export const articlesMeta: ArticleMeta[] =
       "rumus stok pengaman",
       "reorder point",
       "stok habis saat promo",
-      "repeat order maklon"
+      "repeat order maklon",
+      "Bisnis Kosmetik",
+      "Panduan Bisnis Kosmetik"
     ],
     "featuredImage": "/asset artikel/MK Management Stock/strategy_stock_management_peak_Season.jpg",
     "excerpt": "Rumus stok promo double date untuk brand kosmetik: pengali lonjakan, stok pengaman, contoh hitungan, dan kapan harus order ke maklon agar tidak kehabisan.",
@@ -4191,9 +4280,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-23T08:30:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Maklon Kosmetik",
-      "Parfum",
-      "Bisnis Parfum"
+      "Panduan Bisnis"
     ],
     "tags": [
       "ide bisnis gift set parfum",
@@ -4202,7 +4289,10 @@ export const articlesMeta: ArticleMeta[] =
       "gift set parfum natal",
       "discovery set parfum",
       "modal bisnis parfum",
-      "maklon parfum gift set"
+      "maklon parfum gift set",
+      "Maklon Kosmetik",
+      "Parfum",
+      "Bisnis Parfum"
     ],
     "featuredImage": "/asset artikel/MK Gift Parfume/ide_bisnis_parfum_package_11zon.jpg",
     "excerpt": "Ide bisnis gift set parfum untuk Natal dan Ramadan: discovery set, duo signature, hampers Lebaran, lengkap dengan simulasi modal dan jadwal produksinya.",
@@ -4214,7 +4304,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-24T08:00:00+00:00",
     "author": "Tim Dreamlab",
     "categories": [
-      "Panduan Bisnis"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "maklon kosmetik Toraja",
@@ -4223,7 +4313,8 @@ export const articlesMeta: ArticleMeta[] =
       "brand skincare lokal Toraja",
       "produk kecantikan kopi Toraja",
       "maklon kosmetik Indonesia",
-      "cara membuat brand kosmetik sendiri"
+      "cara membuat brand kosmetik sendiri",
+      "Panduan Bisnis"
     ],
     "featuredImage": "/asset artikel/MK Toraja/Pabrik_maklon_kosmetik_toraja_11zon.jpg",
     "excerpt": "Mau bikin brand kosmetik dari Toraja? Simak peluang bisnis, 5 ide produk khas Toraja, dan cara maklon di pabrik CPKB bersama Dreamlab. Konsultasi gratis.",
@@ -4235,7 +4326,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-10-24T08:00:00+00:00",
     "author": "Tim Dreamlab",
     "categories": [
-      "Panduan Bisnis"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "maklon kosmetik BPOM",
@@ -4244,10 +4335,29 @@ export const articlesMeta: ArticleMeta[] =
       "maklon kosmetik halal",
       "cara jadi brand owner skincare",
       "pabrik kosmetik BPOM",
-      "maklon kosmetik Indonesia"
+      "maklon kosmetik Indonesia",
+      "Panduan Bisnis"
     ],
     "featuredImage": "/asset artikel/MK Depok/jasa_maklon_kosmetik_depok _11zon.jpg",
     "excerpt": "Mau jadi brand owner skincare di Depok? Maklon kosmetik BPOM & Halal di Dreamlab: formula eksklusif, izin diurus, konsultasi online gratis.",
+    "readingMinutes": 6
+  },
+  {
+    "slug": "/jasa-maklon-kosmetik-di-jember",
+    "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
+    "publishDate": "2026-09-02T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Jember",
+      "Custom Formula",
+      "Skincare BPOM"
+    ],
+    "featuredImage": "/images/maklon_kosmetik_jember_11zon.jpg.jpeg",
+    "excerpt": "Bikin brand skincare BPOM tren terkini di Jember. Nikmati sistem 1-client 1-formula, MOQ fleksibel, dan legalitas resmi bersama Dreamlab maklon juaranya formula.",
     "readingMinutes": 6
   },
   {
@@ -4292,7 +4402,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-07T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Commertional"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -4311,7 +4421,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-07T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Commertional"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -4330,7 +4440,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-10T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Navigational"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Maklon Kosmetik",
@@ -4349,7 +4459,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-09-10T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Navigational"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "Skincare Purwokerto",

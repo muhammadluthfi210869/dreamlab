@@ -98,14 +98,17 @@ export function ThankYouRoundRobin({
     setError(null);
     setLoading(true);
 
+    const sessionLanding = typeof sessionStorage !== "undefined" ? sessionStorage.getItem("pilot_landing_page") : null;
+    const sessionReferrer = typeof sessionStorage !== "undefined" ? sessionStorage.getItem("pilot_referrer") : null;
+
     assignLeadViaClient({
       eventId: eventIdParam,
       source: resolvedSource,
-      landingPage: fromParam || window.location.pathname,
-      referrer: document.referrer,
-      utmSource: params.get("utm_source") || undefined,
-      utmMedium: params.get("utm_medium") || undefined,
-      utmCampaign: params.get("utm_campaign") || undefined,
+      landingPage: fromParam || sessionLanding || window.location.pathname,
+      referrer: document.referrer || sessionReferrer || undefined,
+      utmSource: params.get("utm_source") || (typeof sessionStorage !== "undefined" ? sessionStorage.getItem("utm_source") : null) || undefined,
+      utmMedium: params.get("utm_medium") || (typeof sessionStorage !== "undefined" ? sessionStorage.getItem("utm_medium") : null) || undefined,
+      utmCampaign: params.get("utm_campaign") || (typeof sessionStorage !== "undefined" ? sessionStorage.getItem("utm_campaign") : null) || undefined,
       messageKey,
     })
       .then((res) => {

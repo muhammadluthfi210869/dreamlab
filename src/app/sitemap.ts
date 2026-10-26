@@ -42,10 +42,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/produk',
     '/category/maklon-kosmetik',
     '/category/panduan-bisnis',
-    '/category/panduan-bisnis-kosmetik',
-    '/category/formula-kosmetik',
-    '/category/event',
-    '/category/dreampreneur-beauty-academy',
+    '/category/formula-rd',
+    '/category/legalitas-regulasi',
+    '/category/tren-inovasi',
   ].map(route => ({
     url: `${baseUrl}${route}/`,
     lastModified: new Date(),

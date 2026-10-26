@@ -101,10 +101,16 @@ export function generatePageSchema(data: SchemaPageData) {
       headline: article.headline,
       description: description,
       image: article.image,
-      author: {
-        '@type': 'Person',
-        name: article.author,
-      },
+      author: article.author.includes('Dreamlab')
+        ? {
+            '@type': 'Organization',
+            name: article.author,
+            url: `${siteUrl}/`,
+          }
+        : {
+            '@type': 'Person',
+            name: article.author,
+          },
       publisher: {
         '@type': 'Organization',
         '@id': `${siteUrl}/#organization`,

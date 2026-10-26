@@ -100,7 +100,7 @@ export const purwokertoArticle: Article = {
   title: 'Peluang Brand Skincare di Purwokerto Bersama Partner Terpercaya Dreamlab',
   publishDate: '2026-09-10T00:00:00+00:00',
   author: 'Dreamlab Maklon Kosmetik',
-  categories: ['Navigational'],
+  categories: ['Maklon Kosmetik'],
   tags: ['Skincare Purwokerto', 'Maklon Skincare', 'Custom Formula', 'Brand Skincare'],
   featuredImage: '/images/maklon-kosmetik-purwokerto.jpg',
   excerpt: 'Ingin membangun brand skincare di Purwokerto? Temukan peluang produk, custom formula, dan pengembangan brand bersama Dreamlab sebagai partner maklon.',

@@ -253,7 +253,7 @@ export const jasaMaklonKosmetikMoneyPage: PilotPageData = {
     'Jasa maklon kosmetik Dreamlab melayani 8+ kategori: skincare, body care, hair care, parfum, baby care, decorative, foot care, dan PKRT.',
     'Sertifikasi lengkap: CPKB Grade A (nilai tertinggi), Halal MUI, dan terdaftar resmi di BPOM RI.',
     'Custom formulasi oleh tim R&D profesional — dari bahan aktif skincare hingga formula parfum kompleks.',
-    'MOQ fleksibel: mulai dari 500 pcs untuk produk standar, cocok untuk brand pemula hingga enterprise.',
+    'MOQ fleksibel: target kuantitas awal mulai 500 pcs untuk produk standar, cocok untuk brand pemula memvalidasi pasar hingga ekspansi skala besar.',
     'Free konsultasi awal: analisis produk, target market, dan estimasi biaya tanpa komitmen.',
   ],
   decisionBox: {

@@ -145,13 +145,52 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               <div className="bg-white border border-neutral-200/50 p-6 md:p-10 lg:p-12 rounded-[28px] text-brand-black shadow-sm font-sans text-base leading-relaxed max-w-4xl mx-auto xl:max-w-none">
                 <InteractiveArticleBody htmlContent={article.content} />
 
-                <div className="mt-10 pt-6 border-t border-neutral-200 flex gap-4 items-center">
-                  <div className="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold font-display text-lg shadow-sm">
-                    {article.author.charAt(0).toUpperCase()}
+                <div className="mt-10 pt-6 border-t border-neutral-200 flex flex-wrap gap-4 items-center justify-between">
+                  <div className="flex gap-4 items-center">
+                    <div className="w-12 h-12 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold font-display text-lg shadow-sm">
+                      {article.author.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Penulis &amp; Editor</p>
+                      <h4 className="text-sm font-bold text-brand-black uppercase">{article.author}</h4>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Penulis</p>
-                    <h4 className="text-sm font-bold text-brand-black uppercase">{article.author}</h4>
+                  <div className="text-[11px] text-neutral-500 bg-neutral-50 border border-neutral-200/60 px-3 py-1.5 rounded-lg">
+                    <span className="font-bold text-neutral-700">Ditinjau oleh:</span> Tim Regulasi &amp; Formulator R&amp;D Dreamlab (CPKB Grade A)
+                  </div>
+                </div>
+
+                {/* Contextual B2B Manufacturing Service Box */}
+                <div className="mt-8 p-6 md:p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-2xl text-white border border-neutral-800 shadow-md">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div className="space-y-2">
+                      <div className="inline-flex items-center gap-2 bg-brand-orange/20 text-brand-orange border border-brand-orange/30 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                        <span>Solusi Manufaktur B2B</span>
+                      </div>
+                      <h3 className="text-lg md:text-xl font-display font-normal text-white uppercase leading-snug">
+                        Tertarik Memproduksi Kosmetik dengan Standar Pabrik Resmi?
+                      </h3>
+                      <p className="text-white/70 text-xs md:text-sm leading-relaxed max-w-xl">
+                        Dreamlab melayani maklon kosmetik satu atap: riset formula eksklusif (1 Client = 1 Formula), perizinan BPOM &amp; Halal, hingga produksi massal bersertifikat CPKB Grade A.
+                      </p>
+                      <div className="flex flex-wrap gap-3 pt-2 text-xs font-bold text-neutral-300">
+                        <Link href="/jasa-maklon-kosmetik" className="hover:text-brand-orange underline underline-offset-4 decoration-brand-orange/40">
+                          → Layanan Maklon Kosmetik
+                        </Link>
+                        <Link href="/biaya-maklon-skincare" className="hover:text-brand-orange underline underline-offset-4 decoration-brand-orange/40">
+                          → Biaya &amp; HPP Maklon
+                        </Link>
+                        <Link href="/moq-maklon-kosmetik" className="hover:text-brand-orange underline underline-offset-4 decoration-brand-orange/40">
+                          → Panduan MOQ 500+ Pcs
+                        </Link>
+                      </div>
+                    </div>
+                    <Link
+                      href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=article_body_box`}
+                      className="shrink-0 bg-brand-orange hover:bg-[#D98200] text-white px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-brand-orange/25"
+                    >
+                      Konsultasi Gratis
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -225,19 +264,33 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 </div>
               </div>
 
-              <div className="bg-brand-black p-6 rounded-2xl text-white shadow-md relative overflow-hidden">
-                <span className="text-[9px] font-black bg-white/10 px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
-                  Konsultasi Gratis
+              <div className="bg-brand-black p-6 rounded-2xl text-white shadow-md relative overflow-hidden border border-neutral-800">
+                <span className="text-[9px] font-black bg-brand-orange/20 text-brand-orange border border-brand-orange/30 px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
+                  Konsultasi Pabrik Kosmetik
                 </span>
-                <h3 className="text-lg font-display uppercase leading-tight mb-2">
+                <h3 className="text-lg font-display uppercase leading-tight mb-2 text-white">
                   Mulai Brand Anda Hari Ini
                 </h3>
-                <p className="text-neutral-400 text-xs mb-6 leading-relaxed font-semibold">
+                <p className="text-neutral-400 text-xs mb-4 leading-relaxed font-semibold">
                   Konsultasikan formulasi produk, sertifikasi BPOM, dan desain kemasan bersama tim expert Dreamlab.
                 </p>
+                <div className="space-y-2 mb-6 text-[10px] font-bold text-neutral-300">
+                  <div className="flex items-center gap-2">
+                    <span className="text-brand-orange font-black">✓</span>
+                    <span>MOQ fleksibel (target awal 500+ pcs)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-brand-orange font-black">✓</span>
+                    <span>1 Client = 1 Custom Formula</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-brand-orange font-black">✓</span>
+                    <span>Pabrik CPKB Grade A &amp; BPOM</span>
+                  </div>
+                </div>
                 <Link
-                  href="/thankyou/google/"
-                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all"
+                  href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=sidebar_article`}
+                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all shadow-md shadow-brand-orange/20"
                 >
                   <MessageCircle className="w-4 h-4" />
                   KONSULTASI VIA WHATSAPP

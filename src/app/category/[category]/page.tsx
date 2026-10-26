@@ -21,11 +21,29 @@ interface CategoryPageProps {
   }>;
 }
 
+export const CATEGORY_SLUG_MAP: Record<string, string> = {
+  'maklon-kosmetik': 'Maklon Kosmetik',
+  'panduan-bisnis': 'Panduan Bisnis',
+  'formula-rd': 'Formula & R&D',
+  'formula-r-d': 'Formula & R&D',
+  'formula-kosmetik': 'Formula & R&D',
+  'legalitas-regulasi': 'Legalitas & Regulasi',
+  'tren-inovasi': 'Tren & Inovasi',
+  'aipreneur': 'AIpreneur',
+  'event-aktivitas': 'Event & Aktivitas',
+  'event': 'Event & Aktivitas',
+  'panduan-bisnis-kosmetik': 'Panduan Bisnis',
+  'bisnis-kosmetik': 'Panduan Bisnis',
+  'bisnis-parfum': 'Panduan Bisnis',
+};
+
 // Helper to match slug to category name
 async function getCategoryName(slug: string): Promise<string | null> {
+  if (CATEGORY_SLUG_MAP[slug]) return CATEGORY_SLUG_MAP[slug];
   const articlesList = await getArticles();
   const categoryNames = Array.from(new Set(articlesList.flatMap((a: any) => a.categories).filter(Boolean)));
   return categoryNames.find((name: string) => 
+    name.toLowerCase().replace(/ & /g, '-').replace(/&/g, '').replace(/ /g, '-') === slug ||
     name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-') === slug
   ) || null;
 }
@@ -168,7 +186,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 }
 
 export async function generateStaticParams() {
-  const PILLARS = ['maklon-kosmetik', 'panduan-bisnis', 'panduan-bisnis-kosmetik', 'formula-kosmetik', 'event', 'dreampreneur-beauty-academy'];
+  const PILLARS = [
+    'maklon-kosmetik',
+    'panduan-bisnis',
+    'formula-rd',
+    'legalitas-regulasi',
+    'tren-inovasi',
+    'aipreneur',
+    'event-aktivitas',
+    'formula-kosmetik',
+    'event',
+    'panduan-bisnis-kosmetik',
+    'bisnis-kosmetik',
+    'dreampreneur-beauty-academy',
+  ];
   return PILLARS.map(category => ({ category }));
 }
 

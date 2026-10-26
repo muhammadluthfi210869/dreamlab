@@ -44,7 +44,15 @@ function getReadingTime(article: { readingMinutes: number }) {
   return Math.max(1, article.readingMinutes || 1);
 }
 
-const PILLAR_CATEGORIES = ['Maklon Kosmetik', 'Panduan Bisnis', 'Formula Kosmetik', 'Event'];
+export const PILLAR_CATEGORIES = [
+  'Maklon Kosmetik',
+  'Panduan Bisnis',
+  'Formula & R&D',
+  'Legalitas & Regulasi',
+  'Tren & Inovasi',
+  'AIpreneur',
+  'Event & Aktivitas',
+];
 const POSTS_PER_PAGE = 12;
 
 export default function BlogArchivePage() {
@@ -132,24 +140,21 @@ export default function BlogArchivePage() {
         </div>
       </section>
 
-      {/* Category Navigation Bar */}
-      <div className="bg-white border-b border-gray-100 py-6">
+      {/* Category Navigation Bar - Responsive & Horizontal Scroll on Mobile */}
+      <div className="bg-white border-b border-gray-100 py-4 sticky top-16 md:top-20 z-20 backdrop-blur-md bg-white/95 shadow-sm">
         <div className="container-custom">
-          <div className="flex items-center gap-8 overflow-x-auto no-scrollbar py-2">
+          <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-1">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
-                className={`relative whitespace-nowrap pb-4 text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
+                className={`relative whitespace-nowrap px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                   activeCategory === cat 
-                    ? 'text-brand-orange scale-105 font-bold' 
-                    : 'text-brand-black/40 hover:text-brand-black/80'
+                    ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/20 scale-[1.02]' 
+                    : 'bg-neutral-50 text-neutral-500 hover:bg-neutral-100 hover:text-brand-black'
                 }`}
               >
                 {cat}
-                {activeCategory === cat && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-brand-orange rounded-full animate-fade-in" />
-                )}
               </button>
             ))}
           </div>
@@ -345,6 +350,41 @@ onChange={(e) => handleSearch(e.target.value)}
                       )}
                     </span>
                   </div>
+                </div>
+
+                {/* B2B Manufacturing Consultation Widget */}
+                <div className="bg-brand-black p-8 rounded-[36px] text-white shadow-xl relative overflow-hidden border border-neutral-800">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/20 rounded-full blur-3xl pointer-events-none"></div>
+                  <span className="text-[10px] font-black bg-brand-orange/20 text-brand-orange border border-brand-orange/30 px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">
+                    Konsultasi Pabrik Kosmetik
+                  </span>
+                  <h4 className="text-xl font-display font-normal uppercase leading-tight mb-3 text-white">
+                    Rencanakan Brand Kosmetik Anda
+                  </h4>
+                  <p className="text-white/70 text-xs mb-6 leading-relaxed font-medium">
+                    Konsultasikan konsep produk, formulasi custom bersama R&amp;D Dreamlab, dan pengurusan izin edar BPOM resmi.
+                  </p>
+                  <div className="space-y-2.5 mb-6 text-[11px] font-bold text-white/90">
+                    <div className="flex items-center gap-2">
+                      <span className="text-brand-orange font-black">✓</span>
+                      <span>MOQ fleksibel (target awal 500+ pcs)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-brand-orange font-black">✓</span>
+                      <span>Prinsip 1 Client = 1 Custom Formula</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-brand-orange font-black">✓</span>
+                      <span>Fasilitas CPKB Grade A &amp; Halal MUI</span>
+                    </div>
+                  </div>
+                  <Link
+                    href="/thankyou/google/?source=organic&from=/news-blog/"
+                    className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 px-6 rounded-2xl font-black text-xs tracking-wider transition-all shadow-lg shadow-brand-orange/30 text-center"
+                  >
+                    <span>KONSULTASI VIA WHATSAPP</span>
+                    <span>→</span>
+                  </Link>
                 </div>
 
                 {/* Latest Insights Widget */}
