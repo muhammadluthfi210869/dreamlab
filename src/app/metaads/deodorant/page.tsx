@@ -17,6 +17,7 @@ import {
 import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
 import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
 import { LeadQualificationModal } from '@/components/LeadQualificationModal';
+import { FloatingWhatsAppCTA } from '@/components/FloatingWhatsAppCTA';
 import { trackLeadEvent } from '@/lib/lead-analytics';
 
 const fadeUp = {
@@ -649,6 +650,9 @@ export default function DeodorantMetaAdsLP() {
           </p>
         </div>
       </footer>
+
+      {/* Floating WhatsApp CTA */}
+      <FloatingWhatsAppCTA onClick={() => openQualification('floating-whatsapp')} />
 
       {/* Lead Qualification Modal */}
       <LeadQualificationModal

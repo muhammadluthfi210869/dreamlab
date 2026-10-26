@@ -12,6 +12,7 @@ import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibility
 import { aboutData } from "@/data/about-us";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { LeadQualificationModal } from "@/components/LeadQualificationModal";
+import { FloatingWhatsAppCTA } from "@/components/FloatingWhatsAppCTA";
 import { trackLeadEvent } from "@/lib/lead-analytics";
 
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
@@ -374,16 +375,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
           </section>
         </main>
         
-        <button
-          type="button"
-          className="wa track"
-          data-location="floating-whatsapp"
-          onClick={() => openQualification("floating-whatsapp")}
-          aria-label="Konsultasi WhatsApp"
-          style={{ cursor: "pointer", border: "none" }}
-        >
-          ✆
-        </button>
+        <FloatingWhatsAppCTA onClick={() => openQualification("floating-whatsapp")} />
       </div>
 
       {/* Lead Qualification Modal */}
