@@ -11,6 +11,8 @@ import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 import { aboutData } from "@/data/about-us";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
+import { LeadQualificationModal } from "@/components/LeadQualificationModal";
+import { trackLeadEvent } from "@/lib/lead-analytics";
 
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
   ssr: true,
@@ -18,7 +20,19 @@ const LogoScroll = dynamic(() => import("@/components/LogoScroll"), {
 });
 
 export default function MaklonBodyCareLanding({ source }: { source: "google_ads" | "meta_ads" }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useMetaAdsCtaPixel(source === "meta_ads" ? "Maklon Body Care" : "");
+
+  const openQualification = (location: string) => {
+    trackLeadEvent('consultation_cta_clicked', {
+      source: source === "meta_ads" ? "meta-bodycare" : "google-bodycare",
+      channel: source === "meta_ads" ? "metaads" : "google-ads",
+      category: "Bodycare",
+      location,
+    });
+    setIsModalOpen(true);
+  };
 
   const ctaHref = source === "meta_ads"
     ? "/ads/thankyou/metaads/?source=meta-bodycare&from=/maklon-bodycare-ads/"
@@ -206,7 +220,15 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
             <div className="wrap hero-copy">
               <span className="eyebrow">#1 Maklon Bodycare</span>
               <h1><span>Mau Buat Brand Body Care Custom dengan</span> <em>Formula Eksklusif?</em></h1>
-              <a className="btn track" data-location="hero" href={ctaHref}>KONSULTASI BRAND ANDA &rarr;</a>
+              <button
+                type="button"
+                className="btn track"
+                data-location="hero"
+                onClick={() => openQualification("hero")}
+                style={{ cursor: "pointer", border: "none" }}
+              >
+                KONSULTASI BRAND ANDA &rarr;
+              </button>
               
             </div>
           </section>
@@ -283,7 +305,15 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
               </div>
               
               <div style={{ textAlign: "center", marginTop: "32px" }}>
-                <a className="btn track" data-location="process" href={ctaHref}>KONSULTASI BRAND ANDA &rarr;</a>
+                <button
+                  type="button"
+                  className="btn track"
+                  data-location="process"
+                  onClick={() => openQualification("process")}
+                  style={{ cursor: "pointer", border: "none" }}
+                >
+                  KONSULTASI BRAND ANDA &rarr;
+                </button>
               </div>
             </div>
           </section>
@@ -300,7 +330,15 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
                   <li>Strategi memasarkan dan menjual produk secara online</li>
                   <li>Networking bersama komunitas beautypreneur</li>
                 </ul>
-                <a className="btn track" data-location="academy" href={ctaHref}>Jadi Partner Dreamlab &rarr;</a>
+                <button
+                  type="button"
+                  className="btn track"
+                  data-location="academy"
+                  onClick={() => openQualification("academy")}
+                  style={{ cursor: "pointer", border: "none" }}
+                >
+                  Jadi Partner Dreamlab &rarr;
+                </button>
               </div>
               <div className="academy-collage">
                 <Image src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
@@ -324,14 +362,39 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
             <span className="eyebrow">MULAI DARI IDE BODY CARE ANDA</span>
             <h2>SIAP MEMBANGUN BRAND BODY CARE ANDA?</h2>
             <p>Mulai dari konsep formulasi sampai siap masuk market bersama Dreamlab.</p>
-            <a className="btn track" data-location="closing" href={ctaHref}>KONSULTASI BRAND ANDA &rarr;</a>
+            <button
+              type="button"
+              className="btn track"
+              data-location="closing"
+              onClick={() => openQualification("closing")}
+              style={{ cursor: "pointer", border: "none" }}
+            >
+              KONSULTASI BRAND ANDA &rarr;
+            </button>
           </section>
         </main>
         
-        <a className="wa track" data-location="floating-whatsapp" href={ctaHref} aria-label="Konsultasi WhatsApp">
+        <button
+          type="button"
+          className="wa track"
+          data-location="floating-whatsapp"
+          onClick={() => openQualification("floating-whatsapp")}
+          aria-label="Konsultasi WhatsApp"
+          style={{ cursor: "pointer", border: "none" }}
+        >
           ✆
-        </a>
+        </button>
       </div>
+
+      {/* Lead Qualification Modal */}
+      <LeadQualificationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultCategory="Bodycare"
+        source={source === "meta_ads" ? "meta-bodycare" : "google-bodycare"}
+        channel={source === "meta_ads" ? "metaads" : "google-ads"}
+        landingPage={source === "meta_ads" ? "/maklon-bodycare-ads/" : "/google-ads/maklon-body-care/"}
+      />
     </>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,6 +16,8 @@ import {
 } from 'lucide-react';
 import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
 import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
+import { LeadQualificationModal } from '@/components/LeadQualificationModal';
+import { trackLeadEvent } from '@/lib/lead-analytics';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -90,7 +93,19 @@ const products = [
 ];
 
 export default function DeodorantMetaAdsLP() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useMetaAdsCtaPixel('Deodorant');
+
+  const openQualification = (location: string) => {
+    trackLeadEvent('consultation_cta_clicked', {
+      source: 'meta-deodorant',
+      channel: 'metaads',
+      category: 'Bodycare',
+      location,
+    });
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
@@ -143,13 +158,14 @@ export default function DeodorantMetaAdsLP() {
               className="flex flex-col sm:flex-row gap-4 pt-2"
               variants={fadeUp}
             >
-              <Link
-                href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
+              <button
+                type="button"
+                onClick={() => openQualification('hero')}
+                className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
                 Konsultasi Gratis Sekarang
-              </Link>
+              </button>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -461,13 +477,14 @@ export default function DeodorantMetaAdsLP() {
           </div>
 
           <div className="text-center mt-12 md:mt-16">
-            <Link
-              href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25"
+            <button
+              type="button"
+              onClick={() => openQualification('process')}
+              className="inline-flex items-center gap-2 px-10 py-5 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/25 cursor-pointer"
             >
               <span>KONSULTASI BRAND DEODORANT ANDA</span>
               <ArrowRight className="w-5 h-5" />
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -541,13 +558,14 @@ export default function DeodorantMetaAdsLP() {
               </div>
 
               <div>
-                <Link
-                  href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20"
+                <button
+                  type="button"
+                  onClick={() => openQualification('academy')}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20 cursor-pointer"
                 >
                   <span>KONSULTASI BERSAMA DREAMLAB</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -609,13 +627,14 @@ export default function DeodorantMetaAdsLP() {
             Dapatkan konsultasi GRATIS dengan tim Dreamlab. Kami bantu dari konsep formula
             sampai strategi go-to-market. Hubungi kami sekarang, tim kami siap mendampingi.
           </p>
-          <Link
-            href="/ads/thankyou/metaads/?source=meta-deodorant&from=/metaads/deodorant/"
-            className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
+          <button
+            type="button"
+            onClick={() => openQualification('closing')}
+            className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
             <MessageCircle className="w-5 h-5 shrink-0" />
             Konsultasi Gratis Sekarang
-          </Link>
+          </button>
         </motion.div>
       </motion.section>
 
@@ -630,6 +649,16 @@ export default function DeodorantMetaAdsLP() {
           </p>
         </div>
       </footer>
+
+      {/* Lead Qualification Modal */}
+      <LeadQualificationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultCategory="Bodycare"
+        source="meta-deodorant"
+        channel="metaads"
+        landingPage="/metaads/deodorant/"
+      />
     </div>
   );
 }
