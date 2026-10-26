@@ -36,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/career',
     '/terms-of-service',
     '/privacy-policy',
+    '/terms',
+    '/data-deletion',
     // Halaman hub katalog produk (breadcrumb semua produk menunjuk ke sini)
     '/produk',
     '/category/maklon-kosmetik',

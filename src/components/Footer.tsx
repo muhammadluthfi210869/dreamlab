@@ -122,6 +122,12 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="pt-10 border-t border-white/5 text-center">
+          {/* Halaman legal hanya tersedia dalam Bahasa Indonesia: tanpa L() agar tidak mengarah ke /en/... */}
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-5 text-xs text-gray-300">
+            <li><Link href="/privacy-policy/" className="hover:text-brand-orange transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/terms/" className="hover:text-brand-orange transition-colors">Terms</Link></li>
+            <li><Link href="/data-deletion/" className="hover:text-brand-orange transition-colors">Data Deletion</Link></li>
+          </ul>
           <p className="text-[11px] font-medium text-gray-500 tracking-wide uppercase">
             © PT Karya Impian Laboratoris (2021 - {currentYear}) @All Right Reserved
           </p>
