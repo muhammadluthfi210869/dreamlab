@@ -73,6 +73,28 @@ export function ThankYouRoundRobin({
       messageKey = intentSource;
     }
 
+    // Check if coming from Smart Qualification Form (avoids duplicate lead assignment)
+    const qualifiedWaUrl =
+      params.get("wa_url") ||
+      (typeof sessionStorage !== "undefined"
+        ? sessionStorage.getItem("dl_qualified_wa_url")
+        : null);
+
+    if (qualifiedWaUrl) {
+      if (typeof sessionStorage !== "undefined") {
+        sessionStorage.removeItem("dl_qualified_wa_url");
+      }
+      setAssignment({
+        success: true,
+        assignmentId: params.get("inquiry") || "QUALIFIED",
+        source: resolvedSource,
+        sales: { id: "0", name: "Business Consultant Dreamlab" },
+        whatsappUrl: qualifiedWaUrl,
+      });
+      setLoading(false);
+      return;
+    }
+
     setError(null);
     setLoading(true);
 
