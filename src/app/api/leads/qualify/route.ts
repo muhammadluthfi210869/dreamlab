@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool, { queryWithRetry } from '@/lib/db';
 import { convertLead } from '@/lib/round-robin-db';
 import { syncLeadToKommo } from '@/lib/kommo-adapter';
+import { validateAndNormalizePhone } from '@/lib/country-phone-data';
+import { CountryCode } from 'libphonenumber-js';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -12,33 +14,18 @@ const NO_STORE_HEADERS = {
   Expires: '0',
 };
 
-function normalizePhone(phone: string): string {
-  let cleaned = (phone || '').replace(/[\s\-\(\)\+]/g, '');
-  if (cleaned.startsWith('0')) {
-    cleaned = '62' + cleaned.slice(1);
-  }
-  return cleaned;
+export interface ProductionTierConfig {
+  name: string;
+  quantityPcs: number;
+  segment: string;
 }
 
-function computeLeadSegment(quantityRange: string): string {
-  if (quantityRange.includes('100–499') || quantityRange.includes('100-499')) {
-    return 'Micro Prospect';
-  }
-  if (quantityRange.includes('500–999') || quantityRange.includes('500-999')) {
-    return 'MOQ Fit';
-  }
-  if (
-    quantityRange.includes('1.000–4.999') ||
-    quantityRange.includes('1000-4999') ||
-    quantityRange.includes('1.000-4.999')
-  ) {
-    return 'Growth Prospect';
-  }
-  if (quantityRange.includes('5.000+') || quantityRange.includes('5000+')) {
-    return 'Strategic Prospect';
-  }
-  return 'Unclassified';
-}
+export const PRODUCTION_TIERS: ProductionTierConfig[] = [
+  { name: 'Brand Starter', quantityPcs: 300, segment: 'Micro Prospect' },
+  { name: 'Brand Launch', quantityPcs: 500, segment: 'MOQ Fit' },
+  { name: 'Brand Growth', quantityPcs: 1000, segment: 'Growth Prospect' },
+  { name: 'Brand Partner', quantityPcs: 5000, segment: 'Strategic Prospect' },
+];
 
 function generateInquiryReference(): string {
   const d = new Date();
@@ -61,12 +48,15 @@ export async function POST(req: NextRequest) {
 
     const {
       category,
+      productionTierName,
+      requestedQuantityPcs: rawQty,
       quantityRange,
       budgetRange,
       productionTimeline,
       businessStatus,
       fullName,
       whatsappPhone,
+      phoneCountryIso2 = 'ID',
       brandOrCompany,
       source,
       channel,
@@ -83,47 +73,82 @@ export async function POST(req: NextRequest) {
       eventId,
     } = body;
 
-    // 1. Server-side validation
+    // 1. Validate full name
     if (!fullName || typeof fullName !== 'string' || fullName.trim().length < 2) {
       return NextResponse.json(
-        { success: false, error: 'Nama lengkap wajib diisi (minimal 2 karakter)' },
+        { success: false, error: 'Nama lengkap wajib diisi (minimal 2 karakter).' },
         { status: 400, headers: NO_STORE_HEADERS }
       );
     }
 
-    const cleanPhone = normalizePhone(whatsappPhone);
-    if (!cleanPhone || cleanPhone.length < 9 || cleanPhone.length > 16) {
+    // 2. Validate product category
+    if (!category || typeof category !== 'string' || !category.trim()) {
       return NextResponse.json(
-        { success: false, error: 'Nomor WhatsApp tidak valid (contoh: 081234567890)' },
+        { success: false, error: 'Kategori produk wajib dipilih.' },
         { status: 400, headers: NO_STORE_HEADERS }
       );
     }
 
-    if (!category) {
+    // 3. Match Production Tier or fallback
+    let matchedTier = PRODUCTION_TIERS.find(
+      (t) =>
+        t.name.toLowerCase() === (productionTierName || '').toLowerCase() ||
+        t.quantityPcs === Number(rawQty)
+    );
+
+    if (!matchedTier && quantityRange) {
+      if (quantityRange.includes('300')) {
+        matchedTier = PRODUCTION_TIERS[0];
+      } else if (quantityRange.includes('500')) {
+        matchedTier = PRODUCTION_TIERS[1];
+      } else if (quantityRange.includes('1.000') || quantityRange.includes('1000')) {
+        matchedTier = PRODUCTION_TIERS[2];
+      } else if (quantityRange.includes('5.000') || quantityRange.includes('5000')) {
+        matchedTier = PRODUCTION_TIERS[3];
+      }
+    }
+
+    if (!matchedTier) {
       return NextResponse.json(
-        { success: false, error: 'Kategori produk wajib dipilih' },
+        { success: false, error: 'Silakan pilih salah satu tier kuantitas produksi yang tersedia.' },
         { status: 400, headers: NO_STORE_HEADERS }
       );
     }
 
-    if (!quantityRange) {
+    const resolvedTierName = matchedTier.name;
+    const resolvedQtyPcs = matchedTier.quantityPcs;
+    const resolvedSegment = matchedTier.segment;
+    const resolvedQuantityRange = `${resolvedQtyPcs.toLocaleString('id-ID')} pcs`;
+
+    // 4. Validate & Normalize International Phone Number (E.164)
+    const phoneValidation = validateAndNormalizePhone(
+      whatsappPhone,
+      (phoneCountryIso2 || 'ID') as CountryCode
+    );
+
+    if (!phoneValidation.isValid) {
       return NextResponse.json(
-        { success: false, error: 'Rencana kuantitas produksi (MOQ) wajib dipilih' },
+        {
+          success: false,
+          error:
+            phoneValidation.error ||
+            'Nomor WhatsApp tidak valid. Pastikan kode negara dan digit nomor sudah sesuai.',
+        },
         { status: 400, headers: NO_STORE_HEADERS }
       );
     }
 
-    const safeBudgetRange = budgetRange || '-';
-    const safeProductionTimeline = productionTimeline || '-';
-    const safeBusinessStatus = businessStatus || '-';
+    const cleanPhoneE164 = phoneValidation.e164; // e.g. +6281234567890
+    const localHp = cleanPhoneE164.replace(/^\+/, ''); // e.g. 6281234567890 for backward compatibility
+    const countryIso = phoneValidation.countryIso2;
+    const countryDial = phoneValidation.dialCode;
 
-    // 2. Segment and references
-    const leadSegment = computeLeadSegment(quantityRange);
+    // 5. Generate references
     const inquiryRef = generateInquiryReference();
     const effectiveSource = source || channel || 'paid-ads';
     const effectiveLandingPage = landingPage || '/';
 
-    // 3. Atomically assign BusDev & insert initial record via existing DB engine
+    // 6. Assign BusDev & insert initial record via existing DB engine
     let assignedSalesName = 'Annisa';
     let assignedSalesPhone = '6281952417051';
     let trackingCode = inquiryRef;
@@ -131,8 +156,8 @@ export async function POST(req: NextRequest) {
     try {
       const conv = await convertLead({
         visitorId: visitorId || inquiryRef,
-        hp: cleanPhone,
-        intent: `[QUALIFIED] ${category} - ${quantityRange}`,
+        hp: localHp,
+        intent: `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
         source: effectiveSource,
         pageUrl: effectiveLandingPage,
         referrer: referrer || undefined,
@@ -147,48 +172,62 @@ export async function POST(req: NextRequest) {
       });
 
       assignedSalesName = conv.name || assignedSalesName;
-      assignedSalesPhone = conv.phoneNumber ? normalizePhone(conv.phoneNumber) : assignedSalesPhone;
+      assignedSalesPhone = conv.phoneNumber
+        ? conv.phoneNumber.replace(/[^0-9]/g, '')
+        : assignedSalesPhone;
       trackingCode = conv.trackingCode || inquiryRef;
     } catch (dbErr) {
       console.error('[Qualify Route] convertLead warning, falling back to direct query:', dbErr);
     }
 
-    // 4. Update the lead record with complete qualification attributes
+    // 7. Update lead record with complete tier & international phone attributes
     try {
       await pool.query(
         `UPDATE leads
          SET 
-           quantity_range = $1,
-           budget_range = $2,
-           production_timeline = $3,
-           business_status = $4,
-           lead_segment = $5,
-           qualification_status = $6,
-           inquiry_reference = $7,
-           utm_content = $8,
-           utm_term = $9,
-           gclid = $10,
-           fbclid = $11,
-           nama = COALESCE(nama, $12),
-           perusahaan = COALESCE(perusahaan, $13),
-           hp = COALESCE(hp, $14),
-           produk = COALESCE(produk, $15)
-         WHERE tracking_code = $16 OR tracking_code = $7`,
+           production_tier_name = $1,
+           requested_quantity_pcs = $2,
+           lead_quantity_segment = $3,
+           whatsapp_phone_e164 = $4,
+           phone_country_iso2 = $5,
+           phone_country_dial_code = $6,
+           quantity_range = $7,
+           lead_segment = $8,
+           qualification_status = $9,
+           inquiry_reference = $10,
+           budget_range = $11,
+           production_timeline = $12,
+           business_status = $13,
+           utm_content = $14,
+           utm_term = $15,
+           gclid = $16,
+           fbclid = $17,
+           nama = COALESCE(nama, $18),
+           perusahaan = COALESCE(perusahaan, $19),
+           hp = COALESCE(hp, $20),
+           produk = COALESCE(produk, $21)
+         WHERE tracking_code = $22 OR tracking_code = $10`,
         [
-          quantityRange,
-          safeBudgetRange,
-          safeProductionTimeline,
-          safeBusinessStatus,
-          leadSegment,
-          'Marketing Qualified',
+          resolvedTierName,
+          resolvedQtyPcs,
+          resolvedSegment,
+          cleanPhoneE164,
+          countryIso,
+          countryDial,
+          resolvedQuantityRange,
+          resolvedSegment,
+          'Marketing Qualified', // Quantity selection alone must never classify a prospect as Sales Qualified
           inquiryRef,
+          budgetRange || '-',
+          productionTimeline || '-',
+          businessStatus || '-',
           utmContent || null,
           utmTerm || null,
           gclid || null,
           fbclid || null,
           fullName.trim(),
           brandOrCompany ? brandOrCompany.trim() : null,
-          cleanPhone,
+          localHp,
           category,
           trackingCode,
         ]
@@ -197,7 +236,7 @@ export async function POST(req: NextRequest) {
       console.error('[Qualify Route] Failed to update qualification columns on leads table:', updateErr);
     }
 
-    // 5. Trigger Kommo CRM synchronization adapter
+    // 8. Trigger Kommo CRM synchronization adapter
     let crmSyncStatus: 'synced' | 'pending_configuration' | 'failed' = 'pending_configuration';
     let crmContactId: string | number | undefined;
     let crmLeadId: string | number | undefined;
@@ -206,13 +245,19 @@ export async function POST(req: NextRequest) {
       const syncResult = await syncLeadToKommo({
         inquiryReference: inquiryRef,
         category,
-        quantityRange,
-        budgetRange: safeBudgetRange,
-        productionTimeline: safeProductionTimeline,
-        businessStatus: safeBusinessStatus,
-        leadSegment,
+        productionTierName: resolvedTierName,
+        requestedQuantityPcs: resolvedQtyPcs,
+        leadQuantitySegment: resolvedSegment,
+        quantityRange: resolvedQuantityRange,
+        budgetRange: budgetRange || '-',
+        productionTimeline: productionTimeline || '-',
+        businessStatus: businessStatus || '-',
+        leadSegment: resolvedSegment,
         fullName: fullName.trim(),
-        whatsappPhone: cleanPhone,
+        whatsappPhone: localHp,
+        whatsappPhoneE164: cleanPhoneE164,
+        phoneCountryIso2: countryIso,
+        phoneCountryDialCode: countryDial,
         brandOrCompany: brandOrCompany ? brandOrCompany.trim() : undefined,
         sourceChannel: channel || 'paid-ads',
         campaign: utmCampaign,
@@ -231,7 +276,6 @@ export async function POST(req: NextRequest) {
       crmContactId = syncResult.contactId;
       crmLeadId = syncResult.leadId;
 
-      // Persist CRM synchronization status into DB
       await pool.query(
         `UPDATE leads
          SET crm_sync_status = $1,
@@ -252,14 +296,14 @@ export async function POST(req: NextRequest) {
       crmSyncStatus = 'failed';
     }
 
-    // 6. Generate formatted WhatsApp message delivering Nama, Mau Buat Apa, dan MOQ ke BD
+    // 9. Generate formatted WhatsApp message delivering tier and E.164 phone to BD
     const waMessageText = [
       'Halo Dreamlab, saya ingin konsultasi produksi maklon.',
       '',
       `Nama: ${fullName.trim()}`,
       `Mau Buat Apa: ${category}`,
-      `MOQ / Rencana Produksi: ${quantityRange}`,
-      `Nomor WhatsApp: ${cleanPhone}`,
+      `Tier Produksi: ${resolvedTierName} (${resolvedQtyPcs.toLocaleString('id-ID')} pcs)`,
+      `Nomor WhatsApp: ${cleanPhoneE164}`,
       `Kode Konsultasi: ${inquiryRef}`,
       '',
       'Saya ingin melanjutkan diskusi dengan tim Business Consultant Dreamlab. Terima kasih!',
@@ -271,7 +315,9 @@ export async function POST(req: NextRequest) {
       {
         success: true,
         inquiryReference: inquiryRef,
-        leadSegment,
+        productionTierName: resolvedTierName,
+        requestedQuantityPcs: resolvedQtyPcs,
+        leadSegment: resolvedSegment,
         assignedSales: {
           name: assignedSalesName,
           phone: assignedSalesPhone,
@@ -285,11 +331,11 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (err: any) {
-    console.error('[Qualify Route] Critical error processing lead qualification:', err);
+    console.error('[Qualify Route] Fatal submission handler error:', err);
     return NextResponse.json(
       {
         success: false,
-        error: err?.message || 'Terjadi kesalahan sistem saat memproses kualifikasi.',
+        error: 'Terjadi kesalahan sistem saat memproses kualifikasi. Silakan coba kembali.',
       },
       { status: 500, headers: NO_STORE_HEADERS }
     );

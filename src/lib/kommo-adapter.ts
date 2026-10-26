@@ -9,13 +9,19 @@
 export interface LeadQualificationPayload {
   inquiryReference: string;
   category: string;
-  quantityRange: string;
-  budgetRange: string;
-  productionTimeline: string;
-  businessStatus: string;
-  leadSegment: string;
+  productionTierName?: string;
+  requestedQuantityPcs?: number;
+  leadQuantitySegment?: string;
+  quantityRange?: string;
+  budgetRange?: string;
+  productionTimeline?: string;
+  businessStatus?: string;
+  leadSegment?: string;
   fullName: string;
   whatsappPhone: string;
+  whatsappPhoneE164?: string;
+  phoneCountryIso2?: string;
+  phoneCountryDialCode?: string;
   brandOrCompany?: string;
   sourceChannel: string;
   campaign?: string;
@@ -75,7 +81,12 @@ export async function syncLeadToKommo(
     };
   }
 
-  const phone = cleanPhoneNumber(data.whatsappPhone);
+  // Use normalized E.164 phone if provided, otherwise clean local phone
+  const searchPhone = data.whatsappPhoneE164
+    ? data.whatsappPhoneE164.replace(/[^0-9]/g, '')
+    : cleanPhoneNumber(data.whatsappPhone);
+
+  const phoneValue = data.whatsappPhoneE164 || `+${searchPhone}`;
   const baseUrl = getBaseUrl();
 
   try {
@@ -83,7 +94,7 @@ export async function syncLeadToKommo(
     let contactId: number | null = null;
     let existingOwnerId: number | null = null;
 
-    const searchUrl = `${baseUrl}/contacts?query=${encodeURIComponent(phone)}`;
+    const searchUrl = `${baseUrl}/contacts?query=${encodeURIComponent(searchPhone)}`;
     const searchRes = await fetch(searchUrl, {
       method: 'GET',
       headers: {
@@ -116,7 +127,7 @@ export async function syncLeadToKommo(
             custom_fields_values: [
               {
                 field_code: 'PHONE',
-                values: [{ value: `+${phone}`, enum_code: 'WORK' }],
+                values: [{ value: phoneValue, enum_code: 'WORK' }],
               },
             ],
           },
@@ -139,7 +150,12 @@ export async function syncLeadToKommo(
     }
 
     // 3. Prepare notes and tags
-    const leadTitle = `[${data.leadSegment}] ${data.category} - ${data.fullName}${
+    const activeSegment = data.leadQuantitySegment || data.leadSegment || 'Unclassified';
+    const tierDisplay = data.productionTierName
+      ? `${data.productionTierName} (${data.requestedQuantityPcs} pcs)`
+      : data.quantityRange || '-';
+
+    const leadTitle = `[${activeSegment}] ${data.category} - ${data.fullName}${
       data.brandOrCompany ? ` (${data.brandOrCompany})` : ''
     }`;
 
@@ -147,12 +163,16 @@ export async function syncLeadToKommo(
       `=== FORM KUALIFIKASI PAID ADS DREAMLAB ===`,
       `Kode Konsultasi: ${data.inquiryReference}`,
       `Kategori Produk: ${data.category}`,
-      `Estimasi Produksi: ${data.quantityRange}`,
-      `Lead Segment: ${data.leadSegment}`,
-      `Estimasi Budget: ${data.budgetRange}`,
-      `Timeline Produksi: ${data.productionTimeline}`,
-      `Status Bisnis: ${data.businessStatus}`,
+      `Tier Produksi: ${tierDisplay}`,
+      `Rencana Kuantitas: ${data.requestedQuantityPcs ? `${data.requestedQuantityPcs} pcs` : data.quantityRange || '-'}`,
+      `Lead Quantity Segment: ${activeSegment}`,
+      `Nomor WhatsApp (E.164): ${phoneValue}`,
+      `Negara: ${data.phoneCountryIso2 || 'ID'} (${data.phoneCountryDialCode || '+62'})`,
+      `Nama Lengkap: ${data.fullName}`,
       `Nama Brand/PT: ${data.brandOrCompany || '-'}`,
+      `Estimasi Budget: ${data.budgetRange || '-'}`,
+      `Timeline Produksi: ${data.productionTimeline || '-'}`,
+      `Status Bisnis: ${data.businessStatus || '-'}`,
       `Channel: ${data.sourceChannel}`,
       `Campaign: ${data.campaign || '-'}`,
       `Landing Page: ${data.landingPage}`,
@@ -163,17 +183,22 @@ export async function syncLeadToKommo(
     ].join('\n');
 
     // 4. Create Lead associated with contact
+    const tags = [
+      { name: activeSegment },
+      { name: data.sourceChannel },
+      { name: 'Paid Ads Qualification' },
+      { name: data.category },
+    ];
+    if (data.productionTierName) {
+      tags.push({ name: data.productionTierName });
+    }
+
     const createLeadPayload: any = {
       name: leadTitle,
       price: 0,
       _embedded: {
         contacts: contactId ? [{ id: contactId }] : [],
-        tags: [
-          { name: data.leadSegment },
-          { name: data.sourceChannel },
-          { name: 'Paid Ads Qualification' },
-          { name: data.category },
-        ],
+        tags,
       },
     };
 
