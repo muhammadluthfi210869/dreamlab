@@ -5922,6 +5922,7 @@ export const articles: Article[] = [
   "publishDate": "2026-10-23T08:30:00+00:00",
   "author": "Dreamlab Maklon Kosmetik",
   "categories": [
+    "Maklon Kosmetik",
     "Parfum",
     "Bisnis Parfum"
   ],

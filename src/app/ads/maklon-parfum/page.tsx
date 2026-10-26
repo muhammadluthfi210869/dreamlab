@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
 import { aboutData } from "@/data/about-us";
+import { LeadQualificationModal } from "@/components/LeadQualificationModal";
+import { trackLeadEvent } from "@/lib/lead-analytics";
 
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
   ssr: true,
@@ -14,6 +16,7 @@ const LogoScroll = dynamic(() => import("@/components/LogoScroll"), {
 
 export default function MaklonParfumAdsLP() {
   useMetaAdsCtaPixel("Maklon Parfum");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // Analytics & interaction script
@@ -54,6 +57,15 @@ export default function MaklonParfumAdsLP() {
     return () => observer.disconnect();
   }, []);
 
+  const openQualification = (location: string) => {
+    trackLeadEvent('consultation_cta_clicked', {
+      source: 'meta-parfum',
+      channel: 'metaads',
+      category: 'Parfum',
+    });
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <style>{`
@@ -63,7 +75,7 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp * { box-sizing:border-box; }
         .parfum-lp h2 { font-family:'Viga',Helvetica,Arial,sans-serif; font-weight:400; text-transform:uppercase; }
         .parfum-lp img { max-width:100%; }
-        .parfum-lp a { text-decoration:none; color:inherit; }
+        .parfum-lp a, .parfum-lp button { text-decoration:none; color:inherit; font-family:inherit; }
         .parfum-lp .wrap { width:min(1160px,calc(100% - 40px)); margin:auto; }
         .parfum-lp .eyebrow { display:inline-block; font-size:11px; letter-spacing:1.5px; font-weight:800; color:var(--blue); margin-bottom:12px; }
         .parfum-lp .section { padding:88px 0; }
@@ -71,7 +83,7 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .title h2 { font-size:44px; line-height:1.12; letter-spacing:-1.2px; margin:0 0 14px; }
         .parfum-lp .title p { font-size:17px; color:var(--muted); line-height:1.65; margin:0; }
         
-        .parfum-lp .btn { display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:54px; padding:0 28px; border-radius:14px; background:var(--orange); color:#fff; font-weight:800; font-size:15px; box-shadow:0 12px 28px rgba(247,140,31,.32); transition:all .25s ease; cursor:pointer; }
+        .parfum-lp .btn { display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:54px; padding:0 28px; border-radius:14px; background:var(--orange); color:#fff; font-weight:800; font-size:15px; box-shadow:0 12px 28px rgba(247,140,31,.32); transition:all .25s ease; cursor:pointer; border:none; }
         .parfum-lp .btn:hover { transform:translateY(-2px); box-shadow:0 16px 36px rgba(247,140,31,.42); filter:saturate(1.08); }
 
         /* Top Brand Bar */
@@ -118,29 +130,32 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
         .parfum-lp .product { position:relative; height:390px; border-radius:22px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; transition:transform .4s ease, box-shadow .4s ease; cursor:pointer; }
         .parfum-lp .product img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
-        .parfum-lp .product:hover { transform:translateY(-6px); box-shadow:0 24px 50px rgba(10,35,55,.18); }
+        .parfum-lp .product:hover { transform:translateY(-8px); box-shadow:0 24px 60px rgba(23,75,109,.24); }
         .parfum-lp .product:hover img { transform:scale(1.06); }
-        .parfum-lp .product:after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 0%, rgba(10,20,40,0.1) 35%, rgba(8,18,35,0.92) 100%); pointer-events:none; }
-        .parfum-lp .product-badge { position:absolute; top:18px; right:18px; z-index:3; background:rgba(255,255,255,0.92); color:var(--ink); font-size:11px; font-weight:800; padding:6px 14px; border-radius:99px; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all .3s ease; }
+        .parfum-lp .product:after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(9,27,41,.92) 100%); }
+        .parfum-lp .product-badge { position:absolute; top:16px; right:16px; z-index:2; display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:99px; background:rgba(255,255,255,0.92); color:var(--ink); font-size:12px; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:background 0.2s ease, color 0.2s ease; }
         .parfum-lp .product:hover .product-badge { background:var(--orange); color:#fff; }
-        .parfum-lp .product-copy { position:absolute; left:24px; right:24px; bottom:24px; z-index:2; color:#fff; pointer-events:none; }
-        .parfum-lp .product-copy h3 { font-size:26px; margin:0 0 6px; font-weight:800; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.3); }
-        .parfum-lp .product-copy p { font-size:14px; line-height:1.5; margin:0; color:#f8fbfd; opacity:0.95; max-width:250px; }
-        
-        /* 5-Step Process */
-        .parfum-lp .process { background:#fff; }
+        .parfum-lp .product-copy { position:absolute; left:24px; right:24px; bottom:24px; z-index:2; color:#fff; }
+        .parfum-lp .product-copy h3 { font-size:24px; font-weight:800; margin:0 0 6px; }
+        .parfum-lp .product-copy p { margin:0; font-size:13px; color:#dbebf6; }
+
+        /* Process Steps */
+        .parfum-lp .process { background:#2571a8; color:#fff; }
+        .parfum-lp .process .eyebrow { color:#ffdda8; }
+        .parfum-lp .process .title h2 { color:#fff; }
+        .parfum-lp .process .title p { color:#e5f2fa; }
         .parfum-lp .process-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:18px; }
-        .parfum-lp .step { grid-column:span 2; position:relative; height:350px; border-radius:20px; overflow:hidden; background:#173248; box-shadow:var(--shadow); display:block; transition:transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor:pointer; }
-        .parfum-lp .step:nth-child(4) { grid-column:2 / span 2; }
-        .parfum-lp .step:nth-child(5) { grid-column:4 / span 2; }
-        .parfum-lp .step:hover { transform:translateY(-8px); box-shadow:0 24px 50px rgba(0,0,0,0.22); }
-        .parfum-lp .step img { width:100%; height:100%; display:block; object-fit:cover; position:relative; z-index:0; transition:transform 0.7s ease; }
-        .parfum-lp .step:hover img { transform:scale(1.07); }
-        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,15,30,0.96) 0%, rgba(5,15,30,0.82) 35%, rgba(5,15,30,0.35) 65%, rgba(5,15,30,0.05) 100%); pointer-events:none; z-index:1; }
-        .parfum-lp .step-copy { position:absolute; bottom:28px; left:28px; right:28px; z-index:2; color:#fff; pointer-events:none; }
-        .parfum-lp .step-copy b { display:block; color:var(--orange); font-size:14px; font-weight:800; letter-spacing:1px; margin-bottom:8px; text-transform:uppercase; }
-        .parfum-lp .step-copy h3 { margin:0 0 12px; font-size:24px; font-weight:800; text-transform:uppercase; color:#fff; line-height:1.18; text-shadow:0 2px 8px rgba(0,0,0,0.35); }
-        .parfum-lp .step-copy p { margin:0; color:rgba(255,255,255,0.94); font-size:15px; line-height:1.55; }
+        .parfum-lp .step { position:relative; height:370px; border-radius:22px; overflow:hidden; background:#1b5077; box-shadow:0 12px 36px rgba(10,40,64,.24); display:block; transition:transform .4s ease, box-shadow .4s ease; cursor:pointer; }
+        .parfum-lp .step:hover { transform:translateY(-8px); box-shadow:0 24px 55px rgba(8,30,48,.38); }
+        .parfum-lp .step img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+        .parfum-lp .step:hover img { transform:scale(1.06); }
+        .parfum-lp .step:after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.08) 20%,rgba(13,44,70,.92) 100%); }
+        .parfum-lp .step-copy { position:absolute; left:22px; right:22px; bottom:22px; z-index:2; color:#fff; }
+        .parfum-lp .step-copy b { display:inline-block; font-size:11px; letter-spacing:1.5px; color:#ffd092; font-weight:900; margin-bottom:8px; }
+        .parfum-lp .step-copy h3 { font-size:19px; line-height:1.2; margin:0 0 8px; font-weight:800; text-transform:uppercase; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.5); }
+        .parfum-lp .step-copy p { font-size:13px; line-height:1.45; color:#ffffff; text-shadow:0 1px 6px rgba(0,0,0,0.6); margin:0; }
+        .parfum-lp .step:nth-child(1), .parfum-lp .step:nth-child(2) { grid-column:span 3; }
+        .parfum-lp .step:nth-child(3), .parfum-lp .step:nth-child(4), .parfum-lp .step:nth-child(5) { grid-column:span 2; }
 
         /* Academy Community */
         .parfum-lp .academy { background:var(--paper); }
@@ -162,7 +177,7 @@ export default function MaklonParfumAdsLP() {
         .parfum-lp .closing-guarantees span { color:var(--ink); }
 
         /* Floating WhatsApp Button */
-        .parfum-lp .wa { position:fixed; right:24px; bottom:24px; z-index:99; height:56px; border-radius:99px; background:#25d366; color:#fff; display:inline-flex; align-items:center; gap:10px; padding:0 20px 0 16px; box-shadow:0 12px 30px rgba(37,211,102,0.45); font-size:14px; font-weight:800; text-decoration:none; transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .parfum-lp .wa { position:fixed; right:24px; bottom:24px; z-index:99; height:56px; border-radius:99px; background:#25d366; color:#fff; display:inline-flex; align-items:center; gap:10px; padding:0 20px 0 16px; box-shadow:0 12px 30px rgba(37,211,102,0.45); font-size:14px; font-weight:800; text-decoration:none; transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border:none; cursor:pointer; }
         .parfum-lp .wa:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 18px 40px rgba(37,211,102,0.55); }
         .parfum-lp .wa-ping { position:absolute; top:-3px; right:-3px; width:14px; height:14px; background:#ff3b30; border:2px solid #fff; border-radius:50%; animation:wa-pulse 2s infinite; }
         @keyframes wa-pulse {
@@ -281,13 +296,14 @@ export default function MaklonParfumAdsLP() {
                     priority
                   />
                 </div>
-                <a
+                <button
+                  type="button"
                   className="btn-nav track"
                   data-location="top-nav"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("top-nav")}
                 >
                   Konsultasi Gratis &rarr;
-                </a>
+                </button>
               </div>
             </div>
 
@@ -296,13 +312,17 @@ export default function MaklonParfumAdsLP() {
               <span className="eyebrow">#1 MAKLON PARFUM CUSTOM AROMA</span>
               <h1>Wujudkan Brand Parfum dengan <em>Aroma Eksklusif</em> Milik Anda</h1>
               <p>Dari konsep aroma hingga siap dipasarkan, Dreamlab membantu Anda mengembangkan parfum dengan formula khas yang sesuai target market.</p>
-              <a
+              
+              {/* Meta Ads Primary CTA: "Rencanakan Brand Anda" */}
+              <button
+                type="button"
                 className="btn track"
                 data-location="hero"
-                href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                onClick={() => openQualification("hero")}
               >
-                KONSULTASI BRAND ANDA &rarr;
-              </a>
+                Rencanakan Brand Anda &rarr;
+              </button>
+
               <div className="hero-trust">
                 <span>1 Client, 1 Custom Formula</span>
                 <span>FREE LEGALITAS BPOM</span>
@@ -326,23 +346,23 @@ export default function MaklonParfumAdsLP() {
           <section className="value section">
             <div className="wrap value-grid">
               <div className="value-copy">
-                <span className="eyebrow">FASILITAS &amp; KEUNTUNGAN MAKLON</span>
-                <h2>Semua Kebutuhan Brand Parfum Anda dalam Satu Partner</h2>
-                <p>Dreamlab mendampingi pengembangan formula, visual brand, legalitas, produksi, hingga persiapan pemasaran.</p>
+                <span className="eyebrow">MENGAPA MAKLON DI DREAMLAB?</span>
+                <h2>Solusi Produksi Parfum yang Fleksibel &amp; Terarah</h2>
+                <p>Mulai dari pengembangan aroma, uji stabilitas sampel, hingga desain kemasan yang memikat konsumen—semua didukung oleh fasilitas terstandarisasi dan tim berpengalaman.</p>
               </div>
               <div className="checks">
                 <div className="check">
                   <i>&#10003;</i>
                   <div>
-                    <b>Custom Formula Eksklusif</b>
-                    <span>Formula dikembangkan sesuai konsep brand Anda dengan prinsip 1 Client 1 Formula.</span>
+                    <b>Eksklusif 1 Formula 1 Klien</b>
+                    <span>Karakter aroma diracik khusus untuk brand Anda, bebas risiko kesamaan dengan kompetitor.</span>
                   </div>
                 </div>
                 <div className="check">
                   <i>&#10003;</i>
                   <div>
-                    <b>R&amp;D Perfumery</b>
-                    <span>Karakter aroma dirancang langsung bersama tim perfumer dan formulator berpengalaman.</span>
+                    <b>FREE Sample &amp; Konsultasi</b>
+                    <span>Uji sampel wewangian hingga aroma, sillage, dan ketahanan sesuai dengan visi produk Anda.</span>
                   </div>
                 </div>
                 <div className="check">
@@ -372,60 +392,72 @@ export default function MaklonParfumAdsLP() {
                 <p>Tentukan produk sesuai positioning dan target market. Formula, karakter aroma, serta tampilannya dapat dikembangkan bersama Dreamlab.</p>
               </div>
               <div className="product-grid">
-                <a
+                <div
                   className="product track"
                   data-location="catalog-edp"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("catalog-edp")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/edp.webp" alt="Eau de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
                   <div className="product-copy"><h3>Eau de Parfum</h3><p>Karakter aroma intens dan elegan.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="product track"
                   data-location="catalog-edt"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("catalog-edt")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/edt.webp" alt="Eau de Toilette" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
                   <div className="product-copy"><h3>Eau de Toilette</h3><p>Segar dan nyaman untuk pemakaian harian.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="product track"
                   data-location="catalog-edc"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("catalog-edc")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/edc.webp" alt="Eau de Cologne" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
                   <div className="product-copy"><h3>Eau de Cologne</h3><p>Ringan dengan kesan menyegarkan.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="product track"
                   data-location="catalog-extrait"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("catalog-extrait")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/extrait.webp" alt="Extrait de Parfum" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
                   <div className="product-copy"><h3>Extrait de Parfum</h3><p>Konsentrasi tinggi untuk lini premium.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="product track"
                   data-location="catalog-body-mist"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("catalog-body-mist")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/body-mist.webp" alt="Body Mist" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
                   <div className="product-copy"><h3>Body Mist</h3><p>Ringan, praktis, dan mudah digunakan ulang.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="product track"
                   data-location="catalog-essential-oil"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("catalog-essential-oil")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/essential-oil.webp" alt="Essential Oil" fill loading="lazy" sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                   <span className="product-badge">Konsultasi &rarr;</span>
                   <div className="product-copy"><h3>Essential Oil</h3><p>Eksplorasi aroma dari bahan esensial.</p></div>
-                </a>
+                </div>
               </div>
             </div>
           </section>
@@ -439,46 +471,56 @@ export default function MaklonParfumAdsLP() {
                 <p>Setiap tahap didampingi agar proses membangun brand terasa lebih jelas dan terarah.</p>
               </div>
               <div className="process-grid">
-                <a
+                <div
                   className="step track"
                   data-location="step-1"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("step-1")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/consultation.webp" alt="Konsultasi IDE" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="step-copy"><b>STEP 01</b><h3>KONSULTASI BRAND &amp; TARGET MARKET</h3><p>Diskusikan konsep parfum, target market, karakter aroma, dan positioning brand Anda.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="step track"
                   data-location="step-2"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("step-2")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/sample.webp" alt="Formulasi & Sample" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="step-copy"><b>STEP 02</b><h3>FORMULASI &amp; SAMPLE AROMA</h3><p>Tim R&amp;D mengembangkan formula dan sample parfum sesuai brief serta karakter brand.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="step track"
                   data-location="step-3"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("step-3")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/legal-design.webp" alt="Legalitas & Desain" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="step-copy"><b>STEP 03</b><h3>LEGALITAS &amp; DESAIN</h3><p>Setelah formula disetujui, proses dilanjutkan ke legalitas dan pengembangan desain kemasan.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="step track"
                   data-location="step-4"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("step-4")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/production.webp" alt="Produksi & Quality Control" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="step-copy"><b>STEP 04</b><h3>PRODUKSI &amp; QUALITY CONTROL</h3><p>Produk diproduksi sesuai standar fasilitas Dreamlab dan melalui proses quality control ketat.</p></div>
-                </a>
-                <a
+                </div>
+                <div
                   className="step track"
                   data-location="step-5"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("step-5")}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Image src="/assets/maklon-parfum/delivery.webp" alt="Delivery" fill loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="step-copy"><b>STEP 05</b><h3>DELIVERY &amp; SIAP LAUNCHING</h3><p>Produk yang sudah selesai dipersiapkan untuk dikirim dan siap masuk ke tahap pemasaran.</p></div>
-                </a>
+                </div>
               </div>
             </div>
           </section>
@@ -496,13 +538,14 @@ export default function MaklonParfumAdsLP() {
                   <li>Strategi memasarkan dan menjual produk secara online</li>
                   <li>Networking bersama komunitas beautypreneur</li>
                 </ul>
-                <a
+                <button
+                  type="button"
                   className="btn track"
                   data-location="academy"
-                  href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+                  onClick={() => openQualification("academy")}
                 >
                   Jadi Partner Dreamlab &rarr;
-                </a>
+                </button>
               </div>
               <div className="academy-collage">
                 <Image src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
@@ -527,13 +570,14 @@ export default function MaklonParfumAdsLP() {
             <span className="eyebrow">MULAI DARI IDE AROMA ANDA</span>
             <h2>Wujudkan Brand Parfum dengan Formula yang Punya Karakter</h2>
             <p>Konsultasikan konsep parfum Anda bersama tim Dreamlab sekarang. Nikmati FREE konsultasi formula, desain kemasan, hingga legalitas BPOM.</p>
-            <a
+            <button
+              type="button"
               className="btn track"
               data-location="closing"
-              href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+              onClick={() => openQualification("closing")}
             >
-              KONSULTASI BRAND ANDA SEKARANG &rarr;
-            </a>
+              Rencanakan Brand Anda &rarr;
+            </button>
             <div className="closing-guarantees">
               <span>✓ Respon Cepat &lt; 15 Menit</span>
               <span>✓ FREE Konsultasi &amp; Sample</span>
@@ -543,10 +587,11 @@ export default function MaklonParfumAdsLP() {
         </main>
         
         {/* Floating WhatsApp CTA */}
-        <a
+        <button
+          type="button"
           className="wa track"
           data-location="floating-whatsapp"
-          href="/ads/thankyou/metaads/?source=meta-parfum&from=/ads/maklon-parfum/"
+          onClick={() => openQualification("floating-whatsapp")}
           aria-label="Konsultasi WhatsApp Langsung"
         >
           <span className="wa-ping"></span>
@@ -554,8 +599,18 @@ export default function MaklonParfumAdsLP() {
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
           </svg>
           <span className="wa-label">Konsultasi WhatsApp</span>
-        </a>
+        </button>
       </div>
+
+      {/* Lead Qualification Modal */}
+      <LeadQualificationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultCategory="Parfum"
+        source="meta-parfum"
+        channel="metaads"
+        landingPage="/ads/maklon-parfum/"
+      />
     </>
   );
 }
