@@ -55,6 +55,7 @@ interface LeadItem {
   crm_sync_status?: string | null;
   wa_clicked_at?: string | null;
   whatsapp_phone_e164?: string | null;
+  phone_country_iso2?: string | null;
 }
 
 interface ListMeta {
@@ -77,19 +78,19 @@ interface QualificationSummary {
   pages: { page: string; total: number }[];
 }
 
+// MOQ mengikuti definisi di form kualifikasi: tier Brand Launch (500 pcs) berlabel "MOQ Fit".
+// Label untuk lead di bawah MOQ sengaja netral; kalau head marketing memutuskan memakai "Cold",
+// cukup ganti MOQ_BELOW_LABEL di sini.
+const MOQ_PCS = 500;
+const MOQ_MET_LABEL = "Memenuhi MOQ";
+const MOQ_BELOW_LABEL = "Di bawah MOQ";
+
 const TIER_ORDER = [
   { name: "Brand Starter", qty: "300 pcs", bar: "bg-sky-400" },
   { name: "Brand Launch", qty: "500 pcs", bar: "bg-indigo-400" },
   { name: "Brand Growth", qty: "1.000 pcs", bar: "bg-emerald-500" },
   { name: "Brand Partner", qty: "5.000 pcs", bar: "bg-amber-500" },
 ];
-
-const CRM_BADGE: Record<string, { label: string; cls: string }> = {
-  synced: { label: "Kommo OK", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
-  pending_configuration: { label: "Kommo belum diset", cls: "bg-amber-50 text-amber-700 border-amber-200" },
-  failed: { label: "Kommo gagal", cls: "bg-red-50 text-red-700 border-red-200" },
-  pending: { label: "Kommo menunggu", cls: "bg-slate-100 text-slate-600 border-slate-200" },
-};
 
 interface KPIStats {
   totalClicks: number;
@@ -750,16 +751,15 @@ export default function LeadMonitorPage() {
               const q = qualification;
               const total = q?.form_total ?? 0;
               const pct = (n: number) => (total > 0 ? `${Math.round((n / total) * 100)}%` : "0%");
-              const crmProblem = (q?.crm_pending ?? 0) + (q?.crm_failed ?? 0);
               const stats = [
                 { label: "Form Masuk", value: total, note: "Lead mengisi form", tone: "text-slate-900" },
                 { label: "Klik WA Thank-you", value: q?.form_wa_clicked ?? 0, note: `${pct(q?.form_wa_clicked ?? 0)} dari form`, tone: "text-blue-600" },
                 { label: "Chat Terkonfirmasi", value: q?.form_confirmed ?? 0, note: `${pct(q?.form_confirmed ?? 0)} dari form`, tone: "text-emerald-600" },
                 {
-                  label: "Sync Kommo",
-                  value: q?.crm_synced ?? 0,
-                  note: crmProblem > 0 ? `${crmProblem} belum/gagal sync` : "Semua tersinkron",
-                  tone: crmProblem > 0 ? "text-amber-600" : "text-emerald-600",
+                  label: "Belum Chat",
+                  value: Math.max(0, total - (q?.form_confirmed ?? 0)),
+                  note: "Isi form, belum kirim chat",
+                  tone: total - (q?.form_confirmed ?? 0) > 0 ? "text-amber-600" : "text-slate-400",
                 },
               ];
               return stats.map((st) => (
@@ -925,27 +925,29 @@ export default function LeadMonitorPage() {
                 <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-500 font-semibold text-[11px] tracking-wide">
                   <th className="py-2.5 px-3.5 w-10 text-center">#</th>
                   <th className="py-2.5 px-3.5">Waktu Klik</th>
-                  <th className="py-2.5 px-3.5">Waktu Chat</th>
-                  <th className="py-2.5 px-3.5">Latency (Selisih)</th>
-                  <th className="py-2.5 px-3.5">No. HP Pengirim</th>
+                  <th className="py-2.5 px-3.5">Nama Lengkap</th>
+                  <th className="py-2.5 px-3.5">Nomor WhatsApp</th>
+                  <th className="py-2.5 px-3.5">Produk</th>
+                  <th className="py-2.5 px-3.5">Rencana Produksi</th>
+                  <th className="py-2.5 px-3.5">MOQ</th>
                   <th className="py-2.5 px-3.5">BusDev</th>
-                  <th className="py-2.5 px-3.5">Kualifikasi Form</th>
-                  <th className="py-2.5 px-3.5">Display Name WA</th>
-                  <th className="py-2.5 px-3.5">Tracking Code</th>
-                  <th className="py-2.5 px-3.5">Asal Halaman & Kampanye</th>
+                  <th className="py-2.5 px-3.5">Waktu Chat</th>
+                  <th className="py-2.5 px-3.5">Latency</th>
+                  <th className="py-2.5 px-3.5">Kode</th>
+                  <th className="py-2.5 px-3.5">Asal Halaman &amp; Kampanye</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
-                    <td colSpan={10} className="py-10 text-center text-slate-400">
+                    <td colSpan={12} className="py-10 text-center text-slate-400">
                       <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-slate-400" />
                       Memuat data audit...
                     </td>
                   </tr>
                 ) : leads.length === 0 ? (
                   <tr>
-                    <td colSpan={10} className="py-10 text-center text-slate-400">
+                    <td colSpan={12} className="py-10 text-center text-slate-400">
                       <p className="font-medium text-slate-600 mb-1">
                         Tidak ada data lead untuk filter ini
                       </p>
@@ -979,7 +981,12 @@ export default function LeadMonitorPage() {
                     const isConfirmed = lead.status === "confirmed";
                     const clientPhone = lead.display_phone || lead.wa_phone || lead.hp;
                     const phoneSource = lead.wa_phone ? "WA" : lead.hp ? "Form Web" : null;
-                    const crmBadge = lead.crm_sync_status ? CRM_BADGE[lead.crm_sync_status] : null;
+                    const formName = lead.nama?.trim() || null;
+                    const waName = lead.wa_profile_name?.trim() || null;
+                    const displayName = formName || waName;
+                    const nameSource = formName ? "Form" : waName ? "WA" : null;
+                    const foreignPhone =
+                      lead.phone_country_iso2 && lead.phone_country_iso2 !== "ID" ? lead.phone_country_iso2 : null;
 
                     return (
                       <tr
@@ -1001,6 +1008,131 @@ export default function LeadMonitorPage() {
                         <td className="py-2.5 px-3.5 whitespace-nowrap font-mono text-[11px] text-slate-700">
                           <div>{formatWib(lead.created_at)}</div>
                           <div className="text-[10px] text-slate-400 font-sans">{formatDateWib(lead.created_at)}</div>
+                        </td>
+
+                        {/* Nama Lengkap: isian form; kalau tidak ada, nama profil WhatsApp */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          {displayName ? (
+                            <div className="space-y-0.5">
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-semibold text-slate-900">{displayName}</span>
+                                {nameSource && (
+                                  <span
+                                    className={`text-[9px] px-1.5 rounded font-medium uppercase ${
+                                      nameSource === "Form"
+                                        ? "bg-indigo-50 text-indigo-700 border border-indigo-100"
+                                        : "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                                    }`}
+                                    title={nameSource === "Form" ? "Nama dari isian form" : "Nama profil WhatsApp"}
+                                  >
+                                    {nameSource}
+                                  </span>
+                                )}
+                              </div>
+                              {formName && waName && waName.toLowerCase() !== formName.toLowerCase() && (
+                                <div className="text-[10px] text-slate-400 flex items-center gap-1">
+                                  <MessageSquare className="w-2.5 h-2.5" />
+                                  {waName}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
+                        </td>
+
+                        {/* Nomor WhatsApp */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap font-mono text-[11px]">
+                          {clientPhone ? (
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-slate-900 font-semibold">{clientPhone}</span>
+                              {foreignPhone && (
+                                <span
+                                  className="text-[9px] px-1.5 rounded font-sans font-medium bg-sky-50 text-sky-700 border border-sky-100"
+                                  title={`Nomor luar negeri (${lead.whatsapp_phone_e164 || foreignPhone})`}
+                                >
+                                  {foreignPhone}
+                                </span>
+                              )}
+                              {phoneSource && (
+                                <span
+                                  className={`text-[9px] px-1.5 py-0.2 rounded font-sans font-medium uppercase ${
+                                    phoneSource === "WA"
+                                      ? "bg-emerald-100 text-emerald-800"
+                                      : "bg-amber-100 text-amber-800"
+                                  }`}
+                                  title={phoneSource === "WA" ? "Nomor WhatsApp pengirim" : "Nomor dari isian form"}
+                                >
+                                  {phoneSource}
+                                </span>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
+                        </td>
+
+                        {/* Produk (jenis produk yang dipilih di form) */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          {lead.produk ? (
+                            <span className="text-slate-800">{lead.produk}</span>
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
+                        </td>
+
+                        {/* Rencana Produksi (tier kuantitas yang dipilih di form) */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          {lead.production_tier_name ? (
+                            <div>
+                              <div className="font-semibold text-slate-800">{lead.production_tier_name}</div>
+                              {lead.requested_quantity_pcs ? (
+                                <div className="text-[10px] font-mono text-slate-500">
+                                  {lead.requested_quantity_pcs.toLocaleString("id-ID")} pcs
+                                </div>
+                              ) : null}
+                            </div>
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
+                        </td>
+
+                        {/* MOQ: dibandingkan dengan kuantitas yang dipilih di form */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          {lead.requested_quantity_pcs ? (
+                            lead.requested_quantity_pcs >= MOQ_PCS ? (
+                              <span
+                                className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"
+                                title={`${lead.requested_quantity_pcs.toLocaleString("id-ID")} pcs, MOQ ${MOQ_PCS} pcs`}
+                              >
+                                {MOQ_MET_LABEL}
+                              </span>
+                            ) : (
+                              <span
+                                className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200"
+                                title={`${lead.requested_quantity_pcs.toLocaleString("id-ID")} pcs, MOQ ${MOQ_PCS} pcs`}
+                              >
+                                {MOQ_BELOW_LABEL}
+                              </span>
+                            )
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
+                        </td>
+
+                        {/* BusDev */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          <span className="font-semibold text-slate-800">
+                            {lead.assigned_to}
+                          </span>
+                          {(lead.busdevs?.length ?? 0) > 1 && (
+                            <span
+                              className="ml-1.5 text-[9px] font-semibold px-1 py-0.5 rounded bg-red-50 text-red-700 border border-red-200"
+                              title={`Prospek ini tercatat di beberapa BusDev: ${lead.busdevs!.join(", ")}`}
+                            >
+                              Ganda: {lead.busdevs!.join(" / ")}
+                            </span>
+                          )}
                         </td>
 
                         {/* Waktu Chat Masuk */}
@@ -1030,88 +1162,7 @@ export default function LeadMonitorPage() {
                           )}
                         </td>
 
-                        {/* No. HP Klien (Universal with Form Fallback) */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap font-mono text-[11px]">
-                          {clientPhone ? (
-                            <div className="flex items-center gap-1.5">
-                              <span className="text-slate-900 font-semibold">{clientPhone}</span>
-                              {phoneSource && (
-                                <span
-                                  className={`text-[9px] px-1.5 py-0.2 rounded font-sans font-medium uppercase ${
-                                    phoneSource === "WA"
-                                      ? "bg-emerald-100 text-emerald-800"
-                                      : "bg-amber-100 text-amber-800"
-                                  }`}
-                                  title={phoneSource === "WA" ? "Nomor WhatsApp pengirim" : "Nomor formulir web sebelum drop-off"}
-                                >
-                                  {phoneSource}
-                                </span>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-slate-300">—</span>
-                          )}
-                        </td>
-
-                        {/* BusDev */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap">
-                          <span className="font-semibold text-slate-800">
-                            {lead.assigned_to}
-                          </span>
-                          {(lead.busdevs?.length ?? 0) > 1 && (
-                            <span
-                              className="ml-1.5 text-[9px] font-semibold px-1 py-0.5 rounded bg-red-50 text-red-700 border border-red-200"
-                              title={`Prospek ini tercatat di beberapa BusDev: ${lead.busdevs!.join(", ")}`}
-                            >
-                              Ganda: {lead.busdevs!.join(" / ")}
-                            </span>
-                          )}
-                        </td>
-
-                        {/* Kualifikasi Form */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap">
-                          {lead.is_form_lead ? (
-                            <div className="space-y-0.5">
-                              <div className="flex items-center gap-1.5">
-                                <span className="font-semibold text-slate-800">
-                                  {lead.production_tier_name || "Tier tidak tercatat"}
-                                </span>
-                                {lead.requested_quantity_pcs ? (
-                                  <span className="text-[10px] font-mono text-slate-500">
-                                    {lead.requested_quantity_pcs.toLocaleString("id-ID")} pcs
-                                  </span>
-                                ) : null}
-                              </div>
-                              <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                                {lead.produk && <span>{lead.produk}</span>}
-                                {lead.lead_segment && (
-                                  <span className="px-1 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">
-                                    {lead.lead_segment}
-                                  </span>
-                                )}
-                                {crmBadge && (
-                                  <span className={`px-1 rounded border ${crmBadge.cls}`}>{crmBadge.label}</span>
-                                )}
-                              </div>
-                            </div>
-                          ) : (
-                            <span className="text-slate-300">—</span>
-                          )}
-                        </td>
-
-                        {/* Display Name WA */}
-                        <td className="py-2.5 px-3.5 whitespace-nowrap">
-                          {isConfirmed && lead.wa_profile_name ? (
-                            <span className="font-semibold text-emerald-800 flex items-center gap-1">
-                              <MessageSquare className="w-3 h-3 text-emerald-600" />
-                              {lead.wa_profile_name}
-                            </span>
-                          ) : (
-                            <span className="text-slate-300">—</span>
-                          )}
-                        </td>
-
-                        {/* Tracking Code */}
+                        {/* Kode: tracking code + kode konsultasi dari form */}
                         <td className="py-2.5 px-3.5 whitespace-nowrap">
                           <button
                             onClick={() => copyToClipboard(lead.tracking_code)}
@@ -1125,6 +1176,11 @@ export default function LeadMonitorPage() {
                               <Copy className="w-2.5 h-2.5 text-slate-400" />
                             )}
                           </button>
+                          {lead.inquiry_reference && lead.inquiry_reference !== lead.tracking_code && (
+                            <div className="mt-1 text-[10px] font-mono text-slate-400" title="Kode konsultasi yang dikirim ke WhatsApp">
+                              Konsultasi: {lead.inquiry_reference}
+                            </div>
+                          )}
                           {(lead.duplicate_count ?? 0) > 0 && (
                             <div
                               className="mt-1 text-[10px] text-slate-400"
@@ -1140,10 +1196,11 @@ export default function LeadMonitorPage() {
                           <div className="text-slate-800 font-medium truncate" title={lead.page_url || ""}>
                             {lead.page_url || "/thankyou"}
                           </div>
-                          <div className="text-[10px] text-slate-400">
+                          <div className="text-[10px] text-slate-400 flex items-center gap-1">
                             <span className="px-1 py-0.2 rounded bg-slate-100 text-slate-600 font-mono text-[9px] uppercase">
                               {lead.source || "direct"}
                             </span>
+                            {lead.utm_campaign && <span className="truncate" title={lead.utm_campaign}>{lead.utm_campaign}</span>}
                           </div>
                         </td>
                       </tr>
