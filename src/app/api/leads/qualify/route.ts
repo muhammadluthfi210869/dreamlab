@@ -177,7 +177,37 @@ export async function POST(req: NextRequest) {
         : assignedSalesPhone;
       trackingCode = conv.trackingCode || inquiryRef;
     } catch (dbErr) {
-      console.error('[Qualify Route] convertLead warning, falling back to direct query:', dbErr);
+      console.error('[Qualify Route] convertLead failed, inserting lead directly so it is not lost:', dbErr);
+      // Tanpa baris ini, UPDATE kualifikasi di bawah tidak menemukan apa pun dan
+      // lead hilang dari DB (padahal pengunjung tetap diarahkan ke WhatsApp).
+      try {
+        await pool.query(
+          `INSERT INTO leads
+             (tracking_code, assigned_to, assigned_phone, source, page_url, referrer,
+              utm_source, utm_medium, utm_campaign, session_id, intent, nama, perusahaan, hp, produk)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+           ON CONFLICT (tracking_code) DO NOTHING`,
+          [
+            inquiryRef,
+            assignedSalesName,
+            assignedSalesPhone,
+            effectiveSource,
+            effectiveLandingPage,
+            referrer || null,
+            utmSource || null,
+            utmMedium || null,
+            utmCampaign || null,
+            eventId || inquiryRef,
+            `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
+            fullName.trim(),
+            brandOrCompany ? brandOrCompany.trim() : null,
+            localHp,
+            category,
+          ]
+        );
+      } catch (insertErr) {
+        console.error('[Qualify Route] Fallback lead insert also failed:', insertErr);
+      }
     }
 
     // 7. Update lead record with complete tier & international phone attributes

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import {
   MessageSquare,
   Phone,
@@ -18,6 +18,8 @@ import {
   Users,
   CalendarDays,
   Info,
+  FileText,
+  Sparkles,
 } from "lucide-react";
 
 interface LeadItem {
@@ -38,7 +40,45 @@ interface LeadItem {
   created_at: string;
   confirmed_at: string | null;
   latency_seconds?: number | null;
+  // Hasil form kualifikasi (kosong untuk klik WA biasa)
+  is_form_lead?: boolean;
+  produk?: string | null;
+  utm_campaign?: string | null;
+  production_tier_name?: string | null;
+  lead_segment?: string | null;
+  requested_quantity_pcs?: number | null;
+  inquiry_reference?: string | null;
+  crm_sync_status?: string | null;
+  wa_clicked_at?: string | null;
+  whatsapp_phone_e164?: string | null;
 }
+
+interface QualificationSummary {
+  form_total: number;
+  form_confirmed: number;
+  form_wa_clicked: number;
+  crm_synced: number;
+  crm_pending: number;
+  crm_failed: number;
+  last_form_at: string | null;
+  tiers: { tier: string; total: number; confirmed: number }[];
+  categories: { category: string; total: number }[];
+  pages: { page: string; total: number }[];
+}
+
+const TIER_ORDER = [
+  { name: "Brand Starter", qty: "300 pcs", bar: "bg-sky-400" },
+  { name: "Brand Launch", qty: "500 pcs", bar: "bg-indigo-400" },
+  { name: "Brand Growth", qty: "1.000 pcs", bar: "bg-emerald-500" },
+  { name: "Brand Partner", qty: "5.000 pcs", bar: "bg-amber-500" },
+];
+
+const CRM_BADGE: Record<string, { label: string; cls: string }> = {
+  synced: { label: "Kommo OK", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  pending_configuration: { label: "Kommo belum diset", cls: "bg-amber-50 text-amber-700 border-amber-200" },
+  failed: { label: "Kommo gagal", cls: "bg-red-50 text-red-700 border-red-200" },
+  pending: { label: "Kommo menunggu", cls: "bg-slate-100 text-slate-600 border-slate-200" },
+};
 
 interface KPIStats {
   totalClicks: number;
@@ -83,6 +123,7 @@ export default function LeadMonitorPage() {
   const [startDate, setStartDate] = useState<string>(() => getWibDate(0));
   const [endDate, setEndDate] = useState<string>(() => getWibDate(0));
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedKind, setSelectedKind] = useState<string>("all"); // 'all' | 'form' | 'click'
   const [autoRefresh, setAutoRefresh] = useState<boolean>(true);
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -96,6 +137,15 @@ export default function LeadMonitorPage() {
   const [leads, setLeads] = useState<LeadItem[]>([]);
   const [breakdown, setBreakdown] = useState<BusdevBreakdown[]>([]);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [qualification, setQualification] = useState<QualificationSummary | null>(null);
+  const [qualificationReady, setQualificationReady] = useState<boolean>(true);
+  const [freshIds, setFreshIds] = useState<Set<number>>(new Set());
+  const [newLeadNotice, setNewLeadNotice] = useState<string | null>(null);
+
+  // Deteksi lead baru antar polling. Di-reset saat filter berubah supaya hasil
+  // filter baru tidak ditandai "baru" semua.
+  const seenIdsRef = useRef<Set<number> | null>(null);
+  const filterKeyRef = useRef<string>("");
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -111,6 +161,7 @@ export default function LeadMonitorPage() {
           status: selectedStatus,
           period: selectedPeriod,
           search: searchQuery,
+          kind: selectedKind,
         });
 
         if (selectedPeriod === "custom") {
@@ -126,8 +177,38 @@ export default function LeadMonitorPage() {
         const json = await res.json();
 
         if (json.success) {
+          const incoming: LeadItem[] = json.leads || [];
+          const filterKey = queryParams.toString();
+          if (filterKeyRef.current !== filterKey || seenIdsRef.current === null) {
+            filterKeyRef.current = filterKey;
+            seenIdsRef.current = new Set(incoming.map((l) => l.id));
+          } else {
+            const seen = seenIdsRef.current;
+            const fresh = incoming.filter((l) => !seen.has(l.id));
+            if (fresh.length > 0) {
+              fresh.forEach((l) => seen.add(l.id));
+              const ids = fresh.map((l) => l.id);
+              const formCount = fresh.filter((l) => l.is_form_lead).length;
+              setFreshIds((prev) => new Set([...prev, ...ids]));
+              setNewLeadNotice(
+                formCount > 0
+                  ? `${formCount} lead form baru masuk${fresh.length > formCount ? ` (+${fresh.length - formCount} klik WA)` : ""}`
+                  : `${fresh.length} klik WA baru masuk`
+              );
+              setTimeout(() => {
+                setFreshIds((prev) => {
+                  const next = new Set(prev);
+                  ids.forEach((id) => next.delete(id));
+                  return next;
+                });
+              }, 12000);
+              setTimeout(() => setNewLeadNotice(null), 8000);
+            }
+          }
           setKpi(json.kpi);
-          setLeads(json.leads || []);
+          setQualification(json.qualification || null);
+          setQualificationReady(json.qualificationColumnsReady !== false);
+          setLeads(incoming);
           setBreakdown(json.busdevBreakdown || []);
           setLastUpdated(new Date());
         }
@@ -139,7 +220,7 @@ export default function LeadMonitorPage() {
         setRefreshing(false);
       }
     },
-    [selectedBusdev, selectedStatus, selectedPeriod, startDate, endDate, searchQuery]
+    [selectedBusdev, selectedStatus, selectedPeriod, startDate, endDate, searchQuery, selectedKind]
   );
 
   useEffect(() => {
@@ -263,7 +344,7 @@ export default function LeadMonitorPage() {
               }`}
             >
               <span className={`w-1.5 h-1.5 rounded-full ${autoRefresh ? "bg-emerald-500 animate-ping" : "bg-slate-400"}`} />
-              Auto 6s
+              Live · 6 dtk
             </button>
 
             {/* Refresh Button */}
@@ -303,6 +384,27 @@ export default function LeadMonitorPage() {
             >
               {refreshing ? "Memuat..." : "Coba Sekarang"}
             </button>
+          </div>
+        )}
+
+        {/* Peringatan migrasi: kolom form kualifikasi belum ada di database */}
+        {!qualificationReady && (
+          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-xs text-red-900 flex items-start gap-2.5 shadow-2xs">
+            <HelpCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+            <span>
+              <strong>Migrasi database belum dijalankan.</strong> Kolom hasil form (tier, segmen, status Kommo) belum ada,
+              jadi lead form hanya dikenali dari teks intent. Jalankan{" "}
+              <code className="font-mono">00022_lead_qualification_fields.sql</code> dan{" "}
+              <code className="font-mono">00023_production_tiers_and_international_phone.sql</code>.
+            </span>
+          </div>
+        )}
+
+        {/* Notifikasi lead baru (hilang sendiri) */}
+        {newLeadNotice && (
+          <div className="bg-emerald-600 text-white rounded-xl px-4 py-2.5 text-xs font-semibold flex items-center gap-2 shadow-xs animate-pulse">
+            <Sparkles className="w-4 h-4" />
+            {newLeadNotice}
           </div>
         )}
 
@@ -614,6 +716,109 @@ export default function LeadMonitorPage() {
           </div>
         </div>
 
+        {/* Funnel Form Kualifikasi */}
+        <div className="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-4 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <FileText className="w-3.5 h-3.5 text-slate-500" />
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Funnel Form Kualifikasi
+              </h2>
+            </div>
+            <span className="text-[11px] text-slate-400">
+              {qualification?.last_form_at
+                ? `Form terakhir: ${formatDateWib(qualification.last_form_at)}, ${formatWib(qualification.last_form_at)}`
+                : "Belum ada form masuk pada filter ini"}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {(() => {
+              const q = qualification;
+              const total = q?.form_total ?? 0;
+              const pct = (n: number) => (total > 0 ? `${Math.round((n / total) * 100)}%` : "0%");
+              const crmProblem = (q?.crm_pending ?? 0) + (q?.crm_failed ?? 0);
+              const stats = [
+                { label: "Form Masuk", value: total, note: "Lead mengisi form", tone: "text-slate-900" },
+                { label: "Klik WA Thank-you", value: q?.form_wa_clicked ?? 0, note: `${pct(q?.form_wa_clicked ?? 0)} dari form`, tone: "text-blue-600" },
+                { label: "Chat Terkonfirmasi", value: q?.form_confirmed ?? 0, note: `${pct(q?.form_confirmed ?? 0)} dari form`, tone: "text-emerald-600" },
+                {
+                  label: "Sync Kommo",
+                  value: q?.crm_synced ?? 0,
+                  note: crmProblem > 0 ? `${crmProblem} belum/gagal sync` : "Semua tersinkron",
+                  tone: crmProblem > 0 ? "text-amber-600" : "text-emerald-600",
+                },
+              ];
+              return stats.map((st) => (
+                <div key={st.label} className="rounded-lg border border-slate-200/80 bg-slate-50/50 p-3">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">{st.label}</div>
+                  <div className={`text-2xl font-bold font-mono tracking-tight mt-0.5 ${st.tone}`}>{st.value}</div>
+                  <div className="text-[11px] text-slate-400 mt-0.5 truncate">{st.note}</div>
+                </div>
+              ));
+            })()}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Sebaran tier */}
+            <div className="space-y-2">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Sebaran Tier Produksi</div>
+              {(() => {
+                const rows = TIER_ORDER.map((t) => {
+                  const hit = qualification?.tiers.find((x) => x.tier === t.name);
+                  return { ...t, total: hit?.total ?? 0, confirmed: hit?.confirmed ?? 0 };
+                });
+                const max = Math.max(1, ...rows.map((r) => r.total));
+                return rows.map((r) => (
+                  <div key={r.name}>
+                    <div className="flex items-center justify-between text-[11px] mb-0.5">
+                      <span className="font-medium text-slate-700">
+                        {r.name} <span className="text-slate-400">· {r.qty}</span>
+                      </span>
+                      <span className="font-mono text-slate-600">
+                        {r.total} <span className="text-emerald-600">({r.confirmed} chat)</span>
+                      </span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                      <div className={`h-full rounded-full ${r.bar}`} style={{ width: `${(r.total / max) * 100}%` }} />
+                    </div>
+                  </div>
+                ));
+              })()}
+            </div>
+
+            {/* Kategori produk */}
+            <div className="space-y-1.5">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Produk yang Diminati</div>
+              {(qualification?.categories.length ?? 0) === 0 ? (
+                <p className="text-[11px] text-slate-400">Belum ada data.</p>
+              ) : (
+                qualification!.categories.map((c) => (
+                  <div key={c.category} className="flex items-center justify-between text-[11px] border-b border-slate-100 pb-1">
+                    <span className="text-slate-700 truncate pr-2">{c.category}</span>
+                    <span className="font-mono font-semibold text-slate-800">{c.total}</span>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Landing page */}
+            <div className="space-y-1.5">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Form per Landing Page</div>
+              {(qualification?.pages.length ?? 0) === 0 ? (
+                <p className="text-[11px] text-slate-400">Belum ada data.</p>
+              ) : (
+                qualification!.pages.map((pg) => (
+                  <div key={pg.page} className="flex items-center justify-between text-[11px] border-b border-slate-100 pb-1">
+                    <span className="text-slate-700 truncate pr-2 font-mono" title={pg.page}>{pg.page}</span>
+                    <span className="font-mono font-semibold text-slate-800">{pg.total}</span>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Audit Table Section */}
         <div className="bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden">
           {/* Table Toolbar */}
@@ -666,6 +871,28 @@ export default function LeadMonitorPage() {
               </div>
             </div>
 
+            {/* Jenis lead: form kualifikasi vs klik WA biasa */}
+            <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60">
+              {[
+                { id: "all", label: "Semua Jenis" },
+                { id: "form", label: "Form Kualifikasi" },
+                { id: "click", label: "Klik WA" },
+              ].map((k) => (
+                <button
+                  key={k.id}
+                  type="button"
+                  onClick={() => setSelectedKind(k.id)}
+                  className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition-all whitespace-nowrap ${
+                    selectedKind === k.id
+                      ? "bg-white text-slate-900 font-semibold shadow-2xs"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  {k.label}
+                </button>
+              ))}
+            </div>
+
             {/* Compact Search Input */}
             <div className="relative w-full md:w-64">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
@@ -691,6 +918,7 @@ export default function LeadMonitorPage() {
                   <th className="py-2.5 px-3.5">Latency (Selisih)</th>
                   <th className="py-2.5 px-3.5">No. HP Pengirim</th>
                   <th className="py-2.5 px-3.5">BusDev</th>
+                  <th className="py-2.5 px-3.5">Kualifikasi Form</th>
                   <th className="py-2.5 px-3.5">Display Name WA</th>
                   <th className="py-2.5 px-3.5">Tracking Code</th>
                   <th className="py-2.5 px-3.5">Asal Halaman & Kampanye</th>
@@ -699,14 +927,14 @@ export default function LeadMonitorPage() {
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
-                    <td colSpan={10} className="py-10 text-center text-slate-400">
+                    <td colSpan={11} className="py-10 text-center text-slate-400">
                       <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-slate-400" />
                       Memuat data audit...
                     </td>
                   </tr>
                 ) : leads.length === 0 ? (
                   <tr>
-                    <td colSpan={10} className="py-10 text-center text-slate-400">
+                    <td colSpan={11} className="py-10 text-center text-slate-400">
                       <p className="font-medium text-slate-600 mb-1">
                         Tidak ada data lead untuk filter ini
                       </p>
@@ -740,12 +968,17 @@ export default function LeadMonitorPage() {
                     const isConfirmed = lead.status === "confirmed";
                     const clientPhone = lead.display_phone || lead.wa_phone || lead.hp;
                     const phoneSource = lead.wa_phone ? "WA" : lead.hp ? "Form Web" : null;
+                    const crmBadge = lead.crm_sync_status ? CRM_BADGE[lead.crm_sync_status] : null;
 
                     return (
                       <tr
                         key={lead.id || idx}
-                        className={`hover:bg-slate-50/70 transition-colors ${
-                          isConfirmed ? "bg-emerald-50/15" : ""
+                        className={`hover:bg-slate-50/70 transition-colors duration-700 ${
+                          freshIds.has(lead.id)
+                            ? "bg-amber-100/70"
+                            : isConfirmed
+                              ? "bg-emerald-50/15"
+                              : ""
                         }`}
                       >
                         {/* Number */}
@@ -763,7 +996,7 @@ export default function LeadMonitorPage() {
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200/80">
                               <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                              Hanya Klik
+                              {lead.is_form_lead ? "Form, belum chat" : "Hanya Klik"}
                             </span>
                           )}
                         </td>
@@ -829,6 +1062,37 @@ export default function LeadMonitorPage() {
                           <span className="font-semibold text-slate-800">
                             {lead.assigned_to}
                           </span>
+                        </td>
+
+                        {/* Kualifikasi Form */}
+                        <td className="py-2.5 px-3.5 whitespace-nowrap">
+                          {lead.is_form_lead ? (
+                            <div className="space-y-0.5">
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-semibold text-slate-800">
+                                  {lead.production_tier_name || "Tier tidak tercatat"}
+                                </span>
+                                {lead.requested_quantity_pcs ? (
+                                  <span className="text-[10px] font-mono text-slate-500">
+                                    {lead.requested_quantity_pcs.toLocaleString("id-ID")} pcs
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                                {lead.produk && <span>{lead.produk}</span>}
+                                {lead.lead_segment && (
+                                  <span className="px-1 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                    {lead.lead_segment}
+                                  </span>
+                                )}
+                                {crmBadge && (
+                                  <span className={`px-1 rounded border ${crmBadge.cls}`}>{crmBadge.label}</span>
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <span className="text-slate-300">—</span>
+                          )}
                         </td>
 
                         {/* Display Name WA */}

@@ -9,6 +9,35 @@ const NO_STORE_HEADERS = {
   'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
 };
 
+// Kolom hasil form kualifikasi (migrasi 00022 & 00023). Belum tentu sudah ada di
+// database live, jadi dideteksi dulu: kalau belum ada, monitor tetap jalan
+// (kolomnya dikembalikan NULL) dan UI menampilkan peringatan migrasi.
+const QUALIFICATION_COLUMNS: Record<string, string> = {
+  production_tier_name: 'text',
+  lead_segment: 'text',
+  requested_quantity_pcs: 'int',
+  inquiry_reference: 'text',
+  qualification_status: 'text',
+  crm_sync_status: 'text',
+  wa_clicked_at: 'timestamptz',
+  whatsapp_phone_e164: 'text',
+  phone_country_iso2: 'text',
+};
+
+let columnCache: { at: number; cols: Set<string> } | null = null;
+const COLUMN_CACHE_MS = 60_000;
+
+async function getLeadColumns(client: { query: (q: string) => Promise<{ rows: any[] }> }): Promise<Set<string>> {
+  if (columnCache && Date.now() - columnCache.at < COLUMN_CACHE_MS) return columnCache.cols;
+  const res = await client.query(
+    `SELECT column_name FROM information_schema.columns
+      WHERE table_name = 'leads' AND table_schema = current_schema()`
+  );
+  const cols = new Set<string>(res.rows.map((r) => r.column_name));
+  columnCache = { at: Date.now(), cols };
+  return cols;
+}
+
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const busdevFilter = url.searchParams.get('busdev') || 'all';
@@ -17,6 +46,8 @@ export async function GET(req: NextRequest) {
   const startDate = url.searchParams.get('startDate') || '';
   const endDate = url.searchParams.get('endDate') || '';
   const search = url.searchParams.get('search') || '';
+  const kindParam = url.searchParams.get('kind') || 'all';
+  const kindFilter = ['all', 'form', 'click'].includes(kindParam) ? kindParam : 'all';
 
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   const validStart = dateRegex.test(startDate) ? startDate : null;
@@ -32,6 +63,22 @@ export async function GET(req: NextRequest) {
       resetPool();
       client = await pool.connect();
     }
+    const leadCols = await getLeadColumns(client);
+    const hasQualificationColumns = leadCols.has('inquiry_reference') && leadCols.has('production_tier_name');
+    const col = (name: string) => (leadCols.has(name) ? name : `NULL::${QUALIFICATION_COLUMNS[name]} AS ${name}`);
+
+    // Lead dari form kualifikasi: punya inquiry_reference, atau (sebelum migrasi
+    // dijalankan) intent diawali "[QUALIFIED]" yang ditulis route /api/leads/qualify.
+    const formExpr = leadCols.has('inquiry_reference')
+      ? `(inquiry_reference IS NOT NULL OR intent LIKE '[QUALIFIED]%')`
+      : `(intent LIKE '[QUALIFIED]%')`;
+    const kindClause =
+      kindFilter === 'form'
+        ? `AND ${formExpr}`
+        : kindFilter === 'click'
+          ? `AND NOT COALESCE(${formExpr}, FALSE)`
+          : '';
+
     // 1. Filter waktu (Asia/Jakarta boundary yang presisi untuk timestamptz)
     // Titik awal sistem tracking baru MacroDroid + Confirmed Round Robin resmi aktif: 06 Okt 2026 00:00 WIB
     const SYSTEM_LAUNCH_DATE = "'2026-10-06 00:00:00+07'::timestamptz";
@@ -116,6 +163,7 @@ export async function GET(req: NextRequest) {
         ${timeClause}
         ${busdevClause}
         ${searchClause}
+        ${kindClause}
     `;
     const kpiRes = await client.query(kpiQuery, queryParams);
     const kpi = kpiRes.rows[0] || { total_clicks: 0, confirmed_chats: 0, dropoff_clicks: 0, direct_chats: 0 };
@@ -168,6 +216,19 @@ export async function GET(req: NextRequest) {
         wa_phone,
         COALESCE(wa_phone, hp) AS display_phone,
         wa_message,
+        produk,
+        utm_source,
+        utm_campaign,
+        COALESCE(${formExpr}, FALSE) AS is_form_lead,
+        ${col('production_tier_name')},
+        ${col('lead_segment')},
+        ${col('requested_quantity_pcs')},
+        ${col('inquiry_reference')},
+        ${col('qualification_status')},
+        ${col('crm_sync_status')},
+        ${col('wa_clicked_at')},
+        ${col('whatsapp_phone_e164')},
+        ${col('phone_country_iso2')},
         created_at,
         confirmed_at,
         CASE 
@@ -181,14 +242,73 @@ export async function GET(req: NextRequest) {
         ${busdevClause}
         ${statusClause}
         ${searchClause}
+        ${kindClause}
       ORDER BY created_at DESC
       LIMIT 150
     `;
     const listRes = await client.query(listQuery, queryParams);
 
+    // D. Ringkasan form kualifikasi (tidak ikut filter status/kind agar angkanya
+    // selalu menggambarkan funnel form untuk periode + BusDev terpilih).
+    // Dibungkus try/catch: kegagalan di sini tidak boleh mematikan monitor utama.
+    let qualification: Record<string, unknown> | null = null;
+    try {
+      const scope = `FROM leads WHERE is_test IS NOT TRUE AND ${formExpr} ${timeClause} ${busdevClause} ${searchClause}`;
+      const has = (c: string) => leadCols.has(c);
+
+      const summaryRes = await client.query(
+        `SELECT
+           COUNT(*)::int AS form_total,
+           COUNT(*) FILTER (WHERE status = 'confirmed')::int AS form_confirmed,
+           ${has('wa_clicked_at') ? `COUNT(*) FILTER (WHERE wa_clicked_at IS NOT NULL)::int` : '0'} AS form_wa_clicked,
+           ${has('crm_sync_status') ? `COUNT(*) FILTER (WHERE crm_sync_status = 'synced')::int` : '0'} AS crm_synced,
+           ${has('crm_sync_status') ? `COUNT(*) FILTER (WHERE crm_sync_status = 'pending_configuration')::int` : '0'} AS crm_pending,
+           ${has('crm_sync_status') ? `COUNT(*) FILTER (WHERE crm_sync_status = 'failed')::int` : '0'} AS crm_failed,
+           MAX(created_at) AS last_form_at
+         ${scope}`,
+        queryParams
+      );
+
+      const tierRes = has('production_tier_name')
+        ? await client.query(
+            `SELECT production_tier_name AS tier,
+                    COUNT(*)::int AS total,
+                    COUNT(*) FILTER (WHERE status = 'confirmed')::int AS confirmed
+             ${scope} AND production_tier_name IS NOT NULL
+             GROUP BY production_tier_name`,
+            queryParams
+          )
+        : { rows: [] };
+
+      const categoryRes = await client.query(
+        `SELECT COALESCE(NULLIF(produk, ''), 'Tidak diisi') AS category, COUNT(*)::int AS total
+         ${scope}
+         GROUP BY 1 ORDER BY total DESC LIMIT 6`,
+        queryParams
+      );
+
+      const pageRes = await client.query(
+        `SELECT COALESCE(NULLIF(page_url, ''), '(tidak diketahui)') AS page, COUNT(*)::int AS total
+         ${scope}
+         GROUP BY 1 ORDER BY total DESC LIMIT 8`,
+        queryParams
+      );
+
+      qualification = {
+        ...summaryRes.rows[0],
+        tiers: tierRes.rows,
+        categories: categoryRes.rows,
+        pages: pageRes.rows,
+      };
+    } catch (qualErr: any) {
+      console.error('[lead-monitor/stats] Qualification summary failed:', qualErr?.message);
+    }
+
     return NextResponse.json(
       {
         success: true,
+        qualificationColumnsReady: hasQualificationColumns,
+        qualification,
         filter: {
           busdev: busdevFilter,
           status: statusFilter,
@@ -196,6 +316,7 @@ export async function GET(req: NextRequest) {
           startDate: validStart,
           endDate: validEnd,
           search,
+          kind: kindFilter,
         },
         kpi: {
           totalClicks: kpi.total_clicks,
