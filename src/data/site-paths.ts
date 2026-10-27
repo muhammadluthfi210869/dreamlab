@@ -300,6 +300,7 @@ export const SITE_PATHS: string[] = [
   "maklon-shampoo-psoriasis-formula-juara",
   "maklon-skincare",
   "maklon-skincare-batam",
+  "maklon-skincare-cepat",
   "maklon-skincare-jakarta-brand-klinik-2026",
   "maklon-skincare-jawa-timur-dreamlab",
   "maklon-skincare-malang",

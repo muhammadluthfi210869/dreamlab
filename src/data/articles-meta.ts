@@ -4409,6 +4409,27 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 15
   },
   {
+    "slug": "/maklon-skincare-cepat",
+    "title": "Kejar Peak Season? Maklon Skincare Cepat Jadi di Dreamlab!",
+    "publishDate": "2026-10-27T11:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "maklon skincare cepat",
+      "maklon skincare peak season",
+      "stok skincare peak season",
+      "maklon kosmetik cepat jadi",
+      "pindah maklon skincare",
+      "manufaktur kosmetik CPKB",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-maklon-cepat/maklon-skincare-cepat-peak-season-hero.jpg",
+    "excerpt": "Butuh maklon skincare cepat untuk amankan stok peak season? Sudah punya formula dan desain? Konsultasikan kebutuhan produksi brand Anda di Dreamlab!",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
