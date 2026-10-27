@@ -4385,6 +4385,30 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/launching-kosmetik-ramadan-2027",
+    "title": "Mau Launching Produk Kosmetik saat Ramadan 2027? Ini Timeline Maklon yang Harus Dimulai Sekarang",
+    "publishDate": "2026-10-27T10:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "launching produk kosmetik Ramadan",
+      "maklon kosmetik untuk Ramadan",
+      "timeline maklon kosmetik",
+      "kapan mulai maklon",
+      "Ramadan 2027 tanggal berapa",
+      "produk kosmetik laris saat Ramadan",
+      "gift set Ramadan",
+      "Dreamlab maklon kosmetik",
+      "maklon kosmetik Indonesia",
+      "Panduan Bisnis"
+    ],
+    "featuredImage": "/images/artikel-ramadan-2027/launching-produk-kosmetik-ramadan-2027-hero.jpg",
+    "excerpt": "Ramadan 2027 diprediksi mulai 8 Februari, tapi belanja online memuncak 2 minggu sebelumnya. Cek timeline mundur maklon dan konsultasi gratis.",
+    "readingMinutes": 15
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

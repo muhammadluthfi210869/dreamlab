@@ -177,6 +177,7 @@ export const SITE_PATHS: string[] = [
   "kosmetik-olahraga",
   "kuasai-pasar-skincare-2026-biotech",
   "landing/mof-bof",
+  "launching-kosmetik-ramadan-2027",
   "layanan-one-stop-maklon-kosmetik-dreamlab",
   "lead-test",
   "lulur-vs-hb-dosting",
