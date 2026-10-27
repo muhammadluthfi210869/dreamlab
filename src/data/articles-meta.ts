@@ -4364,6 +4364,27 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 7
   },
   {
+    "slug": "/ide-produk-vegan-pdrn",
+    "title": "5 Ide Produk Vegan PDRN untuk Inspirasi Brand Skincare Anda",
+    "publishDate": "2026-10-27T08:30:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Tren & Inovasi"
+    ],
+    "tags": [
+      "ide produk Vegan PDRN",
+      "Vegan PDRN",
+      "produk skincare PDRN",
+      "maklon skincare PDRN",
+      "tren skincare PDRN",
+      "maklon kosmetik",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-vegan-pdrn/ide-produk-vegan-pdrn-hero.jpg",
+    "excerpt": "Temukan 5 ide produk Vegan PDRN, mulai dari cleanser, toner pad, serum, moisturizer, hingga hydrogel mask untuk inspirasi bisnis skincare Anda.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
