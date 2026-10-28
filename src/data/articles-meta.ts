@@ -4451,6 +4451,26 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 13
   },
   {
+    "slug": "/maklon-kosmetik-depok",
+    "title": "Cari Maklon Kosmetik di Depok? Wujudkan Brand Kosmetik Anda Bersama Partner yang Tepat!",
+    "publishDate": "2026-10-29T08:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "maklon kosmetik depok",
+      "jasa maklon kosmetik depok",
+      "maklon skincare depok",
+      "pabrik kosmetik depok",
+      "maklon kosmetik",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-maklon-kosmetik-depok/maklon-kosmetik-depok-hero.jpg",
+    "excerpt": "Cari jasa maklon kosmetik di Depok? Dreamlab melayani maklon skincare, body care, & parfum dengan formula eksklusif CPKB Grade A, izin BPOM, dan MOQ fleksibel.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

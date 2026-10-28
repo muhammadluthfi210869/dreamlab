@@ -257,6 +257,7 @@ export const SITE_PATHS: string[] = [
   "maklon-kosmetik-bpom-bandar-lampung",
   "maklon-kosmetik-bpom-halal-depok",
   "maklon-kosmetik-cepat-produksi-untuk-restock-brand",
+  "maklon-kosmetik-depok",
   "maklon-kosmetik-ibu-hamil",
   "maklon-kosmetik-infused-whitening-bpom",
   "maklon-kosmetik-jakarta-dreamlab-2026",
