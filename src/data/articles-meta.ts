@@ -4430,6 +4430,27 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 8
   },
   {
+    "slug": "/maklon-travel-size-kosmetik",
+    "title": "Maklon Travel Size Kosmetik: Produk Mini, Peluang Bisnis Lebih Besar!",
+    "publishDate": "2026-10-28T10:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "maklon travel size kosmetik",
+      "travel size kosmetik",
+      "discovery kit kosmetik",
+      "mini skincare",
+      "sample size kosmetik",
+      "maklon kosmetik",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-travel-size/maklon-travel-size-kosmetik-hero.jpg",
+    "excerpt": "Bagaimana produk mini bisa menjadi strategi trial, discovery kit, hingga bundling? Pelajari potensi maklon travel size kosmetik bersama Dreamlab.",
+    "readingMinutes": 13
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
