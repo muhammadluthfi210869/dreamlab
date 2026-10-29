@@ -11,9 +11,12 @@ export interface QualificationTrackingData {
   step?: number;
   category?: string;
   quantityRange?: string;
+  productionTier?: string;
+  quantityPcs?: number;
   leadSegment?: string;
   inquiryReference?: string;
   campaign?: string;
+  location?: string;
 }
 
 export function trackLeadEvent(
@@ -22,6 +25,7 @@ export function trackLeadEvent(
     | 'qualification_started'
     | 'qualification_step_completed'
     | 'qualification_submitted'
+    | 'qualification_completed'
     | 'whatsapp_clicked'
     | 'crm_sync_succeeded'
     | 'crm_sync_failed',

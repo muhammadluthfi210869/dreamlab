@@ -86,10 +86,17 @@ const MOQ_MET_LABEL = "Memenuhi MOQ";
 const MOQ_BELOW_LABEL = "Di bawah MOQ";
 
 const TIER_ORDER = [
-  { name: "Brand Starter", qty: "300 pcs", bar: "bg-sky-400" },
-  { name: "Brand Launch", qty: "500 pcs", bar: "bg-indigo-400" },
-  { name: "Brand Growth", qty: "1.000 pcs", bar: "bg-emerald-500" },
-  { name: "Brand Partner", qty: "5.000 pcs", bar: "bg-amber-500" },
+  { name: "Paket Bisnis", qty: "Paket Bisnis", bar: "bg-slate-400" },
+  { name: "Starter Brand", qty: "500 pcs", bar: "bg-emerald-500" },
+  { name: "Growth Brand", qty: "1.000 pcs", bar: "bg-amber-500" },
+  { name: "Enterprise", qty: "5.000 pcs", bar: "bg-indigo-500" },
+  { name: "Strategic Partner", qty: "10.000 pcs", bar: "bg-purple-600" },
+  // Legacy tiers
+  { name: "Scaleup", qty: "3.000 pcs", bar: "bg-sky-500" },
+  { name: "Brand Starter", qty: "300 pcs", bar: "bg-slate-300" },
+  { name: "Brand Launch", qty: "500 pcs", bar: "bg-slate-400" },
+  { name: "Brand Growth", qty: "1.000 pcs", bar: "bg-slate-400" },
+  { name: "Brand Partner", qty: "5.000 pcs", bar: "bg-slate-500" },
 ];
 
 interface KPIStats {

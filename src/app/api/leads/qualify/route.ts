@@ -21,10 +21,11 @@ export interface ProductionTierConfig {
 }
 
 export const PRODUCTION_TIERS: ProductionTierConfig[] = [
-  { name: 'Brand Starter', quantityPcs: 300, segment: 'Micro Prospect' },
-  { name: 'Brand Launch', quantityPcs: 500, segment: 'MOQ Fit' },
-  { name: 'Brand Growth', quantityPcs: 1000, segment: 'Growth Prospect' },
-  { name: 'Brand Partner', quantityPcs: 5000, segment: 'Strategic Prospect' },
+  { name: 'Paket Bisnis', quantityPcs: 300, segment: 'Micro Prospect' },
+  { name: 'Starter Brand', quantityPcs: 500, segment: 'Starter Prospect' },
+  { name: 'Growth Brand', quantityPcs: 1000, segment: 'Growth Prospect' },
+  { name: 'Enterprise', quantityPcs: 5000, segment: 'Enterprise Prospect' },
+  { name: 'Strategic Partner', quantityPcs: 10000, segment: 'Strategic Prospect' },
 ];
 
 function generateInquiryReference(): string {
@@ -96,21 +97,24 @@ export async function POST(req: NextRequest) {
         t.quantityPcs === Number(rawQty)
     );
 
-    if (!matchedTier && quantityRange) {
-      if (quantityRange.includes('300')) {
-        matchedTier = PRODUCTION_TIERS[0];
-      } else if (quantityRange.includes('500')) {
-        matchedTier = PRODUCTION_TIERS[1];
-      } else if (quantityRange.includes('1.000') || quantityRange.includes('1000')) {
-        matchedTier = PRODUCTION_TIERS[2];
-      } else if (quantityRange.includes('5.000') || quantityRange.includes('5000')) {
-        matchedTier = PRODUCTION_TIERS[3];
+    if (!matchedTier && (productionTierName || quantityRange)) {
+      const queryStr = `${productionTierName || ''} ${quantityRange || ''}`.toLowerCase();
+      if (queryStr.includes('paket bisnis') || queryStr.includes('300')) {
+        matchedTier = PRODUCTION_TIERS[0]; // Paket Bisnis
+      } else if (queryStr.includes('starter') || queryStr.includes('launch') || queryStr.includes('500')) {
+        matchedTier = PRODUCTION_TIERS[1]; // Starter Brand (500)
+      } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000')) {
+        matchedTier = PRODUCTION_TIERS[2]; // Growth Brand (1000)
+      } else if (queryStr.includes('enterprise') || queryStr.includes('scaleup') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000')) {
+        matchedTier = PRODUCTION_TIERS[3]; // Enterprise (5000)
+      } else if (queryStr.includes('strategic') || queryStr.includes('partner') || queryStr.includes('10.000') || queryStr.includes('10000')) {
+        matchedTier = PRODUCTION_TIERS[4]; // Strategic Partner (10000)
       }
     }
 
     if (!matchedTier) {
       return NextResponse.json(
-        { success: false, error: 'Silakan pilih salah satu tier kuantitas produksi yang tersedia.' },
+        { success: false, error: 'Silakan pilih salah satu paket bisnis yang tersedia.' },
         { status: 400, headers: NO_STORE_HEADERS }
       );
     }
@@ -118,7 +122,8 @@ export async function POST(req: NextRequest) {
     const resolvedTierName = matchedTier.name;
     const resolvedQtyPcs = matchedTier.quantityPcs;
     const resolvedSegment = matchedTier.segment;
-    const resolvedQuantityRange = `${resolvedQtyPcs.toLocaleString('id-ID')} pcs`;
+    const isPaketBisnis = resolvedTierName.toLowerCase().includes('paket bisnis');
+    const resolvedQuantityRange = isPaketBisnis ? 'Paket Bisnis' : `${resolvedQtyPcs.toLocaleString('id-ID')} pcs`;
 
     // 4. Validate & Normalize International Phone Number (E.164)
     const phoneValidation = validateAndNormalizePhone(
@@ -157,7 +162,9 @@ export async function POST(req: NextRequest) {
       const conv = await convertLead({
         visitorId: visitorId || inquiryRef,
         hp: localHp,
-        intent: `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
+        intent: isPaketBisnis
+          ? `[QUALIFIED] ${category} - Paket Bisnis`
+          : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
         source: effectiveSource,
         pageUrl: effectiveLandingPage,
         referrer: referrer || undefined,
@@ -198,7 +205,9 @@ export async function POST(req: NextRequest) {
             utmMedium || null,
             utmCampaign || null,
             eventId || inquiryRef,
-            `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
+            isPaketBisnis
+              ? `[QUALIFIED] ${category} - Paket Bisnis`
+              : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
             fullName.trim(),
             brandOrCompany ? brandOrCompany.trim() : null,
             localHp,
@@ -332,7 +341,7 @@ export async function POST(req: NextRequest) {
       '',
       `Nama: ${fullName.trim()}`,
       `Mau Buat Apa: ${category}`,
-      `Tier Produksi: ${resolvedTierName} (${resolvedQtyPcs.toLocaleString('id-ID')} pcs)`,
+      `Paket Bisnis: ${isPaketBisnis ? 'Paket Bisnis' : `${resolvedTierName} (${resolvedQtyPcs.toLocaleString('id-ID')} pcs)`}`,
       `Nomor WhatsApp: ${cleanPhoneE164}`,
       `Kode Konsultasi: ${inquiryRef}`,
       '',

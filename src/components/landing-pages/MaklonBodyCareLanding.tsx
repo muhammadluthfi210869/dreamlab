@@ -25,10 +25,14 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
 
   useMetaAdsCtaPixel(source === "meta_ads" ? "Maklon Body Care" : "");
 
-  const openQualification = (location: string) => {
+  const handleCta = (location: string) => {
+    if (source === "google_ads") {
+      window.location.href = ctaHref;
+      return;
+    }
     trackLeadEvent('consultation_cta_clicked', {
-      source: source === "meta_ads" ? "meta-bodycare" : "google-bodycare",
-      channel: source === "meta_ads" ? "metaads" : "google-ads",
+      source: "meta-bodycare",
+      channel: "metaads",
       category: "Bodycare",
       location,
     });
@@ -225,7 +229,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
                 type="button"
                 className="btn track"
                 data-location="hero"
-                onClick={() => openQualification("hero")}
+                onClick={() => handleCta("hero")}
                 style={{ cursor: "pointer", border: "none" }}
               >
                 KONSULTASI BRAND ANDA &rarr;
@@ -310,7 +314,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
                   type="button"
                   className="btn track"
                   data-location="process"
-                  onClick={() => openQualification("process")}
+                  onClick={() => handleCta("process")}
                   style={{ cursor: "pointer", border: "none" }}
                 >
                   KONSULTASI BRAND ANDA &rarr;
@@ -335,7 +339,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
                   type="button"
                   className="btn track"
                   data-location="academy"
-                  onClick={() => openQualification("academy")}
+                  onClick={() => handleCta("academy")}
                   style={{ cursor: "pointer", border: "none" }}
                 >
                   Jadi Partner Dreamlab &rarr;
@@ -367,7 +371,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
               type="button"
               className="btn track"
               data-location="closing"
-              onClick={() => openQualification("closing")}
+              onClick={() => handleCta("closing")}
               style={{ cursor: "pointer", border: "none" }}
             >
               KONSULTASI BRAND ANDA &rarr;
@@ -375,18 +379,20 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
           </section>
         </main>
         
-        <FloatingWhatsAppCTA onClick={() => openQualification("floating-whatsapp")} />
+        <FloatingWhatsAppCTA onClick={() => handleCta("floating-whatsapp")} />
       </div>
 
-      {/* Lead Qualification Modal */}
-      <LeadQualificationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        defaultCategory="Bodycare"
-        source={source === "meta_ads" ? "meta-bodycare" : "google-bodycare"}
-        channel={source === "meta_ads" ? "metaads" : "google-ads"}
-        landingPage={source === "meta_ads" ? "/maklon-bodycare-ads/" : "/google-ads/maklon-body-care/"}
-      />
+      {/* Lead Qualification Modal (Meta Ads Only) */}
+      {source === "meta_ads" && (
+        <LeadQualificationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          defaultCategory="Bodycare"
+          source="meta-bodycare"
+          channel="metaads"
+          landingPage="/maklon-bodycare-ads/"
+        />
+      )}
     </>
   );
 }

@@ -21,39 +21,62 @@ export interface ProductionTierItem {
   segment: string;
   title: string;
   qtyLabel: string;
+  tagline: string;
   badge?: string;
+  badgeColor?: string;
 }
 
-// 4 Compact Production Tiers (Ascending Order)
+// 5 Paket Bisnis (Ascending Order) with Marketing Emotional Copy
 export const PRODUCTION_TIERS: ProductionTierItem[] = [
   {
-    name: 'Brand Starter',
+    name: 'Paket Bisnis',
     quantityPcs: 300,
     segment: 'Micro Prospect',
-    title: 'Brand Starter',
-    qtyLabel: '300 PCS',
+    title: 'Paket Bisnis',
+    qtyLabel: 'Paket Bisnis',
+    tagline: 'Mulai rancang konsep produk & formula impian Anda bersama formulator Dreamlab',
+    badge: 'Uji Pasar',
+    badgeColor: 'bg-slate-100 text-slate-800 border-slate-300',
   },
   {
-    name: 'Brand Launch',
+    name: 'Starter Brand',
     quantityPcs: 500,
-    segment: 'MOQ Fit',
-    title: 'Brand Launch',
+    segment: 'Starter Prospect',
+    title: 'Starter Brand',
     qtyLabel: '500 PCS',
+    tagline: 'Langkah awal mulai wujudkan brand impian tanpa beban modal besar',
+    badge: 'Ramah Pemula',
+    badgeColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
   },
   {
-    name: 'Brand Growth',
+    name: 'Growth Brand',
     quantityPcs: 1000,
     segment: 'Growth Prospect',
-    title: 'Brand Growth',
+    title: 'Growth Brand',
     qtyLabel: '1.000 PCS',
-    badge: 'Rekomendasi',
+    tagline: 'Pilihan favorit untuk akselerasi penjualan & bangun repeat order loyal',
+    badge: 'Paling Populer',
+    badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
   },
   {
-    name: 'Brand Partner',
+    name: 'Enterprise',
     quantityPcs: 5000,
-    segment: 'Strategic Prospect',
-    title: 'Brand Partner',
+    segment: 'Enterprise Prospect',
+    title: 'Enterprise',
     qtyLabel: '5.000 PCS',
+    tagline: 'Penetrasi pasar & distribusi luas dengan HPP produksi yang jauh lebih optimal',
+    badge: 'High Scale',
+    badgeColor: 'bg-indigo-50 text-indigo-800 border-indigo-200',
+  },
+  {
+    name: 'Strategic Partner',
+    quantityPcs: 10000,
+    segment: 'Strategic Prospect',
+    title: 'Strategic Partner',
+    qtyLabel: '10.000 PCS',
+    tagline: 'Kolaborasi eksklusif prioritas VIP, dedicated R&D, & kapasitas manufaktur penuh',
+    badge: 'VIP Prioritas',
+    badgeColor: 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-950 border-amber-300',
   },
 ];
 
@@ -149,9 +172,9 @@ export function LeadQualificationModal({
     e.preventDefault();
     setError(null);
 
-    // 1. Validate Tier Selection (Must be explicitly chosen)
+    // 1. Validate Business Package Selection (Must be explicitly chosen)
     if (!selectedTier) {
-      setError('Silakan pilih salah satu rencana tier produksi Anda.');
+      setError('Silakan pilih salah satu paket bisnis brand Anda.');
       return;
     }
 
@@ -309,12 +332,12 @@ export function LeadQualificationModal({
           </div>
 
           <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white">
-            {redirecting ? 'Menghubungkan ke Tim Konsultan...' : 'Pilih Rencana Produksi Brand Anda'}
+            {redirecting ? 'Menghubungkan ke Tim Konsultan...' : 'Pilih Paket Bisnis Brand Anda'}
           </h3>
           <p className="text-xs sm:text-sm text-slate-300 mt-1">
             {redirecting
               ? 'Data Anda telah tersimpan. Mengalihkan ke halaman konfirmasi resmi...'
-              : 'Dapatkan proposal formula, sampel, serta estimasi resmi langsung dari tim Business Development.'}
+              : 'Dapatkan proposal formula eksklusif, sampel gratis, serta proyeksi HPP resmi bersama tim Business Development.'}
           </p>
         </div>
 
@@ -350,52 +373,77 @@ export function LeadQualificationModal({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-4.5">
-              {/* 1. Production Tiers (Compact 2x2 Grid, No Descriptions, No Extra Text, Explicit Selection) */}
+              {/* 1. Paket Bisnis (Marketing Emotional Layout, 5 Tiers) */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-xs sm:text-sm font-bold text-slate-900">
-                    1. Rencana Kuantitas Produksi <span className="text-red-500">*</span>
-                  </label>
+                  <div>
+                    <label className="block text-xs sm:text-sm font-bold text-slate-900">
+                      1. Pilihan Paket Bisnis <span className="text-red-500">*</span>
+                    </label>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Pilih paket yang paling pas untuk target dan skala brand impian Anda
+                    </p>
+                  </div>
                   {!selectedTier && (
-                    <span className="text-[11px] text-amber-600 font-medium">Pilih salah satu</span>
+                    <span className="text-[11px] text-amber-600 font-semibold shrink-0">Pilih salah satu</span>
                   )}
                 </div>
 
-                {/* Compact 2x2 Grid */}
-                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-                  {PRODUCTION_TIERS.map((tier) => {
+                {/* 5 Cards Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                  {PRODUCTION_TIERS.map((tier, idx) => {
                     const isSelected = selectedTier?.name === tier.name;
+                    const isStrategic = idx === 4; // 5th item: Strategic Partner
                     return (
                       <div
                         key={tier.name}
                         onClick={() => setSelectedTier(tier)}
                         className={`relative p-3 sm:p-3.5 rounded-xl border text-left cursor-pointer select-none transition-all flex flex-col justify-between ${
+                          isStrategic ? 'sm:col-span-2' : ''
+                        } ${
                           isSelected
                             ? 'bg-[#1E3A8A]/10 border-[#1E3A8A] ring-2 ring-[#1E3A8A]/25 shadow-xs'
+                            : isStrategic
+                            ? 'bg-gradient-to-r from-slate-50 via-white to-amber-50/50 border-slate-200 hover:border-amber-300 hover:bg-slate-50/80'
                             : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/70'
                         }`}
                       >
-                        <div className="flex items-center justify-between gap-1 mb-1">
-                          <span className="text-xs font-bold text-slate-800 tracking-tight">
-                            {tier.title}
-                          </span>
-                          {tier.badge && (
-                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 shrink-0">
-                              {tier.badge}
+                        <div>
+                          <div className="flex items-center justify-between gap-1.5 mb-1">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="text-xs sm:text-sm font-bold text-slate-900 tracking-tight">
+                                {tier.title}
+                              </span>
+                              {tier.badge && (
+                                <span
+                                  className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border shrink-0 ${
+                                    tier.badgeColor || 'bg-amber-100 text-amber-900 border-amber-300'
+                                  }`}
+                                >
+                                  {tier.badge}
+                                </span>
+                              )}
+                            </div>
+                            <span
+                              className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
+                                isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300'
+                              }`}
+                            >
+                              {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                             </span>
-                          )}
+                          </div>
+
+                          <p className="text-[11px] leading-snug text-slate-500 mb-2 font-normal">
+                            {tier.tagline}
+                          </p>
                         </div>
 
-                        <div className="flex items-center justify-between mt-1">
-                          <span className="text-sm sm:text-base font-black text-[#1E3A8A]">
-                            {tier.qtyLabel}
+                        <div className="flex items-center justify-between pt-1.5 border-t border-slate-100/90 mt-1">
+                          <span className="text-[10px] uppercase font-semibold tracking-wider text-slate-400">
+                            {tier.name === 'Paket Bisnis' ? 'Kategori Paket' : 'Volume Produksi'}
                           </span>
-                          <span
-                            className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
-                              isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300'
-                            }`}
-                          >
-                            {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          <span className="text-sm font-black text-[#1E3A8A]">
+                            {tier.qtyLabel}
                           </span>
                         </div>
                       </div>

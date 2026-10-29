@@ -27,7 +27,7 @@ const displayNames =
 
 // Build list of all countries
 const rawCountries: CountryItem[] = getCountries().map((iso2) => {
-  let name = iso2;
+  let name: string = iso2;
   try {
     if (displayNames) {
       name = displayNames.of(iso2) || iso2;
