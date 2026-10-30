@@ -1,0 +1,435 @@
+"use client";
+
+import { useState } from "react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Search } from "lucide-react";
+import { BRAND, Card, Pill } from "./ui";
+
+export interface TableRow {
+  id: number;
+  tracking_code: string;
+  assigned_to: string | null;
+  busdevs?: string[];
+  source: string | null;
+  page_url: string | null;
+  status: string | null;
+  nama: string | null;
+  wa_profile_name: string | null;
+  display_phone: string | null;
+  phone_from: "WA" | "Form" | null;
+  phone_country_iso2: string | null;
+  whatsapp_phone_e164: string | null;
+  produk: string | null;
+  utm_campaign: string | null;
+  is_form_lead: boolean;
+  production_tier_name: string | null;
+  requested_quantity_pcs: number | null;
+  inquiry_reference: string | null;
+  created_at: string;
+  confirmed_at: string | null;
+  latency_seconds: number | null;
+  duplicate_count?: number;
+  merged_tracking_codes?: string[];
+}
+
+export interface TableData {
+  rows: TableRow[];
+  total: number;
+  page: number;
+  pages: number;
+  pageSize: number;
+  tabCounts: { chat: number; dropoff: number; all: number; direct: number };
+  sources: string[];
+  tiers: string[];
+}
+
+export type Tab = "chat" | "dropoff" | "all" | "direct";
+export type SortKey = "time" | "name" | "busdev" | "product" | "quantity" | "chat_time";
+
+export interface TableState {
+  tab: Tab;
+  kind: "all" | "form" | "click";
+  tier: string;
+  moq: "all" | "met" | "below";
+  source: string;
+  search: string;
+  page: number;
+  pageSize: number;
+  sort: SortKey;
+  dir: "asc" | "desc";
+}
+
+export const MOQ_PCS = 500;
+
+const wibTime = (iso?: string | null) =>
+  iso ? new Date(iso).toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "—";
+const wibDay = (iso?: string | null) =>
+  iso ? new Date(iso).toLocaleDateString("id-ID", { timeZone: "Asia/Jakarta", day: "numeric", month: "short" }) : "—";
+
+export function formatLatency(s: number | null | undefined): string {
+  if (s === null || s === undefined) return "—";
+  if (s < 60) return `${s} dtk`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m} mnt${s % 60 ? ` ${s % 60} dtk` : ""}`;
+  const h = Math.floor(m / 60);
+  return `${h} j ${m % 60} mnt`;
+}
+
+function csvCell(v: unknown): string {
+  let s = v === null || v === undefined ? "" : String(v);
+  // Cegah injeksi rumus saat dibuka di Excel / Sheets.
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+  return `"${s.replace(/"/g, '""')}"`;
+}
+
+export function rowsToCsv(rows: TableRow[]): string {
+  const head = ["Waktu Klik (WIB)", "Nama", "Nomor", "Produk", "Tier", "Pcs", "MOQ", "BusDev", "Status", "Waktu Chat (WIB)", "Latency (detik)", "Kode", "Halaman", "Sumber", "Kampanye"];
+  const body = rows.map((r) => {
+    const qty = r.requested_quantity_pcs;
+    const status = r.source === "wa-direct" ? "Chat langsung" : r.status === "confirmed" ? "Chat masuk" : "Drop-off";
+    return [
+      new Date(r.created_at).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      r.nama || r.wa_profile_name,
+      r.display_phone,
+      r.produk,
+      r.production_tier_name,
+      qty,
+      qty ? (qty >= MOQ_PCS ? "Memenuhi" : "Di bawah") : "",
+      r.assigned_to,
+      status,
+      r.confirmed_at ? new Date(r.confirmed_at).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) : "",
+      r.latency_seconds,
+      r.tracking_code,
+      r.page_url,
+      r.source,
+      r.utm_campaign,
+    ]
+      .map(csvCell)
+      .join(",");
+  });
+  return "﻿" + [head.map(csvCell).join(","), ...body].join("\r\n");
+}
+
+function SortHead({ label, k, state, onSort, className = "" }: { label: string; k: SortKey; state: TableState; onSort: (k: SortKey) => void; className?: string }) {
+  const active = state.sort === k;
+  return (
+    <th className={`px-4 py-3 ${className}`}>
+      <button type="button" onClick={() => onSort(k)} className={`inline-flex items-center gap-1 font-semibold uppercase tracking-wide ${active ? "text-slate-900" : "text-slate-500 hover:text-slate-800"}`}>
+        {label}
+        <ChevronDown className={`h-3 w-3 ${active ? (state.dir === "asc" ? "rotate-180" : "") : "opacity-30"}`} style={active ? { color: BRAND } : undefined} />
+      </button>
+    </th>
+  );
+}
+
+const selectCls =
+  "h-9 rounded-lg border border-[#E5E2DA] bg-white px-2.5 text-xs font-medium text-slate-700 focus:border-[#D98A00] focus:outline-none focus:ring-2 focus:ring-[#D98A00]/20";
+
+export function LeadTable({
+  data,
+  state,
+  loading,
+  onChange,
+  onExport,
+  exporting,
+  truncated,
+}: {
+  data: TableData | null;
+  state: TableState;
+  loading: boolean;
+  onChange: (patch: Partial<TableState>) => void;
+  onExport: () => void;
+  exporting: boolean;
+  truncated: boolean;
+}) {
+  const [copied, setCopied] = useState<string | null>(null);
+  const copy = (code: string) => {
+    navigator.clipboard?.writeText(code).catch(() => undefined);
+    setCopied(code);
+    setTimeout(() => setCopied(null), 1800);
+  };
+  const onSort = (k: SortKey) => onChange({ sort: k, dir: state.sort === k && state.dir === "desc" ? "asc" : "desc", page: 1 });
+
+  const tabs: { id: Tab; label: string; count: number | undefined }[] = [
+    { id: "chat", label: "Chat Masuk", count: data?.tabCounts.chat },
+    { id: "dropoff", label: "Drop-off", count: data?.tabCounts.dropoff },
+    { id: "all", label: "Semua Klik", count: data?.tabCounts.all },
+    { id: "direct", label: "Chat Langsung", count: data?.tabCounts.direct },
+  ];
+
+  const total = data?.total ?? 0;
+  const from = total === 0 ? 0 : (data!.page - 1) * data!.pageSize + 1;
+  const to = Math.min(total, (data?.page ?? 1) * (data?.pageSize ?? 25));
+  const filtersActive = state.kind !== "all" || state.tier !== "all" || state.moq !== "all" || state.source !== "all" || state.search !== "";
+
+  return (
+    <Card
+      title="Riwayat Lead"
+      subtitle="Satu baris per prospek (nomor sama dalam 24 jam digabung). Filter di bawah hanya mempersempit tabel; kartu mengikuti periode dan BusDev."
+      right={
+        <button
+          type="button"
+          onClick={onExport}
+          disabled={exporting || total === 0}
+          className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#E5E2DA] bg-white px-3 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+        >
+          <Download className="h-3.5 w-3.5" />
+          {exporting ? "Menyiapkan..." : "Ekspor CSV"}
+        </button>
+      }
+    >
+      {truncated && (
+        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          Data periode ini sangat besar dan dipotong di 5.000 baris terbaru. Persempit rentang tanggal agar angka lengkap.
+        </div>
+      )}
+
+      {/* Tab status */}
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <div className="flex items-center rounded-xl bg-slate-100 p-1">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => onChange({ tab: t.id, page: 1 })}
+              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${state.tab === t.id ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+            >
+              {t.label} <span className="ml-1 font-mono" style={state.tab === t.id ? { color: BRAND } : undefined}>{t.count ?? "–"}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Filter */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <div className="relative min-w-[200px] flex-1 md:max-w-xs">
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            value={state.search}
+            onChange={(e) => onChange({ search: e.target.value, page: 1 })}
+            placeholder="Cari nama, nomor, kode, halaman"
+            className="h-9 w-full rounded-lg border border-[#E5E2DA] bg-white pl-8 pr-3 text-xs text-slate-800 placeholder-slate-400 focus:border-[#D98A00] focus:outline-none focus:ring-2 focus:ring-[#D98A00]/20"
+          />
+        </div>
+        <select aria-label="Jenis lead" className={selectCls} value={state.kind} onChange={(e) => onChange({ kind: e.target.value as TableState["kind"], page: 1 })}>
+          <option value="all">Semua jenis</option>
+          <option value="form">Isi form</option>
+          <option value="click">Klik WA saja</option>
+        </select>
+        <select aria-label="Tier produksi" className={selectCls} value={state.tier} onChange={(e) => onChange({ tier: e.target.value, page: 1 })}>
+          <option value="all">Semua tier</option>
+          {(data?.tiers ?? []).map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+        <select aria-label="MOQ" className={selectCls} value={state.moq} onChange={(e) => onChange({ moq: e.target.value as TableState["moq"], page: 1 })}>
+          <option value="all">Semua MOQ</option>
+          <option value="met">Memenuhi MOQ</option>
+          <option value="below">Di bawah MOQ</option>
+        </select>
+        <select aria-label="Sumber" className={selectCls} value={state.source} onChange={(e) => onChange({ source: e.target.value, page: 1 })}>
+          <option value="all">Semua sumber</option>
+          {(data?.sources ?? []).map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        {filtersActive && (
+          <button
+            type="button"
+            onClick={() => onChange({ kind: "all", tier: "all", moq: "all", source: "all", search: "", page: 1 })}
+            className="h-9 rounded-lg px-2 text-xs font-medium text-slate-500 underline hover:text-slate-800"
+          >
+            Reset filter
+          </button>
+        )}
+      </div>
+
+      {/* Tabel */}
+      <div className="-mx-5 overflow-x-auto">
+        <table className="w-full border-collapse text-left text-xs">
+          <thead>
+            <tr className="border-y border-[#ECEAE4] bg-[#FAFAF8] text-[11px] uppercase tracking-wide">
+              <SortHead label="Waktu Klik" k="time" state={state} onSort={onSort} />
+              <SortHead label="Nama" k="name" state={state} onSort={onSort} />
+              <th className="px-4 py-3 font-semibold text-slate-500">Nomor WhatsApp</th>
+              <SortHead label="Produk" k="product" state={state} onSort={onSort} />
+              <SortHead label="Rencana Produksi" k="quantity" state={state} onSort={onSort} />
+              <SortHead label="BusDev" k="busdev" state={state} onSort={onSort} />
+              <SortHead label="Waktu Chat" k="chat_time" state={state} onSort={onSort} />
+              <th className="px-4 py-3 font-semibold text-slate-500">Kode</th>
+              <th className="px-4 py-3 font-semibold text-slate-500">Asal Halaman</th>
+            </tr>
+          </thead>
+          <tbody className={`divide-y divide-[#F1EFEA] ${loading ? "opacity-60" : ""}`}>
+            {!data ? (
+              <tr>
+                <td colSpan={9} className="py-14 text-center text-slate-400">
+                  Memuat data...
+                </td>
+              </tr>
+            ) : data.rows.length === 0 ? (
+              <tr>
+                <td colSpan={9} className="py-14 text-center text-slate-400">
+                  <p className="mb-1 font-medium text-slate-600">Tidak ada lead untuk filter ini</p>
+                  <p>Ubah rentang tanggal, tab status, atau reset filter.</p>
+                </td>
+              </tr>
+            ) : (
+              data.rows.map((r) => {
+                const isChat = r.status === "confirmed";
+                const direct = r.source === "wa-direct";
+                const clean = (v: string | null) => (v && /[\p{L}\p{N}]/u.test(v) ? v.trim() : null);
+                const name = clean(r.nama) || clean(r.wa_profile_name);
+                const qty = r.requested_quantity_pcs;
+                const foreign = r.phone_country_iso2 && r.phone_country_iso2 !== "ID" ? r.phone_country_iso2 : null;
+                return (
+                  <tr key={r.id} className="transition-colors hover:bg-[#FFFCF5]">
+                    <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px] text-slate-700">
+                      <div>{wibTime(r.created_at)}</div>
+                      <div className="font-sans text-[10px] text-slate-400">{wibDay(r.created_at)}</div>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {name ? (
+                        <div>
+                          <div className="font-semibold text-slate-900">{name}</div>
+                          {r.is_form_lead && <Pill tone="brand">Isi form</Pill>}
+                        </div>
+                      ) : (
+                        <span className="text-slate-300">—</span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px]">
+                      {r.display_phone ? (
+                        <span className="font-semibold text-slate-900" title={r.phone_from === "WA" ? "Nomor pengirim WhatsApp" : "Nomor dari isian form"}>
+                          {r.display_phone}
+                          {foreign && <span className="ml-1.5 rounded bg-sky-50 px-1 font-sans text-[9px] font-medium text-sky-700">{foreign}</span>}
+                        </span>
+                      ) : (
+                        <span className="text-slate-300">—</span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-slate-800">{r.produk || <span className="text-slate-300">—</span>}</td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {r.production_tier_name || qty ? (
+                        <div className="flex items-center gap-2">
+                          <div>
+                            <div className="font-semibold text-slate-800">{r.production_tier_name || "—"}</div>
+                            {qty ? <div className="font-mono text-[10px] text-slate-500">{qty.toLocaleString("id-ID")} pcs</div> : null}
+                          </div>
+                          {qty ? <Pill tone={qty >= MOQ_PCS ? "green" : "amber"}>{qty >= MOQ_PCS ? "Memenuhi MOQ" : "Di bawah MOQ"}</Pill> : null}
+                        </div>
+                      ) : (
+                        <span className="text-slate-300">—</span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <span className="font-semibold text-slate-800">{r.assigned_to || "—"}</span>
+                      {(r.busdevs?.length ?? 0) > 1 && (
+                        <span className="ml-1.5" title={`Prospek ini tercatat di beberapa BusDev: ${r.busdevs!.join(", ")}`}>
+                          <Pill tone="red">Ganda</Pill>
+                        </span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {direct ? (
+                        <div>
+                          <div className="font-mono text-[11px] text-emerald-700">{wibTime(r.confirmed_at)}</div>
+                          <Pill tone="slate">Chat langsung</Pill>
+                        </div>
+                      ) : isChat && r.confirmed_at ? (
+                        <div>
+                          <div className="font-mono text-[11px] text-emerald-700">{wibTime(r.confirmed_at)}</div>
+                          <Pill tone="green">{formatLatency(r.latency_seconds)}</Pill>
+                        </div>
+                      ) : (
+                        <Pill tone="amber">Drop-off</Pill>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <button
+                        type="button"
+                        onClick={() => copy(r.tracking_code)}
+                        title="Salin kode"
+                        className="inline-flex items-center gap-1 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] text-slate-700 transition hover:bg-slate-200"
+                      >
+                        {r.tracking_code.length > 16 ? `${r.tracking_code.slice(0, 14)}…` : r.tracking_code}
+                        {copied === r.tracking_code ? <Check className="h-3 w-3 text-emerald-600" /> : <Copy className="h-2.5 w-2.5 text-slate-400" />}
+                      </button>
+                      {r.inquiry_reference && r.inquiry_reference !== r.tracking_code && (
+                        <div className="mt-1 font-mono text-[10px] text-slate-400">Konsultasi: {r.inquiry_reference}</div>
+                      )}
+                      {(r.duplicate_count ?? 0) > 0 && (
+                        <div className="mt-1 text-[10px] text-slate-400" title={(r.merged_tracking_codes ?? []).join(", ")}>
+                          +{r.duplicate_count} baris digabung
+                        </div>
+                      )}
+                    </td>
+                    <td className="max-w-[220px] px-4 py-3">
+                      <div className="truncate font-medium text-slate-800" title={r.page_url || ""}>
+                        {r.page_url || "—"}
+                      </div>
+                      <div className="flex items-center gap-1 text-[10px] text-slate-400">
+                        <span className="rounded bg-slate-100 px-1 font-mono text-[9px] uppercase text-slate-600">{r.source || "direct"}</span>
+                        {r.utm_campaign && (
+                          <span className="truncate" title={r.utm_campaign}>
+                            {r.utm_campaign}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+        <div className="flex items-center gap-3">
+          <span>
+            {total === 0 ? "0 lead" : `${from.toLocaleString("id-ID")}–${to.toLocaleString("id-ID")} dari ${total.toLocaleString("id-ID")} lead`}
+          </span>
+          <label className="flex items-center gap-1.5">
+            Baris
+            <select className={selectCls} value={state.pageSize} onChange={(e) => onChange({ pageSize: parseInt(e.target.value, 10), page: 1 })}>
+              {[10, 25, 50, 100].map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            disabled={!data || data.page <= 1}
+            onClick={() => onChange({ page: state.page - 1 })}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#E5E2DA] bg-white text-slate-600 transition hover:bg-slate-50 disabled:opacity-40"
+            aria-label="Halaman sebelumnya"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <span className="min-w-[88px] text-center font-mono">
+            {data?.page ?? 1} / {data?.pages ?? 1}
+          </span>
+          <button
+            type="button"
+            disabled={!data || data.page >= data.pages}
+            onClick={() => onChange({ page: state.page + 1 })}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#E5E2DA] bg-white text-slate-600 transition hover:bg-slate-50 disabled:opacity-40"
+            aria-label="Halaman berikutnya"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </Card>
+  );
+}

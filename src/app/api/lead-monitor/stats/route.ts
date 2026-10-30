@@ -1,40 +1,62 @@
 import { NextRequest, NextResponse } from 'next/server';
-import pool, { resetPool } from '@/lib/db';
-import { mergeLeads, matchesStatusView, type MergeableLead } from '@/lib/lead-merge';
+import { getMonitorPool, resetMonitorPool } from '@/lib/db';
+import {
+  computeKpi,
+  dailySeries,
+  deltaPct,
+  fairness,
+  filterLeads,
+  groupBy,
+  healthRows,
+  hourlyChats,
+  hourlyClicks,
+  latencySeconds,
+  mergeForMonitor,
+  pagePath,
+  paginate,
+  perBusdev,
+  sortLeads,
+  sourceKey,
+  tabCounts,
+  topLeads,
+  visibleBusdevs,
+  type MonitorLead,
+  type SortKey,
+  type StatusTab,
+  type TableFilters,
+  type ViewedLead,
+} from '@/lib/lead-monitor-stats';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-export const maxDuration = 30;
+export const maxDuration = 60;
 
-// Baris mentah yang diambil sebelum digabung per nomor, dan jumlah baris yang ditampilkan.
-const RAW_ROW_CAP = 800;
-const DISPLAY_ROW_CAP = 150;
+/** Batas baris mentah per periode. Kalau tercapai, UI menampilkan peringatan "data terpotong". */
+const RAW_ROW_CAP = 5000;
+/** Titik awal sistem tracking terpadu. Periode tidak boleh mulai sebelum ini. */
+const SYSTEM_LAUNCH_DATE = '2026-10-06';
+const MAX_RANGE_DAYS = 120;
 
 const NO_STORE_HEADERS = {
   'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
 };
 
 // Kolom hasil form kualifikasi (migrasi 00022 & 00023). Belum tentu sudah ada di
-// database live, jadi dideteksi dulu: kalau belum ada, monitor tetap jalan
-// (kolomnya dikembalikan NULL) dan UI menampilkan peringatan migrasi.
+// database live, jadi dideteksi dulu; kalau belum ada dikembalikan NULL.
 const QUALIFICATION_COLUMNS: Record<string, string> = {
   production_tier_name: 'text',
-  lead_segment: 'text',
   requested_quantity_pcs: 'int',
   inquiry_reference: 'text',
-  qualification_status: 'text',
-  crm_sync_status: 'text',
-  wa_clicked_at: 'timestamptz',
-  whatsapp_phone_e164: 'text',
   phone_country_iso2: 'text',
+  whatsapp_phone_e164: 'text',
 };
 
 let columnCache: { at: number; cols: Set<string> } | null = null;
 const COLUMN_CACHE_MS = 60_000;
 
-async function getLeadColumns(client: { query: (q: string) => Promise<{ rows: any[] }> }): Promise<Set<string>> {
+async function getLeadColumns(): Promise<Set<string>> {
   if (columnCache && Date.now() - columnCache.at < COLUMN_CACHE_MS) return columnCache.cols;
-  const res = await client.query(
+  const res = await getMonitorPool().query(
     `SELECT column_name FROM information_schema.columns
       WHERE table_name = 'leads' AND table_schema = current_schema()`
   );
@@ -43,320 +65,287 @@ async function getLeadColumns(client: { query: (q: string) => Promise<{ rows: an
   return cols;
 }
 
+// Cache respons singkat: beberapa penonton / polling 20 detik tidak perlu menghantam database berulang.
+const RESPONSE_TTL_MS = 8_000;
+const responseCache = new Map<string, { at: number; body: unknown }>();
+
+const isConnError = (e: any) =>
+  /ECONNRESET|ETIMEDOUT|Connection terminated|timeout|ECONNREFUSED/i.test(`${e?.code ?? ''} ${e?.message ?? ''}`);
+
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+function wibToday(): string {
+  return new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
+}
+
+function addDays(date: string, n: number): string {
+  return new Date(Date.parse(`${date}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
+}
+
+function daysBetween(a: string, b: string): number {
+  return Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
+}
+
+const intParam = (v: string | null, d: number) => {
+  const n = parseInt(v || '', 10);
+  return Number.isFinite(n) ? n : d;
+};
+
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
-  const busdevFilter = url.searchParams.get('busdev') || 'all';
-  const statusFilter = url.searchParams.get('status') || 'all';
-  const period = url.searchParams.get('period') || 'today';
-  const startDate = url.searchParams.get('startDate') || '';
-  const endDate = url.searchParams.get('endDate') || '';
-  const search = url.searchParams.get('search') || '';
-  const kindParam = url.searchParams.get('kind') || 'all';
-  const kindFilter = ['all', 'form', 'click'].includes(kindParam) ? kindParam : 'all';
+  const sp = url.searchParams;
 
-  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  const validStart = dateRegex.test(startDate) ? startDate : null;
-  const validEnd = dateRegex.test(endDate) ? endDate : null;
+  // ---- periode (selalu tanggal WIB; preset dihitung di klien)
+  let endDate = DATE_RE.test(sp.get('endDate') || '') ? sp.get('endDate')! : wibToday();
+  let startDate = DATE_RE.test(sp.get('startDate') || '') ? sp.get('startDate')! : endDate;
+  if (startDate < SYSTEM_LAUNCH_DATE) startDate = SYSTEM_LAUNCH_DATE;
+  if (endDate < startDate) endDate = startDate;
+  if (daysBetween(startDate, endDate) >= MAX_RANGE_DAYS) startDate = addDays(endDate, -(MAX_RANGE_DAYS - 1));
 
-  let client;
-  let hasError = false;
-  try {
-    try {
-      client = await pool.connect();
-    } catch (connErr: any) {
-      console.warn('[lead-monitor/stats] Stale pooled connection, resetting and retrying...', connErr?.message);
-      resetPool();
-      client = await pool.connect();
+  const busdev = sp.get('busdev') || 'all';
+  const tabParam = sp.get('tab') || 'chat';
+  const tab: StatusTab = (['chat', 'dropoff', 'all', 'direct'] as const).includes(tabParam as StatusTab)
+    ? (tabParam as StatusTab)
+    : 'chat';
+  const kind = (['all', 'form', 'click'] as const).find((k) => k === sp.get('kind')) || 'all';
+  const moq = (['all', 'met', 'below'] as const).find((k) => k === sp.get('moq')) || 'all';
+  const filters: TableFilters = {
+    tab,
+    busdev: 'all', // BusDev sudah diterapkan sebagai filter global di bawah
+    kind,
+    tier: sp.get('tier') || 'all',
+    moq,
+    source: sp.get('source') || 'all',
+    search: (sp.get('search') || '').slice(0, 100),
+  };
+  const sortKeys: SortKey[] = ['time', 'name', 'busdev', 'product', 'quantity', 'chat_time'];
+  const sort: SortKey = sortKeys.includes(sp.get('sort') as SortKey) ? (sp.get('sort') as SortKey) : 'time';
+  const dir = sp.get('dir') === 'asc' ? 'asc' : 'desc';
+  const isExport = sp.get('export') === '1';
+  const page = intParam(sp.get('page'), 1);
+  const pageSize = isExport ? RAW_ROW_CAP : Math.min(Math.max(intParam(sp.get('pageSize'), 25), 5), 100);
+
+  const cacheKey = isExport ? null : url.searchParams.toString();
+  if (cacheKey) {
+    const hit = responseCache.get(cacheKey);
+    if (hit && Date.now() - hit.at < RESPONSE_TTL_MS) {
+      return NextResponse.json(hit.body, { status: 200, headers: NO_STORE_HEADERS });
     }
-    const leadCols = await getLeadColumns(client);
-    const hasQualificationColumns = leadCols.has('inquiry_reference') && leadCols.has('production_tier_name');
-    const col = (name: string) => (leadCols.has(name) ? name : `NULL::${QUALIFICATION_COLUMNS[name]} AS ${name}`);
+  }
 
-    // Lead dari form kualifikasi: punya inquiry_reference, atau (sebelum migrasi
-    // dijalankan) intent diawali "[QUALIFIED]" yang ditulis route /api/leads/qualify.
+  try {
+    let leadCols: Set<string>;
+    try {
+      leadCols = await getLeadColumns();
+    } catch (connErr: any) {
+      if (!isConnError(connErr)) throw connErr;
+      console.warn('[lead-monitor/stats] Stale pooled connection, resetting and retrying...', connErr?.message);
+      resetMonitorPool();
+      leadCols = await getLeadColumns();
+    }
+    const col = (name: string) => (leadCols.has(name) ? name : `NULL::${QUALIFICATION_COLUMNS[name]} AS ${name}`);
     const formExpr = leadCols.has('inquiry_reference')
       ? `(inquiry_reference IS NOT NULL OR intent LIKE '[QUALIFIED]%')`
       : `(intent LIKE '[QUALIFIED]%')`;
-    const kindClause =
-      kindFilter === 'form'
-        ? `AND ${formExpr}`
-        : kindFilter === 'click'
-          ? `AND NOT COALESCE(${formExpr}, FALSE)`
-          : '';
 
-    // 1. Filter waktu (Asia/Jakarta boundary yang presisi untuk timestamptz)
-    // Titik awal sistem tracking baru MacroDroid + Confirmed Round Robin resmi aktif: 06 Okt 2026 00:00 WIB
-    const SYSTEM_LAUNCH_DATE = "'2026-10-06 00:00:00+07'::timestamptz";
+    const GHOST = `(wa_message ~* 'memeriksa pesan baru|legalitas sertifikasi bpom')`;
+    const GHOST_ROWS = `COALESCE(${GHOST}, FALSE) AS is_ghost`;
+    const FORM_FLAG = `COALESCE(${formExpr}, FALSE) AS is_form_lead`;
+    const RANGE = `WHERE is_test IS NOT TRUE
+            AND created_at >= (($1::date)::timestamp AT TIME ZONE 'Asia/Jakarta')
+            AND created_at <  ((($2::date + 1))::timestamp AT TIME ZONE 'Asia/Jakarta')
+          ORDER BY created_at DESC
+          LIMIT ${RAW_ROW_CAP}`;
 
-    let timeClause = '';
-    if (period === 'today') {
-      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
-    } else if (period === 'yesterday') {
-      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '1 day' AND created_at < (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
-    } else if (period === 'since_new_system') {
-      timeClause = `AND created_at >= ${SYSTEM_LAUNCH_DATE}`;
-    } else if (period === '7d') {
-      // Clamp ke launch date agar tidak menarik data bias sebelum sistem terpasang
-      timeClause = `AND created_at >= GREATEST((date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '7 days', ${SYSTEM_LAUNCH_DATE})`;
-    } else if (period === '30d') {
-      timeClause = `AND created_at >= GREATEST((date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta') - INTERVAL '30 days', ${SYSTEM_LAUNCH_DATE})`;
-    } else if (period === 'all') {
-      timeClause = `AND created_at >= ${SYSTEM_LAUNCH_DATE}`;
-    } else if (validStart && validEnd) {
-      timeClause = `AND created_at >= ('${validStart} 00:00:00+07'::timestamptz) AND created_at < (('${validEnd}'::date + 1) || ' 00:00:00+07')::timestamptz`;
-    } else if (validStart) {
-      timeClause = `AND created_at >= ('${validStart} 00:00:00+07'::timestamptz)`;
-    } else if (validEnd) {
-      timeClause = `AND created_at < (('${validEnd}'::date + 1) || ' 00:00:00+07')::timestamptz`;
-    } else {
-      timeClause = `AND created_at >= (date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta')`;
-    }
+    // Periode ini: semua kolom yang dibutuhkan tabel, tetapi dipangkas (teks panjang dipotong, wa_message
+    // tidak dikirim, hanya penanda ghost) karena koneksi ke database bisa lambat.
+    const curSql = `SELECT id, tracking_code, assigned_to, source, left(page_url, 200) AS page_url, status,
+                nama, hp, wa_profile_name, wa_phone, produk, left(utm_campaign, 80) AS utm_campaign,
+                ${FORM_FLAG}, ${GHOST_ROWS},
+                ${col('production_tier_name')}, ${col('requested_quantity_pcs')},
+                ${col('inquiry_reference')}, ${col('phone_country_iso2')}, ${col('whatsapp_phone_e164')},
+                created_at, confirmed_at
+           FROM leads ${RANGE}`;
+    // Periode lalu hanya untuk perbandingan angka: kolom paling sedikit.
+    const prevSql = `SELECT id, tracking_code, assigned_to, source, status, hp, wa_phone,
+                ${FORM_FLAG}, ${GHOST_ROWS},
+                ${col('production_tier_name')}, ${col('requested_quantity_pcs')},
+                created_at, confirmed_at
+           FROM leads ${RANGE}`;
 
-    // 2. Filter BusDev
-    let busdevClause = '';
-    const queryParams: any[] = [];
-    let paramIndex = 1;
+    // ---- periode ini + periode sebelumnya (panjang sama) untuk perbandingan
+    const rangeDays = daysBetween(startDate, endDate) + 1;
+    const prevEnd = addDays(startDate, -1);
+    const prevStart = addDays(prevEnd, -(rangeDays - 1));
+    const hasPrev = prevStart >= SYSTEM_LAUNCH_DATE;
 
-    if (busdevFilter && busdevFilter.toLowerCase() !== 'all') {
-      busdevClause = `AND (
-        assigned_to ILIKE $${paramIndex}
-        OR assigned_to ILIKE '%' || $${paramIndex} || '%'
-      )`;
-      queryParams.push(busdevFilter);
-      paramIndex++;
-    }
+    const healthSql = `SELECT assigned_to, MAX(confirmed_at) AS last_chat,
+              COUNT(*) FILTER (WHERE confirmed_at >= (date_trunc('day', NOW() AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta'))::int AS today_chats
+         FROM leads
+        WHERE is_test IS NOT TRUE AND status = 'confirmed' AND source IS DISTINCT FROM 'wa-direct'
+          AND confirmed_at > NOW() - INTERVAL '14 days'
+          AND COALESCE(${GHOST}, FALSE) = FALSE
+        GROUP BY assigned_to`;
 
-    // 3. Filter Status (valid, all, confirmed, dropoff) diterapkan SETELAH baris digabung per nomor,
-    // supaya prospek yang sama (klik + chat + form) dinilai sebagai satu lead.
-    const statusView = ['valid', 'all', 'confirmed', 'dropoff'].includes(statusFilter) ? statusFilter : 'all';
-
-    // 4. Filter Search
-    let searchClause = '';
-    if (search) {
-      searchClause = `AND (
-        tracking_code ILIKE $${paramIndex}
-        OR wa_profile_name ILIKE $${paramIndex}
-        OR wa_phone ILIKE $${paramIndex}
-        OR hp ILIKE $${paramIndex}
-        OR nama ILIKE $${paramIndex}
-        OR page_url ILIKE $${paramIndex}
-      )`;
-      queryParams.push(`%${search}%`);
-      paramIndex++;
-    }
-
-    // A. Query KPI Summary untuk BusDev terpilih (Menghitung Manusia / Nomor HP Unik)
-    const kpiQuery = `
-      SELECT 
-        COUNT(*) FILTER (WHERE source != 'wa-direct')::int AS total_clicks,
-        COUNT(DISTINCT COALESCE(NULLIF(wa_phone, ''), NULLIF(hp, ''), tracking_code)) 
-          FILTER (
-            WHERE status = 'confirmed' 
-              AND source != 'wa-direct'
-              AND (wa_message IS NULL OR wa_message NOT ILIKE '%memeriksa pesan baru%')
-              AND (wa_message IS NULL OR wa_message NOT ILIKE '%legalitas sertifikasi bpom%')
-          )::int AS confirmed_chats,
-        COUNT(*) FILTER (WHERE (status IS NULL OR status != 'confirmed') AND source != 'wa-direct')::int AS dropoff_clicks,
-        COUNT(DISTINCT COALESCE(NULLIF(wa_phone, ''), NULLIF(hp, ''), tracking_code)) 
-          FILTER (WHERE source = 'wa-direct')::int AS direct_chats
-      FROM leads
-      WHERE is_test IS NOT TRUE
-        ${timeClause}
-        ${busdevClause}
-        ${searchClause}
-        ${kindClause}
-    `;
-    const kpiRes = await client.query(kpiQuery, queryParams);
-    const kpi = kpiRes.rows[0] || { total_clicks: 0, confirmed_chats: 0, dropoff_clicks: 0, direct_chats: 0 };
-    const convRate = kpi.total_clicks > 0 
-      ? Number(((kpi.confirmed_chats / kpi.total_clicks) * 100).toFixed(1)) 
-      : 0;
-
-    // B. Query Breakdown Per Semua BusDev (Menghitung Manusia / Nomor HP Unik)
-    const breakdownTimeClause = timeClause ? timeClause.replace(/created_at/g, 'l.created_at') : '';
-    const breakdownQuery = `
-      SELECT 
-        b.name AS busdev_name,
-        b.is_active,
-        COUNT(l.id) FILTER (WHERE l.source != 'wa-direct')::int AS total_clicks,
-        COUNT(DISTINCT COALESCE(NULLIF(l.wa_phone, ''), NULLIF(l.hp, ''), l.tracking_code)) 
-          FILTER (
-            WHERE l.status = 'confirmed' 
-              AND l.source != 'wa-direct'
-              AND (l.wa_message IS NULL OR l.wa_message NOT ILIKE '%memeriksa pesan baru%')
-              AND (l.wa_message IS NULL OR l.wa_message NOT ILIKE '%legalitas sertifikasi bpom%')
-          )::int AS confirmed_chats,
-        COUNT(l.id) FILTER (WHERE (l.status IS NULL OR l.status != 'confirmed') AND l.source != 'wa-direct')::int AS dropoff_clicks,
-        COUNT(DISTINCT COALESCE(NULLIF(l.wa_phone, ''), NULLIF(l.hp, ''), l.tracking_code)) 
-          FILTER (WHERE l.source = 'wa-direct')::int AS direct_chats
-      FROM busdevs b
-      LEFT JOIN leads l ON (
-        (l.assigned_to = b.name OR l.assigned_phone = regexp_replace(b.phone, '[^0-9]', '', 'g'))
-        AND l.is_test IS NOT TRUE
-        ${breakdownTimeClause}
-      )
-      GROUP BY b.name, b.is_active, b.id
-      ORDER BY b.is_active DESC, total_clicks DESC, b.id ASC
-    `;
-    const breakdownRes = await client.query(breakdownQuery);
-
-    // C. Query Daftar Detail Leads (terbaru ke terlama, digabung per nomor lalu dipotong DISPLAY_ROW_CAP)
-    const listQuery = `
-      SELECT 
-        id,
-        tracking_code,
-        assigned_to,
-        assigned_phone,
-        source,
-        page_url,
-        page_title,
-        status,
-        nama,
-        hp,
-        wa_profile_name,
-        wa_phone,
-        COALESCE(wa_phone, hp) AS display_phone,
-        wa_message,
-        produk,
-        utm_source,
-        utm_campaign,
-        COALESCE(${formExpr}, FALSE) AS is_form_lead,
-        ${col('production_tier_name')},
-        ${col('lead_segment')},
-        ${col('requested_quantity_pcs')},
-        ${col('inquiry_reference')},
-        ${col('qualification_status')},
-        ${col('crm_sync_status')},
-        ${col('wa_clicked_at')},
-        ${col('whatsapp_phone_e164')},
-        ${col('phone_country_iso2')},
-        created_at,
-        confirmed_at,
-        CASE 
-          WHEN confirmed_at IS NOT NULL 
-          THEN ROUND(EXTRACT(EPOCH FROM (confirmed_at - created_at)))::int
-          ELSE NULL
-        END AS latency_seconds
-      FROM leads
-      WHERE is_test IS NOT TRUE
-        ${timeClause}
-        ${busdevClause}
-        ${searchClause}
-        ${kindClause}
-      ORDER BY created_at DESC
-      LIMIT ${RAW_ROW_CAP}
-    `;
-    const listRes = await client.query(listQuery, queryParams);
-
-    const rawRows = listRes.rows as MergeableLead[];
-    const mergedAll = mergeLeads(rawRows);
-    const tabCounts = {
-      valid: mergedAll.filter((l) => matchesStatusView(l, 'valid')).length,
-      confirmed: mergedAll.filter((l) => matchesStatusView(l, 'confirmed')).length,
-      dropoff: mergedAll.filter((l) => matchesStatusView(l, 'dropoff')).length,
-      all: mergedAll.length,
-    };
-    const visibleLeads = mergedAll.filter((l) => matchesStatusView(l, statusView)).slice(0, DISPLAY_ROW_CAP);
-
-    // D. Ringkasan form kualifikasi (tidak ikut filter status/kind agar angkanya
-    // selalu menggambarkan funnel form untuk periode + BusDev terpilih).
-    // Dibungkus try/catch: kegagalan di sini tidak boleh mematikan monitor utama.
-    let qualification: Record<string, unknown> | null = null;
+    // Semua query berjalan BERSAMAAN (tiap query memakai koneksi sendiri dari pool).
+    const mp = getMonitorPool;
+    const runAll = () =>
+      Promise.all([
+        mp().query(curSql, [startDate, endDate]),
+        hasPrev ? mp().query(prevSql, [prevStart, prevEnd]) : Promise.resolve({ rows: [] as any[] }),
+        mp().query(`SELECT name, is_active FROM busdevs ORDER BY is_active DESC, id ASC`),
+        mp().query(healthSql),
+        mp().query(`SELECT value FROM rr_settings WHERE key = 'rr_mode'`).catch(() => ({ rows: [] as any[] })), // tabel baru ada setelah migrasi 00024
+      ]);
+    let results: Awaited<ReturnType<typeof runAll>>;
     try {
-      const scope = `FROM leads WHERE is_test IS NOT TRUE AND ${formExpr} ${timeClause} ${busdevClause} ${searchClause}`;
-      const has = (c: string) => leadCols.has(c);
-
-      const summaryRes = await client.query(
-        `SELECT
-           COUNT(*)::int AS form_total,
-           COUNT(*) FILTER (WHERE status = 'confirmed')::int AS form_confirmed,
-           ${has('wa_clicked_at') ? `COUNT(*) FILTER (WHERE wa_clicked_at IS NOT NULL)::int` : '0'} AS form_wa_clicked,
-           ${has('crm_sync_status') ? `COUNT(*) FILTER (WHERE crm_sync_status = 'synced')::int` : '0'} AS crm_synced,
-           ${has('crm_sync_status') ? `COUNT(*) FILTER (WHERE crm_sync_status = 'pending_configuration')::int` : '0'} AS crm_pending,
-           ${has('crm_sync_status') ? `COUNT(*) FILTER (WHERE crm_sync_status = 'failed')::int` : '0'} AS crm_failed,
-           MAX(created_at) AS last_form_at
-         ${scope}`,
-        queryParams
-      );
-
-      const tierRes = has('production_tier_name')
-        ? await client.query(
-            `SELECT production_tier_name AS tier,
-                    COUNT(*)::int AS total,
-                    COUNT(*) FILTER (WHERE status = 'confirmed')::int AS confirmed
-             ${scope} AND production_tier_name IS NOT NULL
-             GROUP BY production_tier_name`,
-            queryParams
-          )
-        : { rows: [] };
-
-      const categoryRes = await client.query(
-        `SELECT COALESCE(NULLIF(produk, ''), 'Tidak diisi') AS category, COUNT(*)::int AS total
-         ${scope}
-         GROUP BY 1 ORDER BY total DESC LIMIT 6`,
-        queryParams
-      );
-
-      const pageRes = await client.query(
-        `SELECT COALESCE(NULLIF(page_url, ''), '(tidak diketahui)') AS page, COUNT(*)::int AS total
-         ${scope}
-         GROUP BY 1 ORDER BY total DESC LIMIT 8`,
-        queryParams
-      );
-
-      qualification = {
-        ...summaryRes.rows[0],
-        tiers: tierRes.rows,
-        categories: categoryRes.rows,
-        pages: pageRes.rows,
-      };
-    } catch (qualErr: any) {
-      console.error('[lead-monitor/stats] Qualification summary failed:', qualErr?.message);
+      results = await runAll();
+    } catch (connErr: any) {
+      if (!isConnError(connErr)) throw connErr;
+      console.warn('[lead-monitor/stats] Koneksi bermasalah, reset pool dan coba sekali lagi:', connErr?.message);
+      resetMonitorPool();
+      results = await runAll();
     }
+    const [curRes, prevRes, bdRes, healthRes, rrRes] = results;
 
-    return NextResponse.json(
-      {
-        success: true,
-        qualificationColumnsReady: hasQualificationColumns,
-        qualification,
-        filter: {
-          busdev: busdevFilter,
-          status: statusFilter,
-          period,
-          startDate: validStart,
-          endDate: validEnd,
-          search,
-          kind: kindFilter,
-        },
-        kpi: {
-          totalClicks: kpi.total_clicks,
-          confirmedChats: kpi.confirmed_chats,
-          dropoffClicks: kpi.dropoff_clicks,
-          directChats: kpi.direct_chats || 0,
-          conversionRate: convRate,
-        },
-        busdevBreakdown: breakdownRes.rows,
-        leads: visibleLeads,
-        listMeta: {
-          rawRows: rawRows.length,
-          mergedAway: rawRows.length - mergedAll.length,
-          rawCapped: rawRows.length >= RAW_ROW_CAP,
-          tabCounts,
-        },
-        serverTime: new Date().toISOString(),
-      },
-      { status: 200, headers: NO_STORE_HEADERS }
+    const withPhone = (r: any) => ({ ...r, display_phone: r.wa_phone || r.hp || null });
+    const curRaw = (curRes.rows as any[]).map(withPhone) as MonitorLead[];
+    const prevRaw = (prevRes.rows as any[]) as MonitorLead[];
+    const rawCapped = curRaw.length >= RAW_ROW_CAP;
+
+    const merged = mergeForMonitor(curRaw).map((l) => ({ ...l, latency_seconds: latencySeconds(l) }));
+    const mergedPrev = hasPrev ? mergeForMonitor(prevRaw) : [];
+
+    // ---- daftar sales
+    const registered: { name: string; isActive: boolean }[] = bdRes.rows.map((r: any) => ({
+      name: r.name,
+      isActive: !!r.is_active,
+    }));
+    const activeNames = registered.filter((r) => r.isActive).map((r) => r.name);
+
+    // ---- filter global: BusDev (kartu, grafik, dan tabel mengikuti ini)
+    const scoped: ViewedLead[] =
+      busdev.toLowerCase() === 'all'
+        ? merged
+        : merged.filter((l) => (l.assigned_to || '').toLowerCase() === busdev.toLowerCase());
+    const scopedPrev =
+      busdev.toLowerCase() === 'all'
+        ? mergedPrev
+        : mergedPrev.filter((l) => (l.assigned_to || '').toLowerCase() === busdev.toLowerCase());
+
+    const kpi = computeKpi(scoped);
+    const kpiPrev = hasPrev ? computeKpi(scopedPrev) : null;
+
+    // ---- chat masuk per sales: selalu semua sales (tidak ikut filter BusDev) agar perbandingannya utuh
+    const busdevRows = visibleBusdevs(perBusdev(merged, activeNames), registered.map((r) => r.name)).filter((r) => {
+      const reg = registered.find((x) => x.name.toLowerCase() === r.name.toLowerCase());
+      return !reg || reg.isActive || r.chat + r.dropoff + r.direct > 0;
+    });
+
+    // ---- kesehatan nomor
+    const healthMap = new Map<string, { last: string | null; today: number }>();
+    for (const r of healthRes.rows as any[]) {
+      healthMap.set(String(r.assigned_to || '').toLowerCase(), {
+        last: r.last_chat ? new Date(r.last_chat).toISOString() : null,
+        today: r.today_chats || 0,
+      });
+    }
+    const health = healthRows(
+      registered
+        .filter((r) => r.isActive)
+        .map((r) => ({
+          name: r.name,
+          isActive: r.isActive,
+          lastChatAt: healthMap.get(r.name.toLowerCase())?.last ?? null,
+          chatsToday: healthMap.get(r.name.toLowerCase())?.today ?? 0,
+        })),
+      Date.now()
     );
+
+    // ---- mode pembagian (hanya ada setelah migrasi round robin dijalankan)
+    const rrMode: string | null = (rrRes.rows[0] as any)?.value ?? null;
+
+    // ---- tabel
+    const filtered = sortLeads(filterLeads(scoped, filters), sort, dir);
+    const pg = paginate(filtered, page, pageSize);
+    const slim = (l: ViewedLead) => ({
+      id: l.id,
+      tracking_code: l.tracking_code,
+      assigned_to: l.assigned_to,
+      busdevs: l.busdevs,
+      source: l.source,
+      page_url: l.page_url,
+      status: l.status,
+      nama: l.nama ?? null,
+      wa_profile_name: l.wa_profile_name ?? null,
+      display_phone: (l.display_phone as string) ?? l.wa_phone ?? l.hp ?? null,
+      phone_from: l.wa_phone ? 'WA' : l.hp ? 'Form' : null,
+      phone_country_iso2: (l.phone_country_iso2 as string) ?? null,
+      whatsapp_phone_e164: (l.whatsapp_phone_e164 as string) ?? null,
+      produk: l.produk ?? null,
+      utm_campaign: l.utm_campaign ?? null,
+      is_form_lead: !!l.is_form_lead,
+      production_tier_name: l.production_tier_name ?? null,
+      requested_quantity_pcs: l.requested_quantity_pcs ?? null,
+      inquiry_reference: l.inquiry_reference ?? null,
+      created_at: l.created_at,
+      confirmed_at: l.confirmed_at,
+      latency_seconds: (l as any).latency_seconds ?? null,
+      duplicate_count: l.duplicate_count,
+      merged_tracking_codes: l.merged_tracking_codes,
+      last_seen_at: l.last_seen_at,
+    });
+
+    const sources = [...new Set(scoped.map((l) => l.source || 'direct').filter((s) => s !== 'wa-direct'))].sort();
+    const tiers = [...new Set(scoped.map((l) => (l.production_tier_name as string) || '').filter(Boolean))].sort();
+
+    const body = {
+        success: true,
+        period: { startDate, endDate, days: rangeDays, hasPrevious: hasPrev },
+        kpi: {
+          current: kpi,
+          previous: kpiPrev,
+          delta: kpiPrev
+            ? {
+                totalClicks: deltaPct(kpi.totalClicks, kpiPrev.totalClicks),
+                chat: deltaPct(kpi.chat, kpiPrev.chat),
+                dropoff: deltaPct(kpi.dropoff, kpiPrev.dropoff),
+                moqMet: deltaPct(kpi.moqMet, kpiPrev.moqMet),
+              }
+            : null,
+        },
+        busdevs: busdevRows,
+        fairness: fairness(busdevRows, activeNames),
+        daily: dailySeries(scoped, startDate, endDate),
+        hourly: hourlyChats(scoped),
+        hourlyClicks: hourlyClicks(scoped),
+        sources: groupBy(scoped, sourceKey, 8),
+        pages: groupBy(scoped, (l) => pagePath(l.page_url as string | null), 8),
+        topLeads: topLeads(scoped, Date.now(), 5),
+        health,
+        rrMode,
+        table: {
+          rows: pg.rows.map(slim),
+          total: filtered.length,
+          page: pg.page,
+          pages: pg.pages,
+          pageSize,
+          tabCounts: tabCounts(scoped),
+          sources,
+          tiers,
+        },
+        meta: { rawRows: curRaw.length, rawCapped, serverTime: new Date().toISOString() },
+    };
+    if (cacheKey) {
+      if (responseCache.size > 50) responseCache.clear();
+      responseCache.set(cacheKey, { at: Date.now(), body });
+    }
+    return NextResponse.json(body, { status: 200, headers: NO_STORE_HEADERS });
   } catch (err: any) {
-    hasError = true;
     console.error('[lead-monitor/stats] Error:', err);
     return NextResponse.json(
       { success: false, error: err?.message || 'Failed to fetch lead stats' },
       { status: 500, headers: NO_STORE_HEADERS }
     );
-  } finally {
-    if (client) {
-      client.release(hasError);
-    }
   }
 }

@@ -101,7 +101,7 @@ export async function GET(req: NextRequest) {
  * Mengubah status lead menjadi 'confirmed' dan mencatat profil pengirim.
  */
 
-function resolveBusdevName(destPhone?: string | null, phoneId?: string | null, messageText?: string | null): string {
+function resolveBusdevName(destPhone?: string | null, phoneId?: string | null): string {
   const cleanDest = (destPhone || '').replace(/[^0-9]/g, '');
   const pId = String(phoneId || '').trim();
 
@@ -111,16 +111,8 @@ function resolveBusdevName(destPhone?: string | null, phoneId?: string | null, m
   if (pId === '321060871092518' || pId === '290340704173604' || pId === '815864727920156' || pId === '915133341684796' || cleanDest.endsWith('85133188827') || cleanDest.endsWith('881027240339')) return 'Irma';
   // Diaz: WA +62 877-7655-0657 | WABA 148982938307527 | Phone ID 198659679989033 | Alt WA 0812-9026-2100
   if (pId === '148982938307527' || pId === '198659679989033' || cleanDest.endsWith('87776550657') || cleanDest.endsWith('81290262100')) return 'Diaz';
-  // Jessica: WA +62 877-1223-2389 | Alt WA 0812-8362-6294
-  if (cleanDest.endsWith('87712232389') || cleanDest.endsWith('81283626294')) return 'Jessica';
-
-  // Fallback dari isi chat jika destinationPhone tidak dilampirkan oleh MacroDroid:
-  if (messageText) {
-    if (/\bdiaz\b/i.test(messageText)) return 'Diaz';
-    if (/\b(annisa|nisa)\b/i.test(messageText)) return 'Annisa';
-    if (/\b(jessica|ica)\b/i.test(messageText)) return 'Jessica';
-    if (/\birma\b/i.test(messageText)) return 'Irma';
-  }
+  // Jessica: WA +62 877-1223-2389 | Alt WA 0812-8362-6294 | WABA 1688350871863816 | Phone ID 747476801793002 (via Convia Coexistence)
+  if (pId === '747476801793002' || cleanDest.endsWith('87712232389') || cleanDest.endsWith('81283626294')) return 'Jessica';
 
   return 'Unassigned';
 }
@@ -175,7 +167,7 @@ export async function POST(req: NextRequest) {
         }
       }
     }
-    // B. Deteksi payload bridge langsung dari ERP, MacroDroid, atau testing script
+    // B. Deteksi payload bridge dari ERP, endpoint Convia (/api/lead-capture/convia), atau script uji
     else {
       trackingCode = body.trackingCode || body.tracking_code || body.eventId || null;
       phone = body.phone || body.sender || null;
@@ -193,49 +185,14 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // C. Resilient fallback extraction jika body malformed (misal Android MacroDroid dengan karakter newline/petik)
-    if (rawBody) {
-      if (!trackingCode) {
-        const match = rawBody.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i);
-        if (match) {
-          trackingCode = match[1].trim();
-        } else {
-          const fieldMatch = rawBody.match(/"(?:trackingCode|tracking_code|eventId)"\s*:\s*"([^"\r\n]+)"/i);
-          if (fieldMatch) trackingCode = fieldMatch[1].trim();
-        }
-      }
-
-      if (!phone) {
-        const phoneMatch = rawBody.match(/"(?:phone|sender|waPhone|wa_phone)"\s*:\s*"([^"\r\n]+)"/i);
-        if (phoneMatch) phone = phoneMatch[1].trim();
-      }
-
-      if (!waName) {
-        const nameMatch = rawBody.match(/"(?:waName|wa_name|profileName|senderName)"\s*:\s*"([^"\r\n]+)"/i);
-        if (nameMatch) waName = nameMatch[1].trim();
-      }
-
-      if (!destinationPhone) {
-        const destMatch = rawBody.match(/"(?:destinationPhone|destination_phone)"\s*:\s*"([^"\r\n]+)"/i);
-        if (destMatch) destinationPhone = destMatch[1].trim();
-      }
-
-      if (!messageText) {
-        const msgMatch = rawBody.match(/"(?:waMessage|message|text)"\s*:\s*"([\s\S]*?)"\s*[,}]/i);
-        if (msgMatch) {
-          messageText = msgMatch[1].trim();
-        }
-      }
-    }
-
     // Normalisasi nomor HP pengirim
     let normalizedPhone = phone ? phone.replace(/[^0-9]/g, '') : null;
     if (normalizedPhone && normalizedPhone.startsWith('0')) {
       normalizedPhone = '62' + normalizedPhone.slice(1);
     }
 
-    // Tentukan penerima Busdev (dengan fallback deteksi nama sales di isi pesan)
-    const busdevName = resolveBusdevName(destinationPhone, phoneNumberId, messageText);
+    // Tentukan penerima Busdev dari nomor tujuan / Phone Number ID WABA
+    const busdevName = resolveBusdevName(destinationPhone, phoneNumberId);
 
     // Dedup by wamid: kalau wamid sudah pernah diproses, return early.
     // Tabel processed_webhook_messages dibuat oleh migration 00016.

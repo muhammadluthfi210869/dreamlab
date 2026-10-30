@@ -91,12 +91,12 @@ async function audit() {
     console.log(`   (Info Klik Web: Tertinggi ${maxClicks}, Terendah ${minClicks}, Selisih ${spreadClicks} klik karena kompensasi drop-off).`);
   }
 
-  // 4. Analisis Validasi / MacroDroid Health
-  console.log('\n📱 ANALISIS KONEKSI HANDPHONE & MACRODROID:');
+  // 4. Kesehatan jalur chat WhatsApp (WABA / Convia)
+  console.log('\n📱 ANALISIS JALUR CHAT WHATSAPP (WABA / CONVIA):');
   for (const row of todayStatsRes.rows) {
     if (row.total_klik_web > 0 && row.chat_valid_web === 0) {
       console.log(`🚨 PERINGATAN [${row.sales_name}]: Menerima ${row.total_klik_web} klik tapi 0 chat valid!`);
-      console.log(`   -> Segera periksa HP ${row.sales_name}: Apakah MacroDroid aktif, baterai unrestricted, dan internet terhubung?`);
+      console.log(`   -> Periksa jalur chat ${row.sales_name}: apakah nomornya sudah terhubung ke WABA/Convia dan webhook-nya aktif (dashboard Convia > Webhook, atau npm run verify:waba)?`);
     } else {
       console.log(`✅ [${row.sales_name}]: Berjalan normal (${row.chat_valid_web} terkonfirmasi dari ${row.total_klik_web} klik).`);
     }

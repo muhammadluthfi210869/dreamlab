@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+import { Pool, type PoolConfig } from 'pg';
 
 /**
  * Koneksi ke PostgreSQL dedicated (database `dreamlab`), terpisah dari ERP.
@@ -13,7 +13,7 @@ import { Pool } from 'pg';
  *   serverless lebih aman kecil, atau pakai PgBouncer di sisi server.
  */
 
-function buildPool() {
+function buildPool(overrides: Partial<PoolConfig> = {}) {
   // URUTAN PENTING (cutover Neon→Biznet 2026-09-14): DATABASE_URL PALING AWAL.
   // Wave engine (assign_and_insert_lead + daily_leads) wajib punya SATU sumber
   // kebenaran. Vercel project masih punya env var warisan integrasi Neon
@@ -65,6 +65,7 @@ function buildPool() {
     statement_timeout: Number(process.env.DB_STATEMENT_TIMEOUT_MS ?? 15000),
     keepAlive: true,
     keepAliveInitialDelayMillis: 10000,
+    ...overrides,
   });
 
   p.on('error', (err: any) => {
@@ -119,6 +120,33 @@ export async function queryWithRetry<R extends any = any>(
       return { rows: retryRes.rows as R[], rowCount: retryRes.rowCount };
     }
     throw err;
+  }
+}
+
+/**
+ * Pool khusus halaman internal (Lead Monitor). Terpisah dari pool pengunjung supaya
+ * query laporan yang berat tidak memakan koneksi pembagian lead, dan memakai batas waktu
+ * lebih longgar karena dashboard internal boleh menunggu lebih lama daripada klik pengunjung.
+ */
+let _monitorPool: Pool | null = null;
+
+export function getMonitorPool(): Pool {
+  if (!_monitorPool) {
+    _monitorPool = buildPool({
+      max: Number(process.env.MONITOR_POOL_MAX ?? 3),
+      connectionTimeoutMillis: Number(process.env.MONITOR_CONNECTION_TIMEOUT_MS ?? 20000),
+      statement_timeout: Number(process.env.MONITOR_STATEMENT_TIMEOUT_MS ?? 60000),
+    });
+  }
+  return _monitorPool;
+}
+
+export function resetMonitorPool(): void {
+  if (_monitorPool) {
+    try {
+      _monitorPool.end().catch(() => {});
+    } catch {}
+    _monitorPool = null;
   }
 }
 

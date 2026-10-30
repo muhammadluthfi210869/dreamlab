@@ -32,6 +32,7 @@ const TARGETS = [
   { name: 'Irma',   phoneNumberId: '815864727920156', displayPhone: '62881027240339' },
   { name: 'Annisa', phoneNumberId: '116397311522216', displayPhone: '6281952417051'  },
   { name: 'Diaz',   phoneNumberId: '198659679989033', displayPhone: '6287776550657'  },
+  { name: 'Jessica', phoneNumberId: '747476801793002', displayPhone: '6287712232389' },
 ];
 
 const out = { tag: TAG, steps: [], failed: [] };

@@ -13,6 +13,10 @@
     "verify:lead-flow": "npx tsx scripts/verify-thankyou-flow.ts",
     "verify:round-robin": "npx tsx scripts/verify-round-robin-config.ts",
     "verify:waba": "node scripts/verify-waba-e2e.mjs",
+    "test:convia": "npx tsx scripts/test-convia-webhook.ts",
+    "test:lead-monitor": "npx tsx scripts/test-lead-monitor-stats.ts",
+    "test:rr-balance": "npx tsx scripts/test-round-robin-balance.ts",
+    "verify:rr-sql": "node scripts/validate-round-robin-sql.mjs",
     "test:leads-integration": "npx tsx scripts/test-leads-assign-integration.ts",
     "test:leads-rr": "npx tsx scripts/test-whatsapp-round-robin.ts",
     "test:round-robin-perf": "npx tsx scripts/test-round-robin-perf.ts",
@@ -45,7 +49,8 @@
     "pg": "^8.22.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-icons": "^5.6.0"
+    "react-icons": "^5.6.0",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
