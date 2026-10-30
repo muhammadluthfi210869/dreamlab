@@ -7,7 +7,6 @@ import {
   fairness,
   filterLeads,
   groupBy,
-  healthRows,
   hourlyChats,
   hourlyClicks,
   latencySeconds,
@@ -15,10 +14,12 @@ import {
   pagePath,
   paginate,
   perBusdev,
+  referrerInfo,
   sortLeads,
   sourceKey,
   tabCounts,
   topLeads,
+  topReferrers,
   visibleBusdevs,
   type MonitorLead,
   type SortKey,
@@ -26,6 +27,13 @@ import {
   type TableFilters,
   type ViewedLead,
 } from '@/lib/lead-monitor-stats';
+import { articlesMeta } from '@/data/articles-meta';
+
+// path artikel (tanpa slash akhir) -> judul, tanpa akhiran merek. Metadata ringan, bukan isi artikel.
+const ARTICLE_TITLES = new Map<string, string>(
+  articlesMeta.map((a) => [a.slug.replace(/\/+$/, '') || '/', a.title.replace(/\s*[|–-]\s*Dreamlab\s*$/i, '').trim()])
+);
+const articleTitleOf = (path: string): string | null => ARTICLE_TITLES.get(path) ?? null;
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -159,7 +167,7 @@ export async function GET(req: NextRequest) {
 
     // Periode ini: semua kolom yang dibutuhkan tabel, tetapi dipangkas (teks panjang dipotong, wa_message
     // tidak dikirim, hanya penanda ghost) karena koneksi ke database bisa lambat.
-    const curSql = `SELECT id, tracking_code, assigned_to, source, left(page_url, 200) AS page_url, status,
+    const curSql = `SELECT id, tracking_code, assigned_to, source, left(page_url, 200) AS page_url, left(referrer, 300) AS referrer, status,
                 nama, hp, wa_profile_name, wa_phone, produk, left(utm_campaign, 80) AS utm_campaign,
                 ${FORM_FLAG}, ${GHOST_ROWS},
                 ${col('production_tier_name')}, ${col('requested_quantity_pcs')},
@@ -179,14 +187,6 @@ export async function GET(req: NextRequest) {
     const prevStart = addDays(prevEnd, -(rangeDays - 1));
     const hasPrev = prevStart >= SYSTEM_LAUNCH_DATE;
 
-    const healthSql = `SELECT assigned_to, MAX(confirmed_at) AS last_chat,
-              COUNT(*) FILTER (WHERE confirmed_at >= (date_trunc('day', NOW() AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta'))::int AS today_chats
-         FROM leads
-        WHERE is_test IS NOT TRUE AND status = 'confirmed' AND source IS DISTINCT FROM 'wa-direct'
-          AND confirmed_at > NOW() - INTERVAL '14 days'
-          AND COALESCE(${GHOST}, FALSE) = FALSE
-        GROUP BY assigned_to`;
-
     // Semua query berjalan BERSAMAAN (tiap query memakai koneksi sendiri dari pool).
     const mp = getMonitorPool;
     const runAll = () =>
@@ -194,7 +194,6 @@ export async function GET(req: NextRequest) {
         mp().query(curSql, [startDate, endDate]),
         hasPrev ? mp().query(prevSql, [prevStart, prevEnd]) : Promise.resolve({ rows: [] as any[] }),
         mp().query(`SELECT name, is_active FROM busdevs ORDER BY is_active DESC, id ASC`),
-        mp().query(healthSql),
         mp().query(`SELECT value FROM rr_settings WHERE key = 'rr_mode'`).catch(() => ({ rows: [] as any[] })), // tabel baru ada setelah migrasi 00024
       ]);
     let results: Awaited<ReturnType<typeof runAll>>;
@@ -206,7 +205,7 @@ export async function GET(req: NextRequest) {
       resetMonitorPool();
       results = await runAll();
     }
-    const [curRes, prevRes, bdRes, healthRes, rrRes] = results;
+    const [curRes, prevRes, bdRes, rrRes] = results;
 
     const withPhone = (r: any) => ({ ...r, display_phone: r.wa_phone || r.hp || null });
     const curRaw = (curRes.rows as any[]).map(withPhone) as MonitorLead[];
@@ -242,39 +241,25 @@ export async function GET(req: NextRequest) {
       return !reg || reg.isActive || r.chat + r.dropoff + r.direct > 0;
     });
 
-    // ---- kesehatan nomor
-    const healthMap = new Map<string, { last: string | null; today: number }>();
-    for (const r of healthRes.rows as any[]) {
-      healthMap.set(String(r.assigned_to || '').toLowerCase(), {
-        last: r.last_chat ? new Date(r.last_chat).toISOString() : null,
-        today: r.today_chats || 0,
-      });
-    }
-    const health = healthRows(
-      registered
-        .filter((r) => r.isActive)
-        .map((r) => ({
-          name: r.name,
-          isActive: r.isActive,
-          lastChatAt: healthMap.get(r.name.toLowerCase())?.last ?? null,
-          chatsToday: healthMap.get(r.name.toLowerCase())?.today ?? 0,
-        })),
-      Date.now()
-    );
-
     // ---- mode pembagian (hanya ada setelah migrasi round robin dijalankan)
     const rrMode: string | null = (rrRes.rows[0] as any)?.value ?? null;
 
     // ---- tabel
     const filtered = sortLeads(filterLeads(scoped, filters), sort, dir);
     const pg = paginate(filtered, page, pageSize);
-    const slim = (l: ViewedLead) => ({
+    const slim = (l: ViewedLead) => {
+      // Referrer mentah tidak dikirim ke browser (bisa memuat UTM/fbclid); hanya label bersih.
+      const ref = referrerInfo(l.referrer, articleTitleOf);
+      return {
       id: l.id,
       tracking_code: l.tracking_code,
       assigned_to: l.assigned_to,
       busdevs: l.busdevs,
       source: l.source,
-      page_url: l.page_url,
+      page_url: pagePath(l.page_url as string | null),
+      referrer_label: ref.label,
+      referrer_kind: ref.kind,
+      referrer_path: ref.path,
       status: l.status,
       nama: l.nama ?? null,
       wa_profile_name: l.wa_profile_name ?? null,
@@ -294,7 +279,8 @@ export async function GET(req: NextRequest) {
       duplicate_count: l.duplicate_count,
       merged_tracking_codes: l.merged_tracking_codes,
       last_seen_at: l.last_seen_at,
-    });
+      };
+    };
 
     const sources = [...new Set(scoped.map((l) => l.source || 'direct').filter((s) => s !== 'wa-direct'))].sort();
     const tiers = [...new Set(scoped.map((l) => (l.production_tier_name as string) || '').filter(Boolean))].sort();
@@ -322,7 +308,7 @@ export async function GET(req: NextRequest) {
         sources: groupBy(scoped, sourceKey, 8),
         pages: groupBy(scoped, (l) => pagePath(l.page_url as string | null), 8),
         topLeads: topLeads(scoped, Date.now(), 5),
-        health,
+        referrers: topReferrers(scoped, articleTitleOf, 8),
         rrMode,
         table: {
           rows: pg.rows.map(slim),

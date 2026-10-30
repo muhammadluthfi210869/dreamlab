@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CalendarDays, HelpCircle, MessageSquare, Phone, RefreshCw, Target, Users } from "lucide-react";
-import { BRAND, Card, KpiCard } from "@/components/lead-monitor/ui";
+import { BRAND, Card, KpiCard, Pill } from "@/components/lead-monitor/ui";
 import {
   BusdevBars,
   FairnessPill,
@@ -14,7 +14,7 @@ import {
   type FairnessInfo,
   type GroupRow,
 } from "@/components/lead-monitor/charts";
-import { HealthCard, TopLeadsCard, type HealthRowData, type TopLeadRow } from "@/components/lead-monitor/panels";
+import { ReferrerCard, RR_LABEL, TopLeadsCard, type ReferrerRankRow, type TopLeadRow } from "@/components/lead-monitor/panels";
 import { LeadTable, rowsToCsv, type TableData, type TableState } from "@/components/lead-monitor/LeadTable";
 
 const SYSTEM_LAUNCH = "2026-10-06";
@@ -39,7 +39,7 @@ interface ApiData {
   sources: GroupRow[];
   pages: GroupRow[];
   topLeads: TopLeadRow[];
-  health: HealthRowData[];
+  referrers: ReferrerRankRow[];
   rrMode: string | null;
   table: TableData;
   meta: { rawRows: number; rawCapped: boolean; serverTime: string };
@@ -381,7 +381,14 @@ export default function LeadMonitorPage() {
           <Card
             title="Chat Masuk per BusDev"
             subtitle="Klik batang untuk memfilter semua data"
-            right={data ? <FairnessPill fairness={data.fairness} /> : undefined}
+            right={
+              data ? (
+                <div className="flex items-center gap-1.5">
+                  {data.rrMode && <span title="Cara sistem membagi klik baru ke sales"><Pill tone="brand">{RR_LABEL[data.rrMode] ?? data.rrMode}</Pill></span>}
+                  <FairnessPill fairness={data.fairness} />
+                </div>
+              ) : undefined
+            }
           >
             {data ? <BusdevBars rows={data.busdevs} selected={busdev} onSelect={(n) => { setBusdev(n); patchTable({ page: 1 }); }} /> : <div className="h-[280px]" />}
           </Card>
@@ -403,7 +410,7 @@ export default function LeadMonitorPage() {
         {/* Top leads + kesehatan */}
         <div className="grid gap-4 lg:grid-cols-2">
           <TopLeadsCard rows={data?.topLeads ?? []} />
-          <HealthCard rows={data?.health ?? []} rrMode={data?.rrMode ?? null} />
+          <ReferrerCard rows={data?.referrers ?? []} />
         </div>
 
         {/* Tabel */}
@@ -411,6 +418,12 @@ export default function LeadMonitorPage() {
           data={data?.table ?? null}
           state={table}
           loading={loading || refreshing}
+          busdev={busdev}
+          busdevNames={busdevNames}
+          onBusdev={(n) => {
+            setBusdev(n);
+            patchTable({ page: 1 });
+          }}
           onChange={patchTable}
           onExport={exportCsv}
           exporting={exporting}

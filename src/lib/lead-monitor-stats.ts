@@ -48,6 +48,8 @@ export interface MonitorLead extends MergeableLead {
   /** Penanda dari SQL: pesan adalah notifikasi sistem Android (data lama), bukan chat. */
   is_ghost?: boolean;
   page_url?: string | null;
+  /** Halaman sebelum lead dibuat (artikel, iklan, Instagram, dst). */
+  referrer?: string | null;
   utm_campaign?: string | null;
   produk?: string | null;
   production_tier_name?: string | null;
@@ -294,6 +296,76 @@ export function pagePath(url: string | null | undefined): string | null {
   }
 }
 
+export type ReferrerKind = 'artikel' | 'landing' | 'beranda' | 'situs' | 'eksternal' | 'langsung';
+
+export interface ReferrerInfo {
+  kind: ReferrerKind;
+  /** Teks utama: judul artikel, path halaman, atau nama situs luar. Tanpa query string. */
+  label: string | null;
+  /** Path halaman dreamlab.id (hanya untuk halaman sendiri). */
+  path: string | null;
+}
+
+const LANDING_PREFIX = /^\/(ads|google-ads|thankyou|produk|dreampreneur|contact-us|contact-medsos)(\/|$)/;
+
+/**
+ * Menerjemahkan referrer mentah menjadi label yang enak dibaca. Query string (UTM, fbclid, dst) dibuang
+ * supaya tidak membocorkan parameter iklan ke tampilan. `titleOf` opsional: path -> judul artikel.
+ */
+export function referrerInfo(ref: string | null | undefined, titleOf?: (path: string) => string | null): ReferrerInfo {
+  if (!ref || !ref.trim()) return { kind: 'langsung', label: null, path: null };
+  try {
+    const u = new URL(ref.trim());
+    const host = u.hostname.replace(/^www\./, '').toLowerCase();
+    if (host === 'dreamlab.id') {
+      const path = u.pathname.replace(/\/+$/, '') || '/';
+      if (path === '/') return { kind: 'beranda', label: 'Beranda', path };
+      if (LANDING_PREFIX.test(path)) return { kind: 'landing', label: path, path };
+      const title = titleOf?.(path) ?? null;
+      if (title) return { kind: 'artikel', label: title, path };
+      return { kind: 'situs', label: path, path };
+    }
+    return { kind: 'eksternal', label: host, path: null };
+  } catch {
+    return { kind: 'eksternal', label: ref.trim().slice(0, 60), path: null };
+  }
+}
+
+export interface ReferrerRank {
+  key: string;
+  label: string;
+  kind: ReferrerKind;
+  klik: number;
+  chat: number;
+  /** Persen klik yang menjadi chat (0-100, satu desimal). */
+  rate: number;
+}
+
+/**
+ * Peringkat halaman asal. Satu halaman = satu path (atau satu situs luar); query string diabaikan.
+ * Diurutkan dari chat terbanyak, lalu klik terbanyak. Chat langsung tidak ikut (tidak punya halaman asal).
+ */
+export function topReferrers(
+  leads: ViewedLead[],
+  titleOf?: (path: string) => string | null,
+  limit = 8
+): ReferrerRank[] {
+  const m = new Map<string, ReferrerRank>();
+  for (const l of leads) {
+    const c = classify(l);
+    if (c === 'direct') continue;
+    const info = referrerInfo(l.referrer, titleOf);
+    if (info.kind === 'langsung' || !info.label) continue;
+    const key = info.path ?? info.label;
+    if (!m.has(key)) m.set(key, { key, label: info.label, kind: info.kind, klik: 0, chat: 0, rate: 0 });
+    const g = m.get(key)!;
+    g.klik++;
+    if (c === 'chat') g.chat++;
+  }
+  const rows = [...m.values()].map((g) => ({ ...g, rate: g.klik ? Math.round((g.chat / g.klik) * 1000) / 10 : 0 }));
+  return rows.sort((a, b) => b.chat - a.chat || b.klik - a.klik).slice(0, limit);
+}
+
 export const sourceKey = (l: MonitorLead): string | null =>
   l.utm_campaign ? `${l.source || 'direct'} · ${l.utm_campaign}` : l.source || 'direct';
 
@@ -440,7 +512,7 @@ export function filterLeads(leads: ViewedLead[], f: TableFilters): ViewedLead[] 
     if (f.moq === 'below' && (meetsMoq(l) || !quantityOf(l))) return false;
     if (f.source !== 'all' && (l.source || 'direct') !== f.source) return false;
     if (q) {
-      const hay = [l.tracking_code, l.nama, l.wa_profile_name, l.wa_phone, l.hp, l.page_url, l.produk, l.inquiry_reference]
+      const hay = [l.tracking_code, l.nama, l.wa_profile_name, l.wa_phone, l.hp, l.page_url, l.referrer, l.produk, l.inquiry_reference]
         .map(norm)
         .join(' ');
       if (!hay.includes(q)) return false;

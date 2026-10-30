@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Empty, Pill } from "./ui";
+import { Card, Empty } from "./ui";
 
 export interface TopLeadRow {
   id: number;
@@ -13,23 +13,23 @@ export interface TopLeadRow {
   chat: boolean;
 }
 
-export interface HealthRowData {
-  name: string;
-  isActive: boolean;
-  lastChatAt: string | null;
-  chatsToday: number;
-  level: "sehat" | "perhatian" | "tidak-aktif" | "di-luar-jam-kerja" | "nonaktif";
-  minutesSinceChat: number | null;
+export interface ReferrerRankRow {
+  key: string;
+  label: string;
+  kind: "artikel" | "landing" | "beranda" | "situs" | "eksternal" | "langsung";
+  klik: number;
+  chat: number;
+  rate: number;
 }
 
-export function ago(minutes: number | null): string {
-  if (minutes === null) return "belum pernah";
-  if (minutes < 1) return "baru saja";
-  if (minutes < 60) return `${minutes} mnt lalu`;
-  const h = Math.floor(minutes / 60);
-  if (h < 24) return `${h} jam lalu`;
-  return `${Math.floor(h / 24)} hari lalu`;
-}
+const KIND_LABEL: Record<ReferrerRankRow["kind"], string> = {
+  artikel: "Artikel",
+  landing: "Halaman web",
+  beranda: "Beranda",
+  situs: "Halaman web",
+  eksternal: "Situs luar",
+  langsung: "Langsung",
+};
 
 export function TopLeadsCard({ rows }: { rows: TopLeadRow[] }) {
   return (
@@ -68,50 +68,48 @@ export function TopLeadsCard({ rows }: { rows: TopLeadRow[] }) {
   );
 }
 
-const HEALTH: Record<HealthRowData["level"], { text: string; tone: "green" | "amber" | "red" | "slate"; dot: string }> = {
-  sehat: { text: "Sehat", tone: "green", dot: "bg-emerald-500" },
-  perhatian: { text: "Perlu dicek", tone: "amber", dot: "bg-amber-500" },
-  "tidak-aktif": { text: "Tidak ada chat", tone: "red", dot: "bg-rose-500" },
-  "di-luar-jam-kerja": { text: "Di luar jam kerja", tone: "slate", dot: "bg-slate-300" },
-  nonaktif: { text: "Nonaktif", tone: "slate", dot: "bg-slate-300" },
-};
-
-const RR_LABEL: Record<string, string> = {
+export const RR_LABEL: Record<string, string> = {
   sequential: "Giliran berurutan",
   shadow: "Mode bayangan",
   confirmed_balance: "Berdasarkan chat masuk",
 };
 
-export function HealthCard({ rows, rrMode }: { rows: HealthRowData[]; rrMode: string | null }) {
+/** Peringkat halaman asal: mana yang benar-benar menghasilkan chat, bukan sekadar klik. */
+export function ReferrerCard({ rows }: { rows: ReferrerRankRow[] }) {
+  const max = Math.max(1, ...rows.map((r) => r.klik));
   return (
-    <Card
-      title="Kesehatan Nomor WhatsApp"
-      subtitle="Chat terakhir yang tertangkap sistem, per sales"
-      right={rrMode ? <Pill tone="brand">{RR_LABEL[rrMode] ?? rrMode}</Pill> : undefined}
-    >
+    <Card title="Artikel & Halaman Penyumbang Chat" subtitle="Halaman asal teratas, urut dari chat terbanyak">
       {rows.length === 0 ? (
-        <Empty>Belum ada sales aktif.</Empty>
+        <Empty>Belum ada data halaman asal pada periode ini.</Empty>
       ) : (
-        <ul className="divide-y divide-[#F1EFEA]">
-          {rows.map((r) => {
-            const h = HEALTH[r.level];
-            return (
-              <li key={r.name} className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
-                <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${h.dot}`} />
+        <ol className="space-y-3.5">
+          {rows.map((r, i) => (
+            <li key={r.key}>
+              <div className="mb-1 flex items-start gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[11px] font-semibold text-slate-500">
+                  {i + 1}
+                </span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-sm font-semibold text-slate-900">{r.name}</div>
-                  <div className="text-xs text-slate-500">
-                    Chat terakhir {ago(r.minutesSinceChat)} · hari ini {r.chatsToday}
+                  <div className="truncate text-sm font-semibold text-slate-900" title={r.label}>
+                    {r.label}
                   </div>
+                  <div className="text-[11px] text-slate-400">{KIND_LABEL[r.kind]}</div>
                 </div>
-                <Pill tone={h.tone}>{h.text}</Pill>
-              </li>
-            );
-          })}
-        </ul>
+                <div className="shrink-0 text-right font-mono text-xs text-slate-500">
+                  <b className="text-[#B87400]">{r.chat}</b> chat / {r.klik} klik
+                  <div className={r.klik >= 10 && r.rate < 5 ? "text-rose-600" : "text-slate-400"}>{r.rate.toLocaleString("id-ID")}% jadi chat</div>
+                </div>
+              </div>
+              <div className="ml-9 flex h-2 overflow-hidden rounded-full bg-slate-100">
+                <div className="h-full bg-[#D98A00]" style={{ width: `${(r.chat / max) * 100}%` }} />
+                <div className="h-full bg-[#F3DDB0]" style={{ width: `${((r.klik - r.chat) / max) * 100}%` }} />
+              </div>
+            </li>
+          ))}
+        </ol>
       )}
       <p className="mt-4 text-[11px] leading-relaxed text-slate-400">
-        &ldquo;Tidak ada chat&rdquo; berarti belum ada chat berkode tertangkap lebih dari 24 jam: cek koneksi WhatsApp nomor itu. Penilaian jam dijeda 21.00–08.00 WIB.
+        Merah = sudah 10 klik lebih tetapi kurang dari 5% yang chat: halaman ramai namun tidak menghasilkan prospek.
       </p>
     </Card>
   );

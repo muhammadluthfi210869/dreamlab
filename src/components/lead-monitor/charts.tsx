@@ -180,7 +180,12 @@ export function BusdevBars({
               <div className="h-full" style={{ width: `${(r.chat / max) * 100}%`, background: BRAND }} />
               <div className="h-full bg-[#F3DDB0]" style={{ width: `${(r.dropoff / max) * 100}%` }} />
             </div>
-            {r.direct > 0 && <div className="mt-1 text-[11px] text-slate-400">+{r.direct} chat langsung (tanpa klik)</div>}
+            <div className="mt-1 flex flex-wrap items-center gap-x-3 text-[11px] text-slate-400">
+              <span className={r.clicks >= 20 && r.chat / r.clicks < 0.05 ? "font-medium text-rose-600" : undefined}>
+                {r.clicks} klik → {r.chat} chat ({r.clicks ? Math.round((r.chat / r.clicks) * 1000) / 10 : 0}% jadi chat)
+              </span>
+              {r.direct > 0 && <span>+{r.direct} chat langsung (tanpa klik)</span>}
+            </div>
           </button>
         );
       })}

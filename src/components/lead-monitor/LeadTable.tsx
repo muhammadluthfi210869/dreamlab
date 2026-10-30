@@ -10,7 +10,12 @@ export interface TableRow {
   assigned_to: string | null;
   busdevs?: string[];
   source: string | null;
+  /** Halaman tujuan (tempat lead dibuat), mis. /thankyou/google. */
   page_url: string | null;
+  /** Halaman asal: judul artikel, path halaman sendiri, atau nama situs luar. */
+  referrer_label?: string | null;
+  referrer_kind?: "artikel" | "landing" | "beranda" | "situs" | "eksternal" | "langsung";
+  referrer_path?: string | null;
   status: string | null;
   nama: string | null;
   wa_profile_name: string | null;
@@ -60,6 +65,15 @@ export interface TableState {
 
 export const MOQ_PCS = 500;
 
+const REFERRER_KIND_LABEL: Record<NonNullable<TableRow["referrer_kind"]>, string> = {
+  artikel: "Artikel",
+  landing: "Halaman web",
+  beranda: "Beranda",
+  situs: "Halaman web",
+  eksternal: "Situs luar",
+  langsung: "Langsung",
+};
+
 const wibTime = (iso?: string | null) =>
   iso ? new Date(iso).toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "—";
 const wibDay = (iso?: string | null) =>
@@ -82,7 +96,7 @@ function csvCell(v: unknown): string {
 }
 
 export function rowsToCsv(rows: TableRow[]): string {
-  const head = ["Waktu Klik (WIB)", "Nama", "Nomor", "Produk", "Tier", "Pcs", "MOQ", "BusDev", "Status", "Waktu Chat (WIB)", "Latency (detik)", "Kode", "Halaman", "Sumber", "Kampanye"];
+  const head = ["Waktu Klik (WIB)", "Nama", "Nomor", "Produk", "Tier", "Pcs", "MOQ", "BusDev", "Status", "Waktu Chat (WIB)", "Latency (detik)", "Kode", "Halaman Asal", "Halaman Tujuan", "Sumber", "Kampanye"];
   const body = rows.map((r) => {
     const qty = r.requested_quantity_pcs;
     const status = r.source === "wa-direct" ? "Chat langsung" : r.status === "confirmed" ? "Chat masuk" : "Drop-off";
@@ -99,6 +113,7 @@ export function rowsToCsv(rows: TableRow[]): string {
       r.confirmed_at ? new Date(r.confirmed_at).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) : "",
       r.latency_seconds,
       r.tracking_code,
+      r.referrer_label,
       r.page_url,
       r.source,
       r.utm_campaign,
@@ -132,10 +147,17 @@ export function LeadTable({
   onExport,
   exporting,
   truncated,
+  busdev,
+  busdevNames,
+  onBusdev,
 }: {
   data: TableData | null;
   state: TableState;
   loading: boolean;
+  /** Sales terpilih ("all" = semua). Sama dengan filter BusDev di bagian atas halaman. */
+  busdev: string;
+  busdevNames: string[];
+  onBusdev: (name: string) => void;
   onChange: (patch: Partial<TableState>) => void;
   onExport: () => void;
   exporting: boolean;
@@ -197,6 +219,25 @@ export function LeadTable({
             </button>
           ))}
         </div>
+
+        {/* Pilih sales */}
+        <div className="flex items-center rounded-xl bg-slate-100 p-1" role="group" aria-label="Pilih sales">
+          {["all", ...busdevNames].map((n) => {
+            const active = busdev.toLowerCase() === n.toLowerCase();
+            return (
+              <button
+                key={n}
+                type="button"
+                onClick={() => onBusdev(n)}
+                aria-pressed={active}
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${active ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+                style={active ? { color: BRAND } : undefined}
+              >
+                {n === "all" ? "Semua Sales" : n}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Filter */}
@@ -256,24 +297,22 @@ export function LeadTable({
               <SortHead label="Waktu Klik" k="time" state={state} onSort={onSort} />
               <SortHead label="Nama" k="name" state={state} onSort={onSort} />
               <th className="px-4 py-3 font-semibold text-slate-500">Nomor WhatsApp</th>
-              <SortHead label="Produk" k="product" state={state} onSort={onSort} />
-              <SortHead label="Rencana Produksi" k="quantity" state={state} onSort={onSort} />
-              <SortHead label="BusDev" k="busdev" state={state} onSort={onSort} />
+              <th className="px-4 py-3 font-semibold text-slate-500">Asal → Halaman Tujuan</th>
+              <SortHead label="Sales" k="busdev" state={state} onSort={onSort} />
               <SortHead label="Waktu Chat" k="chat_time" state={state} onSort={onSort} />
               <th className="px-4 py-3 font-semibold text-slate-500">Kode</th>
-              <th className="px-4 py-3 font-semibold text-slate-500">Asal Halaman</th>
             </tr>
           </thead>
           <tbody className={`divide-y divide-[#F1EFEA] ${loading ? "opacity-60" : ""}`}>
             {!data ? (
               <tr>
-                <td colSpan={9} className="py-14 text-center text-slate-400">
+                <td colSpan={7} className="py-14 text-center text-slate-400">
                   Memuat data...
                 </td>
               </tr>
             ) : data.rows.length === 0 ? (
               <tr>
-                <td colSpan={9} className="py-14 text-center text-slate-400">
+                <td colSpan={7} className="py-14 text-center text-slate-400">
                   <p className="mb-1 font-medium text-slate-600">Tidak ada lead untuk filter ini</p>
                   <p>Ubah rentang tanggal, tab status, atau reset filter.</p>
                 </td>
@@ -297,6 +336,12 @@ export function LeadTable({
                         <div>
                           <div className="font-semibold text-slate-900">{name}</div>
                           {r.is_form_lead && <Pill tone="brand">Isi form</Pill>}
+                          {(r.produk || r.production_tier_name || qty) && (
+                            <div className="mt-1 flex flex-wrap items-center gap-1 text-[10px] text-slate-500">
+                              {[r.produk, r.production_tier_name, qty ? `${qty.toLocaleString("id-ID")} pcs` : null].filter(Boolean).join(" · ")}
+                              {qty ? <Pill tone={qty >= MOQ_PCS ? "green" : "amber"}>{qty >= MOQ_PCS ? "MOQ" : "< MOQ"}</Pill> : null}
+                            </div>
+                          )}
                         </div>
                       ) : (
                         <span className="text-slate-300">—</span>
@@ -312,19 +357,34 @@ export function LeadTable({
                         <span className="text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-slate-800">{r.produk || <span className="text-slate-300">—</span>}</td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      {r.production_tier_name || qty ? (
-                        <div className="flex items-center gap-2">
-                          <div>
-                            <div className="font-semibold text-slate-800">{r.production_tier_name || "—"}</div>
-                            {qty ? <div className="font-mono text-[10px] text-slate-500">{qty.toLocaleString("id-ID")} pcs</div> : null}
+                    <td className="max-w-[300px] px-4 py-3">
+                      <div className="flex items-start gap-1.5">
+                        <span className="mt-0.5 w-9 shrink-0 text-[10px] font-semibold uppercase tracking-wide text-slate-400">Dari</span>
+                        <div className="min-w-0">
+                          <div className="truncate font-medium text-slate-800" title={r.referrer_label || ""}>
+                            {r.referrer_label || <span className="text-slate-300">Langsung / tidak tercatat</span>}
                           </div>
-                          {qty ? <Pill tone={qty >= MOQ_PCS ? "green" : "amber"}>{qty >= MOQ_PCS ? "Memenuhi MOQ" : "Di bawah MOQ"}</Pill> : null}
+                          {r.referrer_kind && (
+                            <span className="rounded bg-slate-100 px-1 text-[9px] font-medium uppercase text-slate-600">{REFERRER_KIND_LABEL[r.referrer_kind]}</span>
+                          )}
                         </div>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
+                      </div>
+                      <div className="mt-1.5 flex items-start gap-1.5">
+                        <span className="mt-0.5 w-9 shrink-0 text-[10px] font-semibold uppercase tracking-wide text-slate-400">Ke</span>
+                        <div className="min-w-0">
+                          <div className="truncate font-mono text-[11px] font-medium" style={{ color: BRAND }} title={r.page_url || ""}>
+                            {r.page_url || "—"}
+                          </div>
+                          <div className="flex items-center gap-1 text-[10px] text-slate-400">
+                            <span className="rounded bg-slate-100 px-1 font-mono text-[9px] uppercase text-slate-600">{r.source || "direct"}</span>
+                            {r.utm_campaign && (
+                              <span className="truncate" title={r.utm_campaign}>
+                                {r.utm_campaign}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">
                       <span className="font-semibold text-slate-800">{r.assigned_to || "—"}</span>
@@ -367,19 +427,6 @@ export function LeadTable({
                           +{r.duplicate_count} baris digabung
                         </div>
                       )}
-                    </td>
-                    <td className="max-w-[220px] px-4 py-3">
-                      <div className="truncate font-medium text-slate-800" title={r.page_url || ""}>
-                        {r.page_url || "—"}
-                      </div>
-                      <div className="flex items-center gap-1 text-[10px] text-slate-400">
-                        <span className="rounded bg-slate-100 px-1 font-mono text-[9px] uppercase text-slate-600">{r.source || "direct"}</span>
-                        {r.utm_campaign && (
-                          <span className="truncate" title={r.utm_campaign}>
-                            {r.utm_campaign}
-                          </span>
-                        )}
-                      </div>
                     </td>
                   </tr>
                 );

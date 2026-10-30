@@ -20,9 +20,11 @@ import {
   paginate,
   perBusdev,
   quantityOf,
+  referrerInfo,
   sortLeads,
   tabCounts,
   topLeads,
+  topReferrers,
   defaultFilters,
   type MonitorLead,
 } from '../src/lib/lead-monitor-stats';
@@ -156,6 +158,31 @@ check('Kesehatan: perhatian 3-24 jam di jam kerja', hi(300, noon) === 'perhatian
 check('Kesehatan: malam hari tidak alarm palsu', hi(300, night) === 'di-luar-jam-kerja');
 check('Kesehatan: tidak pernah chat = tidak aktif', hi(null, noon) === 'tidak-aktif');
 check('Kesehatan: sales nonaktif', hi(10, noon, false) === 'nonaktif');
+
+// halaman asal (referrer)
+const titles = (p: string) => (p === '/cara-meracik-handbody' ? 'Cara Meracik Handbody' : null);
+const rA = referrerInfo('https://dreamlab.id/cara-meracik-handbody/?utm_source=x&fbclid=abc', titles);
+check('Referrer artikel: judul, tanpa query', rA.kind === 'artikel' && rA.label === 'Cara Meracik Handbody' && rA.path === '/cara-meracik-handbody', rA);
+check('Referrer landing iklan', referrerInfo('https://dreamlab.id/ads/maklon-parfum/?utm=1').kind === 'landing');
+check('Referrer eksternal: hanya nama situs', referrerInfo('https://www.instagram.com/p/xyz?igsh=1').label === 'instagram.com');
+check('Referrer kosong = langsung', referrerInfo('').kind === 'langsung' && referrerInfo(null).label === null);
+check('Referrer beranda', referrerInfo('https://dreamlab.id/').kind === 'beranda');
+check('Pencarian mencakup referrer', filterLeads([{ ...raw[0], referrer: 'https://dreamlab.id/artikel-unik-xyz/' } as any], { ...defaultFilters, tab: 'all', search: 'artikel-unik' }).length === 1);
+
+// peringkat halaman asal
+const art = 'https://dreamlab.id/artikel-satu/?utm_source=ig';
+const rl: MonitorLead[] = [
+  chat('6281000000001', 'Annisa', { referrer: art }),
+  row({ assigned_to: 'Diaz', referrer: art, hp: '081000000002' }),
+  row({ assigned_to: 'Irma', referrer: 'https://dreamlab.id/artikel-dua/', hp: '081000000003' }),
+  chat('6281000000004', 'Jessica', { referrer: 'https://www.instagram.com/' }),
+  row({ assigned_to: 'Annisa', hp: '081000000005' }), // tanpa referrer
+  row({ assigned_to: 'Annisa', source: 'wa-direct', status: 'confirmed', wa_phone: '6281000000006', confirmed_at: new Date(T0).toISOString(), referrer: art }), // chat langsung: tidak dihitung
+];
+const tr = topReferrers(mergeForMonitor(rl), (p) => (p === '/artikel-satu' ? 'Artikel Satu' : null), 5);
+check('Peringkat asal: artikel satu = 1 chat dari 2 klik (50%)', tr[0]?.label === 'Artikel Satu' && tr[0].klik === 2 && tr[0].chat === 1 && tr[0].rate === 50, tr);
+check('Peringkat asal: urut chat lalu klik', tr.length === 3 && tr[1].chat === 1 && tr[2].chat === 0, tr);
+check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t) => t.label !== null) && tr[0].klik === 2, tr);
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);
 process.exit(failed === 0 ? 0 : 1);
