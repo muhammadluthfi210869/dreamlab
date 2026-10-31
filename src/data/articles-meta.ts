@@ -4471,6 +4471,27 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 8
   },
   {
+    "slug": "/cara-menghitung-hpp-kosmetik",
+    "title": "Cara Menghitung HPP Kosmetik Sebelum Produksi, Jangan Sampai Salah Tentukan Harga!",
+    "publishDate": "2026-10-31T08:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "cara menghitung hpp kosmetik",
+      "hpp kosmetik",
+      "biaya maklon kosmetik",
+      "harga jual kosmetik",
+      "simulasi hpp skincare",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-cara-menghitung-hpp-kosmetik/cara-menghitung-hpp-kosmetik-hero.jpg",
+    "excerpt": "Panduan cara menghitung HPP kosmetik sebelum maklon. Rumus HPP, simulasi modal 1.000 pcs serum, perhitungan margin, dan cara tentukan harga jual menguntungkan.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

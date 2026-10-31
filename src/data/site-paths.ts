@@ -72,6 +72,7 @@ export const SITE_PATHS: string[] = [
   "cara-menentukan-harga-jual-produk-kosmetik",
   "cara-menentukan-usp-produk-kosmetik",
   "cara-menghilangkan-ketombe",
+  "cara-menghitung-hpp-kosmetik",
   "cara-menghitung-stok-promo",
   "cara-menyiapkan-stok-ramadan-brand-kosmetik",
   "cara-meracik-handbody-pemutih-alami",
