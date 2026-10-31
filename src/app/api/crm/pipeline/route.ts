@@ -4,7 +4,7 @@ import { isAuthFailure, json, requireUser } from '@/lib/crm-auth';
 import { articlesMeta } from '@/data/articles-meta';
 import { attachCrmState, colExpr, getLeadColumns, GHOST_SQL } from '@/lib/lead-monitor-data';
 import { classify, cleanName, computeBusdevChannelFunnels, mergeForMonitor, quantityOf, referrerInfo, pagePath, type MonitorLead } from '@/lib/lead-monitor-stats';
-import { PIPELINE_STAGES, resolveTrafficStageByMoq } from '@/lib/crm-stages';
+import { PIPELINE_STAGES, resolveTrafficStageByMoq, normalizeStage } from '@/lib/crm-stages';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -83,7 +83,8 @@ export async function GET(req: NextRequest) {
     const byStage = new Map<string, any[]>(PIPELINE_STAGES.map((s) => [s.id as string, []]));
     for (const l of merged) {
       const moq = quantityOf(l);
-      let st = l.has_manual_stage && byStage.has(l.crm_stage) ? l.crm_stage : resolveTrafficStageByMoq(moq);
+      const mappedStage = normalizeStage(l.crm_stage);
+      let st = l.has_manual_stage && byStage.has(mappedStage) ? mappedStage : resolveTrafficStageByMoq(moq);
       if (!byStage.has(st)) st = 'traffic';
       const ref = referrerInfo(l.referrer, articleTitleOf);
       byStage.get(st)!.push({

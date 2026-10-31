@@ -1,19 +1,16 @@
 /**
- * Tahap sales pipeline. Dipakai server (validasi) dan klien (kolom kanban), jadi tanpa dependensi server.
- * Urutan di sini = urutan kolom dari kiri ke kanan. Semua lead baru otomatis berada di 'traffic'.
+ * Tahap sales pipeline sesuai alur Dreamlab:
+ * TRAFFIC | COLD | WARM 500PCS | WARM UP 500PCS | WARM 1000 | HOT | SAMPLE
+ * Urutan di sini = urutan kolom Kanban dari kiri ke kanan.
  */
 export const PIPELINE_STAGES = [
-  { id: 'traffic', label: 'Traffic (Umum)', hint: 'Klik baru & chat yang belum terkualifikasi form MOQ', tone: '#64748B' },
-  { id: 'traffic_below_500', label: 'Traffic MOQ < 500', hint: 'Kualifikasi form/manual dengan rencana produksi di bawah 500 pcs', tone: '#E11D48' },
-  { id: 'traffic_500', label: 'Traffic MOQ 500', hint: 'Kualifikasi skala Starter (500 pcs)', tone: '#D97706' },
-  { id: 'traffic_1000', label: 'Traffic MOQ 1.000+', hint: 'Kualifikasi skala Growth (1.000), Scale (5.000), Enterprise (10.000+ pcs)', tone: '#2563EB' },
-  { id: 'cold', label: 'Cold', hint: 'Calon klien, belum menunjukkan minat nyata', tone: '#0EA5E9' },
-  { id: 'warm', label: 'Warm', hint: 'Sudah berdiskusi dan tertarik', tone: '#F59E0B' },
-  { id: 'hot', label: 'Hot', hint: 'Siap memutuskan, tinggal negosiasi', tone: '#EF4444' },
-  { id: 'sample', label: 'Sample', hint: 'Sedang proses sampel', tone: '#8B5CF6' },
-  { id: 'deal', label: 'Deal', hint: 'Sepakat dan berjalan', tone: '#16A34A' },
-  { id: 'loker', label: 'Traffic Loker / Supplier', hint: 'Pencari kerja atau penawar jasa/supplier, bukan calon klien', tone: '#7C3AED' },
-  { id: 'tidak_jelas', label: 'Traffic Tidak Jelas', hint: 'Tidak bisa dinilai: iseng, salah nomor, tanpa maksud jelas', tone: '#94A3B8' },
+  { id: 'traffic', label: 'Traffic', hint: 'Klik baru & chat yang belum terkualifikasi form MOQ', tone: '#64748B' },
+  { id: 'cold', label: 'Cold', hint: 'Prospek dingin / rencana produksi di bawah MOQ 500 pcs', tone: '#0EA5E9' },
+  { id: 'warm_500', label: 'Warm 500 pcs', hint: 'Tertarik dengan rencana produksi skala Starter (500 pcs)', tone: '#D97706' },
+  { id: 'warm_up_500', label: 'Warm Up 500 pcs', hint: 'Tertarik dengan rencana produksi di atas 500 pcs (> 500 pcs)', tone: '#F59E0B' },
+  { id: 'warm_1000', label: 'Warm 1.000+', hint: 'Tertarik dengan rencana produksi skala besar (1.000+ pcs)', tone: '#2563EB' },
+  { id: 'hot', label: 'Hot', hint: 'Prospek panas, siap memutuskan / negosiasi', tone: '#EF4444' },
+  { id: 'sample', label: 'Sample', hint: 'Sedang proses formulasi & pembuatan sampel produk', tone: '#16A34A' },
 ] as const;
 
 export type PipelineStage = (typeof PIPELINE_STAGES)[number]['id'];
@@ -26,11 +23,22 @@ export const isStage = (v: unknown): v is PipelineStage => typeof v === 'string'
 export const stageLabel = (id: string | null | undefined): string =>
   PIPELINE_STAGES.find((s) => s.id === id)?.label ?? PIPELINE_STAGES[0].label;
 
+export function normalizeStage(st: string | null | undefined): PipelineStage {
+  if (!st) return 'traffic';
+  if (st === 'traffic_below_500') return 'cold';
+  if (st === 'traffic_500' || st === 'warm') return 'warm_500';
+  if (st === 'traffic_1000') return 'warm_1000';
+  if (st === 'deal') return 'sample';
+  if (STAGE_IDS.includes(st)) return st as PipelineStage;
+  return 'traffic';
+}
+
 export function resolveTrafficStageByMoq(moq: number | null | undefined): PipelineStage {
   if (typeof moq !== 'number' || moq <= 0) return 'traffic';
-  if (moq < 500) return 'traffic_below_500';
-  if (moq < 1000) return 'traffic_500';
-  return 'traffic_1000';
+  if (moq < 500) return 'cold';
+  if (moq === 500) return 'warm_500';
+  if (moq < 1000) return 'warm_up_500';
+  return 'warm_1000';
 }
 
 export type CrmRole = 'head' | 'sales';
