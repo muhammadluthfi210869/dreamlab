@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { trackLeadEvent } from '@/lib/lead-analytics';
 import { InternationalPhoneInput } from '@/components/InternationalPhoneInput';
 
@@ -23,9 +24,9 @@ export interface ProductionTierItem {
   qtyLabel: string;
   level: string;
   tagline: string;
-  badge?: string;
-  badgeColor?: string;
+  levelBadgeClass: string;
   isPopular?: boolean;
+  image: string;
 }
 
 // 4 Skala Produksi Resmi (Start -> Grow -> Scale -> Enterprise)
@@ -38,6 +39,8 @@ export const PRODUCTION_TIERS: ProductionTierItem[] = [
     qtyLabel: '500 PCS',
     level: 'STARTER',
     tagline: 'Mulai wujudkan brand Anda.',
+    levelBadgeClass: 'bg-[#ede9fe] text-[#6d28d9]',
+    image: '/new asset/produk/skincare/card1-dayandnightcreame.webp',
   },
   {
     name: 'GROWTH',
@@ -47,9 +50,9 @@ export const PRODUCTION_TIERS: ProductionTierItem[] = [
     qtyLabel: '1.000 PCS',
     level: 'GROWTH',
     tagline: 'Bangun brand Anda lebih serius.',
-    badge: 'PALING POPULER',
-    badgeColor: 'bg-[#D98A00] text-white border-transparent',
+    levelBadgeClass: 'bg-[#ede9fe] text-[#6d28d9]',
     isPopular: true,
+    image: '/new asset/produk/skincare/card7-serum.webp',
   },
   {
     name: 'SCALE',
@@ -59,6 +62,8 @@ export const PRODUCTION_TIERS: ProductionTierItem[] = [
     qtyLabel: '5.000 PCS',
     level: 'SCALE',
     tagline: 'Perluas pasar dan tingkatkan produksi.',
+    levelBadgeClass: 'bg-[#ffedd5] text-[#c2410c]',
+    image: '/new asset/produk/skincare/card4.webp',
   },
   {
     name: 'ENTERPRISE',
@@ -68,16 +73,67 @@ export const PRODUCTION_TIERS: ProductionTierItem[] = [
     qtyLabel: '10.000 PCS',
     level: 'ENTERPRISE',
     tagline: 'Siapkan brand untuk pasar yang lebih besar.',
+    levelBadgeClass: 'bg-[#f3e8ff] text-[#7e22ce]',
+    image: '/new asset/produk/skincare/hero-section.webp',
   },
 ];
 
 const CATEGORIES = [
-  'Parfum',
-  'Skincare',
-  'Bodycare',
-  'Haircare',
-  'Personal Care',
-  'Lainnya',
+  {
+    id: 'Parfum',
+    name: 'Parfum',
+    icon: (
+      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 3h6v3H9z" />
+        <path d="M10 6v3" />
+        <path d="M14 6v3" />
+        <rect x="5" y="9" width="14" height="12" rx="4" />
+      </svg>
+    ),
+  },
+  {
+    id: 'Skincare',
+    name: 'Skincare',
+    icon: (
+      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        <rect x="4" y="11" width="16" height="10" rx="3" />
+      </svg>
+    ),
+  },
+  {
+    id: 'Bodycare',
+    name: 'Bodycare',
+    icon: (
+      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 2h4" />
+        <path d="M12 2v5" />
+        <rect x="6" y="7" width="12" height="14" rx="4" />
+        <path d="M12 11v4" />
+      </svg>
+    ),
+  },
+  {
+    id: 'Haircare',
+    name: 'Haircare',
+    icon: (
+      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a4 4 0 0 0-4 4c0 3 4 8 4 8s4-5 4-8a4 4 0 0 0-4-4z" />
+        <path d="M6 18c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+      </svg>
+    ),
+  },
+  {
+    id: 'Lainnya',
+    name: 'Lainnya',
+    icon: (
+      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="5" cy="12" r="1.75" />
+        <circle cx="12" cy="12" r="1.75" />
+        <circle cx="19" cy="12" r="1.75" />
+      </svg>
+    ),
+  },
 ];
 
 export function LeadQualificationModal({
@@ -141,23 +197,23 @@ export function LeadQualificationModal({
   // Handle ESC key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape' && isOpen && !submitting && !redirecting) {
         onClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, submitting, redirecting, onClose]);
 
-  // Hide floating buttons & manage modal state on body
+  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add('lead-modal-open');
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.classList.remove('lead-modal-open');
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.classList.remove('lead-modal-open');
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -170,7 +226,7 @@ export function LeadQualificationModal({
     e.preventDefault();
     setError(null);
 
-    // 1. Validate Production Scale Selection (Must be explicitly chosen)
+    // 1. Validate Production Scale Selection
     if (!selectedTier) {
       setError('Silakan pilih salah satu target produksi brand Anda.');
       return;
@@ -259,42 +315,31 @@ export function LeadQualificationModal({
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Gagal menyimpan rencana produksi. Silakan coba kembali.');
+        throw new Error(data.error || 'Terjadi kesalahan sistem saat menyimpan kualifikasi.');
       }
 
-      // Trigger conversion event once
       trackLeadEvent('qualification_completed', {
         source,
         channel,
         category: resolvedCategory,
-        productionTier: selectedTier.name,
-        quantityPcs: selectedTier.quantityPcs,
-        leadSegment: data.leadSegment,
-        inquiryReference: data.inquiryReference,
+        tier: selectedTier.name,
+        quantity: selectedTier.quantityPcs,
         campaign,
       });
 
-      // Save prefilled WA URL to sessionStorage for Thank You page auto-redirect
-      if (typeof sessionStorage !== 'undefined' && data.whatsappUrl) {
-        sessionStorage.setItem('dl_qualified_wa_url', data.whatsappUrl);
-      }
-
       setRedirecting(true);
 
-      // Determine existing Thank You Page URL
-      const isMeta = channel === 'metaads' || source.includes('meta');
-      const thankYouBase = isMeta ? '/ads/thankyou/metaads/' : '/ads/thankyou/google-ads/';
-      const thankYouUrl = `${thankYouBase}?source=${encodeURIComponent(source)}&from=${encodeURIComponent(
-        landingPage || window.location.pathname
-      )}&inquiry=${encodeURIComponent(data.inquiryReference)}`;
-
-      // Redirect prospect to the existing Thank You Page
-      window.location.href = thankYouUrl;
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      } else {
+        const dest = channel === 'google-ads'
+          ? `/ads/thankyou/google-ads/?source=${source}&category=${encodeURIComponent(resolvedCategory)}`
+          : `/ads/thankyou/metaads/?source=${source}&category=${encodeURIComponent(resolvedCategory)}`;
+        window.location.href = dest;
+      }
     } catch (err: any) {
       console.error('[LeadQualificationModal] Submit error:', err);
-      setError(
-        err?.message || 'Terjadi gangguan jaringan. Silakan periksa koneksi Anda dan coba lagi.'
-      );
+      setError(err?.message || 'Gagal mengirim formulir. Silakan coba lagi.');
       setSubmitting(false);
     }
   };
@@ -308,13 +353,26 @@ export function LeadQualificationModal({
         if (e.target === e.currentTarget && !submitting && !redirecting) onClose();
       }}
     >
-      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden my-auto transition-all">
-        {/* Header - Dreamlab Brand Identity */}
-        <div className="relative px-5 py-4 sm:px-6 sm:py-5 border-b border-blue-900/30 bg-gradient-to-r from-[#0F1E36] via-[#162B4D] to-[#1E3A8A] text-white">
+      <div className="relative w-full max-w-[500px] bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden my-auto transition-all">
+        {/* Header - Dreamlab Smart Qualification */}
+        <div className="relative px-5 py-5 sm:px-6 sm:py-6 bg-gradient-to-r from-[#0a1b38] via-[#0f2a58] to-[#163870] text-white overflow-hidden">
+          {/* Dropper & Skincare Jars Visual Background */}
+          <div className="absolute right-0 top-0 bottom-0 w-[55%] pointer-events-none select-none opacity-50 mix-blend-screen">
+            <Image
+              src="/new asset/background-visual-hero-section/skincare.webp"
+              alt="Dreamlab Dropper Visual"
+              fill
+              className="object-cover object-right"
+              sizes="280px"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0a1b38] via-[#0f2a58]/80 to-transparent" />
+          </div>
+
           {!submitting && !redirecting && (
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="absolute top-4 right-4 z-20 p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
               aria-label="Tutup formulir"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -323,20 +381,18 @@ export function LeadQualificationModal({
             </button>
           )}
 
-          <div className="flex items-center gap-2 mb-1">
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/30">
-              Dreamlab &bull; Juaranya Formula
+          <div className="relative z-10">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-white/10 text-white/95 border border-white/20 backdrop-blur-md">
+              DREAMLAB SMART QUALIFICATION
             </span>
-          </div>
 
-          <h3 className="text-lg sm:text-xl font-extrabold tracking-tight text-white">
-            {redirecting ? 'Menghubungkan ke Tim Konsultan...' : 'Siapkan Brand Anda untuk Tumbuh'}
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
-            {redirecting
-              ? 'Data Anda telah tersimpan. Mengalihkan ke halaman konfirmasi resmi...'
-              : 'Pilih target produksi dan produk yang ingin Anda kembangkan. Tim Dreamlab akan menggunakan informasi ini untuk memahami kebutuhan brand Anda.'}
-          </p>
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-3 leading-tight">
+              Siapkan Brand Anda<br />untuk Tumbuh
+            </h3>
+            <p className="text-xs text-blue-100/85 mt-1.5 leading-relaxed max-w-[320px]">
+              Dari satu ide, menjadi produk yang siap Anda bawa ke pasar bersama Dreamlab.
+            </p>
+          </div>
         </div>
 
         {/* Content Body */}
@@ -370,73 +426,73 @@ export function LeadQualificationModal({
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-4.5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               
-              {/* 1. Target Produksi (4 Options: 500, 1.000, 5.000, 10.000 PCS) */}
+              {/* 1. Target Produksi (Vertical Stack with realistic product renders) */}
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <label className="block text-xs sm:text-sm font-extrabold text-slate-900">
-                      1. Seberapa Besar Target Produksi Brand Anda? <span className="text-red-500">*</span>
-                    </label>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
-                      Pilih skala produksi yang paling sesuai dengan rencana dan target brand Anda.
-                    </p>
-                  </div>
-                  {!selectedTier && (
-                    <span className="text-[11px] text-amber-600 font-semibold shrink-0">Pilih salah satu</span>
-                  )}
+                <div className="mb-2.5">
+                  <label className="block text-xs sm:text-sm font-extrabold text-slate-900">
+                    1. Target Produksi Brand Anda Berapa? <span className="text-red-500">*</span>
+                  </label>
+                  <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+                    Pilih skala produksi yang sesuai dengan rencana dan target brand Anda.
+                  </p>
                 </div>
 
-                {/* 4 Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                {/* 4 Cards Stack */}
+                <div className="space-y-2.5">
                   {PRODUCTION_TIERS.map((tier) => {
                     const isSelected = selectedTier?.name === tier.name;
                     return (
                       <div
                         key={tier.name}
                         onClick={() => setSelectedTier(tier)}
-                        className={`relative p-3.5 rounded-xl border-2 text-left cursor-pointer select-none transition-all flex flex-col justify-between ${
+                        className={`relative p-3 sm:p-3.5 rounded-2xl border-2 cursor-pointer transition-all flex items-center justify-between select-none overflow-hidden ${
                           isSelected
-                            ? 'bg-sky-50/60 border-[#1E3A8A] ring-2 ring-[#1E3A8A]/20 shadow-sm'
-                            : tier.isPopular
-                            ? 'bg-amber-50/30 border-amber-300 hover:border-amber-400'
-                            : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/70'
+                            ? 'border-[#0284c7] bg-[#f0f9ff] shadow-sm'
+                            : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/50'
                         }`}
                       >
-                        {/* Badge Paling Populer */}
-                        {tier.badge && (
-                          <span
-                            className={`absolute -top-2.5 right-3 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-xs ${
-                              tier.badgeColor || 'bg-[#D98A00] text-white'
-                            }`}
-                          >
-                            {tier.badge}
-                          </span>
-                        )}
-
-                        <div>
-                          <div className="flex items-center justify-between gap-1.5 mb-1">
-                            <div>
-                              <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight block">
-                                {tier.title}
-                              </span>
-                              <span className="text-[10px] font-black uppercase tracking-wider text-[#1E3A8A]">
-                                {tier.level}
-                              </span>
-                            </div>
-                            <span
-                              className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                                isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300 bg-white'
-                              }`}
-                            >
-                              {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        {/* Left: Text & Badges */}
+                        <div className="z-10 flex-1 min-w-0 pr-2">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                              {tier.title}
                             </span>
+                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md ${tier.levelBadgeClass}`}>
+                              {tier.level}
+                            </span>
+                            {tier.isPopular && (
+                              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-[#0284c7] text-white shadow-xs">
+                                PALING POPULER
+                              </span>
+                            )}
                           </div>
-
-                          <p className="text-[11px] leading-snug text-slate-600 mt-1 font-normal italic">
+                          <p className="text-[11px] sm:text-xs text-slate-500 mt-1 font-normal">
                             {tier.tagline}
                           </p>
+                        </div>
+
+                        {/* Middle/Right: Clean Product Render */}
+                        <div className="relative w-16 h-12 sm:w-20 sm:h-14 shrink-0 mx-2 pointer-events-none opacity-90">
+                          <Image
+                            src={tier.image}
+                            alt={tier.title}
+                            fill
+                            className="object-contain"
+                            sizes="80px"
+                          />
+                        </div>
+
+                        {/* Far Right: Radio circle */}
+                        <div className="shrink-0 pl-1 z-10">
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                              isSelected ? 'border-[#0284c7] bg-white' : 'border-slate-300 bg-white'
+                            }`}
+                          >
+                            {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-[#0284c7]" />}
+                          </div>
                         </div>
                       </div>
                     );
@@ -444,41 +500,47 @@ export function LeadQualificationModal({
                 </div>
               </div>
 
-              {/* 2. Kategori Produk */}
+              {/* 2. Produk Apa yang Ingin Anda Kembangkan? */}
               <div>
-                <label className="block text-xs sm:text-sm font-extrabold text-slate-900 mb-1">
-                  2. Produk Apa yang Ingin Anda Kembangkan? <span className="text-red-500">*</span>
-                </label>
-                <p className="text-[11px] text-slate-500 mb-2">
-                  Pilih produk yang ingin Anda bawa ke pasar bersama Dreamlab.
-                </p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="mb-2">
+                  <label className="block text-xs sm:text-sm font-extrabold text-slate-900">
+                    2. Produk Apa yang Ingin Anda Kembangkan? <span className="text-red-500">*</span>
+                  </label>
+                  <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+                    Pilih produk yang ingin Anda bawa ke pasar dan mulai rencanakan pengembangannya bersama Dreamlab.
+                  </p>
+                </div>
+
+                {/* 5 Pills Row with Icons */}
+                <div className="flex flex-wrap gap-2">
                   {CATEGORIES.map((cat) => {
-                    const isSelected = category === cat;
+                    const isSelected = category === cat.id;
                     return (
                       <button
                         type="button"
-                        key={cat}
-                        onClick={() => setCategory(cat)}
-                        className={`py-2 px-2.5 rounded-xl text-xs font-bold border transition-all text-center ${
+                        key={cat.id}
+                        onClick={() => setCategory(cat.id)}
+                        className={`inline-flex items-center gap-1.5 py-2 px-3.5 rounded-2xl text-xs font-bold border transition-all text-center ${
                           isSelected
-                            ? 'bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-xs'
-                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                            ? 'bg-[#0f2e6b] text-white border-[#0f2e6b] shadow-xs'
+                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
                         }`}
                       >
-                        {cat}
+                        {cat.icon}
+                        <span>{cat.name}</span>
                       </button>
                     );
                   })}
                 </div>
+
                 {category === 'Lainnya' && (
-                  <div className="mt-2.5">
+                  <div className="mt-2.5 animate-fadeIn">
                     <input
                       type="text"
                       value={customProduct}
                       onChange={(e) => setCustomProduct(e.target.value)}
                       placeholder="Produk yang ingin dibuat: (contoh: Deodorant Spray, Lip Balm)"
-                      className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 focus:border-[#1E3A8A] focus:ring-2 focus:ring-[#1E3A8A]/15 outline-none"
+                      className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 focus:border-[#0f2e6b] focus:ring-2 focus:ring-[#0f2e6b]/15 outline-none"
                       autoFocus
                     />
                   </div>
@@ -491,8 +553,8 @@ export function LeadQualificationModal({
                   <span className="block text-xs sm:text-sm font-extrabold text-slate-900">
                     3. Mari Kenalan dengan Anda
                   </span>
-                  <span className="text-[11px] text-slate-500">
-                    Informasi kontak hanya digunakan untuk konsultasi produk melalui WhatsApp resmi.
+                  <span className="text-[11px] sm:text-xs text-slate-500">
+                    Isi data berikut agar tim Dreamlab dapat memahami kebutuhan dan rencana produksi brand Anda.
                   </span>
                 </div>
 
@@ -506,7 +568,7 @@ export function LeadQualificationModal({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Contoh: Rina Anggraini"
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-[#1E3A8A] focus:ring-2 focus:ring-[#1E3A8A]/15 outline-none"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-white placeholder:text-slate-400 focus:border-[#0f2e6b] focus:ring-2 focus:ring-[#0f2e6b]/15 outline-none"
                   />
                 </div>
 
@@ -538,11 +600,11 @@ export function LeadQualificationModal({
                   id="consent-checkbox-journey"
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 rounded border-slate-300 text-[#1E3A8A] focus:ring-[#1E3A8A]"
+                  className="mt-0.5 rounded border-slate-300 text-[#0f2e6b] focus:ring-[#0f2e6b]"
                 />
                 <label htmlFor="consent-checkbox-journey" className="text-[11px] text-slate-500 leading-tight">
                   Saya menyetujui dihubungi oleh tim Business Consultant Dreamlab mengenai rencana produksi dan penawaran maklon.{' '}
-                  <Link href="/privacy-policy/" target="_blank" className="text-[#1E3A8A] underline font-medium">
+                  <Link href="/privacy-policy/" target="_blank" className="text-[#0f2e6b] underline font-medium">
                     Kebijakan Privasi
                   </Link>
                 </label>
