@@ -4492,6 +4492,31 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/jasa-maklon-kosmetik-kapasitas-produksi",
+    "title": "Jasa Maklon Kosmetik untuk Brand yang Membutuhkan Partner Produksi Tambahan",
+    "publishDate": "2026-10-31T10:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "jasa maklon kosmetik",
+      "jasa maklon kosmetik untuk tambahan kapasitas produksi",
+      "pabrik maklon kosmetik",
+      "pabrik kosmetik tambahan",
+      "partner produksi kosmetik",
+      "jasa produksi kosmetik",
+      "kapasitas produksi kosmetik",
+      "pabrik skincare",
+      "maklon kosmetik untuk existing brand",
+      "Dreamlab"
+    ],
+    "featuredImage": "/images/artikel-jasa-maklon-kosmetik-kapasitas-produksi/jasa-maklon-kosmetik-kapasitas-produksi-hero.jpg",
+    "excerpt": "Cari jasa maklon kosmetik untuk tambahan kapasitas produksi? Pelajari fasilitas, legalitas BPOM, dan solusi manufaktur bersama Dreamlab.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

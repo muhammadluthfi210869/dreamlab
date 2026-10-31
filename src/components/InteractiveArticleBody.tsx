@@ -22,6 +22,22 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
     /instagram\.com\/p\//i.test(htmlContent) || /\.instagram-media[\s>]/i.test(htmlContent);
 
   useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const calcRoot = el.querySelector('#production-capacity-calculator-root');
+    if (calcRoot && !calcRoot.hasAttribute('data-mounted')) {
+      calcRoot.setAttribute('data-mounted', 'true');
+      import('react-dom/client').then(({ createRoot }) => {
+        import('./ProductionCapacityCalculator').then(({ default: ProductionCapacityCalculator }) => {
+          const root = createRoot(calcRoot);
+          root.render(React.createElement(ProductionCapacityCalculator));
+        });
+      });
+    }
+  }, [htmlContent]);
+
+  useEffect(() => {
     if (!hasInstagramEmbed) return;
 
     const timer = setTimeout(() => {
