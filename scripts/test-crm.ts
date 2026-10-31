@@ -48,14 +48,14 @@ check('Sales tidak boleh mengedit lead tanpa pemilik', !canEditLead(annisa, null
 check('Nama mirip bukan pemilik (Annisa vs Annisaa)', !canEditLead(annisa, 'Annisaa') && !canEditLead(annisa, 'Annis'));
 
 // ---------- tahap
-check('Ada 8 tahap sesuai permintaan, Traffic paling kiri', PIPELINE_STAGES.length === 8 && PIPELINE_STAGES[0].id === 'traffic' && PIPELINE_STAGES[7].id === 'deal', STAGE_IDS);
+check('Ada 11 tahap sesuai permintaan, Traffic paling kiri', PIPELINE_STAGES.length === 11 && PIPELINE_STAGES[0].id === 'traffic', STAGE_IDS);
 check(
-  'Urutan tahap: Traffic, Loker/Supplier, Tidak Jelas, Cold, Warm, Hot, Sample, Deal',
-  STAGE_IDS.join(',') === 'traffic,loker,tidak_jelas,cold,warm,hot,sample,deal',
+  'Urutan tahap: Traffic, Traffic < 500, Traffic 500, Traffic 1000+, Cold, Warm, Hot, Sample, Deal, Loker, Tidak Jelas',
+  STAGE_IDS.join(',') === 'traffic,traffic_below_500,traffic_500,traffic_1000,cold,warm,hot,sample,deal,loker,tidak_jelas',
   STAGE_IDS
 );
-check('isStage menolak nilai asing', isStage('hot') && !isStage('HOT') && !isStage('') && !isStage(null) && !isStage("traffic'; DROP TABLE leads;--"));
-check('Label tahap; tahap kosong dianggap Traffic', stageLabel('warm') === 'Warm' && stageLabel(undefined) === 'Traffic' && stageLabel('xx') === 'Traffic');
+check('isStage menolak nilai asing', isStage('hot') && isStage('traffic_below_500') && isStage('traffic_500') && isStage('traffic_1000') && !isStage('HOT') && !isStage('') && !isStage(null) && !isStage("traffic'; DROP TABLE leads;--"));
+check('Label tahap; tahap kosong dianggap Traffic (Umum)', stageLabel('warm') === 'Warm' && stageLabel(undefined) === 'Traffic (Umum)' && stageLabel('xx') === 'Traffic (Umum)');
 
 // ---------- Origin
 const mk = (origin: string | null, host = 'dreamlab.id') =>

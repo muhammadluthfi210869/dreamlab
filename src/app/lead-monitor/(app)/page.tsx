@@ -27,6 +27,8 @@ interface Kpi {
   moqMet: number;
 }
 
+import type { MoqOverview } from "@/lib/lead-monitor-stats";
+
 interface ApiData {
   period: { startDate: string; endDate: string; days: number; hasPrevious: boolean };
   kpi: { current: Kpi; previous: Kpi | null; delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null };
@@ -40,6 +42,7 @@ interface ApiData {
   pages: GroupRow[];
   topLeads: TopLeadRow[];
   referrers: ReferrerRankRow[];
+  moqOverview?: MoqOverview;
   rrMode: string | null;
   meta: { rawRows: number; rawCapped: boolean; serverTime: string };
 }
@@ -195,6 +198,211 @@ export default function DashboardPage() {
             hint="Dari isian form atau MOQ yang diisi manual oleh busdev (isian manual yang dipakai bila ada)."
           />
         </div>
+
+        {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak */}
+        {data?.moqOverview && (
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECEAE4] pb-2">
+              <div>
+                <h2 className="text-base font-semibold text-slate-900 flex items-center gap-2">
+                  <span>Overview Sebaran MOQ & Sumber Lead</span>
+                  <span className="rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                    Kualifikasi Produksi
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-500">
+                  Analisis sebaran volume rencana produksi (MOQ) dan asal sumber / landing page penyumbang MOQ terbanyak
+                </p>
+              </div>
+              <div className="sm:text-right">
+                <span className="font-mono text-xs font-semibold text-slate-700">
+                  Total Potensi MOQ: {data.moqOverview.totalPcs.toLocaleString("id-ID")} pcs
+                </span>
+                <div className="text-[10px] text-slate-400">
+                  dari {data.moqOverview.totalWithMoq} prospek terkualifikasi form
+                </div>
+              </div>
+            </div>
+
+            {/* 4 Cards: Sebaran Tier MOQ */}
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {/* 1.000+ pcs */}
+              <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-br from-blue-50/70 via-white to-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700">MOQ 1.000+ pcs</span>
+                  <span className="rounded-full bg-blue-100 text-blue-800 px-2 py-0.5 text-[10px] font-bold font-mono">
+                    {data.moqOverview.distribution.moq1000.pct}%
+                  </span>
+                </div>
+                <div className="text-2xl font-bold tracking-tight text-blue-900">
+                  {data.moqOverview.distribution.moq1000.count.toLocaleString("id-ID")}
+                  <span className="text-xs font-normal text-blue-600 ml-1">lead</span>
+                </div>
+                <div className="mt-1 text-xs text-blue-700 font-semibold font-mono">
+                  {data.moqOverview.distribution.moq1000.totalPcs.toLocaleString("id-ID")} pcs
+                </div>
+                <div className="mt-0.5 text-[10px] text-slate-400">Growth / Scale / Enterprise</div>
+              </div>
+
+              {/* 500 pcs */}
+              <div className="rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50/70 via-white to-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-700">MOQ 500 pcs</span>
+                  <span className="rounded-full bg-amber-100 text-amber-800 px-2 py-0.5 text-[10px] font-bold font-mono">
+                    {data.moqOverview.distribution.moq500.pct}%
+                  </span>
+                </div>
+                <div className="text-2xl font-bold tracking-tight text-amber-900">
+                  {data.moqOverview.distribution.moq500.count.toLocaleString("id-ID")}
+                  <span className="text-xs font-normal text-amber-600 ml-1">lead</span>
+                </div>
+                <div className="mt-1 text-xs text-amber-700 font-semibold font-mono">
+                  {data.moqOverview.distribution.moq500.totalPcs.toLocaleString("id-ID")} pcs
+                </div>
+                <div className="mt-0.5 text-[10px] text-slate-400">Starter Brand standard</div>
+              </div>
+
+              {/* < 500 pcs */}
+              <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-br from-rose-50/70 via-white to-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700">MOQ &lt; 500 pcs</span>
+                  <span className="rounded-full bg-rose-100 text-rose-800 px-2 py-0.5 text-[10px] font-bold font-mono">
+                    {data.moqOverview.distribution.below500.pct}%
+                  </span>
+                </div>
+                <div className="text-2xl font-bold tracking-tight text-rose-900">
+                  {data.moqOverview.distribution.below500.count.toLocaleString("id-ID")}
+                  <span className="text-xs font-normal text-rose-600 ml-1">lead</span>
+                </div>
+                <div className="mt-1 text-xs text-rose-700 font-semibold font-mono">
+                  {data.moqOverview.distribution.below500.totalPcs.toLocaleString("id-ID")} pcs
+                </div>
+                <div className="mt-0.5 text-[10px] text-slate-400">Di bawah MOQ standar</div>
+              </div>
+
+              {/* Tanpa Form */}
+              <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Tanpa Form</span>
+                  <span className="rounded-full bg-slate-200 text-slate-700 px-2 py-0.5 text-[10px] font-bold font-mono">
+                    {data.moqOverview.distribution.noForm.pct}%
+                  </span>
+                </div>
+                <div className="text-2xl font-bold tracking-tight text-slate-800">
+                  {data.moqOverview.distribution.noForm.count.toLocaleString("id-ID")}
+                  <span className="text-xs font-normal text-slate-500 ml-1">lead</span>
+                </div>
+                <div className="mt-1 text-xs text-slate-500 font-medium">Klik & chat langsung</div>
+                <div className="mt-0.5 text-[10px] text-slate-400">Belum isi form kualifikasi</div>
+              </div>
+            </div>
+
+            {/* 2 Comparative Panels: Source MOQ Terbanyak & Asal Landing Page Terbanyak */}
+            <div className="grid gap-4 lg:grid-cols-2">
+              {/* Sumber / Campaign */}
+              <Card
+                title="Sumber & Iklan MOQ Terbanyak"
+                subtitle="Peringkat sumber / campaign iklan berdasarkan volume MOQ (pcs) dan lead yang lolos MOQ"
+              >
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-[#ECEAE4] text-[11px] font-semibold text-slate-400">
+                        <th className="pb-2.5">Sumber / Iklan</th>
+                        <th className="pb-2.5 text-right">Lolos MOQ</th>
+                        <th className="pb-2.5 text-right">Total MOQ</th>
+                        <th className="pb-2.5 text-right">% Lolos</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F1EFEA]">
+                      {data.moqOverview.topSourcesByMoq.length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="py-4 text-center text-slate-400">Belum ada data sumber.</td>
+                        </tr>
+                      ) : (
+                        data.moqOverview.topSourcesByMoq.map((s, idx) => (
+                          <tr key={s.source} className="hover:bg-slate-50/80">
+                            <td className="py-2.5 pr-2">
+                              <div className="flex items-center gap-2">
+                                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 font-mono text-[10px] font-bold text-slate-500">
+                                  {idx + 1}
+                                </span>
+                                <span className="font-semibold text-slate-800 truncate max-w-[200px]" title={s.source}>
+                                  {s.source}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="py-2.5 text-right font-mono font-medium text-slate-700">
+                              {s.moqQualifiedLeads} <span className="text-[10px] text-slate-400">/ {s.totalLeads}</span>
+                            </td>
+                            <td className="py-2.5 text-right font-mono font-bold text-[#D98A00]">
+                              {s.totalPcs.toLocaleString("id-ID")} pcs
+                            </td>
+                            <td className="py-2.5 text-right font-mono font-semibold text-emerald-600">
+                              {s.pctQualified}%
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+
+              {/* Asal Landing Page & Referrer */}
+              <Card
+                title="Berasal Dari Mana (Landing Page / Referrer)"
+                subtitle="Halaman landing & referensi asal yang paling banyak mendatangkan prospek berminat MOQ tinggi"
+              >
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-[#ECEAE4] text-[11px] font-semibold text-slate-400">
+                        <th className="pb-2.5">Halaman / Asal</th>
+                        <th className="pb-2.5 text-right">Lolos MOQ</th>
+                        <th className="pb-2.5 text-right">Total MOQ</th>
+                        <th className="pb-2.5 text-right">Skala Dominan</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F1EFEA]">
+                      {data.moqOverview.topOriginsByMoq.length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="py-4 text-center text-slate-400">Belum ada data halaman asal.</td>
+                        </tr>
+                      ) : (
+                        data.moqOverview.topOriginsByMoq.map((o, idx) => (
+                          <tr key={o.origin} className="hover:bg-slate-50/80">
+                            <td className="py-2.5 pr-2">
+                              <div className="flex items-center gap-2">
+                                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 font-mono text-[10px] font-bold text-slate-500">
+                                  {idx + 1}
+                                </span>
+                                <span className="font-semibold text-slate-800 truncate max-w-[200px]" title={o.origin}>
+                                  {o.origin}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="py-2.5 text-right font-mono font-medium text-slate-700">
+                              {o.moqQualifiedLeads} <span className="text-[10px] text-slate-400">/ {o.totalLeads}</span>
+                            </td>
+                            <td className="py-2.5 text-right font-mono font-bold text-[#D98A00]">
+                              {o.totalPcs.toLocaleString("id-ID")} pcs
+                            </td>
+                            <td className="py-2.5 text-right">
+                              <span className="rounded-full bg-blue-50 px-2 py-0.5 font-mono text-[10px] font-bold text-blue-700 border border-blue-200">
+                                {o.topTier}
+                              </span>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+            </div>
+          </div>
+        )}
 
         {/* Tren + batang per sales */}
         <div className="grid gap-4 lg:grid-cols-3">

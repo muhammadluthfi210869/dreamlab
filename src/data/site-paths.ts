@@ -155,6 +155,7 @@ export const SITE_PATHS: string[] = [
   "jasa-maklon-kosmetik-blitar",
   "jasa-maklon-kosmetik-bpom-panduan-lengkap",
   "jasa-maklon-kosmetik-di-jember",
+  "jasa-maklon-kosmetik-kapasitas-produksi",
   "jasa-maklon-kosmetik-lamongan",
   "jasa-maklon-kosmetik-madiun",
   "jasa-maklon-kosmetik-magetan",

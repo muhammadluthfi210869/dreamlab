@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Edit3, Search } from "lucide-react";
-import { canEditLead, PIPELINE_STAGES, stageLabel, type CrmUserInfo } from "@/lib/crm-stages";
+import { canEditLead, formatWaChatLink, PIPELINE_STAGES, stageLabel, type CrmUserInfo } from "@/lib/crm-stages";
 import { BRAND, Card, Pill } from "./ui";
 
 export interface TableRow {
@@ -451,10 +451,23 @@ export function LeadTable({
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px]">
                       {r.display_phone ? (
-                        <span className="font-semibold text-slate-900" title={r.phone_from === "WA" ? "Nomor pengirim WhatsApp" : "Nomor dari isian form"}>
-                          {r.display_phone}
-                          {foreign && <span className="ml-1.5 rounded bg-sky-50 px-1 font-sans text-[9px] font-medium text-sky-700">{foreign}</span>}
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-semibold text-slate-900" title={r.phone_from === "WA" ? "Nomor pengirim WhatsApp" : "Nomor dari isian form"}>
+                            {r.display_phone}
+                            {foreign && <span className="ml-1.5 rounded bg-sky-50 px-1 font-sans text-[9px] font-medium text-sky-700">{foreign}</span>}
+                          </span>
+                          <a
+                            href={formatWaChatLink(r.display_phone, name, r.assigned_to, r.produk_manual || r.produk) || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Balas chat langsung via WhatsApp"
+                            className="inline-flex items-center justify-center h-5 w-5 rounded-md bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] transition shrink-0"
+                          >
+                            <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.074-1.808-.412-1.428-.592-2.34-2.029-2.411-2.123-.07-.094-.576-.767-.576-1.464 0-.697.362-1.04.49-1.182.129-.143.282-.179.377-.179.094 0 .188.001.27.006.086.004.202-.033.315.24.116.282.399.974.433 1.045.035.07.058.153.012.247-.046.094-.07.153-.139.235-.07.082-.147.184-.21.247-.07.07-.144.146-.062.287.082.141.365.602.784.975.54.481.996.63 1.137.7.141.07.224.059.306-.035.083-.094.354-.412.448-.553.094-.141.189-.118.318-.07.13.047.824.388.966.459.141.07.236.106.271.165.035.059.035.341-.109.746z" />
+                            </svg>
+                          </a>
+                        </div>
                       ) : (
                         <span className="text-slate-300">—</span>
                       )}

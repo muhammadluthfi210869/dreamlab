@@ -33,18 +33,23 @@ export const colExpr = (cols: Set<string>, name: string): string =>
 
 export const GHOST_SQL = `(wa_message ~* 'memeriksa pesan baru|legalitas sertifikasi bpom')`;
 
+import { resolveTrafficStageByMoq } from '@/lib/crm-stages';
+
 export interface CrmAnnotated {
   tracking_code: string;
   merged_tracking_codes?: string[];
   crm_stage?: string;
+  has_manual_stage?: boolean;
   produk_manual?: string | null;
   moq_manual?: number | null;
   note?: string | null;
+  [key: string]: any;
 }
 
 /**
  * Menempelkan isian CRM (tahap + Produk/MOQ/catatan manual) ke prospek. Satu prospek bisa gabungan beberapa
- * kode klik; yang dipakai adalah isian yang terakhir diubah. Tanpa isian = tahap 'traffic'.
+ * kode klik; yang dipakai adalah isian yang terakhir diubah.
+ * Bila belum ada perubahan tahap manual, otomatis diklasifikasikan ke stage traffic yang sesuai berdasarkan MOQ.
  */
 export async function attachCrmState(pool: Pool, leads: CrmAnnotated[]): Promise<void> {
   const allCodes = leads.flatMap((l) => [l.tracking_code, ...(l.merged_tracking_codes ?? [])]).filter(Boolean);
@@ -60,9 +65,17 @@ export async function attachCrmState(pool: Pool, leads: CrmAnnotated[]): Promise
       const r = byCode.get(c);
       if (r && (!best || new Date(r.updated_at) > new Date(best.updated_at))) best = r;
     }
-    l.crm_stage = best?.stage ?? 'traffic';
     l.produk_manual = best?.produk_manual ?? null;
     l.moq_manual = best?.moq_manual ?? null;
     l.note = best?.note ?? null;
+    l.has_manual_stage = !!best?.stage;
+
+    if (best?.stage) {
+      l.crm_stage = best.stage;
+    } else {
+      // Hitung MOQ efektif untuk menentukan stage awal
+      const rawMoq = typeof l.moq_manual === 'number' ? l.moq_manual : (l.requested_quantity_pcs ?? null);
+      l.crm_stage = resolveTrafficStageByMoq(rawMoq);
+    }
   }
 }

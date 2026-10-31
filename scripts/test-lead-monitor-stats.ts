@@ -27,6 +27,8 @@ import {
   tabCounts,
   topLeads,
   topReferrers,
+  computeMoqOverview,
+  formatWaChatLink,
   defaultFilters,
   type MonitorLead,
 } from '../src/lib/lead-monitor-stats';
@@ -208,10 +210,40 @@ check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t)
   check('Hitungan per tahap; tanpa isian = traffic', sc.traffic === 1 && sc.hot === 2 && sc.deal === 1, sc);
   check('Filter tahap bekerja', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', stage: 'hot' }).length === 2 && filterLeads(crmLeads, { ...defaultFilters, tab: 'all', stage: 'traffic' }).length === 1);
   check('Filter tahap "all"/kosong menampilkan semua', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', stage: 'all' }).length === 4 && filterLeads(crmLeads, { ...defaultFilters, tab: 'all' }).length === 4);
-  check('Filter MOQ memakai MOQ manual (800 memenuhi, 50 tidak)', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', moq: 'met' }).length === 1 && filterLeads(crmLeads, { ...defaultFilters, tab: 'all', moq: 'below' }).length === 1);
   check('Pencarian mencakup produk manual', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', search: 'vit c' }).length === 1);
   check('Urut produk memakai isian manual', sortLeads(crmLeads, 'product', 'desc')[0].produk_manual === 'Serum Vit C');
 }
 
+// Overview Sebaran MOQ & format WA
+{
+  const mkLead = (pcs: number | null, src: string, page: string) =>
+    row({
+      requested_quantity_pcs: pcs ?? undefined,
+      source: src,
+      page_url: page,
+      status: 'confirmed',
+    }) as any;
+
+  const sample = [
+    mkLead(1000, 'meta-skincare', '/ads/maklon-skincare'),
+    mkLead(500, 'meta-skincare', '/ads/maklon-skincare'),
+    mkLead(300, 'google-ads', '/maklon-parfum'),
+    mkLead(null, 'organic', '/'),
+  ];
+
+  const ov = computeMoqOverview(sample);
+  check('Overview MOQ: 1.000+ pcs dihitung benar', ov.distribution.moq1000.count === 1 && ov.distribution.moq1000.totalPcs === 1000, ov.distribution.moq1000);
+  check('Overview MOQ: 500 pcs dihitung benar', ov.distribution.moq500.count === 1 && ov.distribution.moq500.totalPcs === 500, ov.distribution.moq500);
+  check('Overview MOQ: < 500 pcs dihitung benar', ov.distribution.below500.count === 1 && ov.distribution.below500.totalPcs === 300, ov.distribution.below500);
+  check('Overview MOQ: Tanpa form dihitung benar', ov.distribution.noForm.count === 1, ov.distribution.noForm);
+  check('Overview MOQ: Total pcs = 1800', ov.totalPcs === 1800 && ov.totalWithMoq === 3);
+  check('Overview MOQ: Sumber terbanyak adalah meta-skincare', ov.topSourcesByMoq[0].source === 'meta-skincare' && ov.topSourcesByMoq[0].totalPcs === 1500);
+
+  const waLink = formatWaChatLink('081952417051', 'Budi', 'Annisa', 'Serum Wajah');
+  check('formatWaChatLink normalisasi nomor ke 6281952417051', waLink?.startsWith('https://wa.me/6281952417051') === true, waLink);
+  check('formatWaChatLink memuat salam nama & sales', waLink?.includes('Budi') === true && waLink?.includes('Annisa') === true && waLink?.includes('Serum') === true, waLink);
+}
+
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);
+
 process.exit(failed === 0 ? 0 : 1);

@@ -599,3 +599,180 @@ export function stageCounts(leads: ViewedLead[]): Record<string, number> {
   }
   return out;
 }
+
+export interface MoqOverview {
+  distribution: {
+    below500: { count: number; totalPcs: number; pct: number };
+    moq500: { count: number; totalPcs: number; pct: number };
+    moq1000: { count: number; totalPcs: number; pct: number };
+    noForm: { count: number; pct: number };
+  };
+  totalLeads: number;
+  totalWithMoq: number;
+  totalPcs: number;
+  topSourcesByMoq: {
+    source: string;
+    totalLeads: number;
+    moqQualifiedLeads: number;
+    totalPcs: number;
+    pctQualified: number;
+  }[];
+  topOriginsByMoq: {
+    origin: string;
+    path: string | null;
+    totalLeads: number;
+    moqQualifiedLeads: number;
+    totalPcs: number;
+    topTier: string;
+  }[];
+}
+
+/**
+ * Menghitung ikhtisar sebaran MOQ dan peringkat sumber & halaman asal
+ * yang mendatangkan MOQ terbanyak.
+ */
+export function computeMoqOverview(
+  leads: ViewedLead[],
+  titleOf?: (path: string) => string | null,
+  limit = 6
+): MoqOverview {
+  let totalWithMoq = 0;
+  let totalPcs = 0;
+  let below500Count = 0;
+  let below500Pcs = 0;
+  let moq500Count = 0;
+  let moq500Pcs = 0;
+  let moq1000Count = 0;
+  let moq1000Pcs = 0;
+  let noFormCount = 0;
+
+  const validLeads = leads.filter((l) => classify(l) !== 'direct');
+  const totalLeads = validLeads.length;
+
+  const sourceMap = new Map<string, { source: string; totalLeads: number; moqQualifiedLeads: number; totalPcs: number }>();
+  const originMap = new Map<string, { origin: string; path: string | null; totalLeads: number; moqQualifiedLeads: number; totalPcs: number; tiers: Record<string, number> }>();
+
+  for (const l of validLeads) {
+    const q = quantityOf(l);
+    const hasMoq = typeof q === 'number' && q > 0;
+    const isQualified = typeof q === 'number' && q >= 500;
+
+    if (!hasMoq) {
+      noFormCount++;
+    } else {
+      totalWithMoq++;
+      totalPcs += q;
+      if (q < 500) {
+        below500Count++;
+        below500Pcs += q;
+      } else if (q < 1000) {
+        moq500Count++;
+        moq500Pcs += q;
+      } else {
+        moq1000Count++;
+        moq1000Pcs += q;
+      }
+    }
+
+    // Source aggregation
+    const sKey = sourceKey(l) || 'direct';
+    if (!sourceMap.has(sKey)) {
+      sourceMap.set(sKey, { source: sKey, totalLeads: 0, moqQualifiedLeads: 0, totalPcs: 0 });
+    }
+    const sItem = sourceMap.get(sKey)!;
+    sItem.totalLeads++;
+    if (hasMoq) sItem.totalPcs += q;
+    if (isQualified) sItem.moqQualifiedLeads++;
+
+    // Origin aggregation
+    const page = pagePath(l.page_url as string | null) || '/';
+    const ref = referrerInfo(l.referrer, titleOf);
+    const oKey = ref.label ? `${page} (${ref.label})` : page;
+    if (!originMap.has(oKey)) {
+      originMap.set(oKey, {
+        origin: oKey,
+        path: page,
+        totalLeads: 0,
+        moqQualifiedLeads: 0,
+        totalPcs: 0,
+        tiers: { '< 500': 0, '500': 0, '1.000+': 0 },
+      });
+    }
+    const oItem = originMap.get(oKey)!;
+    oItem.totalLeads++;
+    if (hasMoq) {
+      oItem.totalPcs += q;
+      if (q < 500) oItem.tiers['< 500']++;
+      else if (q < 1000) oItem.tiers['500']++;
+      else oItem.tiers['1.000+']++;
+    }
+    if (isQualified) oItem.moqQualifiedLeads++;
+  }
+
+  const calcPct = (count: number) => (totalLeads > 0 ? Math.round((count / totalLeads) * 1000) / 10 : 0);
+
+  const topSourcesByMoq = [...sourceMap.values()]
+    .map((s) => ({
+      ...s,
+      pctQualified: s.totalLeads > 0 ? Math.round((s.moqQualifiedLeads / s.totalLeads) * 1000) / 10 : 0,
+    }))
+    .sort((a, b) => b.totalPcs - a.totalPcs || b.moqQualifiedLeads - a.moqQualifiedLeads || b.totalLeads - a.totalLeads)
+    .slice(0, limit);
+
+  const topOriginsByMoq = [...originMap.values()]
+    .map((o) => {
+      let topTier = 'Belum Form';
+      if (o.tiers['1.000+'] >= o.tiers['500'] && o.tiers['1.000+'] > 0) topTier = '1.000+ pcs';
+      else if (o.tiers['500'] > 0) topTier = '500 pcs';
+      else if (o.tiers['< 500'] > 0) topTier = '< 500 pcs';
+
+      return {
+        origin: o.origin,
+        path: o.path,
+        totalLeads: o.totalLeads,
+        moqQualifiedLeads: o.moqQualifiedLeads,
+        totalPcs: o.totalPcs,
+        topTier,
+      };
+    })
+    .sort((a, b) => b.totalPcs - a.totalPcs || b.moqQualifiedLeads - a.moqQualifiedLeads || b.totalLeads - a.totalLeads)
+    .slice(0, limit);
+
+  return {
+    distribution: {
+      below500: { count: below500Count, totalPcs: below500Pcs, pct: calcPct(below500Count) },
+      moq500: { count: moq500Count, totalPcs: moq500Pcs, pct: calcPct(moq500Count) },
+      moq1000: { count: moq1000Count, totalPcs: moq1000Pcs, pct: calcPct(moq1000Count) },
+      noForm: { count: noFormCount, pct: calcPct(noFormCount) },
+    },
+    totalLeads,
+    totalWithMoq,
+    totalPcs,
+    topSourcesByMoq,
+    topOriginsByMoq,
+  };
+}
+
+/**
+ * Format link wa.me dengan pesan pembuka tersapa ramah personalisasi nama & produk
+ */
+export function formatWaChatLink(
+  phone: string | null | undefined,
+  name?: string | null,
+  sales?: string | null,
+  produk?: string | null
+): string | null {
+  if (!phone) return null;
+  let clean = String(phone).replace(/\D/g, '');
+  if (!clean) return null;
+  if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+  if (!clean.startsWith('62')) clean = '62' + clean;
+
+  const sName = sales ? sales : 'tim BusDev';
+  const kName = name ? `Kak ${name}` : 'Kak';
+  const pName = produk ? `maklon ${produk}` : 'maklon kosmetik';
+
+  const text = `Halo ${kName}, saya ${sName} dari Dreamlab Kosmetik.\nTerima kasih sudah menghubungi kami mengenai rencana ${pName}. Ada yang bisa saya bantu diskusikan?`;
+  return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
+}
+

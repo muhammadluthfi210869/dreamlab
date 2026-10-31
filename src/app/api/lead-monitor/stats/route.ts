@@ -24,6 +24,7 @@ import {
   tabCounts,
   topLeads,
   topReferrers,
+  computeMoqOverview,
   type MonitorLead,
   type SortKey,
   type StatusTab,
@@ -368,6 +369,7 @@ export async function GET(req: NextRequest) {
         pages: groupBy(scoped, (l) => pagePath(l.page_url as string | null), 8),
         topLeads: topLeads(scoped, Date.now(), 5),
         stageCounts: stageCounts(scoped),
+        moqOverview: computeMoqOverview(scoped, articleTitleOf, 6),
         referrers: topReferrers(scoped, articleTitleOf, 8),
         rrMode,
         // Dashboard hanya butuh kartu/grafik (light=1); tabel ada di halaman Pelanggan.
