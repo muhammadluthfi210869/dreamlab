@@ -365,6 +365,14 @@
     @apply text-brand-orange font-bold underline decoration-2 underline-offset-4 hover:text-brand-black transition-all;
   }
 
+  .article-content a.btn-calculator-cta,
+  .article-content a.btn-calculator-cta span,
+  .article-content a.btn-calculator-cta svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    text-decoration: none !important;
+  }
+
   /* Elementor Layout Parity */
   .article-content .elementor-section {
     @apply flex flex-wrap relative w-full;

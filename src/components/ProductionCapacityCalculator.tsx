@@ -290,16 +290,17 @@ Simulasi dilakukan via Kalkulator Kapasitas Dreamlab (https://dreamlab.id/jasa-m
 
         <a
           href={`https://dreamlab.id/thankyou/google/?source=calculator-gap&target=${calculations.validTarget}&gap=${calculations.capacityGap}`}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-6 py-3 text-xs sm:text-sm font-extrabold text-white shadow-lg shadow-amber-500/20 transition hover:brightness-105 sm:w-auto"
+          className="btn-calculator-cta inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-6 py-3 text-xs sm:text-sm font-extrabold !text-white !no-underline shadow-lg shadow-amber-500/20 transition hover:brightness-105 hover:!text-white sm:w-auto"
+          style={{ color: '#ffffff', textDecoration: 'none' }}
         >
-          <span>Konsultasikan Kebutuhan Produksi Anda</span>
-          <ArrowRight className="h-4 w-4" />
+          <span className="!text-white font-extrabold" style={{ color: '#ffffff' }}>Konsultasikan Kebutuhan Produksi Anda</span>
+          <ArrowRight className="h-4 w-4 !text-white flex-shrink-0" style={{ color: '#ffffff', stroke: '#ffffff' }} />
         </a>
       </div>
 
       {/* Disclaimer */}
-      <p className="mt-4 text-[11px] leading-relaxed text-slate-400 italic">
-        *Disclaimer: Hasil kalkulasi ini merupakan simulasi estimasi perencanaan produksi operasional internal brand Anda dan bukan merupakan konfirmasi ketersediaan slot kapasitas, komitmen waktu lead time, atau penawaran harga resmi dari Dreamlab. Evaluasi kapasitas aktual dilakukan berdasarkan sediaan, spesifikasi teknis, formula, kemasan, dan jadwal produksi riil.
+      <p className="mt-4 text-[11px] leading-relaxed text-slate-400">
+        <strong className="font-bold text-slate-500">Catatan:</strong> Hasil kalkulasi ini merupakan simulasi estimasi perencanaan produksi operasional internal brand Anda dan bukan merupakan konfirmasi ketersediaan slot kapasitas, komitmen waktu <strong>lead time</strong>, atau penawaran harga resmi dari Dreamlab. Evaluasi kapasitas aktual dilakukan berdasarkan sediaan, spesifikasi teknis, formula, kemasan, dan jadwal produksi riil.
       </p>
     </div>
   );
