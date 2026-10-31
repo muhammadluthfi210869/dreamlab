@@ -52,6 +52,11 @@ export interface MonitorLead extends MergeableLead {
   referrer?: string | null;
   utm_campaign?: string | null;
   produk?: string | null;
+  /** Isian CRM (tabel crm_lead_state): tahap pipeline dan isian manual busdev. */
+  crm_stage?: string;
+  produk_manual?: string | null;
+  moq_manual?: number | null;
+  note?: string | null;
   production_tier_name?: string | null;
   requested_quantity_pcs?: number | null;
   inquiry_reference?: string | null;
@@ -93,6 +98,7 @@ export function wibHour(iso: string | number | Date): number {
 }
 
 export function quantityOf(l: MonitorLead): number | null {
+  if (typeof l.moq_manual === 'number' && l.moq_manual >= 0) return l.moq_manual;
   if (l.requested_quantity_pcs && l.requested_quantity_pcs > 0) return l.requested_quantity_pcs;
   const t = l.production_tier_name ? TIER_PCS[l.production_tier_name.trim().toLowerCase()] : undefined;
   return t ?? null;
@@ -498,6 +504,8 @@ export interface TableFilters {
   moq: 'all' | 'met' | 'below';
   source: string;
   search: string;
+  /** Tahap pipeline; 'all' = semua. Kosong = semua. */
+  stage?: string;
 }
 
 export const defaultFilters: TableFilters = {
@@ -534,8 +542,9 @@ export function filterLeads(leads: ViewedLead[], f: TableFilters): ViewedLead[] 
     if (f.moq === 'met' && !meetsMoq(l)) return false;
     if (f.moq === 'below' && (meetsMoq(l) || !quantityOf(l))) return false;
     if (f.source !== 'all' && (l.source || 'direct') !== f.source) return false;
+    if (f.stage && f.stage !== 'all' && (l.crm_stage || 'traffic') !== f.stage) return false;
     if (q) {
-      const hay = [l.tracking_code, l.nama, l.wa_profile_name, l.wa_phone, l.hp, l.page_url, l.referrer, l.produk, l.inquiry_reference]
+      const hay = [l.tracking_code, l.nama, l.wa_profile_name, l.wa_phone, l.hp, l.page_url, l.referrer, l.produk, l.produk_manual, l.note, l.inquiry_reference]
         .map(norm)
         .join(' ');
       if (!hay.includes(q)) return false;
@@ -555,7 +564,7 @@ export function sortLeads(leads: ViewedLead[], key: SortKey, dir: 'asc' | 'desc'
       case 'busdev':
         return norm(l.assigned_to);
       case 'product':
-        return norm(l.produk);
+        return norm(l.produk_manual || l.produk);
       case 'quantity':
         return quantityOf(l) ?? -1;
       case 'chat_time':
@@ -578,4 +587,15 @@ export function paginate<T>(rows: T[], page: number, pageSize: number): { rows: 
   const pages = Math.max(1, Math.ceil(rows.length / size));
   const p = Math.min(Math.max(1, Math.floor(page) || 1), pages);
   return { rows: rows.slice((p - 1) * size, p * size), page: p, pages };
+}
+
+/** Jumlah prospek per tahap pipeline (tanpa chat langsung); tahap kosong dianggap 'traffic'. */
+export function stageCounts(leads: ViewedLead[]): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const l of leads) {
+    if (classify(l) === 'direct') continue;
+    const st = l.crm_stage || 'traffic';
+    out[st] = (out[st] || 0) + 1;
+  }
+  return out;
 }

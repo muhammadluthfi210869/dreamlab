@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMonitorPool, resetMonitorPool } from '@/lib/db';
+import { isAuthFailure, requireUser } from '@/lib/crm-auth';
+import { attachCrmState } from '@/lib/lead-monitor-data';
 import {
   computeKpi,
   dailySeries,
@@ -18,6 +20,7 @@ import {
   sortLeads,
   sourceKey,
   splitActive,
+  stageCounts,
   tabCounts,
   topLeads,
   topReferrers,
@@ -100,6 +103,10 @@ const intParam = (v: string | null, d: number) => {
 };
 
 export async function GET(req: NextRequest) {
+  // Data ini memuat nomor WhatsApp prospek: wajib login. Dicek SEBELUM cache respons.
+  const auth = await requireUser(req);
+  if (isAuthFailure(auth)) return auth;
+
   const url = new URL(req.url);
   const sp = url.searchParams;
 
@@ -125,6 +132,7 @@ export async function GET(req: NextRequest) {
     moq,
     source: sp.get('source') || 'all',
     search: (sp.get('search') || '').slice(0, 100),
+    stage: sp.get('stage') || 'all',
   };
   const sortKeys: SortKey[] = ['time', 'name', 'busdev', 'product', 'quantity', 'chat_time'];
   const sort: SortKey = sortKeys.includes(sp.get('sort') as SortKey) ? (sp.get('sort') as SortKey) : 'time';
@@ -213,6 +221,9 @@ export async function GET(req: NextRequest) {
     const rawCapped = curRaw.length >= RAW_ROW_CAP;
 
     const merged = mergeForMonitor(curRaw).map((l) => ({ ...l, latency_seconds: latencySeconds(l) }));
+
+    // ---- isian CRM (tahap + Produk/MOQ/catatan manual) dari tabel crm_lead_state
+    await attachCrmState(mp(), merged as any[]);
     const mergedPrev = hasPrev ? mergeForMonitor(prevRaw) : [];
 
     // ---- daftar sales
@@ -255,6 +266,11 @@ export async function GET(req: NextRequest) {
       busdevs: l.busdevs,
       source: l.source,
       page_url: pagePath(l.page_url as string | null),
+      codes: [l.tracking_code, ...((l.merged_tracking_codes as string[] | undefined) ?? [])],
+      crm_stage: l.crm_stage ?? 'traffic',
+      produk_manual: l.produk_manual ?? null,
+      moq_manual: l.moq_manual ?? null,
+      note: l.note ?? null,
       referrer_label: ref.label,
       referrer_kind: ref.kind,
       referrer_path: ref.path,
@@ -307,9 +323,11 @@ export async function GET(req: NextRequest) {
         sources: groupBy(scoped, sourceKey, 8),
         pages: groupBy(scoped, (l) => pagePath(l.page_url as string | null), 8),
         topLeads: topLeads(scoped, Date.now(), 5),
+        stageCounts: stageCounts(scoped),
         referrers: topReferrers(scoped, articleTitleOf, 8),
         rrMode,
-        table: {
+        // Dashboard hanya butuh kartu/grafik (light=1); tabel ada di halaman Pelanggan.
+        table: sp.get('light') === '1' ? null : {
           rows: pg.rows.map(slim),
           total: filtered.length,
           page: pg.page,

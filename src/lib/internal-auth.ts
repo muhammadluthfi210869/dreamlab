@@ -1,3 +1,4 @@
+import { timingSafeEqual } from 'node:crypto';
 import { NextRequest } from 'next/server';
 
 /**
@@ -27,19 +28,6 @@ export function isInternalRequestAuthorized(req: NextRequest): boolean {
 
   const provided = req.headers.get('x-internal-key') ?? req.nextUrl.searchParams.get('key');
 
-  // DEBUG SEMENTARA (2026-07-20) — hapus setelah masalah 401 ketemu.
-  // Tidak nge-log value asli, cuma panjang & beberapa karakter pertama/
-  // akhir, supaya aman tapi tetap bisa dipakai bandingkan typo/whitespace.
-  console.error('[internal-auth][DEBUG]', {
-    expectedLength: expected.length,
-    expectedPreview: `${expected.slice(0, 3)}...${expected.slice(-3)}`,
-    providedRaw: provided,
-    providedLength: provided?.length ?? 0,
-    providedPreview: provided ? `${provided.slice(0, 3)}...${provided.slice(-3)}` : null,
-    match: provided === expected,
-    fromHeader: Boolean(req.headers.get('x-internal-key')),
-    fromQuery: Boolean(req.nextUrl.searchParams.get('key')),
-  });
-
-  return provided === expected;
+  if (!provided || provided.length !== expected.length) return false;
+  return timingSafeEqual(Buffer.from(provided), Buffer.from(expected));
 }

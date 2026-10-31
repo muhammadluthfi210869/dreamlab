@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Search } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Edit3, Search } from "lucide-react";
+import { canEditLead, PIPELINE_STAGES, stageLabel, type CrmUserInfo } from "@/lib/crm-stages";
 import { BRAND, Card, Pill } from "./ui";
 
 export interface TableRow {
@@ -34,6 +35,12 @@ export interface TableRow {
   latency_seconds: number | null;
   duplicate_count?: number;
   merged_tracking_codes?: string[];
+  /** Semua kode klik prospek ini (utama + gabungan 24 jam); dikirim saat menyimpan isian CRM. */
+  codes?: string[];
+  crm_stage?: string;
+  produk_manual?: string | null;
+  moq_manual?: number | null;
+  note?: string | null;
 }
 
 export interface TableData {
@@ -57,6 +64,7 @@ export interface TableState {
   moq: "all" | "met" | "below";
   source: string;
   search: string;
+  stage: string;
   page: number;
   pageSize: number;
   sort: SortKey;
@@ -64,6 +72,10 @@ export interface TableState {
 }
 
 export const MOQ_PCS = 500;
+
+/** Perubahan yang bisa disimpan dari tabel. Mengembalikan pesan galat, atau null bila berhasil. */
+export type RowPatch = { produk_manual?: string | null; moq_manual?: number | null; stage?: string };
+export type PatchHandler = (row: TableRow, patch: RowPatch) => Promise<string | null>;
 
 const REFERRER_KIND_LABEL: Record<NonNullable<TableRow["referrer_kind"]>, string> = {
   artikel: "Artikel",
@@ -96,18 +108,20 @@ function csvCell(v: unknown): string {
 }
 
 export function rowsToCsv(rows: TableRow[]): string {
-  const head = ["Waktu Klik (WIB)", "Nama", "Nomor", "Produk", "Tier", "Pcs", "MOQ", "BusDev", "Status", "Waktu Chat (WIB)", "Latency (detik)", "Kode", "Halaman Asal", "Halaman Tujuan", "Sumber", "Kampanye"];
+  const head = ["Waktu Klik (WIB)", "Nama", "Nomor", "Produk", "Tier", "Pcs", "MOQ", "Tahap Pipeline", "Catatan", "BusDev", "Status", "Waktu Chat (WIB)", "Latency (detik)", "Kode", "Halaman Asal", "Halaman Tujuan", "Sumber", "Kampanye"];
   const body = rows.map((r) => {
-    const qty = r.requested_quantity_pcs;
+    const qty = r.moq_manual ?? r.requested_quantity_pcs;
     const status = r.source === "wa-direct" ? "Chat langsung" : r.status === "confirmed" ? "Chat masuk" : "Drop-off";
     return [
       new Date(r.created_at).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
       r.nama || r.wa_profile_name,
       r.display_phone,
-      r.produk,
+      r.produk_manual || r.produk,
       r.production_tier_name,
       qty,
       qty ? (qty >= MOQ_PCS ? "Memenuhi" : "Di bawah") : "",
+      stageLabel(r.crm_stage),
+      r.note,
       r.assigned_to,
       status,
       r.confirmed_at ? new Date(r.confirmed_at).toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) : "",
@@ -136,6 +150,84 @@ function SortHead({ label, k, state, onSort, className = "" }: { label: string; 
   );
 }
 
+/** Sel yang bisa diklik untuk diisi. Hanya pemilik lead (atau Head) yang melihat tombol edit. */
+function InlineEdit({
+  value,
+  display,
+  numeric,
+  placeholder,
+  canEdit,
+  onSave,
+  maxLength,
+}: {
+  value: string | number | null;
+  display?: React.ReactNode;
+  numeric?: boolean;
+  placeholder: string;
+  canEdit: boolean;
+  onSave: (v: string | null) => Promise<string | null>;
+  maxLength?: number;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const current = value === null || value === undefined ? "" : String(value);
+
+  const start = () => {
+    if (!canEdit) return;
+    setDraft(current);
+    setErr(null);
+    setEditing(true);
+  };
+  const commit = async () => {
+    const v = (numeric ? draft.replace(/[^\d]/g, "") : draft).trim();
+    if (v === current) return setEditing(false);
+    setBusy(true);
+    const e = await onSave(v === "" ? null : v);
+    setBusy(false);
+    if (e) setErr(e);
+    else setEditing(false);
+  };
+
+  if (editing) {
+    return (
+      <div>
+        <input
+          autoFocus
+          value={draft}
+          inputMode={numeric ? "numeric" : undefined}
+          maxLength={maxLength}
+          disabled={busy}
+          onChange={(e) => setDraft(numeric ? e.target.value.replace(/[^\d]/g, "") : e.target.value)}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+            if (e.key === "Escape") {
+              setEditing(false);
+              setErr(null);
+            }
+          }}
+          className="h-8 w-32 rounded-md border border-[#D98A00] bg-white px-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#D98A00]/25 disabled:opacity-60"
+        />
+        {err && <div className="mt-1 max-w-[180px] text-[10px] text-rose-600">{err}</div>}
+      </div>
+    );
+  }
+  return (
+    <button
+      type="button"
+      onClick={start}
+      disabled={!canEdit}
+      title={canEdit ? "Klik untuk mengisi / mengubah" : "Hanya pemilik lead atau Head yang bisa mengubah"}
+      className={`group inline-flex items-center gap-1.5 rounded-md text-left ${canEdit ? "cursor-pointer hover:bg-[#FFF4DC]" : "cursor-default"} px-1 py-0.5 -mx-1`}
+    >
+      {current ? <span className="text-slate-800">{display ?? current}</span> : <span className={canEdit ? "text-slate-400" : "text-slate-300"}>{canEdit ? placeholder : "—"}</span>}
+      {canEdit && <Edit3 className="h-3 w-3 shrink-0 text-slate-300 opacity-0 transition group-hover:opacity-100" />}
+    </button>
+  );
+}
+
 const selectCls =
   "h-9 rounded-lg border border-[#E5E2DA] bg-white px-2.5 text-xs font-medium text-slate-700 focus:border-[#D98A00] focus:outline-none focus:ring-2 focus:ring-[#D98A00]/20";
 
@@ -150,6 +242,8 @@ export function LeadTable({
   busdev,
   busdevNames,
   onBusdev,
+  me,
+  onPatch,
 }: {
   data: TableData | null;
   state: TableState;
@@ -158,6 +252,8 @@ export function LeadTable({
   busdev: string;
   busdevNames: string[];
   onBusdev: (name: string) => void;
+  me: CrmUserInfo;
+  onPatch: PatchHandler;
   onChange: (patch: Partial<TableState>) => void;
   onExport: () => void;
   exporting: boolean;
@@ -181,12 +277,12 @@ export function LeadTable({
   const total = data?.total ?? 0;
   const from = total === 0 ? 0 : (data!.page - 1) * data!.pageSize + 1;
   const to = Math.min(total, (data?.page ?? 1) * (data?.pageSize ?? 25));
-  const filtersActive = state.kind !== "all" || state.tier !== "all" || state.moq !== "all" || state.source !== "all" || state.search !== "";
+  const filtersActive = state.kind !== "all" || state.tier !== "all" || state.moq !== "all" || state.source !== "all" || state.stage !== "all" || state.search !== "";
 
   return (
     <Card
-      title="Riwayat Lead"
-      subtitle="Satu baris per prospek (nomor sama dalam 24 jam digabung). Filter di bawah hanya mempersempit tabel; kartu mengikuti periode dan BusDev."
+      title="Database Pelanggan"
+      subtitle="Satu baris per prospek (nomor sama dalam 24 jam digabung). Produk, MOQ, dan Tahap bisa diisi busdev pemilik lead; Head bisa mengubah semua."
       right={
         <button
           type="button"
@@ -270,6 +366,14 @@ export function LeadTable({
           <option value="met">Memenuhi MOQ</option>
           <option value="below">Di bawah MOQ</option>
         </select>
+        <select aria-label="Tahap pipeline" className={selectCls} value={state.stage} onChange={(e) => onChange({ stage: e.target.value, page: 1 })}>
+          <option value="all">Semua tahap</option>
+          {PIPELINE_STAGES.map((st) => (
+            <option key={st.id} value={st.id}>
+              {st.label}
+            </option>
+          ))}
+        </select>
         <select aria-label="Sumber" className={selectCls} value={state.source} onChange={(e) => onChange({ source: e.target.value, page: 1 })}>
           <option value="all">Semua sumber</option>
           {(data?.sources ?? []).map((s) => (
@@ -281,7 +385,7 @@ export function LeadTable({
         {filtersActive && (
           <button
             type="button"
-            onClick={() => onChange({ kind: "all", tier: "all", moq: "all", source: "all", search: "", page: 1 })}
+            onClick={() => onChange({ kind: "all", tier: "all", moq: "all", source: "all", stage: "all", search: "", page: 1 })}
             className="h-9 rounded-lg px-2 text-xs font-medium text-slate-500 underline hover:text-slate-800"
           >
             Reset filter
@@ -297,8 +401,11 @@ export function LeadTable({
               <SortHead label="Waktu Klik" k="time" state={state} onSort={onSort} />
               <SortHead label="Nama" k="name" state={state} onSort={onSort} />
               <th className="px-4 py-3 font-semibold text-slate-500">Nomor WhatsApp</th>
+              <SortHead label="Produk" k="product" state={state} onSort={onSort} />
+              <SortHead label="MOQ (pcs)" k="quantity" state={state} onSort={onSort} />
               <th className="px-4 py-3 font-semibold text-slate-500">Asal → Halaman Tujuan</th>
               <SortHead label="Sales" k="busdev" state={state} onSort={onSort} />
+              <th className="px-4 py-3 font-semibold text-slate-500">Tahap</th>
               <SortHead label="Waktu Chat" k="chat_time" state={state} onSort={onSort} />
               <th className="px-4 py-3 font-semibold text-slate-500">Kode</th>
             </tr>
@@ -306,13 +413,13 @@ export function LeadTable({
           <tbody className={`divide-y divide-[#F1EFEA] ${loading ? "opacity-60" : ""}`}>
             {!data ? (
               <tr>
-                <td colSpan={7} className="py-14 text-center text-slate-400">
+                <td colSpan={10} className="py-14 text-center text-slate-400">
                   Memuat data...
                 </td>
               </tr>
             ) : data.rows.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-14 text-center text-slate-400">
+                <td colSpan={10} className="py-14 text-center text-slate-400">
                   <p className="mb-1 font-medium text-slate-600">Tidak ada lead untuk filter ini</p>
                   <p>Ubah rentang tanggal, tab status, atau reset filter.</p>
                 </td>
@@ -323,7 +430,8 @@ export function LeadTable({
                 const direct = r.source === "wa-direct";
                 const clean = (v: string | null) => (v && /[\p{L}\p{N}]/u.test(v) ? v.trim() : null);
                 const name = clean(r.nama) || clean(r.wa_profile_name);
-                const qty = r.requested_quantity_pcs;
+                const qty = r.moq_manual ?? r.requested_quantity_pcs;
+                const canEdit = canEditLead(me, r.assigned_to);
                 const foreign = r.phone_country_iso2 && r.phone_country_iso2 !== "ID" ? r.phone_country_iso2 : null;
                 return (
                   <tr key={r.id} className="transition-colors hover:bg-[#FFFCF5]">
@@ -336,12 +444,6 @@ export function LeadTable({
                         <div>
                           <div className="font-semibold text-slate-900">{name}</div>
                           {r.is_form_lead && <Pill tone="brand">Isi form</Pill>}
-                          {(r.produk || r.production_tier_name || qty) && (
-                            <div className="mt-1 flex flex-wrap items-center gap-1 text-[10px] text-slate-500">
-                              {[r.produk, r.production_tier_name, qty ? `${qty.toLocaleString("id-ID")} pcs` : null].filter(Boolean).join(" · ")}
-                              {qty ? <Pill tone={qty >= MOQ_PCS ? "green" : "amber"}>{qty >= MOQ_PCS ? "MOQ" : "< MOQ"}</Pill> : null}
-                            </div>
-                          )}
                         </div>
                       ) : (
                         <span className="text-slate-300">—</span>
@@ -356,6 +458,34 @@ export function LeadTable({
                       ) : (
                         <span className="text-slate-300">—</span>
                       )}
+                    </td>
+                    <td className="max-w-[180px] px-4 py-3">
+                      <InlineEdit
+                        value={r.produk_manual ?? null}
+                        display={<span className="font-medium">{r.produk_manual}</span>}
+                        placeholder={r.produk ? r.produk : "+ isi produk"}
+                        canEdit={canEdit}
+                        maxLength={120}
+                        onSave={(v) => onPatch(r, { produk_manual: v })}
+                      />
+                      {!r.produk_manual && r.produk && !canEdit && <span className="text-slate-700">{r.produk}</span>}
+                      {r.produk_manual && r.produk && r.produk !== r.produk_manual && <div className="text-[10px] text-slate-400" title="Isian dari form">Form: {r.produk}</div>}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <InlineEdit
+                        value={r.moq_manual ?? null}
+                        numeric
+                        display={<span className="font-mono font-semibold">{(r.moq_manual ?? 0).toLocaleString("id-ID")}</span>}
+                        placeholder={r.requested_quantity_pcs ? `${r.requested_quantity_pcs.toLocaleString("id-ID")} (form)` : "+ isi MOQ"}
+                        canEdit={canEdit}
+                        maxLength={9}
+                        onSave={(v) => onPatch(r, { moq_manual: v === null ? null : parseInt(v, 10) })}
+                      />
+                      {r.moq_manual === null && r.requested_quantity_pcs && !canEdit && <span className="font-mono text-slate-700">{r.requested_quantity_pcs.toLocaleString("id-ID")}</span>}
+                      <div className="mt-0.5 flex items-center gap-1">
+                        {qty ? <Pill tone={qty >= MOQ_PCS ? "green" : "amber"}>{qty >= MOQ_PCS ? "Memenuhi MOQ" : "< MOQ"}</Pill> : null}
+                        {r.production_tier_name && <span className="text-[10px] text-slate-400">{r.production_tier_name}</span>}
+                      </div>
                     </td>
                     <td className="max-w-[300px] px-4 py-3">
                       <div className="flex items-start gap-1.5">
@@ -392,6 +522,24 @@ export function LeadTable({
                         <span className="ml-1.5" title={`Prospek ini tercatat di beberapa BusDev: ${r.busdevs!.join(", ")}`}>
                           <Pill tone="red">Ganda</Pill>
                         </span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {canEdit ? (
+                        <select
+                          aria-label="Tahap pipeline"
+                          value={r.crm_stage || "traffic"}
+                          onChange={(e) => onPatch(r, { stage: e.target.value })}
+                          className="h-8 rounded-md border border-[#E5E2DA] bg-white px-1.5 text-[11px] font-medium text-slate-700 focus:border-[#D98A00] focus:outline-none"
+                        >
+                          {PIPELINE_STAGES.map((st) => (
+                            <option key={st.id} value={st.id}>
+                              {st.label}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <Pill tone="slate">{stageLabel(r.crm_stage)}</Pill>
                       )}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">

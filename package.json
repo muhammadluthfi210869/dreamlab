@@ -15,6 +15,8 @@
     "verify:waba": "node scripts/verify-waba-e2e.mjs",
     "test:convia": "npx tsx scripts/test-convia-webhook.ts",
     "test:lead-monitor": "npx tsx scripts/test-lead-monitor-stats.ts",
+    "test:crm": "npx tsx scripts/test-crm.ts",
+    "verify:crm-sql": "node scripts/validate-crm-sql.mjs",
     "test:rr-balance": "npx tsx scripts/test-round-robin-balance.ts",
     "verify:rr-sql": "node scripts/validate-round-robin-sql.mjs",
     "test:leads-integration": "npx tsx scripts/test-leads-assign-integration.ts",

@@ -23,6 +23,7 @@ import {
   referrerInfo,
   sortLeads,
   splitActive,
+  stageCounts,
   tabCounts,
   topLeads,
   topReferrers,
@@ -193,6 +194,23 @@ check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t)
   check('Total chat kartu = chat sales aktif + rangkuman nonaktif', sp.active.reduce((a, r) => a + r.chat, 0) + sp.inactive.chat === k.chat, { sp, kchat: k.chat });
   check('Porsi chat dihitung ulang di antara sales aktif (jumlah 100%)', Math.abs(sp.active.reduce((a, r) => a + r.share, 0) - 100) < 0.5, sp.active);
   check('Rangkuman nonaktif menyebut nama Irma', sp.inactive.names.includes('Irma') && sp.inactive.chat === 1, sp.inactive);
+}
+
+// isian CRM: MOQ manual, tahap
+{
+  const base = { ...raw[0], requested_quantity_pcs: 300 } as MonitorLead;
+  check('MOQ manual menggantikan isian form', quantityOf({ ...base, moq_manual: 1000 }) === 1000 && quantityOf({ ...base, moq_manual: null }) === 300);
+  check('MOQ manual 0 dihormati (bukan dianggap kosong)', quantityOf({ ...base, moq_manual: 0 }) === 0);
+  const mk = (code: string, stage: string | undefined, moq: number | null = null, extra: Record<string, unknown> = {}) =>
+    ({ ...row({ tracking_code: code, hp: '08' + code.replace(/\D/g, '').padEnd(9, '1') }), crm_stage: stage, moq_manual: moq, ...extra }) as MonitorLead;
+  const crmLeads = mergeForMonitor([mk('A1', undefined), mk('B2', 'hot', 800), mk('C3', 'hot'), mk('D4', 'deal', 50, { produk_manual: 'Serum Vit C' })]);
+  const sc = stageCounts(crmLeads);
+  check('Hitungan per tahap; tanpa isian = traffic', sc.traffic === 1 && sc.hot === 2 && sc.deal === 1, sc);
+  check('Filter tahap bekerja', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', stage: 'hot' }).length === 2 && filterLeads(crmLeads, { ...defaultFilters, tab: 'all', stage: 'traffic' }).length === 1);
+  check('Filter tahap "all"/kosong menampilkan semua', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', stage: 'all' }).length === 4 && filterLeads(crmLeads, { ...defaultFilters, tab: 'all' }).length === 4);
+  check('Filter MOQ memakai MOQ manual (800 memenuhi, 50 tidak)', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', moq: 'met' }).length === 1 && filterLeads(crmLeads, { ...defaultFilters, tab: 'all', moq: 'below' }).length === 1);
+  check('Pencarian mencakup produk manual', filterLeads(crmLeads, { ...defaultFilters, tab: 'all', search: 'vit c' }).length === 1);
+  check('Urut produk memakai isian manual', sortLeads(crmLeads, 'product', 'desc')[0].produk_manual === 'Serum Vit C');
 }
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);

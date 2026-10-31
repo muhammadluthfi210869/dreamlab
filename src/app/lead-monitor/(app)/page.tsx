@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { CalendarDays, HelpCircle, MessageSquare, Phone, RefreshCw, Target, Users } from "lucide-react";
+import { HelpCircle, MessageSquare, Phone, RefreshCw, Target } from "lucide-react";
 import { BRAND, Card, KpiCard, Pill } from "@/components/lead-monitor/ui";
 import {
   BusdevBars,
@@ -15,9 +15,8 @@ import {
   type GroupRow,
 } from "@/components/lead-monitor/charts";
 import { ReferrerCard, RR_LABEL, TopLeadsCard, type ReferrerRankRow, type TopLeadRow } from "@/components/lead-monitor/panels";
-import { LeadTable, rowsToCsv, type TableData, type TableState } from "@/components/lead-monitor/LeadTable";
+import { FilterToolbar, useFilters } from "@/components/lead-monitor/filters";
 
-const SYSTEM_LAUNCH = "2026-10-06";
 const REFRESH_MS = 20_000;
 
 interface Kpi {
@@ -42,97 +41,23 @@ interface ApiData {
   topLeads: TopLeadRow[];
   referrers: ReferrerRankRow[];
   rrMode: string | null;
-  table: TableData;
   meta: { rawRows: number; rawCapped: boolean; serverTime: string };
 }
 
-function wibDate(offsetDays = 0): string {
-  const t = new Date(Date.now() + 7 * 3600_000 + offsetDays * 86_400_000);
-  return t.toISOString().slice(0, 10);
-}
-
-const PRESETS = [
-  { id: "today", label: "Hari Ini" },
-  { id: "yesterday", label: "Kemarin" },
-  { id: "7d", label: "7 Hari" },
-  { id: "30d", label: "30 Hari" },
-  { id: "since", label: "Sejak 06 Okt" },
-] as const;
-
-function presetRange(id: string): { start: string; end: string } {
-  switch (id) {
-    case "yesterday":
-      return { start: wibDate(-1), end: wibDate(-1) };
-    case "7d":
-      return { start: wibDate(-6), end: wibDate(0) };
-    case "30d":
-      return { start: wibDate(-29), end: wibDate(0) };
-    case "since":
-      return { start: SYSTEM_LAUNCH, end: wibDate(0) };
-    default:
-      return { start: wibDate(0), end: wibDate(0) };
-  }
-}
-
-function useDebounced<T>(value: T, ms: number): T {
-  const [v, setV] = useState(value);
-  useEffect(() => {
-    const t = setTimeout(() => setV(value), ms);
-    return () => clearTimeout(t);
-  }, [value, ms]);
-  return v;
-}
-
-const inputCls =
-  "h-9 rounded-lg border border-[#E5E2DA] bg-white px-2.5 text-xs font-medium text-slate-700 focus:border-[#D98A00] focus:outline-none focus:ring-2 focus:ring-[#D98A00]/20";
-
-export default function LeadMonitorPage() {
-  const [preset, setPreset] = useState<string>("today");
-  const [startDate, setStartDate] = useState(wibDate(0));
-  const [endDate, setEndDate] = useState(wibDate(0));
-  const [busdev, setBusdev] = useState("all");
-  const [table, setTable] = useState<TableState>({
-    tab: "chat",
-    kind: "all",
-    tier: "all",
-    moq: "all",
-    source: "all",
-    search: "",
-    page: 1,
-    pageSize: 25,
-    sort: "time",
-    dir: "desc",
-  });
+export default function DashboardPage() {
+  const f = useFilters();
   const [autoRefresh, setAutoRefresh] = useState(true);
-
   const [data, setData] = useState<ApiData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [exporting, setExporting] = useState(false);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
-
-  const search = useDebounced(table.search, 350);
   const reqId = useRef(0);
 
-  const query = useMemo(() => {
-    const p = new URLSearchParams({
-      startDate,
-      endDate,
-      busdev,
-      tab: table.tab,
-      kind: table.kind,
-      tier: table.tier,
-      moq: table.moq,
-      source: table.source,
-      search,
-      page: String(table.page),
-      pageSize: String(table.pageSize),
-      sort: table.sort,
-      dir: table.dir,
-    });
-    return p;
-  }, [startDate, endDate, busdev, table.tab, table.kind, table.tier, table.moq, table.source, search, table.page, table.pageSize, table.sort, table.dir]);
+  const query = useMemo(
+    () => new URLSearchParams({ startDate: f.startDate, endDate: f.endDate, busdev: f.busdev, light: "1", pageSize: "5" }),
+    [f.startDate, f.endDate, f.busdev]
+  );
 
   const load = useCallback(
     async (manual = false) => {
@@ -140,6 +65,10 @@ export default function LeadMonitorPage() {
       if (manual) setRefreshing(true);
       try {
         const res = await fetch(`/api/lead-monitor/stats?${query.toString()}`, { cache: "no-store" });
+        if (res.status === 401) {
+          window.location.href = "/lead-monitor/masuk"; // sesi habis / dicabut
+          return;
+        }
         const json = await res.json().catch(() => ({}));
         if (!res.ok || !json.success) throw new Error(json.error || `Server status ${res.status}`);
         if (id !== reqId.current) return; // respons usang
@@ -160,47 +89,16 @@ export default function LeadMonitorPage() {
   );
 
   useEffect(() => {
+    if (!f.ready) return;
     setLoading(true);
     load();
-  }, [load]);
+  }, [load, f.ready]);
 
   useEffect(() => {
-    if (!autoRefresh) return;
+    if (!autoRefresh || !f.ready) return;
     const t = setInterval(() => load(), REFRESH_MS);
     return () => clearInterval(t);
-  }, [autoRefresh, load]);
-
-  const applyPreset = (id: string) => {
-    const r = presetRange(id);
-    setPreset(id);
-    setStartDate(r.start < SYSTEM_LAUNCH ? SYSTEM_LAUNCH : r.start);
-    setEndDate(r.end);
-    setTable((t) => ({ ...t, page: 1 }));
-  };
-
-  const patchTable = (patch: Partial<TableState>) => setTable((t) => ({ ...t, ...patch }));
-
-  const exportCsv = async () => {
-    setExporting(true);
-    try {
-      const p = new URLSearchParams(query);
-      p.set("export", "1");
-      p.set("page", "1");
-      const res = await fetch(`/api/lead-monitor/stats?${p.toString()}`, { cache: "no-store" });
-      const json = await res.json();
-      if (!res.ok || !json.success) throw new Error(json.error || "Gagal ekspor");
-      const blob = new Blob([rowsToCsv(json.table.rows)], { type: "text/csv;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `lead-monitor_${startDate}_${endDate}.csv`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-    } catch (e: any) {
-      setError(e?.message || "Gagal ekspor CSV");
-    } finally {
-      setExporting(false);
-    }
-  };
+  }, [autoRefresh, load, f.ready]);
 
   const k = data?.kpi.current;
   const d = data?.kpi.delta;
@@ -209,18 +107,12 @@ export default function LeadMonitorPage() {
     dt ? dt.toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit" }) + " WIB" : "—";
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2] text-slate-800 antialiased">
-      {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-[#ECEAE4] bg-white/90 backdrop-blur">
+    <div>
+      <header className="border-b border-[#ECEAE4] bg-white/90 backdrop-blur lg:sticky lg:top-0 lg:z-30">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl text-sm font-bold text-white" style={{ background: BRAND }}>
-              DL
-            </div>
-            <div>
-              <h1 className="text-[17px] font-semibold leading-tight text-slate-900">Lead Monitor</h1>
-              <p className="text-xs text-slate-500">Performa lead dan chat WhatsApp Dreamlab</p>
-            </div>
+          <div>
+            <h1 className="text-[17px] font-semibold leading-tight text-slate-900">Dashboard</h1>
+            <p className="text-xs text-slate-500">Performa lead dan chat WhatsApp Dreamlab</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -261,76 +153,10 @@ export default function LeadMonitorPage() {
           </div>
         )}
 
-        {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-[#ECEAE4] bg-white p-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-          <div className="flex items-center rounded-xl bg-slate-100 p-1">
-            {PRESETS.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => applyPreset(p.id)}
-                className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold transition ${preset === p.id ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
-              >
-                {p.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-white px-2.5 py-1">
-            <CalendarDays className="h-3.5 w-3.5 text-slate-400" />
-            <input
-              type="date"
-              aria-label="Dari tanggal"
-              min={SYSTEM_LAUNCH}
-              max={endDate}
-              value={startDate}
-              onChange={(e) => {
-                setStartDate(e.target.value || SYSTEM_LAUNCH);
-                setPreset("custom");
-                patchTable({ page: 1 });
-              }}
-              className="bg-transparent font-mono text-xs text-slate-800 focus:outline-none"
-            />
-            <span className="text-xs text-slate-400">s/d</span>
-            <input
-              type="date"
-              aria-label="Sampai tanggal"
-              min={startDate}
-              max={wibDate(0)}
-              value={endDate}
-              onChange={(e) => {
-                setEndDate(e.target.value || wibDate(0));
-                setPreset("custom");
-                patchTable({ page: 1 });
-              }}
-              className="bg-transparent font-mono text-xs text-slate-800 focus:outline-none"
-            />
-          </div>
-
-          <div className="flex items-center gap-2 rounded-lg border border-[#E5E2DA] bg-white px-2.5">
-            <Users className="h-3.5 w-3.5 text-slate-400" />
-            <select
-              aria-label="BusDev"
-              value={busdev}
-              onChange={(e) => {
-                setBusdev(e.target.value);
-                patchTable({ page: 1 });
-              }}
-              className={`${inputCls} border-0 bg-transparent px-0 focus:ring-0`}
-            >
-              <option value="all">Semua BusDev</option>
-              {busdevNames.map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <p className="ml-auto hidden text-[11px] text-slate-400 lg:block">
-            Data dihitung sejak 06 Okt 2026 (sistem pelacakan terpadu). Zona waktu WIB.
-          </p>
-        </div>
+        <FilterToolbar
+          busdevNames={busdevNames}
+          right={<p className="hidden text-[11px] text-slate-400 lg:block">Data dihitung sejak 06 Okt 2026 (sistem pelacakan terpadu). Zona waktu WIB.</p>}
+        />
 
         {/* KPI */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -366,7 +192,7 @@ export default function LeadMonitorPage() {
             value={k?.moqMet ?? "–"}
             caption="Rencana produksi 500 pcs ke atas"
             delta={d?.moqMet}
-            hint="Dari lead yang mengisi form dan memilih tier produksi."
+            hint="Dari isian form atau MOQ yang diisi manual oleh busdev (isian manual yang dipakai bila ada)."
           />
         </div>
 
@@ -385,7 +211,11 @@ export default function LeadMonitorPage() {
             right={
               data ? (
                 <div className="flex items-center gap-1.5">
-                  {data.rrMode && <span title="Cara sistem membagi klik baru ke sales"><Pill tone="brand">{RR_LABEL[data.rrMode] ?? data.rrMode}</Pill></span>}
+                  {data.rrMode && (
+                    <span title="Cara sistem membagi klik baru ke sales">
+                      <Pill tone="brand">{RR_LABEL[data.rrMode] ?? data.rrMode}</Pill>
+                    </span>
+                  )}
                   <FairnessPill fairness={data.fairness} />
                 </div>
               ) : undefined
@@ -393,14 +223,16 @@ export default function LeadMonitorPage() {
           >
             {data ? (
               <>
-                <BusdevBars rows={data.busdevs} selected={busdev} onSelect={(n) => { setBusdev(n); patchTable({ page: 1 }); }} />
+                <BusdevBars rows={data.busdevs} selected={f.busdev} onSelect={(n) => f.setBusdev(n)} />
                 {data.inactiveBusdevs.names.length > 0 && (
                   <p className="mt-3 border-t border-[#F1EFEA] pt-3 text-[11px] leading-relaxed text-slate-400">
                     Tidak ditampilkan: {data.inactiveBusdevs.names.join(", ")} (nonaktif) · {data.inactiveBusdevs.chat} chat dan {data.inactiveBusdevs.clicks} klik pada periode ini tetap masuk total kartu.
                   </p>
                 )}
               </>
-            ) : <div className="h-[280px]" />}
+            ) : (
+              <div className="h-[280px]" />
+            )}
           </Card>
         </div>
 
@@ -409,7 +241,7 @@ export default function LeadMonitorPage() {
           <Card title="Sumber & Kampanye" subtitle="Asal klik teratas">
             <HBarList rows={data?.sources ?? []} empty="Belum ada data sumber." />
           </Card>
-          <Card title="Halaman Asal" subtitle="Landing page teratas">
+          <Card title="Halaman Tujuan" subtitle="Landing page teratas">
             <HBarList rows={data?.pages ?? []} empty="Belum ada data halaman." />
           </Card>
           <Card title="Jam Chat Masuk" subtitle="Sebaran per jam (WIB)">
@@ -417,28 +249,13 @@ export default function LeadMonitorPage() {
           </Card>
         </div>
 
-        {/* Top leads + kesehatan */}
+        {/* Top leads + halaman asal */}
         <div className="grid gap-4 lg:grid-cols-2">
           <TopLeadsCard rows={data?.topLeads ?? []} />
           <ReferrerCard rows={data?.referrers ?? []} />
         </div>
 
-        {/* Tabel */}
-        <LeadTable
-          data={data?.table ?? null}
-          state={table}
-          loading={loading || refreshing}
-          busdev={busdev}
-          busdevNames={busdevNames}
-          onBusdev={(n) => {
-            setBusdev(n);
-            patchTable({ page: 1 });
-          }}
-          onChange={patchTable}
-          onExport={exportCsv}
-          exporting={exporting}
-          truncated={!!data?.meta.rawCapped}
-        />
+        {loading && !data && <p className="text-center text-xs text-slate-400">Memuat data...</p>}
       </main>
     </div>
   );
