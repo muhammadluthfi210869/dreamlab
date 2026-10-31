@@ -171,7 +171,25 @@ export interface SessionUser extends CrmUserInfo {
   expiresAt: Date;
   remember: boolean;
   mustChange: boolean;
+  guest?: boolean;
 }
+
+/**
+ * Sementara (sebelum pindah ke ERP): halaman & data Lead Monitor bisa DILIHAT tanpa login.
+ * Menulis (edit lead, kelola akun) tetap wajib login. Tutup lagi dengan env LEAD_MONITOR_OPEN=0.
+ */
+export const OPEN_VIEW = process.env.LEAD_MONITOR_OPEN !== '0';
+
+/** Pengunjung tanpa login: peran sales bernama "Tamu" (tidak memiliki lead mana pun, jadi tak bisa mengedit apa pun). */
+export const guestUser = (): SessionUser => ({
+  id: 0,
+  name: 'Tamu',
+  role: 'sales',
+  expiresAt: new Date(Date.now() + 3600_000),
+  remember: false,
+  mustChange: false,
+  guest: true,
+});
 
 export async function getUserByToken(token: string | undefined | null): Promise<SessionUser | null> {
   if (!token || token.length < 20 || token.length > 200) return null;
@@ -245,11 +263,28 @@ export async function requireUser(
     console.error('[crm-auth] gagal membaca sesi:', e?.message);
     return json({ success: false, error: 'Layanan login tidak tersedia, coba lagi' }, 503);
   }
+  // Mode lihat-saja terbuka: pengunjung tanpa sesi boleh MEMBACA (bukan menulis / kelola akun).
+  if (!user && OPEN_VIEW && !opts.write && !opts.role) return { user: guestUser(), token: '' };
   if (!user || !token) return json({ success: false, error: 'Belum masuk' }, 401);
   // Kata sandi awal (= nama) harus diganti dulu sebelum data apa pun bisa diakses.
   if (user.mustChange && !opts.allowMustChange) return json({ success: false, error: 'Ganti kata sandi dulu', code: 'must_change' }, 403);
   if (opts.role && user.role !== opts.role) return json({ success: false, error: 'Tidak punya izin' }, 403);
   return { user, token };
+}
+
+/**
+ * Akses mesin-ke-mesin (ERP) HANYA-BACA ke statistik: header `Authorization: Bearer <LEAD_MONITOR_TOKEN>`.
+ * Token ini nilainya sama dengan env LEAD_MONITOR_TOKEN di server ERP. Tertutup bila env belum diisi atau
+ * kurang dari 24 karakter (fail-closed). Hanya dipakai endpoint statistik, tidak bisa menulis apa pun.
+ */
+export function serviceTokenOk(req: NextRequest): boolean {
+  const expected = process.env.LEAD_MONITOR_TOKEN;
+  if (!expected || expected.length < 24) return false;
+  const m = /^Bearer\s+(.+)$/i.exec(req.headers.get('authorization') || '');
+  if (!m) return false;
+  const provided = Buffer.from(m[1].trim());
+  const want = Buffer.from(expected);
+  return provided.length === want.length && crypto.timingSafeEqual(provided, want);
 }
 
 export const isAuthFailure = (v: unknown): v is NextResponse => v instanceof NextResponse;

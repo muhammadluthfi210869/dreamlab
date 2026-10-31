@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMonitorPool, resetMonitorPool } from '@/lib/db';
-import { isAuthFailure, requireUser } from '@/lib/crm-auth';
+import { isAuthFailure, requireUser, serviceTokenOk } from '@/lib/crm-auth';
 import { attachCrmState } from '@/lib/lead-monitor-data';
 import {
   computeKpi,
@@ -104,8 +104,12 @@ const intParam = (v: string | null, d: number) => {
 
 export async function GET(req: NextRequest) {
   // Data ini memuat nomor WhatsApp prospek: wajib login. Dicek SEBELUM cache respons.
-  const auth = await requireUser(req);
-  if (isAuthFailure(auth)) return auth;
+  // Pengguna lewat cookie login; ERP (mesin) lewat token Bearer khusus dan hanya mendapat format lama yang dibacanya.
+  const serviceMode = serviceTokenOk(req);
+  if (!serviceMode) {
+    const auth = await requireUser(req);
+    if (isAuthFailure(auth)) return auth;
+  }
 
   const url = new URL(req.url);
   const sp = url.searchParams;
@@ -141,7 +145,7 @@ export async function GET(req: NextRequest) {
   const page = intParam(sp.get('page'), 1);
   const pageSize = isExport ? RAW_ROW_CAP : Math.min(Math.max(intParam(sp.get('pageSize'), 25), 5), 100);
 
-  const cacheKey = isExport ? null : url.searchParams.toString();
+  const cacheKey = isExport ? null : (serviceMode ? 'svc|' : '') + url.searchParams.toString();
   if (cacheKey) {
     const hit = responseCache.get(cacheKey);
     if (hit && Date.now() - hit.at < RESPONSE_TTL_MS) {
@@ -298,6 +302,44 @@ export async function GET(req: NextRequest) {
 
     const sources = [...new Set(scoped.map((l) => l.source || 'direct').filter((s) => s !== 'wa-direct'))].sort();
     const tiers = [...new Set(scoped.map((l) => (l.production_tier_name as string) || '').filter(Boolean))].sort();
+
+    if (serviceMode) {
+      // Format lama untuk Dashboard Leads di ERP (modul leads-dashboard): kpi datar, busdevBreakdown, leads.
+      const legacy = {
+        success: true,
+        kpi: {
+          totalClicks: kpi.totalClicks,
+          confirmedChats: kpi.chat,
+          dropoffClicks: kpi.dropoff,
+          directChats: kpi.direct,
+          conversionRate: kpi.totalClicks > 0 ? Math.round((kpi.chat / kpi.totalClicks) * 1000) / 10 : 0,
+        },
+        busdevBreakdown: perBusdev(merged, activeNames)
+          .filter((r) => activeNames.some((n) => n.toLowerCase() === r.name.toLowerCase()) || r.clicks + r.direct > 0)
+          .map((r) => ({
+            busdev_name: r.name,
+            is_active: activeNames.some((n) => n.toLowerCase() === r.name.toLowerCase()),
+            total_clicks: r.clicks,
+            confirmed_chats: r.chat,
+            dropoff_clicks: r.dropoff,
+            direct_chats: r.direct,
+          })),
+        leads: scoped.slice(0, 3000).map((l) => ({
+          id: l.id,
+          assigned_to: l.assigned_to ?? null,
+          source: l.source ?? null,
+          status: l.status ?? null,
+          display_phone: (l.display_phone as string) ?? null,
+          created_at: l.created_at,
+          latency_seconds: (l as any).latency_seconds ?? null,
+        })),
+      };
+      if (cacheKey) {
+        if (responseCache.size > 50) responseCache.clear();
+        responseCache.set(cacheKey, { at: Date.now(), body: legacy });
+      }
+      return NextResponse.json(legacy, { status: 200, headers: NO_STORE_HEADERS });
+    }
 
     const body = {
         success: true,

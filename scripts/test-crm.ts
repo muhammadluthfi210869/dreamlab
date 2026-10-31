@@ -3,7 +3,7 @@
  * Jalankan: npx tsx scripts/test-crm.ts
  */
 import { NextRequest } from 'next/server';
-import { hashPassword, matchesInitialPassword, newToken, sameOrigin, sha256, validateNewPassword, verifyPassword } from '../src/lib/crm-auth';
+import { hashPassword, matchesInitialPassword, newToken, sameOrigin, serviceTokenOk, sha256, validateNewPassword, verifyPassword } from '../src/lib/crm-auth';
 import { canEditLead, isStage, PIPELINE_STAGES, STAGE_IDS, stageLabel } from '../src/lib/crm-stages';
 
 let failed = 0;
@@ -64,6 +64,20 @@ check('Origin sama dengan host diterima', sameOrigin(mk('https://dreamlab.id')))
 check('Origin situs lain ditolak (CSRF)', !sameOrigin(mk('https://evil.example')) && !sameOrigin(mk('https://dreamlab.id.evil.example')));
 check('Origin rusak ditolak', !sameOrigin(mk('not a url')));
 check('Tanpa Origin (non-browser) diterima; tetap wajib cookie sesi', sameOrigin(mk(null)));
+
+// ---------- token layanan ERP (hanya-baca)
+{
+  const good = 'tok_' + 'a1b2c3d4e5'.repeat(4);
+  const withAuth = (v?: string) => new NextRequest('https://dreamlab.id/api/lead-monitor/stats', { headers: v ? { authorization: v } : {} });
+  delete process.env.LEAD_MONITOR_TOKEN;
+  check('Token layanan: env belum diisi => tertutup (fail-closed), walau header ada', !serviceTokenOk(withAuth('Bearer ' + good)) && !serviceTokenOk(withAuth('Bearer ')));
+  process.env.LEAD_MONITOR_TOKEN = 'pendek';
+  check('Token layanan: env terlalu pendek (< 24) tetap tertutup', !serviceTokenOk(withAuth('Bearer pendek')));
+  process.env.LEAD_MONITOR_TOKEN = good;
+  check('Token layanan: token benar diterima', serviceTokenOk(withAuth('Bearer ' + good)) && serviceTokenOk(withAuth('bearer ' + good)));
+  check('Token layanan: salah / tanpa header / skema lain ditolak', !serviceTokenOk(withAuth('Bearer ' + good + 'x')) && !serviceTokenOk(withAuth('Bearer ' + good.slice(0, -1))) && !serviceTokenOk(withAuth()) && !serviceTokenOk(withAuth('Basic ' + good)) && !serviceTokenOk(withAuth(good)));
+  delete process.env.LEAD_MONITOR_TOKEN;
+}
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);
 process.exit(failed === 0 ? 0 : 1);

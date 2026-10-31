@@ -16,7 +16,7 @@ const NAV = [
   { href: "/lead-monitor/pengaturan", label: "Pengaturan", icon: Settings, exact: false, headOnly: false },
 ] as const;
 
-export function MonitorShell({ user, children }: { user: CrmUserInfo; children: ReactNode }) {
+export function MonitorShell({ user, guest = false, children }: { user: CrmUserInfo; guest?: boolean; children: ReactNode }) {
   const pathname = usePathname() || "";
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ export function MonitorShell({ user, children }: { user: CrmUserInfo; children: 
     router.refresh();
   };
 
-  const items = NAV.filter((n) => !n.headOnly || user.role === "head");
+  const items = NAV.filter((n) => (!n.headOnly || user.role === "head") && !(guest && n.href.endsWith("/pengaturan")));
   const isActive = (n: (typeof NAV)[number]) => (n.exact ? pathname === n.href || pathname === n.href + "/" : pathname.startsWith(n.href));
 
   const sidebar = (
@@ -73,9 +73,18 @@ export function MonitorShell({ user, children }: { user: CrmUserInfo; children: 
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-600">{user.name.slice(0, 1).toUpperCase()}</div>
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold text-slate-900">{user.name}</div>
-            <div className="text-[11px] text-slate-500">{user.role === "head" ? "Head · bisa edit semua" : "BusDev · edit lead milik sendiri"}</div>
+            <div className="text-[11px] text-slate-500">{guest ? "Lihat saja · masuk untuk mengedit" : user.role === "head" ? "Head · bisa edit semua" : "BusDev · edit lead milik sendiri"}</div>
           </div>
         </div>
+        {guest ? (
+          <Link
+            href="/lead-monitor/masuk"
+            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg text-xs font-semibold text-white transition hover:opacity-90"
+            style={{ background: BRAND }}
+          >
+            Masuk untuk mengedit
+          </Link>
+        ) : (
         <button
           type="button"
           onClick={logout}
@@ -85,6 +94,7 @@ export function MonitorShell({ user, children }: { user: CrmUserInfo; children: 
           <LogOut className="h-3.5 w-3.5" />
           {leaving ? "Keluar..." : "Keluar"}
         </button>
+        )}
       </div>
     </div>
   );

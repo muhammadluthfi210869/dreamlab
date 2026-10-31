@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   const { user, token } = auth;
 
   const res = json({ success: true, user: { id: user.id, name: user.name, role: user.role }, mustChange: user.mustChange, remember: user.remember });
-  if (user.remember && user.expiresAt.getTime() - Date.now() < REMEMBER_MS - 5 * 86_400_000) {
+  if (!user.guest && user.remember && user.expiresAt.getTime() - Date.now() < REMEMBER_MS - 5 * 86_400_000) {
     try {
       const expires = await renewSession(token);
       setSessionCookie(res, token, expires);
