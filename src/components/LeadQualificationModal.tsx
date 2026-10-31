@@ -80,20 +80,6 @@ const CATEGORIES = [
   'Lainnya',
 ];
 
-const BUSINESS_STAGES = [
-  'Baru punya ide',
-  'Sedang menyiapkan brand',
-  'Sudah punya brand',
-  'Sudah berjualan dan ingin scale-up',
-];
-
-const PRODUCTION_TIMELINES = [
-  'Secepatnya',
-  '1–3 bulan',
-  '3–6 bulan',
-  'Masih dalam tahap perencanaan',
-];
-
 export function LeadQualificationModal({
   isOpen,
   onClose,
@@ -108,10 +94,6 @@ export function LeadQualificationModal({
   
   // No tier preselected automatically (User must actively select)
   const [selectedTier, setSelectedTier] = useState<ProductionTierItem | null>(null);
-
-  // Business stage & timeline
-  const [businessStatus, setBusinessStatus] = useState<string>('');
-  const [productionTimeline, setProductionTimeline] = useState<string>('');
 
   // Contact fields
   const [fullName, setFullName] = useState<string>('');
@@ -254,8 +236,6 @@ export function LeadQualificationModal({
           productionTierName: selectedTier.name,
           requestedQuantityPcs: selectedTier.quantityPcs,
           leadQuantitySegment: selectedTier.segment,
-          businessStatus: businessStatus || undefined,
-          productionTimeline: productionTimeline || undefined,
           fullName: fullName.trim(),
           whatsappPhone: phoneInput.trim(),
           whatsappPhoneE164: phoneMeta.e164,
@@ -505,73 +485,11 @@ export function LeadQualificationModal({
                 )}
               </div>
 
-              {/* 3. Tahap Bisnis (Business Status) */}
-              <div>
-                <label className="block text-xs sm:text-sm font-extrabold text-slate-900 mb-1">
-                  3. Saat Ini Anda Berada di Tahap Mana?
-                </label>
-                <p className="text-[11px] text-slate-500 mb-2">
-                  Membantu konsultan R&amp;D kami menyesuaikan kebutuhan formulasi Anda.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {BUSINESS_STAGES.map((stage) => {
-                    const isSelected = businessStatus === stage;
-                    return (
-                      <button
-                        type="button"
-                        key={stage}
-                        onClick={() => setBusinessStatus(stage)}
-                        className={`p-2.5 rounded-xl text-xs font-semibold border transition-all text-left flex items-center justify-between ${
-                          isSelected
-                            ? 'bg-sky-50 text-[#1E3A8A] border-[#1E3A8A] font-bold'
-                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                        }`}
-                      >
-                        <span>{stage}</span>
-                        <span
-                          className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
-                            isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300'
-                          }`}
-                        >
-                          {isSelected && <span className="w-1 h-1 rounded-full bg-white" />}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 4. Timeline Produksi (Optional Qualification) */}
-              <div>
-                <label className="block text-xs sm:text-sm font-extrabold text-slate-900 mb-1">
-                  4. Kapan Anda Ingin Mulai Produksi?
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-                  {PRODUCTION_TIMELINES.map((time) => {
-                    const isSelected = productionTimeline === time;
-                    return (
-                      <button
-                        type="button"
-                        key={time}
-                        onClick={() => setProductionTimeline(time)}
-                        className={`py-1.5 px-2 rounded-lg text-[11px] font-semibold border transition-all text-center ${
-                          isSelected
-                            ? 'bg-[#1E3A8A] text-white border-[#1E3A8A]'
-                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                        }`}
-                      >
-                        {time}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 5. Kontak (Mari Kenalan dengan Anda) */}
+              {/* 3. Kontak (Mari Kenalan dengan Anda) */}
               <div className="space-y-3 pt-3 border-t border-slate-100">
                 <div className="mb-1">
                   <span className="block text-xs sm:text-sm font-extrabold text-slate-900">
-                    5. Mari Kenalan dengan Anda
+                    3. Mari Kenalan dengan Anda
                   </span>
                   <span className="text-[11px] text-slate-500">
                     Informasi kontak hanya digunakan untuk konsultasi produk melalui WhatsApp resmi.
