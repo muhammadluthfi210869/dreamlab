@@ -83,10 +83,9 @@ try {
   check('Mode shadow: 8 pilihan balancer tercatat', log.rowCount === 8, log.rowCount);
   console.log('   contoh log shadow:', JSON.stringify(log.rows.slice(0, 3)));
 
-  // 3) confirmed_balance
-  const hour = (await client.query(`SELECT EXTRACT(HOUR FROM (NOW() AT TIME ZONE 'Asia/Jakarta'))::int h`)).rows[0].h;
-  const working = hour >= 8 && hour < 21;
-  await client.query(`UPDATE rr_settings SET value=NOW()::text, updated_at=NOW() WHERE key='balance_since'`);
+  // 3) confirmed_balance: murni chat masuk, batas putaran (Q = 2), pengaman sales macet
+  // (semua stempel waktu di dalam transaksi sama dengan NOW(); mundurkan batas awal agar klik uji terhitung)
+  await client.query(`UPDATE rr_settings SET value=(NOW() - INTERVAL '1 minute')::text, updated_at=NOW() WHERE key='balance_since'`);
   await setting('rr_mode', 'confirmed_balance');
   const confirmFor = (name, count) =>
     client.query(
@@ -94,31 +93,44 @@ try {
         WHERE id IN (SELECT id FROM leads WHERE source='rr-sim' AND assigned_to=$1 AND status IS DISTINCT FROM 'confirmed' ORDER BY id DESC LIMIT $2)`,
       [name, count]
     );
+  const roundSize = (await client.query(`SELECT value FROM rr_settings WHERE key='round_size'`)).rows[0]?.value;
+  check('Pengaturan round_size default = 2', roundSize === '2', roundSize);
+  const inActive = (arr) => arr.every((x) => active.includes(x));
 
-  // 3a) semua sales belum punya chat tertangkap: sebaran tetap merata
+  // 3a) belum ada chat sama sekali: sebaran tetap merata, tidak ada yang macet (stuck_clicks 40 > 12 klik/sales)
   const b1 = [];
-  for (let i = 0; i < 24; i++) b1.push(await click());
+  for (let i = 0; i < 36; i++) b1.push(await click());
   const s1 = share(b1);
-  check('confirmed_balance, belum ada chat: sebaran merata (tiap sales 15-35%)', Object.values(s1).every((v) => v >= 15 && v <= 35) && Object.keys(s1).length === order.length, s1);
+  check('Belum ada chat: sebaran merata (tiap sales 25-42%)', Object.values(s1).every((v) => v >= 25 && v <= 42) && Object.keys(s1).length === order.length, s1);
+  check('Hanya sales aktif yang menerima klik (Irma nonaktif tidak kebagian)', inActive(b1), s1);
 
-  // 3b) hanya Annisa yang chatnya tertangkap: JANGAN menumpuk ke Annisa (jam kerja: fallback 'belum siap')
-  await confirmFor('Annisa', 10);
+  // 3b) pengaman MACET: Annisa & Diaz punya 1 chat, Jessica 0 chat padahal sudah banyak klik -> jangan ditunggu
+  await setting('stuck_clicks', '10');
+  await confirmFor('Annisa', 1);
+  await confirmFor('Diaz', 1);
   const b2 = [];
-  for (let i = 0; i < 20; i++) b2.push(await click());
+  for (let i = 0; i < 16; i++) b2.push(await click());
   const s2 = share(b2);
-  if (working) {
-    check('Hanya 1 dari 4 nomor menangkap chat: tidak menumpuk ke Annisa (tiap sales <= 40%)', Object.values(s2).every((v) => v <= 40), s2);
-  } else {
-    console.log('SKIP  pemeriksaan kesiapan hanya berlaku 08.00-21.00 WIB; sekarang di luar jam kerja', s2);
-  }
+  check('Sales macet (0 chat dari 12+ klik): hanya dapat klik uji (<= 20%)', (s2.Jessica || 0) <= 20, s2);
+  check('Sales sehat tetap menerima hampir semua klik (Annisa + Diaz >= 80%)', (s2.Annisa || 0) + (s2.Diaz || 0) >= 80, s2);
+  await setting('stuck_clicks', '40');
 
-  // 3c) semua sales terbukti menangkap chat, Annisa jauh lebih banyak: klik berikutnya menghindari Annisa
-  for (const nm of order.filter((x) => x !== 'Annisa')) await confirmFor(nm, 1);
+  // 3c) batas putaran: Annisa 2, Diaz 1, Jessica 1 -> Annisa berhenti sampai yang lain menyusul
+  await confirmFor('Annisa', 1);
+  await confirmFor('Jessica', 1);
   const b3 = [];
-  for (let i = 0; i < 20; i++) b3.push(await click());
+  for (let i = 0; i < 12; i++) b3.push(await click());
   const s3 = share(b3);
-  check('Semua sales terbukti menangkap chat, Annisa 10 vs lainnya 1: Annisa <= 15% klik', (s3.Annisa || 0) <= 15, s3);
-  check('Sales lain kebagian merata (tiap sales non-Annisa >= 15%)', order.filter((x) => x !== 'Annisa').every((x) => (s3[x] || 0) >= 15), s3);
+  check('Annisa sudah di batas putaran (2 vs 1 vs 1): tidak menerima klik baru', (s3.Annisa || 0) === 0, s3);
+  check('Diaz dan Jessica membagi rata klik (masing-masing 40-60%)', (s3.Diaz || 0) >= 40 && (s3.Diaz || 0) <= 60 && (s3.Jessica || 0) >= 40 && (s3.Jessica || 0) <= 60, s3);
+
+  // 3d) semua mencapai batas -> putaran baru terbuka, semua kembali menerima
+  await confirmFor('Diaz', 1);
+  await confirmFor('Jessica', 1);
+  const b4 = [];
+  for (let i = 0; i < 18; i++) b4.push(await click());
+  const s4 = share(b4);
+  check('Semua sama di batas (2/2/2): putaran baru, semua kebagian merata (tiap sales 25-42%)', Object.values(s4).every((v) => v >= 25 && v <= 42) && Object.keys(s4).length === order.length, s4);
 
   // 4) saklar darurat
   await setting('rr_mode', 'sequential');

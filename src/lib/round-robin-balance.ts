@@ -2,30 +2,26 @@
  * round-robin-balance.ts
  *
  * Referensi algoritma pembagian sales berdasarkan CHAT MASUK (bukan klik).
- * Implementasi produksi ada di SQL (db/migrations/00024_confirmed_balance_round_robin.sql)
- * dan harus meniru logika di sini; file ini dipakai tes simulasi
+ * Implementasi produksi ada di SQL (db/migrations/00024_confirmed_balance_round_robin.sql,
+ * fungsi rr_choose_agent) dan harus meniru logika di sini; file ini dipakai tes simulasi
  * (scripts/test-round-robin-balance.ts) untuk membuktikan perilakunya.
  *
- * Masalah yang dipecahkan: sales dipilih saat KLIK (nomor tujuan WA harus sudah
- * diketahui), padahal chat baru terjadi menit kemudian. Maka tiap klik baru
- * diberikan ke sales dengan "skor proyeksi" terendah:
+ * Aturan (murni chat masuk berkode; klik yang belum chat TIDAK ikut dihitung):
+ *  1. Hitung chat masuk tiap sales HARI INI (reset tengah malam WIB).
+ *  2. Batas putaran = (chat sales terendah / Q + 1) x Q, Q = roundSize.
+ *     Contoh Q=5: Annisa 5, Jessica 3, Diaz 3 -> batas 5 -> Annisa berhenti dapat klik
+ *     sampai Jessica dan Diaz juga 5, lalu batas naik ke 10.
+ *  3. Klik baru -> sales di bawah batas dengan chat paling sedikit.
+ *     Seri: yang paling lama tidak kebagian klik, lalu urutan giliran.
  *
- *   skor = chat_masuk_sejak_balance_since + 0.4 x klik_menggantung_30_menit
- *
- * (klik menggantung = sudah dibagikan, belum chat; diperkirakan ~40% akan chat).
- *
- * Pengaman (belajar dari kegagalan "Black Hole Loop" migrasi 00021, saat satu
- * sales yang HP-nya offline terlihat "paling sedikit chat" lalu memonopoli lead):
- *  1. Batas tumpukan : sales dengan > 5 klik menggantung DAN > 1,5x rata-rata semua sales dilewati
- *                      (deteksi penumpukan relatif, bukan batas absolut, agar hari ramai tidak memicu fallback).
- *  2. Batas beruntun : tidak boleh 4 klik berturut-turut ke sales yang sama.
- *  3. Cek kesehatan  : di jam kerja, sales tanpa chat 3 jam padahal sales lain
- *                      ada chat = "degraded", hanya dapat 1 dari 8 klik (uji).
- *  4. Fallback       : tak ada kandidat / data basi / BELUM SIAP -> giliran berurutan.
- *                      'Belum siap' = di jam kerja kurang dari mayoritas sales yang terbukti menangkap chat
- *                      (mis. hanya 1 dari 4 nomor yang chatnya tertangkap). Tanpa ini balancer akan menumpuk
- *                      klik ke satu-satunya nomor yang "hidup", kebalikan dari tujuan merata.
- *  5. Saklar mode    : 'sequential' (default) | 'shadow' | 'confirmed_balance'.
+ * Pengaman (belajar dari "Black Hole Loop" migrasi 00021, saat satu sales yang HP-nya
+ * offline terlihat "paling sedikit chat" lalu memonopoli lead):
+ *  a. MACET   : sales dengan >= stuckClicks klik sejak chat terakhir dan nol chat hari ini
+ *               dikeluarkan dari hitungan batas (sales sehat tidak ikut menunggu) dan hanya
+ *               dapat 1 dari probeEvery klik (klik uji) agar bisa pulih.
+ *  b. Fallback: giliran berurutan bila jam kerja tanpa satu chat pun dari siapa pun selama
+ *               staleMs, atau kurang dari 2 sales yang tidak macet, atau tak ada kandidat.
+ *  c. Saklar  : 'sequential' (default) | 'shadow' | 'confirmed_balance'.
  */
 
 export type RrMode = 'sequential' | 'shadow' | 'confirmed_balance';
@@ -33,140 +29,107 @@ export type RrMode = 'sequential' | 'shadow' | 'confirmed_balance';
 export interface RrAgent {
   id: number;
   name: string;
-  /** Urutan tetap untuk giliran berurutan dan pemutus seri. */
+  /** Urutan tetap untuk giliran berurutan dan pemutus seri terakhir. */
   orderIndex: number;
-  /** Chat masuk sejak balance_since (hitungan mulai nol saat go-live). */
-  chatsSince: number;
-  /** Klik yang dibagikan ke sales ini dalam 30 menit terakhir dan belum chat. */
-  pending30: number;
+  /** Chat masuk berkode hari ini (sejak tengah malam WIB / sejak balancer dinyalakan). */
+  chatsToday: number;
+  /** Klik yang dibagikan ke sales ini sejak chat terakhirnya (atau sejak awal jendela bila belum pernah chat). */
+  clicksSinceChat: number;
   /** Waktu chat terakhir (ms epoch), null bila belum ada. */
   lastChatAtMs: number | null;
+  /** Id klik terakhir yang dibagikan ke sales ini (0 = belum pernah). Dipakai pemutus seri. */
+  lastClickId: number;
 }
 
 export interface RrContext {
   nowMs: number;
   agents: RrAgent[];
-  /** id sales dari penugasan terbaru (yang terbaru dulu). */
-  recentAssignedIds: number[];
-  /** Penghitung giliran global (rr_counter). */
+  /** Posisi giliran berurutan (rr_counter), 0-based. BUKAN penghitung yang terus naik. */
   counter: number;
+  /** Penghitung yang terus naik 1 per klik (di SQL: id lead terakhir). Untuk ritme klik uji. */
+  tick: number;
 }
 
 export const RR_PARAMS = {
-  pendingWeight: 0.4,
-  pendingCap: 5,
-  pileUpFactor: 1.5,
-  streakCap: 3,
-  degradedAfterMs: 3 * 3600_000,
+  roundSize: 2,
+  stuckClicks: 40,
+  staleMs: 6 * 3600_000,
   probeEvery: 8,
-  staleDataMs: 60 * 60_000,
-  workFromHourWib: 8,
-  workToHourWib: 21,
+  workStartHour: 8,
+  workEndHour: 21,
 } as const;
 
-export type PickReason = 'balanced' | 'sequential' | 'fallback-no-candidate' | 'fallback-stale' | 'fallback-not-ready';
+export type RrParams = { -readonly [K in keyof typeof RR_PARAMS]: number };
 
-export interface Pick {
-  agent: RrAgent;
-  reason: PickReason;
+export interface RrDecision {
+  chosen: RrAgent;
+  reason: 'sequential' | 'balanced' | 'probe' | 'fallback-stale' | 'fallback-not-ready' | 'fallback-no-candidate';
+  /** Hanya mode shadow: pilihan balancer yang dicatat (sales yang benar-benar dipilih tetap giliran berurutan). */
+  shadow?: { balanced: RrAgent; reason: RrDecision['reason'] };
+  ceiling?: number;
 }
 
-const wibHour = (ms: number) => new Date(ms + 7 * 3600_000).getUTCHours();
-export const isWorkingHours = (ms: number) => {
-  const h = wibHour(ms);
-  return h >= RR_PARAMS.workFromHourWib && h < RR_PARAMS.workToHourWib;
-};
-
-const byOrder = (agents: RrAgent[]) => [...agents].sort((a, b) => a.orderIndex - b.orderIndex);
-
-/** Giliran berurutan murni berdasarkan penghitung. */
-export function pickSequential(agents: RrAgent[], counter: number): RrAgent {
-  const sorted = byOrder(agents);
-  return sorted[((counter % sorted.length) + sorted.length) % sorted.length];
+export function wibHour(ms: number): number {
+  return new Date(ms + 7 * 3600_000).getUTCHours();
 }
 
-/** Sales degraded: jam kerja, tanpa chat >= 3 jam, sementara minimal satu sales lain punya chat dalam 3 jam. */
-export function degradedIds(ctx: RrContext): Set<number> {
-  const out = new Set<number>();
-  if (!isWorkingHours(ctx.nowMs)) return out;
-  const recent = (a: RrAgent) => a.lastChatAtMs !== null && ctx.nowMs - a.lastChatAtMs < RR_PARAMS.degradedAfterMs;
-  const anyoneRecent = (self: RrAgent) => ctx.agents.some((o) => o.id !== self.id && recent(o));
-  for (const a of ctx.agents) if (!recent(a) && anyoneRecent(a)) out.add(a.id);
-  return out;
-}
+function balanced(ctx: RrContext, p: RrParams): { agent: RrAgent; reason: RrDecision['reason']; ceiling?: number } {
+  const agents = [...ctx.agents].sort((a, b) => a.orderIndex - b.orderIndex);
+  const n = agents.length;
+  const seq = agents[ctx.counter % n];
+  const working = (() => {
+    const h = wibHour(ctx.nowMs);
+    return h >= p.workStartHour && h < p.workEndHour;
+  })();
 
-/** True bila RR_PARAMS.streakCap klik terakhir semuanya ke sales ini. */
-function streakBlocked(ctx: RrContext, agentId: number): boolean {
-  const n = RR_PARAMS.streakCap;
-  const last = ctx.recentAssignedIds.slice(0, n);
-  return last.length >= n && last.every((id) => id === agentId);
-}
+  const anyRecent = agents.some((a) => a.lastChatAtMs !== null && ctx.nowMs - a.lastChatAtMs <= p.staleMs);
+  const stale = working && !anyRecent;
+  const stuck = agents.map(
+    (a) => a.chatsToday === 0 && a.clicksSinceChat >= p.stuckClicks && (a.lastChatAtMs === null || ctx.nowMs - a.lastChatAtMs > p.staleMs)
+  );
+  const okCount = stuck.filter((s) => !s).length;
 
-/** Data konfirmasi basi: jam kerja dan tidak ada satu pun chat masuk dalam 60 menit. */
-function dataStale(ctx: RrContext): boolean {
-  if (!isWorkingHours(ctx.nowMs)) return false;
-  return ctx.agents.every((a) => a.lastChatAtMs === null || ctx.nowMs - a.lastChatAtMs > RR_PARAMS.staleDataMs);
-}
+  const minChats = Math.min(...agents.filter((_, i) => !stuck[i]).map((a) => a.chatsToday), Infinity);
+  const ceiling = (Math.floor((Number.isFinite(minChats) ? minChats : 0) / p.roundSize) + 1) * p.roundSize;
+  const eligible = agents.map((a, i) => !stuck[i] && a.chatsToday < ceiling);
 
-export function pickBalanced(ctx: RrContext): Pick {
-  const agents = byOrder(ctx.agents);
-  if (agents.length === 0) throw new Error('No active agents');
+  if (stale) return { agent: seq, reason: 'fallback-stale', ceiling };
+  if (okCount < 2) return { agent: seq, reason: 'fallback-not-ready', ceiling };
+  if (!eligible.some(Boolean)) return { agent: seq, reason: 'fallback-no-candidate', ceiling };
 
-  if (dataStale(ctx)) return { agent: pickSequential(agents, ctx.counter), reason: 'fallback-stale' };
-
-  // Belum siap: di jam kerja, mayoritas sales harus terbukti menangkap chat (chat < 3 jam lalu).
-  if (isWorkingHours(ctx.nowMs)) {
-    const healthy = agents.filter((a) => a.lastChatAtMs !== null && ctx.nowMs - a.lastChatAtMs < RR_PARAMS.degradedAfterMs).length;
-    if (healthy * 2 <= agents.length) return { agent: pickSequential(agents, ctx.counter), reason: 'fallback-not-ready' };
-  }
-
-  const degraded = degradedIds(ctx);
-  const probeTurn = ctx.counter % RR_PARAMS.probeEvery === 0;
-
-  const meanPending = agents.reduce((sum, a) => sum + a.pending30, 0) / agents.length;
-  const eligible = agents.filter((a) => {
-    if (a.pending30 > RR_PARAMS.pendingCap && a.pending30 > RR_PARAMS.pileUpFactor * meanPending) return false;
-    if (streakBlocked(ctx, a.id)) return false;
-    if (degraded.has(a.id) && !probeTurn) return false;
-    return true;
-  });
-  if (eligible.length === 0) return { agent: pickSequential(agents, ctx.counter), reason: 'fallback-no-candidate' };
-
-  // Giliran probe: beri ke sales degraded (bila ada yang layak) supaya kesehatannya bisa terbukti.
-  if (probeTurn) {
-    // Bergiliran antar sales degraded, supaya sales sehat yang sempat sepi tetap punya kesempatan pulih.
-    const probe = eligible.filter((a) => degraded.has(a.id));
-    if (probe.length > 0) {
-      const turn = Math.floor(ctx.counter / RR_PARAMS.probeEvery);
-      return { agent: probe[turn % probe.length], reason: 'balanced' };
+  if (ctx.tick % p.probeEvery === 0) {
+    const stuckIdx = agents.map((_, i) => i).filter((i) => stuck[i]);
+    if (stuckIdx.length > 0) {
+      return { agent: agents[stuckIdx[Math.floor(ctx.tick / p.probeEvery) % stuckIdx.length]], reason: 'probe', ceiling };
     }
   }
 
-  const pool = probeTurn ? eligible : eligible.filter((a) => !degraded.has(a.id));
-  const score = (a: RrAgent) => a.chatsSince + RR_PARAMS.pendingWeight * a.pending30;
-  const best = Math.min(...pool.map(score));
-  const tied = pool.filter((a) => Math.abs(score(a) - best) < 1e-9);
-
-  // Pemutus seri: urutan tetap mulai dari posisi penghitung, supaya seri tidak selalu jatuh ke sales pertama.
-  const start = ((ctx.counter % agents.length) + agents.length) % agents.length;
-  const ranked = agents.map((a, idx) => ({ a, k: (idx - start + agents.length) % agents.length }));
-  const winner = ranked.filter((r) => tied.includes(r.a)).sort((x, y) => x.k - y.k)[0].a;
-  return { agent: winner, reason: 'balanced' };
+  let best: RrAgent | null = null;
+  let bestK = 0;
+  agents.forEach((a, i) => {
+    if (!eligible[i]) return;
+    const k = (i - (ctx.counter % n) + n) % n;
+    if (
+      best === null ||
+      a.chatsToday < best.chatsToday ||
+      (a.chatsToday === best.chatsToday && (a.lastClickId < best.lastClickId || (a.lastClickId === best.lastClickId && k < bestK)))
+    ) {
+      best = a;
+      bestK = k;
+    }
+  });
+  return { agent: best as unknown as RrAgent, reason: 'balanced', ceiling };
 }
 
-export interface Decision {
-  chosen: RrAgent;
-  reason: PickReason;
-  /** Hanya di mode shadow: apa yang akan dipilih balancer (untuk dicatat). */
-  shadow?: Pick;
-}
+export function decide(mode: RrMode, ctx: RrContext, params: Partial<RrParams> = {}): RrDecision {
+  const p: RrParams = { ...RR_PARAMS, ...params };
+  const agents = [...ctx.agents].sort((a, b) => a.orderIndex - b.orderIndex);
+  const seq = agents[ctx.counter % agents.length];
+  if (mode === 'sequential') return { chosen: seq, reason: 'sequential' };
 
-export function decide(mode: RrMode, ctx: RrContext): Decision {
-  if (mode === 'confirmed_balance') {
-    const p = pickBalanced(ctx);
-    return { chosen: p.agent, reason: p.reason };
+  const b = balanced(ctx, p);
+  if (mode === 'shadow') {
+    return { chosen: seq, reason: 'sequential', shadow: { balanced: b.agent, reason: b.reason }, ceiling: b.ceiling };
   }
-  const seq = pickSequential(ctx.agents, ctx.counter);
-  if (mode === 'shadow') return { chosen: seq, reason: 'sequential', shadow: pickBalanced(ctx) };
-  return { chosen: seq, reason: 'sequential' };
+  return { chosen: b.agent, reason: b.reason, ceiling: b.ceiling };
 }

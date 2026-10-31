@@ -22,6 +22,7 @@ import {
   quantityOf,
   referrerInfo,
   sortLeads,
+  splitActive,
   tabCounts,
   topLeads,
   topReferrers,
@@ -183,6 +184,16 @@ const tr = topReferrers(mergeForMonitor(rl), (p) => (p === '/artikel-satu' ? 'Ar
 check('Peringkat asal: artikel satu = 1 chat dari 2 klik (50%)', tr[0]?.label === 'Artikel Satu' && tr[0].klik === 2 && tr[0].chat === 1 && tr[0].rate === 50, tr);
 check('Peringkat asal: urut chat lalu klik', tr.length === 3 && tr[1].chat === 1 && tr[2].chat === 0, tr);
 check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t) => t.label !== null) && tr[0].klik === 2, tr);
+
+// sales nonaktif tidak ditampilkan tetapi totalnya tetap cocok
+{
+  const all = perBusdev(leads, ['Annisa', 'Jessica', 'Diaz', 'Irma']);
+  const sp = splitActive(all, ['Annisa', 'Jessica', 'Diaz']);
+  check('Sales nonaktif (Irma) tidak muncul di daftar kartu', !sp.active.some((r) => r.name === 'Irma') && sp.active.length === 3, sp.active.map((r) => r.name));
+  check('Total chat kartu = chat sales aktif + rangkuman nonaktif', sp.active.reduce((a, r) => a + r.chat, 0) + sp.inactive.chat === k.chat, { sp, kchat: k.chat });
+  check('Porsi chat dihitung ulang di antara sales aktif (jumlah 100%)', Math.abs(sp.active.reduce((a, r) => a + r.share, 0) - 100) < 0.5, sp.active);
+  check('Rangkuman nonaktif menyebut nama Irma', sp.inactive.names.includes('Irma') && sp.inactive.chat === 1, sp.inactive);
+}
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);
 process.exit(failed === 0 ? 0 : 1);

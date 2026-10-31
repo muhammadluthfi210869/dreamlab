@@ -195,6 +195,29 @@ export function visibleBusdevs(rows: BusdevStat[], registered: string[]): Busdev
   return rows.filter((r) => reg.has(r.name.toLowerCase()) || r.chat + r.dropoff + r.direct > 0);
 }
 
+export interface InactiveSummary {
+  names: string[];
+  chat: number;
+  clicks: number;
+}
+
+/**
+ * Memisahkan sales aktif dari yang nonaktif (mis. kontrak selesai) atau tanpa nama. Kartu dan navigasi hanya
+ * menampilkan sales aktif, dengan porsi dihitung ulang di antara mereka; data sales nonaktif tidak dibuang dan
+ * dirangkum agar totalnya tetap cocok dengan kartu Chat Masuk.
+ */
+export function splitActive(rows: BusdevStat[], activeNames: string[]): { active: BusdevStat[]; inactive: InactiveSummary } {
+  const act = new Set(activeNames.map((n) => n.toLowerCase()));
+  const active = rows.filter((r) => act.has(r.name.toLowerCase())).map((r) => ({ ...r }));
+  const rest = rows.filter((r) => !act.has(r.name.toLowerCase()) && r.chat + r.dropoff > 0);
+  const totalChat = active.reduce((a, r) => a + r.chat, 0);
+  for (const r of active) r.share = totalChat > 0 ? Math.round((r.chat / totalChat) * 1000) / 10 : 0;
+  return {
+    active,
+    inactive: { names: rest.map((r) => r.name), chat: rest.reduce((a, r) => a + r.chat, 0), clicks: rest.reduce((a, r) => a + r.clicks, 0) },
+  };
+}
+
 export type Fairness = { level: 'merata' | 'agak-timpang' | 'timpang' | 'belum-ada-data'; spread: number };
 
 /** Selisih porsi chat terbesar - terkecil antar sales aktif. <=10 poin merata, <=20 agak timpang. */

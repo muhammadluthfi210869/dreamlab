@@ -32,6 +32,7 @@ interface ApiData {
   period: { startDate: string; endDate: string; days: number; hasPrevious: boolean };
   kpi: { current: Kpi; previous: Kpi | null; delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null };
   busdevs: BusdevRow[];
+  inactiveBusdevs: { names: string[]; chat: number; clicks: number };
   fairness: FairnessInfo;
   daily: DayPoint[];
   hourly: { hour: number; chat: number }[];
@@ -390,7 +391,16 @@ export default function LeadMonitorPage() {
               ) : undefined
             }
           >
-            {data ? <BusdevBars rows={data.busdevs} selected={busdev} onSelect={(n) => { setBusdev(n); patchTable({ page: 1 }); }} /> : <div className="h-[280px]" />}
+            {data ? (
+              <>
+                <BusdevBars rows={data.busdevs} selected={busdev} onSelect={(n) => { setBusdev(n); patchTable({ page: 1 }); }} />
+                {data.inactiveBusdevs.names.length > 0 && (
+                  <p className="mt-3 border-t border-[#F1EFEA] pt-3 text-[11px] leading-relaxed text-slate-400">
+                    Tidak ditampilkan: {data.inactiveBusdevs.names.join(", ")} (nonaktif) · {data.inactiveBusdevs.chat} chat dan {data.inactiveBusdevs.clicks} klik pada periode ini tetap masuk total kartu.
+                  </p>
+                )}
+              </>
+            ) : <div className="h-[280px]" />}
           </Card>
         </div>
 

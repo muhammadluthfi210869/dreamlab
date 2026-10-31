@@ -17,10 +17,10 @@ import {
   referrerInfo,
   sortLeads,
   sourceKey,
+  splitActive,
   tabCounts,
   topLeads,
   topReferrers,
-  visibleBusdevs,
   type MonitorLead,
   type SortKey,
   type StatusTab,
@@ -235,11 +235,9 @@ export async function GET(req: NextRequest) {
     const kpi = computeKpi(scoped);
     const kpiPrev = hasPrev ? computeKpi(scopedPrev) : null;
 
-    // ---- chat masuk per sales: selalu semua sales (tidak ikut filter BusDev) agar perbandingannya utuh
-    const busdevRows = visibleBusdevs(perBusdev(merged, activeNames), registered.map((r) => r.name)).filter((r) => {
-      const reg = registered.find((x) => x.name.toLowerCase() === r.name.toLowerCase());
-      return !reg || reg.isActive || r.chat + r.dropoff + r.direct > 0;
-    });
+    // ---- chat masuk per sales: selalu semua sales AKTIF (tidak ikut filter BusDev) agar perbandingannya utuh.
+    // Sales nonaktif tidak ditampilkan; datanya dirangkum di `inactive` supaya total tetap cocok dengan kartu.
+    const { active: busdevRows, inactive: inactiveSummary } = splitActive(perBusdev(merged, activeNames), activeNames);
 
     // ---- mode pembagian (hanya ada setelah migrasi round robin dijalankan)
     const rrMode: string | null = (rrRes.rows[0] as any)?.value ?? null;
@@ -301,6 +299,7 @@ export async function GET(req: NextRequest) {
             : null,
         },
         busdevs: busdevRows,
+        inactiveBusdevs: inactiveSummary,
         fairness: fairness(busdevRows, activeNames),
         daily: dailySeries(scoped, startDate, endDate),
         hourly: hourlyChats(scoped),

@@ -4,21 +4,25 @@
 -- PEMBAGIAN SALES BERDASARKAN CHAT MASUK (bukan klik), dengan pengaman.
 --
 -- Latar: sales dipilih saat KLIK (nomor tujuan WA harus sudah diketahui), padahal
--- chat baru terjadi menit kemudian. Maka klik baru diberikan ke sales dengan
--- "skor proyeksi" terendah:
+-- chat baru terjadi menit kemudian. Aturannya MURNI chat masuk berkode (klik yang belum
+-- chat tidak ikut dihitung), dengan "batas putaran":
 --
---     skor = chat_masuk_sejak_balance_since + 0.4 x klik_menggantung_30_menit
+--   1. Hitung chat masuk tiap sales HARI INI (reset tengah malam WIB).
+--   2. Batas putaran = (chat sales terendah / Q + 1) x Q, dengan Q = rr_settings.round_size (default 2).
+--      Contoh Q=5: Annisa 5, Jessica 3, Diaz 3 -> batas 5 -> Annisa berhenti dapat klik
+--      sampai Jessica dan Diaz juga 5; setelah itu batas naik jadi 10.
+--   3. Klik baru -> sales yang masih di bawah batas dengan chat paling sedikit (seri: urutan giliran).
 --
 -- Pengaman (belajar dari "Black Hole Loop" di migrasi 00021, saat satu sales yang HP-nya
 -- offline terlihat "paling sedikit chat" lalu memonopoli lead):
---   1. Batas tumpukan : > 5 klik menggantung DAN > 1,5x rata-rata semua sales -> dilewati
---   2. Batas beruntun : 3 klik terakhir ke sales yang sama -> klik berikut ke sales lain
---   3. Cek kesehatan  : jam kerja (08-21 WIB), tanpa chat 3 jam padahal sales lain ada chat
---                       = "degraded", hanya dapat 1 dari 8 klik (klik uji, bergiliran)
---   4. Fallback       : tanpa kandidat / tidak ada chat sama sekali 60 menit di jam kerja /
---                       BELUM SIAP (di jam kerja kurang dari mayoritas sales yang terbukti
---                       menangkap chat) -> giliran berurutan seperti sebelumnya
---   5. Saklar mode    : rr_settings.rr_mode = 'sequential' | 'shadow' | 'confirmed_balance'
+--   a. MACET     : sales yang menerima >= rr_settings.stuck_clicks (default 40) klik sejak chat
+--                  terakhirnya tanpa satu chat pun tertangkap dikeluarkan dari hitungan batas,
+--                  sehingga sales yang sehat TIDAK ikut menunggu nomor yang penangkapnya rusak.
+--                  Sales macet tetap dapat 1 dari 8 klik (klik uji) agar bisa pulih.
+--   b. Fallback  : giliran berurutan seperti sebelumnya bila (i) jam kerja 08-21 WIB tanpa satu
+--                  chat pun tertangkap 6 jam, (ii) kurang dari 2 sales yang tidak macet, atau
+--                  (iii) tidak ada kandidat. Lead tidak pernah tertahan.
+--   c. Saklar    : rr_settings.rr_mode = 'sequential' | 'shadow' | 'confirmed_balance'
 --
 -- DEFAULT 'sequential' => perilaku TIDAK berubah sampai saklar dibalik.
 -- Yang dipertahankan persis dari fungsi live: sticky nomor (180 hari), sticky browser
@@ -47,7 +51,9 @@ CREATE TABLE IF NOT EXISTS rr_settings (
 
 INSERT INTO rr_settings (key, value) VALUES
   ('rr_mode', 'sequential'),
-  ('balance_since', NOW()::text)
+  ('balance_since', NOW()::text),
+  ('round_size', '2'),
+  ('stuck_clicks', '40')
 ON CONFLICT (key) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS rr_shadow_log (
@@ -74,35 +80,38 @@ DECLARE
   v_mode      TEXT;
   v_since     TIMESTAMPTZ;
   v_window    TIMESTAMPTZ;
+  v_day       TIMESTAMPTZ;
+  v_round     INT;
+  v_stuck_n   INT;
   v_n         INT := 0;
   v_i         INT := 0;
   r           RECORD;
+  v_c         INT;
   v_ids       BIGINT[] := '{}';
   v_names     TEXT[]   := '{}';
   v_chats     INT[]    := '{}';
-  v_pend      INT[]    := '{}';
+  v_clicks    INT[]    := '{}';
+  v_lastids   BIGINT[] := '{}';
+  v_lastid    BIGINT;
+  v_tick      BIGINT;
   v_last      TIMESTAMPTZ[] := '{}';
-  v_degraded  BOOLEAN[] := '{}';
+  v_stuck     BOOLEAN[] := '{}';
   v_eligible  BOOLEAN[] := '{}';
   v_hour      INT;
   v_working   BOOLEAN;
-  v_recent    BOOLEAN;
-  v_any_recent BOOLEAN := FALSE;
-  v_healthy   INT := 0;
   v_stale     BOOLEAN := TRUE;
-  v_probe     BOOLEAN;
-  v_mean      NUMERIC;
-  v_streak    TEXT;
-  v_streak_n  INT;
+  v_ok_n      INT := 0;
+  v_min       INT;
+  v_ceil      INT;
   v_elig_n    INT := 0;
   v_probe_ids INT[] := '{}';
   v_seq_pos   INT;
   v_pick      INT := NULL;
   v_reason    TEXT := 'balanced';
-  v_best      NUMERIC;
-  v_score     NUMERIC;
   v_k         INT;
   v_best_k    INT;
+  v_best      INT;
+  v_best_id   BIGINT;
 BEGIN
   v_mode := COALESCE((SELECT s.value FROM rr_settings s WHERE s.key = 'rr_mode'), 'sequential');
 
@@ -128,112 +137,106 @@ BEGIN
 
   v_since  := COALESCE((SELECT s.value FROM rr_settings s WHERE s.key = 'balance_since')::timestamptz, NOW() - INTERVAL '1 day');
   v_window := GREATEST(v_since, NOW() - INTERVAL '14 days');
+  -- Hitungan chat dimulai ulang tiap tengah malam WIB (atau sejak balancer dinyalakan, mana yang lebih akhir).
+  v_day    := GREATEST(v_since, date_trunc('day', NOW() AT TIME ZONE 'Asia/Jakarta') AT TIME ZONE 'Asia/Jakarta');
+  -- Ukuran satu putaran: sales yang sudah mencapai batas berhenti dapat klik sampai semua sales menyusul.
+  v_round   := GREATEST(1, COALESCE((SELECT s.value FROM rr_settings s WHERE s.key = 'round_size')::INT, 2));
+  -- Sales dianggap MACET bila menerima sekian klik sejak chat terakhirnya tanpa satu chat pun tertangkap.
+  v_stuck_n := GREATEST(10, COALESCE((SELECT s.value FROM rr_settings s WHERE s.key = 'stuck_clicks')::INT, 40));
 
-  -- Statistik tiap sales aktif (urutan sama dengan giliran berurutan).
+  -- Statistik tiap sales aktif (urutan sama dengan giliran berurutan). Murni chat masuk berkode;
+  -- klik yang belum chat TIDAK ikut dihitung.
   FOR r IN
-    SELECT x.id, x.name, x.chats, x.pending, x.last_chat
-      FROM (
-        SELECT b.id, b.name,
-               ROW_NUMBER() OVER (
-                 ORDER BY CASE
-                   WHEN b.name ILIKE '%Annisa%' THEN 1
-                   WHEN b.name ILIKE '%Diaz%' THEN 2
-                   WHEN b.name ILIKE '%Jessica%' THEN 3
-                   WHEN b.name ILIKE '%Irma%' THEN 4
-                   ELSE 99 END, b.id ASC) AS pos,
-               COUNT(l.id) FILTER (
-                 WHERE l.status = 'confirmed' AND l.source IS DISTINCT FROM 'wa-direct'
-                   AND l.confirmed_at >= v_window
-                   AND COALESCE(l.wa_message, '') !~* 'memeriksa pesan baru|legalitas sertifikasi bpom')::INT AS chats,
-               COUNT(l.id) FILTER (
-                 WHERE l.created_at > NOW() - INTERVAL '30 minutes'
-                   AND l.status IS DISTINCT FROM 'confirmed'
-                   AND l.source IS DISTINCT FROM 'wa-direct')::INT AS pending,
-               MAX(l.confirmed_at) FILTER (
-                 WHERE l.status = 'confirmed' AND l.source IS DISTINCT FROM 'wa-direct'
-                   AND COALESCE(l.wa_message, '') !~* 'memeriksa pesan baru|legalitas sertifikasi bpom') AS last_chat
-          FROM busdevs b
-          LEFT JOIN leads l
-            ON l.assigned_to = b.name
-           AND l.is_test IS NOT TRUE
-           AND l.created_at > NOW() - INTERVAL '14 days'
-         WHERE b.is_active = true
-         GROUP BY b.id, b.name
-      ) x
-     ORDER BY x.pos
+    SELECT b.id, b.name,
+           (SELECT COUNT(*)::INT FROM leads l
+             WHERE l.assigned_to = b.name AND l.is_test IS NOT TRUE
+               AND l.status = 'confirmed' AND l.source IS DISTINCT FROM 'wa-direct'
+               AND l.confirmed_at >= v_day
+               AND COALESCE(l.wa_message, '') !~* 'memeriksa pesan baru|legalitas sertifikasi bpom') AS chats,
+           (SELECT MAX(l.confirmed_at) FROM leads l
+             WHERE l.assigned_to = b.name AND l.is_test IS NOT TRUE
+               AND l.status = 'confirmed' AND l.source IS DISTINCT FROM 'wa-direct'
+               AND l.confirmed_at >= v_window
+               AND COALESCE(l.wa_message, '') !~* 'memeriksa pesan baru|legalitas sertifikasi bpom') AS last_chat
+      FROM busdevs b
+     WHERE b.is_active = true
+     ORDER BY CASE
+                WHEN b.name ILIKE '%Annisa%' THEN 1
+                WHEN b.name ILIKE '%Diaz%' THEN 2
+                WHEN b.name ILIKE '%Jessica%' THEN 3
+                WHEN b.name ILIKE '%Irma%' THEN 4
+                ELSE 99 END, b.id ASC
   LOOP
+    SELECT COUNT(*) FILTER (WHERE l.created_at > GREATEST(COALESCE(r.last_chat, v_window), v_window))::INT,
+           MAX(l.id)
+      INTO v_c, v_lastid
+      FROM leads l
+     WHERE l.assigned_to = r.name AND l.is_test IS NOT TRUE
+       AND l.source IS DISTINCT FROM 'wa-direct'
+       AND l.created_at > v_window;
     v_n := v_n + 1;
-    v_ids   := v_ids   || r.id;
-    v_names := v_names || r.name;
-    v_chats := v_chats || r.chats;
-    v_pend  := v_pend  || r.pending;
-    v_last  := v_last  || r.last_chat;
+    v_ids    := v_ids    || r.id;
+    v_names  := v_names  || r.name;
+    v_chats  := v_chats  || r.chats;
+    v_clicks := v_clicks || v_c;
+    v_lastids := v_lastids || COALESCE(v_lastid, 0);
+    v_last   := v_last   || r.last_chat;
   END LOOP;
 
   IF v_n = 0 THEN RAISE EXCEPTION 'No active busdevs found'; END IF;
   v_seq_pos := (p_counter % v_n) + 1;           -- posisi giliran berurutan (1-based)
+  -- p_counter hanya posisi giliran (0..n-1), bukan penghitung yang terus naik. Untuk ritme klik uji
+  -- dipakai id lead terakhir (naik 1 tiap klik).
+  v_tick := COALESCE((SELECT MAX(l.id) FROM leads l), 0);
 
   v_hour    := EXTRACT(HOUR FROM (NOW() AT TIME ZONE 'Asia/Jakarta'))::INT;
   v_working := v_hour >= 8 AND v_hour < 21;
-  v_probe   := (p_counter % 8) = 0;
 
-  v_mean := 0;
+  -- Data basi: jam kerja tetapi TIDAK ADA chat tertangkap dari siapa pun dalam 6 jam
+  -- (kemungkinan jalur penangkap chat mati secara keseluruhan).
   FOR v_i IN 1..v_n LOOP
-    v_mean := v_mean + v_pend[v_i];
-    IF v_last[v_i] IS NOT NULL AND NOW() - v_last[v_i] < INTERVAL '3 hours' THEN v_any_recent := TRUE; v_healthy := v_healthy + 1; END IF;
-    IF v_last[v_i] IS NOT NULL AND NOW() - v_last[v_i] <= INTERVAL '60 minutes' THEN v_stale := FALSE; END IF;
+    IF v_last[v_i] IS NOT NULL AND NOW() - v_last[v_i] <= INTERVAL '6 hours' THEN v_stale := FALSE; END IF;
+    v_stuck := v_stuck || (v_chats[v_i] = 0 AND v_clicks[v_i] >= v_stuck_n AND (v_last[v_i] IS NULL OR NOW() - v_last[v_i] > INTERVAL '6 hours'));
+    IF NOT v_stuck[v_i] THEN v_ok_n := v_ok_n + 1; END IF;
   END LOOP;
-  v_mean := v_mean / v_n;
-  v_stale := v_working AND v_stale;              -- data basi hanya dinilai di jam kerja
+  v_stale := v_working AND v_stale;
 
-  -- Beruntun: 3 klik terakhir (non-test, non wa-direct) semua ke sales yang sama?
-  SELECT MIN(t.assigned_to), COUNT(*) INTO v_streak, v_streak_n
-    FROM (SELECT l.assigned_to FROM leads l
-           WHERE l.is_test IS NOT TRUE AND l.source IS DISTINCT FROM 'wa-direct'
-           ORDER BY l.id DESC LIMIT 3) t;
-  IF v_streak_n < 3 OR EXISTS (
-       SELECT 1 FROM (SELECT l.assigned_to FROM leads l
-                       WHERE l.is_test IS NOT TRUE AND l.source IS DISTINCT FROM 'wa-direct'
-                       ORDER BY l.id DESC LIMIT 3) t WHERE t.assigned_to IS DISTINCT FROM v_streak) THEN
-    v_streak := NULL;
-  END IF;
+  -- Batas putaran = kelipatan v_round di atas chat sales terendah (di antara yang tidak macet).
+  SELECT MIN(v_chats[i]) INTO v_min FROM generate_subscripts(v_chats, 1) AS i WHERE NOT v_stuck[i];
+  v_ceil := (COALESCE(v_min, 0) / v_round + 1) * v_round;
 
   FOR v_i IN 1..v_n LOOP
-    v_recent := v_last[v_i] IS NOT NULL AND NOW() - v_last[v_i] < INTERVAL '3 hours';
-    v_degraded := v_degraded || (v_working AND NOT v_recent AND v_any_recent);
-    v_eligible := v_eligible || (
-      NOT (v_pend[v_i] > 5 AND v_pend[v_i] > 1.5 * v_mean)
-      AND (v_streak IS NULL OR v_names[v_i] <> v_streak)
-      AND NOT (v_degraded[v_i] AND NOT v_probe)
-    );
+    v_eligible := v_eligible || (NOT v_stuck[v_i] AND v_chats[v_i] < v_ceil);
     IF v_eligible[v_i] THEN v_elig_n := v_elig_n + 1; END IF;
   END LOOP;
 
   IF v_stale THEN
     v_pick := v_seq_pos; v_reason := 'fallback-stale';
-  ELSIF v_working AND v_healthy * 2 <= v_n THEN
-    v_pick := v_seq_pos; v_reason := 'fallback-not-ready';
+  ELSIF v_ok_n < 2 THEN
+    v_pick := v_seq_pos; v_reason := 'fallback-not-ready';   -- kurang dari 2 nomor yang terbukti menangkap chat
   ELSIF v_elig_n = 0 THEN
     v_pick := v_seq_pos; v_reason := 'fallback-no-candidate';
   ELSE
-    -- Giliran uji: beri ke sales degraded yang layak, bergiliran antar mereka.
-    IF v_probe THEN
+    -- Giliran uji tiap 8 klik: beri ke sales macet (bergiliran) agar bisa pulih bila jalurnya sudah diperbaiki.
+    IF (v_tick % 8) = 0 THEN
       FOR v_i IN 1..v_n LOOP
-        IF v_eligible[v_i] AND v_degraded[v_i] THEN v_probe_ids := v_probe_ids || v_i; END IF;
+        IF v_stuck[v_i] THEN v_probe_ids := v_probe_ids || v_i; END IF;
       END LOOP;
       IF COALESCE(array_length(v_probe_ids, 1), 0) > 0 THEN
-        v_pick := v_probe_ids[((p_counter / 8) % array_length(v_probe_ids, 1)) + 1];
+        v_pick := v_probe_ids[((v_tick / 8) % array_length(v_probe_ids, 1))::INT + 1];
+        v_reason := 'probe';
       END IF;
     END IF;
 
     IF v_pick IS NULL THEN
-      v_best := NULL;
+      -- Sales yang masih di bawah batas putaran dan chatnya paling sedikit. Seri: yang paling lama
+      -- tidak kebagian klik (id klik terakhir terkecil), lalu urutan giliran.
       FOR v_i IN 1..v_n LOOP
         IF v_eligible[v_i] THEN
-          v_score := v_chats[v_i] + 0.4 * v_pend[v_i];
-          v_k := ((v_i - 1) - (p_counter % v_n) + v_n) % v_n;      -- pemutus seri: urutan mulai dari penghitung
-          IF v_best IS NULL OR v_score < v_best OR (v_score = v_best AND v_k < v_best_k) THEN
-            v_best := v_score; v_best_k := v_k; v_pick := v_i;
+          v_k := ((v_i - 1) - (p_counter % v_n) + v_n) % v_n;
+          IF v_best IS NULL OR v_chats[v_i] < v_best
+             OR (v_chats[v_i] = v_best AND (v_lastids[v_i] < v_best_id OR (v_lastids[v_i] = v_best_id AND v_k < v_best_k))) THEN
+            v_best := v_chats[v_i]; v_best_id := v_lastids[v_i]; v_best_k := v_k; v_pick := v_i;
           END IF;
         END IF;
       END LOOP;
@@ -243,7 +246,8 @@ BEGIN
   IF v_mode = 'shadow' THEN
     INSERT INTO rr_shadow_log (counter, sequential_agent, balanced_agent, reason, snapshot)
     VALUES (p_counter, v_names[v_seq_pos], v_names[v_pick], v_reason,
-            jsonb_build_object('chats', to_jsonb(v_chats), 'pending', to_jsonb(v_pend), 'names', to_jsonb(v_names)));
+            jsonb_build_object('names', to_jsonb(v_names), 'chats', to_jsonb(v_chats), 'clicks_since_chat', to_jsonb(v_clicks),
+                               'stuck', to_jsonb(v_stuck), 'ceiling', v_ceil, 'round_size', v_round));
     v_pick := v_seq_pos;
   END IF;
 
