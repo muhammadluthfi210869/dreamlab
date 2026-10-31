@@ -105,8 +105,10 @@ const intParam = (v: string | null, d: number) => {
 export async function GET(req: NextRequest) {
   // Data ini memuat nomor WhatsApp prospek: wajib login. Dicek SEBELUM cache respons.
   // Pengguna lewat cookie login; ERP (mesin) lewat token Bearer khusus dan hanya mendapat format lama yang dibacanya.
-  const serviceMode = serviceTokenOk(req);
-  if (!serviceMode) {
+  const serviceAuthed = serviceTokenOk(req);
+  // ERP boleh meminta bentuk lengkap (sama persis dengan yang dilihat Head) lewat `shape=full`; tanpa itu bentuk lama.
+  const serviceMode = serviceAuthed && new URL(req.url).searchParams.get('shape') !== 'full';
+  if (!serviceAuthed) {
     const auth = await requireUser(req);
     if (isAuthFailure(auth)) return auth;
   }

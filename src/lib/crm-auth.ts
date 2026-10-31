@@ -255,6 +255,23 @@ export async function requireUser(
   opts: { role?: CrmRole; write?: boolean; allowMustChange?: boolean } = {}
 ): Promise<{ user: SessionUser; token: string } | NextResponse> {
   if (opts.write && !sameOrigin(req)) return json({ success: false, error: 'Origin tidak diizinkan' }, 403);
+
+  // Jalur ERP (server-ke-server): token layanan + `X-Acting-User: <nama akun CRM>`. ERP sendiri yang menentukan
+  // siapa pengguna yang bertindak (login/izin ada di ERP); aturan edit milik sendiri/Head tetap dijalankan di sini.
+  const acting = req.headers.get('x-acting-user');
+  if (acting && serviceTokenOk(req)) {
+    try {
+      const res = await q(`SELECT id, name, role FROM crm_users WHERE lower(name) = lower($1) AND is_active = TRUE`, [acting.trim().slice(0, 60)]);
+      const r = res.rows[0];
+      if (!r) return json({ success: false, error: 'Akun CRM untuk pengguna ini tidak ditemukan / nonaktif' }, 403);
+      if (opts.role && r.role !== opts.role) return json({ success: false, error: 'Tidak punya izin' }, 403);
+      return { user: { id: Number(r.id), name: r.name, role: r.role as CrmRole, expiresAt: new Date(Date.now() + 60_000), remember: false, mustChange: false }, token: '' };
+    } catch (e: any) {
+      console.error('[crm-auth] gagal membaca akun layanan:', e?.message);
+      return json({ success: false, error: 'Layanan login tidak tersedia, coba lagi' }, 503);
+    }
+  }
+
   const token = req.cookies.get(SESSION_COOKIE)?.value;
   let user: SessionUser | null = null;
   try {
