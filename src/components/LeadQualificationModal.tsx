@@ -21,71 +21,83 @@ export interface ProductionTierItem {
   segment: string;
   title: string;
   qtyLabel: string;
+  level: string;
   tagline: string;
   badge?: string;
   badgeColor?: string;
+  isPopular?: boolean;
 }
 
-// 5 Paket Bisnis (Ascending Order) with Marketing Emotional Copy
+// 4 Skala Produksi Resmi (Start -> Grow -> Scale -> Enterprise)
 export const PRODUCTION_TIERS: ProductionTierItem[] = [
   {
-    name: 'Paket Bisnis',
-    quantityPcs: 300,
-    segment: 'Micro Prospect',
-    title: 'Paket Bisnis',
-    qtyLabel: 'Paket Bisnis',
-    tagline: 'Mulai rancang konsep produk & formula impian Anda bersama formulator Dreamlab',
-    badge: 'Uji Pasar',
-    badgeColor: 'bg-slate-100 text-slate-800 border-slate-300',
-  },
-  {
-    name: 'Starter Brand',
+    name: 'STARTER',
     quantityPcs: 500,
     segment: 'Starter Prospect',
-    title: 'Starter Brand',
+    title: '500 PCS',
     qtyLabel: '500 PCS',
-    tagline: 'Langkah awal mulai wujudkan brand impian tanpa beban modal besar',
-    badge: 'Ramah Pemula',
-    badgeColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    level: 'STARTER',
+    tagline: 'Mulai wujudkan brand Anda.',
   },
   {
-    name: 'Growth Brand',
+    name: 'GROWTH',
     quantityPcs: 1000,
     segment: 'Growth Prospect',
-    title: 'Growth Brand',
+    title: '1.000 PCS',
     qtyLabel: '1.000 PCS',
-    tagline: 'Pilihan favorit untuk akselerasi penjualan & bangun repeat order loyal',
-    badge: 'Paling Populer',
-    badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+    level: 'GROWTH',
+    tagline: 'Bangun brand Anda lebih serius.',
+    badge: 'PALING POPULER',
+    badgeColor: 'bg-[#D98A00] text-white border-transparent',
+    isPopular: true,
   },
   {
-    name: 'Enterprise',
+    name: 'SCALE',
     quantityPcs: 5000,
     segment: 'Enterprise Prospect',
-    title: 'Enterprise',
+    title: '5.000 PCS',
     qtyLabel: '5.000 PCS',
-    tagline: 'Penetrasi pasar & distribusi luas dengan HPP produksi yang jauh lebih optimal',
-    badge: 'High Scale',
-    badgeColor: 'bg-indigo-50 text-indigo-800 border-indigo-200',
+    level: 'SCALE',
+    tagline: 'Perluas pasar dan tingkatkan produksi.',
   },
   {
-    name: 'Strategic Partner',
+    name: 'ENTERPRISE',
     quantityPcs: 10000,
     segment: 'Strategic Prospect',
-    title: 'Strategic Partner',
+    title: '10.000 PCS',
     qtyLabel: '10.000 PCS',
-    tagline: 'Kolaborasi eksklusif prioritas VIP, dedicated R&D, & kapasitas manufaktur penuh',
-    badge: 'VIP Prioritas',
-    badgeColor: 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-950 border-amber-300',
+    level: 'ENTERPRISE',
+    tagline: 'Siapkan brand untuk pasar yang lebih besar.',
   },
 ];
 
-const CATEGORIES = ['Parfum', 'Skincare', 'Bodycare', 'Haircare', 'Lainnya'];
+const CATEGORIES = [
+  'Parfum',
+  'Skincare',
+  'Bodycare',
+  'Haircare',
+  'Personal Care',
+  'Lainnya',
+];
+
+const BUSINESS_STAGES = [
+  'Baru punya ide',
+  'Sedang menyiapkan brand',
+  'Sudah punya brand',
+  'Sudah berjualan dan ingin scale-up',
+];
+
+const PRODUCTION_TIMELINES = [
+  'Secepatnya',
+  '1–3 bulan',
+  '3–6 bulan',
+  'Masih dalam tahap perencanaan',
+];
 
 export function LeadQualificationModal({
   isOpen,
   onClose,
-  defaultCategory = 'Parfum',
+  defaultCategory = 'Skincare',
   source = 'paid-ads',
   channel = 'metaads',
   landingPage = '',
@@ -94,8 +106,12 @@ export function LeadQualificationModal({
   const [category, setCategory] = useState<string>(defaultCategory);
   const [customProduct, setCustomProduct] = useState<string>('');
   
-  // No tier preselected automatically
+  // No tier preselected automatically (User must actively select)
   const [selectedTier, setSelectedTier] = useState<ProductionTierItem | null>(null);
+
+  // Business stage & timeline
+  const [businessStatus, setBusinessStatus] = useState<string>('');
+  const [productionTimeline, setProductionTimeline] = useState<string>('');
 
   // Contact fields
   const [fullName, setFullName] = useState<string>('');
@@ -172,15 +188,15 @@ export function LeadQualificationModal({
     e.preventDefault();
     setError(null);
 
-    // 1. Validate Business Package Selection (Must be explicitly chosen)
+    // 1. Validate Production Scale Selection (Must be explicitly chosen)
     if (!selectedTier) {
-      setError('Silakan pilih salah satu paket bisnis brand Anda.');
+      setError('Silakan pilih salah satu target produksi brand Anda.');
       return;
     }
 
     // 2. Validate Category
     if (!resolvedCategory) {
-      setError('Silakan pilih jenis produk yang ingin Anda buat.');
+      setError('Silakan pilih jenis produk yang ingin Anda kembangkan.');
       return;
     }
 
@@ -238,6 +254,8 @@ export function LeadQualificationModal({
           productionTierName: selectedTier.name,
           requestedQuantityPcs: selectedTier.quantityPcs,
           leadQuantitySegment: selectedTier.segment,
+          businessStatus: businessStatus || undefined,
+          productionTimeline: productionTimeline || undefined,
           fullName: fullName.trim(),
           whatsappPhone: phoneInput.trim(),
           whatsappPhoneE164: phoneMeta.e164,
@@ -311,7 +329,7 @@ export function LeadQualificationModal({
       }}
     >
       <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden my-auto transition-all">
-        {/* Header - Dreamlab Blue Styling */}
+        {/* Header - Dreamlab Brand Identity */}
         <div className="relative px-5 py-4 sm:px-6 sm:py-5 border-b border-blue-900/30 bg-gradient-to-r from-[#0F1E36] via-[#162B4D] to-[#1E3A8A] text-white">
           {!submitting && !redirecting && (
             <button
@@ -327,17 +345,17 @@ export function LeadQualificationModal({
 
           <div className="flex items-center gap-2 mb-1">
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]/30">
-              Dreamlab Smart Qualification
+              Dreamlab &bull; Juaranya Formula
             </span>
           </div>
 
-          <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white">
-            {redirecting ? 'Menghubungkan ke Tim Konsultan...' : 'Pilih Paket Bisnis Brand Anda'}
+          <h3 className="text-lg sm:text-xl font-extrabold tracking-tight text-white">
+            {redirecting ? 'Menghubungkan ke Tim Konsultan...' : 'Siapkan Brand Anda untuk Tumbuh'}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1">
+          <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
             {redirecting
               ? 'Data Anda telah tersimpan. Mengalihkan ke halaman konfirmasi resmi...'
-              : 'Dapatkan proposal formula eksklusif, sampel gratis, serta proyeksi HPP resmi bersama tim Business Development.'}
+              : 'Pilih target produksi dan produk yang ingin Anda kembangkan. Tim Dreamlab akan menggunakan informasi ini untuk memahami kebutuhan brand Anda.'}
           </p>
         </div>
 
@@ -373,15 +391,16 @@ export function LeadQualificationModal({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-4.5">
-              {/* 1. Paket Bisnis (Marketing Emotional Layout, 5 Tiers) */}
+              
+              {/* 1. Target Produksi (4 Options: 500, 1.000, 5.000, 10.000 PCS) */}
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <label className="block text-xs sm:text-sm font-bold text-slate-900">
-                      1. Pilihan Paket Bisnis <span className="text-red-500">*</span>
+                    <label className="block text-xs sm:text-sm font-extrabold text-slate-900">
+                      1. Seberapa Besar Target Produksi Brand Anda? <span className="text-red-500">*</span>
                     </label>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      Pilih paket yang paling pas untuk target dan skala brand impian Anda
+                      Pilih skala produksi yang paling sesuai dengan rencana dan target brand Anda.
                     </p>
                   </div>
                   {!selectedTier && (
@@ -389,62 +408,55 @@ export function LeadQualificationModal({
                   )}
                 </div>
 
-                {/* 5 Cards Grid */}
+                {/* 4 Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
-                  {PRODUCTION_TIERS.map((tier, idx) => {
+                  {PRODUCTION_TIERS.map((tier) => {
                     const isSelected = selectedTier?.name === tier.name;
-                    const isStrategic = idx === 4; // 5th item: Strategic Partner
                     return (
                       <div
                         key={tier.name}
                         onClick={() => setSelectedTier(tier)}
-                        className={`relative p-3 sm:p-3.5 rounded-xl border text-left cursor-pointer select-none transition-all flex flex-col justify-between ${
-                          isStrategic ? 'sm:col-span-2' : ''
-                        } ${
+                        className={`relative p-3.5 rounded-xl border-2 text-left cursor-pointer select-none transition-all flex flex-col justify-between ${
                           isSelected
-                            ? 'bg-[#1E3A8A]/10 border-[#1E3A8A] ring-2 ring-[#1E3A8A]/25 shadow-xs'
-                            : isStrategic
-                            ? 'bg-gradient-to-r from-slate-50 via-white to-amber-50/50 border-slate-200 hover:border-amber-300 hover:bg-slate-50/80'
+                            ? 'bg-sky-50/60 border-[#1E3A8A] ring-2 ring-[#1E3A8A]/20 shadow-sm'
+                            : tier.isPopular
+                            ? 'bg-amber-50/30 border-amber-300 hover:border-amber-400'
                             : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/70'
                         }`}
                       >
+                        {/* Badge Paling Populer */}
+                        {tier.badge && (
+                          <span
+                            className={`absolute -top-2.5 right-3 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-xs ${
+                              tier.badgeColor || 'bg-[#D98A00] text-white'
+                            }`}
+                          >
+                            {tier.badge}
+                          </span>
+                        )}
+
                         <div>
                           <div className="flex items-center justify-between gap-1.5 mb-1">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-xs sm:text-sm font-bold text-slate-900 tracking-tight">
+                            <div>
+                              <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight block">
                                 {tier.title}
                               </span>
-                              {tier.badge && (
-                                <span
-                                  className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border shrink-0 ${
-                                    tier.badgeColor || 'bg-amber-100 text-amber-900 border-amber-300'
-                                  }`}
-                                >
-                                  {tier.badge}
-                                </span>
-                              )}
+                              <span className="text-[10px] font-black uppercase tracking-wider text-[#1E3A8A]">
+                                {tier.level}
+                              </span>
                             </div>
                             <span
-                              className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
-                                isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300'
+                              className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                                isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300 bg-white'
                               }`}
                             >
                               {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                             </span>
                           </div>
 
-                          <p className="text-[11px] leading-snug text-slate-500 mb-2 font-normal">
+                          <p className="text-[11px] leading-snug text-slate-600 mt-1 font-normal italic">
                             {tier.tagline}
                           </p>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-1.5 border-t border-slate-100/90 mt-1">
-                          <span className="text-[10px] uppercase font-semibold tracking-wider text-slate-400">
-                            {tier.name === 'Paket Bisnis' ? 'Kategori Paket' : 'Volume Produksi'}
-                          </span>
-                          <span className="text-sm font-black text-[#1E3A8A]">
-                            {tier.qtyLabel}
-                          </span>
                         </div>
                       </div>
                     );
@@ -454,10 +466,13 @@ export function LeadQualificationModal({
 
               {/* 2. Kategori Produk */}
               <div>
-                <label className="block text-xs sm:text-sm font-bold text-slate-900 mb-2">
-                  2. Mau buat produk apa? <span className="text-red-500">*</span>
+                <label className="block text-xs sm:text-sm font-extrabold text-slate-900 mb-1">
+                  2. Produk Apa yang Ingin Anda Kembangkan? <span className="text-red-500">*</span>
                 </label>
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                <p className="text-[11px] text-slate-500 mb-2">
+                  Pilih produk yang ingin Anda bawa ke pasar bersama Dreamlab.
+                </p>
+                <div className="grid grid-cols-3 gap-2">
                   {CATEGORIES.map((cat) => {
                     const isSelected = category === cat;
                     return (
@@ -465,7 +480,7 @@ export function LeadQualificationModal({
                         type="button"
                         key={cat}
                         onClick={() => setCategory(cat)}
-                        className={`py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all text-center ${
+                        className={`py-2 px-2.5 rounded-xl text-xs font-bold border transition-all text-center ${
                           isSelected
                             ? 'bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-xs'
                             : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
@@ -477,22 +492,95 @@ export function LeadQualificationModal({
                   })}
                 </div>
                 {category === 'Lainnya' && (
-                  <input
-                    type="text"
-                    value={customProduct}
-                    onChange={(e) => setCustomProduct(e.target.value)}
-                    placeholder="Sebutkan jenis produk Anda (misal: Serum Rambut, Lip Tint...)"
-                    className="mt-2.5 w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-[#1E3A8A] focus:ring-2 focus:ring-[#1E3A8A]/15 outline-none"
-                    autoFocus
-                  />
+                  <div className="mt-2.5">
+                    <input
+                      type="text"
+                      value={customProduct}
+                      onChange={(e) => setCustomProduct(e.target.value)}
+                      placeholder="Produk yang ingin dibuat: (contoh: Deodorant Spray, Lip Balm)"
+                      className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 focus:border-[#1E3A8A] focus:ring-2 focus:ring-[#1E3A8A]/15 outline-none"
+                      autoFocus
+                    />
+                  </div>
                 )}
               </div>
 
-              {/* 3. Kontak (Nama Lengkap & International WhatsApp) */}
-              <div className="space-y-3 pt-2 border-t border-slate-100">
+              {/* 3. Tahap Bisnis (Business Status) */}
+              <div>
+                <label className="block text-xs sm:text-sm font-extrabold text-slate-900 mb-1">
+                  3. Saat Ini Anda Berada di Tahap Mana?
+                </label>
+                <p className="text-[11px] text-slate-500 mb-2">
+                  Membantu konsultan R&amp;D kami menyesuaikan kebutuhan formulasi Anda.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {BUSINESS_STAGES.map((stage) => {
+                    const isSelected = businessStatus === stage;
+                    return (
+                      <button
+                        type="button"
+                        key={stage}
+                        onClick={() => setBusinessStatus(stage)}
+                        className={`p-2.5 rounded-xl text-xs font-semibold border transition-all text-left flex items-center justify-between ${
+                          isSelected
+                            ? 'bg-sky-50 text-[#1E3A8A] border-[#1E3A8A] font-bold'
+                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                        }`}
+                      >
+                        <span>{stage}</span>
+                        <span
+                          className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                            isSelected ? 'border-[#1E3A8A] bg-[#1E3A8A]' : 'border-slate-300'
+                          }`}
+                        >
+                          {isSelected && <span className="w-1 h-1 rounded-full bg-white" />}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 4. Timeline Produksi (Optional Qualification) */}
+              <div>
+                <label className="block text-xs sm:text-sm font-extrabold text-slate-900 mb-1">
+                  4. Kapan Anda Ingin Mulai Produksi?
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                  {PRODUCTION_TIMELINES.map((time) => {
+                    const isSelected = productionTimeline === time;
+                    return (
+                      <button
+                        type="button"
+                        key={time}
+                        onClick={() => setProductionTimeline(time)}
+                        className={`py-1.5 px-2 rounded-lg text-[11px] font-semibold border transition-all text-center ${
+                          isSelected
+                            ? 'bg-[#1E3A8A] text-white border-[#1E3A8A]'
+                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 5. Kontak (Mari Kenalan dengan Anda) */}
+              <div className="space-y-3 pt-3 border-t border-slate-100">
+                <div className="mb-1">
+                  <span className="block text-xs sm:text-sm font-extrabold text-slate-900">
+                    5. Mari Kenalan dengan Anda
+                  </span>
+                  <span className="text-[11px] text-slate-500">
+                    Informasi kontak hanya digunakan untuk konsultasi produk melalui WhatsApp resmi.
+                  </span>
+                </div>
+
                 <div>
-                  <label className="block text-xs sm:text-sm font-bold text-slate-900 mb-1">
-                    3. Nama Lengkap <span className="text-red-500">*</span>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Nama Lengkap <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -505,8 +593,8 @@ export function LeadQualificationModal({
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-bold text-slate-900 mb-1">
-                    4. Nomor WhatsApp Aktif <span className="text-red-500">*</span>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Nomor WhatsApp Aktif <span className="text-red-500">*</span>
                   </label>
 
                   <InternationalPhoneInput
@@ -519,6 +607,9 @@ export function LeadQualificationModal({
                     placeholder="81234567890"
                     error={error && !phoneMeta.isValid ? error : null}
                   />
+                  <span className="text-[10px] text-slate-400 mt-1 block">
+                    Gunakan format WhatsApp aktif (contoh: 81234567890)
+                  </span>
                 </div>
               </div>
 
@@ -540,28 +631,33 @@ export function LeadQualificationModal({
               </div>
 
               {/* Submit CTA */}
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#172e6f] hover:to-[#1d4ed8] shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
-              >
-                {submitting ? (
-                  <>
-                    <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                    </svg>
-                    <span>Menghubungkan ke Tim Konsultan...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Kirim & Hubungi Konsultan Dreamlab</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </>
-                )}
-              </button>
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-4 px-6 rounded-2xl font-black text-xs sm:text-sm tracking-wide uppercase text-white bg-gradient-to-r from-[#D98A00] to-[#f0b830] hover:brightness-105 shadow-xl shadow-amber-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                >
+                  {submitting ? (
+                    <>
+                      <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                      </svg>
+                      <span>MENYIAPKAN KONSULTASI...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>KONSULTASIKAN BRAND SAYA</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+                <p className="text-center text-[10.5px] text-slate-500 mt-2 leading-relaxed">
+                  Tim Dreamlab akan menghubungi Anda melalui WhatsApp untuk membahas kebutuhan produk dan produksi Anda.
+                </p>
+              </div>
             </form>
           )}
         </div>

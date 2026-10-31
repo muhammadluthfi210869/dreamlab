@@ -21,6 +21,11 @@ export interface ProductionTierConfig {
 }
 
 export const PRODUCTION_TIERS: ProductionTierConfig[] = [
+  { name: 'STARTER', quantityPcs: 500, segment: 'Starter Prospect' },
+  { name: 'GROWTH', quantityPcs: 1000, segment: 'Growth Prospect' },
+  { name: 'SCALE', quantityPcs: 5000, segment: 'Enterprise Prospect' },
+  { name: 'ENTERPRISE', quantityPcs: 10000, segment: 'Strategic Prospect' },
+  // Backward compatibility legacy names
   { name: 'Paket Bisnis', quantityPcs: 300, segment: 'Micro Prospect' },
   { name: 'Starter Brand', quantityPcs: 500, segment: 'Starter Prospect' },
   { name: 'Growth Brand', quantityPcs: 1000, segment: 'Growth Prospect' },
@@ -99,16 +104,16 @@ export async function POST(req: NextRequest) {
 
     if (!matchedTier && (productionTierName || quantityRange)) {
       const queryStr = `${productionTierName || ''} ${quantityRange || ''}`.toLowerCase();
-      if (queryStr.includes('paket bisnis') || queryStr.includes('300')) {
-        matchedTier = PRODUCTION_TIERS[0]; // Paket Bisnis
-      } else if (queryStr.includes('starter') || queryStr.includes('launch') || queryStr.includes('500')) {
-        matchedTier = PRODUCTION_TIERS[1]; // Starter Brand (500)
+      if (queryStr.includes('starter') || queryStr.includes('500') || queryStr.includes('launch')) {
+        matchedTier = PRODUCTION_TIERS[0]; // STARTER (500)
       } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000')) {
-        matchedTier = PRODUCTION_TIERS[2]; // Growth Brand (1000)
-      } else if (queryStr.includes('enterprise') || queryStr.includes('scaleup') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000')) {
-        matchedTier = PRODUCTION_TIERS[3]; // Enterprise (5000)
-      } else if (queryStr.includes('strategic') || queryStr.includes('partner') || queryStr.includes('10.000') || queryStr.includes('10000')) {
-        matchedTier = PRODUCTION_TIERS[4]; // Strategic Partner (10000)
+        matchedTier = PRODUCTION_TIERS[1]; // GROWTH (1000)
+      } else if (queryStr.includes('scale') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000')) {
+        matchedTier = PRODUCTION_TIERS[2]; // SCALE (5000)
+      } else if (queryStr.includes('enterprise') || queryStr.includes('10.000') || queryStr.includes('10000') || queryStr.includes('strategic')) {
+        matchedTier = PRODUCTION_TIERS[3]; // ENTERPRISE (10000)
+      } else if (queryStr.includes('paket bisnis') || queryStr.includes('300')) {
+        matchedTier = PRODUCTION_TIERS[4]; // Paket Bisnis (300)
       }
     }
 
