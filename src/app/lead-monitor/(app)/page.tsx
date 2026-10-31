@@ -27,7 +27,7 @@ interface Kpi {
   moqMet: number;
 }
 
-import type { MoqOverview } from "@/lib/lead-monitor-stats";
+import type { MoqOverview, ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 
 interface ApiData {
   period: { startDate: string; endDate: string; days: number; hasPrevious: boolean };
@@ -43,6 +43,7 @@ interface ApiData {
   topLeads: TopLeadRow[];
   referrers: ReferrerRankRow[];
   moqOverview?: MoqOverview;
+  channelFunnels?: ChannelFunnelsOverview;
   rrMode: string | null;
   meta: { rawRows: number; rawCapped: boolean; serverTime: string };
 }
@@ -402,6 +403,180 @@ export default function DashboardPage() {
               </Card>
             </div>
           </div>
+        )}
+
+        {/* Funnel per BusDev: Meta Ads vs Google Ads (Traffic >> MOQ >> Sample) */}
+        {data?.channelFunnels && (
+          <Card
+            title="Funnel per BusDev: Meta Ads vs Google Ads"
+            subtitle="Pantau alur konversi setiap BusDev dari Traffic iklan >> Lolos MOQ (>= 500 pcs) >> Masuk tahap Sample"
+            right={
+              <div className="hidden sm:flex items-center gap-2 text-xs">
+                <span className="flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 font-semibold text-blue-700 border border-blue-200">
+                  <span className="h-2 w-2 rounded-full bg-blue-600" /> Meta Ads
+                </span>
+                <span className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1 font-semibold text-emerald-700 border border-emerald-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-600" /> Google &amp; Google Ads
+                </span>
+              </div>
+            }
+          >
+            <div className="space-y-4">
+              {/* Cards per BusDev */}
+              <div className="grid gap-4 md:grid-cols-3">
+                {data.channelFunnels.byBusdev.map((b) => (
+                  <div
+                    key={b.name}
+                    className="rounded-xl border border-[#ECEAE4] bg-[#FAFAF8] p-4 shadow-xs hover:border-[#D98A00]/40 transition"
+                  >
+                    {/* Header BusDev */}
+                    <div className="flex items-center justify-between border-b border-[#ECEAE4] pb-3 mb-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D98A00] text-white text-xs font-bold shadow-xs">
+                          {b.name.charAt(0).toUpperCase()}
+                        </span>
+                        <div>
+                          <div className="font-bold text-slate-900 text-sm">{b.name}</div>
+                          <div className="text-[10px] text-slate-400">Tim Sales BusDev</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-mono text-xs font-bold text-slate-800">
+                          {b.totalTraffic} <span className="text-[10px] font-normal text-slate-400">lead</span>
+                        </div>
+                        <div className="text-[10px] font-semibold text-amber-700 font-mono">
+                          {b.totalMoq} lolos MOQ
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Meta Ads Funnel */}
+                    <div className="mb-3 rounded-lg border border-blue-100 bg-white p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-bold text-blue-800 flex items-center gap-1.5">
+                          <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                          Meta Ads
+                        </span>
+                        <span className="font-mono text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">
+                          {b.meta.traffic > 0 ? `${b.meta.moqRate}% lolos` : "0%"}
+                        </span>
+                      </div>
+
+                      {/* Step Progression: Traffic >> MOQ >> Sample */}
+                      <div className="grid grid-cols-3 gap-1.5 text-center">
+                        <div className="rounded-md bg-slate-50 p-1.5">
+                          <div className="text-[9px] font-medium text-slate-400 uppercase">Traffic</div>
+                          <div className="font-mono text-xs font-bold text-slate-800">{b.meta.traffic}</div>
+                        </div>
+                        <div className="flex flex-col justify-center items-center rounded-md bg-amber-50/60 p-1.5">
+                          <div className="text-[9px] font-medium text-amber-800 uppercase">MOQ &ge;500</div>
+                          <div className="font-mono text-xs font-bold text-amber-700">{b.meta.moq}</div>
+                        </div>
+                        <div className="rounded-md bg-emerald-50/80 p-1.5">
+                          <div className="text-[9px] font-medium text-emerald-700 uppercase">Sample</div>
+                          <div className="font-mono text-xs font-bold text-emerald-800">{b.meta.sample}</div>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="mt-2.5 flex h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                        <div
+                          className="bg-blue-500 transition-all"
+                          style={{ width: `${b.meta.traffic > 0 ? Math.min(100, (b.meta.traffic / (b.totalTraffic || 1)) * 100) : 0}%` }}
+                          title={`Traffic Meta: ${b.meta.traffic}`}
+                        />
+                        <div
+                          className="bg-amber-500 transition-all"
+                          style={{ width: `${b.meta.traffic > 0 ? Math.min(100, (b.meta.moq / b.meta.traffic) * 100) : 0}%` }}
+                          title={`MOQ Meta: ${b.meta.moq}`}
+                        />
+                        <div
+                          className="bg-emerald-500 transition-all"
+                          style={{ width: `${b.meta.moq > 0 ? Math.min(100, (b.meta.sample / b.meta.moq) * 100) : 0}%` }}
+                          title={`Sample Meta: ${b.meta.sample}`}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Google & Google Ads Funnel */}
+                    <div className="rounded-lg border border-emerald-100 bg-white p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1.5">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                          Google &amp; Google Ads
+                        </span>
+                        <span className="font-mono text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                          {b.google.traffic > 0 ? `${b.google.moqRate}% lolos` : "0%"}
+                        </span>
+                      </div>
+
+                      {/* Step Progression: Traffic >> MOQ >> Sample */}
+                      <div className="grid grid-cols-3 gap-1.5 text-center">
+                        <div className="rounded-md bg-slate-50 p-1.5">
+                          <div className="text-[9px] font-medium text-slate-400 uppercase">Traffic</div>
+                          <div className="font-mono text-xs font-bold text-slate-800">{b.google.traffic}</div>
+                        </div>
+                        <div className="flex flex-col justify-center items-center rounded-md bg-amber-50/60 p-1.5">
+                          <div className="text-[9px] font-medium text-amber-800 uppercase">MOQ &ge;500</div>
+                          <div className="font-mono text-xs font-bold text-amber-700">{b.google.moq}</div>
+                        </div>
+                        <div className="rounded-md bg-emerald-50/80 p-1.5">
+                          <div className="text-[9px] font-medium text-emerald-700 uppercase">Sample</div>
+                          <div className="font-mono text-xs font-bold text-emerald-800">{b.google.sample}</div>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="mt-2.5 flex h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                        <div
+                          className="bg-teal-500 transition-all"
+                          style={{ width: `${b.google.traffic > 0 ? Math.min(100, (b.google.traffic / (b.totalTraffic || 1)) * 100) : 0}%` }}
+                          title={`Traffic Google: ${b.google.traffic}`}
+                        />
+                        <div
+                          className="bg-amber-500 transition-all"
+                          style={{ width: `${b.google.traffic > 0 ? Math.min(100, (b.google.moq / b.google.traffic) * 100) : 0}%` }}
+                          title={`MOQ Google: ${b.google.moq}`}
+                        />
+                        <div
+                          className="bg-emerald-500 transition-all"
+                          style={{ width: `${b.google.moq > 0 ? Math.min(100, (b.google.sample / b.google.moq) * 100) : 0}%` }}
+                          title={`Sample Google: ${b.google.sample}`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Summary Total Tim */}
+              {data.channelFunnels.summary && (
+                <div className="rounded-xl border border-slate-200 bg-white p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                  <span className="font-semibold text-slate-700">
+                    Total Konversi Gabungan Seluruh Tim:
+                  </span>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-blue-700">Meta Ads:</span>
+                      <span className="font-mono text-slate-800">
+                        {data.channelFunnels.summary.meta.traffic} Traffic &gt;&gt;{" "}
+                        <b className="text-amber-700">{data.channelFunnels.summary.meta.moq} MOQ</b> &gt;&gt;{" "}
+                        <b className="text-emerald-700">{data.channelFunnels.summary.meta.sample} Sample</b>
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-emerald-700">Google Ads:</span>
+                      <span className="font-mono text-slate-800">
+                        {data.channelFunnels.summary.google.traffic} Traffic &gt;&gt;{" "}
+                        <b className="text-amber-700">{data.channelFunnels.summary.google.moq} MOQ</b> &gt;&gt;{" "}
+                        <b className="text-emerald-700">{data.channelFunnels.summary.google.sample} Sample</b>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Card>
         )}
 
         {/* Tren + batang per sales */}

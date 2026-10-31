@@ -29,6 +29,8 @@ import {
   topReferrers,
   computeMoqOverview,
   formatWaChatLink,
+  computeBusdevChannelFunnels,
+  detectAdChannel,
   defaultFilters,
   type MonitorLead,
 } from '../src/lib/lead-monitor-stats';
@@ -242,6 +244,35 @@ check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t)
   const waLink = formatWaChatLink('081952417051', 'Budi', 'Annisa', 'Serum Wajah');
   check('formatWaChatLink normalisasi nomor ke 6281952417051', waLink?.startsWith('https://wa.me/6281952417051') === true, waLink);
   check('formatWaChatLink memuat salam nama & sales', waLink?.includes('Budi') === true && waLink?.includes('Annisa') === true && waLink?.includes('Serum') === true, waLink);
+}
+
+// Funnel per BusDev: Meta Ads & Google Ads
+{
+  const mkF = (sales: string, src: string, pcs: number, stage: string) =>
+    row({
+      assigned_to: sales,
+      source: src,
+      requested_quantity_pcs: pcs,
+      crm_stage: stage,
+      status: 'confirmed',
+    }) as any;
+
+  const sample = [
+    mkF('Annisa', 'meta-skincare', 1000, 'sample'),
+    mkF('Annisa', 'meta-skincare', 500, 'warm'),
+    mkF('Annisa', 'google-ads', 500, 'sample'),
+    mkF('Jessica', 'meta-skincare', 300, 'traffic'),
+    mkF('Diaz', 'google-ads', 1000, 'deal'),
+  ];
+
+  check('detectAdChannel: meta terdeteksi', detectAdChannel({ source: 'meta-skincare' } as any) === 'meta');
+  check('detectAdChannel: google terdeteksi', detectAdChannel({ source: 'google-ads' } as any) === 'google');
+
+  const fRes = computeBusdevChannelFunnels(sample, ['Annisa', 'Jessica', 'Diaz']);
+  const annisa = fRes.byBusdev.find((b) => b.name === 'Annisa')!;
+  check('Annisa: Meta Traffic = 2, MOQ = 2, Sample = 1', annisa.meta.traffic === 2 && annisa.meta.moq === 2 && annisa.meta.sample === 1, annisa.meta);
+  check('Annisa: Google Traffic = 1, MOQ = 1, Sample = 1', annisa.google.traffic === 1 && annisa.google.moq === 1 && annisa.google.sample === 1, annisa.google);
+  check('Total Tim Meta Traffic = 3, MOQ = 2', fRes.summary.meta.traffic === 3 && fRes.summary.meta.moq === 2, fRes.summary.meta);
 }
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);

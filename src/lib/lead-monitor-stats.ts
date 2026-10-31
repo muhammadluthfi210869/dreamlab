@@ -776,3 +776,169 @@ export function formatWaChatLink(
   return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
 }
 
+export interface ChannelFunnelMetrics {
+  traffic: number;
+  moq: number;
+  sample: number;
+  moqRate: number; // % traffic yang lolos MOQ (>=500)
+  sampleRate: number; // % MOQ yang lanjut ke Sample
+}
+
+export interface BusdevChannelFunnel {
+  name: string;
+  meta: ChannelFunnelMetrics;
+  google: ChannelFunnelMetrics;
+  other: ChannelFunnelMetrics;
+  totalTraffic: number;
+  totalMoq: number;
+  totalSample: number;
+}
+
+export interface ChannelFunnelsOverview {
+  summary: {
+    meta: ChannelFunnelMetrics;
+    google: ChannelFunnelMetrics;
+    other: ChannelFunnelMetrics;
+    totalTraffic: number;
+    totalMoq: number;
+    totalSample: number;
+  };
+  byBusdev: BusdevChannelFunnel[];
+}
+
+export function detectAdChannel(l: MonitorLead): 'meta' | 'google' | 'other' {
+  const s = (l.source || '').toLowerCase();
+  const ref = (l.referrer || '').toLowerCase();
+  const page = (pagePath(l.page_url as string | null) || '').toLowerCase();
+
+  // Meta Ads / Facebook / Instagram
+  if (
+    s.includes('meta') ||
+    s.includes('fb') ||
+    s.includes('instagram') ||
+    s.includes('ig') ||
+    ref.includes('facebook') ||
+    ref.includes('instagram') ||
+    ref.includes('fbclid') ||
+    page.includes('/metaads') ||
+    page.includes('/ads/maklon-skincare') ||
+    page.includes('/ads/maklon-parfum') ||
+    page.includes('/ads/maklon-hair-care') ||
+    page.includes('/ads/thankyou/metaads')
+  ) {
+    return 'meta';
+  }
+
+  // Google / Google Ads / Google Search
+  if (
+    s.includes('google') ||
+    s.includes('gads') ||
+    ref.includes('google') ||
+    ref.includes('googleads') ||
+    page.includes('/google-ads') ||
+    page.includes('/ads/thankyou/google') ||
+    page.includes('/thankyou/google')
+  ) {
+    return 'google';
+  }
+
+  return 'other';
+}
+
+/**
+ * Menghitung funnel per-BusDev: Traffic -> MOQ (>= 500 pcs) -> Sample
+ * untuk Meta Ads dan Google Ads.
+ */
+export function computeBusdevChannelFunnels(
+  leads: ViewedLead[],
+  busdevNames: string[]
+): ChannelFunnelsOverview {
+  const calcRate = (numerator: number, denominator: number) =>
+    denominator > 0 ? Math.round((numerator / denominator) * 1000) / 10 : 0;
+
+  const createMetrics = (): ChannelFunnelMetrics => ({
+    traffic: 0,
+    moq: 0,
+    sample: 0,
+    moqRate: 0,
+    sampleRate: 0,
+  });
+
+  const busdevMap = new Map<string, { meta: ChannelFunnelMetrics; google: ChannelFunnelMetrics; other: ChannelFunnelMetrics }>();
+  for (const name of busdevNames) {
+    busdevMap.set(name.toLowerCase(), {
+      meta: createMetrics(),
+      google: createMetrics(),
+      other: createMetrics(),
+    });
+  }
+
+  const summary = {
+    meta: createMetrics(),
+    google: createMetrics(),
+    other: createMetrics(),
+    totalTraffic: 0,
+    totalMoq: 0,
+    totalSample: 0,
+  };
+
+  const validLeads = leads.filter((l) => classify(l) !== 'direct');
+
+  for (const l of validLeads) {
+    const ch = detectAdChannel(l);
+    const hasMoq = (quantityOf(l) ?? 0) >= MOQ_PCS;
+    const stage = (l.crm_stage || '').toLowerCase();
+    const isSample = stage === 'sample' || stage === 'deal';
+
+    summary[ch].traffic++;
+    if (hasMoq) summary[ch].moq++;
+    if (isSample) summary[ch].sample++;
+
+    const assigned = (l.assigned_to || '').trim().toLowerCase();
+    if (assigned && busdevMap.has(assigned)) {
+      const bd = busdevMap.get(assigned)!;
+      bd[ch].traffic++;
+      if (hasMoq) bd[ch].moq++;
+      if (isSample) bd[ch].sample++;
+    }
+  }
+
+  for (const ch of ['meta', 'google', 'other'] as const) {
+    summary[ch].moqRate = calcRate(summary[ch].moq, summary[ch].traffic);
+    summary[ch].sampleRate = calcRate(summary[ch].sample, summary[ch].moq);
+  }
+  summary.totalTraffic = summary.meta.traffic + summary.google.traffic + summary.other.traffic;
+  summary.totalMoq = summary.meta.moq + summary.google.moq + summary.other.moq;
+  summary.totalSample = summary.meta.sample + summary.google.sample + summary.other.sample;
+
+  const byBusdev: BusdevChannelFunnel[] = busdevNames.map((name) => {
+    const bd = busdevMap.get(name.toLowerCase()) ?? {
+      meta: createMetrics(),
+      google: createMetrics(),
+      other: createMetrics(),
+    };
+
+    for (const ch of ['meta', 'google', 'other'] as const) {
+      bd[ch].moqRate = calcRate(bd[ch].moq, bd[ch].traffic);
+      bd[ch].sampleRate = calcRate(bd[ch].sample, bd[ch].moq);
+    }
+
+    const totalTraffic = bd.meta.traffic + bd.google.traffic + bd.other.traffic;
+    const totalMoq = bd.meta.moq + bd.google.moq + bd.other.moq;
+    const totalSample = bd.meta.sample + bd.google.sample + bd.other.sample;
+
+    return {
+      name,
+      meta: bd.meta,
+      google: bd.google,
+      other: bd.other,
+      totalTraffic,
+      totalMoq,
+      totalSample,
+    };
+  });
+
+  return { summary, byBusdev };
+}
+
+

@@ -25,6 +25,7 @@ import {
   topLeads,
   topReferrers,
   computeMoqOverview,
+  computeBusdevChannelFunnels,
   type MonitorLead,
   type SortKey,
   type StatusTab,
@@ -370,6 +371,7 @@ export async function GET(req: NextRequest) {
         topLeads: topLeads(scoped, Date.now(), 5),
         stageCounts: stageCounts(scoped),
         moqOverview: computeMoqOverview(scoped, articleTitleOf, 6),
+        channelFunnels: computeBusdevChannelFunnels(scoped, busdev.toLowerCase() === 'all' ? activeNames : [busdev]),
         referrers: topReferrers(scoped, articleTitleOf, 8),
         rrMode,
         // Dashboard hanya butuh kartu/grafik (light=1); tabel ada di halaman Pelanggan.
