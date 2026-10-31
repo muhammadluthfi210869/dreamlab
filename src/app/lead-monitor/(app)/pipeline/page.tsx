@@ -1,10 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { HelpCircle, MessageSquare, RefreshCw, X } from "lucide-react";
+import { ChevronDown, ChevronUp, HelpCircle, MessageSquare, RefreshCw, X } from "lucide-react";
 import { canEditLead, formatWaChatLink, PIPELINE_STAGES, stageLabel } from "@/lib/crm-stages";
 import { BRAND, Pill } from "@/components/lead-monitor/ui";
 import { FilterToolbar, useFilters, useMe } from "@/components/lead-monitor/filters";
+import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
+import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
 
 const PAGE_STEP = 40;
 const REFRESH_MS = 60_000;
@@ -44,6 +46,7 @@ interface ApiData {
   capped: boolean;
   cardsPerStage: number;
   columns: Column[];
+  channelFunnels?: ChannelFunnelsOverview;
 }
 
 function ago(iso: string): string {
@@ -75,6 +78,7 @@ export default function PipelinePage() {
   const [dragKey, setDragKey] = useState<string | null>(null);
   const [overStage, setOverStage] = useState<string | null>(null);
   const [selected, setSelected] = useState<{ card: PCard; stage: string } | null>(null);
+  const [showFunnel, setShowFunnel] = useState(true);
   const busy = useRef(false); // true saat menyimpan / menyeret: jangan timpa tampilan dengan data polling
   const reqId = useRef(0);
 
@@ -347,7 +351,70 @@ export default function PipelinePage() {
           </aside>
 
           {/* Kanban Board di Kanan */}
-          <div className="flex-1 min-w-0 w-full overflow-hidden">
+          <div className="flex-1 min-w-0 w-full overflow-hidden space-y-4">
+            {/* Funnel per BusDev Card (sesuai screenshot: Traffic >> MOQ >= 500 >> Sample) */}
+            {data?.channelFunnels && (
+              <div className="rounded-2xl border border-[#ECEAE4] bg-[#FAFAF8] p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <div className="flex items-center justify-between border-b border-[#ECEAE4] pb-2.5 mb-3">
+                  <div>
+                    <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                      <span>
+                        {f.busdev !== "all"
+                          ? `Funnel Sales: ${f.busdev}`
+                          : "Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial"}
+                      </span>
+                      <span className="rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                        Traffic &gt;&gt; MOQ &ge; 500 &gt;&gt; Sample
+                      </span>
+                    </h2>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Pantau alur konversi dari Traffic iklan &amp; organik &gt;&gt; Lolos MOQ (&ge; 500 pcs) &gt;&gt; Masuk tahap Sample
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowFunnel((v) => !v)}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-white px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:bg-slate-50"
+                  >
+                    {showFunnel ? (
+                      <>
+                        <ChevronUp className="h-3.5 w-3.5 text-slate-400" />
+                        <span>Sembunyikan</span>
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+                        <span>Lihat Funnel</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {showFunnel && (
+                  <div>
+                    {f.busdev !== "all" ? (
+                      (() => {
+                        const targetFunnel = data.channelFunnels.byBusdev.find(
+                          (b) => b.name.toLowerCase() === f.busdev.toLowerCase()
+                        );
+                        return targetFunnel ? (
+                          <BusdevFunnelCard funnel={targetFunnel} compact />
+                        ) : (
+                          <p className="text-xs text-slate-400 py-2">Data funnel untuk {f.busdev} belum tersedia.</p>
+                        );
+                      })()
+                    ) : (
+                      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
+                        {data.channelFunnels.byBusdev.map((funnel) => (
+                          <BusdevFunnelCard key={funnel.name} funnel={funnel} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="-mx-4 overflow-x-auto px-4 pb-3 sm:-mx-6 sm:px-6">
               <div className="flex min-w-max gap-3">
                 {PIPELINE_STAGES.map((st) => {

@@ -3,7 +3,7 @@ import { getMonitorPool, resetMonitorPool } from '@/lib/db';
 import { isAuthFailure, json, requireUser } from '@/lib/crm-auth';
 import { articlesMeta } from '@/data/articles-meta';
 import { attachCrmState, colExpr, getLeadColumns, GHOST_SQL } from '@/lib/lead-monitor-data';
-import { classify, cleanName, mergeForMonitor, quantityOf, referrerInfo, pagePath, type MonitorLead } from '@/lib/lead-monitor-stats';
+import { classify, cleanName, computeBusdevChannelFunnels, mergeForMonitor, quantityOf, referrerInfo, pagePath, type MonitorLead } from '@/lib/lead-monitor-stats';
 import { PIPELINE_STAGES, resolveTrafficStageByMoq } from '@/lib/crm-stages';
 
 export const dynamic = 'force-dynamic';
@@ -114,6 +114,8 @@ export async function GET(req: NextRequest) {
       return { id: s.id, count: list.length, cards: list.slice(0, CARDS_PER_STAGE) };
     });
 
+    const channelFunnels = computeBusdevChannelFunnels(raw, loaded.busdevNames);
+
     return json({
       success: true,
       period: { startDate, endDate },
@@ -122,6 +124,7 @@ export async function GET(req: NextRequest) {
       capped,
       cardsPerStage: CARDS_PER_STAGE,
       columns,
+      channelFunnels,
     });
   } catch (e: any) {
     console.error('[crm/pipeline] error:', e?.message);

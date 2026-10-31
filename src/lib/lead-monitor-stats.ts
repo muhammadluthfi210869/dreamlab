@@ -786,9 +786,14 @@ export interface ChannelFunnelMetrics {
 
 export interface BusdevChannelFunnel {
   name: string;
+  meta_ads: ChannelFunnelMetrics;
+  google_ads: ChannelFunnelMetrics;
+  google_organic: ChannelFunnelMetrics;
+  social_media: ChannelFunnelMetrics;
+  other: ChannelFunnelMetrics;
+  // Aliases
   meta: ChannelFunnelMetrics;
   google: ChannelFunnelMetrics;
-  other: ChannelFunnelMetrics;
   totalTraffic: number;
   totalMoq: number;
   totalSample: number;
@@ -796,9 +801,14 @@ export interface BusdevChannelFunnel {
 
 export interface ChannelFunnelsOverview {
   summary: {
+    meta_ads: ChannelFunnelMetrics;
+    google_ads: ChannelFunnelMetrics;
+    google_organic: ChannelFunnelMetrics;
+    social_media: ChannelFunnelMetrics;
+    other: ChannelFunnelMetrics;
+    // Aliases
     meta: ChannelFunnelMetrics;
     google: ChannelFunnelMetrics;
-    other: ChannelFunnelMetrics;
     totalTraffic: number;
     totalMoq: number;
     totalSample: number;
@@ -806,19 +816,40 @@ export interface ChannelFunnelsOverview {
   byBusdev: BusdevChannelFunnel[];
 }
 
-export function detectAdChannel(l: MonitorLead): 'meta' | 'google' | 'other' {
+export type AdChannel = 'meta_ads' | 'google_ads' | 'google_organic' | 'social_media' | 'other';
+
+export function detectAdChannel(l: MonitorLead): AdChannel {
   const s = (l.source || '').toLowerCase();
   const ref = (l.referrer || '').toLowerCase();
   const page = (pagePath(l.page_url as string | null) || '').toLowerCase();
 
-  // Meta Ads / Facebook / Instagram
+  // 1. Google Ads (Iklan Berbayar Google)
   if (
-    s.includes('meta') ||
+    s === 'google-ads' ||
+    (s.startsWith('google-') && s !== 'google-organic') ||
+    s.includes('gads') ||
+    page.includes('/google-ads') ||
+    ref.includes('/google-ads') ||
+    ref.includes('gclid')
+  ) {
+    return 'google_ads';
+  }
+
+  // 2. Google Organik (Pencarian Alami / SEO)
+  if (
+    s === 'google-organic' ||
+    s === 'google' ||
+    ref.includes('google.com') ||
+    ref.includes('google.co.id')
+  ) {
+    return 'google_organic';
+  }
+
+  // 3. Meta Ads (Iklan Berbayar Facebook & Instagram)
+  if (
+    s.startsWith('meta') ||
     s.includes('fb') ||
-    s.includes('instagram') ||
-    s.includes('ig') ||
-    ref.includes('facebook') ||
-    ref.includes('instagram') ||
+    s.includes('instagram-ads') ||
     ref.includes('fbclid') ||
     page.includes('/metaads') ||
     page.includes('/ads/maklon-skincare') ||
@@ -826,20 +857,23 @@ export function detectAdChannel(l: MonitorLead): 'meta' | 'google' | 'other' {
     page.includes('/ads/maklon-hair-care') ||
     page.includes('/ads/thankyou/metaads')
   ) {
-    return 'meta';
+    return 'meta_ads';
   }
 
-  // Google / Google Ads / Google Search
+  // 4. Media Sosial (Organik: Instagram, TikTok, Facebook non-ads, YouTube, Linktree, medsos)
   if (
-    s.includes('google') ||
-    s.includes('gads') ||
-    ref.includes('google') ||
-    ref.includes('googleads') ||
-    page.includes('/google-ads') ||
-    page.includes('/ads/thankyou/google') ||
-    page.includes('/thankyou/google')
+    s === 'social-media' ||
+    s === 'medsos' ||
+    s.includes('social') ||
+    page.includes('/contact-medsos') ||
+    page.includes('/thankyou-medsos') ||
+    ref.includes('instagram.com') ||
+    ref.includes('tiktok.com') ||
+    ref.includes('facebook.com') ||
+    ref.includes('youtube.com') ||
+    ref.includes('contact-medsos')
   ) {
-    return 'google';
+    return 'social_media';
   }
 
   return 'other';
@@ -847,7 +881,7 @@ export function detectAdChannel(l: MonitorLead): 'meta' | 'google' | 'other' {
 
 /**
  * Menghitung funnel per-BusDev: Traffic -> MOQ (>= 500 pcs) -> Sample
- * untuk Meta Ads dan Google Ads.
+ * untuk 4 channel terpisah: Meta Ads, Google Ads, Google Organik, dan Media Sosial.
  */
 export function computeBusdevChannelFunnels(
   leads: ViewedLead[],
@@ -864,19 +898,27 @@ export function computeBusdevChannelFunnels(
     sampleRate: 0,
   });
 
-  const busdevMap = new Map<string, { meta: ChannelFunnelMetrics; google: ChannelFunnelMetrics; other: ChannelFunnelMetrics }>();
+  const channels: AdChannel[] = ['meta_ads', 'google_ads', 'google_organic', 'social_media', 'other'];
+
+  const busdevMap = new Map<string, Record<AdChannel, ChannelFunnelMetrics>>();
   for (const name of busdevNames) {
     busdevMap.set(name.toLowerCase(), {
-      meta: createMetrics(),
-      google: createMetrics(),
+      meta_ads: createMetrics(),
+      google_ads: createMetrics(),
+      google_organic: createMetrics(),
+      social_media: createMetrics(),
       other: createMetrics(),
     });
   }
 
   const summary = {
+    meta_ads: createMetrics(),
+    google_ads: createMetrics(),
+    google_organic: createMetrics(),
+    social_media: createMetrics(),
+    other: createMetrics(),
     meta: createMetrics(),
     google: createMetrics(),
-    other: createMetrics(),
     totalTraffic: 0,
     totalMoq: 0,
     totalSample: 0,
@@ -903,35 +945,43 @@ export function computeBusdevChannelFunnels(
     }
   }
 
-  for (const ch of ['meta', 'google', 'other'] as const) {
+  for (const ch of channels) {
     summary[ch].moqRate = calcRate(summary[ch].moq, summary[ch].traffic);
     summary[ch].sampleRate = calcRate(summary[ch].sample, summary[ch].moq);
   }
-  summary.totalTraffic = summary.meta.traffic + summary.google.traffic + summary.other.traffic;
-  summary.totalMoq = summary.meta.moq + summary.google.moq + summary.other.moq;
-  summary.totalSample = summary.meta.sample + summary.google.sample + summary.other.sample;
+  summary.meta = summary.meta_ads;
+  summary.google = summary.google_ads;
+  summary.totalTraffic = channels.reduce((acc, c) => acc + summary[c].traffic, 0);
+  summary.totalMoq = channels.reduce((acc, c) => acc + summary[c].moq, 0);
+  summary.totalSample = channels.reduce((acc, c) => acc + summary[c].sample, 0);
 
   const byBusdev: BusdevChannelFunnel[] = busdevNames.map((name) => {
     const bd = busdevMap.get(name.toLowerCase()) ?? {
-      meta: createMetrics(),
-      google: createMetrics(),
+      meta_ads: createMetrics(),
+      google_ads: createMetrics(),
+      google_organic: createMetrics(),
+      social_media: createMetrics(),
       other: createMetrics(),
     };
 
-    for (const ch of ['meta', 'google', 'other'] as const) {
+    for (const ch of channels) {
       bd[ch].moqRate = calcRate(bd[ch].moq, bd[ch].traffic);
       bd[ch].sampleRate = calcRate(bd[ch].sample, bd[ch].moq);
     }
 
-    const totalTraffic = bd.meta.traffic + bd.google.traffic + bd.other.traffic;
-    const totalMoq = bd.meta.moq + bd.google.moq + bd.other.moq;
-    const totalSample = bd.meta.sample + bd.google.sample + bd.other.sample;
+    const totalTraffic = channels.reduce((acc, c) => acc + bd[c].traffic, 0);
+    const totalMoq = channels.reduce((acc, c) => acc + bd[c].moq, 0);
+    const totalSample = channels.reduce((acc, c) => acc + bd[c].sample, 0);
 
     return {
       name,
-      meta: bd.meta,
-      google: bd.google,
+      meta_ads: bd.meta_ads,
+      google_ads: bd.google_ads,
+      google_organic: bd.google_organic,
+      social_media: bd.social_media,
       other: bd.other,
+      meta: bd.meta_ads,
+      google: bd.google_ads,
       totalTraffic,
       totalMoq,
       totalSample,
@@ -940,5 +990,6 @@ export function computeBusdevChannelFunnels(
 
   return { summary, byBusdev };
 }
+
 
 

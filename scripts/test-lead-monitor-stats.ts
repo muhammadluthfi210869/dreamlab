@@ -246,33 +246,40 @@ check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t)
   check('formatWaChatLink memuat salam nama & sales', waLink?.includes('Budi') === true && waLink?.includes('Annisa') === true && waLink?.includes('Serum') === true, waLink);
 }
 
-// Funnel per BusDev: Meta Ads & Google Ads
+// Funnel per BusDev: Meta Ads, Google Ads, Google Organic & Media Sosial
 {
-  const mkF = (sales: string, src: string, pcs: number, stage: string) =>
+  const mkF = (sales: string, src: string, pcs: number, stage: string, extra: Record<string, unknown> = {}) =>
     row({
       assigned_to: sales,
       source: src,
       requested_quantity_pcs: pcs,
       crm_stage: stage,
       status: 'confirmed',
+      ...extra,
     }) as any;
 
   const sample = [
     mkF('Annisa', 'meta-skincare', 1000, 'sample'),
     mkF('Annisa', 'meta-skincare', 500, 'warm'),
     mkF('Annisa', 'google-ads', 500, 'sample'),
+    mkF('Annisa', 'google-organic', 500, 'sample'),
+    mkF('Annisa', 'social-media', 1000, 'warm'),
     mkF('Jessica', 'meta-skincare', 300, 'traffic'),
     mkF('Diaz', 'google-ads', 1000, 'deal'),
   ];
 
-  check('detectAdChannel: meta terdeteksi', detectAdChannel({ source: 'meta-skincare' } as any) === 'meta');
-  check('detectAdChannel: google terdeteksi', detectAdChannel({ source: 'google-ads' } as any) === 'google');
+  check('detectAdChannel: meta_ads terdeteksi', detectAdChannel({ source: 'meta-skincare' } as any) === 'meta_ads');
+  check('detectAdChannel: google_ads terdeteksi', detectAdChannel({ source: 'google-ads' } as any) === 'google_ads');
+  check('detectAdChannel: google_organic terdeteksi', detectAdChannel({ source: 'google-organic' } as any) === 'google_organic');
+  check('detectAdChannel: social_media terdeteksi', detectAdChannel({ source: 'social-media' } as any) === 'social_media');
 
   const fRes = computeBusdevChannelFunnels(sample, ['Annisa', 'Jessica', 'Diaz']);
   const annisa = fRes.byBusdev.find((b) => b.name === 'Annisa')!;
-  check('Annisa: Meta Traffic = 2, MOQ = 2, Sample = 1', annisa.meta.traffic === 2 && annisa.meta.moq === 2 && annisa.meta.sample === 1, annisa.meta);
-  check('Annisa: Google Traffic = 1, MOQ = 1, Sample = 1', annisa.google.traffic === 1 && annisa.google.moq === 1 && annisa.google.sample === 1, annisa.google);
-  check('Total Tim Meta Traffic = 3, MOQ = 2', fRes.summary.meta.traffic === 3 && fRes.summary.meta.moq === 2, fRes.summary.meta);
+  check('Annisa: Meta Traffic = 2, MOQ = 2, Sample = 1', annisa.meta_ads.traffic === 2 && annisa.meta_ads.moq === 2 && annisa.meta_ads.sample === 1, annisa.meta_ads);
+  check('Annisa: Google Ads Traffic = 1, MOQ = 1, Sample = 1', annisa.google_ads.traffic === 1 && annisa.google_ads.moq === 1 && annisa.google_ads.sample === 1, annisa.google_ads);
+  check('Annisa: Google Organik Traffic = 1, MOQ = 1, Sample = 1', annisa.google_organic.traffic === 1 && annisa.google_organic.moq === 1 && annisa.google_organic.sample === 1, annisa.google_organic);
+  check('Annisa: Social Media Traffic = 1, MOQ = 1, Sample = 0', annisa.social_media.traffic === 1 && annisa.social_media.moq === 1 && annisa.social_media.sample === 0, annisa.social_media);
+  check('Total Tim Meta Traffic = 3, MOQ = 2', fRes.summary.meta_ads.traffic === 3 && fRes.summary.meta_ads.moq === 2, fRes.summary.meta_ads);
 }
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);
