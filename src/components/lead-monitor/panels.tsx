@@ -1,11 +1,14 @@
 "use client";
 
+import { formatWaChatLink } from "@/lib/crm-stages";
 import { Card, Empty } from "./ui";
 
 export interface TopLeadRow {
   id: number;
   name: string | null;
   phone: string;
+  rawPhone?: string | null;
+  product?: string | null;
   tier: string | null;
   quantity: number | null;
   busdev: string | null;
@@ -38,27 +41,44 @@ export function TopLeadsCard({ rows }: { rows: TopLeadRow[] }) {
         <Empty>Belum ada lead berkualitas.</Empty>
       ) : (
         <ol className="space-y-3">
-          {rows.map((r, i) => (
-            <li key={r.id} className="flex items-center gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-500">
-                {i + 1}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-sm font-semibold text-slate-900">{r.name || r.phone}</div>
-                <div className="truncate text-xs text-slate-500">
-                  {r.name ? `${r.phone} · ` : ""}
-                  {r.tier ? `${r.tier}${r.quantity ? ` (${r.quantity.toLocaleString("id-ID")} pcs)` : ""}` : "Tier belum diisi"}
-                  {r.busdev ? ` · ${r.busdev}` : ""}
+          {rows.map((r, i) => {
+            const waUrl = r.rawPhone ? formatWaChatLink(r.rawPhone, r.name, r.busdev, r.product) : null;
+            return (
+              <li key={r.id} className="flex items-center gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-500">
+                  {i + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-semibold text-slate-900">{r.name || r.phone}</div>
+                  <div className="truncate text-xs text-slate-500">
+                    {r.name ? `${r.phone} · ` : ""}
+                    {r.tier ? `${r.tier}${r.quantity ? ` (${r.quantity.toLocaleString("id-ID")} pcs)` : ""}` : "Tier belum diisi"}
+                    {r.busdev ? ` · ${r.busdev}` : ""}
+                  </div>
                 </div>
-              </div>
-              <span
-                className="shrink-0 rounded-full bg-[#FFF4DC] px-2.5 py-1 font-mono text-xs font-semibold text-[#9A6200]"
-                title={r.chat ? "Sudah chat masuk" : "Belum chat"}
-              >
-                {r.score}
-              </span>
-            </li>
-          ))}
+                {waUrl && (
+                  <a
+                    href={waUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Balas chat langsung via WhatsApp"
+                    className="inline-flex items-center gap-1 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 px-2 py-1 text-[11px] font-semibold text-[#128C7E] transition shrink-0 shadow-xs"
+                  >
+                    <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.074-1.808-.412-1.428-.592-2.34-2.029-2.411-2.123-.07-.094-.576-.767-.576-1.464 0-.697.362-1.04.49-1.182.129-.143.282-.179.377-.179.094 0 .188.001.27.006.086.004.202-.033.315.24.116.282.399.974.433 1.045.035.07.058.153.012.247-.046.094-.07.153-.139.235-.07.082-.147.184-.21.247-.07.07-.144.146-.062.287.082.141.365.602.784.975.54.481.996.63 1.137.7.141.07.224.059.306-.035.083-.094.354-.412.448-.553.094-.141.189-.118.318-.07.13.047.824.388.966.459.141.07.236.106.271.165.035.059.035.341-.109.746z" />
+                    </svg>
+                    <span className="hidden sm:inline">Balas WA</span>
+                  </a>
+                )}
+                <span
+                  className="shrink-0 rounded-full bg-[#FFF4DC] px-2.5 py-1 font-mono text-xs font-semibold text-[#9A6200]"
+                  title={r.chat ? "Sudah chat masuk" : "Belum chat"}
+                >
+                  {r.score}
+                </span>
+              </li>
+            );
+          })}
         </ol>
       )}
       <p className="mt-4 text-[11px] leading-relaxed text-slate-400">

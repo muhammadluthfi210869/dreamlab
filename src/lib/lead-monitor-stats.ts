@@ -431,6 +431,8 @@ export interface TopLead {
   id: number;
   name: string | null;
   phone: string;
+  rawPhone?: string | null;
+  product?: string | null;
   tier: string | null;
   quantity: number | null;
   busdev: string | null;
@@ -448,6 +450,8 @@ export function topLeads(leads: ViewedLead[], nowMs: number, limit = 5): TopLead
       id: l.id,
       name: cleanName(l.nama) || cleanName(l.wa_profile_name),
       phone: maskPhone(leadPhone(l)),
+      rawPhone: leadPhone(l) ?? null,
+      product: (l.produk_manual || l.produk || null) as string | null,
       tier: (l.production_tier_name as string) || null,
       quantity: quantityOf(l),
       busdev: l.assigned_to,

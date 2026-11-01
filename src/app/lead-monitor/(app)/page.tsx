@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { HelpCircle, MessageSquare, Phone, RefreshCw, Target } from "lucide-react";
 import { BRAND, Card, KpiCard, Pill } from "@/components/lead-monitor/ui";
 import {
@@ -129,7 +130,14 @@ export default function DashboardPage() {
               <span className={`h-2 w-2 rounded-full ${autoRefresh ? "animate-pulse bg-[#D98A00]" : "bg-slate-300"}`} />
               {autoRefresh ? "Live" : "Dijeda"}
             </button>
-            <span className="hidden font-mono text-[11px] text-slate-400 md:inline">{fmtTime(updatedAt)}</span>
+            <Link
+              href="/lead-monitor/pipeline"
+              className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-[#D98A00] hover:bg-[#B45309] text-white px-3 text-xs font-semibold shadow-xs transition"
+              title="Buka Papan Sales Pipeline dengan Drag & Drop dan Balas WhatsApp Langsung"
+            >
+              <Target className="h-3.5 w-3.5" />
+              <span>Sales Pipeline &rarr;</span>
+            </Link>
             <button
               type="button"
               onClick={() => load(true)}
@@ -412,19 +420,29 @@ export default function DashboardPage() {
             title="Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial"
             subtitle="Pantau alur konversi setiap BusDev dari Traffic iklan & organik >> Lolos MOQ (>= 500 pcs) >> Masuk tahap Sample"
             right={
-              <div className="hidden sm:flex items-center gap-2 text-xs">
-                <span className="flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 font-semibold text-blue-700 border border-blue-200">
-                  <span className="h-2 w-2 rounded-full bg-blue-600" /> Meta Ads
-                </span>
-                <span className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1 font-semibold text-emerald-700 border border-emerald-200">
-                  <span className="h-2 w-2 rounded-full bg-emerald-600" /> Google Ads
-                </span>
-                <span className="flex items-center gap-1.5 rounded-md bg-sky-50 px-2 py-1 font-semibold text-sky-700 border border-sky-200">
-                  <span className="h-2 w-2 rounded-full bg-sky-600" /> Google Organik
-                </span>
-                <span className="flex items-center gap-1.5 rounded-md bg-purple-50 px-2 py-1 font-semibold text-purple-700 border border-purple-200">
-                  <span className="h-2 w-2 rounded-full bg-purple-600" /> Media Sosial
-                </span>
+              <div className="flex items-center gap-2 text-xs">
+                <div className="hidden sm:flex items-center gap-2">
+                  <span className="flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 font-semibold text-blue-700 border border-blue-200">
+                    <span className="h-2 w-2 rounded-full bg-blue-600" /> Meta Ads
+                  </span>
+                  <span className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1 font-semibold text-emerald-700 border border-emerald-200">
+                    <span className="h-2 w-2 rounded-full bg-emerald-600" /> Google Ads
+                  </span>
+                  <span className="flex items-center gap-1.5 rounded-md bg-sky-50 px-2 py-1 font-semibold text-sky-700 border border-sky-200">
+                    <span className="h-2 w-2 rounded-full bg-sky-600" /> Google Organik
+                  </span>
+                  <span className="flex items-center gap-1.5 rounded-md bg-purple-50 px-2 py-1 font-semibold text-purple-700 border border-purple-200">
+                    <span className="h-2 w-2 rounded-full bg-purple-600" /> Media Sosial
+                  </span>
+                </div>
+                <Link
+                  href="/lead-monitor/pipeline"
+                  className="inline-flex items-center gap-1 rounded-md bg-[#FFF4DC] border border-[#F0D9A8] px-2.5 py-1 text-xs font-semibold text-[#9A6200] hover:bg-[#FFECC4] transition"
+                  title="Buka Papan Kanban Sales Pipeline"
+                >
+                  <Target className="h-3 w-3" />
+                  <span>Papan Kanban &rarr;</span>
+                </Link>
               </div>
             }
           >
