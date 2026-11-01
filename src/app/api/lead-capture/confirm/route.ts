@@ -233,6 +233,29 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // ── CATAT PERCAKAPAN LIVE CHAT WABA KE CRM ──
+    if (messageText && (normalizedPhone || trackingCode)) {
+      try {
+        await pool.query(
+          `INSERT INTO crm_chat_messages (
+             tracking_code, phone, sender_type, sender_name, message_text, wamid, direction, channel, busdev_name, is_read, created_at
+           )
+           VALUES ($1, $2, 'customer', $3, $4, $5, 'inbound', 'whatsapp', $6, FALSE, NOW())
+           ON CONFLICT (wamid) DO NOTHING`,
+          [
+            trackingCode || null,
+            normalizedPhone || 'unknown',
+            waName || null,
+            messageText,
+            wamid || null,
+            busdevName !== 'Unassigned' ? busdevName : null,
+          ]
+        );
+      } catch (crmMsgErr) {
+        console.warn('[lead-capture/confirm] gagal simpan crm_chat_messages:', crmMsgErr);
+      }
+    }
+
     // ── ATURAN 2: HANYA CHAT PERTAMA DENGAN KODE TRACKING YANG DICATAT ──
     // Chat lanjutan, balasan biasa, obrolan internal, notifikasi sistem, atau chat tanpa kode DIABAIKAN.
     if (!trackingCode) {
