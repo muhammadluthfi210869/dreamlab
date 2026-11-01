@@ -448,7 +448,9 @@ export default function DashboardPage() {
                       <span className="font-bold text-blue-700">Meta Ads:</span>
                       <span className="font-mono text-slate-800">
                         {data.channelFunnels.summary.meta_ads.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.meta_ads.moq} MOQ</b> &gt;&gt;{" "}
+                        <b className="text-sky-700">{data.channelFunnels.summary.meta_ads.cold} Cold</b> &gt;&gt;{" "}
+                        <b className="text-amber-700">{data.channelFunnels.summary.meta_ads.warm} Warm</b> &gt;&gt;{" "}
+                        <b className="text-rose-700">{data.channelFunnels.summary.meta_ads.hot} Hot</b> &gt;&gt;{" "}
                         <b className="text-emerald-700">{data.channelFunnels.summary.meta_ads.sample} Sample</b>
                       </span>
                     </div>
@@ -457,7 +459,9 @@ export default function DashboardPage() {
                       <span className="font-bold text-emerald-700">Google Ads:</span>
                       <span className="font-mono text-slate-800">
                         {data.channelFunnels.summary.google_ads.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.google_ads.moq} MOQ</b> &gt;&gt;{" "}
+                        <b className="text-sky-700">{data.channelFunnels.summary.google_ads.cold} Cold</b> &gt;&gt;{" "}
+                        <b className="text-amber-700">{data.channelFunnels.summary.google_ads.warm} Warm</b> &gt;&gt;{" "}
+                        <b className="text-rose-700">{data.channelFunnels.summary.google_ads.hot} Hot</b> &gt;&gt;{" "}
                         <b className="text-emerald-700">{data.channelFunnels.summary.google_ads.sample} Sample</b>
                       </span>
                     </div>
@@ -466,7 +470,9 @@ export default function DashboardPage() {
                       <span className="font-bold text-sky-700">Google Organik:</span>
                       <span className="font-mono text-slate-800">
                         {data.channelFunnels.summary.google_organic.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.google_organic.moq} MOQ</b> &gt;&gt;{" "}
+                        <b className="text-sky-700">{data.channelFunnels.summary.google_organic.cold} Cold</b> &gt;&gt;{" "}
+                        <b className="text-amber-700">{data.channelFunnels.summary.google_organic.warm} Warm</b> &gt;&gt;{" "}
+                        <b className="text-rose-700">{data.channelFunnels.summary.google_organic.hot} Hot</b> &gt;&gt;{" "}
                         <b className="text-emerald-700">{data.channelFunnels.summary.google_organic.sample} Sample</b>
                       </span>
                     </div>
@@ -475,7 +481,9 @@ export default function DashboardPage() {
                       <span className="font-bold text-purple-700">Media Sosial:</span>
                       <span className="font-mono text-slate-800">
                         {data.channelFunnels.summary.social_media.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.social_media.moq} MOQ</b> &gt;&gt;{" "}
+                        <b className="text-sky-700">{data.channelFunnels.summary.social_media.cold} Cold</b> &gt;&gt;{" "}
+                        <b className="text-amber-700">{data.channelFunnels.summary.social_media.warm} Warm</b> &gt;&gt;{" "}
+                        <b className="text-rose-700">{data.channelFunnels.summary.social_media.hot} Hot</b> &gt;&gt;{" "}
                         <b className="text-emerald-700">{data.channelFunnels.summary.social_media.sample} Sample</b>
                       </span>
                     </div>

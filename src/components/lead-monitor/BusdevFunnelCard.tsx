@@ -97,23 +97,31 @@ export function BusdevFunnelCard({
                 </span>
               </div>
 
-              {/* 3 Step Boxes: TRAFFIC >> MOQ >= 500 >> SAMPLE */}
-              <div className="grid grid-cols-3 gap-1.5 text-center">
-                <div className="rounded-lg bg-[#F5F8FA] border border-slate-100 p-2">
-                  <div className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Traffic</div>
-                  <div className="font-mono text-sm font-bold text-slate-900 mt-0.5">{m.traffic}</div>
+              {/* 5 Step Boxes: TRAFFIC | COLD | WARM | HOT | SAMPLE */}
+              <div className="grid grid-cols-5 gap-1 text-center">
+                <div className="rounded-lg bg-[#F5F8FA] border border-slate-100 p-1.5" title="Total traffic prospek masuk">
+                  <div className="text-[8px] sm:text-[9px] font-semibold text-slate-400 uppercase tracking-wider truncate">Traffic</div>
+                  <div className="font-mono text-xs sm:text-sm font-bold text-slate-900 mt-0.5">{m.traffic}</div>
                 </div>
-                <div className="rounded-lg bg-[#FFF9F0] border border-amber-100/80 p-2">
-                  <div className="text-[9px] font-semibold text-[#B45309] uppercase tracking-wider">MOQ &ge;500</div>
-                  <div className="font-mono text-sm font-bold text-[#B45309] mt-0.5">{m.moq}</div>
+                <div className="rounded-lg bg-[#F0F9FF] border border-sky-100/80 p-1.5" title="Prospek dingin / MOQ < 500 pcs">
+                  <div className="text-[8px] sm:text-[9px] font-semibold text-sky-700 uppercase tracking-wider truncate">Cold</div>
+                  <div className="font-mono text-xs sm:text-sm font-bold text-sky-700 mt-0.5">{m.cold}</div>
                 </div>
-                <div className="rounded-lg bg-[#F0FAF5] border border-emerald-100/80 p-2">
-                  <div className="text-[9px] font-semibold text-[#15803D] uppercase tracking-wider">Sample</div>
-                  <div className="font-mono text-sm font-bold text-[#15803D] mt-0.5">{m.sample}</div>
+                <div className="rounded-lg bg-[#FFF9F0] border border-amber-100/80 p-1.5" title="Prospek hangat (Warm 500 / 1.000+)">
+                  <div className="text-[8px] sm:text-[9px] font-semibold text-[#B45309] uppercase tracking-wider truncate">Warm</div>
+                  <div className="font-mono text-xs sm:text-sm font-bold text-[#B45309] mt-0.5">{m.warm}</div>
+                </div>
+                <div className="rounded-lg bg-[#FFF1F2] border border-rose-100/80 p-1.5" title="Prospek panas / negosiasi aktif">
+                  <div className="text-[8px] sm:text-[9px] font-semibold text-[#E11D48] uppercase tracking-wider truncate">Hot</div>
+                  <div className="font-mono text-xs sm:text-sm font-bold text-[#E11D48] mt-0.5">{m.hot}</div>
+                </div>
+                <div className="rounded-lg bg-[#F0FAF5] border border-emerald-100/80 p-1.5" title="Proses sampel formulasi produk">
+                  <div className="text-[8px] sm:text-[9px] font-semibold text-[#15803D] uppercase tracking-wider truncate">Sample</div>
+                  <div className="font-mono text-xs sm:text-sm font-bold text-[#15803D] mt-0.5">{m.sample}</div>
                 </div>
               </div>
 
-              {/* Progress Bar */}
+              {/* Progress Bar: TRAFFIC -> COLD -> WARM -> HOT -> SAMPLE */}
               <div className="mt-2.5 flex h-2 w-full overflow-hidden rounded-full bg-slate-100">
                 <div
                   className={`${ch.barColor} transition-all`}
@@ -121,13 +129,23 @@ export function BusdevFunnelCard({
                   title={`Traffic: ${m.traffic}`}
                 />
                 <div
-                  className="bg-amber-500 transition-all"
-                  style={{ width: `${m.traffic > 0 ? Math.min(100, (m.moq / m.traffic) * 100) : 0}%` }}
-                  title={`MOQ: ${m.moq}`}
+                  className="bg-sky-400 transition-all"
+                  style={{ width: `${m.traffic > 0 ? Math.min(100, (m.cold / m.traffic) * 100) : 0}%` }}
+                  title={`Cold: ${m.cold}`}
+                />
+                <div
+                  className="bg-amber-400 transition-all"
+                  style={{ width: `${m.traffic > 0 ? Math.min(100, (m.warm / m.traffic) * 100) : 0}%` }}
+                  title={`Warm: ${m.warm}`}
+                />
+                <div
+                  className="bg-rose-500 transition-all"
+                  style={{ width: `${m.traffic > 0 ? Math.min(100, (m.hot / m.traffic) * 100) : 0}%` }}
+                  title={`Hot: ${m.hot}`}
                 />
                 <div
                   className="bg-emerald-500 transition-all"
-                  style={{ width: `${m.moq > 0 ? Math.min(100, (m.sample / m.moq) * 100) : 0}%` }}
+                  style={{ width: `${m.traffic > 0 ? Math.min(100, (m.sample / m.traffic) * 100) : 0}%` }}
                   title={`Sample: ${m.sample}`}
                 />
               </div>

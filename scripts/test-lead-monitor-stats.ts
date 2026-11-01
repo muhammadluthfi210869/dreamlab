@@ -275,11 +275,11 @@ check('Peringkat asal: tanpa referrer & chat langsung tidak masuk', tr.every((t)
 
   const fRes = computeBusdevChannelFunnels(sample, ['Annisa', 'Jessica', 'Diaz']);
   const annisa = fRes.byBusdev.find((b) => b.name === 'Annisa')!;
-  check('Annisa: Meta Traffic = 2, MOQ = 2, Sample = 1', annisa.meta_ads.traffic === 2 && annisa.meta_ads.moq === 2 && annisa.meta_ads.sample === 1, annisa.meta_ads);
-  check('Annisa: Google Ads Traffic = 1, MOQ = 1, Sample = 1', annisa.google_ads.traffic === 1 && annisa.google_ads.moq === 1 && annisa.google_ads.sample === 1, annisa.google_ads);
-  check('Annisa: Google Organik Traffic = 1, MOQ = 1, Sample = 1', annisa.google_organic.traffic === 1 && annisa.google_organic.moq === 1 && annisa.google_organic.sample === 1, annisa.google_organic);
-  check('Annisa: Social Media Traffic = 1, MOQ = 1, Sample = 0', annisa.social_media.traffic === 1 && annisa.social_media.moq === 1 && annisa.social_media.sample === 0, annisa.social_media);
-  check('Total Tim Meta Traffic = 3, MOQ = 2', fRes.summary.meta_ads.traffic === 3 && fRes.summary.meta_ads.moq === 2, fRes.summary.meta_ads);
+  check('Annisa: Meta Traffic = 2, Warm = 1, Sample = 1', annisa.meta_ads.traffic === 2 && annisa.meta_ads.warm === 1 && annisa.meta_ads.sample === 1, annisa.meta_ads);
+  check('Annisa: Google Ads Traffic = 1, Sample = 1', annisa.google_ads.traffic === 1 && annisa.google_ads.sample === 1, annisa.google_ads);
+  check('Annisa: Google Organik Traffic = 1, Sample = 1', annisa.google_organic.traffic === 1 && annisa.google_organic.sample === 1, annisa.google_organic);
+  check('Annisa: Social Media Traffic = 1, Warm = 1, Sample = 0', annisa.social_media.traffic === 1 && annisa.social_media.warm === 1 && annisa.social_media.sample === 0, annisa.social_media);
+  check('Total Tim Meta Traffic = 3, Cold = 1, Warm = 1, Sample = 1', fRes.summary.meta_ads.traffic === 3 && fRes.summary.meta_ads.cold === 1 && fRes.summary.meta_ads.warm === 1 && fRes.summary.meta_ads.sample === 1, fRes.summary.meta_ads);
 }
 
 console.log(failed === 0 ? '\nSEMUA LOLOS' : `\n${failed} GAGAL`);

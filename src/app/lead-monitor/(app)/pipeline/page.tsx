@@ -364,11 +364,11 @@ export default function PipelinePage() {
                           : "Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial"}
                       </span>
                       <span className="rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-bold text-amber-800">
-                        Traffic &gt;&gt; MOQ &ge; 500 &gt;&gt; Sample
+                        TRAFFIC &gt;&gt; COLD &gt;&gt; WARM &gt;&gt; HOT &gt;&gt; SAMPLE
                       </span>
                     </h2>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      Pantau alur konversi dari Traffic iklan &amp; organik &gt;&gt; Lolos MOQ (&ge; 500 pcs) &gt;&gt; Masuk tahap Sample
+                      Pantau alur konversi per channel: Traffic &gt;&gt; Cold &gt;&gt; Warm &gt;&gt; Hot &gt;&gt; Sample
                     </p>
                   </div>
                   <button

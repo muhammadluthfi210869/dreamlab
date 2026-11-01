@@ -778,8 +778,12 @@ export function formatWaChatLink(
 
 export interface ChannelFunnelMetrics {
   traffic: number;
-  moq: number;
+  cold: number;
+  warm: number;
+  hot: number;
   sample: number;
+  trafficStage?: number;
+  moq: number;
   moqRate: number; // % traffic yang lolos MOQ (>=500)
   sampleRate: number; // % MOQ yang lanjut ke Sample
 }
@@ -892,8 +896,12 @@ export function computeBusdevChannelFunnels(
 
   const createMetrics = (): ChannelFunnelMetrics => ({
     traffic: 0,
-    moq: 0,
+    cold: 0,
+    warm: 0,
+    hot: 0,
     sample: 0,
+    trafficStage: 0,
+    moq: 0,
     moqRate: 0,
     sampleRate: 0,
   });
@@ -928,20 +936,55 @@ export function computeBusdevChannelFunnels(
 
   for (const l of validLeads) {
     const ch = detectAdChannel(l);
-    const hasMoq = (quantityOf(l) ?? 0) >= MOQ_PCS;
-    const stage = (l.crm_stage || '').toLowerCase();
-    const isSample = stage === 'sample' || stage === 'deal';
+    const moq = quantityOf(l);
+    const rawStage = (l.crm_stage || '').toLowerCase();
+
+    let isCold = false;
+    let isWarm = false;
+    let isHot = false;
+    let isSample = false;
+    let isTrafficStage = false;
+
+    if (rawStage === 'cold') {
+      isCold = true;
+    } else if (rawStage === 'hot') {
+      isHot = true;
+    } else if (rawStage === 'sample' || rawStage === 'deal') {
+      isSample = true;
+    } else if (rawStage === 'warm' || rawStage.startsWith('warm_') || rawStage === 'traffic_500' || rawStage === 'traffic_1000') {
+      isWarm = true;
+    } else if (rawStage === 'traffic_below_500') {
+      isCold = true;
+    } else {
+      // Tahap default / 'traffic': kategorikan berdasarkan MOQ jika ada
+      if (typeof moq === 'number' && moq > 0) {
+        if (moq < 500) isCold = true;
+        else isWarm = true;
+      } else {
+        isTrafficStage = true;
+      }
+    }
+
+    const hasMoq = isWarm || isHot || isSample || (moq ?? 0) >= MOQ_PCS;
 
     summary[ch].traffic++;
-    if (hasMoq) summary[ch].moq++;
+    if (isCold) summary[ch].cold++;
+    if (isWarm) summary[ch].warm++;
+    if (isHot) summary[ch].hot++;
     if (isSample) summary[ch].sample++;
+    if (isTrafficStage) summary[ch].trafficStage = (summary[ch].trafficStage ?? 0) + 1;
+    if (hasMoq) summary[ch].moq++;
 
     const assigned = (l.assigned_to || '').trim().toLowerCase();
     if (assigned && busdevMap.has(assigned)) {
       const bd = busdevMap.get(assigned)!;
       bd[ch].traffic++;
-      if (hasMoq) bd[ch].moq++;
+      if (isCold) bd[ch].cold++;
+      if (isWarm) bd[ch].warm++;
+      if (isHot) bd[ch].hot++;
       if (isSample) bd[ch].sample++;
+      if (isTrafficStage) bd[ch].trafficStage = (bd[ch].trafficStage ?? 0) + 1;
+      if (hasMoq) bd[ch].moq++;
     }
   }
 
