@@ -35,6 +35,20 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         });
       });
     }
+
+    const handleCarouselClick = (e: MouseEvent) => {
+      const btn = (e.target as HTMLElement).closest('[data-carousel-prev], [data-carousel-next]');
+      if (!btn) return;
+      const track = el.querySelector('#dl-product-carousel-track') || btn.parentElement?.querySelector('.dl-carousel-track');
+      if (!track) return;
+      const isPrev = btn.hasAttribute('data-carousel-prev');
+      track.scrollBy({ left: isPrev ? -320 : 320, behavior: 'smooth' });
+    };
+
+    el.addEventListener('click', handleCarouselClick);
+    return () => {
+      el.removeEventListener('click', handleCarouselClick);
+    };
   }, [htmlContent]);
 
   useEffect(() => {

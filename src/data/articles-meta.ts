@@ -4644,6 +4644,28 @@ export const articlesMeta: ArticleMeta[] =
     "featuredImage": "/images/maklon-kosmetik-purwokerto.jpg",
     "excerpt": "Ingin membangun brand skincare di Purwokerto? Temukan peluang produk, custom formula, dan pengembangan brand bersama Dreamlab sebagai partner maklon.",
     "readingMinutes": 7
+  },
+  {
+    "slug": "/maklon-kosmetik-semarang",
+    "title": "Maklon Kosmetik Semarang BPOM untuk Brand Lokal, Bebas Tentukan HPP",
+    "publishDate": "2026-11-02T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Kosmetik Semarang",
+      "Maklon Semarang",
+      "Maklon Kosmetik BPOM",
+      "Custom Formula",
+      "Brand Lokal",
+      "Hair Care Semarang",
+      "HPP Kosmetik"
+    ],
+    "featuredImage": "/images/maklon-kosmetik-semarang.jpg",
+    "excerpt": "Cari maklon kosmetik Semarang? Dreamlab membantu brand lokal mengembangkan formula, menyesuaikan target HPP, serta mendampingi legalitas BPOM.",
+    "readingMinutes": 8
   }
 ]
 ;

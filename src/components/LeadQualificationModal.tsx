@@ -322,8 +322,8 @@ export function LeadQualificationModal({
         source,
         channel,
         category: resolvedCategory,
-        tier: selectedTier.name,
-        quantity: selectedTier.quantityPcs,
+        productionTier: selectedTier.name,
+        quantityPcs: selectedTier.quantityPcs,
         campaign,
       });
 
@@ -454,7 +454,7 @@ export function LeadQualificationModal({
                         }`}
                       >
                         {/* Left: Text & Badges */}
-                        <div className="z-10 flex-1 min-w-0 pr-2">
+                        <div className="z-10 flex-1 min-w-0 pr-3">
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
                               {tier.title}
@@ -471,17 +471,6 @@ export function LeadQualificationModal({
                           <p className="text-[11px] sm:text-xs text-slate-500 mt-1 font-normal">
                             {tier.tagline}
                           </p>
-                        </div>
-
-                        {/* Middle/Right: Clean Product Render */}
-                        <div className="relative w-16 h-12 sm:w-20 sm:h-14 shrink-0 mx-2 pointer-events-none opacity-90">
-                          <Image
-                            src={tier.image}
-                            alt={tier.title}
-                            fill
-                            className="object-contain"
-                            sizes="80px"
-                          />
                         </div>
 
                         {/* Far Right: Radio circle */}
