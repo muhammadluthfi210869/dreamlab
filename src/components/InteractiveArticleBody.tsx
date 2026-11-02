@@ -36,17 +36,72 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       });
     }
 
+    const track = el.querySelector('#dl-product-carousel-track') as HTMLElement | null;
+    const dotsContainer = el.querySelector('#dl-carousel-dots') as HTMLElement | null;
+    const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]')) : [];
+
+    const updateActiveDot = () => {
+      if (!track || !dots.length) return;
+      const cards = Array.from(track.querySelectorAll<HTMLElement>('.dl-carousel-card'));
+      if (!cards.length) return;
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+
+      let closestIdx = 0;
+      let minDistance = Infinity;
+      cards.forEach((card, idx) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const dist = Math.abs(trackCenter - cardCenter);
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestIdx = idx;
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        if (idx === closestIdx) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    };
+
+    let scrollRaf: number | null = null;
+    const handleScroll = () => {
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(updateActiveDot);
+    };
+
+    if (track) {
+      track.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
     const handleCarouselClick = (e: MouseEvent) => {
-      const btn = (e.target as HTMLElement).closest('[data-carousel-prev], [data-carousel-next]');
+      const target = e.target as HTMLElement;
+
+      const dotBtn = target.closest<HTMLButtonElement>('[data-carousel-dot]');
+      if (dotBtn && track) {
+        const idx = Number(dotBtn.getAttribute('data-carousel-dot'));
+        const cards = Array.from(track.querySelectorAll<HTMLElement>('.dl-carousel-card'));
+        if (cards[idx]) {
+          cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        }
+        return;
+      }
+
+      const btn = target.closest('[data-carousel-prev], [data-carousel-next]');
       if (!btn) return;
-      const track = el.querySelector('#dl-product-carousel-track') || btn.parentElement?.querySelector('.dl-carousel-track');
-      if (!track) return;
+      const carTrack = (el.querySelector('#dl-product-carousel-track') || btn.parentElement?.querySelector('.dl-carousel-track')) as HTMLElement | null;
+      if (!carTrack) return;
       const isPrev = btn.hasAttribute('data-carousel-prev');
-      track.scrollBy({ left: isPrev ? -320 : 320, behavior: 'smooth' });
+      carTrack.scrollBy({ left: isPrev ? -320 : 320, behavior: 'smooth' });
     };
 
     el.addEventListener('click', handleCarouselClick);
     return () => {
+      if (track) track.removeEventListener('scroll', handleScroll);
       el.removeEventListener('click', handleCarouselClick);
     };
   }, [htmlContent]);

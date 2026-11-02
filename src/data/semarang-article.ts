@@ -76,7 +76,7 @@ const semarangContent = `
   <style>
     .dl-carousel-container {
       position: relative;
-      margin: 32px 0 24px;
+      margin: 32px 0 28px;
     }
     .dl-carousel-track {
       display: flex;
@@ -85,7 +85,8 @@ const semarangContent = `
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      padding: 8px 4px 18px 4px;
+      padding: 10px 12px 20px 12px;
+      scroll-padding: 0 12px;
       scrollbar-width: thin;
       scrollbar-color: #cbd5e1 transparent;
     }
@@ -126,7 +127,7 @@ const semarangContent = `
     .dl-carousel-img-wrap {
       position: relative;
       width: 100%;
-      height: 190px;
+      height: 170px;
       background: #f8fafc;
       overflow: hidden;
     }
@@ -141,7 +142,7 @@ const semarangContent = `
       transform: scale(1.05);
     }
     .dl-carousel-body {
-      padding: 20px;
+      padding: 18px 20px 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -176,6 +177,20 @@ const semarangContent = `
       .dl-carousel-btn-prev, .dl-carousel-btn-next {
         display: flex;
       }
+    }
+    .dl-carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: #cbd5e1;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .dl-carousel-dot.active {
+      width: 24px;
+      background: #0f2a58;
     }
   </style>
 
@@ -296,6 +311,14 @@ const semarangContent = `
         </div>
       </div>
     </div>
+    <div class="dl-carousel-dots" id="dl-carousel-dots" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:14px">
+      <button type="button" class="dl-carousel-dot active" data-carousel-dot="0" aria-label="Kategori 1"></button>
+      <button type="button" class="dl-carousel-dot" data-carousel-dot="1" aria-label="Kategori 2"></button>
+      <button type="button" class="dl-carousel-dot" data-carousel-dot="2" aria-label="Kategori 3"></button>
+      <button type="button" class="dl-carousel-dot" data-carousel-dot="3" aria-label="Kategori 4"></button>
+      <button type="button" class="dl-carousel-dot" data-carousel-dot="4" aria-label="Kategori 5"></button>
+      <button type="button" class="dl-carousel-dot" data-carousel-dot="5" aria-label="Kategori 6"></button>
+    </div>
   </div>
 
   <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:16px 20px;text-align:center;margin:20px 0">
@@ -321,14 +344,14 @@ const semarangContent = `
         <p style="font-size:13.5px;color:#475569;line-height:1.65;margin:0 0 16px">
           Dreamlab menyediakan lebih dari <strong>10+ formula premium Hair Care</strong> yang siap disesuaikan dengan identitas brand Anda, meliputi:
         </p>
-        <div style="display:flex;flex-wrap:gap;gap:8px;margin-bottom:20px">
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Shampoo</span>
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Conditioner</span>
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Hair Mask</span>
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Hair Tonic</span>
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Hair Serum</span>
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Pomade</span>
-          <span style="font-size:11.5px;font-weight:700;background:#f1f5f9;color:#334155;padding:4px 10px;border-radius:6px">Beard Serum</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Shampoo</span>
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Conditioner</span>
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Hair Mask</span>
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Hair Tonic</span>
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Hair Serum</span>
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Pomade</span>
+          <span style="display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;background:#f8fafc;color:#1e293b;padding:6px 14px;border-radius:8px;border:1px solid #e2e8f0">Beard Serum</span>
         </div>
         <a href="https://dreamlab.id/produk/haircare/" style="display:inline-flex;align-items:center;gap:8px;background:#d98a00;color:#ffffff;font-size:13px;font-weight:800;padding:12px 24px;border-radius:12px;text-decoration:none;box-shadow:0 6px 18px rgba(217,138,0,0.25)">
           <span>Lihat Produk Hair Care</span>
@@ -339,7 +362,7 @@ const semarangContent = `
   </div>
 
   <!-- Mini Scalp Care Highlight -->
-  <div style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border:1px solid #bae6fd;border-radius:16px;padding:22px 24px;margin:28px 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+  <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:16px;padding:22px 24px;margin:28px 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
     <div>
       <div style="font-size:12px;font-weight:800;color:#0284c7;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Kategori Khusus</div>
       <h3 style="font-size:17px;font-weight:800;color:#0f172a;margin:0 0 4px">Scalp Care untuk Kebutuhan yang Lebih Spesifik</h3>
