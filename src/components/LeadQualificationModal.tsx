@@ -35,44 +35,44 @@ export const BUDGET_OPTIONS: BudgetOption[] = [
     tierName: 'STARTER',
     quantityPcs: 500,
     segment: 'Starter Prospect',
-    tagline: 'Mulai brand pertama dengan modal terjangkau',
+    tagline: 'Mulai & uji pasar',
   },
   {
     id: '25_50m',
-    label: '25 - 50 Juta',
-    value: '25 - 50 Juta',
+    label: '25–50 Juta',
+    value: '25–50 Juta',
     tierName: 'GROWTH',
     quantityPcs: 1000,
     segment: 'Growth Prospect',
-    tagline: 'Pilihan populer untuk uji pasar dan scale-up',
+    tagline: 'Bangun brand',
     isPopular: true,
   },
   {
     id: '50_100m',
-    label: '50 - 100 Juta',
-    value: '50 - 100 Juta',
+    label: '50–100 Juta',
+    value: '50–100 Juta',
     tierName: 'GROWTH',
     quantityPcs: 2500,
     segment: 'Growth Prospect',
-    tagline: 'Formula custom & kemasan eksklusif',
+    tagline: 'Kembangkan produk',
   },
   {
     id: '100_250m',
-    label: '100 - 250 Juta',
-    value: '100 - 250 Juta',
+    label: '100–250 Juta',
+    value: '100–250 Juta',
     tierName: 'SCALE',
     quantityPcs: 5000,
     segment: 'Enterprise Prospect',
-    tagline: 'Produksi skala menengah untuk distribusi luas',
+    tagline: 'Perluas pasar',
   },
   {
     id: '250_500m',
-    label: '250 - 500 Juta',
-    value: '250 - 500 Juta',
+    label: '250–500 Juta',
+    value: '250–500 Juta',
     tierName: 'ENTERPRISE',
     quantityPcs: 10000,
     segment: 'Strategic Prospect',
-    tagline: 'Skala besar untuk brand berkembang & retail',
+    tagline: 'Scale-up brand',
   },
   {
     id: 'above_500m',
@@ -81,7 +81,7 @@ export const BUDGET_OPTIONS: BudgetOption[] = [
     tierName: 'ENTERPRISE',
     quantityPcs: 20000,
     segment: 'Strategic Prospect',
-    tagline: 'Kemitraan strategis & kapasitas lini penuh',
+    tagline: 'Produksi skala besar',
   },
 ];
 
@@ -327,14 +327,10 @@ export function LeadQualificationModal({
           )}
 
           <div className="relative z-10">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-white/10 text-white/95 border border-white/20 backdrop-blur-md">
-              BEAUTY ACADEMY & BRAND COMMUNITY OWNER
-            </span>
-
-            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-2 leading-tight">
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
               Konsultasi Brand Anda
             </h3>
-            <p className="text-xs text-blue-100/90 mt-1 leading-relaxed max-w-[340px]">
+            <p className="text-xs text-blue-100/90 mt-1.5 leading-relaxed max-w-[340px]">
               Kembangkan formula berstandar BPOM & dapatkan akses eksklusif bimbingan bisnis <strong>Dreampreneur Beauty Academy</strong> sebagai <strong>Brand Community Owner</strong>.
             </p>
           </div>

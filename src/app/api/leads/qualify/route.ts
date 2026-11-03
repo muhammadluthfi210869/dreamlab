@@ -106,11 +106,11 @@ export async function POST(req: NextRequest) {
       const queryStr = `${productionTierName || ''} ${quantityRange || ''} ${budgetRange || ''}`.toLowerCase();
       if (queryStr.includes('starter') || queryStr.includes('500') || queryStr.includes('launch') || queryStr.includes('< 25') || queryStr.includes('25 juta') || queryStr.includes('25jt')) {
         matchedTier = PRODUCTION_TIERS[0]; // STARTER (500)
-      } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000') || queryStr.includes('25 - 50') || queryStr.includes('50 - 100')) {
+      } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000') || queryStr.includes('25 - 50') || queryStr.includes('25–50') || queryStr.includes('50 - 100') || queryStr.includes('50–100')) {
         matchedTier = PRODUCTION_TIERS[1]; // GROWTH (1000)
-      } else if (queryStr.includes('scale') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000') || queryStr.includes('100 - 250')) {
+      } else if (queryStr.includes('scale') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000') || queryStr.includes('100 - 250') || queryStr.includes('100–250')) {
         matchedTier = PRODUCTION_TIERS[2]; // SCALE (5000)
-      } else if (queryStr.includes('enterprise') || queryStr.includes('10.000') || queryStr.includes('10000') || queryStr.includes('strategic') || queryStr.includes('250 - 500') || queryStr.includes('> 500')) {
+      } else if (queryStr.includes('enterprise') || queryStr.includes('10.000') || queryStr.includes('10000') || queryStr.includes('strategic') || queryStr.includes('250 - 500') || queryStr.includes('250–500') || queryStr.includes('> 500')) {
         matchedTier = PRODUCTION_TIERS[3]; // ENTERPRISE (10000)
       } else if (queryStr.includes('paket bisnis') || queryStr.includes('300')) {
         matchedTier = PRODUCTION_TIERS[4]; // Paket Bisnis (300)
