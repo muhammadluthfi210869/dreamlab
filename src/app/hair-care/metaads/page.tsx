@@ -140,7 +140,10 @@ export default function HaircareMetaAdsLP() {
         categoryName="Hair Care"
       />
 
-      {/* 3. CLOSING CTA — Homepage style background visual */}
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="metaads" />
+
+      {/* 3. CLOSING CTA — Di bawah sendiri */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
         <motion.div
@@ -200,9 +203,6 @@ export default function HaircareMetaAdsLP() {
           </div>
         </div>
       </section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="metaads" />
 
       {/* FLOATING WA BUTTON */}
       <FloatingWhatsAppCTA onClick={() => openQualification('floating-whatsapp')} />

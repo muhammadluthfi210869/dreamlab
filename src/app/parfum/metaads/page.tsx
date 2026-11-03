@@ -356,7 +356,10 @@ export default function ParfumMetaAdsLP() {
         categoryName="Parfum"
       />
 
-      {/* 5. CLOSING CTA — Homepage style background visual */}
+      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
+      <AdsCredibilitySection channel="metaads" />
+
+      {/* 5. CLOSING CTA — Di bawah sendiri */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">
 
         <motion.div
@@ -412,9 +415,6 @@ export default function ParfumMetaAdsLP() {
           </div>
         </div>
       </section>
-
-      {/* CREDIBILITY / CERTIFICATIONS BANNER */}
-      <AdsCredibilitySection channel="metaads" />
 
       {/* Floating WhatsApp CTA */}
       <FloatingWhatsAppCTA onClick={() => openQualification('floating-whatsapp')} />
