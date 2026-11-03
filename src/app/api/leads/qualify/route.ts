@@ -102,15 +102,15 @@ export async function POST(req: NextRequest) {
         t.quantityPcs === Number(rawQty)
     );
 
-    if (!matchedTier && (productionTierName || quantityRange)) {
-      const queryStr = `${productionTierName || ''} ${quantityRange || ''}`.toLowerCase();
-      if (queryStr.includes('starter') || queryStr.includes('500') || queryStr.includes('launch')) {
+    if (!matchedTier && (productionTierName || quantityRange || budgetRange)) {
+      const queryStr = `${productionTierName || ''} ${quantityRange || ''} ${budgetRange || ''}`.toLowerCase();
+      if (queryStr.includes('starter') || queryStr.includes('500') || queryStr.includes('launch') || queryStr.includes('< 25') || queryStr.includes('25 juta') || queryStr.includes('25jt')) {
         matchedTier = PRODUCTION_TIERS[0]; // STARTER (500)
-      } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000')) {
+      } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000') || queryStr.includes('25 - 50') || queryStr.includes('50 - 100')) {
         matchedTier = PRODUCTION_TIERS[1]; // GROWTH (1000)
-      } else if (queryStr.includes('scale') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000')) {
+      } else if (queryStr.includes('scale') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000') || queryStr.includes('100 - 250')) {
         matchedTier = PRODUCTION_TIERS[2]; // SCALE (5000)
-      } else if (queryStr.includes('enterprise') || queryStr.includes('10.000') || queryStr.includes('10000') || queryStr.includes('strategic')) {
+      } else if (queryStr.includes('enterprise') || queryStr.includes('10.000') || queryStr.includes('10000') || queryStr.includes('strategic') || queryStr.includes('250 - 500') || queryStr.includes('> 500')) {
         matchedTier = PRODUCTION_TIERS[3]; // ENTERPRISE (10000)
       } else if (queryStr.includes('paket bisnis') || queryStr.includes('300')) {
         matchedTier = PRODUCTION_TIERS[4]; // Paket Bisnis (300)
@@ -118,10 +118,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!matchedTier) {
-      return NextResponse.json(
-        { success: false, error: 'Silakan pilih salah satu paket bisnis yang tersedia.' },
-        { status: 400, headers: NO_STORE_HEADERS }
-      );
+      matchedTier = PRODUCTION_TIERS[0]; // Safe default fallback
     }
 
     const resolvedTierName = matchedTier.name;
@@ -167,7 +164,9 @@ export async function POST(req: NextRequest) {
       const conv = await convertLead({
         visitorId: visitorId || inquiryRef,
         hp: localHp,
-        intent: isPaketBisnis
+        intent: budgetRange
+          ? `[QUALIFIED] ${category} - Budget: ${budgetRange}`
+          : isPaketBisnis
           ? `[QUALIFIED] ${category} - Paket Bisnis`
           : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
         source: effectiveSource,
@@ -210,7 +209,9 @@ export async function POST(req: NextRequest) {
             utmMedium || null,
             utmCampaign || null,
             eventId || inquiryRef,
-            isPaketBisnis
+            budgetRange
+              ? `[QUALIFIED] ${category} - Budget: ${budgetRange}`
+              : isPaketBisnis
               ? `[QUALIFIED] ${category} - Paket Bisnis`
               : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
             fullName.trim(),
