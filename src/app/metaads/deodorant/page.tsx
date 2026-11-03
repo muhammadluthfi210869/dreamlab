@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
 import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
+import { AdsBeautyAcademySection } from '@/components/landing-pages/AdsBeautyAcademySection';
 import { LeadQualificationModal } from '@/components/LeadQualificationModal';
 import { FloatingWhatsAppCTA } from '@/components/FloatingWhatsAppCTA';
 import { trackLeadEvent } from '@/lib/lead-analytics';
@@ -490,119 +491,11 @@ export default function DeodorantMetaAdsLP() {
         </div>
       </section>
 
-      {/* ============ BEAUTY ACADEMY ============ */}
-      <section className="bg-[#FAF9F6] py-16 md:py-24 border-t border-neutral-100">
-        <div className="container-custom px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left: Copy & Benefits */}
-            <div className="lg:col-span-7">
-              <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
-                BEAUTY ACADEMY & COMMUNITY
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-[36px] font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display mb-4">
-                HANYA DI DREAMLAB, BRAND ANDA BUKAN SEKADAR DIPRODUKSI, TETAPI JUGA{' '}
-                <span className="text-[#2F6BFF]">DIBIMBING UNTUK BERTUMBUH</span>
-              </h2>
-              <p className="text-sm md:text-base text-neutral-600 leading-relaxed mb-8">
-                Dapatkan pendampingan bisnis gratis untuk memastikan produk deodorant Anda
-                sukses menembus pasar dan menghasilkan penjualan berulang.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="bg-white border border-neutral-200/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">
-                    01
-                  </span>
-                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">
-                    PRODUCT & BRAND DEVELOPMENT
-                  </h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed">
-                    Membantu mempertajam positioning produk dan keunikan brand deodorant Anda.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-neutral-200/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">
-                    02
-                  </span>
-                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">
-                    BRANDING & PACKAGING
-                  </h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed">
-                    Membangun identitas visual premium agar mudah dikenali dan diminati konsumen.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-neutral-200/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">
-                    03
-                  </span>
-                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">
-                    DIGITAL MARKETING STRATEGY
-                  </h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed">
-                    Panduan strategi iklan berbayar (Meta & TikTok Ads) dan content marketing.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-neutral-200/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <span className="text-xs font-black text-[#2F6BFF] tracking-wider block font-onest mb-1.5">
-                    04
-                  </span>
-                  <h3 className="text-sm font-black uppercase text-brand-black mb-1 font-display">
-                    BEAUTYPRENEUR COMMUNITY
-                  </h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed">
-                    Bergabung dalam jaringan eksklusif ratusan brand owner alumni Dreamlab.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  onClick={() => openQualification('academy')}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20 cursor-pointer"
-                >
-                  <span>KONSULTASI BERSAMA DREAMLAB</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Right: Real Collage Images */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
-              <div className="col-span-2 relative rounded-2xl overflow-hidden aspect-[16/10] shadow-[0_10px_25px_rgba(0,0,0,0.08)] border border-neutral-200/80 group">
-                <Image
-                  src="/assets/maklon-parfum/academy-community.webp"
-                  alt="Komunitas beautypreneur Dreamlab"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-neutral-200/80 group">
-                <Image
-                  src="/assets/maklon-parfum/academy-digital-marketing.webp"
-                  alt="Mentoring digital marketing"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-neutral-200/80 group">
-                <Image
-                  src="/assets/maklon-parfum/academy-branding.webp"
-                  alt="Sesi branding Dreamlab Academy"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ============ BEAUTY ACADEMY & BRAND COMMUNITY OWNER ============ */}
+      <AdsBeautyAcademySection
+        onCtaClick={() => openQualification('academy')}
+        categoryName="Deodorant"
+      />
 
       {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
       <AdsCredibilitySection channel="metaads" />

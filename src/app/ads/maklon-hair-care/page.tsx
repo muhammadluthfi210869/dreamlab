@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { ArrowRight, CheckCircle2, Star, ShieldCheck } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { AdsBeautyAcademySection } from "@/components/landing-pages/AdsBeautyAcademySection";
 import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
 import { LeadQualificationModal } from "@/components/LeadQualificationModal";
@@ -372,6 +373,12 @@ export default function MaklonHairCareAdsLP() {
           </div>
         </div>
       </section>
+
+      {/* BEAUTY ACADEMY & BRAND COMMUNITY OWNER */}
+      <AdsBeautyAcademySection
+        onCtaClick={() => openQualification('academy')}
+        categoryName="Hair Care"
+      />
 
       {/* 7. CLOSING CTA — Homepage style background visual */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">

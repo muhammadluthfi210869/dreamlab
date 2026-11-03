@@ -7,6 +7,7 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { AdsBeautyAcademySection } from "@/components/landing-pages/AdsBeautyAcademySection";
 import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
 import { LeadQualificationModal } from "@/components/LeadQualificationModal";
@@ -326,86 +327,11 @@ export default function MaklonSkincareAdsLP() {
         </div>
       </section>
 
-      {/* 5. BEAUTY ACADEMY */}
-      <section className="bg-[#FAF9F6] py-16 md:py-24 border-t border-neutral-100">
-        <div className="container-custom px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            
-            {/* Left: Copy & List */}
-            <div className="lg:col-span-7">
-              <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-[#FF8A00] uppercase font-onest mb-3 block">
-                FREE BEAUTYPRENEUR COMMUNITY
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-[36px] font-black text-brand-black tracking-tight leading-[1.15] uppercase font-display mb-4">
-                HANYA DI DREAMLAB, BRAND ANDA BUKAN SEKADAR DIPRODUKSI, TETAPI JUGA <span className="text-[#2F6BFF]">DIBIMBING UNTUK BERTUMBUH</span>
-              </h2>
-              <p className="text-sm md:text-base text-neutral-600 leading-relaxed mb-8">
-                Nikmati pendampingan praktis untuk memperkuat branding dan meningkatkan penjualan online.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-8">
-                {[
-                  "Mentoring strategi digital marketing",
-                  "Panduan membangun branding dan positioning produk",
-                  "Strategi memasarkan dan menjual produk secara online",
-                  "Networking bersama komunitas beautypreneur",
-                ].map((item, idx) => (
-                  <div key={idx} className="bg-white border border-neutral-200/80 p-4 rounded-2xl flex items-center gap-3.5 shadow-sm">
-                    <span className="w-7 h-7 rounded-full bg-[#FF8A00]/10 text-[#FF8A00] font-black flex items-center justify-center shrink-0 text-sm">
-                      ✓
-                    </span>
-                    <span className="text-xs md:text-sm font-bold text-brand-black/90 leading-snug">
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  onClick={() => openQualification('academy')}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF8A00] text-white rounded-xl font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-[#D97700] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#FF8A00]/20 cursor-pointer"
-                >
-                  JADI PARTNER DREAMLAB <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Right: Collage */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
-              <div className="col-span-2 relative rounded-2xl overflow-hidden aspect-[16/10] shadow-[0_10px_25px_rgba(0,0,0,0.1)] border border-neutral-200/80 group">
-                <Image
-                  src="/assets/maklon-parfum/academy-community.webp"
-                  alt="Komunitas beautypreneur Dreamlab"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.08)] border border-neutral-200/80 group">
-                <Image
-                  src="/assets/maklon-parfum/academy-digital-marketing.webp"
-                  alt="Mentoring digital marketing"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-[0_8px_20px_rgba(0,0,0,0.08)] border border-neutral-200/80 group">
-                <Image
-                  src="/assets/maklon-parfum/academy-branding.webp"
-                  alt="Sesi branding Dreamlab Academy"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* 5. BEAUTY ACADEMY & BRAND COMMUNITY OWNER */}
+      <AdsBeautyAcademySection
+        onCtaClick={() => openQualification('academy')}
+        categoryName="Skincare"
+      />
 
       {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
       <AdsCredibilitySection channel="metaads" />

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Sparkles, ShieldCheck, FlaskConical, Package, Award, Heart, Droplet } from 'lucide-react';
 import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
 import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
+import { AdsBeautyAcademySection } from '@/components/landing-pages/AdsBeautyAcademySection';
 import { LeadQualificationModal } from '@/components/LeadQualificationModal';
 import { FloatingWhatsAppCTA } from '@/components/FloatingWhatsAppCTA';
 import { trackLeadEvent } from '@/lib/lead-analytics';
@@ -200,6 +201,12 @@ export default function BabyCareMetaAdsLP() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* ============ BEAUTY ACADEMY & BRAND COMMUNITY OWNER ============ */}
+      <AdsBeautyAcademySection
+        onCtaClick={() => openQualification('beauty-academy')}
+        categoryName="Baby Care"
+      />
 
       {/* ============ CTA ============ */}
       <motion.section

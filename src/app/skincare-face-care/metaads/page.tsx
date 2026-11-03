@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { AdsBeautyAcademySection } from "@/components/landing-pages/AdsBeautyAcademySection";
 
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
@@ -223,6 +224,12 @@ export default function SkincareMetaAdsLP() {
           </div>
         </div>
       </section>
+
+      {/* 4. BEAUTY ACADEMY & BRAND COMMUNITY OWNER */}
+      <AdsBeautyAcademySection
+        onCtaClick={() => openQualification('beauty-academy')}
+        categoryName="Skincare"
+      />
 
       {/* 5. CLOSING CTA — Homepage style background visual */}
       <section className="relative w-full overflow-hidden bg-white min-h-[420px] sm:min-h-[480px] md:min-h-[500px] lg:min-h-[580px] flex items-center border-t border-b border-neutral-100">

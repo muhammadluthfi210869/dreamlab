@@ -328,14 +328,14 @@ export function LeadQualificationModal({
 
           <div className="relative z-10">
             <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-white/10 text-white/95 border border-white/20 backdrop-blur-md">
-              DREAMLAB FORM KONSULTASI
+              BEAUTY ACADEMY & BRAND COMMUNITY OWNER
             </span>
 
             <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-2 leading-tight">
               Konsultasi Brand Anda
             </h3>
-            <p className="text-xs text-blue-100/85 mt-1 leading-relaxed max-w-[320px]">
-              Diskusikan formula, sampel, legalitas BPOM, dan perhitungan HPP bersama tim Dreamlab.
+            <p className="text-xs text-blue-100/90 mt-1 leading-relaxed max-w-[340px]">
+              Kembangkan formula berstandar BPOM & dapatkan akses eksklusif bimbingan bisnis <strong>Dreampreneur Beauty Academy</strong> sebagai <strong>Brand Community Owner</strong>.
             </p>
           </div>
         </div>
@@ -479,8 +479,16 @@ export function LeadQualificationModal({
                 </label>
               </div>
 
+              {/* Benefit Highlight */}
+              <div className="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/80 text-[11px] text-amber-950 flex items-center gap-2">
+                <span className="shrink-0 text-base">🎓</span>
+                <span>
+                  <strong>Akses Eksklusif:</strong> Termasuk bimbingan Dreampreneur Beauty Academy & jejaring Brand Community Owner.
+                </span>
+              </div>
+
               {/* Submit CTA */}
-              <div className="pt-2">
+              <div className="pt-1">
                 <button
                   type="submit"
                   disabled={submitting}

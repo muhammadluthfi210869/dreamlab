@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { AdsBeautyAcademySection } from "@/components/landing-pages/AdsBeautyAcademySection";
 import { aboutData } from "@/data/about-us";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { LeadQualificationModal } from "@/components/LeadQualificationModal";
@@ -323,35 +324,11 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
             </div>
           </section>
 
-          <section className="academy section">
-            <div className="wrap academy-grid">
-              <div className="academy-copy">
-                <span className="eyebrow">FREE BEAUTYPRENEUR COMMUNITY</span>
-                <h2>Hanya di Dreamlab, Brand Anda Bukan Sekadar Diproduksi, tetapi Juga Dibimbing untuk Bertumbuh</h2>
-                <p>Nikmati pendampingan praktis untuk memperkuat branding dan meningkatkan penjualan online.</p>
-                <ul className="academy-list">
-                  <li>Mentoring strategi digital marketing</li>
-                  <li>Panduan membangun branding dan positioning produk</li>
-                  <li>Strategi memasarkan dan menjual produk secara online</li>
-                  <li>Networking bersama komunitas beautypreneur</li>
-                </ul>
-                <button
-                  type="button"
-                  className="btn track"
-                  data-location="academy"
-                  onClick={() => handleCta("academy")}
-                  style={{ cursor: "pointer", border: "none" }}
-                >
-                  Jadi Partner Dreamlab &rarr;
-                </button>
-              </div>
-              <div className="academy-collage">
-                <Image src="/assets/maklon-parfum/academy-community.webp" alt="Komunitas beautypreneur Dreamlab" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
-                <Image src="/assets/maklon-parfum/academy-digital-marketing.webp" alt="Mentoring digital marketing" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
-                <Image src="/assets/maklon-parfum/academy-branding.webp" alt="Sesi branding Dreamlab Academy" width={500} height={500} loading="lazy" style={{ objectFit: "cover", width: "100%", height: "100%" }} />
-              </div>
-            </div>
-          </section>
+          {/* BEAUTY ACADEMY & BRAND COMMUNITY OWNER */}
+          <AdsBeautyAcademySection
+            onCtaClick={() => handleCta("academy")}
+            categoryName="Body Care"
+          />
 
           {/* CREDIBILITY / CERTIFICATIONS BANNER (Directly below Beautypreneur section) */}
           <AdsCredibilitySection ctaHref={ctaHref} channel={source === "meta_ads" ? "metaads" : "google-ads"} />
