@@ -89,17 +89,7 @@ export default function ParfumMetaAdsLP() {
 
       {/* 1. HERO */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-8 lg:pt-12">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0 z-0"
-          style={{
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            transform: "translate3d(0,0,0)",
-          }}
-        >
+        <div className="absolute inset-0 z-0">
           <Image
             src="/new asset/background-visual-hero-section/parfum.webp"
             alt="Dreamlab Premium Parfum"
@@ -109,63 +99,37 @@ export default function ParfumMetaAdsLP() {
             decoding="sync"
             className="object-cover"
             sizes="100vw"
-            style={{
-              imageRendering: "auto",
-              backfaceVisibility: "hidden",
-              WebkitBackfaceVisibility: "hidden",
-            }}
           />
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1.0 }}
-            className="absolute inset-0 bg-gradient-to-r from-white/55 via-white/20 to-transparent z-10 hidden lg:block"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1.0 }}
-            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.45)_0%,transparent_95%)] lg:hidden z-10"
-          />
-        </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/55 via-white/20 to-transparent z-10 hidden lg:block" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.45)_0%,transparent_95%)] lg:hidden z-10" />
+        </div>
 
         <div className="container-custom relative z-20 w-full">
           <div className="max-w-2xl lg:max-w-3xl">
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="inline-flex items-center gap-3 px-3 py-1 bg-brand-orange/5 rounded-full mb-2.5 md:mb-4 border border-brand-orange/20 backdrop-blur-sm"
-            >
+            <div className="inline-flex items-center gap-3 px-3 py-1 bg-brand-orange/5 rounded-full mb-2.5 md:mb-4 border border-brand-orange/20 backdrop-blur-sm">
               <span className="w-1 h-1 rounded-full bg-brand-orange" />
               <span className="text-[9px] lg:text-[10px] font-black text-brand-orange uppercase tracking-[0.2em] font-onest">
                 Dreamlab #JUARAFORMULA
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4, duration: 1, ease: premiumEase }}
+            <h1
               className="font-normal text-brand-black mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
               style={{ textShadow: '0 0 30px rgba(255,255,255,0.8)' }}
             >
               <span className="text-brand-orange">Mau Buat Brand</span>
               <br />
               <span className="text-brand-orange italic">Parfum Premium?</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6, duration: 1 }}
+            <p
               className="text-xs sm:text-sm text-brand-black/80 lg:text-brand-black/70 font-medium leading-relaxed mb-6 md:mb-8 max-w-xl lg:text-[18px] xl:text-[20px]"
               style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
             >
               Kami racikkan formulanya. Kami desainkan kemasannya. Kami urus BPOM, Halal, HKI-nya. <strong className="text-brand-black font-semibold">Kamu tinggal jual.</strong>
-            </motion.p>
+            </p>
 
             <div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-8 max-w-2xl"

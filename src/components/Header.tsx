@@ -154,6 +154,7 @@ export default function Header() {
             height={78}
             className="h-16 md:h-20 xl:h-24 w-auto object-contain"
             priority
+            fetchPriority="high"
           />
         </Link>
         <nav className="hidden lg:flex items-center gap-2 lg:gap-3 xl:gap-6 2xl:gap-8 whitespace-nowrap lg:ml-0.5 xl:ml-1">

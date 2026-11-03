@@ -8,15 +8,11 @@ import { getMetaKeywords } from "@/data/keywords";
 import { buildAlternates } from "@/lib/seo-lang";
 import dynamic from "next/dynamic";
 import { resolveArticleImageSrc } from "@/lib/asset-paths";
+import PremiumHero from "@/components/PremiumHero";
 
 const LogoScroll = dynamic(() => import("@/components/LogoScroll"), { 
   ssr: true,
   loading: () => <div className="py-20 bg-[#FAF9F6]" />
-});
-
-const PremiumHero = dynamic(() => import("@/components/PremiumHero"), { 
-  ssr: true,
-  loading: () => <div className="h-screen bg-[#F1E9DA]" />
 });
 const ProductTrustBar = dynamic(() => import("@/components/ProductPageV2/ProductTrustBar"), { 
   ssr: true,

@@ -53,7 +53,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
             </div>
           )}
 
-          <h1 className="hero-fade-in" style={{ animationDelay: "0.35s" }}>
+          <h1 className="space-y-1">
             <span className="block text-brand-orange text-[32px] md:text-[46px] lg:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
               {titleLines?.[0] || "Jasa Maklon"}
             </span>
@@ -120,8 +120,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
       </div>
       <style>{`
         .hero-fade-in {
-          opacity: 0;
-          animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         @media (prefers-reduced-motion: reduce) {
           .hero-fade-in {
@@ -130,7 +129,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
           }
         }
         @keyframes heroFadeUp {
-          from { opacity: 0; transform: translateY(20px); }
+          from { opacity: 0; transform: translateY(12px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
