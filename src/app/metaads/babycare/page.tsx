@@ -1,11 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, ShieldCheck, FlaskConical, Package, Award, Heart, Droplet } from 'lucide-react';
 import { useMetaAdsCtaPixel } from '@/lib/meta-ads-pixel';
 import { AdsCredibilitySection } from '@/components/landing-pages/AdsCredibilitySection';
+import { LeadQualificationModal } from '@/components/LeadQualificationModal';
+import { FloatingWhatsAppCTA } from '@/components/FloatingWhatsAppCTA';
+import { trackLeadEvent } from '@/lib/lead-analytics';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -35,7 +39,19 @@ const benefits = [
 ];
 
 export default function BabyCareMetaAdsLP() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useMetaAdsCtaPixel('Baby Care');
+
+  const openQualification = (location: string) => {
+    trackLeadEvent('consultation_cta_clicked', {
+      source: 'meta-babycare',
+      channel: 'metaads',
+      category: 'Babycare',
+      location,
+    });
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-brand-black font-sans selection:bg-brand-orange selection:text-white">
@@ -75,12 +91,13 @@ export default function BabyCareMetaAdsLP() {
               bebas paraben hingga kemasan yang memenangkan hati ibu muda.
             </motion.p>
             <motion.div className="flex flex-col sm:flex-row gap-4 pt-2" variants={fadeUp}>
-              <Link
-                href="/ads/thankyou/metaads/?source=meta-babycare&from=/metaads/babycare/"
+              <button
+                type="button"
+                onClick={() => openQualification('hero')}
                 className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-orange text-white rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
               >
                 Konsultasi Gratis Sekarang
-              </Link>
+              </button>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -202,12 +219,13 @@ export default function BabyCareMetaAdsLP() {
             Dapatkan konsultasi GRATIS dengan tim Dreamlab. Kami bantu dari formulasi,
             legalitas, hingga strategi masuk pasar ibu muda Indonesia.
           </p>
-          <Link
-            href="/ads/thankyou/metaads/?source=meta-babycare&from=/metaads/babycare/"
+          <button
+            type="button"
+            onClick={() => openQualification('closing-cta')}
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-brand-orange rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
           >
             Konsultasi Gratis Sekarang
-          </Link>
+          </button>
         </motion.div>
       </motion.section>
 
@@ -221,6 +239,19 @@ export default function BabyCareMetaAdsLP() {
           <p className="text-[9px] font-medium text-white/40 tracking-wide uppercase">All Rights Reserved.</p>
         </div>
       </footer>
+
+      {/* Floating WhatsApp CTA */}
+      <FloatingWhatsAppCTA onClick={() => openQualification('floating-whatsapp')} />
+
+      {/* Lead Qualification Modal */}
+      <LeadQualificationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultCategory="Babycare"
+        source="meta-babycare"
+        channel="metaads"
+        landingPage="/metaads/babycare/"
+      />
 
     </div>
   );

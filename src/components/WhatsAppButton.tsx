@@ -41,7 +41,17 @@ export default function WhatsAppButton() {
     window.location.assign(buildThankyouUrl({ source, ctx, from, cta: 'whatsapp-button-global' }));
   }, []);
 
-  if (pathname?.includes("thankyou") || pathname?.startsWith("/lead-monitor")) {
+  const cleanPath = (pathname || "").replace(/\/$/, "");
+  const isAdsLandingPage =
+    cleanPath.startsWith("/ads") ||
+    cleanPath.startsWith("/metaads") ||
+    cleanPath.startsWith("/google-ads") ||
+    cleanPath === "/maklon-bodycare-ads" ||
+    cleanPath === "/skincare-face-care/metaads" ||
+    cleanPath === "/hair-care/metaads" ||
+    cleanPath === "/parfum/metaads";
+
+  if (pathname?.includes("thankyou") || pathname?.startsWith("/lead-monitor") || isAdsLandingPage) {
     return null;
   }
 
