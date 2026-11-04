@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool, { queryWithRetry } from '@/lib/db';
-import { convertLead } from '@/lib/round-robin-db';
+import { convertLead, normalizePhone } from '@/lib/round-robin-db';
+import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import { syncLeadToKommo } from '@/lib/kommo-adapter';
 import { validateAndNormalizePhone } from '@/lib/country-phone-data';
 import { CountryCode } from 'libphonenumber-js';
@@ -156,13 +157,18 @@ export async function POST(req: NextRequest) {
     const effectiveLandingPage = landingPage || '/';
 
     // 6. Assign BusDev & insert initial record via existing DB engine
-    let assignedSalesName = 'Annisa';
-    let assignedSalesPhone = '6281952417051';
+    // Use deterministically rotated fallback in case DB is slow or recovering
+    const fallbackAgent = pickEmergencyFallbackAgent(inquiryRef);
+    let assignedSalesName = fallbackAgent.name || 'Annisa';
+    let assignedSalesPhone = normalizePhone(fallbackAgent.phone) || '6281952417051';
     let trackingCode = inquiryRef;
 
     try {
+      // Fair distribution:
+      // - If customer's phone number was previously assigned, Phone Sticky directs them to their existing sales.
+      // - If customer is new, inquiryRef ensures strict fair sequential round-robin rotation across active BusDevs (Annisa -> Diaz -> Jessica).
       const conv = await convertLead({
-        visitorId: visitorId || inquiryRef,
+        visitorId: inquiryRef,
         hp: localHp,
         intent: budgetRange
           ? `[QUALIFIED] ${category} - Budget: ${budgetRange}`
