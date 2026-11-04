@@ -341,17 +341,17 @@ export async function POST(req: NextRequest) {
       crmSyncStatus = 'failed';
     }
 
-    // 9. Generate formatted WhatsApp message delivering tier and E.164 phone to BD
+    // 9. Generate formatted WhatsApp message delivering lead details and budget to BD
     const waMessageText = [
       'Halo Dreamlab, saya ingin konsultasi produksi maklon.',
       '',
       `Nama: ${fullName.trim()}`,
-      `Mau Buat Apa: ${category}`,
-      `Paket Bisnis: ${isPaketBisnis ? 'Paket Bisnis' : `${resolvedTierName} (${resolvedQtyPcs.toLocaleString('id-ID')} pcs)`}`,
-      `Nomor WhatsApp: ${cleanPhoneE164}`,
+      `No. WhatsApp: ${cleanPhoneE164}`,
+      `Kategori Produk: ${category}`,
+      `Rencana Budget: ${budgetRange || '-'}`,
       `Kode Konsultasi: ${inquiryRef}`,
       '',
-      'Saya ingin melanjutkan diskusi dengan tim Business Consultant Dreamlab. Terima kasih!',
+      'Saya ingin diskusi lebih lanjut dengan tim Business Consultant Dreamlab. Terima kasih!',
     ].join('\n');
 
     const whatsappUrl = `https://wa.me/${assignedSalesPhone}?text=${encodeURIComponent(waMessageText)}`;
@@ -368,6 +368,7 @@ export async function POST(req: NextRequest) {
           phone: assignedSalesPhone,
         },
         whatsappUrl,
+        redirectUrl: whatsappUrl,
         crmSyncStatus,
       },
       {

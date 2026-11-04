@@ -269,12 +269,26 @@ export function LeadQualificationModal({
         budgetRange: selectedBudget.value,
         productionTier: selectedBudget.tierName,
         campaign,
+        inquiryReference: data.inquiryReference,
+        leadSegment: data.leadSegment,
       });
 
       setRedirecting(true);
 
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
+      const targetWaUrl = data.whatsappUrl || data.redirectUrl;
+
+      // Simpan session fallback untuk Thank You page
+      if (typeof sessionStorage !== 'undefined' && targetWaUrl) {
+        try {
+          sessionStorage.setItem('dl_qualified_wa_url', targetWaUrl);
+        } catch {
+          /* ignore */
+        }
+      }
+
+      if (targetWaUrl) {
+        // Direct delivery ke WhatsApp dengan pre-filled message data form lengkap
+        window.location.href = targetWaUrl;
       } else {
         const dest =
           channel === 'google-ads'
