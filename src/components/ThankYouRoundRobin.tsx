@@ -88,7 +88,11 @@ export function ThankYouRoundRobin({
         success: true,
         assignmentId: params.get("inquiry") || "QUALIFIED",
         source: resolvedSource,
-        sales: { id: "0", name: "Business Consultant Dreamlab" },
+        sales: {
+          id: "0",
+          name: params.get("sales_name") || "Business Consultant Dreamlab",
+          phone: params.get("sales_phone") || undefined,
+        },
         whatsappUrl: qualifiedWaUrl,
       });
       setLoading(false);

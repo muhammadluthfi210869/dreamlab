@@ -275,7 +275,7 @@ export function LeadQualificationModal({
 
       setRedirecting(true);
 
-      const targetWaUrl = data.whatsappUrl || data.redirectUrl;
+      const targetWaUrl = data.whatsappUrl || data.redirectUrl || '';
 
       // Simpan session fallback untuk Thank You page
       if (typeof sessionStorage !== 'undefined' && targetWaUrl) {
@@ -286,16 +286,30 @@ export function LeadQualificationModal({
         }
       }
 
-      if (targetWaUrl) {
-        // Direct delivery ke WhatsApp dengan pre-filled message data form lengkap
-        window.location.href = targetWaUrl;
-      } else {
-        const dest =
-          channel === 'google-ads'
-            ? `/ads/thankyou/google-ads/?source=${source}&category=${encodeURIComponent(defaultCategory)}`
-            : `/ads/thankyou/metaads/?source=${source}&category=${encodeURIComponent(defaultCategory)}`;
-        window.location.href = dest;
+      // Pastikan mengarah ke Thank You page (wajib untuk tracking konversi Meta Ads Pixel & Google Ads)
+      const thankYouBase =
+        channel === 'google-ads'
+          ? '/ads/thankyou/google-ads/'
+          : '/ads/thankyou/metaads/';
+
+      const thankYouParams = new URLSearchParams();
+      thankYouParams.set('source', source || (channel === 'google-ads' ? 'google-ads' : 'metaads'));
+      thankYouParams.set('category', defaultCategory);
+      if (data.inquiryReference) {
+        thankYouParams.set('inquiry', data.inquiryReference);
+        thankYouParams.set('event_id', data.inquiryReference);
       }
+      if (data.assignedSales?.name) {
+        thankYouParams.set('sales_name', data.assignedSales.name);
+      }
+      if (data.assignedSales?.phone) {
+        thankYouParams.set('sales_phone', data.assignedSales.phone);
+      }
+      if (targetWaUrl) {
+        thankYouParams.set('wa_url', targetWaUrl);
+      }
+
+      window.location.href = `${thankYouBase}?${thankYouParams.toString()}`;
     } catch (err: any) {
       console.error('[LeadQualificationModal] Submit error:', err);
       setError(err?.message || 'Gagal mengirim formulir. Silakan coba lagi.');

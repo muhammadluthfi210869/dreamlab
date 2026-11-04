@@ -90,12 +90,19 @@ export function PixelsOnInteraction() {
       }
     }
 
+    // Di Thank You page (wajib untuk tracking konversi Meta Ads Pixel & TikTok Pixel),
+    // load pixels SEGERA tanpa menunggu user interaction.
+    if (pathname?.includes('thankyou')) {
+      loadPixels();
+      return;
+    }
+
     events.forEach((ev) => window.addEventListener(ev, onInteraction, { capture: true, passive: true }));
 
     return () => {
       events.forEach((ev) => window.removeEventListener(ev, onInteraction, { capture: true }));
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
