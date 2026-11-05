@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { articleMatchesCategory, getCategoryDisplay } from '@/data/blog-categories';
 
 interface RelatedLinksProps {
   currentSlug: string;
@@ -19,7 +20,7 @@ const RelatedLinks: React.FC<RelatedLinksProps> = ({ currentSlug, categories, al
 
   const sameCategoryArticles = allArticles.filter(a =>
     a.slug !== currentSlug &&
-    a.categories.some(cat => categories.includes(cat))
+    categories.some(cat => articleMatchesCategory(a.categories, cat))
   );
 
   const priorityArticles = sameCategoryArticles.filter((article) =>
@@ -54,7 +55,7 @@ const RelatedLinks: React.FC<RelatedLinksProps> = ({ currentSlug, categories, al
             className="group bg-white p-6 rounded-3xl border border-gray-50 shadow-sm hover:shadow-xl hover:border-brand-orange/20 transition-all duration-500"
           >
             <span className="text-[10px] font-black text-brand-orange uppercase tracking-widest mb-3 block">
-              {article.categories[0]}
+              {getCategoryDisplay(article.categories[0])}
             </span>
             <h3 className="text-sm font-bold text-brand-black leading-tight group-hover:text-brand-orange transition-colors line-clamp-2">
               {article.title}

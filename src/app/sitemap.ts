@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { articles } from '@/data/articles';
+import { assertValidBlogArticles } from '@/data/blog-categories';
 import { getAllCategories } from '@/data/products-v2';
 import { maklonPages } from '@/data/maklon-pages';
 import { pilotBatch1Routes } from '@/data/seo-pilot/batch-1';
@@ -14,6 +15,7 @@ interface AuditData {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  assertValidBlogArticles(articles);
   const baseUrl = 'https://dreamlab.id';
   const priorityRecrawlSlugs = new Set([
     'biaya-maklon-parfum-moq-kecil',

@@ -13,6 +13,52 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-bodycare-panduan-memulai-brand-sendiri",
+    "title": "Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri",
+    "publishDate": "2026-11-06T00:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "maklon-kosmetik"
+    ],
+    "tags": [
+      "maklon bodycare",
+      "maklon body care",
+      "brand bodycare",
+      "cara membuat brand bodycare",
+      "produksi bodycare",
+      "custom formula bodycare",
+      "jasa maklon bodycare"
+    ],
+    "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.png",
+    "excerpt": "Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.",
+    "readingMinutes": 4
+  },
+  {
+    "slug": "/biaya-maklon-bodycare-target-hpp",
+    "title": "Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP",
+    "publishDate": "2026-11-06T00:00:00+00:00",
+    "author": "Dreamlab Business Development",
+    "categories": [
+      "maklon-kosmetik"
+    ],
+    "tags": [
+      "biaya maklon bodycare",
+      "biaya maklon body care",
+      "hpp bodycare",
+      "cara menghitung hpp bodycare",
+      "harga maklon bodycare",
+      "modal usaha bodycare",
+      "maklon bodycare",
+      "jasa maklon bodycare",
+      "custom formula bodycare",
+      "produksi bodycare",
+      "brand bodycare"
+    ],
+    "featuredImage": null,
+    "excerpt": "Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, dan proses maklon bersama Dreamlab.",
+    "readingMinutes": 1
+  },
+  {
     "slug": "/jasa-maklon-skincare-palembang",
     "title": "Maklon Kosmetik Palembang: Buat Brand Skincare BPOM Sendiri | Dreamlab",
     "publishDate": "2026-10-20T10:00:00+00:00",

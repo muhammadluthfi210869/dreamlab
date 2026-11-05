@@ -4,7 +4,15 @@ import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { articlesMeta, ArticleMeta } from '@/data/articles-meta';
+import {
+  BLOG_CATEGORIES,
+  PILLAR_CATEGORIES,
+  articleMatchesCategory,
+  getCategoryDisplay,
+} from '@/data/blog-categories';
 import { resolveArticleImageSrc } from '@/lib/asset-paths';
+
+export { PILLAR_CATEGORIES };
 
 const MONTHS_ID = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'];
 
@@ -44,19 +52,10 @@ function getReadingTime(article: { readingMinutes: number }) {
   return Math.max(1, article.readingMinutes || 1);
 }
 
-export const PILLAR_CATEGORIES = [
-  'Maklon Kosmetik',
-  'Panduan Bisnis',
-  'Formula & R&D',
-  'Legalitas & Regulasi',
-  'Tren & Inovasi',
-  'AIpreneur',
-  'Event & Aktivitas',
-];
 const POSTS_PER_PAGE = 12;
 
 export default function BlogArchivePage() {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -64,14 +63,17 @@ export default function BlogArchivePage() {
     return sortByDateDesc(articlesMeta.filter(a => (a.categories || []).length > 0));
   }, []);
 
-  const categories = ['All', ...PILLAR_CATEGORIES];
+  const categories = useMemo(
+    () => [{ slug: 'all', display: 'All' }, ...BLOG_CATEGORIES],
+    []
+  );
 
   const filteredArticles = useMemo(() => {
     let result = filteredByBlog;
     
-    // Filter by Category
-    if (activeCategory !== 'All') {
-      result = result.filter(a => (a.categories || []).includes(activeCategory));
+    // Filter by Category (by slug, case-insensitive and tolerant of display name vs slug)
+    if (activeCategory !== 'all') {
+      result = result.filter(a => articleMatchesCategory(a.categories, activeCategory));
     }
     
     // Filter by Search
@@ -80,7 +82,10 @@ export default function BlogArchivePage() {
       result = result.filter(a => 
         a.title.toLowerCase().includes(query) || 
         (a.excerpt || '').toLowerCase().includes(query) ||
-        (a.categories || []).some(cat => cat.toLowerCase().includes(query)) ||
+        (a.categories || []).some(cat =>
+          cat.toLowerCase().includes(query) ||
+          getCategoryDisplay(cat).toLowerCase().includes(query)
+        ) ||
         (a.tags || []).some(tag => tag.toLowerCase().includes(query))
       );
     }
@@ -146,15 +151,15 @@ export default function BlogArchivePage() {
           <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-1">
             {categories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
+                key={cat.slug}
+                onClick={() => handleCategoryChange(cat.slug)}
                 className={`relative whitespace-nowrap px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                  activeCategory === cat 
+                  activeCategory === cat.slug 
                     ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/20 scale-[1.02]' 
                     : 'bg-neutral-50 text-neutral-500 hover:bg-neutral-100 hover:text-brand-black'
                 }`}
               >
-                {cat}
+                {cat.display}
               </button>
             ))}
           </div>
@@ -201,7 +206,7 @@ onChange={(e) => handleSearch(e.target.value)}
                       Kami tidak dapat menemukan artikel yang cocok dengan kata kunci &ldquo;{searchQuery}&rdquo;. Coba periksa ejaan atau gunakan kata kunci lain.
                     </p>
                     <button
-                      onClick={() => handleCategoryChange('All')}
+                      onClick={() => handleCategoryChange('all')}
                       className="px-8 py-3.5 bg-brand-orange text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-brand-black transition-colors shadow-lg shadow-brand-orange/20 cursor-pointer"
                     >
                       Reset Filter
@@ -243,7 +248,7 @@ onChange={(e) => handleSearch(e.target.value)}
 
                           <div className="p-8 md:p-10 flex flex-col flex-grow">
                             <div className="flex items-center gap-3 mb-4 text-[10px] font-black uppercase tracking-widest text-brand-black/40">
-                              <span className="text-brand-orange">{article.categories?.[0] || 'Uncategorized'}</span>
+                              <span className="text-brand-orange">{getCategoryDisplay(article.categories?.[0])}</span>
                               <span>•</span>
                               <span>{getReadingTime(article)} Min Read</span>
                             </div>

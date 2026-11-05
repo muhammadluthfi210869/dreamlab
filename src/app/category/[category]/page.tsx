@@ -4,6 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getSEOData } from '@/lib/seo-service';
 import { resolveArticleImageSrc } from '@/lib/asset-paths';
+import {
+  BLOG_CATEGORIES,
+  articleMatchesCategory,
+  resolveBlogCategoryWithRouteAliases,
+} from '@/data/blog-categories';
 
 let articlesCache: any[] | null = null;
 const THIN_CATEGORY_MAX_ARTICLES = 1;
@@ -22,15 +27,10 @@ interface CategoryPageProps {
 }
 
 export const CATEGORY_SLUG_MAP: Record<string, string> = {
-  'maklon-kosmetik': 'Maklon Kosmetik',
-  'panduan-bisnis': 'Panduan Bisnis',
+  ...Object.fromEntries(BLOG_CATEGORIES.map((c) => [c.slug, c.display])),
   'formula-rd': 'Formula & R&D',
   'formula-r-d': 'Formula & R&D',
   'formula-kosmetik': 'Formula & R&D',
-  'legalitas-regulasi': 'Legalitas & Regulasi',
-  'tren-inovasi': 'Tren & Inovasi',
-  'aipreneur': 'AIpreneur',
-  'event-aktivitas': 'Event & Aktivitas',
   'event': 'Event & Aktivitas',
   'panduan-bisnis-kosmetik': 'Panduan Bisnis',
   'bisnis-kosmetik': 'Panduan Bisnis',
@@ -39,10 +39,12 @@ export const CATEGORY_SLUG_MAP: Record<string, string> = {
 
 // Helper to match slug to category name
 async function getCategoryName(slug: string): Promise<string | null> {
+  const resolved = resolveBlogCategoryWithRouteAliases(slug);
+  if (resolved) return resolved.display;
   if (CATEGORY_SLUG_MAP[slug]) return CATEGORY_SLUG_MAP[slug];
   const articlesList = await getArticles();
   const categoryNames = Array.from(new Set(articlesList.flatMap((a: any) => a.categories).filter(Boolean)));
-  return categoryNames.find((name: string) => 
+  return categoryNames.find((name: string) =>
     name.toLowerCase().replace(/ & /g, '-').replace(/&/g, '').replace(/ /g, '-') === slug ||
     name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-') === slug
   ) || null;
@@ -53,8 +55,10 @@ async function getCategoryArticleCount(slug: string): Promise<number> {
   if (!categoryName) return 0;
 
   const articlesList = await getArticles();
-  return articlesList.filter((a: any) => 
-    a.categories.includes(categoryName) || (a.tags || []).includes(categoryName)
+  return articlesList.filter((a: any) =>
+    articleMatchesCategory(a.categories, slug) ||
+    a.categories.includes(categoryName) ||
+    (a.tags || []).includes(categoryName)
   ).length;
 }
 
@@ -92,14 +96,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: slug } = await params;
   const categoryName = await getCategoryName(slug);
-  
+
   if (!categoryName) {
     notFound();
   }
 
   const articlesList = await getArticles();
   const filteredArticles = articlesList
-    .filter((a: any) => a.categories.includes(categoryName))
+    .filter((a: any) => articleMatchesCategory(a.categories, slug) || a.categories.includes(categoryName))
     .sort((a: any, b: any) => {
       const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
       const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
@@ -111,10 +115,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <main className="min-h-screen bg-[#FFFFFB]">
       <section className="pt-32 pb-16 bg-brand-black relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image 
-            src="/Sampul WEB (1).png" 
-            alt="Dreamlab News & Blog Background" 
-            fill 
+          <Image
+            src="/Sampul WEB (1).png"
+            alt="Dreamlab News & Blog Background"
+            fill
             className="object-cover opacity-30"
             priority
           />
@@ -142,65 +146,63 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <section className="py-24">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {filteredArticles.map((article, index) => (
-              <article 
-                key={index}
-                className="group bg-white rounded-[40px] border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-700"
-              >
-                <Link href={`/${article.slug}/`} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
-                  <Image 
-                    src={resolveArticleImageSrc(article.featuredImage)} 
-                    alt={article.title}
-                    fill
-                    className="object-contain group-hover:scale-105 transition-transform duration-1000"
+            {filteredArticles.map((article, index) => {
+              const articleHref = `/${article.slug.replace(/^\/+/, '').replace(/\/+$/, '')}/`;
+              return (
+                rticle  
+              key = { index }
+              className = "group bg-white rounded-[40px] border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-700"
+                >
+                <Link href={articleHref} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
+                  <mage
+                    sc={resolveArticleImageSrc(article.featuredImage)}
+                    t={article.title}
+                    fll
+                    cassName="object-contain group-hover:scale-105 transition-transform duration-1000"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                </Link>
-                <div className="p-10">
-                   <h3 className="text-xl font-black text-brand-black leading-tight mb-4 group-hover:text-brand-orange transition-colors uppercase">
-                    <Link href={`/${article.slug}/`}>{article.title}</Link>
+                Link>
+                  <div className="p-10">
+                   h3 className="text-xl font-black text-brand-black leading-tight mb-4 group-hover:text-brand-orange transition-colors uppercase">
+                    <Link href={articleHref}>{article.title}</Link>
                   </h3>
-                  <p className="text-gray-500 text-sm line-clamp-3 mb-6">
-                    {article.excerpt}
-                  </p>
-                  <Link 
-                    href={`/${article.slug}/`}
-                    className="text-[10px] font-black uppercase tracking-widest text-brand-orange flex items-center gap-2"
-                  >
-                    Read More <span className="w-4 h-[1px] bg-brand-orange"></span>
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-          
-          {filteredArticles.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-gray-400">Belum ada artikel dalam kategori ini.</p>
-            </div>
-          )}
-        </div>
-      </section>
+                   className="text-gray-500 text-sm line-clamp-3 mb-6">
+                  {rticle.excerpt}
+                  <p>
+                    <Link
+                      hef={articleHref}
+                      cassName="text-[10px] font-black uppercase tracking-widest text-brand-orange flex items-center gap-2"
+                    >
+                      ad More <span className="w-4 h-[1px] bg-brand-orange"></span>
+                  Link>
+                div>
+              article>
+                      );
+            })}
+                    </div>
+
+                    {filteredArticles.length === 0 && (
+                      <div className="text-center py-20">
+                        <p className="text-gray-400">Belum ada artikel dalam kategori ini.</p>
+                      </div>
+                    )}
+                  </div>
+                </section>
     </main>
-  );
+          );
 }
 
-export async function generateStaticParams() {
+          export async function generateStaticParams() {
   const PILLARS = [
-    'maklon-kosmetik',
-    'panduan-bisnis',
-    'formula-rd',
-    'legalitas-regulasi',
-    'tren-inovasi',
-    'aipreneur',
-    'event-aktivitas',
-    'formula-kosmetik',
-    'event',
-    'panduan-bisnis-kosmetik',
-    'bisnis-kosmetik',
-    'dreampreneur-beauty-academy',
-  ];
-  return PILLARS.map(category => ({ category }));
+    ...BLOG_CATEGORIES.map((c) => c.slug),
+          'formula-rd',
+          'formula-kosmetik',
+          'event',
+          'panduan-bisnis-kosmetik',
+          'bisnis-kosmetik',
+          'dreampreneur-beauty-academy',
+          ];
+  return Array.from(new Set(PILLARS)).map(category => ({category}));
 }
 
-export const revalidate = 3600;
+          export const revalidate = 3600;

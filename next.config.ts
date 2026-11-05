@@ -335,6 +335,10 @@ const nextConfig: NextConfig = {
       ['/maklon-kosmetik-jember', '/jasa-maklon-kosmetik-di-jember/'],
       ['/maklon-kosmetik-madiun', '/jasa-maklon-kosmetik-madiun/'],
       ['/maklon-kosmetik-banyuwangi', '/jasa-maklon-kosmetik-banyuwangi/'],
+      // Renamed article slugs from git history
+      ['/dreamlab-kolaborasi-di-klik-fm-bongkar-strategi-bisnis-kosmetik', '/dreamlab-kolaborasi-di-klifm-bongkar-strategi-bisnis-kosmetik/'],
+      ['/peluang-bisnis-deodorant', '/peluang-bisnis-deodorant-ditrend-sport/'],
+      ['/maklon/kosmetik/maklon-bodycare-panduan-memulai-brand-sendiri', '/maklon-bodycare-panduan-memulai-brand-sendiri/'],
     ];
     for (const [source, destination] of wordpressRedirects) {
       addRedirect(source, destination);

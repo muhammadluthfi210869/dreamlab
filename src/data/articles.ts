@@ -20,6 +20,159 @@ import { cityArticles } from './city-articles';
 
 export const articles: Article[] = [
   {
+    slug: '/maklon-bodycare-panduan-memulai-brand-sendiri',
+    title: 'Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri',
+    publishDate: '2026-11-06T00:00:00+00:00',
+    author: 'Dreamlab Business Development',
+    categories: ['maklon-kosmetik'],
+    tags: [
+      'maklon bodycare',
+      'maklon body care',
+      'brand bodycare',
+      'cara membuat brand bodycare',
+      'produksi bodycare',
+      'custom formula bodycare',
+      'jasa maklon bodycare'
+    ],
+    featuredImage: '/assets/images/blog/dreamlab_bodycare_hero.png',
+    excerpt: 'Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.',
+    content: `<div class="elementor-element elementor-element-4cdeffb8 elementor-widget elementor-widget-theme-post-content">
+<p>Ingin memiliki brand bodycare sendiri tetapi masih bingung harus mulai dari produk apa, bagaimana membuat formulanya, dan berapa banyak produk yang perlu diproduksi? Dreamlab membantu Anda memulai dengan proses terstruktur.</p>
+<nav class="article-daftar-isi" style="background:#f8f6f1;border:1px solid #e8e3d8;border-radius:16px;padding:24px 28px;margin:32px 0">
+<p style="font-size:16px;font-weight:800;margin:0 0 14px;color:#1a1a2e">Daftar Isi</p>
+<ol style="margin:0;padding-left:20px;line-height:2.2">
+<li><a href="#apa-itu-maklon-bodycare" style="color:#4a6fa5">Apa Itu Maklon Bodycare?</a></li>
+<li><a href="#mengapa-memulai-brand-bodycare-menarik" style="color:#4a6fa5">Mengapa Memulai Brand Bodycare Menarik?</a></li>
+<li><a href="#cara-menentukan-produk" style="color:#4a6fa5">Cara Menentukan Produk untuk Brand Bodycare Anda</a></li>
+<li><a href="#produk-yang-bisa-dikembangkan" style="color:#4a6fa5">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</a></li>
+<li><a href="#custom-formula" style="color:#4a6fa5">Apakah Bodycare Bisa Menggunakan Custom Formula?</a></li>
+<li><a href="#tren-bodycare" style="color:#4a6fa5">Tren Bodycare: Haruskah Mengikuti Produk yang Sedang Viral?</a></li>
+<li><a href="#menentukan-harga-jual" style="color:#4a6fa5">Bagaimana Menentukan Harga Jual Brand Bodycare?</a></li>
+<li><a href="#apa-yang-menentukan-biaya" style="color:#4a6fa5">Apa yang Menentukan Biaya Maklon Bodycare?</a></li>
+<li><a href="#alur-maklon" style="color:#4a6fa5">Bagaimana Alur Maklon Bodycare di Dreamlab?</a></li>
+<li><a href="#keuntungan" style="color:#4a6fa5">Keuntungan Membangun Brand Bodycare Bersama Dreamlab</a></li>
+<li><a href="#faq" style="color:#4a6fa5">FAQ</a></li>
+</ol>
+</nav>
+<figure style="margin:28px 0;text-align:center">
+<a href="https://dreamlab.id/thankyou/google/">
+<img src="/assets/images/blog/dreamlab_bodycare_hero.png" alt="Maklon Bodycare Hero" width="1200" height="675" loading="lazy" decoding="async" class="bv-tag-attr-replace bv-lazyload-tag-img" style="width:auto;height:auto" bv-data-src="/assets/images/blog/dreamlab_bodycare_hero.png"/>
+</a>
+<figcaption style="font-size:13px;color:#6b7280;margin-top:8px">Konsultasi Maklon Bodycare bersama Dreamlab</figcaption>
+</figure>
+<h2 id="apa-itu-maklon-bodycare">Apa Itu Maklon Bodycare?</h2>
+<p>Maklon bodycare adalah layanan produksi yang memungkinkan brand mengembangkan dan memproduksi produk perawatan tubuh melalui partner manufaktur. Brand owner dapat membawa konsep produk, kemudian tim R&D mengubahnya menjadi formula teknis dan produksi siap.</p>
+<h2 id="mengapa-memulai-brand-bodycare-menarik">Mengapa Memulai Brand Bodycare Menarik?</h2>
+<p>Bodycare memiliki ruang pengembangan yang luas – mulai dari body lotion, body wash, body scrub, hingga body oil. Namun, banyaknya pilihan juga menantang brand baru untuk fokus pada produk yang paling relevan dengan target konsumen.</p>
+<h3>Bodycare Bukan Sekadar Menjual Produk</h3>
+<p>Setiap produk membawa pengalaman: aroma, tekstur, kemasan, dan identitas brand. Memahami nilai ini membantu menentukan positioning yang tepat.</p>
+<h2 id="cara-menentukan-produk">Cara Menentukan Produk untuk Brand Bodycare Anda</h2>
+<p>Langkah pertama adalah memahami target konsumen, kebutuhan yang ingin dijawab, dan karakter produk yang sesuai.</p>
+<h3>Tentukan Target Konsumen</h3>
+<p>Apakah Anda menyasar perempuan muda yang membutuhkan perawatan ringan, atau konsumen premium yang mencari sensasi eksklusif? Penentuan ini memengaruhi pilihan produk, ukuran, dan harga.</p>
+<h3>Tentukan Kebutuhan yang Ingin Dijawab</h3>
+<p>Apakah fokus pada hidrasi, brightening, atau sensasi aroma tertentu? Kebutuhan ini menjadi dasar brief R&D.</p>
+<h3>Tentukan Produk yang Sesuai</h3>
+<p>Pilihlah satu atau dua produk utama (mis. body lotion, body serum) untuk memulai, kemudian kembangkan lini setelah mendapatkan feedback pasar.</p>
+<h2 id="produk-yang-bisa-dikembangkan">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</h2>
+<ul>
+<li><a href="https://dreamlab.id/produk/body-lotion/" style="color:#4a6fa5" target="_blank">Body Lotion</a></li>
+<li><a href="https://dreamlab.id/produk/body-serum/" style="color:#4a6fa5" target="_blank">Body Serum</a></li>
+<li><a href="https://dreamlab.id/produk/body-wash/" style="color:#4a6fa5" target="_blank">Body Wash</a></li>
+<li><a href="https://dreamlab.id/produk/body-scrub/" style="color:#4a6fa5" target="_blank">Body Scrub</a></li>
+<li><a href="https://dreamlab.id/produk/body-butter/" style="color:#4a6fa5" target="_blank">Body Butter</a></li>
+<li><a href="https://dreamlab.id/produk/body-oil/" style="color:#4a6fa5" target="_blank">Body Oil</a></li>
+<li><a href="https://dreamlab.id/produk/shower-gel/" style="color:#4a6fa5" target="_blank">Shower Gel</a></li>
+<li><a href="https://dreamlab.id/produk/deodorant/" style="color:#4a6fa5" target="_blank">Deodorant</a></li>
+</ul>
+<h2 id="custom-formula">Apakah Bodycare Bisa Menggunakan Custom Formula?</h2>
+<p>Ya. Anda tidak perlu memiliki formula sebelumnya. Tim R&D Dreamlab akan mengembangkan formula sesuai brief, termasuk tekstur, aroma, dan karakteristik khusus.</p>
+<h2 id="tren-bodycare">Tren Bodycare: Haruskah Mengikuti Produk yang Sedang Viral?</h2>
+<p>Tren dapat menjadi sumber inspirasi, namun penting untuk mengadaptasi tren menjadi konsep unik yang sesuai dengan brand identity Anda.</p>
+<h2 id="menentukan-harga-jual">Bagaimana Menentukan Harga Jual Brand Bodycare?</h2>
+<p>Target harga jual harus mempertimbangkan positioning, biaya produksi, margin yang diinginkan, dan strategi pemasaran. Menentukan target HPP sejak awal membantu mengarahkan keputusan formulasi dan kemasan.</p>
+<h2 id="apa-yang-menentukan-biaya">Apa yang Menentukan Biaya Maklon Bodycare?</h2>
+<p>Biaya dipengaruhi oleh formula, bahan, ukuran, kemasan, jumlah produksi, dan spesifikasi khusus seperti custom packaging.</p>
+<h2 id="alur-maklon">Bagaimana Alur Maklon Bodycare di Dreamlab?</h2>
+<ol>
+<li><strong>Konsultasi</strong> – Diskusi ide, target konsumen, dan kebutuhan.</li>
+<li><strong>Pengembangan Formula</strong> – R&D merancang formula sesuai brief.</li>
+<li><strong>Sample</strong> – Pembuatan sampel untuk evaluasi.</li>
+<li><strong>Diskusi Hasil</strong> – Review sampel, revisi bila diperlukan.</li>
+<li><strong>Legalitas & Desain</strong> – Persiapan dokumen BPOM dan desain kemasan.</li>
+<li><strong>Produksi</strong> – Produksi massal sesuai spesifikasi.</li>
+</ol>
+<h2 id="keuntungan">Keuntungan Membangun Brand Bodycare Bersama Dreamlab</h2>
+<p>Beyond Manufacturing: layanan yang mencakup konsultasi, R&D, formulasi, sample, legalitas, desain, dan produksi dalam satu ekosistem.</p>
+<ul>
+<li><strong>Juaranya Formula</strong> – Tim R&D berpengalaman menghasilkan formula unggulan.</li>
+<li><strong>1 Client, 1 Formula</strong> – Pendekatan personal untuk tiap brand.</li>
+<li><strong>MOQ Fleksibel</strong> – Disesuaikan dengan kategori dan kebutuhan produksi.</li>
+<li><strong>Pendampingan Ide hingga Produksi</strong> – Fokus brand pada strategi, Dreamlab mengelola teknis.</li>
+<li><strong>Beauty Academy</strong> – Edukasi bagi brand owner tentang produk dan pasar.</li>
+</ul>
+<h2 id="faq">FAQ</h2>
+<details><summary>Apa saja produk bodycare yang bisa dibuat bersama Dreamlab?</summary><p>Dreamlab dapat mengembangkan berbagai kategori bodycare seperti body lotion, body serum, body wash, body scrub, body butter, body oil, shower gel, deodorant, dan lainnya.</p></details>
+<details><summary>Apakah bisa membuat custom formula bodycare?</summary><p>Ya. Tim R&D akan bekerja sama dengan Anda untuk mengembangkan formula yang sesuai dengan konsep dan kebutuhan produk.</p></details>
+<details><summary>Berapa MOQ maklon bodycare di Dreamlab?</summary><p>MOQ fleksibel dan disesuaikan dengan kategori, ukuran, dan spesifikasi produk. Kami dapat menyesuaikannya berdasarkan kebutuhan brand.</p></details>
+<details><summary>Bagaimana cara mulai maklon bodycare di Dreamlab?</summary><p>Siapkan ide produk, target konsumen, target harga, dan perkiraan jumlah produksi, lalu hubungi kami melalui formulir konsultasi untuk memulai diskusi.</p></details>
+<div style="text-align:center;margin:48px 0">
+<a href="https://dreamlab.id/thankyou/google/" style="background:#D98A00;border-radius:50px;font-weight:800;box-shadow:0 4px 12px rgba(217,138,0,0.3);padding:14px 40px;color:#fff;text-decoration:none;display:inline-block">Konsultasi Gratis dengan Dreamlab</a>
+<p style="font-size:13px;color:#555;margin-top:8px">Diskusikan konsep, formula, dan strategi brand Anda tanpa komitmen awal.</p>
+</div>
+<figure style="margin:28px 0;text-align:center">
+<a href="https://dreamlab.id/thankyou/google/">
+<img src="/assets/images/blog/dreamlab_bodycare_bottom.jpg" alt="Maklon Bodycare Bottom" width="1200" height="675" loading="lazy" decoding="async" class="bv-tag-attr-replace bv-lazyload-tag-img" style="width:auto;height:auto" bv-data-src="/assets/images/blog/dreamlab_bodycare_bottom.png"/>
+</a>
+<figcaption style="font-size:13px;color:#6b7280;margin-top:8px">Hubungi Dreamlab untuk konsultasi maklon bodycare.</figcaption>
+</figure>
+<p>Berikut artikel terkait yang dapat membantu Anda:</p>
+<ul>
+<li><a href="https://dreamlab.id/estimasi-biaya-maklon-kosmetik/" style="color:#4a6fa5" target="_blank">Estimasi Biaya Maklon Kosmetik</a></li>
+<li><a href="https://dreamlab.id/maklon-skincare/" style="color:#4a6fa5" target="_blank">Maklon Skincare</a></li>
+<li><a href="https://dreamlab.id/custom-formula/" style="color:#4a6fa5" target="_blank">Custom Formula</a></li>
+<li><a href="https://dreamlab.id/produk-bodycare/" style="color:#4a6fa5" target="_blank">Produk Bodycare</a></li>
+</ul>
+<p>Referensi eksternal:</p>
+<p><a href="https://www.who.int/health-topics/skin-care#tab=tab_1" target="_blank" rel="nofollow" style="color:#4a6fa5">WHO Skin Care Guidelines</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="nofollow" style="color:#4a6fa5">PubMed Study on Body Lotion Efficacy</a></p>
+</div>`,
+    faqs: [],
+    seo: {
+      title: 'Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri',
+      description: 'Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.'
+    }
+  },
+  {
+    slug: '/biaya-maklon-bodycare-target-hpp',
+    title: 'Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP',
+    publishDate: '2026-11-06T00:00:00+00:00',
+    author: 'Dreamlab Business Development',
+    categories: ['maklon-kosmetik'],
+    tags: [
+      'biaya maklon bodycare',
+      'biaya maklon body care',
+      'hpp bodycare',
+      'cara menghitung hpp bodycare',
+      'harga maklon bodycare',
+      'modal usaha bodycare',
+      'maklon bodycare',
+      'jasa maklon bodycare',
+      'custom formula bodycare',
+      'produksi bodycare',
+      'brand bodycare'
+    ],
+    featuredImage: null,
+    excerpt: 'Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, dan proses maklon bersama Dreamlab.',
+    content: `<div class="elementor-element elementor-element-4cdeffb8 elementor-widget elementor-widget-theme-post-content">
+<p>Berapa biaya maklon bodycare? Artikel ini membahas faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, serta proses maklon bersama Dreamlab.</p>
+<div style="text-align:center;margin:48px 0">
+<a href="https://dreamlab.id/thankyou/google/" style="background:#D98A00;border-radius:50px;font-weight:800;box-shadow:0 4px 12px rgba(217,138,0,0.3);padding:14px 40px;color:#fff;text-decoration:none;display:inline-block">Konsultasi Gratis dengan Dreamlab</a>
+<p style="font-size:13px;color:#555;margin-top:8px">Diskusikan konsep, formula, dan strategi brand Anda tanpa komitmen awal.</p>
+</div>
+</div>`,
+    seo: { title: 'Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP', description: 'Berapa biaya maklon bodycare? Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, dan proses maklon bersama Dreamlab.' }
+  },
+  {
     "slug": "/jasa-maklon-skincare-palembang",
     "title": "Maklon Kosmetik Palembang: Buat Brand Skincare BPOM Sendiri | Dreamlab",
     "publishDate": "2026-10-20T10:00:00+00:00",

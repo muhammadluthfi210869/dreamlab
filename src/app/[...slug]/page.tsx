@@ -105,15 +105,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const isValid = seoMapping.some(
       m => normalizeSlug(m.source) === normalized || normalizeSlug(m.destination) === normalized
     );
-    // JANGAN memanggil notFound() di generateMetadata — ini menyebabkan
-    // soft-404 (HTTP 200 + konten 404) di Next.js App Router dengan ISR.
-    // Biarkan komponen DynamicPage (validateSlugOrReject) yang memanggil
-    // notFound() agar status HTTP benar-benar 404 (sama pola dgn /category/).
     if (!isValid) {
-      return {
-        title: '404 - Page Not Found | Dreamlab Maklon Kosmetik',
-        robots: 'noindex, follow',
-      };
+      notFound();
     }
   }
 

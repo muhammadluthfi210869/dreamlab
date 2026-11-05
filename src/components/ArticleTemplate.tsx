@@ -14,6 +14,7 @@ import JsonLd from './JsonLd';
 import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
+import { getCategoryDisplay } from '@/data/blog-categories';
 import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
 
@@ -95,12 +96,12 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               <span>/</span>
               <Link href="/news-blog" className="hover:text-brand-orange transition-colors">News & Blog</Link>
               <span>/</span>
-              <span className="text-neutral-500">{article.categories[0] || 'Uncategorized'}</span>
+              <span className="text-neutral-500">{getCategoryDisplay(article.categories[0])}</span>
             </nav>
 
             <div className="flex flex-wrap items-center justify-center gap-3">
               <span className="bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">
-                {article.categories[0] || 'Uncategorized'}
+                {getCategoryDisplay(article.categories[0])}
               </span>
               <span className="text-neutral-300">•</span>
               <span className="text-neutral-500 text-xs font-bold">
