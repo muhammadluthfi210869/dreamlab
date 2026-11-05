@@ -87,63 +87,111 @@ export const articles: Article[] = [
 <p>Setelah target dan kebutuhan jelas, barulah pilih jenis produknya. Untuk brand baru, mulai dari satu produk utama yang paling kuat hubungannya dengan positioning brand. Produk berikutnya dikembangkan setelah Anda memahami respons pasar.</p>
 
 <h2 id="produk-bodycare-yang-bisa-dikembangkan-bersama-dreamlab">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</h2>
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 my-6 not-prose">
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Daily Care</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Lotion</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Perawatan harian; karakter diarahkan lewat tekstur, sensori, dan aroma</p>
+<div class="flex flex-col gap-3 my-6 not-prose">
+  <a href="/produk/bodycare/body-lotion/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Lotion</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Daily Care</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Perawatan harian; karakter diarahkan lewat tekstur, sensori, dan aroma</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Targeted Care</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Serum</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Perawatan tubuh yang lebih spesifik sesuai fungsi dan positioning</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/body-serum/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Serum</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Targeted Care</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Perawatan tubuh yang lebih spesifik sesuai fungsi dan positioning</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Cleansing</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Wash</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Rutinitas mandi; mudah dijadikan bagian dari satu rangkaian</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/body-wash/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Wash</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Cleansing</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Rutinitas mandi; mudah dijadikan bagian dari satu rangkaian</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Exfoliation</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Scrub</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Konsep eksfoliasi; tekstur dan pengalaman pakai jadi kunci</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/body-scrub/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Scrub</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Exfoliation</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Konsep eksfoliasi; tekstur dan pengalaman pakai jadi kunci</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Intensive Moisture</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Butter</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Tekstur lebih rich untuk positioning tertentu</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/body-butter/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Butter</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Intensive Moisture</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Tekstur lebih rich untuk positioning tertentu</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Sensory Oil</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Oil</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Pengalaman perawatan berbasis oil; sensori dan kemasan penting</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/body-oil/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Oil</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Sensory Oil</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Pengalaman perawatan berbasis oil; sensori dan kemasan penting</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Bath Series</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Shower Gel</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Pelengkap rangkaian mandi sesuai identitas brand</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/shower-gel/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Shower Gel</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Bath Series</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Pelengkap rangkaian mandi sesuai identitas brand</p>
     </div>
-  </div>
-  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
-    <div>
-      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Personal Care</span>
-      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Deodorant</h4>
-      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Perluasan ke kategori personal care</p>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <a href="/produk/bodycare/deodorant/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 mb-1">
+        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Deodorant</h4>
+        <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Personal Care</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Perluasan ke kategori personal care</p>
     </div>
-  </div>
+    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
+      <span class="hidden sm:inline">Lihat Produk</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+    </span>
+  </a>
 </div>
 
 <h2 id="apakah-bodycare-bisa-menggunakan-custom-formula">Apakah Bodycare Bisa Menggunakan Custom Formula?</h2>
