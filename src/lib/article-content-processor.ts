@@ -235,8 +235,8 @@ function removeLegacyTocs(html: string): string {
     });
   }
 
-  // 2d. Wrapper kosong
-  c = c.replace(/<div\b[^>]*>\s*<\/div>/g, '');
+  // 2d. Wrapper kosong (jangan hapus mount container React *-root)
+  c = c.replace(/<div\b(?![^>]*\bid="[^"]*-root")[^>]*>\s*<\/div>/g, '');
   c = c.replace(/<p>\s*<\/p>/gi, '');
   return c;
 }
@@ -290,7 +290,7 @@ function buildToc(heads: Heading[]): string | null {
       return `<li><a href="#${h.id}">${esc(label)}</a></li>`;
     })
     .join('');
-  return `<nav class="article-outline"><p class="article-outline-label">Daftar Isi</p><ol>${items}</ol></nav>`;
+  return `<nav class="article-outline" aria-label="Daftar Isi"><details class="article-outline-details" open><summary class="article-outline-label">Daftar Isi</summary><ol>${items}</ol></details></nav>`;
 }
 
 function injectToc(html: string, toc: string | null): string {
@@ -447,8 +447,9 @@ function processFaq(html: string): string {
   const count = (c.match(/<details\b/gi) || []).length;
   if (count === 0) return c;
 
-  // 7a. Class details → article-faq + buang style
+  // 7a. Class details → article-faq + buang style (skip TOC details)
   c = c.replace(/<details\b([^>]*)>/gi, (_m, attrs: string) => {
+    if (/article-outline-details/i.test(attrs)) return _m;
     let styleless = attrs.replace(/\s*style="[^"]*"/gi, '').trim();
     if (/class="[^"]*article-faq/.test(styleless)) {
       return `<details ${styleless.replace(/class="([^"]*)"/i, 'class="article-faq $1"')}>`;
@@ -456,14 +457,17 @@ function processFaq(html: string): string {
     return `<details class="article-faq"${styleless ? ' ' + styleless : ''}>`;
   });
 
-  // 7b. summary buang style + span "+"
-  c = c.replace(/<summary\b[^>]*>/gi, '<summary>');
+  // 7b. summary buang style + span "+" (preserve article-outline-label)
+  c = c.replace(/<summary\b([^>]*)>/gi, (m, attrs: string) => {
+    if (/article-outline-label/i.test(attrs)) return m;
+    return '<summary>';
+  });
   c = c.replace(/<summary>\s*<span[^>]*>\s*\+\s*<\/span>/gi, '<summary>');
 
   // 7c. judul bila FAQ >=2 tanpa heading sebelumnya
   const nFaq = (c.match(/<details class="article-faq"/g) || []).length;
   if (nFaq >= 2) {
-    const firstFaq = c.indexOf('<details');
+    const firstFaq = c.indexOf('<details class="article-faq"');
     if (firstFaq !== -1) {
       const before = c.slice(0, firstFaq);
       const prevHeading =

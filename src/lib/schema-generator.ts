@@ -19,7 +19,10 @@ export interface SchemaPageData {
 export function generatePageSchema(data: SchemaPageData) {
   const { url, title, description, breadcrumbs, faqs, article, image } = data;
   const siteUrl = 'https://dreamlab.id';
-  const cleanUrl = url.replace(/\/?$/, '/');
+  const fullUrl = url.startsWith('http')
+    ? url
+    : `${siteUrl}${url.startsWith('/') ? url : `/${url}`}`;
+  const cleanUrl = fullUrl.replace(/\/?$/, '/');
 
   const graph: Record<string, unknown>[] = [
     // Organization

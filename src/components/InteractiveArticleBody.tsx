@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Script from 'next/script';
+import { LeadQualificationModal } from './LeadQualificationModal';
 
 interface InteractiveArticleBodyProps {
   htmlContent: string;
@@ -12,10 +13,20 @@ interface InteractiveArticleBodyProps {
  * `@/lib/article-content-processor`) — TOC, heading-id, CTA, FAQ, dan
  * link gambar sudah final saat SSG/ISR. Komponen ini hanya:
  *  1. render string (dangerouslySetInnerHTML) — tanpa re-parse/no-swap.
- *  2. kalau ada blok Instagram, pasang skeleton + muat embed.js sekali.
+ *  2. mount komponen interaktif React (kalkulator, checklist, modal).
+ *  3. kalau ada blok Instagram, pasang skeleton + muat embed.js sekali.
  */
 export default function InteractiveArticleBody({ htmlContent }: InteractiveArticleBodyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [leadModalState, setLeadModalState] = useState<{
+    isOpen: boolean;
+    category: string;
+    budget?: string;
+    extraWaText?: string;
+  }>({
+    isOpen: false,
+    category: 'Bodycare',
+  });
 
   // Hanya muat wrapper embed Instagram bila artikel benar-benar memuat blok IG.
   const hasInstagramEmbed =
@@ -32,6 +43,28 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         import('./ProductionCapacityCalculator').then(({ default: ProductionCapacityCalculator }) => {
           const root = createRoot(calcRoot);
           root.render(React.createElement(ProductionCapacityCalculator));
+        });
+      });
+    }
+
+    const hppCalcRoot = el.querySelector('#hpp-calculator-root');
+    if (hppCalcRoot && !hppCalcRoot.hasAttribute('data-mounted')) {
+      hppCalcRoot.setAttribute('data-mounted', 'true');
+      import('react-dom/client').then(({ createRoot }) => {
+        import('./HppCalculator').then(({ default: HppCalculator }) => {
+          const root = createRoot(hppCalcRoot);
+          root.render(React.createElement(HppCalculator));
+        });
+      });
+    }
+
+    const checklistRoot = el.querySelector('#bodycare-checklist-root');
+    if (checklistRoot && !checklistRoot.hasAttribute('data-mounted')) {
+      checklistRoot.setAttribute('data-mounted', 'true');
+      import('react-dom/client').then(({ createRoot }) => {
+        import('./ConsultationChecklist').then(({ default: ConsultationChecklist }) => {
+          const root = createRoot(checklistRoot);
+          root.render(React.createElement(ConsultationChecklist));
         });
       });
     }
@@ -80,6 +113,19 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
 
     const handleCarouselClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+
+      const modalBtn = target.closest<HTMLElement>('[data-open-lead-modal]');
+      if (modalBtn) {
+        e.preventDefault();
+        const cat = modalBtn.getAttribute('data-category') || 'Bodycare';
+        const budget = modalBtn.getAttribute('data-budget') || undefined;
+        setLeadModalState({
+          isOpen: true,
+          category: cat,
+          budget,
+        });
+        return;
+      }
 
       const dotBtn = target.closest<HTMLButtonElement>('[data-carousel-dot]');
       if (dotBtn && track) {
@@ -170,6 +216,16 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           }}
         />
       )}
+      <LeadQualificationModal
+        isOpen={leadModalState.isOpen}
+        onClose={() => setLeadModalState((prev) => ({ ...prev, isOpen: false }))}
+        defaultCategory={leadModalState.category}
+        defaultBudget={leadModalState.budget}
+        extraWaText={leadModalState.extraWaText}
+        source="article-cta"
+        channel="other"
+        landingPage={typeof window !== 'undefined' ? window.location.pathname : ''}
+      />
     </>
   );
 }

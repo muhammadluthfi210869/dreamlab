@@ -3,6 +3,7 @@ export interface Article {
   slug: string;
   title: string;
   publishDate: string;
+  updatedDate?: string;
   author: string;
   categories: string[];
   tags?: string[];
@@ -23,120 +24,272 @@ export const articles: Article[] = [
     slug: '/maklon-bodycare-panduan-memulai-brand-sendiri',
     title: 'Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri',
     publishDate: '2026-11-06T00:00:00+00:00',
+    updatedDate: '2026-11-06T00:00:00+00:00',
     author: 'Dreamlab Business Development',
-    categories: ['maklon-kosmetik'],
+    categories: ['Maklon Kosmetik'],
     tags: [
       'maklon bodycare',
-      'maklon body care',
       'brand bodycare',
+      'custom formula bodycare',
+      'target HPP',
+      'maklon body care',
       'cara membuat brand bodycare',
       'produksi bodycare',
-      'custom formula bodycare',
       'jasa maklon bodycare'
     ],
-    featuredImage: '/assets/images/blog/dreamlab_bodycare_hero.png',
+    featuredImage: '/assets/images/blog/dreamlab_bodycare_hero.jpg',
     excerpt: 'Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.',
     content: `<div class="elementor-element elementor-element-4cdeffb8 elementor-widget elementor-widget-theme-post-content">
-<p>Ingin memiliki brand bodycare sendiri tetapi masih bingung harus mulai dari produk apa, bagaimana membuat formulanya, dan berapa banyak produk yang perlu diproduksi? Dreamlab membantu Anda memulai dengan proses terstruktur.</p>
-<nav class="article-daftar-isi" style="background:#f8f6f1;border:1px solid #e8e3d8;border-radius:16px;padding:24px 28px;margin:32px 0">
-<p style="font-size:16px;font-weight:800;margin:0 0 14px;color:#1a1a2e">Daftar Isi</p>
-<ol style="margin:0;padding-left:20px;line-height:2.2">
-<li><a href="#apa-itu-maklon-bodycare" style="color:#4a6fa5">Apa Itu Maklon Bodycare?</a></li>
-<li><a href="#mengapa-memulai-brand-bodycare-menarik" style="color:#4a6fa5">Mengapa Memulai Brand Bodycare Menarik?</a></li>
-<li><a href="#cara-menentukan-produk" style="color:#4a6fa5">Cara Menentukan Produk untuk Brand Bodycare Anda</a></li>
-<li><a href="#produk-yang-bisa-dikembangkan" style="color:#4a6fa5">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</a></li>
-<li><a href="#custom-formula" style="color:#4a6fa5">Apakah Bodycare Bisa Menggunakan Custom Formula?</a></li>
-<li><a href="#tren-bodycare" style="color:#4a6fa5">Tren Bodycare: Haruskah Mengikuti Produk yang Sedang Viral?</a></li>
-<li><a href="#menentukan-harga-jual" style="color:#4a6fa5">Bagaimana Menentukan Harga Jual Brand Bodycare?</a></li>
-<li><a href="#apa-yang-menentukan-biaya" style="color:#4a6fa5">Apa yang Menentukan Biaya Maklon Bodycare?</a></li>
-<li><a href="#alur-maklon" style="color:#4a6fa5">Bagaimana Alur Maklon Bodycare di Dreamlab?</a></li>
-<li><a href="#keuntungan" style="color:#4a6fa5">Keuntungan Membangun Brand Bodycare Bersama Dreamlab</a></li>
-<li><a href="#faq" style="color:#4a6fa5">FAQ</a></li>
-</ol>
-</nav>
-<figure style="margin:28px 0;text-align:center">
-<a href="https://dreamlab.id/thankyou/google/">
-<img src="/assets/images/blog/dreamlab_bodycare_hero.png" alt="Maklon Bodycare Hero" width="1200" height="675" loading="lazy" decoding="async" class="bv-tag-attr-replace bv-lazyload-tag-img" style="width:auto;height:auto" bv-data-src="/assets/images/blog/dreamlab_bodycare_hero.png"/>
-</a>
-<figcaption style="font-size:13px;color:#6b7280;margin-top:8px">Konsultasi Maklon Bodycare bersama Dreamlab</figcaption>
-</figure>
-<h2 id="apa-itu-maklon-bodycare">Apa Itu Maklon Bodycare?</h2>
-<p>Maklon bodycare adalah layanan produksi yang memungkinkan brand mengembangkan dan memproduksi produk perawatan tubuh melalui partner manufaktur. Brand owner dapat membawa konsep produk, kemudian tim R&D mengubahnya menjadi formula teknis dan produksi siap.</p>
-<h2 id="mengapa-memulai-brand-bodycare-menarik">Mengapa Memulai Brand Bodycare Menarik?</h2>
-<p>Bodycare memiliki ruang pengembangan yang luas – mulai dari body lotion, body wash, body scrub, hingga body oil. Namun, banyaknya pilihan juga menantang brand baru untuk fokus pada produk yang paling relevan dengan target konsumen.</p>
-<h3>Bodycare Bukan Sekadar Menjual Produk</h3>
-<p>Setiap produk membawa pengalaman: aroma, tekstur, kemasan, dan identitas brand. Memahami nilai ini membantu menentukan positioning yang tepat.</p>
-<h2 id="cara-menentukan-produk">Cara Menentukan Produk untuk Brand Bodycare Anda</h2>
-<p>Langkah pertama adalah memahami target konsumen, kebutuhan yang ingin dijawab, dan karakter produk yang sesuai.</p>
-<h3>Tentukan Target Konsumen</h3>
-<p>Apakah Anda menyasar perempuan muda yang membutuhkan perawatan ringan, atau konsumen premium yang mencari sensasi eksklusif? Penentuan ini memengaruhi pilihan produk, ukuran, dan harga.</p>
-<h3>Tentukan Kebutuhan yang Ingin Dijawab</h3>
-<p>Apakah fokus pada hidrasi, brightening, atau sensasi aroma tertentu? Kebutuhan ini menjadi dasar brief R&D.</p>
-<h3>Tentukan Produk yang Sesuai</h3>
-<p>Pilihlah satu atau dua produk utama (mis. body lotion, body serum) untuk memulai, kemudian kembangkan lini setelah mendapatkan feedback pasar.</p>
-<h2 id="produk-yang-bisa-dikembangkan">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</h2>
-<ul>
-<li><a href="https://dreamlab.id/produk/body-lotion/" style="color:#4a6fa5" target="_blank">Body Lotion</a></li>
-<li><a href="https://dreamlab.id/produk/body-serum/" style="color:#4a6fa5" target="_blank">Body Serum</a></li>
-<li><a href="https://dreamlab.id/produk/body-wash/" style="color:#4a6fa5" target="_blank">Body Wash</a></li>
-<li><a href="https://dreamlab.id/produk/body-scrub/" style="color:#4a6fa5" target="_blank">Body Scrub</a></li>
-<li><a href="https://dreamlab.id/produk/body-butter/" style="color:#4a6fa5" target="_blank">Body Butter</a></li>
-<li><a href="https://dreamlab.id/produk/body-oil/" style="color:#4a6fa5" target="_blank">Body Oil</a></li>
-<li><a href="https://dreamlab.id/produk/shower-gel/" style="color:#4a6fa5" target="_blank">Shower Gel</a></li>
-<li><a href="https://dreamlab.id/produk/deodorant/" style="color:#4a6fa5" target="_blank">Deodorant</a></li>
-</ul>
-<h2 id="custom-formula">Apakah Bodycare Bisa Menggunakan Custom Formula?</h2>
-<p>Ya. Anda tidak perlu memiliki formula sebelumnya. Tim R&D Dreamlab akan mengembangkan formula sesuai brief, termasuk tekstur, aroma, dan karakteristik khusus.</p>
-<h2 id="tren-bodycare">Tren Bodycare: Haruskah Mengikuti Produk yang Sedang Viral?</h2>
-<p>Tren dapat menjadi sumber inspirasi, namun penting untuk mengadaptasi tren menjadi konsep unik yang sesuai dengan brand identity Anda.</p>
-<h2 id="menentukan-harga-jual">Bagaimana Menentukan Harga Jual Brand Bodycare?</h2>
-<p>Target harga jual harus mempertimbangkan positioning, biaya produksi, margin yang diinginkan, dan strategi pemasaran. Menentukan target HPP sejak awal membantu mengarahkan keputusan formulasi dan kemasan.</p>
-<h2 id="apa-yang-menentukan-biaya">Apa yang Menentukan Biaya Maklon Bodycare?</h2>
-<p>Biaya dipengaruhi oleh formula, bahan, ukuran, kemasan, jumlah produksi, dan spesifikasi khusus seperti custom packaging.</p>
-<h2 id="alur-maklon">Bagaimana Alur Maklon Bodycare di Dreamlab?</h2>
-<ol>
-<li><strong>Konsultasi</strong> – Diskusi ide, target konsumen, dan kebutuhan.</li>
-<li><strong>Pengembangan Formula</strong> – R&D merancang formula sesuai brief.</li>
-<li><strong>Sample</strong> – Pembuatan sampel untuk evaluasi.</li>
-<li><strong>Diskusi Hasil</strong> – Review sampel, revisi bila diperlukan.</li>
-<li><strong>Legalitas & Desain</strong> – Persiapan dokumen BPOM dan desain kemasan.</li>
-<li><strong>Produksi</strong> – Produksi massal sesuai spesifikasi.</li>
-</ol>
-<h2 id="keuntungan">Keuntungan Membangun Brand Bodycare Bersama Dreamlab</h2>
-<p>Beyond Manufacturing: layanan yang mencakup konsultasi, R&D, formulasi, sample, legalitas, desain, dan produksi dalam satu ekosistem.</p>
-<ul>
-<li><strong>Juaranya Formula</strong> – Tim R&D berpengalaman menghasilkan formula unggulan.</li>
-<li><strong>1 Client, 1 Formula</strong> – Pendekatan personal untuk tiap brand.</li>
-<li><strong>MOQ Fleksibel</strong> – Disesuaikan dengan kategori dan kebutuhan produksi.</li>
-<li><strong>Pendampingan Ide hingga Produksi</strong> – Fokus brand pada strategi, Dreamlab mengelola teknis.</li>
-<li><strong>Beauty Academy</strong> – Edukasi bagi brand owner tentang produk dan pasar.</li>
-</ul>
-<h2 id="faq">FAQ</h2>
-<details><summary>Apa saja produk bodycare yang bisa dibuat bersama Dreamlab?</summary><p>Dreamlab dapat mengembangkan berbagai kategori bodycare seperti body lotion, body serum, body wash, body scrub, body butter, body oil, shower gel, deodorant, dan lainnya.</p></details>
-<details><summary>Apakah bisa membuat custom formula bodycare?</summary><p>Ya. Tim R&D akan bekerja sama dengan Anda untuk mengembangkan formula yang sesuai dengan konsep dan kebutuhan produk.</p></details>
-<details><summary>Berapa MOQ maklon bodycare di Dreamlab?</summary><p>MOQ fleksibel dan disesuaikan dengan kategori, ukuran, dan spesifikasi produk. Kami dapat menyesuaikannya berdasarkan kebutuhan brand.</p></details>
-<details><summary>Bagaimana cara mulai maklon bodycare di Dreamlab?</summary><p>Siapkan ide produk, target konsumen, target harga, dan perkiraan jumlah produksi, lalu hubungi kami melalui formulir konsultasi untuk memulai diskusi.</p></details>
-<div style="text-align:center;margin:48px 0">
-<a href="https://dreamlab.id/thankyou/google/" style="background:#D98A00;border-radius:50px;font-weight:800;box-shadow:0 4px 12px rgba(217,138,0,0.3);padding:14px 40px;color:#fff;text-decoration:none;display:inline-block">Konsultasi Gratis dengan Dreamlab</a>
-<p style="font-size:13px;color:#555;margin-top:8px">Diskusikan konsep, formula, dan strategi brand Anda tanpa komitmen awal.</p>
+<p>Ingin memiliki brand bodycare sendiri, tetapi masih bingung harus mulai dari produk apa, bagaimana membuat formulanya, dan berapa banyak produk yang perlu diproduksi? Membangun brand bodycare tidak cukup hanya dengan menentukan nama dan memilih kemasan. Anda juga perlu tahu siapa target konsumen, kebutuhan apa yang ingin dijawab, karakter produk, hingga bagaimana produk tersebut diproduksi.</p>
+<p>Salah satu cara memulainya adalah bekerja sama dengan perusahaan maklon. Anda tidak perlu membangun pabrik sendiri, karena pengembangan dan produksi dilakukan bersama partner yang punya kemampuan formulasi dan manufaktur. Artikel ini membahas langkah-langkahnya, lengkap dengan kalkulator target HPP untuk membantu Anda menghitung ruang biaya produksi dari target harga jual.</p>
+
+<div class="my-6 rounded-2xl border border-amber-300/70 bg-[#fff9ef] p-5 sm:p-6 not-prose">
+  <div class="flex items-center gap-2.5 mb-3">
+    <svg class="w-5 h-5 text-[#D98A00] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    <p class="m-0 text-sm sm:text-base font-extrabold uppercase tracking-wider text-[#8c5b00]">Ringkasan 30 Detik</p>
+  </div>
+  <ul class="m-0 pl-5 space-y-2 text-xs sm:text-sm text-slate-800 font-medium list-disc">
+    <li>Mulai dari target konsumen dan kebutuhan mereka, bukan dari produk yang sedang viral.</li>
+    <li>Untuk brand baru, satu produk utama biasanya lebih aman daripada banyak SKU sekaligus.</li>
+    <li>Custom formula bisa dimulai dari brief sederhana: tekstur, aroma, fungsi, target harga.</li>
+    <li>Tentukan target harga jual dan target HPP sejak awal, supaya formula dan kemasan bisa disesuaikan sebelum produksi.</li>
+    <li>MOQ mengikuti kategori, formula, dan kemasan. Pilih jumlah produksi yang sesuai modal dan target penjualan.</li>
+  </ul>
 </div>
+
+<h2 id="apa-itu-maklon-bodycare">Apa Itu Maklon Bodycare?</h2>
+<p>Maklon bodycare adalah layanan produksi yang memungkinkan brand mengembangkan dan memproduksi produk perawatan tubuh melalui partner manufaktur seperti <a href="/jasa-maklon-kosmetik" style="color:#4a6fa5;font-weight:700">jasa maklon kosmetik</a> Dreamlab. Brand owner membawa konsep produk, lalu mendiskusikannya dengan tim formulasi dan produksi.</p>
+<p>Maklon tidak selalu berarti memakai formula yang sudah jadi. Anda bisa mendiskusikan kebutuhan berdasarkan target konsumen, karakter formula, tekstur, aroma, kemasan, hingga target harga. Tim R&amp;D kemudian menerjemahkan brief tersebut menjadi arah pengembangan yang lebih teknis.</p>
+<p>Dengan model ini, Anda bisa fokus pada strategi brand, pemasaran, dan penjualan, sementara pengembangan dan produksi dilakukan bersama partner. Semakin jelas brief yang Anda berikan, semakin mudah kebutuhan produk diterjemahkan.</p>
+
+<h2 id="mengapa-memulai-brand-bodycare-menarik">Mengapa Memulai Brand Bodycare Menarik?</h2>
+<p><a href="/produk/bodycare" style="color:#4a6fa5;font-weight:700">Kategori produk bodycare</a> punya ruang pengembangan yang luas: body lotion, body wash, body scrub, body serum, body butter, body oil, shower gel, hingga deodorant. Pilihan yang banyak ini memungkinkan Anda menyusun konsep produk sesuai kebutuhan target konsumen.</p>
+<p>Namun, pilihan yang banyak juga bisa menjadi jebakan. Semakin banyak SKU di awal, semakin besar modal untuk formula, kemasan, produksi, stok, dan pemasaran. Karena itu, lihat peluang bodycare dari sisi strategi, bukan hanya tren.</p>
+
+<h3>Bodycare Bukan Sekadar Menjual Produk</h3>
+<p>Saat membeli body lotion, konsumen tidak hanya membeli isi botolnya. Mereka membeli pengalaman: aroma, tekstur, kemasan, persepsi kualitas, dan identitas brand. Karena itu, membangun brand bodycare dimulai dari pertanyaan "produk ini untuk siapa dan diposisikan seperti apa?", bukan hanya "formula apa yang bagus?".</p>
+
+<h2 id="cara-menentukan-produk-untuk-brand-bodycare-anda">Cara Menentukan Produk untuk Brand Bodycare Anda</h2>
+<p>Jangan memilih produk hanya karena sedang ramai di media sosial. Mulailah dari tiga langkah berikut.</p>
+
 <figure style="margin:28px 0;text-align:center">
-<a href="https://dreamlab.id/thankyou/google/">
-<img src="/assets/images/blog/dreamlab_bodycare_bottom.jpg" alt="Maklon Bodycare Bottom" width="1200" height="675" loading="lazy" decoding="async" class="bv-tag-attr-replace bv-lazyload-tag-img" style="width:auto;height:auto" bv-data-src="/assets/images/blog/dreamlab_bodycare_bottom.png"/>
-</a>
-<figcaption style="font-size:13px;color:#6b7280;margin-top:8px">Hubungi Dreamlab untuk konsultasi maklon bodycare.</figcaption>
+  <img src="/assets/images/blog/dreamlab_bodycare_mid.jpg" alt="Cara Menentukan Produk Bodycare untuk Brand Anda" width="1200" height="675" loading="lazy" decoding="async" style="width:100%;max-width:860px;height:auto;border-radius:16px;margin:0 auto" />
+  <figcaption style="font-size:13px;color:#6b7280;margin-top:8px">Tiga langkah menentukan produk bodycare untuk brand Anda: Target Konsumen, Kebutuhan, dan Produk yang Paling Sesuai</figcaption>
 </figure>
-<p>Berikut artikel terkait yang dapat membantu Anda:</p>
+
+<h3>1. Tentukan Target Konsumen</h3>
+<p>Kebutuhan mahasiswa berbeda dengan pekerja kantoran atau konsumen produk premium. Pahami kebiasaan, preferensi, dan kemampuan beli target market Anda. Semakin spesifik target konsumen, semakin mudah menentukan jenis produk, ukuran, aroma, tekstur, kemasan, dan harga jual. Lebih baik kuat di satu segmen dulu, lalu memperluas pasar.</p>
+
+<h3>2. Tentukan Kebutuhan yang Ingin Dijawab</h3>
+<p>"Body lotion premium" masih terlalu umum. Bandingkan dengan "body lotion bertekstur ringan yang cepat menyerap untuk dipakai setiap hari". Kalimat kedua memberi gambaran pengalaman yang jelas, dan dari situ tim R&amp;D bisa menerjemahkannya ke formula.</p>
+
+<h3>3. Pilih Produk yang Paling Sesuai</h3>
+<p>Setelah target dan kebutuhan jelas, barulah pilih jenis produknya. Untuk brand baru, mulai dari satu produk utama yang paling kuat hubungannya dengan positioning brand. Produk berikutnya dikembangkan setelah Anda memahami respons pasar.</p>
+
+<h2 id="produk-bodycare-yang-bisa-dikembangkan-bersama-dreamlab">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</h2>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 my-6 not-prose">
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Daily Care</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Lotion</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Perawatan harian; karakter diarahkan lewat tekstur, sensori, dan aroma</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Targeted Care</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Serum</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Perawatan tubuh yang lebih spesifik sesuai fungsi dan positioning</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Cleansing</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Wash</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Rutinitas mandi; mudah dijadikan bagian dari satu rangkaian</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Exfoliation</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Scrub</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Konsep eksfoliasi; tekstur dan pengalaman pakai jadi kunci</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Intensive Moisture</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Butter</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Tekstur lebih rich untuk positioning tertentu</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Sensory Oil</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Body Oil</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Pengalaman perawatan berbasis oil; sensori dan kemasan penting</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Bath Series</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Shower Gel</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Pelengkap rangkaian mandi sesuai identitas brand</p>
+    </div>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 shadow-xs flex flex-col justify-between">
+    <div>
+      <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200] mb-2">Personal Care</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Deodorant</h4>
+      <p class="mt-1.5 text-xs text-slate-600 leading-relaxed m-0">Perluasan ke kategori personal care</p>
+    </div>
+  </div>
+</div>
+
+<h2 id="apakah-bodycare-bisa-menggunakan-custom-formula">Apakah Bodycare Bisa Menggunakan Custom Formula?</h2>
+<p>Bisa. Anda tidak perlu punya formula sendiri sebelum datang ke Dreamlab. Ide produk, target konsumen, dan gambaran karakter produk sudah cukup untuk memulai diskusi.</p>
+<p>Contoh brief: body lotion dengan tekstur ringan, cepat menyerap, tidak lengket, dengan aroma tertentu. Tim R&amp;D akan membahasnya untuk menentukan arah formulasi.</p>
+<p>Custom formula bukan berarti memasukkan sebanyak mungkin bahan aktif. Formula harus punya tujuan yang jelas dan sesuai karakter produk. Dreamlab memegang prinsip <strong>1 Client, 1 Formula</strong>, sehingga setiap brand mengembangkan produk sesuai konsepnya sendiri, bukan produk yang sama persis dengan brand lain.</p>
+
+<h2 id="tren-bodycare-perlukah-mengikuti-produk-yang-viral">Tren Bodycare: Perlukah Mengikuti Produk yang Viral?</h2>
+<p>Tren berguna untuk membaca perubahan kebutuhan konsumen, format produk, atau tekstur yang sedang diminati. Tetapi tren cepat berganti. Brand yang hanya meniru produk viral tanpa memahami alasan konsumen menyukainya akan kehilangan relevansi saat tren berubah.</p>
+
+<h3>Dari Tren Menjadi Konsep Produk</h3>
+<p>Ganti pertanyaan "bagaimana membuat produk yang sama?" dengan "apa yang membuat konsumen tertarik pada produk itu?". Jawabannya bisa Anda kembangkan lewat tekstur, aroma, kemasan, target konsumen, atau positioning yang berbeda. Tren menjadi inspirasi untuk inovasi, bukan bahan untuk meniru.</p>
+
+<h2 id="bagaimana-menentukan-harga-jual-brand-bodycare">Bagaimana Menentukan Harga Jual Brand Bodycare?</h2>
+<p>Harga jual tidak cukup ditentukan dengan melihat harga kompetitor. Pertimbangkan positioning brand, target konsumen, biaya produksi, channel penjualan, marketing, dan margin yang ingin dicapai.</p>
+<p>Cara paling praktis adalah menentukan target harga jual sejak awal, lalu menghitung mundur berapa HPP (harga pokok produksi) yang masih masuk akal. Misalnya, Anda ingin menjual body lotion seharga Rp100.000. Dari angka itu, Anda bisa melihat ruang biaya untuk formula, kemasan, dan produksi. Kalau spesifikasi yang diinginkan ternyata terlalu mahal, penyesuaian bisa dilakukan sebelum produksi.</p>
+<p>Coba hitung dengan kalkulator di bawah ini.</p>
+
+<div id="hpp-calculator-root"></div>
+
+<p>Setelah mendapat angka target HPP, bawa hasil simulasi ini saat konsultasi. Angka tersebut membantu tim menyesuaikan formula, ukuran, dan kemasan dengan target bisnis Anda. Pembahasan lebih detail ada di artikel <a href="/biaya-maklon-bodycare-target-hpp/" style="color:#4a6fa5;font-weight:700">Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP</a>.</p>
+
+<h2 id="apa-yang-menentukan-biaya-maklon-bodycare">Apa yang Menentukan Biaya Maklon Bodycare?</h2>
+<p>Tidak ada satu angka yang berlaku untuk semua produk bodycare. Dalam perencanaan <a href="/estimasi-biaya-maklon-kosmetik" style="color:#4a6fa5;font-weight:700">estimasi biaya maklon kosmetik</a>, biaya dipengaruhi oleh:</p>
 <ul>
-<li><a href="https://dreamlab.id/estimasi-biaya-maklon-kosmetik/" style="color:#4a6fa5" target="_blank">Estimasi Biaya Maklon Kosmetik</a></li>
-<li><a href="https://dreamlab.id/maklon-skincare/" style="color:#4a6fa5" target="_blank">Maklon Skincare</a></li>
-<li><a href="https://dreamlab.id/custom-formula/" style="color:#4a6fa5" target="_blank">Custom Formula</a></li>
-<li><a href="https://dreamlab.id/produk-bodycare/" style="color:#4a6fa5" target="_blank">Produk Bodycare</a></li>
+  <li><strong>Formula dan bahan:</strong> jenis dan kadar bahan aktif, kompleksitas formula</li>
+  <li><strong>Ukuran produk:</strong> volume per kemasan</li>
+  <li><strong>Kemasan:</strong> standar atau custom, material, dan finishing</li>
+  <li><strong>Jumlah produksi:</strong> makin besar jumlahnya, biaya per pcs umumnya lebih efisien</li>
+  <li><strong>Spesifikasi lain:</strong> aroma, label, dus, dan kebutuhan khusus</li>
 </ul>
-<p>Referensi eksternal:</p>
-<p><a href="https://www.who.int/health-topics/skin-care#tab=tab_1" target="_blank" rel="nofollow" style="color:#4a6fa5">WHO Skin Care Guidelines</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="nofollow" style="color:#4a6fa5">PubMed Study on Body Lotion Efficacy</a></p>
+<p>Dua brand yang sama-sama membuat body lotion bisa punya biaya berbeda, misalnya satu memakai kemasan standar dan yang lain memakai custom packaging dengan finishing khusus. Karena itu, daripada bertanya "berapa harga maklon bodycare?", berikan brief yang lengkap supaya estimasinya akurat.</p>
+
+<h2 id="alur-maklon-bodycare-di-dreamlab">Alur Maklon Bodycare di Dreamlab</h2>
+<div class="my-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 not-prose">
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative">
+    <div class="flex items-center gap-3 mb-2.5">
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-xs font-black text-white">1</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Konsultasi</h4>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Bahas ide produk, target konsumen, konsep formula, target harga, ukuran, dan perkiraan jumlah produksi. Formula final tidak diperlukan.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative">
+    <div class="flex items-center gap-3 mb-2.5">
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-xs font-black text-white">2</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Pengembangan formula</h4>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Tim R&amp;D mengembangkan formula sesuai brief dan karakter yang ingin dicapai.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative">
+    <div class="flex items-center gap-3 mb-2.5">
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-xs font-black text-white">3</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Sample</h4>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Hasil pengembangan dibuat dalam bentuk produk untuk dievaluasi.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative">
+    <div class="flex items-center gap-3 mb-2.5">
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-xs font-black text-white">4</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Diskusi hasil</h4>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Sensori, tekstur, dan kesesuaian dengan brief dibahas bersama; penyesuaian sesuai ketentuan yang berlaku.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative">
+    <div class="flex items-center gap-3 mb-2.5">
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-xs font-black text-white">5</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Legalitas &amp; desain</h4>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Persiapan legalitas dan desain kemasan sesuai spesifikasi produk.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative">
+    <div class="flex items-center gap-3 mb-2.5">
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-xs font-black text-white">6</span>
+      <h4 class="text-sm sm:text-base font-extrabold text-slate-900 m-0">Produksi</h4>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Produk diproduksi berdasarkan formula dan spesifikasi yang disepakati, lalu siap didistribusikan.</p>
+  </div>
+</div>
+
+<h2 id="keuntungan-membangun-brand-bodycare-bersama-dreamlab">Keuntungan Membangun Brand Bodycare Bersama Dreamlab</h2>
+<p>Dreamlab menjalankan pendekatan <strong>Beyond Manufacturing</strong>: konsultasi, R&amp;D, formulasi, sample, legalitas, desain, dan produksi saling terhubung.</p>
+<ul>
+  <li><strong>Juaranya Formula:</strong> R&amp;D dan formulasi adalah kekuatan utama; diskusi dimulai dari kebutuhan produk.</li>
+  <li><strong>1 Client, 1 Formula:</strong> formula dikembangkan sesuai brief tiap brand.</li>
+  <li><strong>MOQ fleksibel:</strong> jumlah produksi dibahas sesuai kategori dan spesifikasi.</li>
+  <li><strong>Pendampingan dari ide hingga produksi:</strong> semua tahap dikelola terarah.</li>
+  <li><strong>Fasilitas &amp; legalitas:</strong> pabrik CPKB Grade A, dukungan pengurusan BPOM dan Halal.</li>
+  <li><strong>Beauty Academy:</strong> edukasi produk, formula, tren, dan bisnis untuk brand owner.</li>
+</ul>
+
+<h2 id="berapa-moq-maklon-bodycare-di-dreamlab">Berapa MOQ Maklon Bodycare di Dreamlab?</h2>
+<p>MOQ tidak bisa disamaratakan. Kebutuhan jumlah produksi dipengaruhi kategori, formula, bahan, ukuran, kemasan, dan spesifikasi. Body lotion dengan kemasan tertentu bisa berbeda kebutuhannya dengan body scrub atau body wash.</p>
+<p>Sampaikan perkiraan jumlah produksi dan kemampuan modal saat konsultasi. Jangan hanya mengejar MOQ terkecil: produksi terlalu banyak bisa membuat stok menumpuk, sedangkan terlalu sedikit bisa membuat biaya per pcs kurang efisien.</p>
+
+<h2 id="checklist-sebelum-konsultasi">Checklist Sebelum Konsultasi</h2>
+<div id="bodycare-checklist-root"></div>
+<p>Belum semuanya final? Tidak masalah. Konsultasi justru membantu memperjelas bagian yang belum ditentukan. Mulailah dari pertanyaan "produk apa yang relevan untuk target market saya?", bukan "produk apa yang paling murah dibuat?".</p>
+
+<h2 id="yuk-kembangkan-brand-bodycare-anda-bersama-dreamlab">Yuk, Kembangkan Brand Bodycare Anda Bersama Dreamlab</h2>
+<p>Membangun brand bodycare bukan sekadar menempelkan nama pada sebuah produk. Anda perlu menentukan target konsumen, memilih produk yang tepat, mengembangkan formula, menentukan kemasan, menghitung target harga, dan merencanakan produksi.</p>
+<p>Kalau Anda sudah punya ide tetapi belum tahu cara mengubahnya menjadi produk, bawa ide, target konsumen, target harga, dan hasil simulasi HPP Anda untuk dibahas bersama tim R&amp;D Dreamlab.</p>
+
+<div class="article-cta my-8 rounded-3xl bg-gradient-to-r from-[#0a1b38] via-[#0f2a58] to-[#163870] p-6 sm:p-10 text-center text-white shadow-xl not-prose">
+  <span class="inline-block rounded-full bg-amber-400/20 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-widest text-amber-300 mb-3">Konsultasi Brand Bodycare</span>
+  <h3 class="text-xl sm:text-2xl font-black text-white mb-2">Siap Memulai Brand Bodycare Anda?</h3>
+  <p class="text-xs sm:text-sm text-blue-100/90 max-w-xl mx-auto mb-6 leading-relaxed">Diskusikan ide produk, custom formula, kemasan, MOQ, dan target HPP Anda langsung bersama Business Consultant &amp; tim R&amp;D Dreamlab.</p>
+  <button type="button" data-open-lead-modal="true" data-category="Bodycare" class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-8 py-4 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-lg shadow-amber-500/30 hover:brightness-105 transition-all cursor-pointer border-0">
+    <span>Konsultasikan Produk Anda</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+  </button>
+</div>
+
+<h2 id="faq-maklon-bodycare">FAQ Maklon Bodycare</h2>
+<details><summary>Apa saja produk bodycare yang bisa dibuat bersama Dreamlab?</summary><p>Body lotion, body serum, body wash, body scrub, body butter, body oil, shower gel, deodorant, dan produk lain sesuai kebutuhan.</p></details>
+<details><summary>Apakah bisa membuat custom formula bodycare?</summary><p>Bisa. Konsep dan kebutuhan produk didiskusikan bersama tim R&amp;D untuk menentukan arah formula.</p></details>
+<details><summary>Berapa MOQ maklon bodycare di Dreamlab?</summary><p>MOQ menyesuaikan kategori, formula, kemasan, ukuran, dan spesifikasi produk, dan dibahas sesuai kebutuhan brand.</p></details>
+<details><summary>Bagaimana cara menghitung target HPP bodycare?</summary><p>Mulai dari target harga jual, kurangi potongan channel penjualan, biaya marketing, biaya operasional, dan margin yang diinginkan. Sisanya adalah ruang maksimal untuk HPP per pcs. Kalkulator di artikel ini membantu menghitungnya.</p></details>
+<details><summary>Apakah hasil kalkulator sama dengan penawaran harga dari Dreamlab?</summary><p>Tidak. Kalkulator adalah simulasi untuk perencanaan. Penawaran resmi mengikuti formula, kemasan, dan jumlah produksi yang disepakati saat konsultasi.</p></details>
+<details><summary>Bagaimana cara mulai maklon bodycare di Dreamlab?</summary><p>Siapkan ide produk, target konsumen, target harga, dan perkiraan jumlah produksi, lalu konsultasikan bersama Dreamlab.</p></details>
 </div>`,
-    faqs: [],
+    faqs: [
+      {
+        question: 'Apa saja produk bodycare yang bisa dibuat bersama Dreamlab?',
+        answer: 'Body lotion, body serum, body wash, body scrub, body butter, body oil, shower gel, deodorant, dan produk lain sesuai kebutuhan.',
+      },
+      {
+        question: 'Apakah bisa membuat custom formula bodycare?',
+        answer: 'Bisa. Konsep dan kebutuhan produk didiskusikan bersama tim R&D untuk menentukan arah formula.',
+      },
+      {
+        question: 'Berapa MOQ maklon bodycare di Dreamlab?',
+        answer: 'MOQ menyesuaikan kategori, formula, kemasan, ukuran, dan spesifikasi produk, dan dibahas sesuai kebutuhan brand.',
+      },
+      {
+        question: 'Bagaimana cara menghitung target HPP bodycare?',
+        answer: 'Mulai dari target harga jual, kurangi potongan channel penjualan, biaya marketing, biaya operasional, dan margin yang diinginkan. Sisanya adalah ruang maksimal untuk HPP per pcs. Kalkulator di artikel ini membantu menghitungnya.',
+      },
+      {
+        question: 'Apakah hasil kalkulator sama dengan penawaran harga dari Dreamlab?',
+        answer: 'Tidak. Kalkulator adalah simulasi untuk perencanaan. Penawaran resmi mengikuti formula, kemasan, dan jumlah produksi yang disepakati saat konsultasi.',
+      },
+      {
+        question: 'Bagaimana cara mulai maklon bodycare di Dreamlab?',
+        answer: 'Siapkan ide produk, target konsumen, target harga, dan perkiraan jumlah produksi, lalu konsultasikan bersama Dreamlab.',
+      },
+    ],
     seo: {
       title: 'Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri',
       description: 'Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.'
@@ -147,7 +300,7 @@ export const articles: Article[] = [
     title: 'Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP',
     publishDate: '2026-11-06T00:00:00+00:00',
     author: 'Dreamlab Business Development',
-    categories: ['maklon-kosmetik'],
+    categories: ['Maklon Kosmetik'],
     tags: [
       'biaya maklon bodycare',
       'biaya maklon body care',
@@ -161,7 +314,7 @@ export const articles: Article[] = [
       'produksi bodycare',
       'brand bodycare'
     ],
-    featuredImage: null,
+    featuredImage: '/assets/images/blog/dreamlab_bodycare_hero.jpg',
     excerpt: 'Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, dan proses maklon bersama Dreamlab.',
     content: `<div class="elementor-element elementor-element-4cdeffb8 elementor-widget elementor-widget-theme-post-content">
 <p>Berapa biaya maklon bodycare? Artikel ini membahas faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, serta proses maklon bersama Dreamlab.</p>

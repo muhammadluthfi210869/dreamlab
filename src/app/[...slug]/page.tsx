@@ -75,8 +75,10 @@ interface Article {
   content: string;
   featuredImage: string | null;
   publishDate: string;
+  updatedDate?: string;
   author: string;
   categories: string[];
+  tags?: string[];
   seo?: {
     title: string;
     description: string;
@@ -163,6 +165,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     other: {
       'article:published_time': article?.publishDate || '',
+      ...(article?.updatedDate ? { 'article:modified_time': article.updatedDate } : {}),
       'article:author': article?.author || 'Dreamlab Maklon Kosmetik',
     },
   };

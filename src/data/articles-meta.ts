@@ -18,20 +18,21 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-11-06T00:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "maklon-kosmetik"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "maklon bodycare",
-      "maklon body care",
       "brand bodycare",
+      "custom formula bodycare",
+      "target HPP",
+      "maklon body care",
       "cara membuat brand bodycare",
       "produksi bodycare",
-      "custom formula bodycare",
       "jasa maklon bodycare"
     ],
-    "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.png",
+    "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.jpg",
     "excerpt": "Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.",
-    "readingMinutes": 4
+    "readingMinutes": 8
   },
   {
     "slug": "/biaya-maklon-bodycare-target-hpp",
@@ -39,7 +40,7 @@ export const articlesMeta: ArticleMeta[] =
     "publishDate": "2026-11-06T00:00:00+00:00",
     "author": "Dreamlab Business Development",
     "categories": [
-      "maklon-kosmetik"
+      "Maklon Kosmetik"
     ],
     "tags": [
       "biaya maklon bodycare",
@@ -54,7 +55,7 @@ export const articlesMeta: ArticleMeta[] =
       "produksi bodycare",
       "brand bodycare"
     ],
-    "featuredImage": null,
+    "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.jpg",
     "excerpt": "Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, dan proses maklon bersama Dreamlab.",
     "readingMinutes": 1
   },

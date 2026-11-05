@@ -14,7 +14,7 @@ import JsonLd from './JsonLd';
 import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
-import { getCategoryDisplay } from '@/data/blog-categories';
+import { getCategoryDisplay, resolveBlogCategory } from '@/data/blog-categories';
 import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
 
@@ -26,6 +26,7 @@ interface ArticleData {
   content: string;
   featuredImage: string | null;
   publishDate: string;
+  updatedDate?: string;
   author: string;
 }
 
@@ -62,9 +63,27 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
   };
 
   const featuredImageSrc = resolveArticleImageSrc(article.featuredImage);
+  const categoryDef = resolveBlogCategory(article.categories[0]);
+  const categoryDisplay = getCategoryDisplay(article.categories[0]);
+  const categoryPath = categoryDef ? `/category/${categoryDef.slug}/` : '/news-blog/';
+
+  const tocHeadings = useMemo(() => {
+    const matches = Array.from(
+      article.content.matchAll(/<h2\b[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/gi)
+    );
+    return matches
+      .map((m) => ({
+        id: m[1],
+        text: m[2]
+          .replace(/<[^>]*>/g, '')
+          .replace(/^\d+[\.\)]\s*/, '')
+          .trim(),
+      }))
+      .filter((h) => h.id && h.text);
+  }, [article.content]);
 
   const pageSchema = generatePageSchema({
-    url: article.slug,
+    url: articleUrl,
     title: article.title,
     description: article.excerpt,
     h1: article.title,
@@ -72,6 +91,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
     breadcrumbs: [
       { name: 'Home', url: '/' },
       { name: 'News & Blog', url: '/news-blog/' },
+      { name: categoryDisplay, url: categoryPath },
       { name: article.title },
     ],
     image: resolveSiteImageUrl(article.featuredImage),
@@ -79,6 +99,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
       headline: article.title,
       image: resolveSiteImageUrl(article.featuredImage),
       datePublished: article.publishDate,
+      dateModified: article.updatedDate || article.publishDate,
       author: article.author,
     },
     faqs: faqs.length > 0 ? faqs : undefined,
@@ -105,7 +126,8 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
               </span>
               <span className="text-neutral-300">•</span>
               <span className="text-neutral-500 text-xs font-bold">
-                {new Date(article.publishDate).toLocaleDateString('id-ID', {
+                {article.updatedDate ? 'Diperbarui ' : ''}
+                {new Date(article.updatedDate || article.publishDate).toLocaleDateString('id-ID', {
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric',
@@ -234,6 +256,30 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
             </div>
 
             <aside className="w-full max-w-4xl mx-auto xl:max-w-none xl:sticky xl:top-28 space-y-8">
+              {tocHeadings.length >= 2 && (
+                <nav
+                  aria-label="Daftar Isi Artikel"
+                  className="hidden xl:block bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm"
+                >
+                  <h3 className="text-[10px] font-black mb-4 flex items-center gap-3 text-[#8c5b00] uppercase tracking-widest">
+                    DAFTAR ISI
+                    <span className="flex-grow h-[1px] bg-neutral-100" />
+                  </h3>
+                  <ol className="space-y-2.5 text-xs font-semibold text-slate-700 list-decimal pl-4">
+                    {tocHeadings.map((h) => (
+                      <li key={h.id} className="leading-snug">
+                        <a
+                          href={`#${h.id}`}
+                          className="hover:text-brand-orange transition-colors"
+                        >
+                          {h.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
+              )}
+
               <div className="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm">
                 <h3 className="text-[10px] font-black mb-6 flex items-center gap-3 text-neutral-400 uppercase tracking-widest">
                   LATEST NEWS

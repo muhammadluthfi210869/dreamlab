@@ -1,10 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import pool, { queryWithRetry } from '@/lib/db';
+import crypto from 'node:crypto';
+import { NextRequest, NextResponse, after } from 'next/server';
+import pool from '@/lib/db';
 import { convertLead, normalizePhone } from '@/lib/round-robin-db';
 import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import { syncLeadToKommo } from '@/lib/kommo-adapter';
 import { validateAndNormalizePhone } from '@/lib/country-phone-data';
 import { CountryCode } from 'libphonenumber-js';
+import { evaluateLeadQualification } from '@/lib/lead-qualification';
+import {
+  sendMetaEvents,
+  type MetaCapiEventInput,
+  type MetaUserDataInput,
+} from '@/lib/meta-capi';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -42,6 +49,9 @@ function generateInquiryReference(): string {
 }
 
 export async function POST(req: NextRequest) {
+  const submitMs = Date.now();
+  const submitUnixSec = Math.floor(submitMs / 1000);
+
   try {
     let body: Record<string, any> = {};
     try {
@@ -68,6 +78,7 @@ export async function POST(req: NextRequest) {
       source,
       channel,
       landingPage,
+      landingUrl: rawLandingUrl,
       referrer,
       utmSource,
       utmMedium,
@@ -76,8 +87,8 @@ export async function POST(req: NextRequest) {
       utmTerm,
       gclid,
       fbclid,
-      visitorId,
       eventId,
+      simulationNote,
     } = body;
 
     // 1. Validate full name
@@ -96,39 +107,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Match Production Tier or fallback
-    let matchedTier = PRODUCTION_TIERS.find(
-      (t) =>
-        t.name.toLowerCase() === (productionTierName || '').toLowerCase() ||
-        t.quantityPcs === Number(rawQty)
-    );
-
-    if (!matchedTier && (productionTierName || quantityRange || budgetRange)) {
-      const queryStr = `${productionTierName || ''} ${quantityRange || ''} ${budgetRange || ''}`.toLowerCase();
-      if (queryStr.includes('starter') || queryStr.includes('500') || queryStr.includes('launch') || queryStr.includes('< 25') || queryStr.includes('25 juta') || queryStr.includes('25jt')) {
-        matchedTier = PRODUCTION_TIERS[0]; // STARTER (500)
-      } else if (queryStr.includes('growth') || queryStr.includes('1.000') || queryStr.includes('1000') || queryStr.includes('25 - 50') || queryStr.includes('25–50') || queryStr.includes('50 - 100') || queryStr.includes('50–100')) {
-        matchedTier = PRODUCTION_TIERS[1]; // GROWTH (1000)
-      } else if (queryStr.includes('scale') || queryStr.includes('5.000') || queryStr.includes('5000') || queryStr.includes('3000') || queryStr.includes('100 - 250') || queryStr.includes('100–250')) {
-        matchedTier = PRODUCTION_TIERS[2]; // SCALE (5000)
-      } else if (queryStr.includes('enterprise') || queryStr.includes('10.000') || queryStr.includes('10000') || queryStr.includes('strategic') || queryStr.includes('250 - 500') || queryStr.includes('250–500') || queryStr.includes('> 500')) {
-        matchedTier = PRODUCTION_TIERS[3]; // ENTERPRISE (10000)
-      } else if (queryStr.includes('paket bisnis') || queryStr.includes('300')) {
-        matchedTier = PRODUCTION_TIERS[4]; // Paket Bisnis (300)
-      }
-    }
-
-    if (!matchedTier) {
-      matchedTier = PRODUCTION_TIERS[0]; // Safe default fallback
-    }
-
-    const resolvedTierName = matchedTier.name;
-    const resolvedQtyPcs = matchedTier.quantityPcs;
-    const resolvedSegment = matchedTier.segment;
-    const isPaketBisnis = resolvedTierName.toLowerCase().includes('paket bisnis');
-    const resolvedQuantityRange = isPaketBisnis ? 'Paket Bisnis' : `${resolvedQtyPcs.toLocaleString('id-ID')} pcs`;
-
-    // 4. Validate & Normalize International Phone Number (E.164)
+    // 3. Validate & Normalize International Phone Number (E.164)
     const phoneValidation = validateAndNormalizePhone(
       whatsappPhone,
       (phoneCountryIso2 || 'ID') as CountryCode
@@ -147,45 +126,116 @@ export async function POST(req: NextRequest) {
     }
 
     const cleanPhoneE164 = phoneValidation.e164; // e.g. +6281234567890
-    const localHp = cleanPhoneE164.replace(/^\+/, ''); // e.g. 6281234567890 for backward compatibility
+    const localHp = cleanPhoneE164.replace(/^\+/, ''); // e.g. 6281234567890
     const countryIso = phoneValidation.countryIso2;
     const countryDial = phoneValidation.dialCode;
 
-    // 5. Generate references
+    // 4. Server-side qualification & tier computation (strictly from budgetRange on server)
+    const qualEval = await evaluateLeadQualification({
+      fullName: fullName.trim(),
+      phoneE164: cleanPhoneE164,
+      localHp,
+      budgetRange,
+    });
+
+    // Map server-resolved tier to internal production tier metadata (do not trust browser tier fields)
+    const tierToProductionTier: Record<string, ProductionTierConfig> = {
+      D: PRODUCTION_TIERS[0], // STARTER (500)
+      C: PRODUCTION_TIERS[1], // GROWTH (1000)
+      B: PRODUCTION_TIERS[2], // SCALE (5000)
+      A: PRODUCTION_TIERS[3], // ENTERPRISE (10000)
+    };
+    const matchedTier = tierToProductionTier[qualEval.tier] || PRODUCTION_TIERS[0];
+    const resolvedTierName = matchedTier.name;
+    const resolvedQtyPcs = Number(rawQty) > 0 ? Number(rawQty) : matchedTier.quantityPcs;
+    const resolvedSegment = qualEval.leadSegment;
+    const isPaketBisnis = (productionTierName || '').toLowerCase().includes('paket bisnis');
+    const resolvedQuantityRange =
+      quantityRange || (isPaketBisnis ? 'Paket Bisnis' : `${resolvedQtyPcs.toLocaleString('id-ID')} pcs`);
+
+    // 5. Generate inquiry reference, resolve eventId & extract click identifiers
     const inquiryRef = generateInquiryReference();
+    const resolvedEventId =
+      typeof eventId === 'string' && eventId.trim()
+        ? eventId.trim()
+        : crypto.randomUUID();
     const effectiveSource = source || channel || 'paid-ads';
+    const effectiveChannel = channel || source || 'metaads';
     const effectiveLandingPage = landingPage || '/';
 
+    const cookieHeader = req.headers.get('cookie') || '';
+    const cookiesMap = new Map<string, string>();
+    cookieHeader.split(';').forEach((c) => {
+      const parts = c.split('=');
+      const k = parts[0]?.trim();
+      const v = parts.slice(1).join('=').trim();
+      if (k && v) {
+        try {
+          cookiesMap.set(k, decodeURIComponent(v));
+        } catch {
+          cookiesMap.set(k, v);
+        }
+      }
+    });
+
+    let fbc = cookiesMap.get('_fbc') || null;
+    const fbp = cookiesMap.get('_fbp') || null;
+    if (!fbc && fbclid) {
+      fbc = `fb.1.${submitMs}.${fbclid}`;
+    }
+
+    const xForwardedFor = req.headers.get('x-forwarded-for');
+    const clientIp = xForwardedFor
+      ? xForwardedFor.split(',')[0].trim()
+      : req.headers.get('x-real-ip')?.trim() || null;
+    const userAgent = req.headers.get('user-agent') || null;
+    const refererHeader = req.headers.get('referer');
+
+    let fullLandingUrl = 'https://dreamlab.id/';
+    if (typeof rawLandingUrl === 'string' && rawLandingUrl.startsWith('http')) {
+      fullLandingUrl = rawLandingUrl;
+    } else if (typeof landingPage === 'string' && landingPage.startsWith('http')) {
+      fullLandingUrl = landingPage;
+    } else if (refererHeader && refererHeader.startsWith('http')) {
+      fullLandingUrl = refererHeader;
+    } else if (typeof landingPage === 'string' && landingPage.trim()) {
+      const path = landingPage.startsWith('/') ? landingPage : `/${landingPage}`;
+      fullLandingUrl = `https://dreamlab.id${path}`;
+    }
+
+    const adId = (body.adId || body.ad_id || null) as string | null;
+    const isTestLead = qualEval.disqualifyReason === 'test_or_internal';
+
+    const leadIntent = budgetRange
+      ? `[QUALIFIED] ${category} - Budget: ${budgetRange}`
+      : isPaketBisnis
+      ? `[QUALIFIED] ${category} - Paket Bisnis`
+      : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`;
+
     // 6. Assign BusDev & insert initial record via existing DB engine
-    // Use deterministically rotated fallback in case DB is slow or recovering
     const fallbackAgent = pickEmergencyFallbackAgent(inquiryRef);
     let assignedSalesName = fallbackAgent.name || 'Annisa';
     let assignedSalesPhone = normalizePhone(fallbackAgent.phone) || '6281952417051';
     let trackingCode = inquiryRef;
+    let leadDbId: number | null = null;
 
     try {
-      // Fair distribution:
-      // - If customer's phone number was previously assigned, Phone Sticky directs them to their existing sales.
-      // - If customer is new, inquiryRef ensures strict fair sequential round-robin rotation across active BusDevs (Annisa -> Diaz -> Jessica).
       const conv = await convertLead({
         visitorId: inquiryRef,
         hp: localHp,
-        intent: budgetRange
-          ? `[QUALIFIED] ${category} - Budget: ${budgetRange}`
-          : isPaketBisnis
-          ? `[QUALIFIED] ${category} - Paket Bisnis`
-          : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
+        intent: leadIntent,
         source: effectiveSource,
         pageUrl: effectiveLandingPage,
         referrer: referrer || undefined,
         utmSource: utmSource || undefined,
         utmMedium: utmMedium || undefined,
         utmCampaign: utmCampaign || undefined,
-        sessionId: eventId || inquiryRef,
+        sessionId: resolvedEventId,
         nama: fullName.trim(),
         perusahaan: brandOrCompany ? brandOrCompany.trim() : undefined,
         produk: category,
         trackingCode: inquiryRef,
+        isTest: isTestLead,
       });
 
       assignedSalesName = conv.name || assignedSalesName;
@@ -194,16 +244,126 @@ export async function POST(req: NextRequest) {
         : assignedSalesPhone;
       trackingCode = conv.trackingCode || inquiryRef;
     } catch (dbErr) {
-      console.error('[Qualify Route] convertLead failed, inserting lead directly so it is not lost:', dbErr);
-      // Tanpa baris ini, UPDATE kualifikasi di bawah tidak menemukan apa pun dan
-      // lead hilang dari DB (padahal pengunjung tetap diarahkan ke WhatsApp).
-      try {
-        await pool.query(
+      console.error('[Qualify Route] convertLead failed, will insert lead directly:', dbErr);
+    }
+
+    // 7. Update newly inserted lead row (or insert a dedicated row if convertLead hit 24h dedup / failed)
+    try {
+      const updateRes = await pool.query(
+        `UPDATE leads
+         SET 
+           tier = $1,
+           lead_segment = $2,
+           qualified = $3,
+           disqualify_reason = $4,
+           inquiry_code = $5,
+           qualified_at = $6,
+           duplicate_of_id = $7,
+           fbc = $8,
+           fbp = $9,
+           client_ip = $10,
+           user_agent = $11,
+           landing_url = $12,
+           ad_id = $13,
+           production_tier_name = $14,
+           requested_quantity_pcs = $15,
+           lead_quantity_segment = $16,
+           whatsapp_phone_e164 = $17,
+           phone_country_iso2 = $18,
+           phone_country_dial_code = $19,
+           quantity_range = $20,
+           qualification_status = $21,
+           inquiry_reference = $22,
+           budget_range = $23,
+           production_timeline = $24,
+           business_status = $25,
+           utm_source = COALESCE(utm_source, $26),
+           utm_medium = COALESCE(utm_medium, $27),
+           utm_campaign = COALESCE(utm_campaign, $28),
+           utm_content = $29,
+           utm_term = $30,
+           gclid = $31,
+           fbclid = $32,
+           nama = COALESCE(nama, $33),
+           perusahaan = COALESCE(perusahaan, $34),
+           hp = COALESCE(hp, $35),
+           produk = COALESCE(produk, $36),
+           is_test = COALESCE(is_test, $37)
+         WHERE (tracking_code = $38 OR tracking_code = $5)
+           AND ($7::bigint IS NULL OR id <> $7::bigint)
+           AND (inquiry_code IS NULL OR inquiry_code = $5)
+         RETURNING id`,
+        [
+          qualEval.tier,
+          qualEval.leadSegment,
+          qualEval.qualified,
+          qualEval.disqualifyReason,
+          inquiryRef,
+          qualEval.qualified ? new Date(submitMs) : null,
+          qualEval.duplicateOfId,
+          fbc,
+          fbp,
+          clientIp,
+          userAgent,
+          fullLandingUrl,
+          adId,
+          resolvedTierName,
+          resolvedQtyPcs,
+          resolvedSegment,
+          cleanPhoneE164,
+          countryIso,
+          countryDial,
+          resolvedQuantityRange,
+          qualEval.qualified ? 'Sales Qualified' : 'Marketing Qualified',
+          inquiryRef,
+          budgetRange || '-',
+          productionTimeline || '-',
+          businessStatus || '-',
+          utmSource || null,
+          utmMedium || null,
+          utmCampaign || null,
+          utmContent || null,
+          utmTerm || null,
+          gclid || null,
+          fbclid || null,
+          fullName.trim(),
+          brandOrCompany ? brandOrCompany.trim() : null,
+          localHp,
+          category,
+          isTestLead,
+          trackingCode,
+        ]
+      );
+
+      if (updateRes.rows[0]?.id) {
+        leadDbId = Number(updateRes.rows[0].id);
+      } else {
+        // When convertLead hit 24-hour dedup on a duplicate submission (or failed),
+        // insert a distinct row for this submission so duplicates are saved without overwriting the original lead.
+        const insertRes = await pool.query(
           `INSERT INTO leads
              (tracking_code, assigned_to, assigned_phone, source, page_url, referrer,
-              utm_source, utm_medium, utm_campaign, session_id, intent, nama, perusahaan, hp, produk)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
-           ON CONFLICT (tracking_code) DO NOTHING`,
+              utm_source, utm_medium, utm_campaign, utm_content, utm_term, gclid, fbclid,
+              session_id, intent, visitor_id, visit_count, nama, perusahaan, hp, produk, is_test,
+              tier, lead_segment, qualified, disqualify_reason, inquiry_code, qualified_at,
+              duplicate_of_id, fbc, fbp, client_ip, user_agent, landing_url, ad_id,
+              production_tier_name, requested_quantity_pcs, lead_quantity_segment,
+              whatsapp_phone_e164, phone_country_iso2, phone_country_dial_code,
+              quantity_range, qualification_status, inquiry_reference,
+              budget_range, production_timeline, business_status)
+           VALUES (
+             $1,$2,$3,$4,$5,$6,
+             $7,$8,$9,$10,$11,$12,$13,
+             $14,$15,$1,$16,$17,$18,$19,$20,$21,
+             $22,$23,$24,$25,$1,$26,
+             $27,$28,$29,$30,$31,$32,$33,
+             $34,$35,$36,
+             $37,$38,$39,
+             $40,$41,$1,
+             $42,$43,$44
+           )
+           ON CONFLICT (tracking_code) DO NOTHING
+           RETURNING id`,
           [
             inquiryRef,
             assignedSalesName,
@@ -214,140 +374,197 @@ export async function POST(req: NextRequest) {
             utmSource || null,
             utmMedium || null,
             utmCampaign || null,
-            eventId || inquiryRef,
-            budgetRange
-              ? `[QUALIFIED] ${category} - Budget: ${budgetRange}`
-              : isPaketBisnis
-              ? `[QUALIFIED] ${category} - Paket Bisnis`
-              : `[QUALIFIED] ${category} - ${resolvedTierName} (${resolvedQtyPcs} pcs)`,
+            utmContent || null,
+            utmTerm || null,
+            gclid || null,
+            fbclid || null,
+            resolvedEventId,
+            leadIntent,
+            1,
             fullName.trim(),
             brandOrCompany ? brandOrCompany.trim() : null,
             localHp,
             category,
+            isTestLead,
+            qualEval.tier,
+            qualEval.leadSegment,
+            qualEval.qualified,
+            qualEval.disqualifyReason,
+            qualEval.qualified ? new Date(submitMs) : null,
+            qualEval.duplicateOfId,
+            fbc,
+            fbp,
+            clientIp,
+            userAgent,
+            fullLandingUrl,
+            adId,
+            resolvedTierName,
+            resolvedQtyPcs,
+            resolvedSegment,
+            cleanPhoneE164,
+            countryIso,
+            countryDial,
+            resolvedQuantityRange,
+            qualEval.qualified ? 'Sales Qualified' : 'Marketing Qualified',
+            budgetRange || '-',
+            productionTimeline || '-',
+            businessStatus || '-',
           ]
         );
-      } catch (insertErr) {
-        console.error('[Qualify Route] Fallback lead insert also failed:', insertErr);
+        if (insertRes.rows[0]?.id) {
+          leadDbId = Number(insertRes.rows[0].id);
+        }
       }
+    } catch (saveErr) {
+      console.error('[Qualify Route] Failed to save qualification columns on leads table:', saveErr);
     }
 
-    // 7. Update lead record with complete tier & international phone attributes
-    try {
-      await pool.query(
-        `UPDATE leads
-         SET 
-           production_tier_name = $1,
-           requested_quantity_pcs = $2,
-           lead_quantity_segment = $3,
-           whatsapp_phone_e164 = $4,
-           phone_country_iso2 = $5,
-           phone_country_dial_code = $6,
-           quantity_range = $7,
-           lead_segment = $8,
-           qualification_status = $9,
-           inquiry_reference = $10,
-           budget_range = $11,
-           production_timeline = $12,
-           business_status = $13,
-           utm_content = $14,
-           utm_term = $15,
-           gclid = $16,
-           fbclid = $17,
-           nama = COALESCE(nama, $18),
-           perusahaan = COALESCE(perusahaan, $19),
-           hp = COALESCE(hp, $20),
-           produk = COALESCE(produk, $21)
-         WHERE tracking_code = $22 OR tracking_code = $10`,
-        [
-          resolvedTierName,
-          resolvedQtyPcs,
-          resolvedSegment,
-          cleanPhoneE164,
-          countryIso,
-          countryDial,
-          resolvedQuantityRange,
-          resolvedSegment,
-          'Marketing Qualified', // Quantity selection alone must never classify a prospect as Sales Qualified
-          inquiryRef,
-          budgetRange || '-',
-          productionTimeline || '-',
-          businessStatus || '-',
-          utmContent || null,
-          utmTerm || null,
-          gclid || null,
-          fbclid || null,
-          fullName.trim(),
-          brandOrCompany ? brandOrCompany.trim() : null,
-          localHp,
+    // 8. Build server-side Meta CAPI events per spec:
+    // - qualification_completed: every successful submit (eventId = resolvedEventId)
+    // - Lead: every successful submit EXCEPT duplicates within 30 days (eventId = inquiryRef)
+    // - QualifiedLeadForm: only if qualified (eventId = <inquiryRef>-qf)
+    const metaUserData: MetaUserDataInput = {
+      inquiryReference: inquiryRef,
+      fullName: fullName.trim(),
+      phoneE164: cleanPhoneE164,
+      fbc,
+      fbp,
+      clientIp,
+      userAgent,
+    };
+
+    const metaEvents: MetaCapiEventInput[] = [
+      {
+        leadId: leadDbId,
+        eventName: 'qualification_completed',
+        eventId: resolvedEventId,
+        eventTime: submitUnixSec,
+        eventSourceUrl: fullLandingUrl,
+        actionSource: 'website',
+        userData: metaUserData,
+        customData: {
+          lead_segment: qualEval.leadSegment,
           category,
-          trackingCode,
-        ]
-      );
-    } catch (updateErr) {
-      console.error('[Qualify Route] Failed to update qualification columns on leads table:', updateErr);
+          channel: effectiveChannel,
+        },
+      },
+    ];
+
+    if (!qualEval.isDuplicate) {
+      metaEvents.push({
+        leadId: leadDbId,
+        eventName: 'Lead',
+        eventId: inquiryRef,
+        eventTime: submitUnixSec,
+        eventSourceUrl: fullLandingUrl,
+        actionSource: 'website',
+        userData: metaUserData,
+        customData: {
+          category,
+        },
+      });
     }
 
-    // 8. Trigger Kommo CRM synchronization adapter
-    let crmSyncStatus: 'synced' | 'pending_configuration' | 'failed' = 'pending_configuration';
-    let crmContactId: string | number | undefined;
-    let crmLeadId: string | number | undefined;
+    if (qualEval.qualified) {
+      metaEvents.push({
+        leadId: leadDbId,
+        eventName: 'QualifiedLeadForm',
+        eventId: `${inquiryRef}-qf`,
+        eventTime: submitUnixSec,
+        eventSourceUrl: fullLandingUrl,
+        actionSource: 'website',
+        userData: metaUserData,
+        customData: {
+          lead_segment: qualEval.leadSegment,
+          tier: qualEval.tier,
+          category,
+          value: qualEval.value,
+          currency: 'IDR',
+        },
+      });
+    }
 
-    try {
-      const syncResult = await syncLeadToKommo({
-        inquiryReference: inquiryRef,
-        category,
-        productionTierName: resolvedTierName,
-        requestedQuantityPcs: resolvedQtyPcs,
-        leadQuantitySegment: resolvedSegment,
-        quantityRange: resolvedQuantityRange,
-        budgetRange: budgetRange || '-',
-        productionTimeline: productionTimeline || '-',
-        businessStatus: businessStatus || '-',
-        leadSegment: resolvedSegment,
-        fullName: fullName.trim(),
-        whatsappPhone: localHp,
-        whatsappPhoneE164: cleanPhoneE164,
-        phoneCountryIso2: countryIso,
-        phoneCountryDialCode: countryDial,
-        brandOrCompany: brandOrCompany ? brandOrCompany.trim() : undefined,
-        sourceChannel: channel || 'paid-ads',
-        campaign: utmCampaign,
-        landingPage: effectiveLandingPage,
-        utmSource,
-        utmMedium,
-        utmCampaign,
-        utmContent,
-        utmTerm,
-        gclid,
-        fbclid,
-        assignedSalesName,
+    // 9. Dispatch Meta CAPI & Kommo CRM sync asynchronously via after() so response is never slowed down.
+    //    If syncLeadToKommo() fails, Meta events still send, and vice versa.
+    const runBackgroundTasks = async () => {
+      const capiPromise = sendMetaEvents(metaEvents).catch((capiErr) => {
+        console.error('[Qualify Route] Meta CAPI dispatch error:', capiErr?.message || capiErr);
       });
 
-      crmSyncStatus = syncResult.status;
-      crmContactId = syncResult.contactId;
-      crmLeadId = syncResult.leadId;
+      const kommoPromise = (async () => {
+        try {
+          const syncResult = await syncLeadToKommo({
+            inquiryReference: inquiryRef,
+            category,
+            productionTierName: resolvedTierName,
+            requestedQuantityPcs: resolvedQtyPcs,
+            leadQuantitySegment: resolvedSegment,
+            quantityRange: resolvedQuantityRange,
+            budgetRange: budgetRange || '-',
+            productionTimeline: productionTimeline || '-',
+            businessStatus: businessStatus || '-',
+            leadSegment: resolvedSegment,
+            fullName: fullName.trim(),
+            whatsappPhone: localHp,
+            whatsappPhoneE164: cleanPhoneE164,
+            phoneCountryIso2: countryIso,
+            phoneCountryDialCode: countryDial,
+            brandOrCompany: brandOrCompany ? brandOrCompany.trim() : undefined,
+            sourceChannel: effectiveChannel,
+            campaign: utmCampaign,
+            landingPage: effectiveLandingPage,
+            utmSource,
+            utmMedium,
+            utmCampaign,
+            utmContent,
+            utmTerm,
+            gclid,
+            fbclid,
+            assignedSalesName,
+          });
 
-      await pool.query(
-        `UPDATE leads
-         SET crm_sync_status = $1,
-             crm_synced_at = NOW(),
-             crm_contact_id = $2,
-             crm_lead_id = $3
-         WHERE inquiry_reference = $4 OR tracking_code = $5`,
-        [
-          crmSyncStatus,
-          crmContactId ? String(crmContactId) : null,
-          crmLeadId ? String(crmLeadId) : null,
-          inquiryRef,
-          trackingCode,
-        ]
-      );
-    } catch (crmErr) {
-      console.error('[Qualify Route] Kommo sync adapter error:', crmErr);
-      crmSyncStatus = 'failed';
+          await pool.query(
+            `UPDATE leads
+             SET crm_sync_status = $1,
+                 crm_synced_at = NOW(),
+                 crm_contact_id = $2,
+                 crm_lead_id = $3
+             WHERE id = $4 OR inquiry_reference = $5`,
+            [
+              syncResult.status,
+              syncResult.contactId ? String(syncResult.contactId) : null,
+              syncResult.leadId ? String(syncResult.leadId) : null,
+              leadDbId,
+              inquiryRef,
+            ]
+          );
+        } catch (crmErr: any) {
+          console.error('[Qualify Route] Kommo sync adapter error:', crmErr?.message || crmErr);
+          try {
+            await pool.query(
+              `UPDATE leads SET crm_sync_status = 'failed' WHERE id = $1 OR inquiry_reference = $2`,
+              [leadDbId, inquiryRef]
+            );
+          } catch {
+            /* ignore */
+          }
+        }
+      })();
+
+      await Promise.allSettled([capiPromise, kommoPromise]);
+    };
+
+    try {
+      after(runBackgroundTasks);
+    } catch {
+      void runBackgroundTasks();
     }
 
-    // 9. Generate formatted WhatsApp message delivering lead details and budget to BD
+    // 10. Generate formatted WhatsApp message delivering lead details and budget to BD
+    const cleanSimNote =
+      typeof simulationNote === 'string' && simulationNote.trim()
+        ? simulationNote.trim()
+        : null;
     const waMessageText = [
       'Halo Dreamlab, saya ingin konsultasi produksi maklon.',
       '',
@@ -355,6 +572,7 @@ export async function POST(req: NextRequest) {
       `No. WhatsApp: ${cleanPhoneE164}`,
       `Kategori Produk: ${category}`,
       `Rencana Budget: ${budgetRange || '-'}`,
+      ...(cleanSimNote ? [cleanSimNote] : []),
       `Kode Konsultasi: ${inquiryRef}`,
       '',
       'Saya ingin diskusi lebih lanjut dengan tim Business Consultant Dreamlab. Terima kasih!',
@@ -365,17 +583,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: true,
+        eventId: resolvedEventId,
         inquiryReference: inquiryRef,
         productionTierName: resolvedTierName,
         requestedQuantityPcs: resolvedQtyPcs,
-        leadSegment: resolvedSegment,
+        leadSegment: qualEval.leadSegment,
+        tier: qualEval.tier,
+        qualified: qualEval.qualified,
+        disqualifyReason: qualEval.disqualifyReason,
+        isDuplicate: qualEval.isDuplicate,
         assignedSales: {
           name: assignedSalesName,
           phone: assignedSalesPhone,
         },
         whatsappUrl,
         redirectUrl: whatsappUrl,
-        crmSyncStatus,
       },
       {
         status: 200,
@@ -383,7 +605,7 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (err: any) {
-    console.error('[Qualify Route] Fatal submission handler error:', err);
+    console.error('[Qualify Route] Fatal submission handler error:', err?.message || err);
     return NextResponse.json(
       {
         success: false,

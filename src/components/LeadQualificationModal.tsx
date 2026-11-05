@@ -10,6 +10,8 @@ export interface LeadQualificationModalProps {
   isOpen: boolean;
   onClose: () => void;
   defaultCategory?: string;
+  defaultBudget?: string;
+  extraWaText?: string;
   source?: string;
   channel?: 'metaads' | 'google-ads' | 'other';
   landingPage?: string;
@@ -102,6 +104,8 @@ export function LeadQualificationModal({
   isOpen,
   onClose,
   defaultCategory = 'Skincare',
+  defaultBudget,
+  extraWaText,
   source = 'paid-ads',
   channel = 'metaads',
   landingPage = '',
@@ -130,6 +134,17 @@ export function LeadQualificationModal({
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [redirecting, setRedirecting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isOpen && defaultBudget) {
+      const matched = BUDGET_OPTIONS.find(
+        (opt) => opt.value === defaultBudget || opt.label === defaultBudget
+      );
+      if (matched) {
+        setSelectedBudget(matched);
+      }
+    }
+  }, [isOpen, defaultBudget]);
 
   // Track modal open
   useEffect(() => {
@@ -227,6 +242,40 @@ export function LeadQualificationModal({
         /* ignore */
       }
 
+      const eventId =
+        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+              const r = (Math.random() * 16) | 0;
+              const v = c === 'x' ? r : (r & 0x3) | 0x8;
+              return v.toString(16);
+            });
+
+      const budgetToTierSegment: Record<string, string> = {
+        under_25m: 'Starter',
+        '25_50m': 'Growth',
+        '50_100m': 'Scale',
+        '100_250m': 'Scale',
+        '250_500m': 'Enterprise',
+        above_500m: 'Enterprise',
+      };
+      const resolvedBrowserSegment =
+        budgetToTierSegment[selectedBudget.id] || selectedBudget.segment;
+
+      // Fire Pixel qualification_completed right after client-side validation passes
+      // and BEFORE fetch('/api/leads/qualify/') using eventID = eventId so the Pixel
+      // request has the full API round-trip to finish and deduplicates with Server CAPI.
+      trackLeadEvent('qualification_completed', {
+        source,
+        channel,
+        category: defaultCategory,
+        budgetRange: selectedBudget.value,
+        productionTier: selectedBudget.tierName,
+        campaign,
+        leadSegment: resolvedBrowserSegment,
+        eventId,
+      });
+
       const res = await fetch('/api/leads/qualify/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -241,9 +290,11 @@ export function LeadQualificationModal({
           productionTierName: selectedBudget.tierName,
           requestedQuantityPcs: selectedBudget.quantityPcs,
           leadQuantitySegment: selectedBudget.segment,
+          simulationNote: extraWaText || undefined,
           source,
           channel,
           landingPage: landingPage || window.location.pathname,
+          landingUrl: window.location.href,
           referrer: document.referrer || undefined,
           utmSource,
           utmMedium,
@@ -253,6 +304,7 @@ export function LeadQualificationModal({
           gclid,
           fbclid,
           visitorId,
+          eventId,
         }),
       });
 
@@ -262,20 +314,24 @@ export function LeadQualificationModal({
         throw new Error(data.error || 'Terjadi kesalahan sistem saat menyimpan kualifikasi.');
       }
 
-      trackLeadEvent('qualification_completed', {
-        source,
-        channel,
-        category: defaultCategory,
-        budgetRange: selectedBudget.value,
-        productionTier: selectedBudget.tierName,
-        campaign,
-        inquiryReference: data.inquiryReference,
-        leadSegment: data.leadSegment,
-      });
-
       setRedirecting(true);
 
-      const targetWaUrl = data.whatsappUrl || data.redirectUrl || '';
+      let targetWaUrl = data.whatsappUrl || data.redirectUrl || '';
+      if (extraWaText && targetWaUrl) {
+        try {
+          const parsedUrl = new URL(targetWaUrl);
+          const currentText = parsedUrl.searchParams.get('text') || '';
+          if (!currentText.includes(extraWaText)) {
+            parsedUrl.searchParams.set(
+              'text',
+              currentText ? `${currentText}\n${extraWaText}` : extraWaText
+            );
+            targetWaUrl = parsedUrl.toString();
+          }
+        } catch {
+          /* ignore URL parse error */
+        }
+      }
 
       // Simpan session fallback untuk Thank You page
       if (typeof sessionStorage !== 'undefined' && targetWaUrl) {
@@ -295,7 +351,7 @@ export function LeadQualificationModal({
       const thankYouParams = new URLSearchParams();
       thankYouParams.set('source', source || (channel === 'google-ads' ? 'google-ads' : 'metaads'));
       thankYouParams.set('category', defaultCategory);
-      if (data.inquiryReference) {
+      if (data.inquiryReference && !data.isDuplicate) {
         thankYouParams.set('inquiry', data.inquiryReference);
         thankYouParams.set('event_id', data.inquiryReference);
       }
