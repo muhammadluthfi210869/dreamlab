@@ -149,35 +149,35 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {filteredArticles.map((article, index) => {
               const articleHref = `/${article.slug.replace(/^\/+/, '').replace(/\/+$/, '')}/`;
               return (
-                rticle  
-              key = { index }
-              className = "group bg-white rounded-[40px] border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-700"
+                <article
+                  key={index}
+                  className="group bg-white rounded-[40px] border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-700"
                 >
-                <Link href={articleHref} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
-                  <mage
-                    sc={resolveArticleImageSrc(article.featuredImage)}
-                    t={article.title}
-                    fll
-                    cassName="object-contain group-hover:scale-105 transition-transform duration-1000"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                Link>
+                  <Link href={articleHref} className="block relative aspect-video overflow-hidden bg-[#FAF9F6] p-2">
+                    <Image
+                      src={resolveArticleImageSrc(article.featuredImage)}
+                      alt={article.title}
+                      fill
+                      className="object-contain group-hover:scale-105 transition-transform duration-1000"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </Link>
                   <div className="p-10">
-                   h3 className="text-xl font-black text-brand-black leading-tight mb-4 group-hover:text-brand-orange transition-colors uppercase">
-                    <Link href={articleHref}>{article.title}</Link>
-                  </h3>
-                   className="text-gray-500 text-sm line-clamp-3 mb-6">
-                  {rticle.excerpt}
-                  <p>
+                    <h3 className="text-xl font-black text-brand-black leading-tight mb-4 group-hover:text-brand-orange transition-colors uppercase">
+                      <Link href={articleHref}>{article.title}</Link>
+                    </h3>
+                    <p className="text-gray-500 text-sm line-clamp-3 mb-6">
+                      {article.excerpt}
+                    </p>
                     <Link
-                      hef={articleHref}
-                      cassName="text-[10px] font-black uppercase tracking-widest text-brand-orange flex items-center gap-2"
+                      href={articleHref}
+                      className="text-[10px] font-black uppercase tracking-widest text-brand-orange flex items-center gap-2"
                     >
-                      ad More <span className="w-4 h-[1px] bg-brand-orange"></span>
-                  Link>
-                div>
-              article>
-                      );
+                      Read More <span className="w-4 h-[1px] bg-brand-orange"></span>
+                    </Link>
+                  </div>
+                </article>
+              );
             })}
                     </div>
 
