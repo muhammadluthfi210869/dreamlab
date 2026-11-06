@@ -191,6 +191,7 @@ export const SITE_PATHS: string[] = [
   "maklon-baby-care/baby-cologne",
   "maklon-baby-care/baby-moisturizer",
   "maklon-baby-care/baby-shampoo",
+  "maklon-body-butter",
   "maklon-body-care",
   "maklon-body-care/bath-salt",
   "maklon-body-care/body-butter",

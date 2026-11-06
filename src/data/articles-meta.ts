@@ -4583,6 +4583,20 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 8
   },
   {
+    "slug": "/maklon-body-butter",
+    "title": "Maklon Body Butter: Cara Membuat Brand Body Butter Sendiri",
+    "publishDate": "2026-11-06T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [],
+    "featuredImage": "/images/artikel-maklon-body-butter/maklon_body_butter_cover.jpg",
+    "excerpt": "Panduan lengkap maklon body butter untuk brand owner: mulai dari eksplorasi formula, 10 inspirasi bahan, pilihan tekstur, hingga alur produksi di Dreamlab.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
