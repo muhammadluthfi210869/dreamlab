@@ -4597,6 +4597,20 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/maklon-kosmetik-jombang",
+    "title": "Maklon Kosmetik Jombang: Partner Brand Lokal untuk Formula, Produksi & Legalitas",
+    "publishDate": "2026-11-06T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [],
+    "featuredImage": "/images/artikel-jombang/maklon_kosmetik_jombang_cover.jpg",
+    "excerpt": "Warga Jombang ingin punya brand kosmetik sendiri? Kembangkan formula custom, produksi CPKB Grade A, BPOM, Halal, hingga HKI bersama Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

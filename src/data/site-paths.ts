@@ -269,6 +269,7 @@ export const SITE_PATHS: string[] = [
   "maklon-kosmetik-jakarta-dreamlab-2026",
   "maklon-kosmetik-jakarta-skala-besar",
   "maklon-kosmetik-jayapura",
+  "maklon-kosmetik-jombang",
   "maklon-kosmetik-kediri",
   "maklon-kosmetik-klinik-kecantikan",
   "maklon-kosmetik-makassar",
