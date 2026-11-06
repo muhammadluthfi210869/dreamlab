@@ -555,7 +555,8 @@ export async function POST(req: NextRequest) {
     // Emergency merata: hash seed acak (unexpected error = tidak ada eventId
     // yang dijamin tersedia di scope ini).
     const unexpectedSeed = crypto.randomUUID();
-    const fallbackBusdev = emergencyPick(unexpectedSeed, BUSDEV_LIST);
+    const activeFallbackPool = getActiveBusdev();
+    const fallbackBusdev = emergencyPick(unexpectedSeed, activeFallbackPool.length > 0 ? activeFallbackPool : BUSDEV_LIST);
     const defaultUrl = buildWhatsAppLeadUrl(
       fallbackBusdev.phone,
       getWhatsAppMessage('default')

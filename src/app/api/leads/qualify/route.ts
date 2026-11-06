@@ -573,7 +573,7 @@ export async function POST(req: NextRequest) {
       `Kategori Produk: ${category}`,
       `Rencana Budget: ${budgetRange || '-'}`,
       ...(cleanSimNote ? [cleanSimNote] : []),
-      `Kode Konsultasi: ${inquiryRef}`,
+      `Kode Konsultasi: [Kode: ${inquiryRef}]`,
       '',
       'Saya ingin diskusi lebih lanjut dengan tim Business Consultant Dreamlab. Terima kasih!',
     ].join('\n');

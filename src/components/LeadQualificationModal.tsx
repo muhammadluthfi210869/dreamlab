@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { trackLeadEvent } from '@/lib/lead-analytics';
+import { fireConversion } from '@/lib/tracking';
 import { InternationalPhoneInput } from '@/components/InternationalPhoneInput';
 
 export interface LeadQualificationModalProps {
@@ -313,6 +314,13 @@ export function LeadQualificationModal({
       if (!res.ok || !data.success) {
         throw new Error(data.error || 'Terjadi kesalahan sistem saat menyimpan kualifikasi.');
       }
+
+      // Tembak event standar Meta Pixel 'Lead' (dengan eventID = inquiryReference untuk deduplikasi dengan ThankYou page & CAPI)
+      // saat Pixel di landing page sudah aktif, sebelum browser pindah halaman.
+      fireConversion(
+        source || (channel === 'google-ads' ? 'google-ads' : 'metaads'),
+        data.inquiryReference || eventId
+      );
 
       setRedirecting(true);
 

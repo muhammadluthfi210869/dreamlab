@@ -23,25 +23,30 @@ export function PixelsOnInteraction() {
 
       // — Meta Pixel —
       if (!w.fbq) {
-        w.fbq = function () {
-          if (w.fbq.callMethod) w.fbq.callMethod.apply(w.fbq, arguments);
-          else w.fbq.queue.push(arguments);
-        };
-        w._fbq = w.fbq;
-        w.fbq.push = w.fbq;
-        w.fbq.loaded = true;
-        w.fbq.version = '2.0';
-        w.fbq.queue = [];
+        const n: any = (w.fbq = function () {
+          if (n.callMethod) n.callMethod.apply(n, arguments);
+          else n.queue.push(arguments);
+        });
+        if (!w._fbq) w._fbq = n;
+        n.push = n;
+        n.loaded = true;
+        n.version = '2.0';
+        n.queue = [];
       }
-      const fbScript = document.createElement('script');
-      fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      fbScript.async = true;
-      fbScript.defer = true;
-      document.head.appendChild(fbScript);
-      fbScript.onload = () => {
+      // Wajib panggil init & PageView langsung ke antrian SEBELUM event Lead ditembak
+      // (jika ditaruh di onload, fbq('track', 'Lead') di ThankYou page masuk ke queue sebelum init!)
+      if (!w.__dlMetaPixelInitialized) {
+        w.__dlMetaPixelInitialized = true;
         w.fbq('init', META_PIXEL_ID);
         w.fbq('track', 'PageView');
-      };
+      }
+      if (!document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')) {
+        const fbScript = document.createElement('script');
+        fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        fbScript.async = true;
+        fbScript.defer = true;
+        document.head.appendChild(fbScript);
+      }
 
       // — TikTok Pixel —
       if (!w.ttq) {
@@ -90,9 +95,9 @@ export function PixelsOnInteraction() {
       }
     }
 
-    // Di Thank You page (wajib untuk tracking konversi Meta Ads Pixel & TikTok Pixel),
+    // Di halaman Ads & Thank You page (wajib untuk tracking PageView & konversi Meta Ads Pixel / TikTok Pixel),
     // load pixels SEGERA tanpa menunggu user interaction.
-    if (pathname?.includes('thankyou')) {
+    if (pathname?.includes('thankyou') || pathname?.startsWith('/ads') || pathname?.includes('metaads')) {
       loadPixels();
       return;
     }

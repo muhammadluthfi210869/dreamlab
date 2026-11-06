@@ -26,7 +26,7 @@ export const BUSDEV_LIST: readonly BusDevItem[] = [
     id: "diaz",
     name: "Diaz",
     phone: "6287776550657",
-    active: true,
+    active: false, // cuti hari ini (6 Nov 2026); dinonaktifkan sementara (busdevs.is_active = false)
     order: 2,
   },
   {

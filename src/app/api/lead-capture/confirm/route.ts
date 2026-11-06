@@ -161,7 +161,9 @@ export async function POST(req: NextRequest) {
       phoneNumberId = value.metadata?.phone_number_id ? String(value.metadata.phone_number_id) : null;
 
       if (messageText) {
-        const match = messageText.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i);
+        const match =
+          messageText.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i) ||
+          messageText.match(/Kode(?:\s+Konsultasi)?:\s*\[?(?:Kode:\s*)?(DL-[A-Za-z0-9_-]+)\]?/i);
         if (match) {
           trackingCode = match[1].trim();
         }
@@ -178,7 +180,9 @@ export async function POST(req: NextRequest) {
       phoneNumberId = body.phoneNumberId || body.phone_number_id || null;
 
       if (!trackingCode && messageText) {
-        const match = messageText.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i);
+        const match =
+          messageText.match(/\[Kode:\s*([A-Za-z0-9_-]+)\]/i) ||
+          messageText.match(/Kode(?:\s+Konsultasi)?:\s*\[?(?:Kode:\s*)?(DL-[A-Za-z0-9_-]+)\]?/i);
         if (match) {
           trackingCode = match[1].trim();
         }

@@ -10,6 +10,7 @@ import {
   type LeadAssignmentResponse,
 } from "@/lib/lead-assignment-client";
 import { normalizeLeadSource } from "@/lib/lead-source";
+import { getActiveBusdev } from "@/lib/busdev";
 
 type ThankYouRoundRobinProps = {
   defaultSource: string;
@@ -41,8 +42,9 @@ export function ThankYouRoundRobin({
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const resolvedSource = params.get("source") || defaultSource;
+    const inquiry = params.get("inquiry")?.trim() || undefined;
 
-    fireConversion(resolvedSource, params.get("event_id") || undefined);
+    fireConversion(resolvedSource, inquiry);
 
     const win = window as unknown as {
       gtag?: (command: string, action: string, params: Record<string, unknown>) => void;
@@ -216,7 +218,7 @@ export function ThankYouRoundRobin({
             {error && (
               <div className="space-y-4 pt-2">
                 <a
-                  href={`https://wa.me/6287776550657?text=${encodeURIComponent(message || "Halo Dreamlab, saya ingin konsultasi produk")}`}
+                  href={`https://wa.me/${getActiveBusdev()[0].phone}?text=${encodeURIComponent(message || "Halo Dreamlab, saya ingin konsultasi produk")}`}
                   className="btn-wa inline-flex items-center justify-center gap-3 px-10 py-5 rounded-[50px] font-extrabold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-95 text-white min-w-[320px]"
                 >
                   <MessageCircle className="w-5 h-5 shrink-0" />
