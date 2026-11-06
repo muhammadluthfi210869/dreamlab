@@ -4580,7 +4580,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/images/artikel-bangun-brand-body-lotion/bangun_brand_body_lotion_cover.jpg",
     "excerpt": "Ingin bangun brand body lotion sendiri? Pelajari tren market, riset konsumen, formula ringan hingga rich, kemasan, target HPP, dan alur maklon Dreamlab.",
-    "readingMinutes": 13
+    "readingMinutes": 10
   },
   {
     "slug": "/jasa-maklon-kosmetik-di-jember",
