@@ -4561,6 +4561,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
+    "slug": "/bangun-brand-body-lotion",
+    "title": "Bangun Brand Body Lotion yang Disukai Market Indonesia",
+    "publishDate": "2026-11-06T10:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Bodycare",
+      "Maklon Body Lotion",
+      "Bisnis Bodycare",
+      "Brand Body Lotion",
+      "Custom Formula Body Lotion",
+      "Target HPP Kosmetik"
+    ],
+    "featuredImage": "/images/artikel-bangun-brand-body-lotion/bangun_brand_body_lotion_cover.jpg",
+    "excerpt": "Ingin bangun brand body lotion sendiri? Pelajari tren market, riset konsumen, formula ringan hingga rich, kemasan, target HPP, dan alur maklon Dreamlab.",
+    "readingMinutes": 15
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

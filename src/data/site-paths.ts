@@ -38,6 +38,7 @@ export const SITE_PATHS: string[] = [
   "bahan-aktif-skincare-jerawat",
   "bahan-aktif-skincare-paling-dicari",
   "bahan-aktif-untuk-mengatasi-jerawat",
+  "bangun-brand-body-lotion",
   "bangun-brand-skincare-lebih-strategis-dreamlab",
   "basic-skincare-pria-wajib",
   "beautypreneur-batch-2-dreamlab",
