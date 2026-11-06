@@ -32,7 +32,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.jpg",
     "excerpt": "Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.",
-    "readingMinutes": 9
+    "readingMinutes": 8
   },
   {
     "slug": "/biaya-maklon-bodycare-target-hpp",
@@ -54,7 +54,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/dreamlab_biaya_bodycare_hero.jpg",
     "excerpt": "Berapa biaya maklon bodycare? Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, dan proses maklon bersama Dreamlab.",
-    "readingMinutes": 14
+    "readingMinutes": 8
   },
   {
     "slug": "/jasa-maklon-skincare-palembang",
@@ -4608,7 +4608,7 @@ export const articlesMeta: ArticleMeta[] =
     "tags": [],
     "featuredImage": "/images/artikel-jombang/maklon_kosmetik_jombang_cover.jpg",
     "excerpt": "Warga Jombang ingin punya brand kosmetik sendiri? Kembangkan formula custom, produksi CPKB Grade A, BPOM, Halal, hingga HKI bersama Dreamlab.",
-    "readingMinutes": 8
+    "readingMinutes": 7
   },
   {
     "slug": "/jasa-maklon-kosmetik-di-jember",
