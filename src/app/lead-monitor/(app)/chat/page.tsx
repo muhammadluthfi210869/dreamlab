@@ -423,7 +423,7 @@ export default function CrmChatPage() {
                     ID: {leadDetail?.tracking_code || activeConv?.tracking_code || "-"}
                   </span>
                   <a
-                    href={waWebFallbackUrl}
+                    href={waWebFallbackUrl || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#128C7E] hover:underline"
@@ -645,7 +645,7 @@ export default function CrmChatPage() {
 
                 <div className="flex items-center gap-2">
                   <a
-                    href={waWebFallbackUrl}
+                    href={waWebFallbackUrl || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs"
@@ -758,7 +758,7 @@ export default function CrmChatPage() {
                       href={
                         replyText.trim()
                           ? `https://wa.me/${activePhone}?text=${encodeURIComponent(replyText.trim())}`
-                          : waWebFallbackUrl
+                          : waWebFallbackUrl || undefined
                       }
                       target="_blank"
                       rel="noopener noreferrer"

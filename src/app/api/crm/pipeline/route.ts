@@ -115,7 +115,7 @@ export async function GET(req: NextRequest) {
       return { id: s.id, count: list.length, cards: list.slice(0, CARDS_PER_STAGE) };
     });
 
-    const channelFunnels = computeBusdevChannelFunnels(raw, loaded.busdevNames);
+    const channelFunnels = computeBusdevChannelFunnels(merged, loaded.busdevNames);
 
     return json({
       success: true,
