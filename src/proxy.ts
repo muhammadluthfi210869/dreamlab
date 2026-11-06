@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const GONE_PATTERNS = [
+  '/maklon-kosmetik-jombang',
+  '/maklon-kosmetik-jombang/',
   '/.help/dhl/',
   '/wp-content/',
   '/wp-admin/',
@@ -195,6 +197,8 @@ export function proxy(request: NextRequest) {
 
   // 301 redirect legacy WordPress-to-Next.js migration paths → /produk/[category]/
   const LEGACY_PATH_REDIRECTS: Record<string, string> = {
+    '/maklon-body-butter': '/cara-membuat-brand-body-butter/',
+    '/maklon-body-butter/': '/cara-membuat-brand-body-butter/',
     '/skincare-face-care': '/produk/skincare/',
     '/skincare-face-care/': '/produk/skincare/',
     '/body-care': '/produk/bodycare/',

@@ -4583,8 +4583,8 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 8
   },
   {
-    "slug": "/maklon-body-butter",
-    "title": "Maklon Body Butter: Cara Membuat Brand Body Butter Sendiri",
+    "slug": "/cara-membuat-brand-body-butter",
+    "title": "Cara Membuat Brand Body Butter Sendiri: Formula, Tekstur & Panduan Maklon",
     "publishDate": "2026-11-06T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -4594,21 +4594,7 @@ export const articlesMeta: ArticleMeta[] =
     "tags": [],
     "featuredImage": "/images/artikel-maklon-body-butter/maklon_body_butter_cover.jpg",
     "excerpt": "Panduan lengkap maklon body butter untuk brand owner: mulai dari eksplorasi formula, 10 inspirasi bahan, pilihan tekstur, hingga alur produksi di Dreamlab.",
-    "readingMinutes": 9
-  },
-  {
-    "slug": "/maklon-kosmetik-jombang",
-    "title": "Maklon Kosmetik Jombang: Partner Brand Lokal untuk Formula, Produksi & Legalitas",
-    "publishDate": "2026-11-06T00:00:00+00:00",
-    "author": "Dreamlab Maklon Kosmetik",
-    "categories": [
-      "Maklon Kosmetik",
-      "Panduan Bisnis"
-    ],
-    "tags": [],
-    "featuredImage": "/images/artikel-jombang/maklon_kosmetik_jombang_cover.jpg",
-    "excerpt": "Warga Jombang ingin punya brand kosmetik sendiri? Kembangkan formula custom, produksi CPKB Grade A, BPOM, Halal, hingga HKI bersama Dreamlab.",
-    "readingMinutes": 7
+    "readingMinutes": 8
   },
   {
     "slug": "/jasa-maklon-kosmetik-di-jember",
