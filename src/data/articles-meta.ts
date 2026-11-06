@@ -32,7 +32,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.jpg",
     "excerpt": "Ingin punya brand bodycare sendiri? Pelajari cara menentukan produk, custom formula, biaya, MOQ, hingga alur maklon bodycare bersama Dreamlab.",
-    "readingMinutes": 8
+    "readingMinutes": 9
   },
   {
     "slug": "/biaya-maklon-bodycare-target-hpp",
@@ -44,20 +44,17 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "tags": [
       "biaya maklon bodycare",
-      "biaya maklon body care",
-      "hpp bodycare",
-      "cara menghitung hpp bodycare",
-      "harga maklon bodycare",
-      "modal usaha bodycare",
-      "maklon bodycare",
-      "jasa maklon bodycare",
-      "custom formula bodycare",
-      "produksi bodycare",
-      "brand bodycare"
+      "HPP",
+      "bodycare",
+      "HPP bodycare",
+      "cara menghitung HPP",
+      "target HPP",
+      "modal brand bodycare",
+      "MOQ maklon bodycare"
     ],
-    "featuredImage": "/assets/images/blog/dreamlab_bodycare_hero.jpg",
-    "excerpt": "Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, dan proses maklon bersama Dreamlab.",
-    "readingMinutes": 1
+    "featuredImage": "/assets/images/blog/dreamlab_biaya_bodycare_hero.jpg",
+    "excerpt": "Berapa biaya maklon bodycare? Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, dan proses maklon bersama Dreamlab.",
+    "readingMinutes": 14
   },
   {
     "slug": "/jasa-maklon-skincare-palembang",

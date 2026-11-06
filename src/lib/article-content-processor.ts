@@ -273,8 +273,11 @@ function processHeadings(html: string): { html: string; headings: Heading[] } {
       }
 
       const cls = level === 2 ? 'article-h2' : 'article-h3';
+      const existingClsMatch = /\bclass="([^"]*)"/i.exec(attrs);
+      const existingCls = existingClsMatch ? existingClsMatch[1].trim() : '';
+      const mergedCls = existingCls ? `${cls} ${existingCls}` : cls;
       const cleanAttrs = attrs.replace(/\s+id="[^"]*"/gi, '').replace(/\s+class="[^"]*"/gi, '').trim();
-      return `<h${level} id="${id}" class="${cls}"${cleanAttrs ? ' ' + cleanAttrs : ''}>${inner}</h${level}>`;
+      return `<h${level} id="${id}" class="${mergedCls}"${cleanAttrs ? ' ' + cleanAttrs : ''}>${inner}</h${level}>`;
     }
   );
   return { html: out, headings };

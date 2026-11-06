@@ -2,7 +2,7 @@
 
 import React, { useState, useId } from 'react';
 
-const CHECKLIST_ITEMS = [
+const DEFAULT_CHECKLIST_ITEMS = [
   'Ide produk yang ingin dibuat',
   'Target konsumen',
   'Kebutuhan konsumen yang ingin dijawab',
@@ -12,11 +12,24 @@ const CHECKLIST_ITEMS = [
   'Konsep kemasan dan positioning (jika sudah ada)',
 ] as const;
 
-export default function ConsultationChecklist() {
+const BIAYA_CHECKLIST_ITEMS = [
+  'Ide produk: body lotion, body serum, body wash, body scrub, atau produk lain.',
+  'Target konsumen: siapa yang dilayani dan kebutuhan perawatan tubuh apa yang dijawab.',
+  'Target harga jual: dasar positioning dan perhitungan target HPP.',
+  'Target HPP: gunakan kalkulator di atas untuk simulasi awal.',
+  'Perkiraan jumlah produksi: sesuai modal, target penjualan, dan strategi peluncuran.',
+] as const;
+
+export interface ConsultationChecklistProps {
+  variant?: 'default' | 'biaya';
+}
+
+export default function ConsultationChecklist({
+  variant = 'default',
+}: ConsultationChecklistProps) {
   const uid = useId();
-  const [checked, setChecked] = useState<boolean[]>(() =>
-    CHECKLIST_ITEMS.map(() => false)
-  );
+  const items = variant === 'biaya' ? BIAYA_CHECKLIST_ITEMS : DEFAULT_CHECKLIST_ITEMS;
+  const [checked, setChecked] = useState<boolean[]>(() => items.map(() => false));
 
   const toggleItem = (idx: number) => {
     setChecked((prev) => prev.map((val, i) => (i === idx ? !val : val)));
@@ -31,15 +44,15 @@ export default function ConsultationChecklist() {
           Checklist Persiapan Konsultasi Bodycare
         </span>
         <span className="rounded-full bg-amber-500/15 px-3 py-1 text-xs font-extrabold text-[#9a6200]">
-          {completedCount} / {CHECKLIST_ITEMS.length} siap
+          {completedCount} / {items.length} siap
         </span>
       </div>
-      <ul className="space-y-2.5">
-        {CHECKLIST_ITEMS.map((item, idx) => {
+      <div className="space-y-2.5">
+        {items.map((item, idx) => {
           const isChecked = checked[idx];
           const inputId = `${uid}-check-${idx}`;
           return (
-            <li key={item}>
+            <div key={item}>
               <label
                 htmlFor={inputId}
                 className={`flex items-start gap-3 rounded-xl border p-3 sm:p-3.5 transition-all cursor-pointer select-none ${
@@ -63,11 +76,10 @@ export default function ConsultationChecklist() {
                   {item}
                 </span>
               </label>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
-

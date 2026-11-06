@@ -51,7 +51,7 @@ const RelatedLinks: React.FC<RelatedLinksProps> = ({ currentSlug, categories, al
         {displayArticles.map((article, idx) => (
           <Link 
             key={idx} 
-            href={`${article.slug}/`}
+            href={`/${article.slug.replace(/^\/+|\/+$/g, '')}/`}
             className="group bg-white p-6 rounded-3xl border border-gray-50 shadow-sm hover:shadow-xl hover:border-brand-orange/20 transition-all duration-500"
           >
             <span className="text-[10px] font-black text-brand-orange uppercase tracking-widest mb-3 block">

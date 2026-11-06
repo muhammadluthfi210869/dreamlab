@@ -43,20 +43,6 @@ export const articles: Article[] = [
 <p>Ingin memiliki brand bodycare sendiri, tetapi masih bingung harus mulai dari produk apa, bagaimana membuat formulanya, dan berapa banyak produk yang perlu diproduksi? Membangun brand bodycare tidak cukup hanya dengan menentukan nama dan memilih kemasan. Anda juga perlu tahu siapa target konsumen, kebutuhan apa yang ingin dijawab, karakter produk, hingga bagaimana produk tersebut diproduksi.</p>
 <p>Salah satu cara memulainya adalah bekerja sama dengan perusahaan maklon. Anda tidak perlu membangun pabrik sendiri, karena pengembangan dan produksi dilakukan bersama partner yang punya kemampuan formulasi dan manufaktur. Artikel ini membahas langkah-langkahnya, lengkap dengan kalkulator target HPP untuk membantu Anda menghitung ruang biaya produksi dari target harga jual.</p>
 
-<div class="my-6 rounded-2xl border border-amber-300/70 bg-[#fff9ef] p-5 sm:p-6 not-prose">
-  <div class="flex items-center gap-2.5 mb-3">
-    <svg class="w-5 h-5 text-[#D98A00] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-    <p class="m-0 text-sm sm:text-base font-extrabold uppercase tracking-wider text-[#8c5b00]">Ringkasan 30 Detik</p>
-  </div>
-  <ul class="m-0 pl-5 space-y-2 text-xs sm:text-sm text-slate-800 font-medium list-disc">
-    <li>Mulai dari target konsumen dan kebutuhan mereka, bukan dari produk yang sedang viral.</li>
-    <li>Untuk brand baru, satu produk utama biasanya lebih aman daripada banyak SKU sekaligus.</li>
-    <li>Custom formula bisa dimulai dari brief sederhana: tekstur, aroma, fungsi, target harga.</li>
-    <li>Tentukan target harga jual dan target HPP sejak awal, supaya formula dan kemasan bisa disesuaikan sebelum produksi.</li>
-    <li>MOQ mengikuti kategori, formula, dan kemasan. Pilih jumlah produksi yang sesuai modal dan target penjualan.</li>
-  </ul>
-</div>
-
 <h2 id="apa-itu-maklon-bodycare">Apa Itu Maklon Bodycare?</h2>
 <p>Maklon bodycare adalah layanan produksi yang memungkinkan brand mengembangkan dan memproduksi produk perawatan tubuh melalui partner manufaktur seperti <a href="/jasa-maklon-kosmetik" style="color:#4a6fa5;font-weight:700">jasa maklon kosmetik</a> Dreamlab. Brand owner membawa konsep produk, lalu mendiskusikannya dengan tim formulasi dan produksi.</p>
 <p>Maklon tidak selalu berarti memakai formula yang sudah jadi. Anda bisa mendiskusikan kebutuhan berdasarkan target konsumen, karakter formula, tekstur, aroma, kemasan, hingga target harga. Tim R&amp;D kemudian menerjemahkan brief tersebut menjadi arah pengembangan yang lebih teknis.</p>
@@ -87,111 +73,136 @@ export const articles: Article[] = [
 <p>Setelah target dan kebutuhan jelas, barulah pilih jenis produknya. Untuk brand baru, mulai dari satu produk utama yang paling kuat hubungannya dengan positioning brand. Produk berikutnya dikembangkan setelah Anda memahami respons pasar.</p>
 
 <h2 id="produk-bodycare-yang-bisa-dikembangkan-bersama-dreamlab">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</h2>
-<div class="flex flex-col gap-3 my-6 not-prose">
-  <a href="/produk/bodycare/body-lotion/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Lotion</h4>
+<p>Setiap jenis produk bodycare memiliki peran, pengalaman pakai, dan peluang positioning yang berbeda. Memahami karakter masing-masing kategori akan membantu Anda memilih produk pertama yang paling relevan dengan target konsumen brand Anda:</p>
+
+<div class="flex flex-col gap-4 my-6 not-prose">
+  <div data-article-product="body-lotion" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/body-lotion/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-lotion/" style="color:inherit;text-decoration:none">1. Body Lotion</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Daily Care</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Perawatan harian; karakter diarahkan lewat tekstur, sensori, dan aroma</p>
+      <a href="/produk/bodycare/body-lotion/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/body-serum/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Serum</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Body lotion adalah produk perawatan tubuh harian yang paling akrab bagi konsumen dan memiliki potensi <em>repeat order</em> tinggi. Karakternya dapat diarahkan lewat tekstur yang ringan dan cepat menyerap tanpa rasa lengket, dikombinasikan dengan fungsi <em>hydrating</em>, <em>brightening</em>, <em>soothing</em>, atau <em>UV filter</em> serta aroma khas yang memperkuat identitas brand Anda.</p>
+  </div>
+
+  <div data-article-product="body-serum" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/body-serum/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-serum/" style="color:inherit;text-decoration:none">2. Body Serum</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Targeted Care</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Perawatan tubuh yang lebih spesifik sesuai fungsi dan positioning</p>
+      <a href="/produk/bodycare/body-serum/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/body-wash/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Wash</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Jika brand Anda ingin menonjolkan perawatan tubuh yang lebih spesifik dan terfokus pada hasil (<em>active-driven</em>), body serum adalah pilihan yang tepat. Teksturnya umumnya lebih watery atau gel-lotion ringan dengan konsentrasi bahan aktif untuk <em>brightening</em>, <em>uneven skin tone</em>, atau <em>barrier care</em>, sehingga punya <em>perceived value</em> yang kuat di mata konsumen.</p>
+  </div>
+
+  <div data-article-product="body-wash" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/body-wash/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-wash/" style="color:inherit;text-decoration:none">3. Body Wash</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Cleansing</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Rutinitas mandi; mudah dijadikan bagian dari satu rangkaian</p>
+      <a href="/produk/bodycare/body-wash/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/body-scrub/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Scrub</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Body wash merupakan bagian dari rutinitas mandi harian yang sangat mudah dipasangkan dalam satu rangkaian produk (misalnya <em>bundling</em> bersama body lotion). Pengembangannya dapat difokuskan pada kelembutan surfaktan yang tidak membuat kulit terasa tertarik, sensasi busa, aroma <em>fine fragrance</em> yang tahan lama, hingga manfaat tambahan untuk kulit sensitif atau berjerawat punggung.</p>
+  </div>
+
+  <div data-article-product="body-scrub" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/body-scrub/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-scrub/" style="color:inherit;text-decoration:none">4. Body Scrub</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Exfoliation</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Konsep eksfoliasi; tekstur dan pengalaman pakai jadi kunci</p>
+      <a href="/produk/bodycare/body-scrub/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/body-butter/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Butter</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Produk eksfoliasi tubuh ini mengandalkan pengalaman tekstur dan sensasi halus yang langsung terasa setelah dibilas. Anda bisa mengembangkan konsep <em>creamy scrub</em>, <em>gel scrub</em>, maupun <em>sugar/coffee scrub</em> dengan ukuran bulir eksfoliator yang nyaman di kulit untuk membantu mengangkat sel kulit mati dan mencerahkan tampilan kulit kusam.</p>
+  </div>
+
+  <div data-article-product="body-butter" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/body-butter/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-butter/" style="color:inherit;text-decoration:none">5. Body Butter</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Intensive Moisture</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Tekstur lebih rich untuk positioning tertentu</p>
+      <a href="/produk/bodycare/body-butter/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/body-oil/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Body Oil</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Memiliki tekstur yang lebih <em>rich</em> dan <em>creamy</em> dibandingkan lotion, body butter dirancang untuk memberikan kelembapan ekstra pada kulit kering atau area tubuh tertentu seperti siku, lutut, dan tumit. Kategori ini sangat cocok untuk brand dengan positioning perawatan intensif, <em>night body treatment</em>, atau konsep spa dan relaksasi.</p>
+  </div>
+
+  <div data-article-product="body-oil" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/body-oil/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-oil/" style="color:inherit;text-decoration:none">6. Body Oil</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Sensory Oil</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Pengalaman perawatan berbasis oil; sensori dan kemasan penting</p>
+      <a href="/produk/bodycare/body-oil/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/shower-gel/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Shower Gel</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Body oil menawarkan pengalaman perawatan kulit berbasis minyak yang memberikan tampilan <em>healthy glow</em> dan kelembapan mendalam. Kunci pengembangannya terletak pada pemilihan kombinasi minyak pembawa (seperti <em>dry oil</em> yang ringan dan tidak meninggalkan rasa berminyak berlebihan), profil aromaterapi, serta kemasan botol pump atau pipet yang mendukung kesan eksklusif.</p>
+  </div>
+
+  <div data-article-product="shower-gel" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/shower-gel/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/shower-gel/" style="color:inherit;text-decoration:none">7. Shower Gel</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Bath Series</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Pelengkap rangkaian mandi sesuai identitas brand</p>
+      <a href="/produk/bodycare/shower-gel/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
-  <a href="/produk/bodycare/deodorant/" class="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/50 hover:border-[#D98A00]/60 p-4 sm:p-5 shadow-xs transition-all no-underline">
-    <div class="min-w-0">
-      <div class="flex flex-wrap items-center gap-2 mb-1">
-        <h4 class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors m-0">Deodorant</h4>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Dengan konsistensi gel bening atau <em>pearly</em> yang segar, shower gel menonjolkan aspek visual dan sensori saat mandi. Produk ini efektif menjadi pelengkap rangkaian <em>bath &amp; body series</em> dengan diferensiasi aroma yang kuat, sensasi menyegarkan di kulit, maupun tampilan botol transparan yang estetik.</p>
+  </div>
+
+  <div data-article-product="deodorant" data-article-from="maklon-bodycare-panduan-memulai-brand-sendiri" data-article-href="/produk/bodycare/deodorant/" role="link" tabindex="0" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 sm:p-6 shadow-xs transition-all cursor-pointer">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h3 style="margin:0;font-size:18px;line-height:1.3" class="font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/deodorant/" style="color:inherit;text-decoration:none">8. Deodorant</a>
+        </h3>
         <span class="inline-block rounded-lg bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-[#9a6200]">Personal Care</span>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed m-0">Perluasan ke kategori personal care</p>
+      <a href="/produk/bodycare/deodorant/" style="color:#D98A00;text-decoration:none" class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat Produk</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <span class="shrink-0 inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] group-hover:translate-x-0.5 transition-transform">
-      <span class="hidden sm:inline">Lihat Produk</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-    </span>
-  </a>
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#334155">Deodorant membuka peluang bagi brand untuk masuk ke kategori <em>daily personal care</em> dengan tingkat pemakaian berulang yang tinggi. Formulanya dapat dikembangkan dalam berbagai format — seperti <em>roll-on</em>, <em>spray</em>, maupun <em>deodorant serum</em> — dengan kombinasi fungsi pengontrol bau badan, perawatan kulit ketiak (<em>underarm brightening</em>), dan formula yang cepat kering.</p>
+  </div>
 </div>
 
 <h2 id="apakah-bodycare-bisa-menggunakan-custom-formula">Apakah Bodycare Bisa Menggunakan Custom Formula?</h2>
@@ -210,7 +221,7 @@ export const articles: Article[] = [
 <p>Cara paling praktis adalah menentukan target harga jual sejak awal, lalu menghitung mundur berapa HPP (harga pokok produksi) yang masih masuk akal. Misalnya, Anda ingin menjual body lotion seharga Rp100.000. Dari angka itu, Anda bisa melihat ruang biaya untuk formula, kemasan, dan produksi. Kalau spesifikasi yang diinginkan ternyata terlalu mahal, penyesuaian bisa dilakukan sebelum produksi.</p>
 <p>Coba hitung dengan kalkulator di bawah ini.</p>
 
-<div id="hpp-calculator-root"></div>
+<div id="hpp-calculator-root" data-default-mode="detail"></div>
 
 <p>Setelah mendapat angka target HPP, bawa hasil simulasi ini saat konsultasi. Angka tersebut membantu tim menyesuaikan formula, ukuran, dan kemasan dengan target bisnis Anda. Pembahasan lebih detail ada di artikel <a href="/biaya-maklon-bodycare-target-hpp/" style="color:#4a6fa5;font-weight:700">Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP</a>.</p>
 
@@ -347,31 +358,615 @@ export const articles: Article[] = [
     slug: '/biaya-maklon-bodycare-target-hpp',
     title: 'Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP',
     publishDate: '2026-11-06T00:00:00+00:00',
+    updatedDate: '2026-11-06T00:00:00+00:00',
     author: 'Dreamlab Business Development',
     categories: ['Maklon Kosmetik'],
     tags: [
       'biaya maklon bodycare',
-      'biaya maklon body care',
-      'hpp bodycare',
-      'cara menghitung hpp bodycare',
-      'harga maklon bodycare',
-      'modal usaha bodycare',
-      'maklon bodycare',
-      'jasa maklon bodycare',
-      'custom formula bodycare',
-      'produksi bodycare',
-      'brand bodycare'
+      'HPP',
+      'bodycare',
+      'HPP bodycare',
+      'cara menghitung HPP',
+      'target HPP',
+      'modal brand bodycare',
+      'MOQ maklon bodycare'
     ],
-    featuredImage: '/assets/images/blog/dreamlab_bodycare_hero.jpg',
-    excerpt: 'Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, dan proses maklon bersama Dreamlab.',
+    featuredImage: '/assets/images/blog/dreamlab_biaya_bodycare_hero.jpg',
+    excerpt: 'Berapa biaya maklon bodycare? Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, dan proses maklon bersama Dreamlab.',
     content: `<div class="elementor-element elementor-element-4cdeffb8 elementor-widget elementor-widget-theme-post-content">
-<p>Berapa biaya maklon bodycare? Artikel ini membahas faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, serta proses maklon bersama Dreamlab.</p>
-<div style="text-align:center;margin:48px 0">
-<a href="https://dreamlab.id/thankyou/google/" style="background:#D98A00;border-radius:50px;font-weight:800;box-shadow:0 4px 12px rgba(217,138,0,0.3);padding:14px 40px;color:#fff;text-decoration:none;display:inline-block">Konsultasi Gratis dengan Dreamlab</a>
-<p style="font-size:13px;color:#555;margin-top:8px">Diskusikan konsep, formula, dan strategi brand Anda tanpa komitmen awal.</p>
+<p>Punya ide membuat brand bodycare sendiri, tetapi masih bingung berapa modal yang harus disiapkan? Pertanyaan <strong>"berapa biaya maklon bodycare?"</strong> sering menjadi langkah awal sebelum menentukan produk, kemasan, hingga jumlah produksi. Namun, biaya maklon tidak bisa disamakan untuk setiap brand karena spesifikasi produk yang dibuat berbeda-beda.</p>
+<p>Sebelum menentukan budget produksi, ada satu hal yang sebaiknya dihitung lebih dulu: <strong>target HPP produk</strong>. Dengan target HPP, Anda bisa menilai apakah produk yang ingin dibuat masih masuk akal dibandingkan target harga jual. Dari sini, formula, kemasan, jumlah produksi, dan positioning bisa ditentukan dengan lebih terarah.</p>
+
+<div class="my-6 rounded-2xl border border-amber-300/70 bg-[#fff9ef] p-5 sm:p-6 not-prose">
+  <div class="flex items-center gap-2.5 mb-3">
+    <svg class="w-5 h-5 text-[#D98A00] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    <p class="m-0 text-sm sm:text-base font-extrabold uppercase tracking-wider text-[#8c5b00]">Ringkasan 30 detik</p>
+  </div>
+  <ul class="m-0 pl-5 space-y-2 text-xs sm:text-sm text-slate-800 font-medium list-disc">
+    <li>Biaya maklon bodycare ditentukan oleh <strong>formula &amp; bahan, kemasan, ukuran, jumlah produksi, dan kebutuhan legalitas</strong>.</li>
+    <li><strong>Target HPP</strong> = target harga jual × persentase HPP. Contoh: Rp100.000 × 30% = <strong>Rp30.000 per unit</strong>.</li>
+    <li>30% hanyalah contoh, bukan standar. Hitung juga potongan channel, marketing, operasional, dan margin (gunakan <strong>mode detail</strong> di kalkulator).</li>
+    <li>Menekan HPP bukan berarti memilih yang termurah, tetapi menyesuaikan kemasan, ukuran, formula, dan jumlah produksi dengan target harga.</li>
+    <li>Hasil kalkulator adalah <strong>target</strong>, bukan quotation. Bawa angkanya saat konsultasi.</li>
+  </ul>
 </div>
+
+<h2 id="mengapa-brand-bodycare-menarik-untuk-dikembangkan">Mengapa Brand Bodycare Menarik untuk Dikembangkan?</h2>
+<p>Bodycare bukan hanya tentang membuat body lotion atau sabun untuk dijual. Kategori ini punya banyak jenis produk yang bisa dikembangkan berdasarkan kebutuhan konsumen dan konsep brand: perawatan tubuh sehari-hari, pengalaman sensori, hingga perawatan yang lebih spesifik.</p>
+<p>Pilihan yang beragam memungkinkan brand membangun lini produk secara bertahap. Anda tidak harus langsung memproduksi banyak SKU. Misalnya, mulai dengan satu body lotion sebagai produk utama, lalu kembangkan body wash, body scrub, atau body serum setelah memahami respons pasar. Strategi ini membantu modal dialokasikan dengan lebih terukur.</p>
+<p>Yang perlu diperhatikan: <strong>bodycare tidak otomatis lebih mudah atau lebih menguntungkan daripada kategori beauty lainnya</strong>. Peluang sebuah produk tetap bergantung pada target konsumen, kebutuhan yang dijawab, positioning, harga jual, dan kemampuan brand memasarkannya. Karena itu, pemilihan produk sebaiknya dimulai dari kebutuhan pasar, bukan karena sebuah produk sedang ramai.</p>
+
+<h3>Bisa Dimulai dari Satu Produk</h3>
+<p>Untuk brand baru, satu produk utama bisa menjadi pilihan yang lebih terukur. Anda bisa fokus memahami siapa konsumen yang dituju, masalah apa yang dijawab, dan alasan mereka perlu membeli. Modal awal juga lebih terkonsentrasi pada formula, kemasan, produksi, dan pemasaran produk utama.</p>
+<p>Memulai dari satu produk bukan berarti berhenti di satu SKU. Kalau produk pertama mendapat respons baik, Anda bisa membangun rangkaian produk yang masih berhubungan dengan kebutuhan konsumen yang sama. Jadi, jumlah SKU sebaiknya mengikuti strategi brand, bukan sekadar mengejar banyaknya produk.</p>
+
+<h2 id="brand-skincare-vs-brand-bodycare-mana-yang-lebih-cocok">Brand Skincare vs Brand Bodycare, Mana yang Lebih Cocok?</h2>
+<p>Memilih antara skincare dan bodycare sebaiknya tidak hanya berdasarkan kategori yang sedang ramai. Skincare berfokus pada perawatan kulit wajah, sedangkan bodycare pada perawatan kulit tubuh. Pertanyaan yang lebih tepat bukan "mana yang lebih bagus?", tetapi "kategori mana yang paling sesuai dengan brand yang ingin saya bangun?"</p>
+
+<figure style="margin:28px 0;text-align:center">
+  <img src="/assets/images/blog/dreamlab_skincare_vs_bodycare.jpg" alt="Perbandingan Brand Pertama: Skincare vs Bodycare" width="1200" height="675" loading="lazy" decoding="async" style="width:100%;max-width:860px;height:auto;border-radius:16px;margin:0 auto" />
+  <figcaption style="font-size:13px;color:#6b7280;margin-top:8px">Perbandingan fokus produk dan konsep antara brand Skincare dan Bodycare</figcaption>
+</figure>
+
+<div class="article-table-wrap">
+  <table class="article-comparison-table">
+    <thead>
+      <tr>
+        <th>Pertimbangan</th>
+        <th>Skincare</th>
+        <th>Bodycare</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Fokus</strong></td>
+        <td>Perawatan wajah</td>
+        <td>Perawatan tubuh</td>
+      </tr>
+      <tr>
+        <td><strong>Contoh produk</strong></td>
+        <td>Serum, moisturizer, facial wash</td>
+        <td>Body lotion, body wash, body scrub</td>
+      </tr>
+      <tr>
+        <td><strong>Pilihan produk</strong></td>
+        <td>Beragam</td>
+        <td>Beragam</td>
+      </tr>
+      <tr>
+        <td><strong>Formula</strong></td>
+        <td>Disesuaikan kebutuhan produk</td>
+        <td>Disesuaikan kebutuhan produk</td>
+      </tr>
+      <tr>
+        <td><strong>Target konsumen</strong></td>
+        <td>Berdasarkan kebutuhan kulit wajah</td>
+        <td>Berdasarkan kebutuhan perawatan tubuh</td>
+      </tr>
+      <tr>
+        <td><strong>Pengembangan lini</strong></td>
+        <td>Dapat dikembangkan bertahap</td>
+        <td>Dapat dikembangkan bertahap</td>
+      </tr>
+      <tr>
+        <td><strong>Modal awal</strong></td>
+        <td>Bergantung produk &amp; spesifikasi</td>
+        <td>Bergantung produk &amp; spesifikasi</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Kalau Anda lebih memahami kebutuhan perawatan tubuh target market Anda, bodycare bisa menjadi kategori yang relevan. Sebaliknya, kalau konsep brand Anda kuat pada kebutuhan kulit wajah tertentu, <a href="/produk/skincare" style="color:#4a6fa5;font-weight:700">skincare</a> mungkin lebih sesuai. Tidak ada kategori yang otomatis butuh modal lebih kecil atau menghasilkan keuntungan lebih besar. Yang menentukan adalah bagaimana produk dirancang, diproduksi, diposisikan, dan dijual.</p>
+
+<h2 id="apa-saja-yang-menentukan-biaya-maklon-bodycare">Apa Saja yang Menentukan Biaya Maklon Bodycare?</h2>
+<p>Saat membahas biaya maklon bodycare, jangan hanya melihat harga per pcs. Biaya produksi adalah hasil dari beberapa keputusan sejak tahap pengembangan: formula, bahan, ukuran, kemasan, jumlah produksi, hingga kebutuhan pendukung.</p>
+<p>Dua brand yang sama-sama membuat body lotion belum tentu punya kebutuhan biaya yang sama. Satu brand memakai kemasan standar dengan formula sederhana, brand lain butuh custom packaging, tekstur tertentu, atau bahan aktif tertentu. Perbedaan ini perlu dibicarakan sejak awal agar target HPP dan harga jual realistis.</p>
+
+<div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-5 shadow-xs">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-[#D98A00]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+      </span>
+      <h3 class="m-0 text-base sm:text-lg font-extrabold text-slate-900">Formula dan Bahan</h3>
+    </div>
+    <p>Formula menentukan karakter sekaligus kebutuhan biaya produk. Jenis bahan, konsentrasi bahan tertentu, tekstur, sensori, aroma, dan kebutuhan pengembangan memengaruhi proses formulasi. Formula sebaiknya tidak ditentukan hanya dari daftar ingredient yang sedang populer.</p>
+    <p>Kalau Anda punya konsep tertentu, sampaikan sejak awal kepada tim R&amp;D. Misalnya body lotion dengan tekstur ringan dan cepat menyerap, atau body serum dengan sensasi tertentu saat dipakai. Brief seperti ini membuat pengembangan formula lebih terarah.</p>
+    <p class="mb-0">Bahan yang lebih mahal tidak otomatis membuat produk lebih baik. Yang penting adalah kesesuaian bahan dengan fungsi produk, target konsumen, karakter formula, dan positioning brand. Karena itu, formula perlu dibahas bersamaan dengan target harga dan HPP.</p>
+  </div>
+
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-5 shadow-xs">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-[#D98A00]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+      </span>
+      <h3 class="m-0 text-base sm:text-lg font-extrabold text-slate-900">Jumlah Produksi</h3>
+    </div>
+    <p>Jumlah produksi memengaruhi biaya per unit. Saat jumlah berubah, kebutuhan bahan, kemasan, dan efisiensi produksi ikut berubah. Jangan menentukan jumlah produksi hanya untuk mengejar harga per unit yang lebih rendah.</p>
+    <p>Produksi terlalu sedikit bisa membuat HPP per unit kurang optimal. Produksi terlalu banyak juga berisiko, terutama bagi brand yang belum tahu kemampuan jualnya: modal tertahan di stok dan cash flow jadi berat.</p>
+    <p class="mb-0">Misalnya, Anda memperkirakan bisa menjual sekitar 500 produk di periode awal. Memproduksi jauh lebih banyak tanpa rencana stok yang jelas belum tentu keputusan terbaik. Sebaliknya, kalau Anda sudah punya channel distribusi yang kuat, jumlah yang lebih besar bisa dipertimbangkan. Pelajari juga <a href="/moq-maklon-kosmetik" style="color:#4a6fa5;font-weight:700">cara menentukan MOQ maklon kosmetik</a>.</p>
+  </div>
+
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-5 shadow-xs">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-[#D98A00]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+      </span>
+      <h3 class="m-0 text-base sm:text-lg font-extrabold text-slate-900">Kemasan</h3>
+    </div>
+    <p>Botol, tube, jar, pump, finishing, printing, dan custom packaging punya kebutuhan biaya yang berbeda. Untuk formula yang sama, pilihan kemasan bisa mengubah total kebutuhan produksi cukup signifikan.</p>
+    <p>Memilih kemasan bukan berarti mencari yang paling murah. Kemasan adalah bagian dari pengalaman brand dan memengaruhi persepsi konsumen. Carilah keseimbangan antara tampilan, fungsi, positioning, dan target harga jual.</p>
+    <p class="mb-0">Untuk segmen premium, kemasan mungkin butuh perhatian lebih. Untuk target market yang sensitif harga, kemasan sederhana yang tetap terlihat profesional bisa lebih masuk akal. Keputusan ini sebaiknya dibuat sejak awal karena langsung berhubungan dengan target HPP.</p>
+  </div>
+
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-5 shadow-xs">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-[#D98A00]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+      </span>
+      <h3 class="m-0 text-base sm:text-lg font-extrabold text-slate-900">Ukuran Produk</h3>
+    </div>
+    <p>Body lotion 100 ml punya kebutuhan bahan dan kemasan yang berbeda dengan 250 ml atau 500 ml. Ukuran juga memengaruhi harga jual dan positioning.</p>
+    <p class="mb-0">Ukuran lebih besar tidak otomatis lebih menguntungkan. Lihat bagaimana konsumen memakai produk dan berapa harga yang nyaman mereka bayar. Untuk pemakaian harian, ukuran tertentu mungkin lebih praktis; untuk premium treatment, ukuran dan bentuk kemasan bisa menjadi bagian dari pengalaman produk. Tentukan ukuran bersamaan dengan target harga jual.</p>
+  </div>
+
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-5 shadow-xs md:col-span-2">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-[#D98A00]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </span>
+      <h3 class="m-0 text-base sm:text-lg font-extrabold text-slate-900">Legalitas dan Kebutuhan Pendukung</h3>
+    </div>
+    <p>Budget brand tidak berhenti pada isi produk. Ada kebutuhan lain sesuai kategori dan spesifikasi, termasuk legalitas dan komponen pendukung. Kalau tidak diperhitungkan sejak awal, budget bisa berbeda dari kebutuhan aktual.</p>
+    <p>Kebutuhan legalitas dibahas sesuai kondisi produk dan model kerja sama. Jenis produk, jumlah varian, dan kebutuhan dokumen memengaruhi scope pekerjaan.</p>
+    <p class="mb-0">Karena itu, saat meminta estimasi, jangan hanya bertanya "berapa harga per pcs?". Berikan informasi produk, target jumlah produksi, ukuran, kemasan, dan konsep yang diinginkan. Anda juga bisa melihat <a href="/estimasi-biaya-maklon-kosmetik" style="color:#4a6fa5;font-weight:700">estimasi biaya maklon kosmetik</a> sebagai gambaran awal.</p>
+  </div>
+</div>
+
+<h2 id="cara-menghitung-target-hpp-bodycare">Cara Menghitung Target HPP Bodycare</h2>
+<p>HPP (Harga Pokok Produksi) membantu Anda mengetahui berapa biaya yang dialokasikan untuk menghasilkan satu unit produk. Untuk brand bodycare, HPP menjadi dasar untuk menilai apakah konsep produk masih sesuai dengan strategi harga.</p>
+<p>Dua kesalahan yang sering terjadi: menentukan harga jual tanpa tahu apakah struktur biayanya memungkinkan, atau mengejar HPP serendah mungkin tanpa memperhatikan kualitas, kemasan, dan positioning. Keduanya bisa jadi masalah saat produk masuk pasar.</p>
+<p>Mulailah dari pertanyaan sederhana: <strong>"Saya ingin menjual produk ini di harga berapa?"</strong> Lalu tentukan berapa bagian harga jual yang realistis untuk HPP.</p>
+
+<div class="my-6 rounded-2xl bg-gradient-to-r from-[#0a1b38] via-[#0f2a58] to-[#163870] p-5 sm:p-6 text-white shadow-md not-prose">
+  <span class="inline-block rounded-full bg-amber-400/20 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-amber-300 mb-2">Rumus Dasar Target HPP</span>
+  <p class="m-0 text-base sm:text-lg font-black text-white">Target HPP per unit = Target harga jual × Persentase target HPP</p>
+  <p class="mt-2 mb-0 text-xs sm:text-sm text-blue-100 leading-relaxed">
+    Contoh: target harga jual <strong class="text-white">Rp100.000</strong>, simulasi target HPP <strong class="text-white">30%</strong>.<br/>
+    <strong class="text-amber-300 text-sm sm:text-base">Rp100.000 × 30% = Rp30.000 per unit.</strong>
+  </p>
+</div>
+
+<p>Angka 30% <strong>bukan standar wajib</strong> untuk semua brand bodycare. Itu hanya contoh. Dalam praktiknya, Anda tetap perlu menghitung biaya marketplace, diskon, marketing, distribusi, pajak, operasional, dan margin. Mode <strong>Detail</strong> di kalkulator berikut membantu menghitungnya.</p>
+
+<h2 id="kalkulator-target-hpp-bodycare">Kalkulator Target HPP Bodycare</h2>
+<p>Gunakan kalkulator ini untuk simulasi awal. Pilih <strong>mode Cepat</strong> kalau Anda sudah punya persentase target HPP, atau <strong>mode Detail</strong> untuk menghitung mundur dari harga jual setelah potongan channel, marketing, operasional, dan margin.</p>
+
+<div id="hpp-calculator-root" data-default-mode="quick"></div>
+
+<div class="my-5 rounded-xl border border-amber-300/70 bg-amber-50/70 p-4 text-xs sm:text-sm text-amber-950 not-prose">
+  <strong>Catatan:</strong> hasil kalkulator adalah simulasi awal, bukan quotation produksi Dreamlab. Biaya aktual bisa berbeda berdasarkan formula, bahan, kemasan, MOQ, ukuran, dan spesifikasi produk.
+</div>
+
+<h2 id="contoh-simulasi-target-hpp-bodycare">Contoh Simulasi Target HPP Bodycare</h2>
+<p>Misalnya Anda ingin membuat body lotion yang akan dijual Rp100.000 per unit, dengan target HPP simulasi 30% dan batch awal 1.000 pcs.</p>
+
+<div class="article-table-wrap">
+  <table class="article-comparison-table">
+    <thead>
+      <tr>
+        <th>Komponen</th>
+        <th>Angka</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Target harga jual</td>
+        <td>Rp100.000</td>
+      </tr>
+      <tr>
+        <td>Target HPP (30%)</td>
+        <td><strong>Rp30.000 per unit</strong></td>
+      </tr>
+      <tr>
+        <td>Jumlah produksi</td>
+        <td>1.000 pcs</td>
+      </tr>
+      <tr>
+        <td>Total berdasarkan target HPP</td>
+        <td><strong>Rp30.000.000</strong></td>
+      </tr>
+      <tr>
+        <td>Sisa nilai per unit sebelum biaya lain</td>
+        <td>Rp70.000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Rp30 juta tersebut <strong>bukan berarti Dreamlab akan memberi quotation Rp30 juta</strong>. Harga produksi aktual tetap dihitung dari formula, bahan, jenis dan ukuran kemasan, jumlah produksi, dan spesifikasi lainnya. Gunakan kalkulator untuk <strong>menentukan target</strong>, bukan sebagai pengganti quotation.</p>
+<p>Dengan target ini, Anda bisa mengevaluasi sebelum produksi. Kalau target HPP terlalu rendah untuk spesifikasi yang diinginkan, sesuaikan kemasan, ukuran, formula, atau jumlah produksi. Kalau target HPP terlalu tinggi dibanding harga jual, diskusikan kembali konsep produknya.</p>
+
+<h2 id="bagaimana-menekan-hpp-tanpa-mengorbankan-konsep-produk">Bagaimana Menekan HPP Tanpa Mengorbankan Konsep Produk?</h2>
+<p>Menekan HPP bukan berarti mencari bahan atau kemasan paling murah. Tujuannya adalah struktur produk yang sesuai target harga jual tanpa menghilangkan alasan utama konsumen membeli. Lihat produk sebagai kombinasi <strong>formula, kemasan, ukuran, jumlah produksi, dan positioning</strong>. Kalau satu komponen terlalu tinggi, solusinya bisa jadi mengubah ukuran atau memilih kemasan yang lebih efisien, bukan menurunkan kualitas formula.</p>
+
+<div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <h3 class="m-0 mb-2 text-base sm:text-lg font-extrabold text-slate-900">Pilih Kemasan Sesuai Target Harga</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-700 leading-relaxed">Untuk target market yang mencari produk praktis dan terjangkau, kemasan standar dengan desain label yang kuat bisa menjadi pilihan. Tidak harus custom packaging yang kompleks untuk terlihat profesional. Untuk segmen premium, kemasan mungkin perlu memberi pengalaman lebih kuat, tetapi biayanya tetap harus ditanggung harga jual. Diskusikan pilihan kemasan sejak awal agar identitas visual terjaga tanpa kehilangan kontrol atas target HPP.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <h3 class="m-0 mb-2 text-base sm:text-lg font-extrabold text-slate-900">Tentukan Formula Berdasarkan Kebutuhan</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-700 leading-relaxed">Kembangkan formula berdasarkan tujuan produk, bukan memasukkan sebanyak mungkin ingredient populer. Setiap bahan sebaiknya punya alasan penggunaan. Brief seperti "body lotion yang ringan, mudah diratakan, nyaman dipakai sehari-hari" jauh lebih berguna daripada "formula premium". Formula yang baik adalah yang sesuai fungsi, karakter, dan target konsumen.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <h3 class="m-0 mb-2 text-base sm:text-lg font-extrabold text-slate-900">Tentukan Jumlah Produksi Secara Realistis</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-700 leading-relaxed">Jangan mengejar jumlah besar hanya karena HPP per unit jadi lebih rendah. Kalau demand belum cukup, stok besar membuat modal tertahan. Jumlah terlalu kecil juga memengaruhi efisiensi. Gunakan data atau asumsi penjualan yang realistis: kemampuan distribusi, audience yang dimiliki, dan channel penjualan. Jumlah produksi adalah keputusan bisnis: target HPP, cash flow, kapasitas penjualan, dan risiko stok dilihat bersamaan.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <h3 class="m-0 mb-2 text-base sm:text-lg font-extrabold text-slate-900">Mulai dari Satu Produk</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-700 leading-relaxed">Satu produk utama membantu brand baru menjaga fokus dan menguji positioning, komunikasi, harga, serta respons konsumen. Contoh: mulai dari body lotion sebagai hero product, lalu tambahkan body wash dengan konsep serupa saat konsumen membutuhkannya. Brand yang sudah punya audience besar atau distribusi kuat bisa punya strategi peluncuran berbeda. Yang penting, setiap produk punya alasan bisnis yang jelas.</p>
+  </div>
+</div>
+
+<h2 id="custom-formula-bodycare-bersama-dreamlab">Custom Formula Bodycare Bersama Dreamlab</h2>
+<p>Anda tidak harus datang ke <strong>Dreamlab (PT Karya Impian Laboratoris)</strong> dengan formula jadi. Ide produk sudah cukup untuk memulai: produk apa yang ingin dibuat, siapa target konsumennya, karakter produk yang diinginkan, dan kisaran harga jual.</p>
+<p>Semakin lengkap brief, semakin mudah tim R&amp;D memahami arah produk: ingredient pilihan, tekstur, aroma, ukuran, kemasan, target harga jual, dan target HPP. Tidak semuanya harus final di konsultasi pertama.</p>
+<p>Dreamlab mengedepankan prinsip <strong>1 Client, 1 Formula</strong>: brand membangun produk berdasarkan konsepnya sendiri, bukan produk yang sama persis dengan brand lain. Pengembangan formula tetap dibahas sesuai kebutuhan, spesifikasi, dan proses R&amp;D.</p>
+
+<h2 id="produk-bodycare-yang-bisa-dikembangkan-bersama-dreamlab">Produk Bodycare yang Bisa Dikembangkan Bersama Dreamlab</h2>
+<p>Setelah target konsumen dan konsep produk lebih jelas, tentukan jenis bodycare yang ingin dikembangkan. Tidak semua produk harus dibuat sekaligus; pilih berdasarkan kebutuhan target market dan peran produk dalam lini brand Anda.</p>
+
+<div class="my-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 not-prose">
+  <div role="link" tabindex="0" data-article-product="Body Lotion" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/body-lotion" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/skincare&amp;facecare/Dreamlab-maklon-bodylotion.png" alt="Maklon Body Lotion Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-lotion" class="no-underline text-inherit">Body Lotion</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> produk perawatan tubuh harian dan hero product brand baru.</li>
+        <li><strong>Varian populer:</strong> daily lotion, whitening, firming, deep moisturizing.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> tekstur (ringan atau rich), bahan aktif, ukuran (100–500 ml), jenis kemasan (botol pump, tube).</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/body-lotion" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon body lotion</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Body Serum" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/body-serum" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/body-serum-new.jpeg" alt="Maklon Body Serum Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-serum" class="no-underline text-inherit">Body Serum</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> positioning yang lebih spesifik dengan klaim fungsi yang jelas.</li>
+        <li><strong>Varian populer:</strong> brightening, firming, nourishing.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> jenis dan kadar bahan aktif, kemasan (dropper, pump), ukuran.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/body-serum" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon body serum</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Body Wash" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/body-wash" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/body-wash.webp" alt="Maklon Body Wash Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-wash" class="no-underline text-inherit">Body Wash</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> rutinitas mandi dan pasangan body lotion dalam satu rangkaian.</li>
+        <li><strong>Varian populer:</strong> shower gel, cream wash, foaming wash.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> ukuran (biasanya lebih besar), aroma, jenis kemasan dan pump.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/body-wash" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon body wash</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Shower Gel" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/shower-gel" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/shower-gel.webp" alt="Maklon Shower Gel Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/shower-gel" class="no-underline text-inherit">Shower Gel</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> rangkaian mandi dengan aroma khas brand.</li>
+        <li><strong>Varian populer:</strong> shower gel beraroma, gel transparan.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> fragrance, ukuran, kemasan.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/shower-gel" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon shower gel</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Body Scrub" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/body-scrub" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/body-scrub.webp" alt="Maklon Body Scrub Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-scrub" class="no-underline text-inherit">Body Scrub</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> konsep eksfoliasi dan perawatan mingguan.</li>
+        <li><strong>Varian populer:</strong> sugar scrub, salt scrub, coffee scrub, oatmeal scrub.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> jenis dan ukuran partikel scrub, base (oil atau cream), kemasan jar atau pouch.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/body-scrub" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon body scrub</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Body Butter" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/body-butter" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/body-butter.webp" alt="Maklon Body Butter Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-butter" class="no-underline text-inherit">Body Butter</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> tekstur rich dan positioning perawatan intensif.</li>
+        <li><strong>Varian populer:</strong> shea butter, cocoa butter, whipped butter, scented butter.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> proporsi butter, tekstur (whipped atau padat), kemasan jar.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/body-butter" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon body butter</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Body Oil" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/body-oil" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/Maklon-kosmetik-body-oil.webp" alt="Maklon Body Oil Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/body-oil" class="no-underline text-inherit">Body Oil</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> perawatan berbasis oil dan efek kulit glowing.</li>
+        <li><strong>Varian populer:</strong> nourishing oil, glow oil.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> jenis minyak, aroma, kemasan (dropper, spray, botol kaca).</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/body-oil" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon body oil</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Massage Oil" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/massage-oil" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/massage-oil.webp" alt="Maklon Massage Oil Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/massage-oil" class="no-underline text-inherit">Massage Oil</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> spa, relaksasi, dan aromaterapi.</li>
+        <li><strong>Varian populer:</strong> relaxing oil, aromatherapy oil, herbal oil.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> jenis minyak dan essential oil, ukuran, kemasan.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/massage-oil" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon massage oil</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div role="link" tabindex="0" data-article-product="Deodorant" data-from="biaya-maklon-bodycare-target-hpp" data-product-href="/produk/bodycare/deodorant" class="group rounded-2xl border border-slate-200 bg-[#FAF9F6] hover:bg-amber-50/40 hover:border-[#D98A00]/60 p-5 shadow-xs transition-all cursor-pointer flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#D98A00]">
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <img src="/new asset/bodycare/deodorant-spray.webp" alt="Maklon Deodorant Dreamlab" width="56" height="56" loading="lazy" class="w-14 h-14 rounded-xl object-cover bg-white border border-slate-200 shrink-0" />
+        <h3 class="m-0 text-base font-extrabold text-slate-900 group-hover:text-[#D98A00] transition-colors">
+          <a href="/produk/bodycare/deodorant" class="no-underline text-inherit">Deodorant</a>
+        </h3>
+      </div>
+      <ul class="m-0 pl-0 list-none space-y-1.5 text-xs text-slate-700 leading-relaxed">
+        <li><strong>Cocok untuk:</strong> perluasan ke kategori personal care.</li>
+        <li><strong>Varian populer:</strong> spray, roll on, balm, dry serum.</li>
+        <li><strong>Yang memengaruhi HPP:</strong> format produk (tiap format butuh kemasan berbeda), bahan aktif, ukuran.</li>
+      </ul>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-200/80">
+      <a href="/produk/bodycare/deodorant" class="inline-flex items-center gap-1 text-xs font-extrabold text-[#D98A00] no-underline group-hover:translate-x-0.5 transition-transform">
+        <span>Lihat detail maklon deodorant</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="my-6 rounded-2xl border border-slate-200 bg-white p-5 not-prose">
+  <p class="m-0 mb-3 text-xs sm:text-sm font-extrabold text-slate-900">Produk bodycare lainnya:</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/produk/bodycare/underarm-cream" data-article-product="Underarm Cream" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Underarm Cream</a>
+    <a href="/produk/bodycare/soothing-gel" data-article-product="Soothing Gel" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Soothing Gel</a>
+    <a href="/produk/bodycare/massage-cream" data-article-product="Massage Cream" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Massage Cream</a>
+    <a href="/produk/bodycare/neck-cream" data-article-product="Neck Cream" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Neck Cream</a>
+    <a href="/produk/bodycare/bath-salt" data-article-product="Bath Salt" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Bath Salt</a>
+    <a href="/produk/bodycare/bar-soap" data-article-product="Bar Soap" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Bar Soap</a>
+    <a href="/produk/bodycare/organic-soap" data-article-product="Organic Soap" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Organic Soap</a>
+    <a href="/produk/bodycare/transparent-soap" data-article-product="Transparent Soap" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Transparent Soap</a>
+    <a href="/produk/bodycare/whitening-soap" data-article-product="Whitening Soap" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Whitening Soap</a>
+    <a href="/produk/bodycare/anti-bacterial-soap" data-article-product="Anti Bacterial Soap" data-from="biaya-maklon-bodycare-target-hpp" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#D98A00] hover:bg-amber-50/50 text-xs font-bold text-slate-700 hover:text-[#D98A00] no-underline transition-colors">Anti Bacterial Soap</a>
+  </div>
+  <div class="mt-4 pt-3 border-t border-slate-100">
+    <a href="/produk/bodycare" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-[#D98A00] no-underline hover:underline">
+      <span>Lihat semua pilihan maklon bodycare Dreamlab</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+    </a>
+  </div>
+</div>
+
+<h2 id="bagaimana-alur-maklon-bodycare-di-dreamlab">Bagaimana Alur Maklon Bodycare di Dreamlab?</h2>
+<p>Maklon bukan sekadar menyerahkan ide lalu menerima produk jadi. Ada tahapan agar ide diterjemahkan menjadi produk dengan spesifikasi yang jelas.</p>
+
+<div class="my-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <span class="inline-block rounded-lg bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-2.5 py-1 text-xs font-black text-white mb-2">01</span>
+    <h3 class="m-0 mb-2 text-base font-extrabold text-slate-900">01 — Konsultasi Ide</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">Bicarakan produk yang ingin dibuat: target konsumen, konsep, manfaat yang ditonjolkan, target harga jual, dan perkiraan jumlah produksi. Anda tidak harus tahu detail teknis formula; konsultasi justru menerjemahkan ide bisnis menjadi brief produk.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <span class="inline-block rounded-lg bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-2.5 py-1 text-xs font-black text-white mb-2">02</span>
+    <h3 class="m-0 mb-2 text-base font-extrabold text-slate-900">02 — Formulasi Tepat</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">Tim R&amp;D mengembangkan formula berdasarkan kebutuhan dan karakter produk. Formula bukan hanya soal ingredient: tekstur, sensori, stabilitas, dan karakter penggunaan juga bagian dari pengembangan.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <span class="inline-block rounded-lg bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-2.5 py-1 text-xs font-black text-white mb-2">03</span>
+    <h3 class="m-0 mb-2 text-base font-extrabold text-slate-900">03 — Pembuatan Sample</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">Sample dibuat untuk melihat konsep dalam bentuk produk nyata. Anda dapat memberi feedback sesuai ruang lingkup pengembangan.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <span class="inline-block rounded-lg bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-2.5 py-1 text-xs font-black text-white mb-2">04</span>
+    <h3 class="m-0 mb-2 text-base font-extrabold text-slate-900">04 — Diskusi Hasil</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">Sample dibahas bersama untuk melihat kesesuaiannya dengan brief. Bagian yang perlu disesuaikan dibahas sesuai proses pengembangan.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <span class="inline-block rounded-lg bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-2.5 py-1 text-xs font-black text-white mb-2">05</span>
+    <h3 class="m-0 mb-2 text-base font-extrabold text-slate-900">05 — Legalitas &amp; Desain</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">Kebutuhan legalitas dan desain dipersiapkan sesuai proses yang berlaku. Identitas visual diselaraskan dengan konsep brand, termasuk informasi produk, ukuran, dan jenis kemasan.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+    <span class="inline-block rounded-lg bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-2.5 py-1 text-xs font-black text-white mb-2">06</span>
+    <h3 class="m-0 mb-2 text-base font-extrabold text-slate-900">06 — Produksi</h3>
+    <p class="m-0 text-xs sm:text-sm text-slate-600 leading-relaxed">Setelah spesifikasi final disepakati, produk diproduksi dengan formula dan spesifikasi yang telah ditentukan. Semakin matang tahap sebelumnya, semakin jelas dasar produksinya.</p>
+  </div>
+</div>
+
+<h2 id="mengapa-memilih-dreamlab-untuk-maklon-bodycare">Mengapa Memilih Dreamlab untuk Maklon Bodycare?</h2>
+<p>Memilih partner maklon tidak cukup dengan bertanya "berapa harga produksinya?". Lihat juga kemampuan partner menerjemahkan ide menjadi formula, mengembangkan sample, membantu produksi, dan mendampingi tahapan yang diperlukan.</p>
+<p>Dreamlab memosisikan layanan bodycare sebagai <strong>One-Stop Maklon Service</strong>, dengan dukungan R&amp;D, formulasi, legalitas, desain, hingga produksi.</p>
+
+<div class="my-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 not-prose">
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4">
+    <strong class="block text-sm font-extrabold text-slate-900 mb-1">Juaranya Formula</strong>
+    <p class="m-0 text-xs text-slate-600 leading-relaxed">Pengembangan formula adalah value utama; diskusi dimulai dari konsep, target konsumen, dan karakter produk.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4">
+    <strong class="block text-sm font-extrabold text-slate-900 mb-1">1 Client, 1 Formula</strong>
+    <p class="m-0 text-xs text-slate-600 leading-relaxed">Formula dibahas sesuai positioning dan target konsumen tiap brand.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4">
+    <strong class="block text-sm font-extrabold text-slate-900 mb-1">R&amp;D</strong>
+    <p class="m-0 text-xs text-slate-600 leading-relaxed">Tim R&amp;D menerjemahkan brief menjadi formula, sehingga brand owner tidak harus memahami detail teknis formulasi.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4">
+    <strong class="block text-sm font-extrabold text-slate-900 mb-1">One-Stop Maklon</strong>
+    <p class="m-0 text-xs text-slate-600 leading-relaxed">Konsultasi, formulasi, sample, legalitas &amp; desain, hingga produksi dalam satu alur kerja.</p>
+  </div>
+  <div class="rounded-2xl border border-slate-200 bg-[#FAF9F6] p-4 sm:col-span-2 lg:col-span-1">
+    <strong class="block text-sm font-extrabold text-slate-900 mb-1">MOQ menyesuaikan</strong>
+    <p class="m-0 text-xs text-slate-600 leading-relaxed">Jumlah produksi dilihat bersama target HPP, modal, target penjualan, dan spesifikasi produk.</p>
+  </div>
+</div>
+
+<h2 id="berapa-moq-maklon-bodycare-di-dreamlab">Berapa MOQ Maklon Bodycare di Dreamlab?</h2>
+<p>Tidak ada satu angka untuk semua produk bodycare. MOQ dipengaruhi kategori, formula, bahan, kemasan, ukuran, dan spesifikasi produksi. Body lotion dengan kemasan standar bisa berbeda kebutuhannya dengan produk yang memakai kemasan atau formula khusus.</p>
+<p>Jangan menentukan MOQ hanya demi HPP terendah. Bandingkan jumlah produksi dengan kemampuan menjual dan mengelola stok. Kalau Anda sudah punya target HPP dan perkiraan jumlah produksi, bawa saat konsultasi agar MOQ dibahas berdasarkan kebutuhan bisnis Anda. Baca juga <a href="/moq-maklon-kosmetik" style="color:#4a6fa5;font-weight:700">panduan MOQ maklon kosmetik</a>.</p>
+
+<h2 id="bagaimana-memulai-brand-bodycare-bersama-dreamlab">Bagaimana Memulai Brand Bodycare Bersama Dreamlab?</h2>
+<p>Anda tidak perlu menunggu formula final. Ide yang masih berupa konsep bisa menjadi bahan diskusi. Siapkan lima hal berikut:</p>
+
+<div id="bodycare-checklist-root" data-checklist-variant="biaya"></div>
+
+<p>Setelah lima hal ini mulai jelas, bawa brief-nya untuk didiskusikan bersama Dreamlab: formula, sample, kemasan, MOQ, legalitas, dan produksi.</p>
+<p>Untuk panduan memilih produk pertama, baca <a href="/maklon-bodycare-panduan-memulai-brand-sendiri/" style="color:#4a6fa5;font-weight:700">Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri</a>.</p>
+
+<h2 id="yuk-kembangkan-ide-bersama-dreamlab">Yuk, Kembangkan Ide Bersama Dreamlab!</h2>
+<p>Sudah punya target harga jual tetapi belum tahu apakah target HPP Anda realistis? Atau sudah tahu ingin membuat body lotion, body serum, atau body wash tetapi bingung menerjemahkannya menjadi produk?</p>
+<p>Bawa ide, target konsumen, target harga jual, target HPP, dan perkiraan jumlah produksi sebagai titik awal. Bersama <strong>Dreamlab (PT Karya Impian Laboratoris)</strong>, Anda bisa mendiskusikan konsep produk dan pengembangan formula bersama tim R&amp;D.</p>
+
+<div class="article-cta my-8 rounded-3xl bg-gradient-to-r from-[#0a1b38] via-[#0f2a58] to-[#163870] p-6 sm:p-10 text-center text-white shadow-xl not-prose">
+  <span class="inline-block rounded-full bg-amber-400/20 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-widest text-amber-300 mb-3">Konsultasi Brand Bodycare</span>
+  <h3 class="text-xl sm:text-2xl font-black text-white mb-2">Yuk, Kembangkan Ide Bersama Dreamlab!</h3>
+  <p class="text-xs sm:text-sm text-blue-100/90 max-w-xl mx-auto mb-6 leading-relaxed">Bawa ide, target konsumen, target harga jual, target HPP, dan perkiraan jumlah produksi Anda untuk didiskusikan bersama tim R&amp;D Dreamlab.</p>
+  <button type="button" data-open-lead-modal="true" data-category="Bodycare" class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-8 py-4 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-lg shadow-amber-500/30 hover:brightness-105 transition-all cursor-pointer border-0">
+    <span>Konsultasikan Produk Anda</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+  </button>
+</div>
+
+<h2 id="faq-maklon-bodycare">FAQ Maklon Bodycare</h2>
+<details><summary>Berapa biaya maklon bodycare?</summary><p>Biaya maklon bodycare bergantung pada formula, bahan, kemasan, jumlah produksi, ukuran, dan spesifikasi produk. Biaya aktual dibahas berdasarkan brief produk.</p></details>
+<details><summary>Bagaimana cara menghitung HPP bodycare?</summary><p>Kalikan target harga jual dengan persentase target HPP untuk simulasi awal. Untuk hasil yang lebih realistis, hitung mundur dari harga jual setelah potongan channel, marketing, operasional, dan margin. Hasilnya adalah target, bukan quotation produksi.</p></details>
+<details><summary>Apakah hasil kalkulator HPP sama dengan penawaran harga Dreamlab?</summary><p>Tidak. Kalkulator adalah simulasi untuk perencanaan. Penawaran resmi mengikuti formula, bahan, kemasan, ukuran, dan jumlah produksi yang disepakati saat konsultasi.</p></details>
+<details><summary>Produk bodycare apa saja yang bisa dibuat di Dreamlab?</summary><p>Antara lain body lotion, body serum, body wash, shower gel, body scrub, body butter, body oil, massage oil, deodorant, underarm cream, soothing gel, bath salt, dan berbagai jenis sabun. Lihat semua pilihan di halaman <a href="/produk/bodycare" style="color:#4a6fa5;font-weight:700">maklon bodycare</a>.</p></details>
+<details><summary>Apakah Dreamlab bisa membuat custom formula bodycare?</summary><p>Bisa. Konsep dan kebutuhan produk didiskusikan bersama tim R&amp;D Dreamlab untuk mengembangkan formula sesuai brief.</p></details>
+<details><summary>Berapa MOQ maklon bodycare di Dreamlab?</summary><p>MOQ menyesuaikan kategori, formula, kemasan, ukuran, dan spesifikasi produk. Jumlah yang sesuai dibahas berdasarkan kebutuhan dan kemampuan brand.</p></details>
 </div>`,
-    seo: { title: 'Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP', description: 'Berapa biaya maklon bodycare? Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, dan proses maklon bersama Dreamlab.' }
+    faqs: [
+      {
+        question: 'Berapa biaya maklon bodycare?',
+        answer: 'Biaya maklon bodycare bergantung pada formula, bahan, kemasan, jumlah produksi, ukuran, dan spesifikasi produk. Biaya aktual dibahas berdasarkan brief produk.',
+      },
+      {
+        question: 'Bagaimana cara menghitung HPP bodycare?',
+        answer: 'Kalikan target harga jual dengan persentase target HPP untuk simulasi awal. Untuk hasil yang lebih realistis, hitung mundur dari harga jual setelah potongan channel, marketing, operasional, dan margin. Hasilnya adalah target, bukan quotation produksi.',
+      },
+      {
+        question: 'Apakah hasil kalkulator HPP sama dengan penawaran harga Dreamlab?',
+        answer: 'Tidak. Kalkulator adalah simulasi untuk perencanaan. Penawaran resmi mengikuti formula, bahan, kemasan, ukuran, dan jumlah produksi yang disepakati saat konsultasi.',
+      },
+      {
+        question: 'Produk bodycare apa saja yang bisa dibuat di Dreamlab?',
+        answer: 'Antara lain body lotion, body serum, body wash, shower gel, body scrub, body butter, body oil, massage oil, deodorant, underarm cream, soothing gel, bath salt, dan berbagai jenis sabun. Lihat semua pilihan di halaman maklon bodycare.',
+      },
+      {
+        question: 'Apakah Dreamlab bisa membuat custom formula bodycare?',
+        answer: 'Bisa. Konsep dan kebutuhan produk didiskusikan bersama tim R&D Dreamlab untuk mengembangkan formula sesuai brief.',
+      },
+      {
+        question: 'Berapa MOQ maklon bodycare di Dreamlab?',
+        answer: 'MOQ menyesuaikan kategori, formula, kemasan, ukuran, dan spesifikasi produk. Jumlah yang sesuai dibahas berdasarkan kebutuhan dan kemampuan brand.',
+      },
+    ],
+    seo: {
+      title: 'Berapa Biaya Maklon Bodycare? Cara Menghitung Target HPP',
+      description: 'Berapa biaya maklon bodycare? Pelajari faktor biaya, cara menghitung target HPP, pilihan produk, custom formula, MOQ, dan proses maklon bersama Dreamlab.'
+    }
   },
   {
     "slug": "/jasa-maklon-skincare-palembang",

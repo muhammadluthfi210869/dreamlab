@@ -255,15 +255,15 @@
   }
 
   /* Premium List Grid Cards */
-  /* Standard, comfortable list styles */
-  .article-content ul {
+  /* Standard, comfortable list styles (excluding .not-prose components) */
+  .article-content ul:not(.not-prose ul):not(.not-prose) {
     list-style-type: disc !important;
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
     padding-left: 2rem !important;
   }
 
-  .article-content ul li {
+  .article-content ul:not(.not-prose ul):not(.not-prose) > li {
     margin-bottom: 0.5rem !important;
     line-height: 1.7 !important;
     font-size: 16px !important;
@@ -275,7 +275,7 @@
     display: list-item !important;
   }
 
-  .article-content ul li::before {
+  .article-content ul:not(.not-prose ul):not(.not-prose) > li::before {
     display: none !important;
   }
 

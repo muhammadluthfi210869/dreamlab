@@ -50,10 +50,14 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
     const hppCalcRoot = el.querySelector('#hpp-calculator-root');
     if (hppCalcRoot && !hppCalcRoot.hasAttribute('data-mounted')) {
       hppCalcRoot.setAttribute('data-mounted', 'true');
+      const defaultMode =
+        hppCalcRoot.getAttribute('data-default-mode') === 'quick'
+          ? 'quick'
+          : 'detail';
       import('react-dom/client').then(({ createRoot }) => {
         import('./HppCalculator').then(({ default: HppCalculator }) => {
           const root = createRoot(hppCalcRoot);
-          root.render(React.createElement(HppCalculator));
+          root.render(React.createElement(HppCalculator, { defaultMode }));
         });
       });
     }
@@ -61,10 +65,14 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
     const checklistRoot = el.querySelector('#bodycare-checklist-root');
     if (checklistRoot && !checklistRoot.hasAttribute('data-mounted')) {
       checklistRoot.setAttribute('data-mounted', 'true');
+      const variant =
+        checklistRoot.getAttribute('data-checklist-variant') === 'biaya'
+          ? 'biaya'
+          : 'default';
       import('react-dom/client').then(({ createRoot }) => {
         import('./ConsultationChecklist').then(({ default: ConsultationChecklist }) => {
           const root = createRoot(checklistRoot);
-          root.render(React.createElement(ConsultationChecklist));
+          root.render(React.createElement(ConsultationChecklist, { variant }));
         });
       });
     }
@@ -127,6 +135,33 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
         return;
       }
 
+      const productCard = target.closest<HTMLElement>('[data-article-product]');
+      if (productCard) {
+        const productName = productCard.getAttribute('data-article-product') || '';
+        const fromSlug =
+          productCard.getAttribute('data-from') ||
+          'biaya-maklon-bodycare-target-hpp';
+        const href = productCard.getAttribute('data-product-href');
+
+        if (typeof window !== 'undefined' && productName) {
+          const w = window as unknown as {
+            dataLayer?: Array<Record<string, unknown>>;
+          };
+          w.dataLayer = w.dataLayer || [];
+          w.dataLayer.push({
+            event: 'article_product_click',
+            product: productName,
+            from: fromSlug,
+          });
+        }
+
+        const clickedAnchor = target.closest('a');
+        if (!clickedAnchor && href) {
+          window.location.href = href;
+        }
+        return;
+      }
+
       const dotBtn = target.closest<HTMLButtonElement>('[data-carousel-dot]');
       if (dotBtn && track) {
         const idx = Number(dotBtn.getAttribute('data-carousel-dot'));
@@ -145,10 +180,21 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       carTrack.scrollBy({ left: isPrev ? -320 : 320, behavior: 'smooth' });
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const target = e.target as HTMLElement;
+      const productCard = target.closest<HTMLElement>('[data-article-product]');
+      if (!productCard || target.tagName === 'A') return;
+      e.preventDefault();
+      productCard.click();
+    };
+
     el.addEventListener('click', handleCarouselClick);
+    el.addEventListener('keydown', handleKeyDown);
     return () => {
       if (track) track.removeEventListener('scroll', handleScroll);
       el.removeEventListener('click', handleCarouselClick);
+      el.removeEventListener('keydown', handleKeyDown);
     };
   }, [htmlContent]);
 

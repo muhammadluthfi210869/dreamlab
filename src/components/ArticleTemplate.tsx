@@ -14,6 +14,7 @@ import JsonLd from './JsonLd';
 import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
+import { LeadQualificationModal } from './LeadQualificationModal';
 import { getCategoryDisplay, resolveBlogCategory } from '@/data/blog-categories';
 import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
@@ -46,6 +47,18 @@ interface ArticleTemplateProps {
 
 const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [], faqs = [] }) => {
   const [copied, setCopied] = useState(false);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+
+  const inferredModalCategory = useMemo(() => {
+    const text = `${article.slug} ${article.title}`.toLowerCase();
+    if (text.includes('bodycare') || text.includes('body-care') || text.includes('handbody') || text.includes('deodorant')) {
+      return 'Bodycare';
+    }
+    if (text.includes('parfum') || text.includes('perfume')) return 'Parfum';
+    if (text.includes('hair')) return 'Haircare';
+    if (text.includes('baby')) return 'Babycare';
+    return 'Skincare';
+  }, [article.slug, article.title]);
 
   const articleUrl = `https://dreamlab.id${article.slug.startsWith('/') ? article.slug : `/${article.slug}`}`;
 
@@ -208,12 +221,13 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                         </Link>
                       </div>
                     </div>
-                    <Link
-                      href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=article_body_box`}
-                      className="shrink-0 bg-brand-orange hover:bg-[#D98200] text-white px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-brand-orange/25"
+                    <button
+                      type="button"
+                      onClick={() => setIsLeadModalOpen(true)}
+                      className="shrink-0 bg-brand-orange hover:bg-[#D98200] text-white px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-brand-orange/25 cursor-pointer"
                     >
                       Konsultasi Gratis
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -287,7 +301,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 </h3>
                 <div className="space-y-6">
                   {recentPosts.slice(0, 4).map((post, i) => (
-                    <Link key={i} href={`${post.slug.startsWith('/') ? post.slug : `/${post.slug}`}`} className="flex gap-4 group">
+                    <Link key={i} href={`/${post.slug.replace(/^\/+|\/+$/g, '')}/`} className="flex gap-4 group">
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-50 border border-neutral-100">
                         <Image
                           src={resolveArticleImageSrc(post.featuredImage)}
@@ -335,18 +349,28 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                     <span>Pabrik CPKB Grade A &amp; BPOM</span>
                   </div>
                 </div>
-                <Link
-                  href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=sidebar_article`}
-                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all shadow-md shadow-brand-orange/20"
+                <button
+                  type="button"
+                  onClick={() => setIsLeadModalOpen(true)}
+                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all shadow-md shadow-brand-orange/20 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
                   KONSULTASI VIA WHATSAPP
-                </Link>
+                </button>
               </div>
             </aside>
           </div>
         </div>
       </div>
+
+      <LeadQualificationModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+        defaultCategory={inferredModalCategory}
+        source="article-template-cta"
+        channel="other"
+        landingPage={article.slug}
+      />
     </>
   );
 };
