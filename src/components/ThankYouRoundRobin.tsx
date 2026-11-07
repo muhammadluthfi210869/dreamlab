@@ -86,16 +86,23 @@ export function ThankYouRoundRobin({
       if (typeof sessionStorage !== "undefined") {
         sessionStorage.removeItem("dl_qualified_wa_url");
       }
+      const activeList = getActiveBusdev();
+      const isUrlActive = activeList.some((b) => qualifiedWaUrl.includes(b.phone));
+      const safeWaUrl = isUrlActive
+        ? qualifiedWaUrl
+        : qualifiedWaUrl.replace(/wa\.me\/[0-9]+/, `wa.me/${activeList[0].phone}`);
+      const rawSalesName = params.get("sales_name") || "Business Consultant Dreamlab";
+      const safeSalesName = /diaz|irma/i.test(rawSalesName) ? activeList[0].name : rawSalesName;
       setAssignment({
         success: true,
         assignmentId: params.get("inquiry") || "QUALIFIED",
         source: resolvedSource,
         sales: {
           id: "0",
-          name: params.get("sales_name") || "Business Consultant Dreamlab",
-          phone: params.get("sales_phone") || undefined,
+          name: safeSalesName,
+          phone: isUrlActive ? params.get("sales_phone") || undefined : activeList[0].phone,
         },
-        whatsappUrl: qualifiedWaUrl,
+        whatsappUrl: safeWaUrl,
       });
       setLoading(false);
       return;

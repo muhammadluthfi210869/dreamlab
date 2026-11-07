@@ -191,7 +191,16 @@ export async function POST(req: NextRequest) {
     const reserveRes = await atomicReserveAndAssignLeadEvent(eventId);
     const redisDurationMs = Math.round(performance.now() - tRedisStart);
 
-    if (reserveRes.status === 'CACHED') {
+    const isCachedAgentActive =
+      reserveRes.status === 'CACHED' &&
+      activeBusdev.some(
+        (b) =>
+          b.id.toLowerCase() === (reserveRes.assignment.sales?.id || '').toLowerCase() ||
+          b.name.toLowerCase() === (reserveRes.assignment.sales?.name || '').toLowerCase() ||
+          (reserveRes.assignment.whatsappUrl || '').includes(b.phone)
+      );
+
+    if (reserveRes.status === 'CACHED' && isCachedAgentActive) {
       const totalDurationMs = Math.round(performance.now() - tStart);
       return NextResponse.json(
         {

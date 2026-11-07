@@ -73,7 +73,7 @@ interface LeadDetail {
   note: string | null;
 }
 
-const BUSDEV_TABS = ["Semua", "Annisa", "Jessica", "Diaz"] as const;
+const BUSDEV_TABS = ["Semua", "Annisa", "Jessica"] as const;
 
 const QUICK_TEMPLATES = [
   { label: "Sapaan Awal", text: "Halo Kak! Terima kasih sudah menghubungi Dreamlab Maklon Kosmetik. Ada rencana formula produk apa yang ingin dikembangkan?" },
