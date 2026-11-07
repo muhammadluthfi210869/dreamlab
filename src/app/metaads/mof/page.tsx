@@ -363,9 +363,9 @@ export default function MetaAdsMofLandingPage() {
         />
 
         <div className="container-custom w-full px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
             {/* Left Column: Clean Open Headline (No White Box) + CTA */}
-            <div className="lg:col-span-7 text-center lg:text-left space-y-4">
+            <div className="w-full min-w-0 lg:col-span-7 text-center lg:text-left space-y-4">
               {/* Trust Pill */}
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white/90 border border-brand-orange/35 rounded-full text-brand-orange shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0" />
