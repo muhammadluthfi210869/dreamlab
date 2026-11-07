@@ -16,6 +16,7 @@ import {
   Palette,
   Star,
   Repeat,
+  Sparkles,
 } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
@@ -32,26 +33,29 @@ const partnerBrands = [
   { name: "Chloe Green", logo: "/assets/images/1-300x300.webp" },
 ];
 
-// HANYA 3 POIN SINGKAT TANPA PENJELASAN PANJANG
+// 3 POIN SINGKAT TANPA PENJELASAN PANJANG
 const potensiPoints = [
   {
     icon: DollarSign,
-    metric: "Margin 60% – 80%",
-    title: "Profit Tebal per Produk",
+    metric: "60% – 80%",
+    title: "Margin Profit Tebal per Produk",
+    tag: "High Margin",
   },
   {
     icon: TrendingUp,
     metric: "Rp 158+ Triliun",
-    title: "Pasar Kosmetik Terus Tumbuh",
+    title: "Nilai Pasar Kosmetik Indonesia",
+    tag: "Terus Tumbuh",
   },
   {
     icon: Repeat,
-    metric: "85% Repeat Order",
+    metric: "85% Repeat",
     title: "Produk Habis Pakai Bulanan",
+    tag: "Order Berulang",
   },
 ];
 
-// POIN SINGKAT TANPA PENJELASAN PANJANG
+// POIN SINGKAT TANPA PENJELASAN PANJANG (DI BAWAH PRODUK DISPLAY)
 const partnerAdvantages = [
   {
     title: "1 Klien 1 Formula Eksklusif",
@@ -74,7 +78,7 @@ const partnerAdvantages = [
     icon: DollarSign,
   },
   {
-    title: "Bimbingan Bisnis & Marketing",
+    title: "Full Support R&D & Marketing",
     icon: Users,
   },
 ];
@@ -201,7 +205,7 @@ export default function MetaAdsBofLandingPage() {
   const marqueeBrands = [...partnerBrands, ...partnerBrands, ...partnerBrands];
 
   return (
-    <div className="landing-page-ads min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-white text-neutral-900 font-sans selection:bg-brand-orange selection:text-white">
+    <div className="landing-page-ads min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#FAF9F6] text-neutral-900 font-sans selection:bg-brand-orange selection:text-white">
       {/* Pure CSS Keyframes for Continuous Running Logo Marquee */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes dreamlabMarquee {
@@ -220,8 +224,8 @@ export default function MetaAdsBofLandingPage() {
         }
       `}} />
 
-      {/* ============ 1. HERO SECTION: CLEAN SKINCARE BACKGROUND SEPERTI HOMEPAGE ============ */}
-      <section className="relative w-full min-h-[560px] sm:min-h-[620px] lg:min-h-[680px] flex flex-col justify-between overflow-hidden bg-[#D7E6F5] border-b border-neutral-200/60">
+      {/* ============ 1. HERO SECTION: GAMBAR BOTOL DI ATAS, COPYWRITING DI BAWAH (TIDAK MENUTUPI BOTOL) ============ */}
+      <section className="relative w-full min-h-[640px] sm:min-h-[660px] lg:min-h-[700px] flex flex-col justify-between overflow-hidden bg-[#D5E5F4]">
         {/* Full-Bleed Skincare Background Visual */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <Image
@@ -230,22 +234,14 @@ export default function MetaAdsBofLandingPage() {
             fill
             priority
             unoptimized
-            className="object-cover object-[80%_bottom] sm:object-right"
+            className="object-cover object-[84%_12%] sm:object-[80%_center] lg:object-right"
             sizes="100vw"
           />
-          {/* Clean Soft Readability Gradient — leaves the product bottles unobstructed */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/55 via-45% to-transparent lg:bg-gradient-to-r lg:from-white/92 lg:via-white/65 lg:via-48% lg:to-transparent" />
+          {/* Mobile: Top 45% is 100% clear so the bottles shine at the top; Bottom 55% fades smoothly into white so the headline sits cleanly below! */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.12)_32%,rgba(255,255,255,0.88)_54%,rgba(255,255,255,0.98)_76%,#FAF9F6_100%)] lg:bg-[linear-gradient(to_right,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.84)_42%,rgba(255,255,255,0.15)_75%,transparent_100%)]" />
         </div>
 
-        {/* Soft Dreamlab Blue & Orange Ambient Shadow Behind Headline */}
-        <div
-          className="absolute top-12 left-0 w-[300px] sm:w-[460px] h-[220px] sm:h-[300px] pointer-events-none z-0 blur-[80px] opacity-35"
-          style={{
-            background: "radial-gradient(circle at 30% 40%, #4898D3 0%, #F39200 85%, transparent 100%)",
-          }}
-        />
-
-        {/* Top Minimal Brand Logo Inside Hero (No Floating Header Popup Layer) */}
+        {/* Top Minimal Brand Bar */}
         <div className="container-custom w-full px-4 pt-5 sm:pt-7 relative z-10 flex items-center justify-between">
           <Image
             src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
@@ -253,36 +249,54 @@ export default function MetaAdsBofLandingPage() {
             width={135}
             height={44}
             unoptimized
-            className="h-8 sm:h-10 w-auto object-contain"
+            className="h-8 sm:h-10 w-auto object-contain drop-shadow-xs"
             priority
           />
         </div>
 
-        {/* Main Hero Copy */}
-        <div className="container-custom w-full px-4 pt-6 pb-56 sm:py-16 lg:py-24 relative z-10 my-auto">
-          <div className="w-full max-w-xl lg:max-w-2xl text-center lg:text-left space-y-3 sm:space-y-4">
-            <h1
-              className="text-[26px] sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.12] uppercase text-neutral-900 font-display"
-              style={{
-                textShadow: "0 8px 26px rgba(72,152,211,0.22), 0 4px 12px rgba(243,146,0,0.18)",
-              }}
-            >
+        {/* Hero Copy Block — Positioned Lower on Mobile (pt-56) so Bottles Remain Unobstructed Above */}
+        <div className="container-custom w-full px-4 pt-56 pb-10 sm:pt-28 sm:pb-16 lg:py-24 relative z-10 mt-auto lg:my-auto">
+          {/* Soft Dreamlab Blue & Orange Glow Behind Headline */}
+          <div
+            className="absolute -inset-x-4 top-44 bottom-4 lg:top-8 lg:w-[540px] pointer-events-none -z-10 blur-[65px] opacity-40"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 50%, rgba(72,152,211,0.45) 0%, rgba(243,146,0,0.35) 70%, transparent 100%)",
+            }}
+          />
+
+          <div className="w-full max-w-xl lg:max-w-2xl mx-auto lg:mx-0 text-center lg:text-left space-y-3.5">
+            {/* Eyebrow Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/25 text-brand-orange backdrop-blur-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+              <span className="text-[10px] sm:text-xs font-black tracking-[0.2em] uppercase">
+                DREAMLAB #JUARANYAFORMULA
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-[54px] font-black tracking-tight leading-[1.08] uppercase text-neutral-900 font-display">
               INGIN WUJUDKAN BRAND IMPIAN?{" "}
               <span className="text-brand-orange block mt-1">
                 DREAMLAB PILIHAN YANG TEPAT
               </span>
             </h1>
 
-            <p className="text-sm sm:text-lg md:text-xl font-extrabold uppercase tracking-wider text-neutral-800">
-              Buat Brand Tanpa Ribet Hanya 3 Bulan
-            </p>
+            {/* Subheadline */}
+            <div className="pt-0.5">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/90 border border-neutral-200/90 shadow-2xs text-xs sm:text-base font-extrabold uppercase tracking-wider text-neutral-800">
+                <Sparkles className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                <span>Buat Brand Tanpa Ribet Hanya 3 Bulan</span>
+              </span>
+            </div>
 
-            <div className="pt-2">
+            {/* Primary CTA Button */}
+            <div className="pt-3">
               <a
                 href={THANKYOU_URL}
-                className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 bg-brand-orange text-white rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-[0_12px_28px_rgba(243,146,0,0.35)] hover:bg-neutral-900 active:scale-95"
+                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-9 py-4 bg-brand-orange text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-[0_14px_30px_rgba(243,146,0,0.35)] hover:bg-neutral-900 active:scale-95"
               >
-                <MessageCircle className="w-4 h-4 fill-current shrink-0" />
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
                 <span>Klaim Sampel & Cek HPP Gratis</span>
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </a>
@@ -291,37 +305,32 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </section>
 
-      {/* ============ 2. POTENSI BISNIS KOSMETIK SAAT INI (HANYA 3 POIN SINGKAT TANPA PENJELASAN PANJANG) ============ */}
-      <section className="py-10 sm:py-14 bg-white border-b border-neutral-100">
+      {/* ============ 2. KEUNTUNGAN BERPARTNER DENGAN DREAMLAB (DI ATAS PRODUK DISPLAY, POIN RINGKAS) ============ */}
+      <section className="py-10 sm:py-14 bg-[#FAF9F6]">
         <div className="container-custom px-4">
           <div className="text-center mb-6 sm:mb-8">
-            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-brand-orange block mb-1">
-              PELUANG INDUSTRI KECANTIKAN
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-brand-orange block mb-1">
+              MENGAPA DREAMLAB
             </span>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
-              Potensi Bisnis Kosmetik Saat Ini
+              Keuntungan Berpartner dengan Dreamlab
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 max-w-4xl mx-auto">
-            {potensiPoints.map((item, idx) => {
-              const Icon = item.icon;
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
+            {partnerAdvantages.map((adv, idx) => {
+              const Icon = adv.icon;
               return (
                 <div
                   key={idx}
-                  className="flex sm:flex-col items-center sm:text-center gap-3.5 sm:gap-2 p-4 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-neutral-200/80"
+                  className="flex items-center gap-3 p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200/90 shadow-[0_6px_20px_rgba(0,0,0,0.03)]"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <div>
-                    <span className="block text-lg sm:text-2xl font-black text-brand-orange font-display leading-tight">
-                      {item.metric}
-                    </span>
-                    <span className="block text-xs sm:text-sm font-bold text-neutral-800 mt-0.5">
-                      {item.title}
-                    </span>
-                  </div>
+                  <span className="text-xs sm:text-sm font-extrabold text-neutral-900 leading-snug">
+                    {adv.title}
+                  </span>
                 </div>
               );
             })}
@@ -329,13 +338,13 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </section>
 
-      {/* ============ 3. PRODUK DISPLAY / KATALOG PRODUK (SLIDE KESAMPING) ============ */}
-      <section className="py-10 sm:py-14 bg-[#FAF8F5] border-b border-neutral-200/60 overflow-hidden">
+      {/* ============ 3. PRODUK DISPLAY / KATALOG PRODUK (SLIDE KESAMPING - FULL VISUAL CARD) ============ */}
+      <section className="py-10 sm:py-14 bg-white border-y border-neutral-200/60 overflow-hidden">
         <div className="container-custom px-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between max-w-5xl mx-auto mb-6 gap-3">
             <div className="text-center sm:text-left">
-              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-brand-orange block mb-1">
-                KATALOG PRODUK MAKLON
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-brand-orange block mb-1">
+                PILIH KATEGORI PRODUK
               </span>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
                 Produk Apa yang Ingin Anda Ciptakan?
@@ -363,7 +372,7 @@ export default function MetaAdsBofLandingPage() {
             </div>
           </div>
 
-          {/* Horizontal Swipeable Product Cards */}
+          {/* Horizontal Swipeable Luxury Visual Product Cards */}
           <div
             ref={catalogSliderRef}
             onScroll={() =>
@@ -376,48 +385,43 @@ export default function MetaAdsBofLandingPage() {
             className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 max-w-5xl mx-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {catalogSlides.map((cat) => (
-              <div
+              <a
                 key={cat.id}
-                className="snap-center shrink-0 w-[78vw] sm:w-[290px] md:w-[310px] bg-white rounded-2xl border border-neutral-200/90 overflow-hidden shadow-xs flex flex-col justify-between"
+                href={THANKYOU_URL}
+                className="group snap-center shrink-0 w-[76vw] sm:w-[270px] md:w-[290px] relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900 shadow-[0_12px_30px_rgba(0,0,0,0.10)] border border-neutral-200/80 block"
               >
-                <div>
-                  <div className="relative h-52 sm:h-56 w-full bg-[#F4F1EA] overflow-hidden">
-                    <Image
-                      src={cat.image}
-                      alt={cat.title}
-                      fill
-                      unoptimized
-                      loading="eager"
-                      className="object-cover object-center"
-                      sizes="(max-width: 640px) 78vw, 310px"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/95 text-brand-orange shadow-2xs">
-                        {cat.tag}
-                      </span>
-                    </div>
-                  </div>
+                <Image
+                  src={cat.image}
+                  alt={cat.title}
+                  fill
+                  unoptimized
+                  loading="eager"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 76vw, 290px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-45% to-transparent" />
 
-                  <div className="p-4 space-y-1.5">
-                    <h3 className="text-base font-black text-neutral-900 font-display uppercase">
-                      {cat.title}
-                    </h3>
-                    <p className="text-xs text-neutral-600 leading-relaxed">
-                      {cat.products}
-                    </p>
-                  </div>
+                <div className="absolute top-3.5 left-3.5">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/95 text-brand-orange shadow-xs">
+                    {cat.tag}
+                  </span>
                 </div>
 
-                <div className="px-4 pb-4">
-                  <a
-                    href={THANKYOU_URL}
-                    className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-brand-orange text-white rounded-xl font-extrabold text-xs uppercase tracking-wider hover:bg-brand-orange/90 transition-colors"
-                  >
-                    <span>Klaim Sampel Ini</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white space-y-2">
+                  <h3 className="text-lg sm:text-xl font-black uppercase font-display tracking-wide text-white drop-shadow-xs">
+                    {cat.title}
+                  </h3>
+                  <p className="text-xs text-white/85 leading-relaxed line-clamp-2">
+                    {cat.products}
+                  </p>
+                  <div className="pt-1">
+                    <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-orange text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
+                      <span>Klaim Sampel Ini</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
@@ -440,45 +444,55 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </section>
 
-      {/* ============ 4. KEUNTUNGAN BERPARTNER DENGAN DREAMLAB (DI BAWAH PRODUK DISPLAY, POIN RINGKAS TANPA PENJELASAN PANJANG) ============ */}
-      <section className="py-10 sm:py-14 bg-white border-b border-neutral-100">
+      {/* ============ 4. POTENSI BISNIS KOSMETIK SAAT INI (DI BAWAH PRODUK DISPLAY, 3 POIN RINGKAS) ============ */}
+      <section className="py-10 sm:py-14 bg-[#FAF9F6] border-b border-neutral-200/60">
         <div className="container-custom px-4">
-          <div className="text-center mb-6 sm:mb-8">
-            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-brand-orange block mb-1">
-              ONE-STOP SOLUTION
-            </span>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
-              Keuntungan Berpartner dengan Dreamlab
-            </h2>
-          </div>
+          <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200/80 shadow-[0_16px_45px_rgba(0,0,0,0.05)]">
+            <div className="text-center mb-6">
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-brand-orange block mb-1">
+                PELUANG BISNIS KECANTIKAN
+              </span>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
+                Potensi Bisnis Kosmetik Saat Ini
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
-            {partnerAdvantages.map((adv, idx) => {
-              const Icon = adv.icon;
-              return (
-                <div
-                  key={idx}
-                  className="flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#FAF8F5] border border-neutral-200/80"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-0 sm:divide-x divide-neutral-200/80">
+              {potensiPoints.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2 p-3.5 sm:px-6 rounded-2xl sm:rounded-none bg-[#FAF9F6] sm:bg-transparent border sm:border-0 border-neutral-200/70"
+                  >
+                    <div className="w-11 h-11 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="inline-block text-[10px] font-black uppercase tracking-wider text-brand-orange bg-brand-orange/10 px-2 py-0.5 rounded-md mb-1">
+                        {item.tag}
+                      </span>
+                      <span className="block text-xl sm:text-2xl font-black text-neutral-900 font-display leading-none">
+                        {item.metric}
+                      </span>
+                      <span className="block text-xs sm:text-sm font-bold text-neutral-600 mt-1">
+                        {item.title}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-xs sm:text-sm font-extrabold text-neutral-900 leading-snug">
-                    {adv.title}
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ============ 5. AKSES COMMUNITY BRAND OWNER (BENTUK SLIDE KESAMPING) ============ */}
-      <section className="py-10 sm:py-14 bg-[#FAF8F5] border-b border-neutral-200/60 overflow-hidden">
+      <section className="py-10 sm:py-14 bg-white border-b border-neutral-200/60 overflow-hidden">
         <div className="container-custom px-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between max-w-5xl mx-auto mb-6 gap-3">
             <div className="text-center sm:text-left">
-              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-brand-orange block mb-1">
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-brand-orange block mb-1">
                 DREAMLAB BEAUTY ACADEMY
               </span>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
@@ -522,9 +536,9 @@ export default function MetaAdsBofLandingPage() {
             {communityImages.map((img, i) => (
               <div
                 key={i}
-                className="snap-center shrink-0 w-[82vw] sm:w-[320px] md:w-[340px] bg-white rounded-2xl overflow-hidden border border-neutral-200/90 shadow-xs"
+                className="snap-center shrink-0 w-[82vw] sm:w-[320px] md:w-[340px] bg-white rounded-3xl overflow-hidden border border-neutral-200/90 shadow-[0_10px_25px_rgba(0,0,0,0.06)]"
               >
-                <div className="relative h-52 sm:h-56 w-full bg-neutral-100 overflow-hidden">
+                <div className="relative h-56 sm:h-60 w-full bg-neutral-100 overflow-hidden">
                   <Image
                     src={img.src}
                     alt={img.title}
@@ -534,14 +548,14 @@ export default function MetaAdsBofLandingPage() {
                     className="object-cover"
                     sizes="(max-width: 640px) 82vw, 340px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="px-3 py-1 rounded-full bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider">
                       {img.badge}
                     </span>
                   </div>
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <h3 className="text-sm sm:text-base font-black text-white uppercase font-display">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-base sm:text-lg font-black text-white uppercase font-display">
                       {img.title}
                     </h3>
                   </div>
@@ -626,7 +640,7 @@ export default function MetaAdsBofLandingPage() {
           <div className="pt-1">
             <a
               href={THANKYOU_URL}
-              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 bg-brand-orange text-white rounded-full font-black text-xs sm:text-sm uppercase tracking-wider hover:bg-neutral-900 transition-all shadow-[0_10px_28px_rgba(243,146,0,0.3)] active:scale-95"
+              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-9 py-4 bg-brand-orange text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider hover:bg-neutral-900 transition-all shadow-[0_12px_28px_rgba(243,146,0,0.3)] active:scale-95"
             >
               <MessageCircle className="w-4 h-4 fill-current shrink-0" />
               <span>Klaim Sampel & Cek HPP di WhatsApp</span>
