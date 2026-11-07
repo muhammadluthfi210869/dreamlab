@@ -260,16 +260,16 @@ export default function MetaAdsMofLandingPage() {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#FAF9F6_0%,rgba(250,249,246,0.95)_38%,rgba(250,249,246,0.25)_68%,transparent_100%)]" />
         </div>
 
-        {/* Mobile/Tablet Dedicated Top Visual Stage — 100% Unobstructed Skincare Bottles */}
-        <div className="relative w-full h-[270px] sm:h-[340px] lg:hidden overflow-hidden bg-[#C8DCF0] shrink-0">
+        {/* Mobile/Tablet Dedicated Top Visual Stage — Truly Centered Skincare Bottles */}
+        <div className="relative w-full h-[265px] sm:h-[330px] lg:hidden overflow-hidden bg-[#ACC9E8] shrink-0">
           <Image
             src="/new asset/background-visual-hero-section/home-page.webp"
             alt="Dreamlab Skincare & Cosmetic Manufacturing"
-            fill
+            width={1920}
+            height={1080}
             priority
             unoptimized
-            className="object-cover object-[86%_42%] scale-[1.12]"
-            sizes="100vw"
+            className="w-[175%] max-w-none h-full object-cover object-right -translate-x-[38%] sm:w-[145%] sm:-translate-x-[26%]"
           />
           {/* Smooth bottom fade into the copy block below */}
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/70 to-transparent" />
@@ -464,6 +464,58 @@ export default function MetaAdsMofLandingPage() {
                 }`}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 3B. FREE KONSULTASI BISNIS (DENGAN FOTO KONSULTASI DREAMLAB) ============ */}
+      <section className="py-8 sm:py-12 bg-[#FAF9F6] border-b border-neutral-200/60">
+        <div className="container-custom px-4">
+          <div className="max-w-4xl mx-auto rounded-3xl overflow-hidden bg-white border border-neutral-200/80 shadow-[0_16px_45px_rgba(0,0,0,0.06)] grid grid-cols-1 md:grid-cols-12 items-center">
+            {/* Foto Orang Konsultasi di Showroom Dreamlab */}
+            <div className="relative h-60 sm:h-72 md:h-full min-h-[260px] md:col-span-5 bg-neutral-100">
+              <Image
+                src="/assets/maklon-parfum/consultation.webp"
+                alt="Free Konsultasi Bisnis Bersama Tim Dreamlab"
+                fill
+                unoptimized
+                loading="eager"
+                className="object-cover object-[center_25%]"
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:hidden" />
+              <div className="absolute bottom-3 left-3 md:top-3.5 md:bottom-auto">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 text-brand-orange text-[10px] font-black uppercase tracking-wider shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+                  1-on-1 Brand Consultant
+                </span>
+              </div>
+            </div>
+
+            {/* Copywriting & CTA Free Konsultasi Bisnis */}
+            <div className="p-6 sm:p-8 md:col-span-7 text-center md:text-left space-y-3.5">
+              <span className="inline-block text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-brand-orange">
+                MASIH BINGUNG MULAI DARI MANA?
+              </span>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight leading-tight">
+                Free Konsultasi Bisnis{" "}
+                <span className="text-brand-orange">&amp; Simulasi HPP</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                Diskusikan ide produk, pemilihan bahan aktif, perhitungan modal awal, hingga strategi rilis langsung bersama konsultan ahli Dreamlab — <strong>100% Gratis tanpa komitmen awal</strong>.
+              </p>
+
+              <div className="pt-1">
+                <a
+                  href={THANKYOU_URL}
+                  className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-[#F39200] to-[#E07B00] text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_12px_28px_rgba(243,146,0,0.35)] hover:brightness-105 active:scale-95 transition-all"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current shrink-0" />
+                  <span>Jadwalkan Free Konsultasi Bisnis</span>
+                  <ArrowRight className="w-4 h-4 shrink-0" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
