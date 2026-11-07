@@ -225,8 +225,8 @@ export default function MetaAdsBofLandingPage() {
         }
       `}} />
 
-      {/* ============ 1. HERO SECTION: SATU KESATUAN GAMBAR FULL-BLEED + SHADOW GRADIENT LEBIH NAIK & MENYATU ============ */}
-      <section className="relative w-full min-h-[600px] sm:min-h-[640px] lg:min-h-[680px] overflow-hidden bg-[#B8D2EC] flex flex-col justify-between">
+      {/* ============ 1. HERO SECTION: COMPACT TANPA SPACE KOSONG BERLEBIH + SHADOW GRADIENT MENYATU ============ */}
+      <section className="relative w-full overflow-hidden bg-[#B8D2EC] flex flex-col justify-between lg:min-h-[640px]">
         {/* Background Visual Image — Satu Kesatuan Full-Bleed Dari Atas Sampai Bawah */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
           <Image
@@ -236,15 +236,15 @@ export default function MetaAdsBofLandingPage() {
             height={1080}
             priority
             unoptimized
-            className="w-[180%] max-w-none h-[68%] sm:h-[75%] lg:w-full lg:h-full object-cover object-right -translate-x-[39%] sm:-translate-x-[25%] lg:translate-x-0"
+            className="w-[180%] max-w-none h-[66%] sm:h-[72%] lg:w-full lg:h-full object-cover object-[right_58%] lg:object-right -translate-x-[39%] sm:-translate-x-[25%] lg:translate-x-0"
           />
 
-          {/* Mobile/Tablet: Shadow Gradient Naik Lebih Tinggi (Mulai dari 22% ke atas) agar Tidak Terpotong Garis Kaku */}
+          {/* Mobile/Tablet: Shadow Gradient Naik Lebih Tinggi agar Langsung Menyatu di Bawah Botol */}
           <div
             className="absolute inset-0 lg:hidden"
             style={{
               background:
-                "linear-gradient(180deg, rgba(250,249,246,0) 0%, rgba(250,249,246,0.08) 22%, rgba(250,249,246,0.72) 42%, rgba(255,244,228,0.96) 58%, #FAF9F6 100%)",
+                "linear-gradient(180deg, rgba(250,249,246,0) 0%, rgba(250,249,246,0.10) 20%, rgba(250,249,246,0.82) 38%, rgba(255,244,228,0.97) 52%, #FAF9F6 100%)",
             }}
           />
 
@@ -257,9 +257,9 @@ export default function MetaAdsBofLandingPage() {
             }}
           />
 
-          {/* Rich Dreamlab Orange & Soft Blue Shadow Gradient Behind Headline (Positioned Higher) */}
+          {/* Rich Dreamlab Orange & Soft Blue Shadow Gradient Behind Headline */}
           <div
-            className="absolute inset-x-0 top-[30%] h-[320px] lg:top-[18%] lg:left-0 lg:w-[620px] lg:h-[380px] pointer-events-none blur-[50px] opacity-75"
+            className="absolute inset-x-0 top-[24%] h-[300px] lg:top-[18%] lg:left-0 lg:w-[620px] lg:h-[380px] pointer-events-none blur-[50px] opacity-75"
             style={{
               background:
                 "radial-gradient(ellipse at 50% 45%, rgba(243,146,0,0.34) 0%, rgba(72,152,211,0.22) 52%, transparent 80%)",
@@ -267,8 +267,8 @@ export default function MetaAdsBofLandingPage() {
           />
         </div>
 
-        {/* Floating Minimal Brand Header (Transparan Menyatu dengan Gambar, Tanpa Kotak Putih Kaku) */}
-        <div className="container-custom w-full px-4 pt-4 sm:pt-6 relative z-20 flex items-center justify-between">
+        {/* Floating Minimal Brand Header */}
+        <div className="container-custom w-full px-4 pt-3.5 sm:pt-5 relative z-20 flex items-center justify-between">
           <div className="px-3 py-1.5 rounded-xl bg-white/85 backdrop-blur-md shadow-2xs border border-white/60">
             <Image
               src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
@@ -286,8 +286,8 @@ export default function MetaAdsBofLandingPage() {
           </span>
         </div>
 
-        {/* Hero Copy Block — Menyatu Halus di Atas Shadow Gradient */}
-        <div className="container-custom w-full px-4 pt-44 pb-10 sm:pt-52 sm:pb-14 lg:py-24 relative z-10 mt-auto lg:my-auto">
+        {/* Hero Copy Block — Jarak Kosong Dikurangi (pt-32) agar Langsung Dekat di Bawah Botol */}
+        <div className="container-custom w-full px-4 pt-32 pb-8 sm:pt-40 sm:pb-12 lg:py-24 relative z-10 lg:my-auto">
           <div className="w-full max-w-xl lg:max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
             {/* Eyebrow Pill */}
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xs border border-brand-orange/30 text-brand-orange shadow-2xs mb-2.5">
