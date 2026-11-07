@@ -40,6 +40,7 @@ const partnerBrands = [
   { name: "Labbol", logo: "/assets/images/Labbol-300x300.webp" },
   { name: "Itnob", logo: "/assets/images/Itnob-300x300.webp" },
   { name: "Bebiboster", logo: "/assets/images/Bebiboster-300x300.webp" },
+  { name: "Chloe Green", logo: "/assets/images/1-300x300.webp" },
 ];
 
 const potensiPoints = [
@@ -138,7 +139,7 @@ const readyCatalogSlides = [
       "Moisturizing Hand & Nail Cream"
     ],
     usp: "Formula gentle tanpa iritasi kulit, bebas alkohol keras.",
-    image: "/new asset/background-visual-hero-section/bodycare.webp",
+    image: "/new asset/bodycare/body-wash.webp",
   },
   {
     id: "mensgrooming",
@@ -164,7 +165,7 @@ const readyCatalogSlides = [
       "Mild Calming Baby Cologne"
     ],
     usp: "Bahan organik ramah kulit bayi bersertifikasi uji lab.",
-    image: "/new asset/background-visual-hero-section/babycare.webp",
+    image: "/new asset/baby-care/baby-wash.webp",
   },
   {
     id: "haircare",
@@ -178,7 +179,7 @@ const readyCatalogSlides = [
       "Non-Greasy Hair Perfume Oil"
     ],
     usp: "Kinerja formula teruji laboratorium tanpa efek samping.",
-    image: "/new asset/landing page/haircare.png",
+    image: "/new asset/haircare/hair-conditioner.webp",
   },
   {
     id: "lipcare",
@@ -206,8 +207,8 @@ const communityImages = [
     caption: "Workshop Strategi Peluncuran Produk & Digital Ads",
   },
   {
-    src: "/assets/images/client_dreamlab_syd_di_bali.png",
-    caption: "Komunitas Brand Owner Dreampreneur di Seluruh Indonesia",
+    src: "/new asset/people/dsc00986.webp",
+    caption: "Konsultasi & Brainstorming Formulasi Bersama Tim Ahli",
   },
 ];
 
@@ -262,15 +263,31 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </header>
 
-      {/* ============ 1. HERO SECTION WITH BLUE & ORANGE AMBIENT SHADOW ============ */}
-      <section className="relative overflow-hidden pt-8 pb-12 sm:pt-12 sm:pb-16 border-b border-neutral-100">
+      {/* ============ 1. HERO SECTION WITH SKINCARE VISUAL BACKGROUND (LIKE HOMEPAGE) & BLUE/ORANGE GLOW ============ */}
+      <section className="relative overflow-hidden pt-8 pb-12 sm:pt-14 sm:pb-16 border-b border-neutral-100 bg-[#FAF9F6]">
         
+        {/* Skincare Visual Background Image (Like Homepage) */}
+        <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
+          <Image
+            src="/new asset/background-visual-hero-section/home-page.webp"
+            alt="Dreamlab Skincare & Cosmetic Maklon Background"
+            fill
+            priority
+            fetchPriority="high"
+            className="object-cover object-center opacity-30 md:opacity-35"
+            sizes="100vw"
+          />
+          {/* Subtle gradient overlay to guarantee text readability & brand warmth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/85 via-[#FAF9F6]/92 to-[#FAF9F6]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/10 via-transparent to-[#D98A00]/10" />
+        </div>
+
         {/* Ambient Dreamlab Blue & Orange Glow Shadow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-72 sm:h-96 pointer-events-none -z-10 blur-[100px] opacity-25">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-72 sm:h-96 pointer-events-none z-0 blur-[100px] opacity-25">
           <div className="w-full h-full bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#D98A00] rounded-full" />
         </div>
 
-        <div className="container-custom px-4">
+        <div className="container-custom px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
             
             {/* Pill Badge */}
@@ -643,24 +660,34 @@ export default function MetaAdsBofLandingPage() {
             </p>
           </div>
 
-          {/* Logo Partner Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 max-w-4xl mx-auto items-center">
-            {partnerBrands.map((brand, i) => (
-              <div
-                key={i}
-                className="bg-[#FAFAFA] rounded-xl p-3 sm:p-4 border border-neutral-200/80 shadow-2xs flex items-center justify-center hover:scale-105 transition-transform"
-              >
-                <div className="relative h-12 w-full flex items-center justify-center">
-                  <Image
-                    src={brand.logo}
-                    alt={brand.name}
-                    width={100}
-                    height={50}
-                    className="max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
-                  />
+          {/* Dynamic Infinite Running Marquee Logo Slider */}
+          <div className="relative overflow-hidden w-full py-2">
+            {/* Soft Edge Gradient Masks */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+
+            <motion.div
+              className="flex items-center gap-4 sm:gap-6 w-max"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              {[...partnerBrands, ...partnerBrands].map((brand, i) => (
+                <div
+                  key={i}
+                  className="w-36 sm:w-44 h-20 px-4 py-2 bg-[#FAFAFA] rounded-xl border border-neutral-200/80 shadow-2xs flex items-center justify-center shrink-0 hover:scale-105 transition-transform"
+                >
+                  <div className="relative h-12 w-full flex items-center justify-center">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      width={120}
+                      height={48}
+                      className="max-h-11 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </motion.div>
           </div>
 
           <div className="text-center mt-4">
