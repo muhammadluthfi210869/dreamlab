@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
+import { FloatingWhatsAppCTA } from "@/components/FloatingWhatsAppCTA";
 
 const THANKYOU_URL = "/ads/thankyou/metaads/?p=meta-bof";
 
@@ -649,6 +650,14 @@ export default function MetaAdsBofLandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ============ 9. FLOATING WHATSAPP POPUP CTA ============ */}
+      <FloatingWhatsAppCTA
+        label="Konsultasi WhatsApp"
+        onClick={() => {
+          window.location.href = THANKYOU_URL;
+        }}
+      />
     </div>
   );
 }
