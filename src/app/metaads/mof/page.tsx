@@ -47,42 +47,48 @@ const potensiPoints = [
     metric: "Profit 300% – 500%",
     title: "Margin Keuntungan Brand Owner Tebal",
     pill: "HPP Rp 25rb → Jual Rp 99rb–149rb",
-    accent: "from-amber-400 to-brand-orange",
+    color: "text-brand-orange",
+    bgIcon: "bg-brand-orange/10 text-brand-orange border-brand-orange/20",
   },
   {
     icon: TrendingUp,
     metric: "Rp 158+ Triliun",
     title: "Nilai Pasar Kosmetik & Skincare Indonesia",
     pill: "Naik Pesat Setiap Tahun",
-    accent: "from-emerald-400 to-teal-500",
+    color: "text-[#4898D3]",
+    bgIcon: "bg-[#4898D3]/10 text-[#4898D3] border-[#4898D3]/20",
   },
   {
     icon: Repeat,
     metric: "85% Repeat Order",
     title: "Produk Habis Pakai Tiap 3–4 Minggu",
     pill: "Konsumen Beli Ulang Terus",
-    accent: "from-sky-400 to-blue-500",
+    color: "text-emerald-600",
+    bgIcon: "bg-emerald-50 text-emerald-600 border-emerald-200",
   },
   {
     icon: ShoppingBag,
     metric: "#1 Paling Laris",
     title: "Kategori Transaksi Tertinggi di TikTok & Shopee",
     pill: "Jutaan Paket Terjual / Hari",
-    accent: "from-amber-400 to-brand-orange",
+    color: "text-brand-orange",
+    bgIcon: "bg-brand-orange/10 text-brand-orange border-brand-orange/20",
   },
   {
     icon: Rocket,
     metric: "Balik Modal 1 Batch",
     title: "Tanpa Modal Bangun Pabrik & Mesin Miliaran",
     pill: "MOQ Ringan & Terukur",
-    accent: "from-emerald-400 to-teal-500",
+    color: "text-[#4898D3]",
+    bgIcon: "bg-[#4898D3]/10 text-[#4898D3] border-[#4898D3]/20",
   },
   {
     icon: Flame,
     metric: "8+ Segmen Cuan",
     title: "Skincare, Pria, Baby Care & Parfum Meledak",
     pill: "Peluang Pasar Sangat Luas",
-    accent: "from-sky-400 to-blue-500",
+    color: "text-emerald-600",
+    bgIcon: "bg-emerald-50 text-emerald-600 border-emerald-200",
   },
 ];
 
@@ -309,28 +315,22 @@ export default function MetaAdsMofLandingPage() {
         }
       `}} />
 
-      {/* ============ STICKY CONVERSION HEADER ============ */}
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-neutral-200/80 py-2.5 shadow-xs">
+      {/* ============ CLEAN TOP BRAND BAR (NO POPUP LAYER) ============ */}
+      <header className="w-full bg-white border-b border-neutral-100 py-3">
         <div className="container-custom w-full px-4 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <Image
-              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-              alt="Dreamlab Maklon Kosmetik"
-              width={130}
-              height={42}
-              unoptimized
-              className="h-7 sm:h-9 w-auto object-contain shrink-0"
-              priority
-            />
-            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              Pabrik CPKB Grade A & BPOM Resmi
-            </span>
-          </div>
+          <Image
+            src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
+            alt="Dreamlab Maklon Kosmetik"
+            width={135}
+            height={44}
+            unoptimized
+            className="h-8 sm:h-9 w-auto object-contain shrink-0"
+            priority
+          />
 
           <a
             href={THANKYOU_URL}
-            className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-brand-orange text-white rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-wider shadow-md shadow-brand-orange/25 hover:bg-brand-orange/90 active:scale-95 transition-all shrink-0"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-brand-orange text-white rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-wider shadow-xs hover:bg-brand-orange/90 active:scale-95 transition-all shrink-0"
           >
             <MessageCircle className="w-3.5 h-3.5 fill-current shrink-0" />
             <span>Konsultasi Gratis</span>
@@ -338,9 +338,9 @@ export default function MetaAdsMofLandingPage() {
         </div>
       </header>
 
-      {/* ============ 1. HERO SECTION: VISUAL SKINCARE + TANPA KOTAK PUTIH + GAMBAR PRODUK HERO JELAS ============ */}
-      <section className="relative w-full overflow-hidden pt-6 pb-10 sm:pt-12 sm:pb-16 border-b border-neutral-200/70 bg-gradient-to-b from-[#DCE8F5] via-[#EBF3FA] to-white">
-        {/* Background Visual Layer (Like Homepage) */}
+      {/* ============ 1. HERO SECTION: FULL-BLEED SKINCARE BACKGROUND SEPERTI HOMEPAGE (TANPA POPUP LAYER) ============ */}
+      <section className="relative w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[640px] flex items-start lg:items-center overflow-hidden pt-8 pb-52 sm:py-16 lg:py-20 bg-[#D7E6F5] border-b border-neutral-200/60">
+        {/* Full-Bleed Skincare Background Visual (Exactly like Homepage PremiumHero) */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <Image
             src="/new asset/background-visual-hero-section/home-page.webp"
@@ -348,215 +348,125 @@ export default function MetaAdsMofLandingPage() {
             fill
             priority
             unoptimized
-            className="object-cover object-right opacity-85"
+            className="object-cover object-[82%_bottom] sm:object-[78%_center] lg:object-right"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/65 to-white/90 lg:bg-gradient-to-r lg:from-white/90 lg:via-white/70 lg:to-transparent" />
+          {/* Soft Directional Readability Gradient: Top-to-Bottom on Mobile (so bottles at the bottom are 100% clear!), Left-to-Right on Desktop */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 via-55% to-transparent lg:bg-gradient-to-r lg:from-white/92 lg:via-white/65 lg:via-50% lg:to-transparent" />
         </div>
 
-        {/* Dreamlab Tone Blue (#1E3A8A) & Orange (#D98A00) Ambient Glow Shadow */}
+        {/* Soft Dreamlab Sky Blue (#4898D3) & Orange (#F39200) Ambient Shadow Behind Headline */}
         <div
-          className="absolute top-6 left-1/4 -translate-x-1/2 w-[340px] sm:w-[550px] h-[260px] sm:h-[360px] pointer-events-none z-0 blur-[75px] opacity-45"
+          className="absolute top-8 left-0 w-[320px] sm:w-[480px] h-[240px] sm:h-[320px] pointer-events-none z-0 blur-[80px] opacity-35"
           style={{
-            background: "radial-gradient(circle at 35% 45%, rgba(30,58,138,0.65) 0%, rgba(217,138,0,0.55) 75%, transparent 100%)",
+            background: "radial-gradient(circle at 30% 40%, #4898D3 0%, #F39200 85%, transparent 100%)",
           }}
         />
 
         <div className="container-custom w-full px-4 relative z-10">
-          <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
-            {/* Left Column: Clean Open Headline (No White Box) + CTA */}
-            <div className="w-full min-w-0 lg:col-span-7 text-center lg:text-left space-y-4">
-              {/* Trust Pill */}
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white/90 border border-brand-orange/35 rounded-full text-brand-orange shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0" />
-                <span className="text-[10px] sm:text-xs font-black tracking-wider uppercase">
-                  PARTNER MAKLON KOSMETIK & SKINCARE #1
-                </span>
-              </div>
-
-              {/* Open Headline with Dreamlab Blue & Orange Drop Glow */}
-              <h1
-                className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.12] uppercase text-neutral-900 font-display"
-                style={{
-                  textShadow: "0 10px 30px rgba(30,58,138,0.18), 0 4px 12px rgba(217,138,0,0.15)",
-                }}
-              >
-                INGIN WUJUDKAN BRAND IMPIAN?{" "}
-                <span className="text-brand-orange block mt-1">
-                  DREAMLAB PILIHAN YANG TEPAT
-                </span>
-              </h1>
-
-              {/* Requested Subheadline */}
-              <div>
-                <div className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-[#1E3A8A] via-[#1D4ED8] to-[#D98A00] text-white font-black text-xs sm:text-base uppercase tracking-wider shadow-[0_10px_25px_rgba(30,58,138,0.3)]">
-                  <Zap className="w-4 h-4 text-amber-300 fill-amber-300 shrink-0" />
-                  <span>BUAT BRAND TANPA RIBET HANYA 3 BULAN</span>
-                </div>
-              </div>
-
-              {/* Prominent Hero Visual Image on Mobile (Directly under Headline so Mobile Users immediately see the Skincare Hero Image!) */}
-              <div className="lg:hidden relative w-full rounded-3xl overflow-hidden shadow-[0_18px_40px_-10px_rgba(30,58,138,0.3)] border-2 border-white bg-[#E8F1F8]">
-                <div className="relative h-60 sm:h-72 w-full">
-                  <Image
-                    src="/new asset/landing page/LP_MAKLON_KOSMETIK_DREAMLAB.png"
-                    alt="Wujudkan Brand Skincare & Kosmetik Impian Bersama Dreamlab"
-                    fill
-                    priority
-                    unoptimized
-                    className="object-cover object-center"
-                    sizes="100vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1536]/85 via-transparent to-transparent" />
-                  <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                    <span className="px-2.5 py-1 rounded-full bg-[#1E3A8A]/90 backdrop-blur-xs text-white text-[10px] font-black uppercase tracking-wider shadow-xs">
-                      CPKB Grade A
-                    </span>
-                    <span className="px-2.5 py-1 rounded-full bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider shadow-xs">
-                      Free Sampel R&D
-                    </span>
-                  </div>
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-left">
-                    <div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 block">
-                        YOUR DREAM BRAND
-                      </span>
-                      <span className="text-xs sm:text-sm font-black leading-tight block">
-                        Skincare, Body Care, Hair Care & Parfum Eksklusif
-                      </span>
-                    </div>
-                    <span className="px-2.5 py-1 rounded-lg bg-emerald-500/90 text-white text-[10px] font-black uppercase shrink-0">
-                      100% BPOM
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Conversion Checkmarks */}
-              <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs font-extrabold text-neutral-800">
-                <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/95 border border-emerald-200 rounded-full shadow-2xs">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3] shrink-0" /> 1 Formula 1 Klien
-                </span>
-                <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/95 border border-emerald-200 rounded-full shadow-2xs">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3] shrink-0" /> Resmi BPOM & Halal
-                </span>
-                <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/95 border border-emerald-200 rounded-full shadow-2xs">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3] shrink-0" /> Free Desain Kemasan
-                </span>
-                <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/95 border border-emerald-200 rounded-full shadow-2xs">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3] shrink-0" /> MOQ Fleksibel
-                </span>
-              </div>
-
-              {/* High-Conversion Primary CTA */}
-              <div className="pt-2 space-y-2">
-                <a
-                  href={THANKYOU_URL}
-                  className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 sm:px-10 py-4 bg-gradient-to-r from-brand-orange to-[#E69500] text-white rounded-full font-black text-xs sm:text-base uppercase tracking-wider transition-all duration-200 shadow-[0_12px_30px_rgba(217,138,0,0.45)] hover:scale-[1.02] active:scale-95"
-                >
-                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
-                  <span>Konsultasi & Cek Biaya Maklon Gratis</span>
-                  <ArrowRight className="w-4 h-4 shrink-0" />
-                </a>
-                <p className="text-[11px] sm:text-xs font-bold text-neutral-700 flex items-center justify-center lg:justify-start gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Respon Cepat via WhatsApp bersama Spesialis Maklon Dreamlab</span>
-                </p>
-              </div>
+          <div className="w-full max-w-xl lg:max-w-2xl text-center lg:text-left space-y-4">
+            {/* Small Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/90 border border-brand-orange/30 rounded-full text-brand-orange shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0" />
+              <span className="text-[10px] sm:text-xs font-black tracking-widest uppercase">
+                PARTNER MAKLON KOSMETIK & SKINCARE
+              </span>
             </div>
 
-            {/* Right Column (Desktop): Prominent Hero Skincare Showcase Visual */}
-            <div className="hidden lg:block lg:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden shadow-[0_24px_60px_-15px_rgba(30,58,138,0.35)] border-4 border-white bg-[#E8F1F8]">
-                <div className="relative h-[420px] w-full">
-                  <Image
-                    src="/new asset/landing page/LP_MAKLON_KOSMETIK_DREAMLAB.png"
-                    alt="Rangkaian Produk Skincare & Kosmetik Brand Anda di Dreamlab"
-                    fill
-                    priority
-                    unoptimized
-                    className="object-cover object-center"
-                    sizes="45vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1536]/85 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 rounded-full bg-[#1E3A8A]/90 backdrop-blur-xs text-white text-xs font-black uppercase tracking-wider">
-                      CPKB Grade A
-                    </span>
-                    <span className="px-3 py-1 rounded-full bg-brand-orange text-white text-xs font-black uppercase tracking-wider">
-                      Free Sampel Formula
-                    </span>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4 text-white flex items-end justify-between gap-3">
-                    <div>
-                      <span className="text-xs font-black uppercase tracking-widest text-amber-300 block">
-                        WUJUDKAN PRODUK IMPIAN ANDA
-                      </span>
-                      <span className="text-lg font-black leading-snug block">
-                        500+ Brand Telah Sukses Rilis Bersama Dreamlab
-                      </span>
-                    </div>
-                    <span className="px-3 py-1.5 rounded-xl bg-emerald-500 text-white text-xs font-black uppercase shrink-0">
-                      100% BPOM
-                    </span>
-                  </div>
-                </div>
-              </div>
+            {/* Headline */}
+            <h1
+              className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.12] uppercase text-neutral-900 font-display"
+              style={{
+                textShadow: "0 8px 28px rgba(72,152,211,0.22), 0 4px 14px rgba(243,146,0,0.18)",
+              }}
+            >
+              INGIN WUJUDKAN BRAND IMPIAN?{" "}
+              <span className="text-brand-orange block mt-1">
+                DREAMLAB PILIHAN YANG TEPAT
+              </span>
+            </h1>
+
+            {/* Requested Subheadline: BUAT BRAND TANPA RIBET HANYA 3 BULAN */}
+            <div>
+              <span className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-[#4898D3] text-white font-black text-xs sm:text-sm md:text-base uppercase tracking-wider shadow-[0_8px_20px_rgba(72,152,211,0.35)]">
+                <Zap className="w-4 h-4 text-amber-200 fill-amber-200 shrink-0" />
+                <span>BUAT BRAND TANPA RIBET HANYA 3 BULAN</span>
+              </span>
+            </div>
+
+            {/* Quick Conversion Checkmarks */}
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs font-extrabold text-neutral-800">
+              <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-xs border border-neutral-200/80 rounded-full shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-brand-orange stroke-[3] shrink-0" /> 1 Formula 1 Klien
+              </span>
+              <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-xs border border-neutral-200/80 rounded-full shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-brand-orange stroke-[3] shrink-0" /> Resmi BPOM & Halal
+              </span>
+              <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-xs border border-neutral-200/80 rounded-full shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-brand-orange stroke-[3] shrink-0" /> Free Desain Kemasan
+              </span>
+              <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-xs border border-neutral-200/80 rounded-full shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-brand-orange stroke-[3] shrink-0" /> MOQ Fleksibel
+              </span>
+            </div>
+
+            {/* High-Conversion Primary CTA */}
+            <div className="pt-2 space-y-2">
+              <a
+                href={THANKYOU_URL}
+                className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 sm:px-10 py-4 bg-brand-orange text-white rounded-full font-black text-xs sm:text-base uppercase tracking-wider transition-all duration-200 shadow-[0_12px_28px_rgba(243,146,0,0.35)] hover:bg-neutral-900 active:scale-95"
+              >
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
+                <span>Konsultasi & Cek Biaya Maklon Gratis</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </a>
+              <p className="text-[11px] sm:text-xs font-bold text-neutral-700 flex items-center justify-center lg:justify-start gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span>Respon Cepat via WhatsApp bersama Spesialis Maklon Dreamlab</span>
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 2. POTENSI BISNIS KOSMETIK SAAT INI (HIGH-IMPACT DATA & PROFITABILITY) ============ */}
-      <section className="py-12 sm:py-16 bg-gradient-to-br from-[#0B1536] via-[#152C6B] to-[#0B1536] text-white relative overflow-hidden">
-        {/* Glow Accents */}
-        <div
-          className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[90px] opacity-30 pointer-events-none"
-          style={{ background: "#D98A00" }}
-        />
-        <div
-          className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full blur-[90px] opacity-25 pointer-events-none"
-          style={{ background: "#38BDF8" }}
-        />
-
+      {/* ============ 2. POTENSI BISNIS KOSMETIK SAAT INI (CLEAN DREAMLAB LIGHT THEME + ANGKA CUAN BESAR) ============ */}
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-[#F4F9FD] via-white to-[#FFFDF9] border-b border-neutral-100 relative overflow-hidden">
         <div className="container-custom px-4 relative z-10">
           <div className="max-w-2xl mx-auto text-center space-y-2 mb-8 sm:mb-10">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-amber-400/15 border border-amber-400/30 rounded-full text-amber-300 text-[10px] sm:text-xs font-black uppercase tracking-wider">
-              <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-brand-orange/10 border border-brand-orange/25 rounded-full text-brand-orange text-[10px] sm:text-xs font-black uppercase tracking-wider">
+              <Flame className="w-3.5 h-3.5 text-brand-orange fill-brand-orange" />
               PELUANG CUAN INDUSTRI KECANTIKAN 2026
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase font-display tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-neutral-900 uppercase font-display tracking-tight">
               Potensi Bisnis Kosmetik Saat Ini
             </h2>
           </div>
 
-          {/* 6 Big Metric Potential Cards (Poin Tanpa Penjelasan Panjang, Fokus Angka & Cuan) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 max-w-5xl mx-auto">
+          {/* 6 Big Metric Potential Cards (Clean White Cards with Bold Numbers) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {potensiPoints.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <div
                   key={idx}
-                  className="relative rounded-2xl p-4 sm:p-5 bg-white/10 backdrop-blur-md border border-white/15 hover:border-amber-400/60 transition-all flex flex-col justify-between gap-2.5 shadow-lg"
+                  className="rounded-2xl p-5 bg-white border border-neutral-200/90 hover:border-brand-orange/50 transition-all flex flex-col justify-between gap-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span
-                      className={`text-xl sm:text-2xl font-black tracking-tight font-display bg-gradient-to-r ${item.accent} bg-clip-text text-transparent`}
-                    >
+                    <span className={`text-xl sm:text-2xl font-black tracking-tight font-display ${item.color}`}>
                       {item.metric}
                     </span>
-                    <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-amber-300 shrink-0">
+                    <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${item.bgIcon}`}>
                       <Icon className="w-4 h-4" />
                     </div>
                   </div>
 
-                  <p className="text-sm sm:text-base font-extrabold text-white leading-snug">
+                  <p className="text-sm sm:text-base font-extrabold text-neutral-900 leading-snug">
                     {item.title}
                   </p>
 
                   <div>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-black text-amber-300 bg-amber-400/15 border border-amber-400/25 px-2.5 py-1 rounded-lg">
-                      <Check className="w-3 h-3 stroke-[3] shrink-0" />
+                    <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-neutral-700 bg-[#FAF8F5] border border-neutral-200/80 px-2.5 py-1 rounded-lg">
+                      <Check className="w-3 h-3 text-emerald-600 stroke-[3] shrink-0" />
                       {item.pill}
                     </span>
                   </div>
@@ -566,7 +476,7 @@ export default function MetaAdsMofLandingPage() {
           </div>
 
           {/* Real Profit Simulation Highlight Bar */}
-          <div className="mt-6 sm:mt-8 max-w-4xl mx-auto rounded-2xl bg-gradient-to-r from-brand-orange to-[#E69500] p-4 sm:p-5 shadow-[0_12px_30px_rgba(217,138,0,0.35)] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="mt-6 sm:mt-8 max-w-4xl mx-auto rounded-2xl bg-gradient-to-r from-brand-orange to-[#E69500] p-4 sm:p-5 shadow-[0_12px_28px_rgba(243,146,0,0.25)] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="space-y-0.5">
               <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-amber-100 block">
                 ILUSTRASI POTENSI PROFIT BRAND OWNER
@@ -580,7 +490,7 @@ export default function MetaAdsMofLandingPage() {
             </div>
             <a
               href={THANKYOU_URL}
-              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white text-neutral-900 rounded-full font-black text-xs uppercase tracking-wider hover:bg-neutral-100 active:scale-95 transition-all shrink-0 shadow-sm"
+              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white text-neutral-900 rounded-full font-black text-xs uppercase tracking-wider hover:bg-neutral-100 active:scale-95 transition-all shrink-0 shadow-xs"
             >
               <span>Hitung HPP Brand Saya</span>
               <ArrowRight className="w-3.5 h-3.5 text-brand-orange" />
@@ -593,7 +503,7 @@ export default function MetaAdsMofLandingPage() {
       <section className="py-12 sm:py-16 bg-[#FAF8F5] border-b border-neutral-200/60">
         <div className="container-custom px-4">
           <div className="max-w-2xl mx-auto text-center space-y-2 mb-8 sm:mb-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-[#1E3A8A] text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#4898D3]/10 border border-[#4898D3]/25 rounded-full text-[#4898D3] text-[10px] sm:text-xs font-bold uppercase tracking-wider">
               <Briefcase className="w-3.5 h-3.5" />
               MENGAPA MEMILIH DREAMLAB
             </span>
@@ -629,7 +539,7 @@ export default function MetaAdsMofLandingPage() {
                       {adv.desc}
                     </p>
                   </div>
-                  <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold text-[#1E3A8A]">
+                  <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold text-[#4898D3]">
                     <span>Keunggulan #{adv.num}</span>
                     <BadgeCheck className="w-4 h-4 text-brand-orange" />
                   </div>
@@ -641,7 +551,7 @@ export default function MetaAdsMofLandingPage() {
           <div className="text-center mt-8">
             <a
               href={THANKYOU_URL}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#1E3A8A] text-white rounded-full font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-[#1E3A8A]/90 active:scale-95 transition-all shadow-md"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-brand-orange text-white rounded-full font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-brand-orange/90 active:scale-95 transition-all shadow-md"
             >
               <span>Diskusikan Konsep & HPP Brand Anda</span>
               <ArrowRight className="w-4 h-4" />
@@ -832,7 +742,7 @@ export default function MetaAdsMofLandingPage() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md bg-[#1E3A8A]/90 backdrop-blur-xs text-white text-[10px] font-black uppercase tracking-wider">
+                    <span className="px-2.5 py-1 rounded-md bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider shadow-2xs">
                       {img.badge}
                     </span>
                   </div>
@@ -914,30 +824,27 @@ export default function MetaAdsMofLandingPage() {
       {/* ============ 7. LEGALITAS & SERTIFIKASI PABRIK ============ */}
       <AdsCredibilitySection channel="metaads" />
 
-      {/* ============ 8. HIGH-CONVERSION FINAL CTA BANNER ============ */}
-      <section className="py-14 sm:py-18 bg-gradient-to-br from-[#1E3A8A] via-[#1E3A8A] to-[#0F2460] text-white relative overflow-hidden">
-        <div
-          className="absolute -bottom-16 -right-16 w-72 h-72 rounded-full blur-[80px] opacity-40 pointer-events-none"
-          style={{ background: "#D98A00" }}
-        />
+      {/* ============ 8. HIGH-CONVERSION FINAL CTA BANNER (CLEAN WARM CREAM & DREAMLAB SKY BLUE) ============ */}
+      <section className="py-14 sm:py-18 bg-gradient-to-b from-[#F4F9FD] to-[#FFF8EE] border-t border-neutral-200/70 relative overflow-hidden">
         <div className="container-custom px-4 text-center space-y-5 max-w-2xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white/15 rounded-full text-amber-300 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider border border-white/20">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-brand-orange/10 rounded-full text-brand-orange text-[10px] sm:text-xs font-extrabold uppercase tracking-wider border border-brand-orange/25">
             <Sparkles className="w-3.5 h-3.5" />
             KONSULTASI & ESTIMASI HPP GRATIS
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase font-display tracking-tight leading-tight">
-            Siap Wujudkan Brand Impian Anda Hanya Dalam 3 Bulan?
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase font-display tracking-tight leading-tight text-neutral-900">
+            Siap Wujudkan Brand Impian Anda{" "}
+            <span className="text-brand-orange">Hanya Dalam 3 Bulan?</span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-lg mx-auto">
+          <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-lg mx-auto">
             Diskusikan ide produk, estimasi modal, dan klaim sampel formula bersama tim ahli Dreamlab hari ini tanpa komitmen awal.
           </p>
 
           <div className="pt-2">
             <a
               href={THANKYOU_URL}
-              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-9 py-4 bg-brand-orange text-white rounded-full font-black text-sm sm:text-base uppercase tracking-wider hover:bg-brand-orange/95 transition-all shadow-[0_10px_30px_rgba(217,138,0,0.45)] active:scale-95"
+              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-9 py-4 bg-brand-orange text-white rounded-full font-black text-sm sm:text-base uppercase tracking-wider hover:bg-neutral-900 transition-all shadow-[0_10px_28px_rgba(243,146,0,0.35)] active:scale-95"
             >
               <MessageCircle className="w-5 h-5 fill-current shrink-0" />
               <span>Hubungi Tim Dreamlab di WhatsApp</span>
@@ -948,7 +855,7 @@ export default function MetaAdsMofLandingPage() {
       </section>
 
       {/* ============ STICKY MOBILE BOTTOM CONVERSION BAR ============ */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-neutral-200 p-3 shadow-[0_-8px_25px_rgba(0,0,0,0.1)] md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-neutral-200 p-3 shadow-[0_-8px_25px_rgba(0,0,0,0.08)] md:hidden">
         <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
           <div className="flex flex-col">
             <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-700">
