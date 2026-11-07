@@ -225,80 +225,103 @@ export default function MetaAdsBofLandingPage() {
         }
       `}} />
 
-      {/* ============ 1. HERO SECTION: GAMBAR BOTOL DI ATAS, COPYWRITING DI BAWAH (TIDAK MENUTUPI BOTOL) ============ */}
-      <section className="relative w-full min-h-[640px] sm:min-h-[660px] lg:min-h-[700px] flex flex-col justify-between overflow-hidden bg-[#D5E5F4]">
-        {/* Full-Bleed Skincare Background Visual */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
+      {/* ============ 1. HERO SECTION: VISUAL BOTOL SKINCARE UTUH DI ATAS, COPY & GRADIENT ORANGE DI BAWAH ============ */}
+      <section className="relative w-full overflow-hidden bg-[#FAF9F6] flex flex-col lg:min-h-[680px]">
+        {/* Top Sticky-Style Brand Header Bar */}
+        <header className="w-full bg-white/95 backdrop-blur-md border-b border-neutral-200/70 relative z-20">
+          <div className="container-custom px-4 h-14 sm:h-16 flex items-center justify-between">
+            <Image
+              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
+              alt="Dreamlab Maklon Kosmetik"
+              width={135}
+              height={44}
+              unoptimized
+              className="h-8 sm:h-9 w-auto object-contain"
+              priority
+            />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/25 text-brand-orange text-[10px] sm:text-xs font-extrabold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+              BPOM &amp; CPKB Grade A
+            </span>
+          </div>
+        </header>
+
+        {/* Desktop Full-Bleed Background Visual */}
+        <div className="hidden lg:block absolute inset-0 top-16 z-0 select-none pointer-events-none">
           <Image
             src="/new asset/background-visual-hero-section/home-page.webp"
             alt="Dreamlab Skincare & Cosmetic Manufacturing"
             fill
             priority
             unoptimized
-            className="object-cover object-[84%_12%] sm:object-[80%_center] lg:object-right"
+            className="object-cover object-right"
             sizes="100vw"
           />
-          {/* Mobile: Top 45% is 100% clear so the bottles shine at the top; Bottom 55% fades smoothly into white so the headline sits cleanly below! */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.12)_32%,rgba(255,255,255,0.88)_54%,rgba(255,255,255,0.98)_76%,#FAF9F6_100%)] lg:bg-[linear-gradient(to_right,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.84)_42%,rgba(255,255,255,0.15)_75%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#FAF9F6_0%,rgba(250,249,246,0.95)_38%,rgba(250,249,246,0.25)_68%,transparent_100%)]" />
         </div>
 
-        {/* Top Minimal Brand Bar */}
-        <div className="container-custom w-full px-4 pt-5 sm:pt-7 relative z-10 flex items-center justify-between">
+        {/* Mobile/Tablet Dedicated Top Visual Stage — 100% Unobstructed Skincare Bottles */}
+        <div className="relative w-full h-[270px] sm:h-[340px] lg:hidden overflow-hidden bg-[#C8DCF0] shrink-0">
           <Image
-            src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
-            alt="Dreamlab Maklon Kosmetik"
-            width={135}
-            height={44}
-            unoptimized
-            className="h-8 sm:h-10 w-auto object-contain drop-shadow-xs"
+            src="/new asset/background-visual-hero-section/home-page.webp"
+            alt="Dreamlab Skincare & Cosmetic Manufacturing"
+            fill
             priority
+            unoptimized
+            className="object-cover object-[86%_42%] scale-[1.12]"
+            sizes="100vw"
           />
+          {/* Smooth bottom fade into the copy block below */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/70 to-transparent" />
         </div>
 
-        {/* Hero Copy Block — Positioned Lower on Mobile (pt-56) so Bottles Remain Unobstructed Above */}
-        <div className="container-custom w-full px-4 pt-56 pb-10 sm:pt-28 sm:pb-16 lg:py-24 relative z-10 mt-auto lg:my-auto">
-          {/* Soft Dreamlab Blue & Orange Glow Behind Headline */}
+        {/* Hero Copy Block — Clean Lower Section with Orange Gradient Positioned Lower */}
+        <div className="container-custom w-full px-4 pt-1 pb-10 sm:pt-4 sm:pb-14 lg:py-24 relative z-10 lg:my-auto">
+          {/* Lower Orange & Soft Blue Ambient Gradient (Positioned Lower Around CTA) */}
           <div
-            className="absolute -inset-x-4 top-44 bottom-4 lg:top-8 lg:w-[540px] pointer-events-none -z-10 blur-[65px] opacity-40"
+            className="
+              absolute inset-x-0 -bottom-6 h-52 lg:w-[560px] lg:h-64 lg:left-0 lg:bottom-4
+              pointer-events-none -z-10 blur-[55px] opacity-55
+            "
             style={{
               background:
-                "radial-gradient(circle at 50% 50%, rgba(72,152,211,0.45) 0%, rgba(243,146,0,0.35) 70%, transparent 100%)",
+                "radial-gradient(ellipse at 50% 85%, rgba(243,146,0,0.42) 0%, rgba(72,152,211,0.22) 55%, transparent 80%)",
             }}
           />
 
-          <div className="w-full max-w-xl lg:max-w-2xl mx-auto lg:mx-0 text-center lg:text-left space-y-3.5">
+          <div className="w-full max-w-xl lg:max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
             {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/25 text-brand-orange backdrop-blur-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-[10px] sm:text-xs font-black tracking-[0.2em] uppercase">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-brand-orange/30 text-brand-orange shadow-2xs mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+              <span className="text-[10px] sm:text-xs font-black tracking-[0.18em] uppercase">
                 DREAMLAB #JUARANYAFORMULA
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-[54px] font-black tracking-tight leading-[1.08] uppercase text-neutral-900 font-display">
-              INGIN WUJUDKAN BRAND IMPIAN?{" "}
+            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-[52px] font-black tracking-tight leading-[1.08] uppercase text-neutral-900 font-display">
+              INGIN WUJUDKAN BRAND IMPIAN?
               <span className="text-brand-orange block mt-1">
                 DREAMLAB PILIHAN YANG TEPAT
               </span>
             </h1>
 
-            {/* Subheadline */}
-            <div className="pt-0.5">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/90 border border-neutral-200/90 shadow-2xs text-xs sm:text-base font-extrabold uppercase tracking-wider text-neutral-800">
-                <Sparkles className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+            {/* Subheadline Pill */}
+            <div className="mt-3.5">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-900 text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-brand-orange" />
                 <span>Buat Brand Tanpa Ribet Hanya 3 Bulan</span>
               </span>
             </div>
 
             {/* Primary CTA Button */}
-            <div className="pt-3">
+            <div className="mt-5">
               <a
                 href={THANKYOU_URL}
-                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-9 py-4 bg-brand-orange text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-[0_14px_30px_rgba(243,146,0,0.35)] hover:bg-neutral-900 active:scale-95"
+                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-[#F39200] to-[#E07B00] text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-[0_14px_32px_rgba(243,146,0,0.40)] hover:brightness-105 active:scale-95"
               >
                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
-                <span>Klaim Sampel & Cek HPP Gratis</span>
+                <span>Klaim Sampel &amp; Cek HPP Gratis</span>
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </a>
             </div>
