@@ -24,7 +24,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Palette,
-  Star
+  Star,
+  Clock,
+  Briefcase
 } from "lucide-react";
 import { useMetaAdsCtaPixel } from "@/lib/meta-ads-pixel";
 import { AdsCredibilitySection } from "@/components/landing-pages/AdsCredibilitySection";
@@ -40,58 +42,45 @@ const partnerBrands = [
   { name: "Bebiboster", logo: "/assets/images/Bebiboster-300x300.webp" },
 ];
 
-const bofPillars = [
-  {
-    icon: DollarSign,
-    badge: "TRANSPARANSI BIAYA",
-    title: "HPP Jelas Tanpa Biaya Tersembunyi",
-    desc: "Perhitungan biaya bahan aktif, botol/kemasan, dan uji lab dipaparkan transparan dari awal. Anda tahu persis margin keuntungan sebelum produksi dimulai.",
-  },
-  {
-    icon: Boxes,
-    badge: "SCALE-UP AMAN",
-    title: "MOQ Fleksibel Sesuai Cashflow",
-    desc: "Mulai produksi tanpa beban kuota besar. Jumlah Minimum Order Quantity (MOQ) disesuaikan agar sisa modal bisa dialokasikan maksimal untuk beriklan.",
-  },
-  {
-    icon: Zap,
-    badge: "PROSES CEPAT",
-    title: "Sampel R&D Kilat & 1:1 Eksklusif",
-    desc: "Tim formulator R&D siap meracik sampel dalam hitungan hari. Formula 1:1 eksklusif milik brand Anda, bukan racikan template massal.",
-  },
-  {
-    icon: FileCheck2,
-    badge: "LEGALITAS ALL-IN",
-    title: "BPOM, Halal & HKI Diurus Lengkap",
-    desc: "Pendaftaran notifikasi BPOM resmi, uji laboratorium, sertifikasi Halal, hingga pendaftaran hak paten merek HKI kami tangani secara paralel.",
-  },
+const potensiPoints = [
+  { icon: DollarSign, text: "Margin Laba Bersih 60% – 80% per Produk" },
+  { icon: TrendingUp, text: "Pasar Kosmetik Ratusan Triliun Tumbuh Cepat" },
+  { icon: Zap, text: "Lead Time Kilat (Produk Tiba Siap Jual dalam 3 Bulan)" },
+  { icon: Boxes, text: "MOQ Fleksibel Tanpa Membebani Cashflow Bisnis" },
+  { icon: FlaskConical, text: "1 Brand = 1 Formula Eksklusif Hak Milik Anda" },
+  { icon: FileCheck2, text: "100% Izin BPOM, Halal MUI & HKI Diurus Lengkap" },
 ];
 
-const timelineSteps = [
+const keuntunganPartner = [
   {
-    step: "01",
-    title: "Konsultasi & Target HPP",
-    desc: "Diskusikan ide produk, target harga jual, dan budget yang Anda miliki bersama tim ahli kami.",
+    title: "Formula 1:1 Eksklusif & Bebas Biaya R&D",
+    desc: "Formula diracik privat oleh apoteker berpengalaman khusus untuk brand Anda tanpa duplikasi.",
+    icon: FlaskConical,
   },
   {
-    step: "02",
-    title: "Pembuatan Sampel Formula R&D",
-    desc: "Tim R&D meracik sampel khusus untuk Anda coba (tekstur, wangi, sensasi rasa, khasiat) sampai cocok.",
+    title: "Legalitas All-In Paralel",
+    desc: "Semua pengurusan BPOM, sertifikasi Halal, dan hak paten HKI kami kerjakan paralel.",
+    icon: ShieldCheck,
   },
   {
-    step: "03",
-    title: "Pengurusan BPOM & Legalitas",
-    desc: "Pendaftaran izin edar BPOM resmi, sertifikasi Halal, serta paten merk HKI diproses paralel.",
+    title: "MOQ Fleksibel Masuk Akal",
+    desc: "Mulai produksi tanpa beban stok besar agar sisa modal bisa dialokasikan untuk iklan & promosi.",
+    icon: Package,
   },
   {
-    step: "04",
-    title: "Produksi Massal CPKB Grade A",
-    desc: "Produk diproduksi di fasilitas bersertifikat CPKB dengan standar higienitas dan QC ketat.",
+    title: "Free Desain Logo & Kemasan",
+    desc: "Dapatkan branding visual dan desain kemasan box/botol premium siap cetak tanpa biaya tambahan.",
+    icon: Palette,
   },
   {
-    step: "05",
-    title: "Produk Siap Kirim & Siap Jual",
-    desc: "Produk dikemas rapi, disegel, dan siap dikirim ke gudang Anda untuk dipasarkan ke ribuan pembeli.",
+    title: "Transparansi HPP Sejak Awal",
+    desc: "Rincian biaya bahan baku dan kemasan jelas dari awal sehingga Anda tahu persis margin laba Anda.",
+    icon: DollarSign,
+  },
+  {
+    title: "Akses Komunitas Dreampreneur",
+    desc: "Pendampingan bisnis, strategi digital marketing, dan networking sesama founder brand.",
+    icon: Users,
   },
 ];
 
@@ -139,6 +128,45 @@ const readyCatalogSlides = [
     image: "/new asset/landing page/LP_MAKLON_KOSMETIK_DREAMLAB.png",
   },
   {
+    id: "personalcare",
+    title: "Personal Care",
+    tag: "Kebutuhan Harian",
+    desc: "Perawatan tubuh higienis harian dari sabun mandi hingga deodorant yang efektif.",
+    items: [
+      "Deodorant Spray & Roll-On Cepat Kering",
+      "Antibacterial Body Wash",
+      "Moisturizing Hand & Nail Cream"
+    ],
+    usp: "Formula gentle tanpa iritasi kulit, bebas alkohol keras.",
+    image: "/new asset/background-visual-hero-section/bodycare.webp",
+  },
+  {
+    id: "mensgrooming",
+    title: "Men's Grooming",
+    tag: "Pasar Pria Meledak",
+    desc: "Perawatan pria fungsional mulai dari penataan rambut, perawatan jenggot, dan pencuci muka.",
+    items: [
+      "Water-based & Oil-based Pomade",
+      "Beard & Hair Growth Serum",
+      "Deep Cleanse Men's Facial Wash"
+    ],
+    usp: "Aroma maskulin mewah yang disukai segmen pria.",
+    image: "/new asset/haircare/pomade.webp",
+  },
+  {
+    id: "babycare",
+    title: "Baby Care",
+    tag: "Formula Lembut",
+    desc: "Formulasi khusus bayi yang lembut di mata, bebas paraben, dan berstandar BPOM.",
+    items: [
+      "Baby 2-in-1 Hair & Body Wash",
+      "Soothing Baby Moisturizing Lotion",
+      "Mild Calming Baby Cologne"
+    ],
+    usp: "Bahan organik ramah kulit bayi bersertifikasi uji lab.",
+    image: "/new asset/background-visual-hero-section/babycare.webp",
+  },
+  {
     id: "haircare",
     title: "Hair & Scalp Treatment",
     highlight: "Tren Pasar Meledak",
@@ -168,30 +196,18 @@ const readyCatalogSlides = [
   },
 ];
 
-const academyPillars = [
+const communityImages = [
   {
-    num: "01",
-    title: "Product & Formula Positioning",
-    desc: "Mempertajam diferensiasi konsep formula agar produk Anda langsung menarik perhatian pasar sejak peluncuran.",
-    icon: Sparkles,
+    src: "/assets/images/blog/beautypreneur-batch-2-dreamlab-sharing-session.jpg",
+    caption: "Sharing Session & Mentoring Bersama Founder Brand",
   },
   {
-    num: "02",
-    title: "Branding & Free Desain Kemasan",
-    desc: "Dapatkan desain logo dan kemasan botol/box profesional siap cetak tanpa biaya tambahan, setara brand global.",
-    icon: Palette,
+    src: "/assets/images/blog/beautypreneur-batch-2-dreamlab-bangun-brand.jpg",
+    caption: "Workshop Strategi Peluncuran Produk & Digital Ads",
   },
   {
-    num: "03",
-    title: "Digital Marketing & Ads Strategy",
-    desc: "Panduan praktis beriklan Meta Ads, TikTok Ads, live streaming, dan funnel konversi dari praktisi berpengalaman.",
-    icon: TrendingUp,
-  },
-  {
-    num: "04",
-    title: "Brand Community Owner Network",
-    desc: "Akses eksklusif jejaring komunitas sesama founder brand kecantikan alumni Dreamlab untuk akselerasi bisnis.",
-    icon: Users,
+    src: "/assets/images/client_dreamlab_syd_di_bali.png",
+    caption: "Komunitas Brand Owner Dreampreneur di Seluruh Indonesia",
   },
 ];
 
@@ -246,30 +262,35 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </header>
 
-      {/* ============ 1. CLEAN HERO SECTION ============ */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-orange-50/50 via-white to-white pt-6 pb-10 sm:pt-10 sm:pb-14 border-b border-neutral-100">
+      {/* ============ 1. HERO SECTION WITH BLUE & ORANGE AMBIENT SHADOW ============ */}
+      <section className="relative overflow-hidden pt-8 pb-12 sm:pt-12 sm:pb-16 border-b border-neutral-100">
+        
+        {/* Ambient Dreamlab Blue & Orange Glow Shadow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-72 sm:h-96 pointer-events-none -z-10 blur-[100px] opacity-25">
+          <div className="w-full h-full bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#D98A00] rounded-full" />
+        </div>
+
         <div className="container-custom px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
             
             {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/10 border border-brand-orange/20 rounded-full text-brand-orange">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/10 border border-brand-orange/20 rounded-full text-brand-orange shadow-xs">
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
               <span className="text-[10px] sm:text-xs font-black tracking-wider uppercase font-onest">
                 SIAP PRODUKSI BULAN INI — BPOM RESMI & CPKB A
               </span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[52px] font-black tracking-tight leading-[1.18] uppercase text-neutral-900 font-display">
-              Siap Luncurkan Brand Kosmetik Anda?{' '}
-              <span className="text-brand-orange block sm:inline">Maklon Resmi BPOM, MOQ Fleksibel</span>{' '}
-              & Sampel Kilat
+            {/* Requested Headline */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-black tracking-tight leading-[1.15] uppercase text-neutral-900 font-display">
+              INGIN WUJUDKAN BRAND IMPIAN?{' '}
+              <span className="text-brand-orange block sm:inline">DREAMLAB PILIHAN YANG TEPAT</span>
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-xs sm:text-base md:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto font-normal">
-              Eksekusi rencana produk Anda tanpa buang waktu. Tim R&D Dreamlab siap meracik sampel formula eksklusif, proses perizinan BPOM all-in, HPP transparan, hingga produk siap kirim ke gudang Anda.
-            </p>
+            {/* Requested Subheadline */}
+            <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-900 font-black text-xs sm:text-sm uppercase tracking-wider">
+              BUAT BRAND TANPA RIBET HANYA 3 BULAN
+            </div>
 
             {/* Quick Benefits Tags */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-[11px] sm:text-xs font-bold text-neutral-700">
@@ -310,7 +331,7 @@ export default function MetaAdsBofLandingPage() {
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-medium">Brand Sukses</span>
               </div>
               <div className="text-center p-2 border-x border-neutral-100">
-                <span className="block text-xl sm:text-2xl font-black text-neutral-900 font-display">CPKB A</span>
+                <span className="block text-xl sm:text-2xl font-black text-[#1E3A8A] font-display">CPKB A</span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-medium">Standar Pabrik</span>
               </div>
               <div className="text-center p-2">
@@ -323,139 +344,97 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </section>
 
-      {/* ============ BRAND YANG PERNAH DIPRODUKSI DI DREAMLAB ============ */}
-      <section className="py-10 bg-[#FAF8F5] border-b border-neutral-200/60 overflow-hidden">
-        <div className="container-custom px-4">
-          <div className="text-center space-y-1.5 mb-6">
-            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-brand-orange block font-onest">
-              PORTFOLIO BRAND MITRA
-            </span>
-            <h2 className="text-base sm:text-xl font-black uppercase text-neutral-900 font-display">
-              Brand yang Pernah Diproduksi di Dreamlab
-            </h2>
-            <p className="text-xs text-neutral-500 max-w-md mx-auto">
-              Telah dipercaya oleh brand owner di seluruh Indonesia dari skincare, body care, hingga luxury parfum.
-            </p>
-          </div>
-
-          {/* Logo Marquee / Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 max-w-4xl mx-auto items-center">
-            {partnerBrands.map((brand, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl p-3 sm:p-4 border border-neutral-200/80 shadow-2xs flex items-center justify-center hover:scale-105 transition-transform"
-              >
-                <div className="relative h-12 w-full flex items-center justify-center">
-                  <Image
-                    src={brand.logo}
-                    alt={brand.name}
-                    width={100}
-                    height={50}
-                    className="max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-4">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-neutral-500 bg-white/80 px-3 py-1 rounded-full border border-neutral-200">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              Bergabung bersama 500+ Brand Owner sukses lulusan Dreamlab
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 2. KEUNGGULAN EKSEKUSI & TIMELINE ============ */}
-      <section className="py-12 sm:py-16 bg-white">
+      {/* ============ 2. POTENSI (POIN TANPA PENJELASAN) ============ */}
+      <section className="py-10 sm:py-14 bg-white border-b border-neutral-100">
         <div className="container-custom px-4">
           
-          <div className="max-w-2xl mx-auto text-center space-y-2.5 mb-8 sm:mb-12">
+          <div className="max-w-2xl mx-auto text-center space-y-1.5 mb-6 sm:mb-8">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange text-[10px] sm:text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              KEUNGGULAN EKSEKUSI DREAMLAB
+              POTENSI BISNIS
             </span>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
-              Eksekusi Cepat, Legalitas Aman,{' '}
-              <span className="text-brand-orange">Tanpa Biaya Siluman</span>
+              Potensi & Efisiensi Produksi di Dreamlab
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
-              Kecepatan dan transparansi biaya adalah penentu keberhasilan produk Anda di pasar. Dreamlab menjamin alur maklon yang rapi dan pasti.
-            </p>
           </div>
 
-          {/* 4 Pillars Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-10">
-            {bofPillars.map((item, idx) => {
+          {/* Points Only Grid (Tanpa Penjelasan Panjang) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-4xl mx-auto">
+            {potensiPoints.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div 
+                <div
                   key={idx}
-                  className="bg-[#FAFAFA] border border-neutral-200/70 rounded-2xl p-5 hover:border-brand-orange/40 hover:bg-white hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+                  className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl bg-[#FAFAFA] border border-neutral-200/70 hover:border-brand-orange/40 transition-colors"
                 >
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="inline-block text-[10px] font-black tracking-wider text-brand-orange uppercase font-onest">
-                      {item.badge}
-                    </span>
-                    <h3 className="text-sm sm:text-base font-bold text-neutral-900 leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-neutral-600 leading-relaxed">
-                      {item.desc}
-                    </p>
+                  <div className="w-8 h-8 rounded-lg bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
+                    <Icon className="w-4 h-4" />
                   </div>
+                  <span className="text-xs sm:text-sm font-bold text-neutral-800 leading-snug">
+                    {item.text}
+                  </span>
                 </div>
               );
             })}
           </div>
 
-          {/* Timeline 5 Langkah Produksi */}
-          <div className="bg-[#FAF8F5] rounded-2xl p-5 sm:p-7 md:p-9 border border-neutral-200/70 max-w-4xl mx-auto space-y-6">
-            <div className="text-center space-y-1">
-              <span className="text-[10px] uppercase font-bold text-brand-orange tracking-widest font-onest block">
-                TIMELINE PRODUKSI TERSTRUKTUR
-              </span>
-              <h3 className="text-base sm:text-lg font-black text-neutral-900 uppercase font-display">
-                Alur Maklon 5 Langkah Hingga Produk Siap Jual
-              </h3>
-            </div>
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-              {timelineSteps.map((step, idx) => (
-                <div key={idx} className="bg-white p-4 rounded-xl border border-neutral-200/80 space-y-1.5">
-                  <span className="text-lg font-black text-brand-orange font-display block">
-                    {step.step}
-                  </span>
-                  <h4 className="text-xs font-bold text-neutral-900 leading-snug">
-                    {step.title}
-                  </h4>
-                  <p className="text-[11px] text-neutral-600 leading-relaxed">
-                    {step.desc}
+      {/* ============ 3. KEUNTUNGAN BERPARTNER DENGAN DREAMLAB ============ */}
+      <section className="py-12 sm:py-16 bg-[#FAF8F5] border-b border-neutral-200/60">
+        <div className="container-custom px-4">
+          
+          <div className="max-w-2xl mx-auto text-center space-y-2 mb-8 sm:mb-12">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100/70 rounded-full text-[#1E3A8A] text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+              <Briefcase className="w-3.5 h-3.5" />
+              NILAI TAMBAH MITRA
+            </span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
+              Keuntungan Berpartner dengan Dreamlab
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 max-w-lg mx-auto">
+              Seluruh proses produksi dan legalitas kami tangani penuh agar Anda bisa fokus membesarkan penjualan brand Anda.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto mb-8">
+            {keuntunganPartner.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white p-5 rounded-2xl border border-neutral-200/80 shadow-2xs hover:shadow-sm space-y-2.5 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-neutral-900 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-neutral-600 leading-relaxed">
+                    {item.desc}
                   </p>
                 </div>
-              ))}
-            </div>
+              );
+            })}
+          </div>
 
-            <div className="text-center pt-2">
-              <a
-                href={THANKYOU_URL}
-                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-brand-orange text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-brand-orange/95 active:scale-95 transition-all shadow-sm"
-              >
-                <span>Hitung HPP & Konsultasikan MOQ Sekarang</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
+          <div className="text-center">
+            <a
+              href={THANKYOU_URL}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-orange text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-brand-orange/95 active:scale-95 transition-all shadow-sm"
+            >
+              <span>Hitung HPP & Konsultasikan MOQ Sekarang</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
 
         </div>
       </section>
 
-      {/* ============ 3. APA YANG MAU DIBIKIN (SLIDER KATALOG SIAP PRODUKSI) ============ */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] border-y border-neutral-100 overflow-hidden">
+      {/* ============ 4. KATALOG PRODUK (SLIDE KESAMPING) ============ */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white border-b border-neutral-100 overflow-hidden">
         <div className="container-custom px-4">
           
           <div className="max-w-2xl mx-auto text-center space-y-2 mb-6 sm:mb-8">
@@ -464,11 +443,10 @@ export default function MetaAdsBofLandingPage() {
               KATALOG SIAP PRODUKSI
             </span>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
-              Pilihan Formula Produk{' '}
-              <span className="text-brand-orange">Unggulan Brand Anda</span>
+              Produk Apa yang Ingin Anda Ciptakan?
             </h2>
             <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
-              Geser (slide) katalog formula kami. Seluruh produk dapat disesuaikan tekstur, aroma, dan bahan aktifnya sesuai benchmark Anda.
+              Geser (slide) ke samping untuk melihat katalog formula yang bisa langsung kami racik sampelnya untuk brand Anda.
             </p>
           </div>
 
@@ -578,7 +556,7 @@ export default function MetaAdsBofLandingPage() {
           </div>
 
           {/* Custom Benchmark Box */}
-          <div className="bg-white border border-brand-orange/20 rounded-2xl p-5 sm:p-6 max-w-2xl mx-auto text-center space-y-3 shadow-xs mt-8">
+          <div className="bg-[#FAF8F5] border border-brand-orange/20 rounded-2xl p-5 sm:p-6 max-w-2xl mx-auto text-center space-y-3 shadow-xs mt-8">
             <h3 className="text-sm sm:text-base font-black text-neutral-900 uppercase font-display">
               Ingin Custom Formula Khusus Sesuai Benchmark Anda?
             </h3>
@@ -597,49 +575,44 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </section>
 
-      {/* ============ 4. BEAUTY ACADEMY & BRAND COMMUNITY ============ */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white border-b border-neutral-100">
+      {/* ============ 5. AKSES COMMUNITY BRAND OWNER (DENGAN IMAGES) ============ */}
+      <section className="py-12 sm:py-16 md:py-20 bg-[#FAF8F5] border-b border-neutral-200/60">
         <div className="container-custom px-4">
           
-          <div className="max-w-2xl mx-auto text-center space-y-2.5 mb-8 sm:mb-12">
+          <div className="max-w-2xl mx-auto text-center space-y-2 mb-8 sm:mb-10">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange text-[10px] sm:text-xs font-bold uppercase tracking-wider">
               <Users className="w-3.5 h-3.5" />
-              AKSELERATOR BISNIS DREAMLAB
+              EKSKLUSIF MITRA DREAMLAB
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 uppercase font-display tracking-tight">
-              Dukungan Pemasaran &{' '}
-              <span className="text-brand-orange">Dreampreneur Beauty Academy</span>
+              AKSES COMMUNITY BRAND OWNER
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
-              Kami pastikan produk Anda tidak menumpuk di gudang. Dapatkan bonus pendampingan bisnis langsung dari praktisi.
+            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal max-w-xl mx-auto">
+              Setiap mitra produksi Dreamlab otomatis mendapatkan akses eksklusif ke komunitas sesama founder brand kecantikan untuk networking, sharing data tren, hingga akselerasi penjualan.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto mb-8">
-            {academyPillars.map((pillar) => {
-              const IconComp = pillar.icon;
-              return (
-                <div
-                  key={pillar.num}
-                  className="bg-[#FAFAFA] border border-neutral-200/70 p-5 rounded-2xl hover:border-brand-orange/30 hover:bg-white hover:shadow-xs transition-all duration-200 space-y-2.5"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-brand-orange tracking-wider font-onest">
-                      {pillar.num}
-                    </span>
-                    <div className="w-7 h-7 rounded-lg bg-brand-orange/10 flex items-center justify-center text-brand-orange">
-                      <IconComp className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                  <h3 className="text-xs sm:text-sm font-black uppercase text-neutral-900 font-display tracking-tight">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed">
-                    {pillar.desc}
-                  </p>
+          {/* Community Real Images Gallery */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto mb-8">
+            {communityImages.map((img, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl overflow-hidden border border-neutral-200/80 shadow-xs space-y-2.5 p-2.5"
+              >
+                <div className="relative h-44 sm:h-52 w-full rounded-xl overflow-hidden bg-neutral-100">
+                  <Image
+                    src={img.src}
+                    alt={img.caption}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                  />
                 </div>
-              );
-            })}
+                <p className="text-[11px] sm:text-xs font-semibold text-neutral-700 px-1.5 pb-1">
+                  {img.caption}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="text-center">
@@ -647,7 +620,7 @@ export default function MetaAdsBofLandingPage() {
               href={THANKYOU_URL}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-orange text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-brand-orange/95 active:scale-95 transition-all shadow-sm"
             >
-              <span>Klaim Bonus Pendampingan Pemasaran</span>
+              <span>Klaim Bonus Akses Komunitas Brand Owner</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -655,10 +628,54 @@ export default function MetaAdsBofLandingPage() {
         </div>
       </section>
 
-      {/* ============ 5. CREDIBILITY & LEGALITAS ============ */}
+      {/* ============ 6. LOGO PARTNER DREAMLAB (SEBELUM LEGALITAS) ============ */}
+      <section className="py-10 bg-white border-b border-neutral-100 overflow-hidden">
+        <div className="container-custom px-4">
+          <div className="text-center space-y-1.5 mb-6">
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-brand-orange block font-onest">
+              PORTFOLIO BRAND MITRA
+            </span>
+            <h2 className="text-base sm:text-xl font-black uppercase text-neutral-900 font-display">
+              Brand yang Pernah Diproduksi di Dreamlab
+            </h2>
+            <p className="text-xs text-neutral-500 max-w-md mx-auto">
+              Telah dipercaya oleh brand owner di seluruh Indonesia dari skincare, body care, hingga luxury parfum.
+            </p>
+          </div>
+
+          {/* Logo Partner Grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 max-w-4xl mx-auto items-center">
+            {partnerBrands.map((brand, i) => (
+              <div
+                key={i}
+                className="bg-[#FAFAFA] rounded-xl p-3 sm:p-4 border border-neutral-200/80 shadow-2xs flex items-center justify-center hover:scale-105 transition-transform"
+              >
+                <div className="relative h-12 w-full flex items-center justify-center">
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={100}
+                    height={50}
+                    className="max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-4">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-neutral-500 bg-[#FAF8F5] px-3.5 py-1 rounded-full border border-neutral-200">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              Dipercaya 500+ Brand Owner di Seluruh Indonesia
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 7. LEGALITAS & SERTIFIKASI PABRIK ============ */}
       <AdsCredibilitySection channel="metaads" />
 
-      {/* ============ 6. CLEAN FINAL CTA BANNER ============ */}
+      {/* ============ 8. FINAL CTA BANNER ============ */}
       <section className="py-14 sm:py-18 bg-brand-orange text-white relative overflow-hidden">
         <div className="container-custom px-4 text-center space-y-4 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 rounded-full text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md">
