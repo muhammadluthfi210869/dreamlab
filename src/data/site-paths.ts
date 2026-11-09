@@ -572,6 +572,7 @@ export const SITE_PATHS: string[] = [
   "services",
   "set-skincare-bpom",
   "simulasi-biaya-maklon-haircare-pemula",
+  "sistem-pembayaran-termin-maklon-kosmetik",
   "skincare-face-care",
   "skincare-face-care/metaads",
   "skincare-natural-bali-pasar-internasional",

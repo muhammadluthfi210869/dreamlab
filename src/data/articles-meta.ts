@@ -13,6 +13,26 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/sistem-pembayaran-termin-maklon-kosmetik",
+    "title": "Sistem Pembayaran Maklon Kosmetik: Skema Termin DP, Pelunasan & Tips Cash Flow Brand Baru",
+    "publishDate": "2026-11-09T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "sistem pembayaran maklon",
+      "termin pembayaran maklon kosmetik",
+      "skema dp maklon skincare",
+      "cash flow bisnis kosmetik",
+      "cara bayar pabrik maklon"
+    ],
+    "featuredImage": "/assets/images/blog/panduan-bikin-brand-skincare-dreamlab.png",
+    "excerpt": "Pelajari sistem termin pembayaran maklon kosmetik di Dreamlab: skema DP, jadwal pelunasan, dan strategi alokasi cash flow agar bisnis skincare Anda tidak kehabisan modal.",
+    "readingMinutes": 6
+  },
+  {
     "slug": "/simulasi-biaya-maklon-haircare-pemula",
     "title": "Simulasi Biaya Maklon Haircare Pemula: Modal Bikin Hair Tonic & Shampoo Merek Sendiri",
     "publishDate": "2026-11-09T00:00:00+00:00",
