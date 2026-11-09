@@ -28,14 +28,24 @@ export default function OrganizationSchema() {
       "postalCode": "60256",
       "addressCountry": "ID"
     },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+62-881-0272-40339",
-      "email": "official@dreamlab.id",
-      "contactType": "customer service",
-      "areaServed": isEn ? "Worldwide" : "ID",
-      "availableLanguage": isEn ? "English" : "Indonesian"
-    }
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+62-819-5241-7051",
+        "contactType": "sales",
+        "name": "Annisa (Sales & Business Development)",
+        "areaServed": "ID",
+        "availableLanguage": "Indonesian"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+62-877-1223-2389",
+        "contactType": "sales",
+        "name": "Jessica (Sales & Business Development)",
+        "areaServed": "ID",
+        "availableLanguage": "Indonesian"
+      }
+    ]
   };
 
   return <JsonLd data={organizationData} />;
