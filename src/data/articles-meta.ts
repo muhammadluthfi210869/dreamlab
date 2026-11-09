@@ -13,6 +13,27 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/bongkar-biaya-maklon-skincare-lengkap",
+    "title": "Bongkar Biaya Maklon Skincare: Simulasi Modal Rp 20 Juta sampai Rp 100 Juta Siap Jual",
+    "publishDate": "2026-11-09T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "biaya maklon skincare",
+      "simulasi modal maklon",
+      "harga maklon skincare",
+      "maklon skincare modal kecil",
+      "modal bisnis skincare",
+      "biaya bpom kosmetik"
+    ],
+    "featuredImage": "/assets/images/blog/biaya_membuat_brand_skincare.png",
+    "excerpt": "Ingin tahu biaya riil maklon skincare? Simak simulasi transparan modal Rp 20 juta hingga Rp 100 juta lengkap dengan HPP, biaya BPOM, dan formula custom Dreamlab.",
+    "readingMinutes": 7
+  },
+  {
     "slug": "/maklon-bodycare-panduan-memulai-brand-sendiri",
     "title": "Maklon Bodycare: Panduan Memulai Brand Bodycare Sendiri",
     "publishDate": "2026-11-06T00:00:00+00:00",
