@@ -28,9 +28,9 @@ export const articlesMeta: ArticleMeta[] =
       "cash flow bisnis kosmetik",
       "cara bayar pabrik maklon"
     ],
-    "featuredImage": "/assets/images/blog/panduan-bikin-brand-skincare-dreamlab.png",
-    "excerpt": "Pelajari sistem termin pembayaran maklon kosmetik di Dreamlab: skema DP, jadwal pelunasan, dan strategi alokasi cash flow agar bisnis skincare Anda tidak kehabisan modal.",
-    "readingMinutes": 6
+    "featuredImage": "/assets/images/blog/sistem-pembayaran-maklon-kosmetik-hero.jpg",
+    "excerpt": "Pelajari sistem termin pembayaran maklon kosmetik di Dreamlab: skema DP, jadwal pelunasan, 5 ide tren produk, dan strategi alokasi cash flow modal brand baru.",
+    "readingMinutes": 8
   },
   {
     "slug": "/simulasi-biaya-maklon-haircare-pemula",
