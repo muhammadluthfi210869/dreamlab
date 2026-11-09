@@ -14,7 +14,6 @@ import JsonLd from './JsonLd';
 import { generatePageSchema } from '@/lib/schema-generator';
 import RelatedLinks from './RelatedLinks';
 import InteractiveArticleBody from './InteractiveArticleBody';
-import { LeadQualificationModal } from './LeadQualificationModal';
 import { getCategoryDisplay, resolveBlogCategory } from '@/data/blog-categories';
 import { resolveArticleImageSrc, resolveSiteImageUrl } from '@/lib/asset-paths';
 import '@/styles/legacy-elementor.css';
@@ -47,18 +46,6 @@ interface ArticleTemplateProps {
 
 const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts = [], allArticles = [], faqs = [] }) => {
   const [copied, setCopied] = useState(false);
-  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
-
-  const inferredModalCategory = useMemo(() => {
-    const text = `${article.slug} ${article.title}`.toLowerCase();
-    if (text.includes('bodycare') || text.includes('body-care') || text.includes('handbody') || text.includes('deodorant')) {
-      return 'Bodycare';
-    }
-    if (text.includes('parfum') || text.includes('perfume')) return 'Parfum';
-    if (text.includes('hair')) return 'Haircare';
-    if (text.includes('baby')) return 'Babycare';
-    return 'Skincare';
-  }, [article.slug, article.title]);
 
   const articleUrl = `https://dreamlab.id${article.slug.startsWith('/') ? article.slug : `/${article.slug}`}`;
 
@@ -225,13 +212,12 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                         </Link>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsLeadModalOpen(true)}
-                      className="shrink-0 bg-gradient-to-r from-[#D98A00] via-[#F39200] to-[#FF9E00] hover:brightness-110 text-white px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-[#D98A00]/30 cursor-pointer border border-white/20 hover:scale-[1.02] active:scale-[0.98]"
+                    <Link
+                      href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=b2b_service_box`}
+                      className="shrink-0 bg-gradient-to-r from-[#D98A00] via-[#F39200] to-[#FF9E00] hover:brightness-110 text-white px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-[#D98A00]/30 cursor-pointer border border-white/20 hover:scale-[1.02] active:scale-[0.98] inline-block text-center"
                     >
                       Konsultasi Gratis
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -353,28 +339,18 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                     <span>Pabrik CPKB Grade A &amp; BPOM</span>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIsLeadModalOpen(true)}
-                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all shadow-md shadow-brand-orange/20 cursor-pointer"
+                <Link
+                  href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=sidebar_article`}
+                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all shadow-md shadow-brand-orange/20"
                 >
                   <MessageCircle className="w-4 h-4" />
                   KONSULTASI VIA WHATSAPP
-                </button>
+                </Link>
               </div>
             </aside>
           </div>
         </div>
       </div>
-
-      <LeadQualificationModal
-        isOpen={isLeadModalOpen}
-        onClose={() => setIsLeadModalOpen(false)}
-        defaultCategory={inferredModalCategory}
-        source="article-template-cta"
-        channel="other"
-        landingPage={article.slug}
-      />
     </>
   );
 };

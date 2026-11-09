@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Script from 'next/script';
-import { LeadQualificationModal } from './LeadQualificationModal';
 
 interface InteractiveArticleBodyProps {
   htmlContent: string;
@@ -18,15 +17,6 @@ interface InteractiveArticleBodyProps {
  */
 export default function InteractiveArticleBody({ htmlContent }: InteractiveArticleBodyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [leadModalState, setLeadModalState] = useState<{
-    isOpen: boolean;
-    category: string;
-    budget?: string;
-    extraWaText?: string;
-  }>({
-    isOpen: false,
-    category: 'Bodycare',
-  });
 
   // Hanya muat wrapper embed Instagram bila artikel benar-benar memuat blok IG.
   const hasInstagramEmbed =
@@ -125,13 +115,14 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
       const modalBtn = target.closest<HTMLElement>('[data-open-lead-modal]');
       if (modalBtn) {
         e.preventDefault();
-        const cat = modalBtn.getAttribute('data-category') || 'Bodycare';
-        const budget = modalBtn.getAttribute('data-budget') || undefined;
-        setLeadModalState({
-          isOpen: true,
-          category: cat,
-          budget,
-        });
+        // Direct to WhatsApp without form in organic articles
+        const fromSlug = typeof window !== 'undefined' ? window.location.pathname : '';
+        const cat = modalBtn.getAttribute('data-category') || '';
+        const inquiry = cat ? `Konsultasi Produk ${cat}` : undefined;
+        const targetUrl = inquiry
+          ? `/thankyou/google/?source=organic&from=${encodeURIComponent(fromSlug)}&inquiry=${encodeURIComponent(inquiry)}`
+          : `/thankyou/google/?source=organic&from=${encodeURIComponent(fromSlug)}`;
+        window.location.href = targetUrl;
         return;
       }
 
@@ -262,16 +253,6 @@ export default function InteractiveArticleBody({ htmlContent }: InteractiveArtic
           }}
         />
       )}
-      <LeadQualificationModal
-        isOpen={leadModalState.isOpen}
-        onClose={() => setLeadModalState((prev) => ({ ...prev, isOpen: false }))}
-        defaultCategory={leadModalState.category}
-        defaultBudget={leadModalState.budget}
-        extraWaText={leadModalState.extraWaText}
-        source="article-cta"
-        channel="other"
-        landingPage={typeof window !== 'undefined' ? window.location.pathname : ''}
-      />
     </>
   );
 }

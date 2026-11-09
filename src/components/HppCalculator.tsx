@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useMemo, useRef, useId } from 'react';
-import { LeadQualificationModal } from './LeadQualificationModal';
 
 export const PRODUCTS = [
   'Body Lotion',
@@ -139,7 +138,6 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
     idrFormatter.format(initialQty)
   );
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const hasTrackedUsageRef = useRef<boolean>(false);
 
   const detailCalc = useMemo(
@@ -346,7 +344,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
         budget_bucket: bucket,
       });
     }
-    setIsModalOpen(true);
+    // Direct to WhatsApp without form for organic traffic
+    const fromPath = typeof window !== 'undefined' ? window.location.pathname : '';
+    const inquiryText = currentWaLine || `Simulasi HPP ${product}`;
+    window.location.href = `/thankyou/google/?source=organic&from=${encodeURIComponent(fromPath)}&inquiry=${encodeURIComponent(inquiryText)}`;
   };
 
   const sliderPriceValue = Math.min(500000, Math.max(20000, price || 20000));
@@ -404,11 +405,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
             type="button"
             aria-pressed={mode === 'quick'}
             onClick={() => handleModeSwitch('quick')}
-            className={`px-3.5 py-2 rounded-lg text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${
-              mode === 'quick'
-                ? 'bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white shadow-xs'
-                : 'text-slate-700 hover:text-slate-900'
-            }`}
+            className={`px-3.5 py-2 rounded-lg text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${mode === 'quick'
+              ? 'bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white shadow-xs'
+              : 'text-slate-700 hover:text-slate-900'
+              }`}
           >
             Mode Cepat
           </button>
@@ -416,11 +416,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
             type="button"
             aria-pressed={mode === 'detail'}
             onClick={() => handleModeSwitch('detail')}
-            className={`px-3.5 py-2 rounded-lg text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${
-              mode === 'detail'
-                ? 'bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white shadow-xs'
-                : 'text-slate-700 hover:text-slate-900'
-            }`}
+            className={`px-3.5 py-2 rounded-lg text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${mode === 'detail'
+              ? 'bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white shadow-xs'
+              : 'text-slate-700 hover:text-slate-900'
+              }`}
           >
             Mode Detail
           </button>
@@ -452,11 +451,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
                     type="button"
                     aria-pressed={active}
                     onClick={() => handleProductSelect(item)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer border focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${
-                      active
-                        ? 'bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white border-[#D98A00] shadow-xs'
-                        : 'bg-white text-slate-700 border-slate-200 hover:border-amber-400 hover:bg-amber-50/40'
-                    }`}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer border focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${active
+                      ? 'bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white border-[#D98A00] shadow-xs'
+                      : 'bg-white text-slate-700 border-slate-200 hover:border-amber-400 hover:bg-amber-50/40'
+                      }`}
                   >
                     {item}
                   </button>
@@ -571,11 +569,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
                         type="button"
                         aria-pressed={isSelected}
                         onClick={() => handleChannelChip(ch.cut)}
-                        className={`px-3.5 py-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${
-                          isSelected
-                            ? 'border-[#D98A00] bg-amber-50 text-slate-900 shadow-xs'
-                            : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                        }`}
+                        className={`px-3.5 py-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${isSelected
+                          ? 'border-[#D98A00] bg-amber-50 text-slate-900 shadow-xs'
+                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                          }`}
                       >
                         <span className="text-xs font-bold leading-snug">
                           {ch.name}
@@ -729,11 +726,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
                     type="button"
                     aria-pressed={isSelected}
                     onClick={() => handleQtyPreset(preset)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold border whitespace-nowrap transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${
-                      isSelected
-                        ? 'border-[#D98A00] bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white shadow-xs'
-                        : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                    }`}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold border whitespace-nowrap transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D98A00] ${isSelected
+                      ? 'border-[#D98A00] bg-gradient-to-r from-[#D98A00] to-[#f0b830] text-white shadow-xs'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                      }`}
                   >
                     {idrFormatter.format(preset)} pcs
                   </button>
@@ -859,11 +855,10 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
                       return (
                         <div
                           key={seg.label}
-                          className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 ${
-                            isHpp
-                              ? 'bg-amber-50 border border-amber-200/90 font-extrabold text-slate-900'
-                              : 'bg-slate-50/70 text-slate-700 font-medium'
-                          }`}
+                          className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 ${isHpp
+                            ? 'bg-amber-50 border border-amber-200/90 font-extrabold text-slate-900'
+                            : 'bg-slate-50/70 text-slate-700 font-medium'
+                            }`}
                         >
                           <span className="flex items-center gap-2.5 min-w-0">
                             <span
@@ -940,13 +935,12 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
               {/* 5. Health Hint */}
               {healthHint && (
                 <div
-                  className={`rounded-xl border p-3.5 text-xs sm:text-sm leading-relaxed font-semibold ${
-                    healthHint.tone === 'warn'
-                      ? 'border-amber-300 bg-amber-50 text-amber-950'
-                      : healthHint.tone === 'ok'
+                  className={`rounded-xl border p-3.5 text-xs sm:text-sm leading-relaxed font-semibold ${healthHint.tone === 'warn'
+                    ? 'border-amber-300 bg-amber-50 text-amber-950'
+                    : healthHint.tone === 'ok'
                       ? 'border-emerald-300 bg-emerald-50 text-emerald-950'
                       : 'border-sky-200 bg-sky-50 text-sky-950'
-                  }`}
+                    }`}
                 >
                   {healthHint.text}
                 </div>
@@ -982,22 +976,6 @@ export default function HppCalculator({ defaultMode = 'detail' }: HppCalculatorP
           )}
         </div>
       </div>
-
-      {/* Existing Lead Qualification Modal */}
-      <LeadQualificationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        defaultCategory="Bodycare"
-        defaultBudget={currentBucket}
-        extraWaText={currentWaLine}
-        source="article-hpp-calculator"
-        channel="other"
-        landingPage={
-          typeof window !== 'undefined'
-            ? window.location.pathname
-            : '/biaya-maklon-bodycare-target-hpp/'
-        }
-      />
     </section>
   );
 }
