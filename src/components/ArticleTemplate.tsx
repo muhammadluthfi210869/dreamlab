@@ -196,35 +196,39 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                   </div>
                 </div>
 
-                {/* Contextual B2B Manufacturing Service Box */}
-                <div className="mt-8 p-6 md:p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-2xl text-white border border-neutral-800 shadow-md">
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                    <div className="space-y-2">
-                      <div className="inline-flex items-center gap-2 bg-brand-orange/20 text-brand-orange border border-brand-orange/30 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                {/* Contextual B2B Manufacturing Service Box - Signature Dreamlab Blue & Orange */}
+                <div className="relative mt-8 p-6 md:p-8 bg-gradient-to-br from-[#092042] via-[#0d366e] to-[#0a254c] rounded-2xl md:rounded-3xl text-white border border-[#1e4a7d]/80 shadow-xl shadow-[#092042]/25 overflow-hidden">
+                  {/* Subtle brand ambient lighting */}
+                  <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#F39200]/15 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#0072ce]/20 rounded-full blur-2xl pointer-events-none" />
+
+                  <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div className="space-y-2.5">
+                      <div className="inline-flex items-center gap-2 bg-[#F39200]/20 text-[#FFB830] border border-[#F39200]/40 px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
                         <span>Solusi Manufaktur B2B</span>
                       </div>
-                      <h3 className="text-lg md:text-xl font-display font-normal text-white uppercase leading-snug">
+                      <h3 className="text-lg md:text-xl font-display font-normal text-white uppercase leading-snug drop-shadow-sm">
                         Tertarik Memproduksi Kosmetik dengan Standar Pabrik Resmi?
                       </h3>
-                      <p className="text-white/70 text-xs md:text-sm leading-relaxed max-w-xl">
+                      <p className="text-blue-100/90 text-xs md:text-sm leading-relaxed max-w-xl">
                         Dreamlab melayani maklon kosmetik satu atap: riset formula eksklusif (1 Client = 1 Formula), perizinan BPOM &amp; Halal, hingga produksi massal bersertifikat CPKB Grade A.
                       </p>
-                      <div className="flex flex-wrap gap-3 pt-2 text-xs font-bold text-neutral-300">
-                        <Link href="/jasa-maklon-kosmetik" className="hover:text-brand-orange underline underline-offset-4 decoration-brand-orange/40">
-                          → Layanan Maklon Kosmetik
+                      <div className="flex flex-wrap gap-3 pt-2 text-xs font-bold text-sky-200">
+                        <Link href="/jasa-maklon-kosmetik" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Layanan Maklon Kosmetik
                         </Link>
-                        <Link href="/biaya-maklon-skincare" className="hover:text-brand-orange underline underline-offset-4 decoration-brand-orange/40">
-                          → Biaya &amp; HPP Maklon
+                        <Link href="/biaya-maklon-skincare" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Biaya &amp; HPP Maklon
                         </Link>
-                        <Link href="/moq-maklon-kosmetik" className="hover:text-brand-orange underline underline-offset-4 decoration-brand-orange/40">
-                          → Panduan MOQ 500+ Pcs
+                        <Link href="/moq-maklon-kosmetik" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Panduan MOQ 500+ Pcs
                         </Link>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => setIsLeadModalOpen(true)}
-                      className="shrink-0 bg-brand-orange hover:bg-[#D98200] text-white px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-brand-orange/25 cursor-pointer"
+                      className="shrink-0 bg-gradient-to-r from-[#D98A00] via-[#F39200] to-[#FF9E00] hover:brightness-110 text-white px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-[#D98A00]/30 cursor-pointer border border-white/20 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       Konsultasi Gratis
                     </button>
