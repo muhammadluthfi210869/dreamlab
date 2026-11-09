@@ -30,7 +30,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/sistem-pembayaran-maklon-kosmetik-hero.jpg",
     "excerpt": "Pelajari sistem termin pembayaran maklon kosmetik di Dreamlab: skema DP, jadwal pelunasan, 5 ide tren produk, dan strategi alokasi cash flow modal brand baru.",
-    "readingMinutes": 8
+    "readingMinutes": 9
   },
   {
     "slug": "/simulasi-biaya-maklon-haircare-pemula",
