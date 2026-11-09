@@ -30,6 +30,7 @@ export function generatePageSchema(data: SchemaPageData) {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
       name: 'Dreamlab Indonesia',
+      legalName: 'PT Karya Impian Laboratoris',
       url: `${siteUrl}/`,
       logo: {
         '@type': 'ImageObject',
@@ -45,9 +46,18 @@ export function generatePageSchema(data: SchemaPageData) {
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+62-881-0272-40339',
+        email: 'official@dreamlab.id',
         contactType: 'customer service',
         areaServed: 'ID',
         availableLanguage: 'Indonesian',
+      },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan',
+        addressLocality: 'Surabaya',
+        addressRegion: 'Jawa Timur',
+        postalCode: '60256',
+        addressCountry: 'ID',
       },
     },
 
@@ -143,26 +153,42 @@ export function generatePageSchema(data: SchemaPageData) {
   // LocalBusiness for service/location pages
   if (data.type === 'service') {
     graph.push({
-      '@type': 'LocalBusiness',
+      '@type': ['LocalBusiness', 'Manufacturer'],
       '@id': `${siteUrl}/#localbusiness`,
       parentOrganization: { '@id': `${siteUrl}/#organization` },
       name: 'Dreamlab Indonesia',
-      description: 'Pabrik maklon kosmetik dan skincare bersertifikat CPKB Grade A dan Halal.',
+      legalName: 'PT Karya Impian Laboratoris',
+      description: 'Pabrik maklon kosmetik, skincare, bodycare dan parfum bersertifikat CPKB Grade A, BPOM dan Halal MUI di Jawa Timur.',
+      url: `${siteUrl}/`,
+      telephone: '+62-881-0272-40339',
+      email: 'official@dreamlab.id',
+      hasMap: 'https://maps.app.goo.gl/UDWzjzsL9ZjTPzLJ6',
+      priceRange: 'Rp Rp Rp',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'Jl. Raya Menganti KM 12',
+        streetAddress: 'Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan',
         addressLocality: 'Surabaya',
         addressRegion: 'Jawa Timur',
-        postalCode: '61175',
+        postalCode: '60256',
         addressCountry: 'ID',
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: '-7.301170',
-        longitude: '112.645530',
+        latitude: -7.289167,
+        longitude: 112.716389,
       },
-      areaServed: 'Indonesia',
-      telephone: '+62-812-3456-7890',
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          opens: '08:00',
+          closes: '17:00',
+        },
+      ],
+      areaServed: [
+        { '@type': 'Country', name: 'Indonesia' },
+        { '@type': 'AdministrativeArea', name: 'Jawa Timur' },
+      ],
     });
   }
 
@@ -198,6 +224,7 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
       name: 'Dreamlab Indonesia',
+      legalName: 'PT Karya Impian Laboratoris',
       url: `${siteUrl}/`,
       logo: {
         '@type': 'ImageObject',
@@ -213,9 +240,18 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+62-881-0272-40339',
+        email: 'official@dreamlab.id',
         contactType: 'customer service',
         areaServed: 'ID',
         availableLanguage: 'Indonesian',
+      },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan',
+        addressLocality: 'Surabaya',
+        addressRegion: 'Jawa Timur',
+        postalCode: '60256',
+        addressCountry: 'ID',
       },
     },
 

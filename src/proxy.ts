@@ -261,5 +261,5 @@ export const config = {
   // capture tidak menambah hop latensi. Middleware hanya untuk redirect/410 SEO
   // dan penentuan lang — tidak dipakai route API.
   matcher:
-    '/((?!_next/static|_next/image|favicon.ico|assets|robots.txt|sitemap.xml|api|new(?:%20|\\s)asset|images|promo-kemerdekaan|next.svg|file.svg|globe.svg|vercel.svg|window.svg|Sampul(?:%20|\\s)WEB).*)',
+    '/((?!_next/static|_next/image|favicon.ico|assets|robots.txt|sitemap.xml|llms.txt|api|new(?:%20|\\s)asset|images|promo-kemerdekaan|next.svg|file.svg|globe.svg|vercel.svg|window.svg|Sampul(?:%20|\\s)WEB).*)',
 };

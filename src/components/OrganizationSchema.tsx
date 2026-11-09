@@ -12,6 +12,7 @@ export default function OrganizationSchema() {
     "@type": "Organization",
     "@id": "https://dreamlab.id/#organization",
     "name": "Dreamlab Indonesia",
+    "legalName": "PT Karya Impian Laboratoris",
     "url": "https://dreamlab.id/",
     "logo": "https://dreamlab.id/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp",
     "sameAs": [
@@ -19,9 +20,18 @@ export default function OrganizationSchema() {
       "https://www.facebook.com/dreamlab.id",
       "https://www.tiktok.com/@dreamlab.id"
     ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan",
+      "addressLocality": "Surabaya",
+      "addressRegion": "Jawa Timur",
+      "postalCode": "60256",
+      "addressCountry": "ID"
+    },
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+62-881-0272-40339",
+      "email": "official@dreamlab.id",
       "contactType": "customer service",
       "areaServed": isEn ? "Worldwide" : "ID",
       "availableLanguage": isEn ? "English" : "Indonesian"
