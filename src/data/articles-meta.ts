@@ -13,6 +13,27 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/simulasi-biaya-maklon-haircare-pemula",
+    "title": "Simulasi Biaya Maklon Haircare Pemula: Modal Bikin Hair Tonic & Shampoo Merek Sendiri",
+    "publishDate": "2026-11-09T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "biaya maklon haircare",
+      "maklon hair tonic",
+      "maklon shampoo",
+      "modal brand haircare",
+      "maklon produk rambut",
+      "maklon shampoo sls free"
+    ],
+    "featuredImage": "/assets/images/blog/jasa-maklon-hair-care-indonesia-1024x666.webp",
+    "excerpt": "Berapa modal awal bikin brand haircare sendiri? Simak simulasi transparan biaya maklon Hair Tonic & Shampoo anti-rontok, HPP, izin BPOM, dan formula custom Dreamlab.",
+    "readingMinutes": 8
+  },
+  {
     "slug": "/bongkar-biaya-maklon-skincare-lengkap",
     "title": "Bongkar Biaya Maklon Skincare: Simulasi Modal Rp 20 Juta sampai Rp 100 Juta Siap Jual",
     "publishDate": "2026-11-09T00:00:00+00:00",
