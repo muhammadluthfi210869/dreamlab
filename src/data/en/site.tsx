@@ -454,6 +454,24 @@ export const homeBlogContentEn = {
   readMoreText: "READ MORE",
   posts: [
     {
+      title: "Serum Manufacturing Cost Breakdown: Transparent Capital Simulation Ready to Sell",
+      date: "November 9, 2026",
+      category: "Skincare Formulation",
+      image: "/assets/images/blog/bongkar-biaya-maklon-serum-hero.jpg",
+      excerpt:
+        "Learn the transparent costs of serum manufacturing: capital simulation from Rp 20M to Rp 100M, active ingredient formulation, dropper packaging, and BPOM certification.",
+      link: "/bongkar-biaya-maklon-skincare-lengkap/",
+    },
+    {
+      title: "Cosmetic Manufacturing Payment Scheme: Down Payment & Cash Flow Tips",
+      date: "November 2, 2026",
+      category: "Business & Finance",
+      image: "/assets/images/blog/sistem-pembayaran-maklon-kosmetik-hero.jpg",
+      excerpt:
+        "Master the staged installment payment system for cosmetic manufacturing at Dreamlab: DP stages, production schedules, and smart cash flow management.",
+      link: "/sistem-pembayaran-termin-maklon-kosmetik/",
+    },
+    {
       title: "Build Your Own Perfume Brand: Complete Cost Breakdown & Requirements",
       date: "January 26, 2026",
       category: "Cosmetic Manufacturing",

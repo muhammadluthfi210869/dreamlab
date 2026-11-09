@@ -70,13 +70,24 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Home() {
   const { hero, trustedBrands, advantages, katalog, testimonials, blog } = homepageData;
-  const priorityBlogSlugs = new Set([
+  // 4 artikel unggulan prioritas untuk homepage (Serum, Termin, Haircare, Parfum)
+  const priorityBlogSlugs = [
+    "/bongkar-biaya-maklon-skincare-lengkap",
+    "/sistem-pembayaran-termin-maklon-kosmetik",
+    "/simulasi-biaya-maklon-haircare-pemula",
     "/biaya-maklon-parfum-moq-kecil",
-    "/bisnis-skincare-glow-glasskin-cystamine",
-  ]);
-  const spotlightPosts = articles
-    .filter((article) => priorityBlogSlugs.has(article.slug))
-    .slice(0, 3)
+  ];
+  const prioritySet = new Set(priorityBlogSlugs);
+  const prioritizedArticles = priorityBlogSlugs
+    .map((slug) => articles.find((article) => article.slug === slug))
+    .filter((a): a is (typeof articles)[number] => Boolean(a));
+
+  const fallbackArticles = [...articles]
+    .filter((article) => !prioritySet.has(article.slug))
+    .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+
+  const spotlightPosts = [...prioritizedArticles, ...fallbackArticles]
+    .slice(0, 4)
     .map((article) => ({
       title: article.title,
       date: article.publishDate,
