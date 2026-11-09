@@ -49,7 +49,7 @@ export const articlesMeta: ArticleMeta[] =
       "maklon produk rambut",
       "maklon shampoo sls free"
     ],
-    "featuredImage": "/assets/images/blog/formula-struktur-harga-retail-haircare.jpg",
+    "featuredImage": "/assets/images/blog/simulasi-biaya-maklon-haircare-pemula-hero.jpg",
     "excerpt": "Berapa modal awal bikin brand haircare sendiri? Simak simulasi transparan biaya maklon Hair Tonic & Shampoo anti-rontok, HPP, izin BPOM, dan formula custom Dreamlab.",
     "readingMinutes": 11
   },
