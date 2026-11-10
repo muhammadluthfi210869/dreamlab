@@ -279,6 +279,7 @@ export const SITE_PATHS: string[] = [
   "maklon-kosmetik-pemula-modal-kecil",
   "maklon-kosmetik-semarang",
   "maklon-kosmetik-serum-exosome-pdrn-dreamlab",
+  "maklon-kosmetik-sidoarjo",
   "maklon-kosmetik-skincare-medan-dreamlab",
   "maklon-kosmetik-tangerang",
   "maklon-kosmetik-tangerang-terpercaya",
