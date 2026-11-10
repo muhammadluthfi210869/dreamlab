@@ -14,7 +14,7 @@ export const articlesMeta: ArticleMeta[] =
 [
   {
     "slug": "/maklon-kosmetik-sidoarjo",
-    "title": "Maklon Kosmetik Sidoarjo: Peluang Bisnis Skincare BPOM & 5 Tren Produk Dunia",
+    "title": "Maklon Kosmetik Sidoarjo: Peluang Bisnis Skincare BPOM & 4 Tren Produk Dunia",
     "publishDate": "2026-11-10T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -30,7 +30,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/maklon-kosmetik-sidoarjo-bpom-hero.jpg",
     "excerpt": "Jasa maklon kosmetik Sidoarjo terpercaya. Bikin brand skincare modal terjangkau berstandar CPKB Grade A & BPOM. Konsultasi custom formula eksklusif Dreamlab.",
-    "readingMinutes": 9
+    "readingMinutes": 8
   },
   {
     "slug": "/sistem-pembayaran-termin-maklon-kosmetik",
