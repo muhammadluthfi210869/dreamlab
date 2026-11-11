@@ -330,6 +330,7 @@ export const SITE_PATHS: string[] = [
   "maklon-travel-size-kosmetik",
   "manfaat-hair-tonic-ginseng-rambut",
   "manfaat-panthenol-untuk-wajah-kering",
+  "melazero-vs-kojic-acid",
   "melembutkan-kulit-bersisik",
   "memilih-pabrik-maklon-kosmetik-sertifikasi-cpkb",
   "memunculkan-keranjang-reels",

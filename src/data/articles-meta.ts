@@ -13,6 +13,27 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/melazero-vs-kojic-acid",
+    "title": "Melazero® V2 vs Kojic Acid: Mana yang Lebih Efektif untuk Brand Skincare Anda?",
+    "publishDate": "2026-11-11T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Formula & R&D",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "melazero vs kojic acid",
+      "melazero atau kojic acid",
+      "bahan brightening skincare",
+      "ingredient serum brightening",
+      "bahan aktif dark spot",
+      "custom formula skincare"
+    ],
+    "featuredImage": "/assets/images/blog/melazero-v2-brightening-serum-hero.jpg",
+    "excerpt": "Perbandingan ilmiah Melazero® V2 vs Kojic Acid untuk brand skincare: evaluasi mekanisme melanophagy vs tyrosinase, uji 3D, stabilitas, dan HPP formula.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/maklon-kosmetik-sidoarjo",
     "title": "Maklon Kosmetik Sidoarjo: Peluang Bisnis Skincare BPOM & 4 Tren Produk Dunia",
     "publishDate": "2026-11-10T00:00:00+00:00",
