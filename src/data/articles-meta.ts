@@ -14,7 +14,7 @@ export const articlesMeta: ArticleMeta[] =
 [
   {
     "slug": "/cara-memulai-bisnis-bodycare",
-    "title": "Cara Memulai Bisnis Bodycare dari Nol: Pilih Produk & Cek HPP Anda",
+    "title": "Berapa Biaya Memulai Bisnis Bodycare? Rincian Modal, Estimasi HPP, & Simulasi Keuntungan",
     "publishDate": "2026-11-11T00:00:00+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
@@ -22,16 +22,16 @@ export const articlesMeta: ArticleMeta[] =
       "Maklon Kosmetik"
     ],
     "tags": [
-      "bisnis bodycare",
-      "cara memulai bisnis bodycare",
-      "maklon bodycare",
+      "biaya maklon bodycare",
+      "modal bisnis bodycare",
       "hpp bodycare",
-      "body lotion custom formula",
-      "modal bisnis bodycare"
+      "harga maklon body lotion",
+      "maklon bodycare bpom",
+      "simulasi biaya maklon"
     ],
     "featuredImage": "/assets/images/blog/cara-memulai-bisnis-bodycare-hero.jpg",
-    "excerpt": "Panduan lengkap cara memulai bisnis bodycare dari nol: strategi pilih produk hero, riset custom formula, simulasi HPP, dan maklon CPKB Grade A Dreamlab.",
-    "readingMinutes": 7
+    "excerpt": "Rincian lengkap biaya dan modal bisnis bodycare dari nol: breakdown biaya formulasi R&D, kemasan, legalitas BPOM, estimasi HPP riil per produk, dan simulasi profit.",
+    "readingMinutes": 9
   },
   {
     "slug": "/melazero-vs-kojic-acid",
