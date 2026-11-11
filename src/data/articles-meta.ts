@@ -31,7 +31,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/melazero-v2-brightening-serum-hero.jpg",
     "excerpt": "Perbandingan ilmiah Melazero® V2 vs Kojic Acid untuk brand skincare: evaluasi mekanisme melanophagy vs tyrosinase, uji 3D, stabilitas, dan HPP formula.",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "slug": "/maklon-kosmetik-sidoarjo",
