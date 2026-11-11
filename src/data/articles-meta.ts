@@ -31,7 +31,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "/assets/images/blog/cara-memulai-bisnis-bodycare-hero.jpg",
     "excerpt": "Panduan lengkap cara memulai bisnis bodycare dari nol: strategi pilih produk hero, riset custom formula, simulasi HPP, dan maklon CPKB Grade A Dreamlab.",
-    "readingMinutes": 6
+    "readingMinutes": 7
   },
   {
     "slug": "/melazero-vs-kojic-acid",
