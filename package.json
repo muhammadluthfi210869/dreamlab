@@ -6,7 +6,7 @@
     "dev": "next dev --hostname 0.0.0.0 --port 3000",
     "dev:open": "next dev --hostname 0.0.0.0 --port 3000",
     "gen:image-dims": "node scripts/gen-image-dims.mjs",
-    "build": "npx tsx scripts/validate-blog-articles.ts && node scripts/gen-image-dims.mjs && next build",
+    "build": "npx tsx scripts/validate-blog-articles.ts && node scripts/gen-image-dims.mjs && next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "verify:redirects": "npx tsx scripts/test-redirects.ts",
