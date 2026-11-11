@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useState } from "react";
@@ -208,7 +209,8 @@ export default function MetaAdsMofLandingPage() {
   return (
     <div className="landing-page-ads min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#FAF9F6] text-neutral-900 font-sans selection:bg-brand-orange selection:text-white">
       {/* Pure CSS Keyframes for Continuous Running Logo Marquee */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes dreamlabMarquee {
           0% { transform: translate3d(0, 0, 0); }
           100% { transform: translate3d(-33.3333%, 0, 0); }
@@ -455,9 +457,8 @@ export default function MetaAdsMofLandingPage() {
                   scrollToIndex(catalogSliderRef, i, setActiveCatalogSlide)
                 }
                 aria-label={`Produk ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activeCatalogSlide === i ? "w-6 bg-brand-orange" : "w-2 bg-neutral-300"
-                }`}
+                className={`h-2 rounded-full transition-all duration-300 ${activeCatalogSlide === i ? "w-6 bg-brand-orange" : "w-2 bg-neutral-300"
+                  }`}
               />
             ))}
           </div>
@@ -646,9 +647,8 @@ export default function MetaAdsMofLandingPage() {
                   scrollToIndex(communitySliderRef, i, setActiveCommunitySlide)
                 }
                 aria-label={`Slide Komunitas ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activeCommunitySlide === i ? "w-6 bg-brand-orange" : "w-2 bg-neutral-300"
-                }`}
+                className={`h-2 rounded-full transition-all duration-300 ${activeCommunitySlide === i ? "w-6 bg-brand-orange" : "w-2 bg-neutral-300"
+                  }`}
               />
             ))}
           </div>

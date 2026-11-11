@@ -44,6 +44,4 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('TEST CRM CHAT GAGAL:', err);
-  process.exit(1);
-});
+  console.error('TEST CRM CHAT GAGAL:', err);kepke

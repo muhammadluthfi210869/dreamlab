@@ -280,8 +280,10 @@ export async function assignLeadViaClient(
           });
         }
 
-        // Meta & TikTok Pixel conversion
-        fireConversion(data.source, eventId);
+        // Meta & TikTok Pixel conversion (only fire Meta Lead if inquiry is present in URL)
+        const inquiryParam =
+          new URLSearchParams(window.location.search).get('inquiry')?.trim() || undefined;
+        fireConversion(data.source, inquiryParam);
       }
 
       return data;

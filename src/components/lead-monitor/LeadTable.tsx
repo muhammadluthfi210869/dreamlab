@@ -30,6 +30,11 @@ export interface TableRow {
   production_tier_name: string | null;
   requested_quantity_pcs: number | null;
   inquiry_reference: string | null;
+  tier?: string | null;
+  qualified?: boolean | null;
+  disqualify_reason?: string | null;
+  inquiry_code?: string | null;
+  capi_status?: 'sent' | 'failed' | 'skipped' | 'pending' | null;
   created_at: string;
   confirmed_at: string | null;
   latency_seconds: number | null;
@@ -41,6 +46,24 @@ export interface TableRow {
   produk_manual?: string | null;
   moq_manual?: number | null;
   note?: string | null;
+}
+
+export function formatDisqualifyReason(reason?: string | null): string {
+  if (!reason) return '';
+  switch (reason) {
+    case 'below_min_tier':
+      return 'Bawah Min Tier';
+    case 'invalid_phone':
+      return 'Nomor Tidak Valid';
+    case 'duplicate':
+      return 'Duplikat (30h)';
+    case 'test_or_internal':
+      return 'Test / Internal';
+    case 'blocked_origin':
+      return 'Origin Ditolak';
+    default:
+      return reason;
+  }
 }
 
 export interface TableData {
@@ -65,6 +88,7 @@ export interface TableState {
   source: string;
   search: string;
   stage: string;
+  qualifiedOnly?: boolean;
   page: number;
   pageSize: number;
   sort: SortKey;
@@ -382,10 +406,22 @@ export function LeadTable({
             </option>
           ))}
         </select>
+        <button
+          type="button"
+          onClick={() => onChange({ qualifiedOnly: !state.qualifiedOnly, page: 1 })}
+          className={`h-9 inline-flex items-center gap-1.5 rounded-lg border px-3 text-xs font-semibold transition ${
+            state.qualifiedOnly
+              ? "border-emerald-400 bg-emerald-50 text-emerald-800 shadow-xs"
+              : "border-[#E5E2DA] bg-white text-slate-600 hover:bg-slate-50"
+          }`}
+        >
+          <span className={`h-2 w-2 rounded-full ${state.qualifiedOnly ? "bg-emerald-600" : "bg-slate-300"}`} />
+          <span>Qualified only</span>
+        </button>
         {filtersActive && (
           <button
             type="button"
-            onClick={() => onChange({ kind: "all", tier: "all", moq: "all", source: "all", stage: "all", search: "", page: 1 })}
+            onClick={() => onChange({ kind: "all", tier: "all", moq: "all", source: "all", stage: "all", qualifiedOnly: false, search: "", page: 1 })}
             className="h-9 rounded-lg px-2 text-xs font-medium text-slate-500 underline hover:text-slate-800"
           >
             Reset filter
@@ -443,7 +479,50 @@ export function LeadTable({
                       {name ? (
                         <div>
                           <div className="font-semibold text-slate-900">{name}</div>
-                          {r.is_form_lead && <Pill tone="brand">Isi form</Pill>}
+                          <div className="flex flex-wrap items-center gap-1 mt-1">
+                            {r.is_form_lead && <Pill tone="brand">Isi form</Pill>}
+                            {r.tier && (
+                              <span className="rounded bg-indigo-50 border border-indigo-200 px-1 font-mono text-[9px] font-bold text-indigo-700">
+                                Tier {r.tier}
+                              </span>
+                            )}
+                            {r.qualified ? (
+                              <span className="rounded bg-emerald-50 border border-emerald-200 px-1 text-[9px] font-bold text-emerald-700">
+                                Qualified
+                              </span>
+                            ) : r.disqualify_reason ? (
+                              <span
+                                title={r.disqualify_reason}
+                                className="rounded bg-amber-50 border border-amber-200 px-1 text-[9px] font-medium text-amber-800"
+                              >
+                                {formatDisqualifyReason(r.disqualify_reason)}
+                              </span>
+                            ) : null}
+                            {r.capi_status === "sent" && (
+                              <span
+                                title="Meta CAPI Event QualifiedLeadForm Berhasil Terkirim"
+                                className="rounded bg-emerald-50 border border-emerald-200 px-1 text-[9px] font-bold text-emerald-700"
+                              >
+                                ● CAPI
+                              </span>
+                            )}
+                            {r.capi_status === "failed" && (
+                              <span
+                                title="Meta CAPI Event Gagal Terkirim"
+                                className="rounded bg-rose-50 border border-rose-200 px-1 text-[9px] font-bold text-rose-700"
+                              >
+                                ● CAPI Gagal
+                              </span>
+                            )}
+                            {r.capi_status === "skipped" && (
+                              <span
+                                title="Meta CAPI Dilewati (Lead Tidak Qualified)"
+                                className="rounded bg-slate-100 px-1 text-[9px] text-slate-500"
+                              >
+                                ○ CAPI Lewat
+                              </span>
+                            )}
+                          </div>
                         </div>
                       ) : (
                         <span className="text-slate-300">—</span>

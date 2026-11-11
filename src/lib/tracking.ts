@@ -43,10 +43,9 @@ export function fireConversion(source: string, eventID?: string) {
     });
   }
 
-  // Meta Pixel Lead event
-  if (typeof (window as any).fbq === "function") {
-    const opts = eventID ? { eventID } : {}; // dedup: eventID sama utk landing & thankyou
-    (window as any).fbq("track", "Lead", { source }, opts);
+  // Meta Pixel Lead event — only fire when eventID (inquiry from URL) is present, no value/currency
+  if (eventID && typeof (window as any).fbq === "function") {
+    (window as any).fbq("track", "Lead", { source }, { eventID });
   }
 
   // TikTok Pixel Lead event
@@ -109,18 +108,16 @@ export function fireAssignedLeadTracking(
     utmCampaign,
   } = params;
 
-  // 1. Meta Pixel Lead (dengan eventID sama untuk deduplikasi CAPI)
+  // 1. Meta Pixel Lead (dengan eventID sama untuk deduplikasi CAPI, tanpa value & currency)
   try {
     const win = window as any;
-    if (typeof win.fbq === "function") {
+    if (eventId && typeof win.fbq === "function") {
       win.fbq(
         "track",
         "Lead",
         {
           content_name: "WhatsApp Lead",
           content_category: source,
-          value: 1,
-          currency: "IDR",
           sales_id: sales.id,
           sales_name: sales.name,
         },

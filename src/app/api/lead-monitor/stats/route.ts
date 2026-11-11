@@ -62,6 +62,11 @@ const QUALIFICATION_COLUMNS: Record<string, string> = {
   inquiry_reference: 'text',
   phone_country_iso2: 'text',
   whatsapp_phone_e164: 'text',
+  tier: 'text',
+  qualified: 'boolean',
+  disqualify_reason: 'text',
+  inquiry_code: 'text',
+  qualified_at: 'timestamptz',
 };
 
 let columnCache: { at: number; cols: Set<string> } | null = null;
@@ -141,6 +146,7 @@ export async function GET(req: NextRequest) {
     source: sp.get('source') || 'all',
     search: (sp.get('search') || '').slice(0, 100),
     stage: sp.get('stage') || 'all',
+    qualifiedOnly: sp.get('qualified_only') === '1' || sp.get('qualified') === 'true',
   };
   const sortKeys: SortKey[] = ['time', 'name', 'busdev', 'product', 'quantity', 'chat_time'];
   const sort: SortKey = sortKeys.includes(sp.get('sort') as SortKey) ? (sp.get('sort') as SortKey) : 'time';
@@ -188,12 +194,15 @@ export async function GET(req: NextRequest) {
                 ${FORM_FLAG}, ${GHOST_ROWS},
                 ${col('production_tier_name')}, ${col('requested_quantity_pcs')},
                 ${col('inquiry_reference')}, ${col('phone_country_iso2')}, ${col('whatsapp_phone_e164')},
+                ${col('tier')}, ${col('qualified')}, ${col('disqualify_reason')}, ${col('inquiry_code')},
+                (SELECT CASE WHEN ce.http_status = 200 THEN 'sent' WHEN ce.http_status IS NOT NULL OR ce.error_message IS NOT NULL THEN 'failed' ELSE 'pending' END FROM capi_events ce WHERE ce.lead_id = leads.id ORDER BY ce.id DESC LIMIT 1) AS capi_status,
                 created_at, confirmed_at
            FROM leads ${RANGE}`;
     // Periode lalu hanya untuk perbandingan angka: kolom paling sedikit.
     const prevSql = `SELECT id, tracking_code, assigned_to, source, status, hp, wa_phone,
                 ${FORM_FLAG}, ${GHOST_ROWS},
                 ${col('production_tier_name')}, ${col('requested_quantity_pcs')},
+                ${col('qualified')},
                 created_at, confirmed_at
            FROM leads ${RANGE}`;
 
@@ -295,6 +304,11 @@ export async function GET(req: NextRequest) {
       production_tier_name: l.production_tier_name ?? null,
       requested_quantity_pcs: l.requested_quantity_pcs ?? null,
       inquiry_reference: l.inquiry_reference ?? null,
+      tier: l.tier ?? null,
+      qualified: typeof l.qualified === 'boolean' ? l.qualified : null,
+      disqualify_reason: l.disqualify_reason ?? null,
+      inquiry_code: l.inquiry_code ?? null,
+      capi_status: (l as any).capi_status ?? (l.qualified ? 'pending' : 'skipped'),
       created_at: l.created_at,
       confirmed_at: l.confirmed_at,
       latency_seconds: (l as any).latency_seconds ?? null,

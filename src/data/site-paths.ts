@@ -71,6 +71,7 @@ export const SITE_PATHS: string[] = [
   "cara-membuat-masker-wajah-organik",
   "cara-membuat-toner-dari-cuka-apel",
   "cara-membuka-offline-store-kosmetik-2026",
+  "cara-memulai-bisnis-bodycare",
   "cara-memutihkan-ketiak",
   "cara-menentukan-harga-jual-parfum",
   "cara-menentukan-harga-jual-produk-kosmetik",

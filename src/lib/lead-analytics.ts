@@ -11,12 +11,14 @@ export interface QualificationTrackingData {
   step?: number;
   category?: string;
   quantityRange?: string;
+  budgetRange?: string;
   productionTier?: string;
   quantityPcs?: number;
   leadSegment?: string;
   inquiryReference?: string;
   campaign?: string;
   location?: string;
+  eventId?: string;
 }
 
 export function trackLeadEvent(
@@ -72,11 +74,17 @@ export function trackLeadEvent(
         lead_segment: data.leadSegment,
       });
     } else {
-      win.fbq('trackCustom', eventName, {
+      const customParams = {
         step: data.step,
         channel: data.channel,
         lead_segment: data.leadSegment,
-      });
+        category: data.category,
+      };
+      if (data.eventId) {
+        win.fbq('trackCustom', eventName, customParams, { eventID: data.eventId });
+      } else {
+        win.fbq('trackCustom', eventName, customParams);
+      }
     }
   }
 

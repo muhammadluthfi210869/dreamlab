@@ -45,6 +45,7 @@ export default function PelangganPage() {
     moq: "all",
     source: "all",
     stage: "all",
+    qualifiedOnly: false,
     search: "",
     page: 1,
     pageSize: 25,
@@ -72,13 +73,14 @@ export default function PelangganPage() {
         moq: table.moq,
         source: table.source,
         stage: table.stage,
+        qualified_only: table.qualifiedOnly ? "1" : "0",
         search,
         page: String(table.page),
         pageSize: String(table.pageSize),
         sort: table.sort,
         dir: table.dir,
       }),
-    [f.startDate, f.endDate, f.busdev, table.tab, table.kind, table.tier, table.moq, table.source, table.stage, search, table.page, table.pageSize, table.sort, table.dir]
+    [f.startDate, f.endDate, f.busdev, table.tab, table.kind, table.tier, table.moq, table.source, table.stage, table.qualifiedOnly, search, table.page, table.pageSize, table.sort, table.dir]
   );
 
   const load = useCallback(

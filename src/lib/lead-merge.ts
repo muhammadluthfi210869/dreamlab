@@ -56,6 +56,11 @@ const BORROWABLE_FIELDS = [
   'wa_clicked_at',
   'whatsapp_phone_e164',
   'phone_country_iso2',
+  'tier',
+  'qualified',
+  'disqualify_reason',
+  'inquiry_code',
+  'capi_status',
 ] as const;
 
 /** Kunci nomor: hanya digit, awalan 0 diubah ke 62. Null bila terlalu pendek untuk dipercaya. */

@@ -13,6 +13,27 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/cara-memulai-bisnis-bodycare",
+    "title": "Cara Memulai Bisnis Bodycare dari Nol: Pilih Produk & Cek HPP Anda",
+    "publishDate": "2026-11-11T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "bisnis bodycare",
+      "cara memulai bisnis bodycare",
+      "maklon bodycare",
+      "hpp bodycare",
+      "body lotion custom formula",
+      "modal bisnis bodycare"
+    ],
+    "featuredImage": "/assets/images/blog/cara-memulai-bisnis-bodycare-hero.jpg",
+    "excerpt": "Panduan lengkap cara memulai bisnis bodycare dari nol: strategi pilih produk hero, riset custom formula, simulasi HPP, dan maklon CPKB Grade A Dreamlab.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/melazero-vs-kojic-acid",
     "title": "Melazero® V2 vs Kojic Acid: Mana yang Lebih Efektif untuk Brand Skincare Anda?",
     "publishDate": "2026-11-11T00:00:00+00:00",

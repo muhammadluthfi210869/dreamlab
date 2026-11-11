@@ -61,6 +61,11 @@ export interface MonitorLead extends MergeableLead {
   requested_quantity_pcs?: number | null;
   inquiry_reference?: string | null;
   latency_seconds?: number | null;
+  tier?: string | null;
+  qualified?: boolean | null;
+  disqualify_reason?: string | null;
+  inquiry_code?: string | null;
+  capi_status?: 'sent' | 'failed' | 'skipped' | 'pending' | null;
 }
 
 export type ViewedLead = MergedLead<MonitorLead>;
@@ -104,7 +109,12 @@ export function quantityOf(l: MonitorLead): number | null {
   return t ?? null;
 }
 
-export const meetsMoq = (l: MonitorLead): boolean => (quantityOf(l) ?? 0) >= MOQ_PCS;
+export const meetsMoq = (l: MonitorLead): boolean => {
+  if (typeof l.qualified === 'boolean') {
+    return l.qualified;
+  }
+  return (quantityOf(l) ?? 0) >= MOQ_PCS;
+};
 
 /** Selang klik -> chat dalam detik. Dihitung dari timestamp karena hanya baris gabungan yang membawa latency_seconds. */
 export function latencySeconds(l: MonitorLead): number | null {
@@ -510,6 +520,7 @@ export interface TableFilters {
   search: string;
   /** Tahap pipeline; 'all' = semua. Kosong = semua. */
   stage?: string;
+  qualifiedOnly?: boolean;
 }
 
 export const defaultFilters: TableFilters = {
@@ -520,6 +531,7 @@ export const defaultFilters: TableFilters = {
   moq: 'all',
   source: 'all',
   search: '',
+  qualifiedOnly: false,
 };
 
 export function matchesTab(l: MonitorLead, tab: StatusTab): boolean {
@@ -542,7 +554,8 @@ export function filterLeads(leads: ViewedLead[], f: TableFilters): ViewedLead[] 
     if (f.busdev !== 'all' && norm(l.assigned_to) !== f.busdev.toLowerCase()) return false;
     if (f.kind === 'form' && !l.is_form_lead) return false;
     if (f.kind === 'click' && l.is_form_lead) return false;
-    if (f.tier !== 'all' && norm(l.production_tier_name) !== f.tier.toLowerCase()) return false;
+    if (f.tier !== 'all' && norm(l.production_tier_name) !== f.tier.toLowerCase() && norm(l.tier) !== f.tier.toLowerCase()) return false;
+    if (f.qualifiedOnly && !l.qualified) return false;
     if (f.moq === 'met' && !meetsMoq(l)) return false;
     if (f.moq === 'below' && (meetsMoq(l) || !quantityOf(l))) return false;
     if (f.source !== 'all' && (l.source || 'direct') !== f.source) return false;
