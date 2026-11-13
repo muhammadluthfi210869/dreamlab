@@ -273,6 +273,7 @@ export const SITE_PATHS: string[] = [
   "maklon-kosmetik-jayapura",
   "maklon-kosmetik-kediri",
   "maklon-kosmetik-klinik-kecantikan",
+  "maklon-kosmetik-konsep-korea",
   "maklon-kosmetik-makassar",
   "maklon-kosmetik-mojokerto",
   "maklon-kosmetik-parfum-tangerang",

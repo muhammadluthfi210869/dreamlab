@@ -4723,6 +4723,19 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 8
   },
   {
+    "slug": "/maklon-kosmetik-konsep-korea",
+    "title": "Maklon Kosmetik Konsep Korea untuk Brand Sendiri",
+    "publishDate": "2026-11-13T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik"
+    ],
+    "tags": [],
+    "featuredImage": "/images/artikel-maklon-kosmetik-konsep-korea/maklon_kosmetik_konsep_korea_cover.jpg",
+    "excerpt": "Ingin punya brand K-Beauty sendiri? Pelajari pilihan produk tren, custom formula, sertifikasi CPKB Grade A, estimasi modal, dan proses maklon konsep Korea bersama Dreamlab.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
