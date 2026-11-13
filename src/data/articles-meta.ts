@@ -1247,7 +1247,7 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "featuredImage": "Ingrown-Hair-Penyebab-dan-Rekomendasi-Produk-untuk-Mengatasinya.webp",
     "excerpt": "Kenali penyebab ingrown hair, bahan aktif medis penangkal razor bumps, serta panduan maklon produk body care eksklusif berizin BPOM di Dreamlab.",
-    "readingMinutes": 12
+    "readingMinutes": 10
   },
   {
     "slug": "/maklon-hair-treatment-salon-premium",
