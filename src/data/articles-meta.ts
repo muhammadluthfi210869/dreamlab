@@ -4749,6 +4749,19 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
+    "slug": "/cara-memilih-produk-haircare-pertama",
+    "title": "Cara Memilih Produk Haircare Pertama untuk Brand Baru",
+    "publishDate": "2026-11-13T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [],
+    "featuredImage": "/images/artikel-cara-memilih-produk-haircare-pertama/cara_memilih_produk_haircare_pertama_cover.jpg",
+    "excerpt": "Mau bikin brand haircare tapi bingung mulai dari mana? Pelajari cara memilih hero product, komparasi shampoo vs scalp serum vs hair mask, dan roadmap maklon.",
+    "readingMinutes": 9
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
