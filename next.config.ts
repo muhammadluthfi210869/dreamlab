@@ -248,6 +248,27 @@ const nextConfig: NextConfig = {
       // URL with special unicode dash char — redirect to clean URL
       ['/atur‑kosmetik‑halal‑dreamlab', '/news-blog/'],
       ['/atur‑kosmetik‑halal‑2026‑dreamlab', '/news-blog/'],
+      // Ubersuggest 4xx audit fixes
+      ['/biaya-maklon-skincare-estimasi-lengkap', '/biaya-maklon-skincare/'],
+      ['/cara-daftar-bpom-kosmetik', '/jasa-maklon-kosmetik-bpom-panduan-lengkap/'],
+      ['/cara-memulai-bisnis-skincare-dari-nol', '/cara-mulai-bisnis-skincare-dari-nol/'],
+      ['/cara-memutihkan-ketiak', '/cara-ampuh-memutihkan-ketiak/'],
+      ['/cara-menghitung-hpp-produk-skincare', '/cara-menghitung-hpp-kosmetik/'],
+      ['/maklon-moisturizer', '/produk/skincare/facial-moisturizer/'],
+      ['/maklon/face-cream', '/produk/skincare/face-cream/'],
+      ['/maklon/facial-serum', '/produk/skincare/facial-serum/'],
+      ['/maklon/facial-toner', '/produk/skincare/facial-toner/'],
+      ['/maklon/facial-wash', '/produk/skincare/facial-wash/'],
+      ['/maklon/maklon-skincare', '/produk/skincare/'],
+      ['/maklon/moisturizer', '/produk/skincare/facial-moisturizer/'],
+      ['/maklon/sunscreen', '/produk/skincare/sunscreen/'],
+      ['/panduan-lengkap-maklon-skincare-untuk-pemilik-brand-baru-dan-klien-aktif', '/cara-mulai-bisnis-skincare-dari-nol/'],
+      ['/peluang-bisnis-maklon-body-care', '/cara-memulai-bisnis-bodycare/'],
+      ['/produk/babycare/baby-wash', '/produk/babycare/baby-2in1-wash/'],
+      ['/produk/body-care', '/produk/bodycare/'],
+      ['/produk/lipcare', '/produk/decorative/lipcare/'],
+      ['/produk/skincare/face-serum', '/produk/skincare/facial-serum/'],
+      ['/produk/sunscreen', '/produk/skincare/sunscreen/'],
     ];
     redirects.push({
       source: '/author/admin/page/:path*',
