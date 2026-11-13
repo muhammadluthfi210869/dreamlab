@@ -1235,18 +1235,19 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/penyebab-ingrown-hair",
-    "title": "Ingrown Hair Penyebab dan Rekomendasi Produk untuk Mengatasinya",
+    "title": "Ingrown Hair: Penyebab, Gejala, dan Rekomendasi Produk untuk Mengatasinya",
     "publishDate": "2026-03-27T06:46:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
       "Maklon Kosmetik"
     ],
     "tags": [
-      "Maklon Haircare"
+      "Maklon Haircare",
+      "Body Care"
     ],
     "featuredImage": "Ingrown-Hair-Penyebab-dan-Rekomendasi-Produk-untuk-Mengatasinya.webp",
-    "excerpt": "Kenali penyebab ingrown hair dan peluang bisnisnya. Dreamlab tawarkan maklon formula eksklusif (1 client 1 formula), izin BPOM",
-    "readingMinutes": 5
+    "excerpt": "Kenali penyebab ingrown hair, bahan aktif medis penangkal razor bumps, serta panduan maklon produk body care eksklusif berizin BPOM di Dreamlab.",
+    "readingMinutes": 12
   },
   {
     "slug": "/maklon-hair-treatment-salon-premium",
@@ -3380,11 +3381,12 @@ export const articlesMeta: ArticleMeta[] =
     ],
     "tags": [
       "Bisnis Kosmetik",
-      "Panduan Bisnis Kosmetik"
+      "Panduan Bisnis Kosmetik",
+      "Maklon Skincare"
     ],
     "featuredImage": "panduan-bikin-brand-skincare-dreamlab.png",
-    "excerpt": "Memiliki brand skincare sendiri bukan lagi mimpi yang jauh. Di tahun 2026 ini, industri kecantikan Indonesia terus bertumbuh pesat —",
-    "readingMinutes": 5
+    "excerpt": "Panduan praktis 3 bulan membangun brand skincare sendiri dari nol: riset niche, formulasi custom CPKB Grade A, izin BPOM, hingga launching di pasar.",
+    "readingMinutes": 9
   },
   {
     "slug": "/maklon-all-day-cream",

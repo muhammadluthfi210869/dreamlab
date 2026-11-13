@@ -10,7 +10,6 @@ import {
   TrendingUp, 
   Heart, 
   ShieldCheck,
-  MapPin,
   ArrowRight
 } from "lucide-react";
 
@@ -41,41 +40,6 @@ const cultureItems = [
     icon: ShieldCheck,
     title: "Integritas & Profesional",
     desc: "Kami bekerja dengan standar tinggi, jujur, dan bertanggung jawab."
-  }
-];
-
-const openPositions = [
-  {
-    id: "rd-formulation",
-    dept: "R&D",
-    title: "R&D Formulation Specialist",
-    location: "Surabaya",
-    type: "Full-time",
-    deptBg: "bg-blue-50 text-blue-600 border-blue-100"
-  },
-  {
-    id: "digital-marketing",
-    dept: "MARKETING",
-    title: "Digital Marketing Strategist",
-    location: "Surabaya",
-    type: "Full-time",
-    deptBg: "bg-orange-50 text-orange-600 border-orange-100"
-  },
-  {
-    id: "packaging-design",
-    dept: "DESIGN",
-    title: "Packaging & Graphic Designer",
-    location: "Surabaya",
-    type: "Full-time",
-    deptBg: "bg-purple-50 text-purple-600 border-purple-100"
-  },
-  {
-    id: "production-supervisor",
-    dept: "PRODUCTION",
-    title: "Production Supervisor",
-    location: "Surabaya",
-    type: "Full-time",
-    deptBg: "bg-amber-50 text-amber-600 border-amber-100"
   }
 ];
 
@@ -133,10 +97,10 @@ export default function CareerPage() {
 
             <div>
               <Link
-                href="#open-positions"
+                href="#apply"
                 className="group inline-flex items-center justify-center gap-3 bg-[#0F67FF] hover:bg-[#0055E0] text-white font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_15px_30px_rgba(15,103,255,0.2)] hover:-translate-y-1 text-xs md:text-sm font-onest uppercase tracking-wider"
               >
-                <span>Cek Posisi Tersedia</span>
+                <span>Kirim Lamaran</span>
                 <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1.5 transition-transform" />
               </Link>
             </div>
@@ -182,84 +146,8 @@ export default function CareerPage() {
         </div>
       </section>
 
-      {/* 3. OPEN POSITIONS SECTION */}
-      <section id="open-positions" className="py-16 md:py-24 bg-[#FAF9F6] relative z-10 scroll-mt-24">
-        <div className="container-custom space-y-12">
-          
-          {/* Header Row */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-neutral-200/60 pb-6">
-            <div className="space-y-2 text-left">
-              <h2 className="text-3xl sm:text-[38px] md:text-[44px] font-black uppercase tracking-tight text-[#11253c] font-display">
-                Posisi Terbuka
-              </h2>
-              <div className="w-12 h-1 bg-[#f39200] rounded-full" />
-            </div>
-            <Link 
-              href="#open-positions"
-              className="group text-sm font-black text-[#f39200] uppercase tracking-wider flex items-center gap-1.5 hover:text-brand-black transition-colors"
-            >
-              <span>Lihat Semua Lowongan</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-            {openPositions.map((pos) => (
-              <motion.div
-                key={pos.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: premiumEase }}
-                className="bg-white border border-neutral-100 rounded-[28px] p-6 text-left flex flex-col justify-between min-h-[250px] shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="space-y-4">
-                  {/* Category Badge */}
-                  <span className={`inline-block text-[9px] font-black px-2.5 py-1 rounded-md tracking-widest uppercase border ${pos.deptBg}`}>
-                    {pos.dept}
-                  </span>
-                  
-                  {/* Title */}
-                  <h3 className="text-base md:text-lg font-black text-[#11253c] tracking-tight leading-snug line-clamp-2 font-display uppercase">
-                    {pos.title}
-                  </h3>
-                </div>
-
-                <div className="space-y-4 pt-6 border-t border-neutral-100">
-                  {/* Metadata: Location & Type */}
-                  <div className="space-y-2 text-xs font-semibold text-neutral-500 font-sans">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-neutral-400 shrink-0" />
-                      <span>{pos.location}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-neutral-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                      </svg>
-                      <span>{pos.type}</span>
-                    </div>
-                  </div>
-
-                  {/* Apply / Detail Link */}
-                  <button 
-                    onClick={() => handleCopyEmail(pos.title)}
-                    className="group text-xs font-black text-[#f39200] uppercase tracking-wider flex items-center gap-1 hover:text-brand-black transition-colors pt-1 text-left"
-                  >
-                    <span>{copiedText === pos.title ? "Email Disalin!" : "Lihat Detail"}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* 4. CLOSING CTA BANNER */}
-      <section className="py-16 md:py-24 bg-[#FAF9F6] relative z-10">
+      {/* 3. CLOSING CTA BANNER */}
+      <section id="apply" className="py-16 md:py-24 bg-[#FAF9F6] relative z-10 scroll-mt-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

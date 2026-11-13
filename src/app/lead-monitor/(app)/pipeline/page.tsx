@@ -195,10 +195,10 @@ export default function PipelinePage() {
 
   const total = data?.total ?? 0;
 
-  // Daftar sales terurut (Annisa, Jessica)
+  // Daftar sales terurut (Annisa, Jessica, Diaz)
   const salesList = useMemo(() => {
-    const raw = data?.busdevs && data.busdevs.length > 0 ? [...data.busdevs] : ["Annisa", "Jessica"];
-    const preferred = ["Annisa", "Jessica"];
+    const raw = data?.busdevs && data.busdevs.length > 0 ? [...data.busdevs] : ["Annisa", "Jessica", "Diaz"];
+    const preferred = ["Annisa", "Jessica", "Diaz"];
     return raw.sort((a, b) => {
       const ia = preferred.findIndex((p) => p.toLowerCase() === a.toLowerCase());
       const ib = preferred.findIndex((p) => p.toLowerCase() === b.toLowerCase());

@@ -92,7 +92,7 @@ export function ThankYouRoundRobin({
         ? qualifiedWaUrl
         : qualifiedWaUrl.replace(/wa\.me\/[0-9]+/, `wa.me/${activeList[0].phone}`);
       const rawSalesName = params.get("sales_name") || "Business Consultant Dreamlab";
-      const safeSalesName = /diaz|irma/i.test(rawSalesName) ? activeList[0].name : rawSalesName;
+      const safeSalesName = /irma/i.test(rawSalesName) ? activeList[0].name : rawSalesName;
       setAssignment({
         success: true,
         assignmentId: params.get("inquiry") || "QUALIFIED",

@@ -72,6 +72,7 @@ export default function Header() {
       path: "#",
       dropdown: [
         { name: "All Services", path: "/services" },
+        { name: isEn ? "Guide" : "Panduan", path: "/panduan" },
       ]
     },
     {
