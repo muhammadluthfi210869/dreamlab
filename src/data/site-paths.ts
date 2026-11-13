@@ -65,6 +65,7 @@ export const SITE_PATHS: string[] = [
   "cara-buat-parfum-sendiri-dengan-maklon",
   "cara-hitunghpp-produk-kosmeti",
   "cara-membuat-brand-body-butter",
+  "cara-membuat-brief-produk-haircare",
   "cara-membuat-deodorant-balm-custom",
   "cara-membuat-hb-dosting-sendiri",
   "cara-membuat-lulur-ampas-kopi",

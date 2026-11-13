@@ -4736,6 +4736,19 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 10
   },
   {
+    "slug": "/cara-membuat-brief-produk-haircare",
+    "title": "Cara Membuat Brief Produk Haircare Sebelum Maklon",
+    "publishDate": "2026-11-13T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis"
+    ],
+    "tags": [],
+    "featuredImage": "/images/artikel-cara-membuat-brief-produk-haircare/brief_produk_haircare_cover.jpg",
+    "excerpt": "Bingung menyiapkan brief produk haircare? Pelajari cara menentukan target, konsep, formula, kemasan, HPP, MOQ, hingga contoh brief untuk partner maklon.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
