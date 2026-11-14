@@ -65,7 +65,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
     setInteractionTick((t) => t + 1);
   }, [totalSlides]);
 
-  // Continuous automatic rotation without hover-lock so images change immediately and continuously
+  // Continuous automatic rotation
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % totalSlides);
@@ -74,7 +74,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
     return () => clearInterval(timer);
   }, [totalSlides, interactionTick]);
 
-  // Touch swipe handlers for mobile
+  // Touch swipe handlers for mobile/tablet
   const onTouchStart = (e: React.TouchEvent) => {
     touchEndX.current = null;
     touchStartX.current = e.targetTouches[0].clientX;
@@ -103,10 +103,10 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
-      className="relative w-full md:min-h-[600px] lg:min-h-screen overflow-hidden flex flex-col md:flex-row md:items-center pt-24 md:pt-28 lg:pt-0 bg-gradient-to-b from-[#D2E6FE] via-[#E1EEFF] to-[#EEF6FF] md:bg-[#D8E9FE]"
+      className="relative w-full min-h-screen overflow-hidden flex items-center pt-24 lg:pt-0"
     >
-      {/* Background Visual Carousel Layer (Fits Mobile, Tablet, and Desktop; extends behind top Header bar) */}
-      <div className="relative order-2 md:order-none w-full aspect-[2/1] md:aspect-auto md:absolute md:inset-0 z-0 select-none pointer-events-none">
+      {/* Background Visual Image Carousel (Full Screen Background on Mobile, Tablet & Desktop) */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
         {HERO_SLIDES.map((slide, index) => {
           const isActive = index === activeIndex;
           return (
@@ -127,30 +127,23 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
                 fetchPriority={index === 0 ? "high" : "auto"}
                 loading="eager"
                 decoding="sync"
-                className="object-cover object-right md:object-[72%_center] lg:object-right"
+                className="object-cover object-[75%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-center"
                 sizes="100vw"
                 quality={92}
               />
             </div>
           );
         })}
-
-        {/* Mobile top edge feather so the product image blends seamlessly with the light-blue copy & navbar area */}
-        <div className="md:hidden absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-[#E1EEFF] to-transparent z-20" />
-
-        {/* Tablet & Desktop left-side & top-bar soft gradient so the navbar and original copy remain 100% readable */}
-        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#EAF3FE]/95 via-[#EAF3FE]/75 to-transparent md:from-[#EAF3FE]/90 md:via-[#EAF3FE]/55 md:to-transparent lg:from-[#EAF3FE]/85 lg:via-[#EAF3FE]/40 lg:to-transparent z-20" />
-        <div className="hidden md:block absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#EAF3FE]/65 via-[#EAF3FE]/25 to-transparent z-20" />
+        <div className="absolute inset-0 z-20 bg-gradient-to-r from-[#FAF9F6]/85 via-[#FAF9F6]/55 to-transparent md:from-[#FAF9F6]/80 md:via-[#FAF9F6]/45 md:to-transparent" />
       </div>
 
       <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-brand-orange/[0.02] blur-[120px] rounded-full pointer-events-none z-10" />
 
-      {/* Copy Layer (Previous Dreamlab Copy Restored) */}
-      <div className="container-custom relative z-20 order-1 md:order-none w-full pt-4 pb-6 md:py-24 lg:py-32 flex items-center">
-        <div className="max-w-xl md:max-w-[52%] lg:max-w-2xl xl:max-w-3xl text-left space-y-5 md:space-y-7">
+      <div className="container-custom relative z-20 w-full py-16 md:py-24 lg:py-32 flex items-center">
+        <div className="max-w-xl md:max-w-2xl lg:max-w-3xl text-left space-y-6 md:space-y-8">
           {smallTitle && (
             <div className="hero-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-white/80 border border-brand-orange/25 rounded-full backdrop-blur-sm shadow-xs">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-brand-orange/5 border border-brand-orange/15 rounded-full backdrop-blur-sm">
                 <span className="size-2 rounded-full bg-brand-orange animate-pulse" />
                 <span className="text-[10px] md:text-xs font-helvetica font-bold tracking-widest text-brand-orange uppercase">
                   {smallTitle}
@@ -160,28 +153,28 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
           )}
 
           <h1 className="space-y-1">
-            <span className="block text-brand-orange text-[30px] sm:text-[34px] md:text-[40px] lg:text-[54px] xl:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
+            <span className="block text-brand-orange text-[32px] md:text-[46px] lg:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
               {titleLines?.[0] || "Jasa Maklon"}
             </span>
-            <span className="block text-brand-orange italic font-normal text-[30px] sm:text-[34px] md:text-[40px] lg:text-[54px] xl:text-[60px] leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
+            <span className="block text-brand-orange italic font-normal text-[32px] md:text-[46px] lg:text-[60px] leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
               {titleLines?.[1] || "Skincare & Kosmetik"}
             </span>
-            <span className="block text-brand-black text-[30px] sm:text-[34px] md:text-[40px] lg:text-[54px] xl:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
+            <span className="block text-brand-black text-[32px] md:text-[46px] lg:text-[60px] font-normal leading-[1.08] tracking-tight max-w-[740px] uppercase font-display">
               {titleLines?.[2] || "Terpercaya Indonesia"}
             </span>
           </h1>
 
           <div className="hero-fade-in" style={{ animationDelay: "0.5s" }}>
-            <div className="text-neutral-700 text-sm md:text-base leading-relaxed max-w-xl font-helvetica">
+            <div className="text-neutral-600 text-sm md:text-base leading-relaxed max-w-xl font-helvetica">
               {subtitle.split(".").map((sentence: string, idx: number) => {
                 const trimmed = sentence.trim();
                 if (!trimmed) return null;
                 return (
-                  <p key={idx} className="mb-2.5 last:mb-0">
+                  <p key={idx} className="mb-3 last:mb-0">
                     {trimmed.includes("A STRONG FORMULA") ? (
                       <>
                         Behind every great brand is{" "}
-                        <span className="font-bold text-neutral-900 border-b border-brand-orange/40 pb-0.5">
+                        <span className="font-bold text-neutral-800 border-b border-brand-orange/30 pb-0.5">
                           A STRONG FORMULA
                         </span>
                       </>
@@ -195,7 +188,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
                     ) : trimmed.includes("FORMULA YANG KUAT") ? (
                       <>
                         Di balik setiap brand hebat ada{" "}
-                        <span className="font-bold text-neutral-900 border-b border-brand-orange/40 pb-0.5">
+                        <span className="font-bold text-neutral-800 border-b border-brand-orange/30 pb-0.5">
                           FORMULA YANG KUAT
                         </span>
                       </>
@@ -250,7 +243,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
         type="button"
         onClick={handlePrev}
         aria-label="Slide sebelumnya"
-        className="absolute left-3 md:left-5 bottom-[18%] md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-30 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/75 hover:bg-white text-brand-black hover:text-brand-orange border border-white/90 shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer"
+        className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/70 hover:bg-white text-brand-black hover:text-brand-orange border border-white/80 shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
@@ -259,7 +252,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
         type="button"
         onClick={handleNext}
         aria-label="Slide berikutnya"
-        className="absolute right-3 md:right-5 bottom-[18%] md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-30 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/75 hover:bg-white text-brand-black hover:text-brand-orange border border-white/90 shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer"
+        className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/70 hover:bg-white text-brand-black hover:text-brand-orange border border-white/80 shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
@@ -268,7 +261,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
       <div
         role="tablist"
         aria-label="Pilih slide hero"
-        className="absolute bottom-3.5 md:bottom-6 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-xs border border-white/80 shadow-sm"
+        className="absolute bottom-5 md:bottom-7 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-xs border border-white/80 shadow-sm"
       >
         {HERO_SLIDES.map((slide, index) => {
           const isActive = index === activeIndex;
