@@ -4,7 +4,7 @@ export const haircareData: ProductCategoryV2 = {
   slug: "haircare",
   name: "Hair Care",
   tagline: "Solusi Perawatan Rambut untuk Indonesia",
-  description: "Layanan maklon haircare terlengkap: shampoo, conditioner, hair mask, hair serum, hair tonic, hair gel, scalp care, beard serum, pomade, dan styling products. Diformulasi khusus untuk kesehatan rambut dan kulit kepala di iklim tropis.",
+  description: "10 produk siap maklon, dari shampoo sampai pomade. Pilih formula dasar, sesuaikan bahan aktif, aroma, dan kemasan, lalu kami urus BPOM, Halal, dan produksinya di pabrik CPKB Grade A.",
   heroImage: "/assets/images/Hair-care.webp",
   bgColor: "#E7ECFE",
   breadcrumb: [

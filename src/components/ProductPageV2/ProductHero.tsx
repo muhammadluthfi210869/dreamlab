@@ -63,10 +63,10 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     }
 
     // 2. Special case for Haircare Category
-    if (categoryData.slug === 'haircare') {
+    if (categoryData.slug === 'haircare' && !isProductPage) {
       return {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: isProductPage ? productData.shortDescription : (categoryData.tagline || categoryData.description),
+        description: "10 produk siap maklon, dari shampoo sampai pomade. Pilih formula dasar, sesuaikan bahan aktif, aroma, dan kemasan, lalu kami urus BPOM, Halal, dan produksinya di pabrik CPKB Grade A.",
         image: "/new asset/background-visual-hero-section/haircare.webp",
         mobileImage: "/new asset/background-visual-hero-section/haircare.webp",
         ctaText: "FREE KONSULTASI BISNIS",
@@ -712,7 +712,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
     const categoryCopyMap: Record<string, { headline: React.ReactNode; description: string }> = {
       haircare: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
-        description: "Ingin punya brand haircare sendiri? Dreamlab adalah solusi Anda untuk mengembangkan rangkaian perawatan rambut — dari shampoo, conditioner, hair mask, hair tonic, hair serum, hingga styling products — dengan formula custom sesuai kebutuhan rambut konsumen Indonesia."
+        description: "10 produk siap maklon, dari shampoo sampai pomade. Pilih formula dasar, sesuaikan bahan aktif, aroma, dan kemasan, lalu kami urus BPOM, Halal, dan produksinya di pabrik CPKB Grade A."
       },
       babycare: {
         headline: <>Jasa Maklon <br /> {title} <span className="text-brand-orange">Premium</span> <br /> BPOM & Halal</>,
