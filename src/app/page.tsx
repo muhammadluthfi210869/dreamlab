@@ -101,13 +101,15 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-brand-white">
-      {/* 1. HERO SECTION (Plek Ketiplek Content) */}
+      {/* 1. HERO SECTION */}
       <PremiumHero 
         smallTitle={hero.smallTitle}
         title={hero.title}
         subtitle={hero.subtitle}
         ctaText={hero.ctaText}
         ctaLink={hero.ctaLink}
+        secondaryCtaText={hero.secondaryCtaText}
+        secondaryCtaLink={hero.secondaryCtaLink}
         backgroundImage={hero.backgroundImage}
       />
 

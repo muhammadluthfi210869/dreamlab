@@ -3467,6 +3467,18 @@
     "width": 1400,
     "height": 1400
   },
+  "/assets/images/hero/hero-01.jpg": {
+    "height": 512,
+    "width": 1024
+  },
+  "/assets/images/hero/hero-02.jpg": {
+    "height": 512,
+    "width": 1024
+  },
+  "/assets/images/hero/hero-03.jpg": {
+    "height": 512,
+    "width": 1024
+  },
   "/assets/images/high-angle-view-coffee-cup-table-1024x683.jpg": {
     "height": 683,
     "width": 1024
