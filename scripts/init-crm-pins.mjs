@@ -117,6 +117,12 @@ async function main() {
 
       const row = res.rows[0];
       await client.query(`DELETE FROM crm_sessions WHERE user_id = $1`, [row.id]);
+      await client
+        .query(
+          `UPDATE sales SET password_hash = $2, must_change_password = TRUE, updated_at = NOW() WHERE lower(name) = lower($1)`,
+          [target.name, pwHash]
+        )
+        .catch(() => {});
 
       outputRows.push({
         ID: row.id,

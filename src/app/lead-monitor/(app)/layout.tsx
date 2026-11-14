@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getUserByToken, SESSION_COOKIE } from "@/lib/crm-auth";
 import { MonitorShell } from "@/components/lead-monitor/Shell";
 import { ForcedChangeScreen } from "@/components/lead-monitor/ForcedChangeScreen";
+import "../crm-tokens.css";
 
 export const dynamic = "force-dynamic";
 

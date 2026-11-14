@@ -1,7 +1,22 @@
 import { NextRequest } from 'next/server';
 import { getMonitorPool } from '@/lib/db';
 import { isAuthFailure, json, requireUser, withCrmRls } from '@/lib/crm-auth';
-import { canEditLead, canReadLead, isAdminRole, isStage, MOQ_MAX, NOTE_MAX, PRODUK_MAX } from '@/lib/crm-stages';
+import {
+  canEditLead,
+  canReadLead,
+  CRM_SOURCES,
+  formatLandingOrigin,
+  getWarmStageMoq,
+  isAdminRole,
+  isLostReason,
+  isStage,
+  LOST_REASONS,
+  MOQ_MAX,
+  normalizeCrmSource,
+  normalizeStage,
+  NOTE_MAX,
+  PRODUK_MAX,
+} from '@/lib/crm-stages';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,42 +44,29 @@ export async function GET(req: NextRequest) {
   const pool = getMonitorPool();
   let leadRow: any = null;
 
+  const baseSelect = `
+    SELECT l.id, l.tracking_code, l.assigned_to, l.nama, l.wa_profile_name, l.hp, l.wa_phone, l.whatsapp_phone_e164,
+           l.produk, l.requested_quantity_pcs, l.source, l.utm_source, l.utm_medium, l.utm_campaign, l.page_url, l.referrer,
+           l.created_at, l.confirmed_at,
+           cls.stage, cls.produk_manual, cls.moq_manual, cls.note, cls.owner, cls.stage_changed_at,
+           u_own.id AS owner_sales_id
+      FROM leads l
+      LEFT JOIN crm_lead_state cls ON cls.tracking_code = l.tracking_code
+      LEFT JOIN crm_users u_own ON lower(u_own.name) = lower(COALESCE(NULLIF(cls.owner, ''), l.assigned_to))
+  `;
+
   if (idParam) {
     const idNum = parseInt(idParam, 10);
     if (!Number.isInteger(idNum) || idNum <= 0) {
       return json({ success: false, error: 'ID lead tidak valid' }, 400);
     }
-    const r = await pool.query(
-      `SELECT l.id, l.tracking_code, l.assigned_to, l.nama, l.wa_profile_name, l.hp, l.wa_phone, l.whatsapp_phone_e164,
-              l.produk, l.requested_quantity_pcs, l.source, l.utm_source, l.utm_medium, l.utm_campaign, l.page_url, l.referrer,
-              l.created_at, l.confirmed_at,
-              cls.stage, cls.produk_manual, cls.moq_manual, cls.note, cls.owner, cls.stage_changed_at,
-              u_own.id AS owner_sales_id
-         FROM leads l
-         LEFT JOIN crm_lead_state cls ON cls.tracking_code = l.tracking_code
-         LEFT JOIN crm_users u_own ON lower(u_own.name) = lower(COALESCE(NULLIF(cls.owner, ''), l.assigned_to))
-        WHERE l.id = $1 AND l.is_test IS NOT TRUE
-        LIMIT 1`,
-      [idNum]
-    );
+    const r = await pool.query(`${baseSelect} WHERE l.id = $1 AND l.is_test IS NOT TRUE LIMIT 1`, [idNum]);
     leadRow = r.rows[0] ?? null;
   } else if (codeParam) {
     if (!CODE_RE.test(codeParam)) {
       return json({ success: false, error: 'Kode lead tidak valid' }, 400);
     }
-    const r = await pool.query(
-      `SELECT l.id, l.tracking_code, l.assigned_to, l.nama, l.wa_profile_name, l.hp, l.wa_phone, l.whatsapp_phone_e164,
-              l.produk, l.requested_quantity_pcs, l.source, l.utm_source, l.utm_medium, l.utm_campaign, l.page_url, l.referrer,
-              l.created_at, l.confirmed_at,
-              cls.stage, cls.produk_manual, cls.moq_manual, cls.note, cls.owner, cls.stage_changed_at,
-              u_own.id AS owner_sales_id
-         FROM leads l
-         LEFT JOIN crm_lead_state cls ON cls.tracking_code = l.tracking_code
-         LEFT JOIN crm_users u_own ON lower(u_own.name) = lower(COALESCE(NULLIF(cls.owner, ''), l.assigned_to))
-        WHERE l.tracking_code = $1 AND l.is_test IS NOT TRUE
-        LIMIT 1`,
-      [codeParam]
-    );
+    const r = await pool.query(`${baseSelect} WHERE l.tracking_code = $1 AND l.is_test IS NOT TRUE LIMIT 1`, [codeParam]);
     leadRow = r.rows[0] ?? null;
   }
 
@@ -79,6 +81,18 @@ export async function GET(req: NextRequest) {
     return json({ success: false, error: 'Anda tidak memiliki akses ke lead milik sales lain' }, 403);
   }
 
+  // Ambil kolom tambahan Tahap 1 jika sudah ada di crm_lead_state
+  let extraState: { brand?: string | null; moq_label?: string | null; source_manual?: string | null; lost_reason?: string | null } = {};
+  try {
+    const ext = await pool.query(
+      `SELECT brand, moq_label, source_manual, lost_reason FROM crm_lead_state WHERE tracking_code = $1 LIMIT 1`,
+      [leadRow.tracking_code]
+    );
+    if (ext.rows[0]) extraState = ext.rows[0];
+  } catch {
+    // abaikan jika kolom migrasi 00033 belum ditambahkan
+  }
+
   const historyRes = await pool.query(
     `SELECT from_stage, to_stage, changed_by, changed_at
        FROM crm_stage_history
@@ -88,6 +102,19 @@ export async function GET(req: NextRequest) {
     [leadRow.tracking_code]
   );
 
+  const normalizedStage = normalizeStage(leadRow.stage);
+  const srcInfo = normalizeCrmSource({
+    source: extraState.source_manual || leadRow.source,
+    utm_source: leadRow.utm_source,
+    utm_medium: leadRow.utm_medium,
+    utm_campaign: leadRow.utm_campaign,
+    page_url: leadRow.page_url,
+    referrer: leadRow.referrer,
+  });
+  const warmMoq = getWarmStageMoq(normalizedStage);
+  const numericMoq = leadRow.moq_manual ?? leadRow.requested_quantity_pcs ?? (warmMoq ? warmMoq.numeric : null);
+  const moqLabel = extraState.moq_label || (warmMoq ? warmMoq.label : numericMoq ? String(numericMoq) : null);
+
   return json({
     success: true,
     lead: {
@@ -95,31 +122,41 @@ export async function GET(req: NextRequest) {
       tracking_code: leadRow.tracking_code,
       name: leadRow.nama || leadRow.wa_profile_name || null,
       phone: leadRow.whatsapp_phone_e164 || leadRow.wa_phone || leadRow.hp || null,
+      brand: extraState.brand ?? null,
       assigned_to: effectiveOwnerName,
       owner_sales_id: effectiveOwnerId,
-      stage: leadRow.stage || 'traffic',
+      stage: normalizedStage,
+      lost_reason: extraState.lost_reason ?? null,
       produk: leadRow.produk_manual || leadRow.produk || null,
-      moq: leadRow.moq_manual ?? leadRow.requested_quantity_pcs ?? null,
+      moq: numericMoq,
+      moq_label: moqLabel,
       note: leadRow.note || null,
-      source: leadRow.source || null,
-      utm_campaign: leadRow.utm_campaign || null,
+      source: srcInfo.source,
+      source_raw: leadRow.source || null,
+      campaign: leadRow.utm_campaign || null,
+      detection_method: srcInfo.detectionMethod,
+      landing_path: formatLandingOrigin(leadRow.page_url, leadRow.referrer),
       page_url: leadRow.page_url || null,
       referrer: leadRow.referrer || null,
       created_at: leadRow.created_at,
-      stage_changed_at: leadRow.stage_changed_at,
+      stage_changed_at: leadRow.stage_changed_at || leadRow.created_at,
     },
-    history: historyRes.rows,
+    history: historyRes.rows.map((h: any) => ({
+      from_stage: normalizeStage(h.from_stage),
+      to_stage: normalizeStage(h.to_stage),
+      changed_by: h.changed_by,
+      changed_at: h.changed_at,
+    })),
   });
 }
 
 /**
  * PATCH /api/crm/lead
- * Ubah isian CRM satu lead: Produk, MOQ, catatan, tahap pipeline, dan (khusus Admin) pindah sales pemilik.
- *
- * Izin DITENTUKAN SERVER dari database:
- *  - Admin boleh mengubah semua lead dan memindahkan lead antar sales (`owner` / `owner_sales_id`).
- *  - Busdev HANYA boleh mengubah lead dengan `owner_sales_id = user.id` (atau `assigned_to = user.name`),
- *    dan TIDAK boleh memindahkan lead ke sales lain.
+ * Ubah isian CRM satu lead:
+ *  - stage (10 stage tetap; pindah ke Warm mengisi perkiraan MOQ otomatis; pindah ke Lost wajib alasan)
+ *  - lost_reason (Harga tidak masuk | MOQ terlalu besar | Tidak respons | Pilih pabrik lain | Belum siap modal)
+ *  - brand, produk_manual, moq_manual, moq_label, source (koreksi manual), note
+ *  - owner_sales_id / sales (khusus Admin)
  */
 export async function PATCH(req: NextRequest) {
   const auth = await requireUser(req, { write: true });
@@ -133,7 +170,6 @@ export async function PATCH(req: NextRequest) {
 
   const pool = getMonitorPool();
 
-  // Mendukung pemanggilan via { id: number } maupun { codes: string[] }
   if ((!Array.isArray(codesIn) || codesIn.length === 0) && body?.id !== undefined) {
     const idNum = parseInt(String(body.id), 10);
     if (!Number.isInteger(idNum) || idNum <= 0) return json({ success: false, error: 'ID lead tidak valid' }, 400);
@@ -148,11 +184,14 @@ export async function PATCH(req: NextRequest) {
   const codes = [...new Set(codesIn.map((c) => String(c).trim()))];
   if (!codes.every((c) => CODE_RE.test(c))) return json({ success: false, error: 'Kode lead tidak valid' }, 400);
 
-  // ---- validasi isian
   const has = (k: string) => body && Object.prototype.hasOwnProperty.call(body, k);
   const patch: {
+    brand?: string | null;
     produk?: string | null;
     moq?: number | null;
+    moqLabel?: string | null;
+    sourceManual?: string | null;
+    lostReason?: string | null;
     note?: string | null;
     stage?: string;
     newOwnerName?: string;
@@ -177,31 +216,95 @@ export async function PATCH(req: NextRequest) {
     patch.newOwnerName = uRes.rows[0].name;
   }
 
-  if (has('produk_manual')) {
-    const v = body.produk_manual;
+  if (has('brand')) {
+    const v = body.brand;
+    if (v === null || v === '') patch.brand = null;
+    else if (typeof v === 'string' && v.trim().length <= PRODUK_MAX) patch.brand = v.trim();
+    else return json({ success: false, error: `Nama brand maksimal ${PRODUK_MAX} karakter` }, 400);
+  }
+
+  if (has('produk_manual') || has('product')) {
+    const v = has('produk_manual') ? body.produk_manual : body.product;
     if (v === null || v === '') patch.produk = null;
     else if (typeof v === 'string' && v.trim().length <= PRODUK_MAX) patch.produk = v.trim();
     else return json({ success: false, error: `Produk maksimal ${PRODUK_MAX} karakter` }, 400);
   }
-  if (has('moq_manual')) {
-    const v = body.moq_manual;
-    if (v === null || v === '') patch.moq = null;
-    else {
+
+  if (has('moq_manual') || has('moq')) {
+    const v = has('moq_manual') ? body.moq_manual : body.moq;
+    if (v === null || v === '') {
+      patch.moq = null;
+      patch.moqLabel = null;
+    } else if (typeof v === 'string' && ['below 500', '500', 'below 1000', '1000'].includes(v.trim())) {
+      const label = v.trim();
+      patch.moqLabel = label;
+      patch.moq = label === 'below 500' ? 300 : label === '500' ? 500 : label === 'below 1000' ? 750 : 1000;
+    } else {
       const n = typeof v === 'number' ? v : parseInt(String(v).replace(/[^\d]/g, ''), 10);
       if (!Number.isInteger(n) || n < 0 || n > MOQ_MAX) return json({ success: false, error: 'MOQ harus angka pcs yang wajar' }, 400);
       patch.moq = n;
+      patch.moqLabel = String(n);
     }
   }
+
+  if (has('source')) {
+    const v = body.source;
+    if (v === null || v === '') patch.sourceManual = null;
+    else if (typeof v === 'string' && (CRM_SOURCES as readonly string[]).includes(v.trim())) {
+      patch.sourceManual = v.trim();
+    } else {
+      return json({ success: false, error: 'Source tidak valid' }, 400);
+    }
+  }
+
   if (has('note')) {
     const v = body.note;
     if (v === null || v === '') patch.note = null;
     else if (typeof v === 'string' && v.trim().length <= NOTE_MAX) patch.note = v.trim();
     else return json({ success: false, error: `Catatan maksimal ${NOTE_MAX} karakter` }, 400);
   }
+
+  if (has('lost_reason')) {
+    const v = body.lost_reason;
+    if (v === null || v === '') {
+      patch.lostReason = null;
+    } else if (isLostReason(v)) {
+      patch.lostReason = v.trim();
+    } else {
+      return json(
+        {
+          success: false,
+          error: `Alasan Lost wajib salah satu dari: ${LOST_REASONS.join(', ')}`,
+        },
+        400
+      );
+    }
+  }
+
   if (has('stage')) {
     if (!isStage(body.stage)) return json({ success: false, error: 'Tahap tidak dikenal' }, 400);
-    patch.stage = body.stage;
+    const normStage = normalizeStage(body.stage);
+    patch.stage = normStage;
+
+    // Pindah ke stage Lost WAJIB menyertakan lost_reason
+    if (normStage === 'lost' && !patch.lostReason) {
+      return json(
+        {
+          success: false,
+          error: `Pindah ke stage Lost wajib memilih alasan (${LOST_REASONS.join(', ')})`,
+        },
+        400
+      );
+    }
+
+    // Pindah ke stage Warm otomatis mengisi perkiraan MOQ (below 500, 500, below 1000, 1000)
+    const warmMoq = getWarmStageMoq(normStage);
+    if (warmMoq && patch.moq === undefined) {
+      patch.moq = warmMoq.numeric;
+      patch.moqLabel = warmMoq.label;
+    }
   }
+
   if (Object.keys(patch).length === 0) return json({ success: false, error: 'Tidak ada yang diubah' }, 400);
 
   // ---- kepemilikan (wajib dicek di server sebelum mutasi)
@@ -235,21 +338,66 @@ export async function PATCH(req: NextRequest) {
         `SELECT tracking_code, stage FROM crm_lead_state WHERE tracking_code = ANY($1::text[]) FOR UPDATE`,
         [codes]
       );
-      const prevStage = new Map<string, string>(existing.rows.map((r) => [r.tracking_code, r.stage]));
+      const prevStage = new Map<string, string>(existing.rows.map((r) => [r.tracking_code, normalizeStage(r.stage)]));
 
-      // Cek apakah kolom owner_sales_id sudah ada di crm_lead_state (kompatibel sebelum & sesudah migrasi 00032)
       const colCheck = await client.query(
-        `SELECT 1 FROM information_schema.columns WHERE table_name = 'crm_lead_state' AND column_name = 'owner_sales_id'`
+        `SELECT column_name FROM information_schema.columns WHERE table_name = 'crm_lead_state'`
       );
-      const hasOwnerSalesIdCol = (colCheck.rowCount ?? 0) > 0;
+      const stateCols = new Set<string>(colCheck.rows.map((r) => r.column_name));
+      const hasOwnerSalesIdCol = stateCols.has('owner_sales_id');
+      const hasTahap1Cols = stateCols.has('lost_reason') && stateCols.has('brand');
 
       for (const code of codes) {
-        const before = prevStage.get(code) ?? 'traffic';
+        const before = prevStage.get(code) ?? 'lead_masuk';
         const stageChanged = patch.stage !== undefined && patch.stage !== before;
-        if (hasOwnerSalesIdCol) {
+
+        if (hasOwnerSalesIdCol && hasTahap1Cols) {
+          await client.query(
+            `INSERT INTO crm_lead_state (
+               tracking_code, stage, produk_manual, moq_manual, moq_label, brand, source_manual, lost_reason,
+               note, owner, owner_sales_id, stage_changed_at, updated_by, updated_at
+             )
+             VALUES ($1, COALESCE($2, 'lead_masuk'), $3, $4, $13, $14, $15, $16, $5, $6, $12, CASE WHEN $7 THEN NOW() ELSE NOW() END, $8, NOW())
+             ON CONFLICT (tracking_code) DO UPDATE SET
+               stage            = COALESCE($2, crm_lead_state.stage),
+               produk_manual    = CASE WHEN $9  THEN $3 ELSE crm_lead_state.produk_manual END,
+               moq_manual       = CASE WHEN $10 THEN $4 ELSE crm_lead_state.moq_manual END,
+               moq_label        = CASE WHEN $10 THEN $13 ELSE crm_lead_state.moq_label END,
+               brand            = CASE WHEN $17 THEN $14 ELSE crm_lead_state.brand END,
+               source_manual    = CASE WHEN $18 THEN $15 ELSE crm_lead_state.source_manual END,
+               lost_reason      = CASE WHEN $19 THEN $16 WHEN $2 IS NOT NULL AND $2 <> 'lost' THEN NULL ELSE crm_lead_state.lost_reason END,
+               note             = CASE WHEN $11 THEN $5 ELSE crm_lead_state.note END,
+               owner            = COALESCE($6, crm_lead_state.owner),
+               owner_sales_id   = COALESCE($12, crm_lead_state.owner_sales_id),
+               stage_changed_at = CASE WHEN $7 THEN NOW() ELSE crm_lead_state.stage_changed_at END,
+               updated_by       = $8,
+               updated_at       = NOW()`,
+            [
+              code,
+              patch.stage ?? null,
+              patch.produk ?? null,
+              patch.moq ?? null,
+              patch.note ?? null,
+              ownerName,
+              stageChanged,
+              user.name,
+              patch.produk !== undefined,
+              patch.moq !== undefined,
+              patch.note !== undefined,
+              ownerSalesId,
+              patch.moqLabel ?? null,
+              patch.brand ?? null,
+              patch.sourceManual ?? null,
+              patch.lostReason ?? null,
+              patch.brand !== undefined,
+              patch.sourceManual !== undefined,
+              patch.lostReason !== undefined,
+            ]
+          );
+        } else if (hasOwnerSalesIdCol) {
           await client.query(
             `INSERT INTO crm_lead_state (tracking_code, stage, produk_manual, moq_manual, note, owner, owner_sales_id, stage_changed_at, updated_by, updated_at)
-             VALUES ($1, COALESCE($2, 'traffic'), $3, $4, $5, $6, $12, CASE WHEN $7 THEN NOW() END, $8, NOW())
+             VALUES ($1, COALESCE($2, 'lead_masuk'), $3, $4, $5, $6, $12, CASE WHEN $7 THEN NOW() END, $8, NOW())
              ON CONFLICT (tracking_code) DO UPDATE SET
                stage            = COALESCE($2, crm_lead_state.stage),
                produk_manual    = CASE WHEN $9  THEN $3 ELSE crm_lead_state.produk_manual END,
@@ -278,7 +426,7 @@ export async function PATCH(req: NextRequest) {
         } else {
           await client.query(
             `INSERT INTO crm_lead_state (tracking_code, stage, produk_manual, moq_manual, note, owner, stage_changed_at, updated_by, updated_at)
-             VALUES ($1, COALESCE($2, 'traffic'), $3, $4, $5, $6, CASE WHEN $7 THEN NOW() END, $8, NOW())
+             VALUES ($1, COALESCE($2, 'lead_masuk'), $3, $4, $5, $6, CASE WHEN $7 THEN NOW() END, $8, NOW())
              ON CONFLICT (tracking_code) DO UPDATE SET
                stage            = COALESCE($2, crm_lead_state.stage),
                produk_manual    = CASE WHEN $9  THEN $3 ELSE crm_lead_state.produk_manual END,
@@ -321,5 +469,12 @@ export async function PATCH(req: NextRequest) {
     return json({ success: false, error: 'Gagal menyimpan, coba lagi' }, 500);
   }
 
-  return json({ success: true });
+  return json({
+    success: true,
+    stage: patch.stage,
+    moq_label: patch.moqLabel,
+    moq: patch.moq,
+    lost_reason: patch.lostReason,
+    owner: patch.newOwnerName,
+  });
 }

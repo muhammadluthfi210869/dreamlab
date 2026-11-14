@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root,
+.crm-root {
+  --crm-bg-canvas: #F3F5F8;
+  --crm-bg-column: #EDF0F5;
+  --crm-bg-surface: #FFFFFF;
+  --crm-bg-subtle: #F8FAFC;
+  --crm-bg-hover: #F1F4F9;
+
+  --crm-text-primary: #212120;
+  --crm-text-secondary: #525866;
+  --crm-text-muted: #848C9E;
+
+  --crm-accent: #F39200;
+  --crm-accent-hover: #DC8300;
+  --crm-accent-soft: #FFF5E5;
+  --crm-accent-border: #FCD392;
+
+  --crm-blue: #1F6FB2;
+  --crm-blue-soft: #EDF5FC;
+  --crm-blue-border: #BFDBFE;
+
+  --crm-status-deal-fg: #15803D;
+  --crm-status-deal-bg: #DCFCE7;
+  --crm-status-deal-border: #86EFAC;
+
+  --crm-status-lost-fg: #B91C1C;
+  --crm-status-lost-bg: #FEE2E2;
+  --crm-status-lost-border: #FCA5A5;
+
+  --crm-status-warn-fg: #B45309;
+  --crm-status-warn-bg: #FEF3C7;
+  --crm-status-warn-border: #FDE68A;
+
+  --crm-border: #DFE3EA;
+  --crm-border-strong: #C8CFD9;
+
+  --crm-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --crm-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+[data-theme="dark"] .crm-root,
+.crm-root[data-theme="dark"] {
+  --crm-bg-canvas: #0F1217;
+  --crm-bg-column: #151921;
+  --crm-bg-surface: #1B202B;
+  --crm-bg-subtle: #202634;
+  --crm-bg-hover: #242B3A;
+
+  --crm-text-primary: #F1F3F7;
+  --crm-text-secondary: #A3ADBF;
+  --crm-text-muted: #6C7689;
+
+  --crm-accent: #F59E0B;
+  --crm-accent-hover: #FBBF24;
+  --crm-accent-soft: rgba(243, 146, 0, 0.14);
+  --crm-accent-border: rgba(243, 146, 0, 0.35);
+
+  --crm-blue: #4EA1E5;
+  --crm-blue-soft: rgba(31, 111, 178, 0.18);
+  --crm-blue-border: rgba(78, 161, 229, 0.35);
+
+  --crm-status-deal-fg: #4ADE80;
+  --crm-status-deal-bg: rgba(21, 128, 61, 0.20);
+  --crm-status-deal-border: rgba(74, 222, 128, 0.35);
+
+  --crm-status-lost-fg: #F87171;
+  --crm-status-lost-bg: rgba(185, 28, 28, 0.20);
+  --crm-status-lost-border: rgba(248, 113, 113, 0.35);
+
+  --crm-status-warn-fg: #FBBF24;
+  --crm-status-warn-bg: rgba(180, 83, 9, 0.20);
+  --crm-status-warn-border: rgba(251, 191, 36, 0.35);
+
+  --crm-border: #2A3140;
+  --crm-border-strong: #3A4356;
+}
+
+.crm-root,
+.crm-root h1,
+.crm-root h2,
+.crm-root h3,
+.crm-root h4,
+.crm-root h5,
+.crm-root h6 {
+  font-family: var(--crm-font-sans) !important;
+  color: var(--crm-text-primary);
+}
+
+.crm-mono {
+  font-family: var(--crm-font-mono) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.crm-tabular {
+  font-variant-numeric: tabular-nums;
+}

@@ -3,10 +3,11 @@
 import type { ReactNode } from "react";
 import { ArrowUpRight, Info, Minus } from "lucide-react";
 
-/** Warna aksen Dreamlab. Hijau Convia diganti oranye ini. */
-export const BRAND = "#D98A00";
-export const BRAND_DARK = "#B87400";
-export const BRAND_SOFT = "#FFF4DC";
+/** Warna aksen Dreamlab sesuai spesifikasi CRM (#F39200 oranye, #1F6FB2 biru). */
+export const BRAND = "#F39200";
+export const BRAND_DARK = "#DC8300";
+export const BRAND_SOFT = "#FFF5E5";
+export const BRAND_BLUE = "#1F6FB2";
 
 export function Card({
   title,

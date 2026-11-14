@@ -1,34 +1,72 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, ChevronUp, HelpCircle, MessageSquare, RefreshCw, X } from "lucide-react";
-import { canEditLead, formatWaChatLink, PIPELINE_STAGES, stageLabel } from "@/lib/crm-stages";
-import { BRAND, Pill } from "@/components/lead-monitor/ui";
-import { FilterToolbar, useFilters, useMe } from "@/components/lead-monitor/filters";
+import {
+  ArrowRight,
+  Calendar,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  Clock,
+  ExternalLink,
+  Filter,
+  History,
+  MessageSquare,
+  RefreshCw,
+  Search,
+  UserCheck,
+  X,
+} from "lucide-react";
+import {
+  canEditLead,
+  CRM_SOURCES,
+  formatWaChatLink,
+  getWarmStageMoq,
+  isAdminRole,
+  LOST_REASONS,
+  PIPELINE_STAGES,
+  stageLabel,
+  type LostReason,
+  type PipelineStage,
+} from "@/lib/crm-stages";
+import { BRAND, BRAND_BLUE } from "@/components/lead-monitor/ui";
+import { useFilters, useMe } from "@/components/lead-monitor/filters";
 import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
 
-const PAGE_STEP = 40;
+const PAGE_STEP = 50;
 const REFRESH_MS = 60_000;
 
 interface PCard {
+  id: number;
   key: string;
   codes: string[];
   name: string | null;
   phone: string | null;
+  brand: string | null;
   produk: string | null;
   produk_manual: string | null;
   moq: number | null;
   moq_manual: number | null;
+  moq_label: string | null;
   note: string | null;
+  lost_reason: string | null;
   sales: string | null;
   source: string | null;
+  source_raw: string | null;
+  campaign: string | null;
+  detection_method: string | null;
+  landing_path: string | null;
   referrer: string | null;
+  referrer_raw: string | null;
   referrer_kind: string;
   page: string | null;
+  page_raw: string | null;
   kind: "chat" | "dropoff" | "direct";
   is_form: boolean;
+  unread_count: number;
   created_at: string;
+  stage_changed_at: string;
   confirmed_at: string | null;
   last_seen_at: string;
 }
@@ -39,35 +77,68 @@ interface Column {
   cards: PCard[];
 }
 
+interface StageHistoryItem {
+  from_stage: string;
+  to_stage: string;
+  changed_by: string | null;
+  changed_at: string;
+}
+
 interface ApiData {
   period: { startDate: string; endDate: string };
   busdevs: string[];
+  sources: readonly string[];
+  availableCampaigns: string[];
+  campaignsBySource: Record<string, string[]>;
   total: number;
+  totalUnfiltered: number;
   capped: boolean;
   cardsPerStage: number;
   columns: Column[];
   channelFunnels?: ChannelFunnelsOverview;
 }
 
-function ago(iso: string): string {
+const wibToday = () => new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
+const addDays = (d: string, n: number) => new Date(Date.parse(`${d}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
+
+function stageAge(iso: string | null | undefined): string {
+  if (!iso) return "baru";
   const s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
-  if (s < 60) return "baru saja";
+  if (s < 60) return "<1m";
   const m = Math.floor(s / 60);
-  if (m < 60) return `${m} mnt lalu`;
+  if (m < 60) return `${m}m`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h} jam lalu`;
-  return `${Math.floor(h / 24)} hari lalu`;
+  if (h < 24) return `${h}j`;
+  return `${Math.floor(h / 24)}h`;
 }
 
-const KIND: Record<PCard["kind"], { text: string; tone: "green" | "amber" | "slate" }> = {
-  chat: { text: "Sudah chat", tone: "green" },
-  dropoff: { text: "Belum chat", tone: "amber" },
-  direct: { text: "Chat langsung", tone: "slate" },
-};
+function formatDateTimeWib(iso: string | null | undefined): string {
+  if (!iso) return "-";
+  try {
+    return new Date(iso).toLocaleString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  } catch {
+    return iso;
+  }
+}
 
 export default function PipelinePage() {
   const f = useFilters();
   const me = useMe();
+  const isAdmin = isAdminRole(me.role);
+
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
+  const [campaignFilter, setCampaignFilter] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const [periodPreset, setPeriodPreset] = useState<"today" | "yesterday" | "7d" | "30d" | "custom">("7d");
+
   const [data, setData] = useState<ApiData | null>(null);
   const [cols, setCols] = useState<Record<string, Column>>({});
   const [loading, setLoading] = useState(true);
@@ -78,11 +149,49 @@ export default function PipelinePage() {
   const [dragKey, setDragKey] = useState<string | null>(null);
   const [overStage, setOverStage] = useState<string | null>(null);
   const [selected, setSelected] = useState<{ card: PCard; stage: string } | null>(null);
-  const [showFunnel, setShowFunnel] = useState(true);
-  const busy = useRef(false); // true saat menyimpan / menyeret: jangan timpa tampilan dengan data polling
+  const [pendingLostMove, setPendingLostMove] = useState<{ card: PCard; targetStage: "lost"; reason: LostReason } | null>(null);
+  const [showFunnel, setShowFunnel] = useState(false);
+
+  const busy = useRef(false);
   const reqId = useRef(0);
 
-  const query = useMemo(() => new URLSearchParams({ startDate: f.startDate, endDate: f.endDate, busdev: f.busdev }), [f.startDate, f.endDate, f.busdev]);
+  // Debounce pencarian
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(searchQuery.trim()), 220);
+    return () => clearTimeout(t);
+  }, [searchQuery]);
+
+  // Reset campaign jika source berubah dan campaign lama tidak ada di source baru
+  useEffect(() => {
+    setCampaignFilter("all");
+  }, [sourceFilter]);
+
+  const applyPeriodPreset = (preset: "today" | "yesterday" | "7d" | "30d" | "custom") => {
+    setPeriodPreset(preset);
+    const today = wibToday();
+    if (preset === "today") {
+      f.setRange(today, today);
+    } else if (preset === "yesterday") {
+      const y = addDays(today, -1);
+      f.setRange(y, y);
+    } else if (preset === "7d") {
+      f.setRange(addDays(today, -6), today);
+    } else if (preset === "30d") {
+      f.setRange(addDays(today, -29), today);
+    }
+  };
+
+  const query = useMemo(() => {
+    const params = new URLSearchParams({
+      startDate: f.startDate,
+      endDate: f.endDate,
+      busdev: isAdmin ? f.busdev : me.name,
+    });
+    if (sourceFilter !== "all") params.set("source", sourceFilter);
+    if (campaignFilter !== "all") params.set("campaign", campaignFilter);
+    if (debouncedSearch) params.set("q", debouncedSearch);
+    return params;
+  }, [f.startDate, f.endDate, f.busdev, isAdmin, me.name, sourceFilter, campaignFilter, debouncedSearch]);
 
   const load = useCallback(
     async (manual = false) => {
@@ -102,7 +211,7 @@ export default function PipelinePage() {
         setError(null);
       } catch (e: any) {
         if (id !== reqId.current) return;
-        setError(e?.message || "Gagal terhubung ke server");
+        setError(e?.message || "Gagal memuat data pipeline");
       } finally {
         if (id === reqId.current) {
           setLoading(false);
@@ -118,648 +227,1447 @@ export default function PipelinePage() {
     setLoading(true);
     setVisible({});
     load();
+    const id = setInterval(() => {
+      if (!document.hidden && !busy.current) load();
+    }, REFRESH_MS);
+    return () => clearInterval(id);
   }, [load, f.ready]);
 
   useEffect(() => {
-    if (!f.ready) return;
-    const t = setInterval(() => {
-      if (!busy.current && !selected && !dragKey) load();
-    }, REFRESH_MS);
-    return () => clearInterval(t);
-  }, [load, f.ready, selected, dragKey]);
-
-  useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 4000);
+    const t = setTimeout(() => setToast(null), 3500);
     return () => clearTimeout(t);
   }, [toast]);
 
-  const patchLead = async (card: PCard, body: Record<string, unknown>): Promise<string | null> => {
-    try {
-      const res = await fetch("/api/crm/lead", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ codes: card.codes, ...body }),
-      });
-      if (res.status === 401) {
-        window.location.href = "/lead-monitor/masuk";
-        return "Sesi habis";
-      }
-      const json = await res.json().catch(() => ({}));
-      return !res.ok || !json.success ? json.error || "Gagal menyimpan" : null;
-    } catch {
-      return "Tidak bisa terhubung ke server";
+  const findCard = (key: string): { stage: string; card: PCard } | null => {
+    for (const s of PIPELINE_STAGES) {
+      const c = cols[s.id]?.cards.find((x) => x.key === key);
+      if (c) return { stage: s.id, card: c };
     }
-  };
-
-  /** Pindah tahap: tampilan langsung bergeser, dikembalikan bila server menolak. */
-  const moveCard = async (card: PCard, from: string, to: string) => {
-    if (from === to) return;
-    if (!canEditLead(me, card.sales)) {
-      setToast("Anda hanya bisa memindahkan lead milik Anda sendiri");
-      return;
-    }
-    const snapshot = cols;
-    busy.current = true;
-    setCols((c) => {
-      const next = { ...c };
-      next[from] = { ...c[from], count: Math.max(0, c[from].count - 1), cards: c[from].cards.filter((x) => x.key !== card.key) };
-      next[to] = { ...c[to], count: c[to].count + 1, cards: [card, ...c[to].cards] };
-      return next;
-    });
-    const err = await patchLead(card, { stage: to });
-    busy.current = false;
-    if (err) {
-      setCols(snapshot);
-      setToast(err);
-    } else {
-      setToast(`Dipindah ke ${stageLabel(to)}`);
-    }
-  };
-
-  const saveDetail = async (card: PCard, stage: string, values: { produk: string; moq: string; note: string }, newStage: string): Promise<string | null> => {
-    const body: Record<string, unknown> = {
-      produk_manual: values.produk.trim() === "" ? null : values.produk.trim(),
-      moq_manual: values.moq.trim() === "" ? null : parseInt(values.moq.replace(/\D/g, ""), 10),
-      note: values.note.trim() === "" ? null : values.note.trim(),
-    };
-    if (newStage !== stage) body.stage = newStage;
-    busy.current = true;
-    const err = await patchLead(card, body);
-    busy.current = false;
-    if (err) return err;
-    await load();
-    setToast("Tersimpan");
     return null;
   };
 
-  const total = data?.total ?? 0;
-
-  // Daftar sales terurut (Annisa, Jessica, Diaz)
-  const salesList = useMemo(() => {
-    const raw = data?.busdevs && data.busdevs.length > 0 ? [...data.busdevs] : ["Annisa", "Jessica", "Diaz"];
-    const preferred = ["Annisa", "Jessica", "Diaz"];
-    return raw.sort((a, b) => {
-      const ia = preferred.findIndex((p) => p.toLowerCase() === a.toLowerCase());
-      const ib = preferred.findIndex((p) => p.toLowerCase() === b.toLowerCase());
-      if (ia !== -1 && ib !== -1) return ia - ib;
-      if (ia !== -1) return -1;
-      if (ib !== -1) return 1;
-      return a.localeCompare(b);
-    });
-  }, [data?.busdevs]);
-
-  // Hitungan kartu per sales
-  const salesCounts = useMemo(() => {
-    const m: Record<string, number> = {};
-    if (!data?.columns) return m;
-    for (const col of data.columns) {
-      for (const card of col.cards) {
-        const s = (card.sales || "").trim().toLowerCase();
-        if (s) m[s] = (m[s] || 0) + 1;
-      }
+  /**
+   * Eksekusi pindah stage (optimistic UI + simpan ke /api/crm/lead).
+   */
+  const executeMoveCard = async (key: string, toStage: string, lostReason?: LostReason) => {
+    const found = findCard(key);
+    if (!found || found.stage === toStage) return;
+    if (!canEditLead(me, found.card.sales)) {
+      setToast("Anda hanya bisa memindahkan lead milik Anda sendiri.");
+      return;
     }
-    return m;
-  }, [data?.columns]);
+
+    // Jika pindah ke Lost tanpa alasan, buka modal pilih alasan Lost dulu
+    if (toStage === "lost" && !lostReason) {
+      setPendingLostMove({ card: found.card, targetStage: "lost", reason: LOST_REASONS[0] });
+      return;
+    }
+
+    const warmMoq = getWarmStageMoq(toStage);
+    const updatedCard: PCard = {
+      ...found.card,
+      moq_label: warmMoq ? warmMoq.label : found.card.moq_label,
+      moq: warmMoq ? warmMoq.numeric : found.card.moq,
+      lost_reason: toStage === "lost" ? (lostReason ?? null) : null,
+      stage_changed_at: new Date().toISOString(),
+    };
+
+    const snapshot = cols;
+    busy.current = true;
+    setCols((prev) => {
+      const from = prev[found.stage];
+      const to = prev[toStage] ?? { id: toStage, count: 0, cards: [] };
+      if (!from) return prev;
+      return {
+        ...prev,
+        [found.stage]: {
+          ...from,
+          count: Math.max(0, from.count - 1),
+          cards: from.cards.filter((x) => x.key !== key),
+        },
+        [toStage]: {
+          ...to,
+          count: to.count + 1,
+          cards: [updatedCard, ...to.cards.filter((x) => x.key !== key)],
+        },
+      };
+    });
+    setSelected((cur) => (cur && cur.card.key === key ? { card: updatedCard, stage: toStage } : cur));
+
+    try {
+      const payload: Record<string, unknown> = {
+        codes: found.card.codes,
+        stage: toStage,
+      };
+      if (toStage === "lost" && lostReason) {
+        payload.lost_reason = lostReason;
+      }
+      if (warmMoq) {
+        payload.moq = warmMoq.label;
+      }
+
+      const res = await fetch("/api/crm/lead", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.status === 401) {
+        window.location.href = "/lead-monitor/masuk";
+        return;
+      }
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok || !j.success) throw new Error(j.error || `Gagal (${res.status})`);
+      setToast(
+        warmMoq
+          ? `Dipindahkan ke ${stageLabel(toStage)} · MOQ otomatis diisi "${warmMoq.label}"`
+          : `Dipindahkan ke ${stageLabel(toStage)}`
+      );
+    } catch (e: any) {
+      setCols(snapshot);
+      setToast(e?.message || "Gagal memindahkan tahap, dikembalikan ke posisi semula");
+    } finally {
+      busy.current = false;
+    }
+  };
+
+  /**
+   * Simpan perubahan dari panel detail lead.
+   */
+  const saveDetail = async (
+    card: PCard,
+    currentStage: string,
+    patch: {
+      stage: string;
+      lost_reason: string | null;
+      sales: string | null;
+      source: string | null;
+      brand: string | null;
+      produk_manual: string | null;
+      moq_label: string | null;
+      note: string | null;
+    }
+  ): Promise<boolean> => {
+    if (!canEditLead(me, card.sales)) {
+      setToast("Anda hanya bisa mengubah lead milik Anda sendiri.");
+      return false;
+    }
+    if (patch.stage === "lost" && !patch.lost_reason) {
+      setToast("Pilih alasan Lost terlebih dahulu.");
+      return false;
+    }
+
+    busy.current = true;
+    try {
+      const body: Record<string, unknown> = {
+        codes: card.codes,
+        stage: patch.stage,
+        brand: patch.brand,
+        produk_manual: patch.produk_manual,
+        moq: patch.moq_label,
+        source: patch.source,
+        note: patch.note,
+      };
+      if (patch.stage === "lost") {
+        body.lost_reason = patch.lost_reason;
+      }
+      if (isAdmin && patch.sales && patch.sales !== card.sales) {
+        body.sales = patch.sales;
+      }
+
+      const res = await fetch("/api/crm/lead", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 401) {
+        window.location.href = "/lead-monitor/masuk";
+        return false;
+      }
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok || !j.success) throw new Error(j.error || `Gagal (${res.status})`);
+
+      const warmMoq = getWarmStageMoq(patch.stage);
+      const effectiveMoqLabel = patch.moq_label || (warmMoq ? warmMoq.label : card.moq_label);
+      const nextCard: PCard = {
+        ...card,
+        brand: patch.brand,
+        produk_manual: patch.produk_manual,
+        produk: patch.produk_manual || card.produk,
+        moq_label: effectiveMoqLabel,
+        source: patch.source || card.source,
+        note: patch.note,
+        lost_reason: patch.stage === "lost" ? patch.lost_reason : null,
+        sales: isAdmin && patch.sales ? patch.sales : card.sales,
+        stage_changed_at: patch.stage !== currentStage ? new Date().toISOString() : card.stage_changed_at,
+      };
+
+      setCols((prev) => {
+        const next: Record<string, Column> = {};
+        for (const s of PIPELINE_STAGES) {
+          const col = prev[s.id] ?? { id: s.id, count: 0, cards: [] };
+          const without = col.cards.filter((c) => c.key !== card.key);
+          if (s.id === patch.stage) {
+            next[s.id] = {
+              ...col,
+              count: currentStage === patch.stage ? col.count : col.count + 1,
+              cards: [nextCard, ...without],
+            };
+          } else if (s.id === currentStage && currentStage !== patch.stage) {
+            next[s.id] = {
+              ...col,
+              count: Math.max(0, col.count - 1),
+              cards: without,
+            };
+          } else {
+            next[s.id] = col;
+          }
+        }
+        return next;
+      });
+
+      setSelected({ card: nextCard, stage: patch.stage });
+      setToast("Perubahan lead tersimpan");
+      return true;
+    } catch (e: any) {
+      setToast(e?.message || "Gagal menyimpan perubahan");
+      return false;
+    } finally {
+      busy.current = false;
+    }
+  };
+
+  const availableCampaigns = useMemo(() => {
+    if (!data) return [];
+    if (sourceFilter !== "all" && data.campaignsBySource?.[sourceFilter]) {
+      return data.campaignsBySource[sourceFilter];
+    }
+    return data.availableCampaigns ?? [];
+  }, [data, sourceFilter]);
 
   return (
-    <div>
-      <header className="border-b border-[#ECEAE4] bg-white/90 backdrop-blur lg:sticky lg:top-0 lg:z-30">
-        <div className="mx-auto flex h-16 max-w-[1920px] items-center justify-between gap-4 px-4 sm:px-6">
-          <div>
-            <h1 className="text-[17px] font-semibold leading-tight text-slate-900">Sales Pipeline</h1>
-            <p className="text-xs text-slate-500">
-              Kelola prospek & stage traffic MOQ · Klik tombol WA untuk langsung balas chat
-            </p>
-          </div>
+    <main className="mx-auto max-w-[1920px] px-3 py-4 sm:px-5">
+      {/* Header Bar Padat */}
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5">
+          <h1 className="text-[18px] font-bold tracking-tight" style={{ color: "var(--crm-text-primary)" }}>
+            Pipeline Sales
+          </h1>
+          <span
+            className="crm-mono inline-flex items-center rounded-[6px] border px-2 py-0.5 text-xs font-semibold"
+            style={{
+              borderColor: "var(--crm-border)",
+              background: "var(--crm-bg-surface)",
+              color: "var(--crm-text-secondary)",
+            }}
+          >
+            {(data?.total ?? 0).toLocaleString("id-ID")} lead
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {data?.channelFunnels && (
+            <button
+              type="button"
+              onClick={() => setShowFunnel((v) => !v)}
+              className="inline-flex h-8 items-center gap-1.5 rounded-[6px] border px-2.5 text-xs font-semibold transition"
+              style={{
+                borderColor: "var(--crm-border)",
+                background: "var(--crm-bg-surface)",
+                color: "var(--crm-text-secondary)",
+              }}
+            >
+              {showFunnel ? <ChevronUp className="h-3.5 w-3.5" strokeWidth={1.75} /> : <ChevronDown className="h-3.5 w-3.5" strokeWidth={1.75} />}
+              Ringkasan Funnel
+            </button>
+          )}
           <button
             type="button"
             onClick={() => load(true)}
             disabled={refreshing}
-            className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#E5E2DA] bg-white px-3 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-60"
+            className="inline-flex h-8 items-center gap-1.5 rounded-[6px] border px-2.5 text-xs font-semibold transition disabled:opacity-50"
+            style={{
+              borderColor: "var(--crm-border)",
+              background: "var(--crm-bg-surface)",
+              color: "var(--crm-text-primary)",
+            }}
           >
-            <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} style={{ color: BRAND }} />
-            <span className="hidden sm:inline">Refresh</span>
+            <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} strokeWidth={1.75} />
+            Muat ulang
           </button>
         </div>
-      </header>
+      </div>
 
-      <main className="mx-auto max-w-[1920px] space-y-4 px-4 py-5 sm:px-6">
-        {error && (
-          <div className="flex items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-900">
-            <span className="flex items-center gap-2">
-              <HelpCircle className="h-4 w-4 shrink-0 text-amber-600" />
-              <span>
-                <b>Gagal memuat:</b> {error}
-              </span>
-            </span>
-            <button type="button" onClick={() => load(true)} className="shrink-0 rounded-md bg-amber-600 px-2.5 py-1 font-semibold text-white hover:bg-amber-700">
-              Coba sekarang
-            </button>
-          </div>
-        )}
-
-        <FilterToolbar
-          busdevNames={data?.busdevs ?? []}
-          showBusdev={false}
-          right={<span className="font-mono text-[11px] text-slate-400">{total.toLocaleString("id-ID")} prospek</span>}
-        />
-
-        {data?.capped && (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
-            Data periode ini sangat besar dan dipotong di 5.000 baris terbaru. Persempit rentang tanggal agar lengkap.
-          </div>
-        )}
-
-        {/* Layout: Sales Switcher di Kiri + Kanban Board di Kanan */}
-        <div className="flex flex-col lg:flex-row gap-4 items-start">
-          {/* Sales Pipeline Switcher di Kiri */}
-          <aside className="w-full lg:w-64 shrink-0 rounded-2xl border border-[#ECEAE4] bg-white p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] lg:sticky lg:top-20">
-            <div className="mb-3 px-1">
-              <div className="flex items-center justify-between">
-                <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Sales Pipeline</h2>
-                <span className="rounded-full bg-slate-100 px-2 py-0.5 font-mono text-[10px] font-semibold text-slate-600">
-                  {total.toLocaleString("id-ID")} lead
-                </span>
-              </div>
-              <p className="mt-0.5 text-[11px] text-slate-500">Pilih tim sales untuk menyaring</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4 lg:grid-cols-1">
+      {/* Filter Bar Tahap 1: Sales (Admin), Source, Campaign (bergantung Source), Periode, Pencarian */}
+      <section
+        aria-label="Filter pipeline"
+        className="mb-3 rounded-[8px] border p-2.5"
+        style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)" }}
+      >
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Pencarian nama / brand / nomor WA */}
+          <div className="relative min-w-[210px] flex-1 sm:max-w-[260px]">
+            <Search
+              className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2"
+              strokeWidth={1.75}
+              style={{ color: "var(--crm-text-muted)" }}
+            />
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari nama, brand, nomor WA..."
+              aria-label="Cari nama, brand, atau nomor WA"
+              className="h-9 w-full rounded-[6px] border pl-8 pr-7 text-xs outline-none transition"
+              style={{
+                borderColor: "var(--crm-border)",
+                background: "var(--crm-bg-subtle)",
+                color: "var(--crm-text-primary)",
+              }}
+            />
+            {searchQuery && (
               <button
                 type="button"
-                onClick={() => f.setBusdev("all")}
-                className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-medium transition text-left ${
-                  f.busdev === "all"
-                    ? "border border-[#F0D9A8] bg-[#FFF8EA] text-[#B45309] font-semibold shadow-xs"
-                    : "border border-transparent bg-slate-50 text-slate-700 hover:bg-slate-100"
-                }`}
+                aria-label="Bersihkan pencarian"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-2 top-1/2 -translate-y-1/2"
+                style={{ color: "var(--crm-text-muted)" }}
               >
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <span
-                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
-                      f.busdev === "all" ? "bg-[#D98A00] text-white" : "bg-slate-200 text-slate-600"
-                    }`}
-                  >
-                    All
-                  </span>
-                  <div className="truncate">
-                    <div className="truncate font-semibold">Semua Pipeline</div>
-                    <div className="text-[10px] text-slate-400">Gabungan tim</div>
-                  </div>
-                </div>
-                <span className="ml-2 font-mono text-[11px] font-semibold text-slate-500">
-                  {total}
-                </span>
+                <X className="h-3.5 w-3.5" strokeWidth={1.75} />
               </button>
+            )}
+          </div>
 
-              {salesList.map((salesName) => {
-                const active = f.busdev.toLowerCase() === salesName.toLowerCase();
-                const initial = salesName.charAt(0).toUpperCase();
-                const count = salesCounts[salesName.toLowerCase()] ?? 0;
-                return (
-                  <button
-                    key={salesName}
-                    type="button"
-                    onClick={() => f.setBusdev(salesName)}
-                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-medium transition text-left ${
-                      active
-                        ? "border border-[#F0D9A8] bg-[#FFF8EA] text-[#B45309] font-semibold shadow-xs"
-                        : "border border-transparent bg-slate-50 text-slate-700 hover:bg-slate-100"
-                    }`}
+          {/* Filter Sales (Hanya Admin yang bisa ganti; Busdev terkunci ke dirinya sendiri) */}
+          {isAdmin ? (
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="filter-sales" className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-muted)" }}>
+                Sales
+              </label>
+              <select
+                id="filter-sales"
+                value={f.busdev}
+                onChange={(e) => f.setBusdev(e.target.value)}
+                className="h-9 rounded-[6px] border px-2.5 text-xs font-medium outline-none"
+                style={{
+                  borderColor: "var(--crm-border)",
+                  background: "var(--crm-bg-subtle)",
+                  color: "var(--crm-text-primary)",
+                }}
+              >
+                <option value="all">Semua Sales</option>
+                {(data?.busdevs ?? []).map((b) => (
+                  <option key={b} value={b}>
+                    {b}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <span
+              className="inline-flex h-9 items-center gap-1.5 rounded-[6px] border px-2.5 text-xs font-semibold"
+              style={{
+                borderColor: "var(--crm-accent-border)",
+                background: "var(--crm-accent-soft)",
+                color: BRAND,
+              }}
+            >
+              <UserCheck className="h-3.5 w-3.5" strokeWidth={1.75} />
+              Sales: {me.name}
+            </span>
+          )}
+
+          {/* Filter Source */}
+          <div className="flex items-center gap-1.5">
+            <label htmlFor="filter-source" className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-muted)" }}>
+              Source
+            </label>
+            <select
+              id="filter-source"
+              value={sourceFilter}
+              onChange={(e) => setSourceFilter(e.target.value)}
+              className="h-9 rounded-[6px] border px-2.5 text-xs font-medium outline-none"
+              style={{
+                borderColor: "var(--crm-border)",
+                background: "var(--crm-bg-subtle)",
+                color: "var(--crm-text-primary)",
+              }}
+            >
+              <option value="all">Semua Source</option>
+              {CRM_SOURCES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Filter Campaign (bergantung pada Source) */}
+          <div className="flex items-center gap-1.5">
+            <label htmlFor="filter-campaign" className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-muted)" }}>
+              Campaign
+            </label>
+            <select
+              id="filter-campaign"
+              value={campaignFilter}
+              onChange={(e) => setCampaignFilter(e.target.value)}
+              className="h-9 max-w-[200px] truncate rounded-[6px] border px-2.5 text-xs font-medium outline-none"
+              style={{
+                borderColor: "var(--crm-border)",
+                background: "var(--crm-bg-subtle)",
+                color: "var(--crm-text-primary)",
+              }}
+            >
+              <option value="all">
+                {sourceFilter === "all" ? "Semua Campaign" : `Semua Campaign (${sourceFilter})`}
+              </option>
+              {availableCampaigns.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Filter Periode: Hari ini, Kemarin, 7 hari, 30 hari, Custom */}
+          <div className="flex flex-wrap items-center gap-1">
+            {(
+              [
+                { id: "today", label: "Hari ini" },
+                { id: "yesterday", label: "Kemarin" },
+                { id: "7d", label: "7 hari" },
+                { id: "30d", label: "30 hari" },
+                { id: "custom", label: "Custom" },
+              ] as const
+            ).map((p) => {
+              const active = periodPreset === p.id;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => applyPeriodPreset(p.id)}
+                  className="h-9 rounded-[6px] border px-2.5 text-xs font-semibold transition"
+                  style={
+                    active
+                      ? {
+                          borderColor: BRAND,
+                          background: BRAND,
+                          color: "#FFFFFF",
+                        }
+                      : {
+                          borderColor: "var(--crm-border)",
+                          background: "var(--crm-bg-subtle)",
+                          color: "var(--crm-text-secondary)",
+                        }
+                  }
+                >
+                  {p.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Rentang tanggal Dari - Sampai */}
+          <div className="flex items-center gap-1.5">
+            <input
+              type="date"
+              aria-label="Dari tanggal"
+              value={f.startDate}
+              max={f.endDate}
+              onChange={(e) => {
+                setPeriodPreset("custom");
+                f.setRange(e.target.value, f.endDate);
+              }}
+              className="crm-mono h-9 rounded-[6px] border px-2 text-xs outline-none"
+              style={{
+                borderColor: "var(--crm-border)",
+                background: "var(--crm-bg-subtle)",
+                color: "var(--crm-text-primary)",
+              }}
+            />
+            <span className="text-xs" style={{ color: "var(--crm-text-muted)" }}>
+              –
+            </span>
+            <input
+              type="date"
+              aria-label="Sampai tanggal"
+              value={f.endDate}
+              min={f.startDate}
+              onChange={(e) => {
+                setPeriodPreset("custom");
+                f.setRange(f.startDate, e.target.value);
+              }}
+              className="crm-mono h-9 rounded-[6px] border px-2 text-xs outline-none"
+              style={{
+                borderColor: "var(--crm-border)",
+                background: "var(--crm-bg-subtle)",
+                color: "var(--crm-text-primary)",
+              }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {error && (
+        <div
+          className="mb-3 flex items-center justify-between rounded-[8px] border px-3.5 py-2.5 text-xs font-medium"
+          style={{
+            borderColor: "var(--crm-status-lost-border)",
+            background: "var(--crm-status-lost-bg)",
+            color: "var(--crm-status-lost-fg)",
+          }}
+        >
+          <span>{error}</span>
+          <button type="button" onClick={() => load(true)} className="underline font-semibold">
+            Coba lagi
+          </button>
+        </div>
+      )}
+
+      {showFunnel && data?.channelFunnels && (
+        <section className="mb-3">
+          <BusdevFunnelCard data={data.channelFunnels} loading={loading && !data} activeBusdev={f.busdev} />
+        </section>
+      )}
+
+      {/* Papan Kanban 10 Stage */}
+      <div className="flex gap-2.5 overflow-x-auto pb-4" role="region" aria-label="Papan Kanban 10 Stage">
+        {PIPELINE_STAGES.map((s) => {
+          const col = cols[s.id] ?? { id: s.id, count: 0, cards: [] };
+          const limit = visible[s.id] ?? PAGE_STEP;
+          const shown = col.cards.slice(0, limit);
+          const remaining = col.cards.length - shown.length;
+          const isOver = overStage === s.id;
+          const isDeal = s.id === "deal";
+          const isLost = s.id === "lost";
+
+          return (
+            <section
+              key={s.id}
+              onDragOver={(e) => {
+                e.preventDefault();
+                if (overStage !== s.id) setOverStage(s.id);
+              }}
+              onDragLeave={() => setOverStage((v) => (v === s.id ? null : v))}
+              onDrop={(e) => {
+                e.preventDefault();
+                const k = e.dataTransfer.getData("text/plain") || dragKey;
+                setOverStage(null);
+                setDragKey(null);
+                if (k) executeMoveCard(k, s.id);
+              }}
+              className="flex w-[272px] shrink-0 flex-col rounded-[8px] border transition"
+              style={{
+                background: isOver ? "var(--crm-accent-soft)" : "var(--crm-bg-column)",
+                borderColor: isOver
+                  ? BRAND
+                  : isDeal
+                    ? "var(--crm-status-deal-border)"
+                    : isLost
+                      ? "var(--crm-status-lost-border)"
+                      : "var(--crm-border)",
+                borderStyle: isOver ? "dashed" : "solid",
+                borderWidth: isOver ? "2px" : "1px",
+              }}
+            >
+              {/* Header Kolom */}
+              <header
+                className="flex items-center justify-between border-b px-3 py-2.5"
+                style={{
+                  borderColor: "var(--crm-border)",
+                  background: isDeal
+                    ? "var(--crm-status-deal-bg)"
+                    : isLost
+                      ? "var(--crm-status-lost-bg)"
+                      : "var(--crm-bg-surface)",
+                  borderTopLeftRadius: "7px",
+                  borderTopRightRadius: "7px",
+                }}
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <span
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ background: s.tone }}
+                  />
+                  <h2
+                    className="truncate text-[13px] font-semibold"
+                    style={{
+                      color: isDeal
+                        ? "var(--crm-status-deal-fg)"
+                        : isLost
+                          ? "var(--crm-status-lost-fg)"
+                          : "var(--crm-text-primary)",
+                    }}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <span
-                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
-                          active ? "bg-[#D98A00] text-white" : "bg-amber-100 text-amber-800"
-                        }`}
-                      >
-                        {initial}
-                      </span>
-                      <div className="truncate">
-                        <div className="truncate font-semibold">{salesName}</div>
-                        <div className="text-[10px] text-slate-400">BusDev Sales</div>
-                      </div>
-                    </div>
-                    <span className="ml-2 font-mono text-[11px] font-semibold text-slate-500">
-                      {count}
-                    </span>
+                    {s.label}
+                  </h2>
+                </div>
+                <span
+                  className="crm-mono rounded-[6px] border px-1.5 py-0.5 text-[11px] font-semibold"
+                  style={{
+                    borderColor: isDeal
+                      ? "var(--crm-status-deal-border)"
+                      : isLost
+                        ? "var(--crm-status-lost-border)"
+                        : "var(--crm-border)",
+                    background: "var(--crm-bg-surface)",
+                    color: isDeal
+                      ? "var(--crm-status-deal-fg)"
+                      : isLost
+                        ? "var(--crm-status-lost-fg)"
+                        : "var(--crm-text-secondary)",
+                  }}
+                >
+                  {col.count.toLocaleString("id-ID")}
+                </span>
+              </header>
+
+              {/* Daftar Kartu */}
+              <div className="flex-1 space-y-2 overflow-y-auto p-2" style={{ maxHeight: "calc(100vh - 210px)" }}>
+                {loading && !data ? (
+                  Array.from({ length: 3 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="h-24 animate-pulse rounded-[6px] border"
+                      style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)" }}
+                    />
+                  ))
+                ) : shown.length === 0 ? (
+                  <div
+                    className="flex h-24 items-center justify-center rounded-[6px] border border-dashed text-[11px]"
+                    style={{ borderColor: "var(--crm-border)", color: "var(--crm-text-muted)" }}
+                  >
+                    Kosong · seret kartu ke sini
+                  </div>
+                ) : (
+                  shown.map((c) => (
+                    <KanbanCard
+                      key={c.key}
+                      card={c}
+                      stage={s.id}
+                      editable={canEditLead(me, c.sales)}
+                      dragging={dragKey === c.key}
+                      onDragStart={() => setDragKey(c.key)}
+                      onDragEnd={() => {
+                        setDragKey(null);
+                        setOverStage(null);
+                      }}
+                      onOpen={() => setSelected({ card: c, stage: s.id })}
+                    />
+                  ))
+                )}
+
+                {remaining > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setVisible((v) => ({ ...v, [s.id]: limit + PAGE_STEP }))}
+                    className="w-full rounded-[6px] border py-1.5 text-xs font-semibold transition"
+                    style={{
+                      borderColor: "var(--crm-border)",
+                      background: "var(--crm-bg-surface)",
+                      color: "var(--crm-text-secondary)",
+                    }}
+                  >
+                    Tampilkan {Math.min(PAGE_STEP, remaining)} lagi ({remaining} tersisa)
                   </button>
+                )}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+
+      {/* Modal Wajib Alasan Lost saat drag & drop ke kolom Lost */}
+      {pendingLostMove && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="lost-modal-title"
+        >
+          <div
+            className="w-full max-w-[380px] rounded-[8px] border p-4"
+            style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)" }}
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <h3 id="lost-modal-title" className="text-sm font-bold" style={{ color: "var(--crm-status-lost-fg)" }}>
+                Pilih Alasan Lost (Wajib)
+              </h3>
+              <button
+                type="button"
+                aria-label="Batal"
+                onClick={() => setPendingLostMove(null)}
+                style={{ color: "var(--crm-text-muted)" }}
+              >
+                <X className="h-4 w-4" strokeWidth={1.75} />
+              </button>
+            </div>
+            <p className="mb-3 text-xs" style={{ color: "var(--crm-text-secondary)" }}>
+              Lead <strong>{pendingLostMove.card.name || pendingLostMove.card.phone || pendingLostMove.card.key}</strong> akan dipindahkan ke <strong>Lost</strong>. Pilih alasan batal:
+            </p>
+            <div className="space-y-1.5">
+              {LOST_REASONS.map((reason) => {
+                const checked = pendingLostMove.reason === reason;
+                return (
+                  <label
+                    key={reason}
+                    className="flex cursor-pointer items-center gap-2.5 rounded-[6px] border px-3 py-2 text-xs font-medium transition"
+                    style={{
+                      borderColor: checked ? "var(--crm-status-lost-fg)" : "var(--crm-border)",
+                      background: checked ? "var(--crm-status-lost-bg)" : "var(--crm-bg-subtle)",
+                      color: checked ? "var(--crm-status-lost-fg)" : "var(--crm-text-primary)",
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="lost_reason"
+                      value={reason}
+                      checked={checked}
+                      onChange={() => setPendingLostMove({ ...pendingLostMove, reason })}
+                      className="accent-[#B91C1C]"
+                    />
+                    {reason}
+                  </label>
                 );
               })}
             </div>
-          </aside>
-
-          {/* Kanban Board di Kanan */}
-          <div className="flex-1 min-w-0 w-full overflow-hidden space-y-4">
-            {/* Funnel per BusDev Card (sesuai screenshot: Traffic >> MOQ >= 500 >> Sample) */}
-            {data?.channelFunnels && (
-              <div className="rounded-2xl border border-[#ECEAE4] bg-[#FAFAF8] p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-                <div className="flex items-center justify-between border-b border-[#ECEAE4] pb-2.5 mb-3">
-                  <div>
-                    <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                      <span>
-                        {f.busdev !== "all"
-                          ? `Funnel Sales: ${f.busdev}`
-                          : "Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial"}
-                      </span>
-                      <span className="rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-bold text-amber-800">
-                        TRAFFIC &gt;&gt; COLD &gt;&gt; WARM &gt;&gt; HOT &gt;&gt; SAMPLE
-                      </span>
-                    </h2>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
-                      Pantau alur konversi per channel: Traffic &gt;&gt; Cold &gt;&gt; Warm &gt;&gt; Hot &gt;&gt; Sample
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowFunnel((v) => !v)}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-white px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:bg-slate-50"
-                  >
-                    {showFunnel ? (
-                      <>
-                        <ChevronUp className="h-3.5 w-3.5 text-slate-400" />
-                        <span>Sembunyikan</span>
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
-                        <span>Lihat Funnel</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                {showFunnel && (
-                  <div>
-                    {f.busdev !== "all" ? (
-                      (() => {
-                        const targetFunnel = data.channelFunnels.byBusdev.find(
-                          (b) => b.name.toLowerCase() === f.busdev.toLowerCase()
-                        );
-                        return targetFunnel ? (
-                          <BusdevFunnelCard funnel={targetFunnel} compact />
-                        ) : (
-                          <p className="text-xs text-slate-400 py-2">Data funnel untuk {f.busdev} belum tersedia.</p>
-                        );
-                      })()
-                    ) : (
-                      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
-                        {data.channelFunnels.byBusdev.map((funnel) => (
-                          <BusdevFunnelCard key={funnel.name} funnel={funnel} />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div className="-mx-4 overflow-x-auto px-4 pb-3 sm:-mx-6 sm:px-6">
-              <div className="flex min-w-max gap-3">
-                {PIPELINE_STAGES.map((st) => {
-                  const col = cols[st.id];
-                  const shown = visible[st.id] ?? PAGE_STEP;
-                  const list = col?.cards ?? [];
-                  const isOver = overStage === st.id && dragKey !== null;
-                  return (
-                    <section
-                      key={st.id}
-                      aria-label={st.label}
-                      onDragOver={(e) => {
-                        if (dragKey) {
-                          e.preventDefault();
-                          setOverStage(st.id);
-                        }
-                      }}
-                      onDragLeave={() => setOverStage((o) => (o === st.id ? null : o))}
-                      onDrop={(e) => {
-                        e.preventDefault();
-                        const key = e.dataTransfer.getData("text/plain") || dragKey;
-                        setOverStage(null);
-                        setDragKey(null);
-                        if (!key) return;
-                        for (const [from, c] of Object.entries(cols)) {
-                          const card = c.cards.find((x) => x.key === key);
-                          if (card) {
-                            moveCard(card, from, st.id);
-                            break;
-                          }
-                        }
-                      }}
-                      className={`flex w-[280px] shrink-0 flex-col rounded-2xl border bg-[#FAFAF8] transition ${
-                        isOver ? "border-[#D98A00] bg-[#FFF9EC]" : "border-[#ECEAE4]"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-2 border-b border-[#ECEAE4] px-3.5 py-3" title={st.hint}>
-                        <div className="flex min-w-0 items-center gap-2">
-                          <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: st.tone }} />
-                          <span className="truncate text-[13px] font-semibold text-slate-900">{st.label}</span>
-                        </div>
-                        <span className="rounded-full bg-white px-2 py-0.5 font-mono text-[11px] font-semibold text-slate-600 ring-1 ring-[#ECEAE4]">
-                          {(col?.count ?? 0).toLocaleString("id-ID")}
-                        </span>
-                      </div>
-
-                      <div className="max-h-[calc(100vh-270px)] min-h-[140px] space-y-2.5 overflow-y-auto p-2.5">
-                        {!col && loading && <p className="py-6 text-center text-xs text-slate-400">Memuat...</p>}
-                        {col && list.length === 0 && <p className="py-6 text-center text-xs text-slate-400">Kosong</p>}
-                        {list.slice(0, shown).map((c) => {
-                          const editable = canEditLead(me, c.sales);
-                          const k = KIND[c.kind];
-                          const moqOk = (c.moq ?? 0) >= 500;
-                          const waUrl = c.phone ? formatWaChatLink(c.phone, c.name, c.sales, c.produk) : null;
-
-                          return (
-                            <article
-                              key={c.key}
-                              draggable={editable}
-                              onDragStart={(e) => {
-                                e.dataTransfer.setData("text/plain", c.key);
-                                e.dataTransfer.effectAllowed = "move";
-                                setDragKey(c.key);
-                              }}
-                              onDragEnd={() => {
-                                setDragKey(null);
-                                setOverStage(null);
-                              }}
-                              className={`rounded-xl border border-[#ECEAE4] bg-white p-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)] ${
-                                editable ? "cursor-grab active:cursor-grabbing" : ""
-                              } ${dragKey === c.key ? "opacity-40" : ""}`}
-                            >
-                              <button type="button" onClick={() => setSelected({ card: c, stage: st.id })} className="block w-full text-left">
-                                <div className="flex items-start justify-between gap-2">
-                                  <div className="min-w-0">
-                                    <div className="truncate text-[13px] font-semibold text-slate-900">
-                                      {c.name || c.phone || <span className="text-slate-400">Tanpa nama</span>}
-                                    </div>
-                                    {c.name && c.phone && <div className="truncate font-mono text-[11px] text-slate-500">{c.phone}</div>}
-                                  </div>
-                                  <Pill tone={k.tone}>{k.text}</Pill>
-                                </div>
-                                {(c.produk || c.moq) && (
-                                  <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[11px] text-slate-600">
-                                    {c.produk && <span className="truncate">{c.produk}</span>}
-                                    {c.moq ? <Pill tone={moqOk ? "green" : "amber"}>{c.moq.toLocaleString("id-ID")} pcs</Pill> : null}
-                                  </div>
-                                )}
-                                <div className="mt-1.5 truncate text-[11px] text-slate-400" title={c.referrer ?? ""}>
-                                  {c.referrer ? `${c.referrer}` : "Langsung"} {c.page ? `→ ${c.page}` : ""}
-                                </div>
-                                {c.note && <div className="mt-1.5 line-clamp-2 rounded-md bg-slate-50 px-2 py-1 text-[11px] text-slate-600">{c.note}</div>}
-                                <div className="mt-2 flex items-center justify-between text-[10px] text-slate-400">
-                                  <span className="font-semibold text-slate-600">{c.sales || "—"}</span>
-                                  <span>{ago(c.last_seen_at)}</span>
-                                </div>
-                              </button>
-
-                              {/* Tombol Balas WhatsApp Langsung */}
-                              {waUrl && (
-                                <a
-                                  href={waUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  title="Balas chat lead langsung via WhatsApp"
-                                  className="mt-2.5 flex items-center justify-center gap-1.5 w-full rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 py-1.5 px-2 text-[11px] font-semibold text-[#128C7E] transition shadow-xs"
-                                >
-                                  <svg className="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24">
-                                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.074-1.808-.412-1.428-.592-2.34-2.029-2.411-2.123-.07-.094-.576-.767-.576-1.464 0-.697.362-1.04.49-1.182.129-.143.282-.179.377-.179.094 0 .188.001.27.006.086.004.202-.033.315.24.116.282.399.974.433 1.045.035.07.058.153.012.247-.046.094-.07.153-.139.235-.07.082-.147.184-.21.247-.07.07-.144.146-.062.287.082.141.365.602.784.975.54.481.996.63 1.137.7.141.07.224.059.306-.035.083-.094.354-.412.448-.553.094-.141.189-.118.318-.07.13.047.824.388.966.459.141.07.236.106.271.165.035.059.035.341-.109.746z" />
-                                  </svg>
-                                  <span>Balas via WA</span>
-                                </a>
-                              )}
-
-                              {editable && (
-                                <select
-                                  aria-label={`Pindahkan ${c.name || c.phone || "lead"} ke tahap`}
-                                  value={st.id}
-                                  onChange={(e) => moveCard(c, st.id, e.target.value)}
-                                  className="mt-2 h-7 w-full rounded-md border border-[#E5E2DA] bg-white px-1.5 text-[11px] text-slate-600 focus:border-[#D98A00] focus:outline-none"
-                                >
-                                  {PIPELINE_STAGES.map((s2) => (
-                                    <option key={s2.id} value={s2.id}>
-                                      Pindah ke: {s2.label}
-                                    </option>
-                                  ))}
-                                </select>
-                              )}
-                            </article>
-                          );
-                        })}
-                        {list.length > shown && (
-                          <button
-                            type="button"
-                            onClick={() => setVisible((v) => ({ ...v, [st.id]: shown + PAGE_STEP }))}
-                            className="w-full rounded-lg border border-dashed border-[#E5E2DA] py-2 text-[11px] font-semibold text-slate-500 hover:bg-white"
-                          >
-                            Tampilkan {Math.min(PAGE_STEP, list.length - shown)} lagi ({(list.length - shown).toLocaleString("id-ID")} tersisa)
-                          </button>
-                        )}
-                        {col && col.count > list.length && (
-                          <p className="px-1 pb-1 text-center text-[10px] text-slate-400">
-                            {(col.count - list.length).toLocaleString("id-ID")} lagi tidak dimuat. Persempit rentang tanggal.
-                          </p>
-                        )}
-                      </div>
-                    </section>
-                  );
-                })}
-              </div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setPendingLostMove(null)}
+                className="h-8 rounded-[6px] border px-3 text-xs font-semibold"
+                style={{
+                  borderColor: "var(--crm-border)",
+                  background: "var(--crm-bg-surface)",
+                  color: "var(--crm-text-secondary)",
+                }}
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const { card, reason } = pendingLostMove;
+                  setPendingLostMove(null);
+                  executeMoveCard(card.key, "lost", reason);
+                }}
+                className="h-8 rounded-[6px] px-3 text-xs font-semibold text-white"
+                style={{ background: "#B91C1C" }}
+              >
+                Pindah ke Lost
+              </button>
             </div>
           </div>
         </div>
-      </main>
+      )}
 
+      {/* Panel Slide-over Detail Lead */}
       {selected && (
-        <DetailModal
-          key={selected.card.key}
+        <LeadDetailDrawer
           card={selected.card}
           stage={selected.stage}
+          isAdmin={isAdmin}
+          busdevs={data?.busdevs ?? []}
           editable={canEditLead(me, selected.card.sales)}
           onClose={() => setSelected(null)}
-          onSave={(values, newStage) => saveDetail(selected.card, selected.stage, values, newStage)}
+          onSave={saveDetail}
         />
       )}
 
       {toast && (
-        <div role="status" className="fixed bottom-5 right-5 z-50 max-w-sm rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-medium text-white shadow-lg">
+        <div
+          role="status"
+          className="fixed bottom-4 right-4 z-50 rounded-[8px] border px-3.5 py-2.5 text-xs font-semibold text-white"
+          style={{ background: "#212120", borderColor: "#3A4356" }}
+        >
           {toast}
         </div>
       )}
-    </div>
+    </main>
   );
 }
 
-function DetailModal({
+/**
+ * Kartu Kanban sesuai spesifikasi Tahap 1:
+ * - Kartu `Lead Masuk` (`lead_masuk`): WAJIB menampilkan `source`, `campaign`, dan `landing_path` asal
+ *   (contoh: `/google-ads/maklon-parfum → /thankyou/google`).
+ * - Kartu lain: menampilkan `nama`, `produk`, `MOQ`, `source`, `umur di stage`, `avatar sales`, dan `badge chat belum dibaca`.
+ */
+function KanbanCard({
   card,
   stage,
+  editable,
+  dragging,
+  onDragStart,
+  onDragEnd,
+  onOpen,
+}: {
+  card: PCard;
+  stage: string;
+  editable: boolean;
+  dragging: boolean;
+  onDragStart: () => void;
+  onDragEnd: () => void;
+  onOpen: () => void;
+}) {
+  const isLeadMasuk = stage === "lead_masuk";
+  const age = stageAge(card.stage_changed_at || card.created_at);
+  const salesInitial = (card.sales || "?").slice(0, 1).toUpperCase();
+
+  return (
+    <article
+      draggable={editable}
+      onDragStart={(e) => {
+        if (!editable) {
+          e.preventDefault();
+          return;
+        }
+        e.dataTransfer.setData("text/plain", card.key);
+        e.dataTransfer.effectAllowed = "move";
+        onDragStart();
+      }}
+      onDragEnd={onDragEnd}
+      onClick={onOpen}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={`Buka detail lead ${card.name || card.phone || card.key}`}
+      className={`group rounded-[6px] border p-2.5 text-left transition ${
+        editable ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
+      } ${dragging ? "opacity-40" : ""}`}
+      style={{
+        borderColor: "var(--crm-border)",
+        background: "var(--crm-bg-surface)",
+      }}
+    >
+      {/* Baris Atas: Nama / Nomor + Umur di Stage & Badge Unread */}
+      <div className="flex items-start justify-between gap-1.5">
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-[13px] font-semibold leading-snug" style={{ color: "var(--crm-text-primary)" }}>
+            {card.name || (card.phone ? <span className="crm-mono">{card.phone}</span> : "Prospek Baru")}
+          </div>
+          {card.brand && (
+            <div className="truncate text-[11px] font-medium" style={{ color: "var(--crm-text-secondary)" }}>
+              Brand: {card.brand}
+            </div>
+          )}
+        </div>
+
+        <div className="flex shrink-0 items-center gap-1">
+          {card.unread_count > 0 && (
+            <span
+              title={`${card.unread_count} pesan WA belum dibaca`}
+              className="crm-mono inline-flex items-center gap-0.5 rounded-[5px] px-1.5 py-0.5 text-[10px] font-bold text-white"
+              style={{ background: BRAND }}
+            >
+              <MessageSquare className="h-2.5 w-2.5" strokeWidth={2} />
+              {card.unread_count}
+            </span>
+          )}
+          <span
+            title="Umur di stage ini"
+            className="crm-mono inline-flex items-center gap-0.5 rounded-[5px] border px-1.5 py-0.5 text-[10px] font-medium"
+            style={{
+              borderColor: "var(--crm-border)",
+              background: "var(--crm-bg-subtle)",
+              color: "var(--crm-text-muted)",
+            }}
+          >
+            <Clock className="h-2.5 w-2.5" strokeWidth={1.75} />
+            {age}
+          </span>
+        </div>
+      </div>
+
+      {/* Konten Khusus Kartu Lead Masuk: Source, Campaign, dan Landing Path Asal */}
+      {isLeadMasuk ? (
+        <div className="mt-2 space-y-1.5">
+          <div className="flex flex-wrap items-center gap-1">
+            <span
+              className="inline-flex items-center rounded-[5px] border px-1.5 py-0.5 text-[10.5px] font-semibold"
+              style={{
+                borderColor: "var(--crm-accent-border)",
+                background: "var(--crm-accent-soft)",
+                color: BRAND,
+              }}
+            >
+              {card.source || "Website/SEO"}
+            </span>
+            {card.campaign && (
+              <span
+                className="max-w-[165px] truncate rounded-[5px] border px-1.5 py-0.5 text-[10.5px] font-semibold"
+                style={{
+                  borderColor: "var(--crm-blue-border)",
+                  background: "var(--crm-blue-soft)",
+                  color: BRAND_BLUE,
+                }}
+                title={`Campaign: ${card.campaign}`}
+              >
+                {card.campaign}
+              </span>
+            )}
+          </div>
+          <div
+            className="crm-mono truncate rounded-[5px] border px-1.5 py-1 text-[10.5px]"
+            style={{
+              borderColor: "var(--crm-border)",
+              background: "var(--crm-bg-subtle)",
+              color: "var(--crm-text-secondary)",
+            }}
+            title={card.landing_path || "/"}
+          >
+            {card.landing_path || "/"}
+          </div>
+        </div>
+      ) : (
+        /* Konten Kartu Stage Lainnya: Produk, MOQ, Source, Lost Reason */
+        <div className="mt-2 space-y-1.5">
+          <div className="flex flex-wrap items-center gap-1">
+            {card.produk ? (
+              <span
+                className="max-w-[150px] truncate rounded-[5px] border px-1.5 py-0.5 text-[10.5px] font-semibold"
+                style={{
+                  borderColor: "var(--crm-accent-border)",
+                  background: "var(--crm-accent-soft)",
+                  color: BRAND,
+                }}
+              >
+                {card.produk}
+              </span>
+            ) : (
+              <span className="text-[11px] italic" style={{ color: "var(--crm-text-muted)" }}>
+                Produk belum diisi
+              </span>
+            )}
+
+            {card.moq_label && (
+              <span
+                className="crm-mono inline-flex items-center rounded-[5px] border px-1.5 py-0.5 text-[10.5px] font-semibold"
+                style={{
+                  borderColor: "var(--crm-blue-border)",
+                  background: "var(--crm-blue-soft)",
+                  color: BRAND_BLUE,
+                }}
+              >
+                MOQ {card.moq_label}
+              </span>
+            )}
+          </div>
+
+          {stage === "lost" && card.lost_reason && (
+            <div
+              className="truncate rounded-[5px] border px-1.5 py-0.5 text-[10.5px] font-semibold"
+              style={{
+                borderColor: "var(--crm-status-lost-border)",
+                background: "var(--crm-status-lost-bg)",
+                color: "var(--crm-status-lost-fg)",
+              }}
+            >
+              Alasan: {card.lost_reason}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Footer Kartu: Source (untuk kartu non-Lead Masuk), Nomor WA, & Avatar Sales */}
+      <div
+        className="mt-2 flex items-center justify-between border-t pt-1.5 text-[11px]"
+        style={{ borderColor: "var(--crm-border)", color: "var(--crm-text-muted)" }}
+      >
+        <div className="truncate">
+          {!isLeadMasuk && card.source ? (
+            <span className="font-medium" style={{ color: "var(--crm-text-secondary)" }}>
+              {card.source}
+            </span>
+          ) : card.phone ? (
+            <span className="crm-mono">{card.phone}</span>
+          ) : (
+            <span className="crm-mono">{card.key}</span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span
+            title={`Sales: ${card.sales || "Antrean"}`}
+            className="inline-flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold"
+            style={{
+              background: "var(--crm-bg-subtle)",
+              color: "var(--crm-text-primary)",
+              border: "1px solid var(--crm-border)",
+            }}
+          >
+            {salesInitial}
+          </span>
+          <span className="text-[11px] font-medium" style={{ color: "var(--crm-text-secondary)" }}>
+            {card.sales || "Antrean"}
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/**
+ * Panel Slide-over Detail Lead sesuai spesifikasi Tahap 1:
+ * Menampilkan & mengedit:
+ * - Stage (10 stage tetap; pindah ke Warm otomatis mengisi perkiraan MOQ)
+ * - Alasan Lost (wajib jika stage = Lost)
+ * - Sales (Hanya Admin yang bisa mengganti pemilik lead)
+ * - Source (bisa dikoreksi dari daftar CRM_SOURCES)
+ * - Campaign + cara terdeteksi
+ * - Asal halaman (landing_path, page_url, referrer)
+ * - Brand, Produk, MOQ, Catatan
+ * - Riwayat perpindahan stage (dari API /api/crm/lead?code=...)
+ */
+function LeadDetailDrawer({
+  card,
+  stage,
+  isAdmin,
+  busdevs,
   editable,
   onClose,
   onSave,
 }: {
   card: PCard;
   stage: string;
+  isAdmin: boolean;
+  busdevs: string[];
   editable: boolean;
   onClose: () => void;
-  onSave: (values: { produk: string; moq: string; note: string }, newStage: string) => Promise<string | null>;
+  onSave: (
+    card: PCard,
+    currentStage: string,
+    patch: {
+      stage: string;
+      lost_reason: string | null;
+      sales: string | null;
+      source: string | null;
+      brand: string | null;
+      produk_manual: string | null;
+      moq_label: string | null;
+      note: string | null;
+    }
+  ) => Promise<boolean>;
 }) {
-  const [produk, setProduk] = useState(card.produk_manual ?? "");
-  const [moq, setMoq] = useState(card.moq_manual !== null && card.moq_manual !== undefined ? String(card.moq_manual) : "");
-  const [note, setNote] = useState(card.note ?? "");
-  const [newStage, setNewStage] = useState(stage);
+  const [st, setSt] = useState<string>(stage);
+  const [lostReason, setLostReason] = useState<string>(card.lost_reason ?? LOST_REASONS[0]);
+  const [sales, setSales] = useState<string>(card.sales ?? "");
+  const [source, setSource] = useState<string>(card.source ?? "Website/SEO");
+  const [brand, setBrand] = useState<string>(card.brand ?? "");
+  const [produk, setProduk] = useState<string>(card.produk_manual ?? card.produk ?? "");
+  const [moqLabel, setMoqLabel] = useState<string>(
+    card.moq_label ?? (card.moq !== null ? String(card.moq) : "")
+  );
+  const [note, setNote] = useState<string>(card.note ?? "");
   const [saving, setSaving] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
+  const [history, setHistory] = useState<StageHistoryItem[]>([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSaving(true);
-    setErr(null);
-    const r = await onSave({ produk, moq, note }, newStage);
-    setSaving(false);
-    if (r) setErr(r);
-    else onClose();
+  // Tutup dengan tombol Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  // Ambil riwayat stage dari /api/crm/lead?code=...
+  useEffect(() => {
+    let active = true;
+    setLoadingHistory(true);
+    fetch(`/api/crm/lead?code=${encodeURIComponent(card.key)}`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((j) => {
+        if (!active) return;
+        if (j?.success && Array.isArray(j.history)) {
+          setHistory(j.history);
+        }
+      })
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setLoadingHistory(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [card.key]);
+
+  // Saat stage diganti ke Warm, otomatis isi perkiraan MOQ sesuai aturan Tahap 1
+  const handleStageChange = (nextStage: string) => {
+    setSt(nextStage);
+    const warmMoq = getWarmStageMoq(nextStage);
+    if (warmMoq) {
+      setMoqLabel(warmMoq.label);
+    }
   };
 
-  const field =
-    "w-full rounded-lg border border-[#E5E2DA] bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#D98A00] focus:outline-none focus:ring-2 focus:ring-[#D98A00]/20 disabled:bg-slate-50 disabled:text-slate-500";
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editable) return;
+    setSaving(true);
+    const ok = await onSave(card, stage, {
+      stage: st,
+      lost_reason: st === "lost" ? lostReason : null,
+      sales: sales.trim() || null,
+      source: source.trim() || null,
+      brand: brand.trim() || null,
+      produk_manual: produk.trim() || null,
+      moq_label: moqLabel.trim() || null,
+      note: note.trim() || null,
+    });
+    setSaving(false);
+    if (ok) onClose();
+  };
 
-  const waUrl = card.phone ? formatWaChatLink(card.phone, card.name, card.sales, card.produk_manual || card.produk) : null;
+  const waHref = formatWaChatLink(card.phone, card.name, sales || card.sales, produk || card.produk);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Detail lead">
-      <button type="button" aria-label="Tutup" className="absolute inset-0 bg-slate-900/40" onClick={onClose} />
-      <form onSubmit={submit} className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-5 shadow-xl">
-        <div className="mb-4 flex items-start justify-between gap-3">
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/40" role="dialog" aria-modal="true" aria-label="Detail lead">
+      <button type="button" aria-label="Tutup panel" className="flex-1 cursor-default" onClick={onClose} />
+      <div
+        className="flex h-full w-full max-w-[460px] flex-col border-l overflow-y-auto"
+        style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+      >
+        {/* Header Drawer */}
+        <header
+          className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b px-4 py-3.5"
+          style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)" }}
+        >
           <div className="min-w-0">
-            <h2 className="truncate text-base font-semibold text-slate-900">{card.name || card.phone || "Tanpa nama"}</h2>
-            {card.name && card.phone && <p className="font-mono text-xs text-slate-500">{card.phone}</p>}
-          </div>
-          <button type="button" onClick={onClose} aria-label="Tutup" className="rounded-md p-1 text-slate-400 hover:bg-slate-100">
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
-        {/* WhatsApp Direct Reply Box */}
-        {waUrl && (
-          <div className="mb-4 rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-3.5">
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <svg className="w-4 h-4 fill-[#25D366] shrink-0" viewBox="0 0 24 24">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.074-1.808-.412-1.428-.592-2.34-2.029-2.411-2.123-.07-.094-.576-.767-.576-1.464 0-.697.362-1.04.49-1.182.129-.143.282-.179.377-.179.094 0 .188.001.27.006.086.004.202-.033.315.24.116.282.399.974.433 1.045.035.07.058.153.012.247-.046.094-.07.153-.139.235-.07.082-.147.184-.21.247-.07.07-.144.146-.062.287.082.141.365.602.784.975.54.481.996.63 1.137.7.141.07.224.059.306-.035.083-.094.354-.412.448-.553.094-.141.189-.118.318-.07.13.047.824.388.966.459.141.07.236.106.271.165.035.059.035.341-.109.746z" />
-                </svg>
-                Balas Chat WhatsApp
-              </span>
-              <span className="font-mono text-[11px] text-slate-500">{card.phone}</span>
+            <div className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-muted)" }}>
+              Detail Lead · <span className="crm-mono">{card.key}</span>
             </div>
-            <p className="text-[11px] text-slate-600 mb-2.5">
-              Buka WhatsApp Web / App dengan sapaan personalisasi nama & produk otomatis:
-            </p>
-            <a
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full rounded-lg bg-[#25D366] hover:bg-[#20BD5A] text-white py-2 px-3 text-xs font-semibold shadow-sm transition"
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Buka Chat WhatsApp Sekarang</span>
-            </a>
+            <h2 className="mt-0.5 truncate text-base font-bold" style={{ color: "var(--crm-text-primary)" }}>
+              {card.name || card.phone || card.key}
+            </h2>
+            {card.phone && (
+              <div className="crm-mono mt-0.5 text-xs font-medium" style={{ color: "var(--crm-text-secondary)" }}>
+                {card.phone}
+              </div>
+            )}
           </div>
-        )}
-
-        <dl className="mb-4 grid grid-cols-2 gap-x-4 gap-y-2 rounded-xl bg-[#FAFAF8] p-3 text-xs">
-          <div>
-            <dt className="text-slate-400">Sales</dt>
-            <dd className="font-semibold text-slate-800">{card.sales || "—"}</dd>
-          </div>
-          <div>
-            <dt className="text-slate-400">Status</dt>
-            <dd className="font-semibold text-slate-800">{KIND[card.kind].text}</dd>
-          </div>
-          <div className="col-span-2">
-            <dt className="text-slate-400">Asal → Halaman tujuan</dt>
-            <dd className="font-medium text-slate-800">
-              {card.referrer || "Langsung"} {card.page ? `→ ${card.page}` : ""}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-slate-400">Sumber</dt>
-            <dd className="font-medium text-slate-800">{card.source || "direct"}</dd>
-          </div>
-          <div>
-            <dt className="text-slate-400">Klik</dt>
-            <dd className="font-medium text-slate-800">{ago(card.created_at)}</dd>
-          </div>
-        </dl>
-
-        {!editable && (
-          <p className="mb-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
-            Lead ini milik {card.sales || "sales lain"}. Anda hanya bisa melihatnya.
-          </p>
-        )}
-
-        <label className="mb-1 block text-xs font-semibold text-slate-600">Tahap Pipeline</label>
-        <select disabled={!editable} value={newStage} onChange={(e) => setNewStage(e.target.value)} className={`${field} mb-3`}>
-          {PIPELINE_STAGES.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.label}
-            </option>
-          ))}
-        </select>
-
-        <label className="mb-1 block text-xs font-semibold text-slate-600">
-          Produk{card.produk && !card.produk_manual ? <span className="ml-1 font-normal text-slate-400">(form: {card.produk})</span> : null}
-        </label>
-        <input
-          disabled={!editable}
-          value={produk}
-          maxLength={120}
-          onChange={(e) => setProduk(e.target.value)}
-          placeholder="mis. Serum wajah, parfum"
-          className={`${field} mb-3`}
-        />
-
-        <label className="mb-1 block text-xs font-semibold text-slate-600">
-          MOQ (pcs){card.moq && card.moq_manual === null ? <span className="ml-1 font-normal text-slate-400">(form: {card.moq.toLocaleString("id-ID")})</span> : null}
-        </label>
-        <input
-          disabled={!editable}
-          value={moq}
-          inputMode="numeric"
-          maxLength={9}
-          onChange={(e) => setMoq(e.target.value.replace(/\D/g, ""))}
-          placeholder="mis. 1000"
-          className={`${field} mb-3`}
-        />
-
-        <label className="mb-1 block text-xs font-semibold text-slate-600">Catatan</label>
-        <textarea
-          disabled={!editable}
-          value={note}
-          maxLength={500}
-          rows={3}
-          onChange={(e) => setNote(e.target.value)}
-          placeholder="Hasil diskusi, kebutuhan, jadwal follow up"
-          className={`${field} mb-1 resize-none`}
-        />
-        <div className="mb-3 text-right text-[10px] text-slate-400">{note.length}/500</div>
-
-        {err && (
-          <div role="alert" className="mb-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800">
-            {err}
-          </div>
-        )}
-        <div className="flex gap-2">
-          <button type="button" onClick={onClose} className="h-10 flex-1 rounded-lg border border-[#E5E2DA] bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50">
-            {editable ? "Batal" : "Tutup"}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Tutup"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-[6px] border"
+            style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-subtle)", color: "var(--crm-text-secondary)" }}
+          >
+            <X className="h-4 w-4" strokeWidth={1.75} />
           </button>
-          {editable && (
-            <button type="submit" disabled={saving} className="h-10 flex-1 rounded-lg text-sm font-semibold text-white disabled:opacity-60" style={{ background: BRAND }}>
-              {saving ? "Menyimpan..." : "Simpan"}
-            </button>
-          )}
-        </div>
-      </form>
+        </header>
+
+        <form onSubmit={handleSubmit} className="flex-1 space-y-4 p-4 text-xs">
+          {/* 1. Stage & Alasan Lost */}
+          <div className="space-y-2 rounded-[8px] border p-3" style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-subtle)" }}>
+            <label htmlFor="detail-stage" className="block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+              Stage Pipeline
+            </label>
+            <select
+              id="detail-stage"
+              disabled={!editable}
+              value={st}
+              onChange={(e) => handleStageChange(e.target.value)}
+              className="h-9 w-full rounded-[6px] border px-2.5 text-xs font-semibold outline-none disabled:opacity-60"
+              style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+            >
+              {PIPELINE_STAGES.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+
+            {st === "lost" && (
+              <div className="pt-2">
+                <label htmlFor="detail-lost-reason" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-status-lost-fg)" }}>
+                  Alasan Lost (Wajib)
+                </label>
+                <select
+                  id="detail-lost-reason"
+                  disabled={!editable}
+                  value={lostReason}
+                  onChange={(e) => setLostReason(e.target.value)}
+                  className="h-9 w-full rounded-[6px] border px-2.5 text-xs font-semibold outline-none"
+                  style={{
+                    borderColor: "var(--crm-status-lost-border)",
+                    background: "var(--crm-status-lost-bg)",
+                    color: "var(--crm-status-lost-fg)",
+                  }}
+                >
+                  {LOST_REASONS.map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+
+          {/* 2. Sales Pemilik (Admin saja yang bisa ganti) & Source (bisa dikoreksi) */}
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label htmlFor="detail-sales" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+                Sales Pemilik {isAdmin ? "(Admin)" : "(Terkunci)"}
+              </label>
+              {isAdmin ? (
+                <select
+                  id="detail-sales"
+                  value={sales}
+                  onChange={(e) => setSales(e.target.value)}
+                  className="h-9 w-full rounded-[6px] border px-2.5 text-xs font-medium outline-none"
+                  style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+                >
+                  {busdevs.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <div
+                  className="flex h-9 items-center rounded-[6px] border px-2.5 text-xs font-semibold"
+                  style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-subtle)", color: "var(--crm-text-secondary)" }}
+                >
+                  {card.sales || "-"}
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="detail-source" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+                Source (Bisa Dikoreksi)
+              </label>
+              <select
+                id="detail-source"
+                disabled={!editable}
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                className="h-9 w-full rounded-[6px] border px-2.5 text-xs font-medium outline-none disabled:opacity-60"
+                style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+              >
+                {CRM_SOURCES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* 3. Campaign, Cara Terdeteksi, dan Asal Halaman */}
+          <div
+            className="space-y-2 rounded-[8px] border p-3"
+            style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-subtle)" }}
+          >
+            <div className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-muted)" }}>
+              Atribusi & Asal Halaman
+            </div>
+            <div className="grid grid-cols-[110px_1fr] gap-y-1.5 text-xs">
+              <span style={{ color: "var(--crm-text-muted)" }}>Campaign</span>
+              <span className="font-semibold" style={{ color: BRAND_BLUE }}>
+                {card.campaign || "-"}
+              </span>
+
+              <span style={{ color: "var(--crm-text-muted)" }}>Cara deteksi</span>
+              <span className="font-medium" style={{ color: "var(--crm-text-primary)" }}>
+                {card.detection_method || "Otomatis dari parameter halaman"}
+              </span>
+
+              <span style={{ color: "var(--crm-text-muted)" }}>Alur halaman</span>
+              <span className="crm-mono break-all text-[11px]" style={{ color: "var(--crm-text-primary)" }}>
+                {card.landing_path || "/"}
+              </span>
+
+              {card.referrer_raw && (
+                <>
+                  <span style={{ color: "var(--crm-text-muted)" }}>Referrer</span>
+                  <span className="crm-mono break-all text-[11px]" style={{ color: "var(--crm-text-secondary)" }}>
+                    {card.referrer_raw}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* 4. Brand, Produk, Perkiraan MOQ, Catatan */}
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label htmlFor="detail-brand" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+                Nama Brand
+              </label>
+              <input
+                id="detail-brand"
+                type="text"
+                disabled={!editable}
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                placeholder="Contoh: GlowLab"
+                className="h-9 w-full rounded-[6px] border px-2.5 text-xs outline-none disabled:opacity-60"
+                style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="detail-moq" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+                Perkiraan MOQ
+              </label>
+              <input
+                id="detail-moq"
+                type="text"
+                disabled={!editable}
+                value={moqLabel}
+                onChange={(e) => setMoqLabel(e.target.value)}
+                placeholder="below 500 / 500 / 1000"
+                className="crm-mono h-9 w-full rounded-[6px] border px-2.5 text-xs outline-none disabled:opacity-60"
+                style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+              />
+              <div className="mt-1 flex flex-wrap gap-1">
+                {(["below 500", "500", "below 1000", "1000"] as const).map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    disabled={!editable}
+                    onClick={() => setMoqLabel(preset)}
+                    className="crm-mono rounded-[4px] border px-1.5 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      borderColor: moqLabel === preset ? BRAND : "var(--crm-border)",
+                      background: moqLabel === preset ? "var(--crm-accent-soft)" : "var(--crm-bg-subtle)",
+                      color: moqLabel === preset ? BRAND : "var(--crm-text-secondary)",
+                    }}
+                  >
+                    {preset}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="detail-produk" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+              Produk Maklon
+            </label>
+            <input
+              id="detail-produk"
+              type="text"
+              disabled={!editable}
+              value={produk}
+              onChange={(e) => setProduk(e.target.value)}
+              placeholder="Contoh: Brightening Serum 20ml, Eau de Parfum"
+              className="h-9 w-full rounded-[6px] border px-2.5 text-xs outline-none disabled:opacity-60"
+              style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="detail-note" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-secondary)" }}>
+              Catatan Follow-up
+            </label>
+            <textarea
+              id="detail-note"
+              rows={3}
+              disabled={!editable}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Ringkasan hasil diskusi HPP, bahan aktif, atau jadwal kirim sampel..."
+              className="w-full rounded-[6px] border p-2.5 text-xs outline-none disabled:opacity-60"
+              style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-surface)", color: "var(--crm-text-primary)" }}
+            />
+          </div>
+
+          {/* 5. Riwayat Perpindahan Stage */}
+          <div
+            className="rounded-[8px] border p-3"
+            style={{ borderColor: "var(--crm-border)", background: "var(--crm-bg-subtle)" }}
+          >
+            <div className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--crm-text-muted)" }}>
+              <History className="h-3.5 w-3.5" strokeWidth={1.75} />
+              Riwayat Stage
+            </div>
+            {loadingHistory ? (
+              <div className="text-[11px]" style={{ color: "var(--crm-text-muted)" }}>
+                Memuat riwayat...
+              </div>
+            ) : history.length === 0 ? (
+              <div className="text-[11px]" style={{ color: "var(--crm-text-muted)" }}>
+                Belum ada riwayat perpindahan stage. Masuk pada{" "}
+                <span className="crm-mono">{formatDateTimeWib(card.created_at)}</span>.
+              </div>
+            ) : (
+              <ul className="space-y-1.5">
+                {history.slice(0, 10).map((h, i) => (
+                  <li key={i} className="flex items-center justify-between gap-2 text-[11px]">
+                    <span className="flex items-center gap-1 font-medium" style={{ color: "var(--crm-text-primary)" }}>
+                      <span>{stageLabel(h.from_stage)}</span>
+                      <ArrowRight className="h-3 w-3" strokeWidth={1.75} style={{ color: "var(--crm-text-muted)" }} />
+                      <strong style={{ color: BRAND }}>{stageLabel(h.to_stage)}</strong>
+                    </span>
+                    <span className="crm-mono text-[10.5px]" style={{ color: "var(--crm-text-muted)" }}>
+                      {h.changed_by || "-"} · {formatDateTimeWib(h.changed_at)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* Tombol Aksi */}
+          <div className="flex items-center justify-between gap-2 border-t pt-3" style={{ borderColor: "var(--crm-border)" }}>
+            {waHref ? (
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 items-center gap-1.5 rounded-[6px] border px-3 text-xs font-semibold transition"
+                style={{
+                  borderColor: "var(--crm-status-deal-border)",
+                  background: "var(--crm-status-deal-bg)",
+                  color: "var(--crm-status-deal-fg)",
+                }}
+              >
+                <MessageSquare className="h-3.5 w-3.5" strokeWidth={1.75} />
+                Chat WhatsApp
+                <ExternalLink className="h-3 w-3" strokeWidth={1.75} />
+              </a>
+            ) : (
+              <span />
+            )}
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="h-9 rounded-[6px] border px-3 text-xs font-semibold"
+                style={{
+                  borderColor: "var(--crm-border)",
+                  background: "var(--crm-bg-surface)",
+                  color: "var(--crm-text-secondary)",
+                }}
+              >
+                Tutup
+              </button>
+              {editable && (
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="inline-flex h-9 items-center gap-1.5 rounded-[6px] px-4 text-xs font-semibold text-white transition disabled:opacity-50"
+                  style={{ background: BRAND }}
+                >
+                  <Check className="h-3.5 w-3.5" strokeWidth={2} />
+                  {saving ? "Menyimpan..." : "Simpan"}
+                </button>
+              )}
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

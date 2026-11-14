@@ -4,7 +4,7 @@
  */
 import { NextRequest } from 'next/server';
 import { hashPassword, matchesInitialPassword, newToken, sameOrigin, serviceTokenOk, sha256, validateNewPassword, verifyPassword } from '../src/lib/crm-auth';
-import { canEditLead, isStage, PIPELINE_STAGES, STAGE_IDS, stageLabel } from '../src/lib/crm-stages';
+import { canEditLead, getWarmStageMoq, isLostReason, isStage, LOST_REASONS, normalizeCrmSource, normalizeStage, PIPELINE_STAGES, STAGE_IDS, stageLabel } from '../src/lib/crm-stages';
 
 let failed = 0;
 const check = (label: string, ok: boolean, detail?: unknown) => {
@@ -47,15 +47,49 @@ check('Sales TIDAK boleh mengedit lead sales lain', !canEditLead(annisa, 'Diaz')
 check('Sales tidak boleh mengedit lead tanpa pemilik', !canEditLead(annisa, null) && !canEditLead(annisa, ''));
 check('Nama mirip bukan pemilik (Annisa vs Annisaa)', !canEditLead(annisa, 'Annisaa') && !canEditLead(annisa, 'Annis'));
 
-// ---------- tahap
-check('Ada 7 tahap sesuai permintaan, Traffic paling kiri', PIPELINE_STAGES.length === 7 && PIPELINE_STAGES[0].id === 'traffic', STAGE_IDS);
+// ---------- tahap (Tahap 1: 10 stage tetap)
+check('Ada 10 tahap sesuai spesifikasi Tahap 1, Lead Masuk paling kiri', PIPELINE_STAGES.length === 10 && PIPELINE_STAGES[0].id === 'lead_masuk', STAGE_IDS);
 check(
-  'Urutan tahap: Traffic, Cold, Warm 500 pcs, Warm Up 500 pcs, Warm 1000, Hot, Sample',
-  STAGE_IDS.join(',') === 'traffic,cold,warm_500,warm_up_500,warm_1000,hot,sample',
+  'Urutan 10 tahap tetap: Lead Masuk -> Cold -> Warm below 500 -> Warm up 500 -> Warm below 1000 -> Warm up 1000 -> Hot -> Sample -> Deal -> Lost',
+  STAGE_IDS.join(',') === 'lead_masuk,cold,warm_below_500,warm_up_500,warm_below_1000,warm_up_1000,hot,sample,deal,lost',
   STAGE_IDS
 );
-check('isStage menolak nilai asing', isStage('hot') && isStage('cold') && isStage('warm_500') && isStage('warm_1000') && !isStage('HOT') && !isStage('') && !isStage(null) && !isStage("traffic'; DROP TABLE leads;--"));
-check('Label tahap; tahap kosong dianggap Traffic', stageLabel('warm_500') === 'Warm 500 pcs' && stageLabel(undefined) === 'Traffic' && stageLabel('xx') === 'Traffic');
+check(
+  'Pemetaan stage lama ke baru sesuai aturan (Traffic->Lead Masuk, Warm 500->Warm up 500, Warm 1000->Warm up 1000)',
+  normalizeStage('traffic') === 'lead_masuk' &&
+    normalizeStage('warm_500') === 'warm_up_500' &&
+    normalizeStage('warm_up_500') === 'warm_up_500' &&
+    normalizeStage('warm_1000') === 'warm_up_1000' &&
+    normalizeStage('deal') === 'deal' &&
+    normalizeStage('lost') === 'lost'
+);
+check('isStage menerima 10 stage baru + alias lama dan menolak nilai asing', isStage('hot') && isStage('cold') && isStage('warm_below_500') && isStage('warm_up_500') && isStage('deal') && isStage('lost') && !isStage('HOT') && !isStage('') && !isStage(null) && !isStage("traffic'; DROP TABLE leads;--"));
+check('Label tahap; tahap kosong/lama dipetakan ke label baru', stageLabel('warm_500') === 'Warm up 500' && stageLabel('warm_below_500') === 'Warm below 500' && stageLabel(undefined) === 'Lead Masuk' && stageLabel('xx') === 'Lead Masuk');
+check(
+  'Pindah ke stage Warm mengisi perkiraan MOQ otomatis (below 500, 500, below 1000, 1000)',
+  getWarmStageMoq('warm_below_500')?.label === 'below 500' &&
+    getWarmStageMoq('warm_up_500')?.label === '500' &&
+    getWarmStageMoq('warm_below_1000')?.label === 'below 1000' &&
+    getWarmStageMoq('warm_up_1000')?.label === '1000' &&
+    getWarmStageMoq('hot') === null
+);
+check(
+  'Alasan Lost wajib salah satu dari 5 alasan resmi',
+  LOST_REASONS.length === 5 &&
+    isLostReason('Harga tidak masuk') &&
+    isLostReason('MOQ terlalu besar') &&
+    isLostReason('Tidak respons') &&
+    isLostReason('Pilih pabrik lain') &&
+    isLostReason('Belum siap modal') &&
+    !isLostReason('Alasan ngawur')
+);
+check(
+  'Deteksi source otomatis mengenali Google Ads, Meta Ads, Instagram, dan TikTok',
+  normalizeCrmSource({ page_url: '/google-ads/maklon-parfum' }).source === 'Google Ads' &&
+    normalizeCrmSource({ page_url: '/metaads/serum' }).source === 'Meta Ads' &&
+    normalizeCrmSource({ referrer: 'https://l.instagram.com/' }).source === 'Instagram' &&
+    normalizeCrmSource({ referrer: 'https://www.tiktok.com/' }).source === 'TikTok'
+);
 
 // ---------- Origin
 const mk = (origin: string | null, host = 'dreamlab.id') =>
