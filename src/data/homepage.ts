@@ -1,12 +1,10 @@
 export const homepageData = {
   hero: {
-    smallTitle: "Dreamlab Maklon Kosmetik",
-    title: "WUJUDKAN YOUR DREAM BRAND",
-    subtitle: "Custom formula untuk brand kosmetik Anda.",
-    ctaText: "Konsultasikan Produk",
-    ctaLink: "/thankyou/google/",
-    secondaryCtaText: "Lihat Produk",
-    secondaryCtaLink: "/produk/",
+    smallTitle: "Maklon Juaranya Formula",
+    title: "Jasa Maklon Kosmetik & Skincare Terpercaya Indonesia",
+    subtitle: "Di balik setiap brand hebat ada FORMULA YANG KUAT. Solusi Maklon terpercaya untuk JUARANYA FORMULA.",
+    ctaText: "Konsultasi Formula Gratis",
+    ctaLink: "Hi Dreamlab, saya ingin konsultasi untuk brand saya",
     backgroundImage: "/assets/images/hero/hero-01.jpg"
   },
   trustedBrands: {
