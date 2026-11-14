@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   1. PITA NILAI BERJALAN (MARQUEE) DI BAWAH HERO
+   1. PITA NILAI BERJALAN (MARQUEE) DI BAWAH HERO — WARNA ORANGE DREAMLAB
    ═══════════════════════════════════════════════════════════════════════════ */
 interface MarqueeItem {
   title: string;
@@ -71,7 +71,7 @@ function MarqueeItemList({ ariaHidden = false }: { ariaHidden?: boolean }) {
       {MARQUEE_ITEMS.map((item, idx) => (
         <div
           key={`${item.title}-${idx}`}
-          className="flex items-center gap-3.5 px-6 sm:px-8 py-3.5 border-r border-white/20 shrink-0"
+          className="flex items-center gap-3.5 px-6 sm:px-8 py-3.5 border-r border-white/25 shrink-0"
         >
           {item.logo && (
             <div className="w-[46px] h-[46px] rounded-full bg-white flex items-center justify-center p-1.5 shrink-0 shadow-xs">
@@ -88,7 +88,7 @@ function MarqueeItemList({ ariaHidden = false }: { ariaHidden?: boolean }) {
             <span className="font-display text-sm sm:text-base font-normal tracking-wide leading-tight">
               {item.title}
             </span>
-            <span className="text-xs text-white/85 font-medium leading-snug">
+            <span className="text-xs text-white/90 font-medium leading-snug">
               {item.subtitle}
             </span>
           </div>
@@ -102,7 +102,10 @@ export function HaircareMarqueeBand() {
   return (
     <section
       aria-label="Keunggulan dan Sertifikasi Dreamlab"
-      className="relative w-full bg-brand-blue text-white overflow-hidden select-none group border-y border-white/15"
+      className="relative w-full bg-brand-orange text-white overflow-hidden select-none group border-y border-white/15"
+      style={{
+        background: "linear-gradient(90deg, #E88200 0%, #F39200 50%, #E07B00 100%)",
+      }}
     >
       <div
         className="w-full overflow-hidden"
@@ -123,7 +126,7 @@ export function HaircareMarqueeBand() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   2. SECTION VALUE: "Nilai yang Kamu Dapat dari Dreamlab"
+   2. SECTION VALUE: "KEUNTUNGAN MENJADI PARTNER DREAMLAB"
    ═══════════════════════════════════════════════════════════════════════════ */
 const VALUE_CARDS = [
   {
@@ -174,11 +177,11 @@ export function HaircareValueSection() {
     <section className="py-16 md:py-24 bg-white border-b border-gray-100">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-blue">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
             Kenapa Dreamlab
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
-            Nilai yang Kamu Dapat dari Dreamlab
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight uppercase">
+            KEUNTUNGAN MENJADI PARTNER DREAMLAB
           </h2>
         </div>
 
@@ -188,13 +191,13 @@ export function HaircareValueSection() {
             return (
               <div
                 key={card.number}
-                className="bg-[#FAF9F6] hover:bg-white p-6 md:p-7 rounded-3xl border border-gray-200/80 hover:border-brand-blue/40 transition-all duration-300 shadow-2xs hover:shadow-md flex flex-col justify-between"
+                className="bg-white p-6 md:p-7 rounded-3xl border border-gray-200/80 hover:border-brand-orange/40 transition-all duration-300 shadow-2xs hover:shadow-md flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between mb-5">
-                  <span className="font-display text-2xl md:text-3xl text-brand-blue">
+                  <span className="font-display text-2xl md:text-3xl text-brand-orange">
                     {card.number}
                   </span>
-                  <div className="size-11 rounded-2xl bg-brand-blue/10 text-brand-blue flex items-center justify-center">
+                  <div className="size-11 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center">
                     <Icon className="size-5 stroke-[1.75]" />
                   </div>
                 </div>
@@ -250,7 +253,7 @@ export function HaircareCertificationsSection() {
     <section className="py-16 md:py-24 bg-[#FAF9F6] border-b border-gray-100">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-blue">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
             Standar Mutu &amp; Regulasi
           </span>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
@@ -264,7 +267,7 @@ export function HaircareCertificationsSection() {
               key={cert.name}
               className="bg-white p-6 rounded-3xl border border-gray-200/80 shadow-2xs hover:shadow-md transition-shadow flex flex-col items-center text-center"
             >
-              <div className="w-[72px] h-[72px] rounded-2xl bg-[#FAF9F6] border border-gray-100 flex items-center justify-center p-2.5 mb-4">
+              <div className="w-[72px] h-[72px] rounded-2xl bg-white border border-gray-100 flex items-center justify-center p-2.5 mb-4">
                 <Image
                   src={cert.logo}
                   alt={`Logo ${cert.name} – Dreamlab maklon kosmetik bersertifikat`}
@@ -423,7 +426,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
 function IngredientIcon({ type, featured }: { type: ActiveIngredientItem["iconType"]; featured: boolean }) {
   const baseClass = featured
     ? "bg-white text-brand-blue border border-brand-blue/20"
-    : "bg-brand-blue/10 text-brand-blue";
+    : "bg-brand-orange/10 text-brand-orange";
 
   return (
     <div className={`size-11 rounded-2xl flex items-center justify-center shrink-0 ${baseClass}`}>
@@ -500,7 +503,7 @@ export function HaircareActiveIngredientsSlider() {
         {/* Header + Top-Right Round Navigation Arrows */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div className="space-y-2 max-w-2xl">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-blue">
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
               Formulasi R&amp;D Teruji
             </span>
             <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
@@ -514,7 +517,7 @@ export function HaircareActiveIngredientsSlider() {
               onClick={() => scrollByCard("left")}
               disabled={!canScrollLeft}
               aria-label="Geser bahan aktif ke kiri"
-              className="size-11 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center hover:border-brand-blue hover:text-brand-blue disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer shadow-2xs"
+              className="size-11 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center hover:border-brand-orange hover:text-brand-orange disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer shadow-2xs"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -523,7 +526,7 @@ export function HaircareActiveIngredientsSlider() {
               onClick={() => scrollByCard("right")}
               disabled={!canScrollRight}
               aria-label="Geser bahan aktif ke kanan"
-              className="size-11 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center hover:border-brand-blue hover:text-brand-blue disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer shadow-2xs"
+              className="size-11 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center hover:border-brand-orange hover:text-brand-orange disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer shadow-2xs"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -545,7 +548,7 @@ export function HaircareActiveIngredientsSlider() {
               className={`snap-start shrink-0 w-[82%] min-[480px]:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-3*1.25rem)/4)] p-6 rounded-3xl border flex flex-col justify-between transition-shadow hover:shadow-md ${
                 item.featured
                   ? "bg-gradient-to-br from-[#EAF4FC] via-[#F3F9FE] to-white border-brand-blue/25"
-                  : "bg-[#FAF9F6] border-gray-200/80"
+                  : "bg-white border-gray-200/80"
               }`}
             >
               <div>
@@ -555,7 +558,7 @@ export function HaircareActiveIngredientsSlider() {
                     className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
                       item.featured
                         ? "bg-brand-blue text-white"
-                        : "bg-gray-200/70 text-gray-700"
+                        : "bg-brand-orange/10 text-brand-orange"
                     }`}
                   >
                     {item.category}
@@ -571,8 +574,8 @@ export function HaircareActiveIngredientsSlider() {
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-brand-blue/10 text-xs text-brand-black/80">
-                <strong className="text-brand-blue">Cocok untuk:</strong> {item.suitableFor}
+              <div className="pt-3 border-t border-gray-200/60 text-xs text-brand-black/80">
+                <strong className="text-brand-black">Cocok untuk:</strong> {item.suitableFor}
               </div>
             </article>
           ))}
@@ -587,7 +590,7 @@ export function HaircareActiveIngredientsSlider() {
               aria-label={`Ke bahan aktif ${item.name}`}
               onClick={() => scrollToIndex(idx)}
               className={`h-2 rounded-full transition-all cursor-pointer ${
-                activeIndex === idx ? "w-6 bg-brand-blue" : "w-2 bg-gray-300 hover:bg-gray-400"
+                activeIndex === idx ? "w-6 bg-brand-orange" : "w-2 bg-gray-300 hover:bg-gray-400"
               }`}
             />
           ))}
@@ -666,7 +669,7 @@ export function HaircareBusinessPackages() {
     <section className="py-16 md:py-24 bg-[#FAF9F6] border-b border-gray-100">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-14 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-blue">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
             Estimasi Investasi Brand
           </span>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
@@ -705,7 +708,7 @@ export function HaircareBusinessPackages() {
                     <h3 className="font-display text-xl font-normal text-brand-black mb-1">
                       {pkg.name}
                     </h3>
-                    <p className="text-xs font-bold text-brand-blue">
+                    <p className="text-xs font-bold text-brand-orange">
                       {pkg.quantity}
                     </p>
                   </div>
@@ -724,7 +727,7 @@ export function HaircareBusinessPackages() {
                     </div>
                     <div className="flex items-center justify-between py-1.5 border-b border-gray-50">
                       <span className="text-gray-500">Saran harga jual</span>
-                      <span className="font-bold text-brand-blue">
+                      <span className="font-bold text-brand-orange">
                         {pkg.suggestedRetailPrice}
                       </span>
                     </div>
@@ -741,7 +744,7 @@ export function HaircareBusinessPackages() {
                           key={inc}
                           className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700"
                         >
-                          <CheckCircle2 className="size-4 text-brand-blue shrink-0 mt-0.5" />
+                          <CheckCircle2 className="size-4 text-brand-orange shrink-0 mt-0.5" />
                           <span>{inc}</span>
                         </li>
                       ))}
@@ -774,7 +777,7 @@ export function HaircareBusinessPackages() {
                 key={item.step}
                 className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FAF9F6] border border-gray-100"
               >
-                <span className="size-9 rounded-full bg-brand-blue text-white font-display text-sm flex items-center justify-center shrink-0">
+                <span className="size-9 rounded-full bg-brand-orange text-white font-display text-sm flex items-center justify-center shrink-0">
                   {item.step}
                 </span>
                 <span className="text-xs sm:text-sm font-medium text-brand-black leading-snug">
@@ -794,6 +797,7 @@ export function HaircareBusinessPackages() {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    5. SECTION OUR CLIENT: "Dipercaya 1000+ Brand di Indonesia"
+   — LOGO PARTNER BERJALAN (MARQUEE), DIPERBESAR, TANPA SHAPE/BOX
    ═══════════════════════════════════════════════════════════════════════════ */
 const HAIRCARE_CLIENTS = [
   { name: "Bebiboster", src: "/assets/images/Bebiboster-300x300.webp" },
@@ -804,41 +808,66 @@ const HAIRCARE_CLIENTS = [
   { name: "Tazzi", src: "/assets/images/Tazzi-300x300.webp" },
 ];
 
+function ClientLogoStrip({ ariaHidden = false }: { ariaHidden?: boolean }) {
+  return (
+    <div
+      aria-hidden={ariaHidden ? "true" : undefined}
+      className="flex items-center gap-16 sm:gap-24 md:gap-32 px-8 sm:px-12 md:px-16 shrink-0"
+    >
+      {HAIRCARE_CLIENTS.map((client, idx) => (
+        <div
+          key={`${client.name}-${idx}`}
+          className="relative w-44 h-28 sm:w-52 sm:h-32 md:w-64 md:h-36 shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-105"
+        >
+          <Image
+            src={client.src}
+            alt={ariaHidden ? "" : `Logo ${client.name} – Klien Maklon Kosmetik Dreamlab`}
+            width={240}
+            height={120}
+            className="max-h-full w-auto object-contain"
+            sizes="(max-width: 768px) 176px, 256px"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function HaircareClientsSection() {
   return (
-    <section className="py-16 md:py-24 bg-white border-b border-gray-100">
+    <section className="py-16 md:py-24 bg-white border-b border-gray-100 overflow-hidden">
       <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-blue">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
             Mitra Brand Kami
           </span>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
             Dipercaya 1000+ Brand di Indonesia
           </h2>
         </div>
+      </div>
 
-        {/* Dinding Logo Klien: 2 kolom di HP, 6 kolom di desktop, grayscale -> berwarna saat hover */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 mb-12">
-          {HAIRCARE_CLIENTS.map((client) => (
-            <div
-              key={client.name}
-              className="bg-[#FAF9F6] hover:bg-white rounded-2xl border border-gray-100 hover:border-brand-blue/30 p-5 flex items-center justify-center h-28 transition-all duration-300 group"
-            >
-              <Image
-                src={client.src}
-                alt={`Logo ${client.name} – Klien Maklon Kosmetik Dreamlab`}
-                width={140}
-                height={80}
-                className="max-h-16 w-auto object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-              />
-            </div>
-          ))}
+      {/* Marquee Logo Partner — Diperbesar & Tanpa Shape/Kotak */}
+      <div
+        className="relative w-full overflow-hidden py-6 mb-12 group"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+        }}
+      >
+        <div className="flex w-max animate-[marquee_28s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+          <ClientLogoStrip />
+          <ClientLogoStrip ariaHidden />
         </div>
+      </div>
 
+      <div className="container-custom">
         {/* Kartu Testimoni Klien Haircare */}
-        <div className="max-w-3xl mx-auto bg-gradient-to-br from-[#EAF4FC] via-[#F5FAFE] to-white rounded-3xl border border-brand-blue/20 p-6 sm:p-8 md:p-10 mb-8">
+        <div className="max-w-3xl mx-auto bg-[#FAF9F6] rounded-3xl border border-gray-200/80 p-6 sm:p-8 md:p-10 mb-8">
           <div className="flex flex-col sm:flex-row items-start gap-5">
-            <div className="size-12 rounded-2xl bg-brand-blue text-white flex items-center justify-center shrink-0">
+            <div className="size-12 rounded-2xl bg-brand-orange text-white flex items-center justify-center shrink-0">
               <Quote className="size-6" />
             </div>
             <div className="space-y-4">
@@ -849,7 +878,7 @@ export function HaircareClientsSection() {
                 <h3 className="font-display text-base font-normal text-brand-black">
                   Founder Brand Hair Care Mitra Dreamlab
                 </h3>
-                <p className="text-xs text-brand-blue font-semibold">
+                <p className="text-xs text-brand-orange font-semibold">
                   Produk: Hair Tonic &amp; Anti Split-End Smoothing Serum
                 </p>
               </div>
@@ -861,7 +890,7 @@ export function HaircareClientsSection() {
         <div className="text-center">
           <Link
             href="/our-client/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-blue hover:text-brand-orange transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-orange hover:text-brand-black transition-colors"
           >
             <span>Lihat semua klien</span>
             <ArrowRight className="size-4" />
@@ -871,4 +900,3 @@ export function HaircareClientsSection() {
     </section>
   );
 }
-

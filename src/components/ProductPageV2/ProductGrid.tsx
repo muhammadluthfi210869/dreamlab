@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductVariantV2 } from "@/types/product-v2";
 import { productImageAlt, productImageTitle } from "@/lib/image-utils";
 import { getCardImagePath } from "@/data/product-card-images";
@@ -27,6 +27,7 @@ const HAIR_CONCERN_FILTERS = [
 
 export default function ProductGrid({ products, categorySlug, subCategorySlug }: ProductGridProps) {
   const [activeFilter, setActiveFilter] = useState<string>("Semua");
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const isHaircare = categorySlug === "haircare";
   const categoryName =
@@ -41,16 +42,26 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
       ? `/produk/${categorySlug}/${subCategorySlug}/${slug}/`
       : `/produk/${categorySlug}/${slug}/`;
 
+  const scrollCatalog = (direction: "left" | "right") => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const cardWidth = el.firstElementChild?.clientWidth || 290;
+    el.scrollBy({
+      left: direction === "left" ? -(cardWidth + 16) : cardWidth + 16,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section
       id="katalog-produk"
-      className="relative z-10 bg-[#FAF9F6] py-14 lg:py-20 overflow-hidden border-b border-gray-100"
+      className="relative z-10 bg-white py-14 lg:py-20 overflow-hidden border-b border-gray-100"
     >
       <div className="container-custom w-full">
         <div className="flex flex-col gap-8 lg:gap-10 w-full">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-brand-blue">
+            <span className="inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange">
               Katalog Produk Maklon
             </span>
             <h2 className="font-display text-[26px] md:text-[34px] lg:text-[40px] font-normal text-brand-black leading-tight">
@@ -69,38 +80,64 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
             </p>
           </div>
 
-          {/* Hair Concern Filter Pills (Haircare) */}
+          {/* Hair Concern Filter Pills + Mobile/Tablet Slide Controls */}
           {isHaircare && (
-            <div
-              role="tablist"
-              aria-label="Filter masalah rambut"
-              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
-            >
-              {HAIR_CONCERN_FILTERS.map((filter) => {
-                const isActive = activeFilter === filter;
-                return (
-                  <button
-                    key={filter}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => setActiveFilter(filter)}
-                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors cursor-pointer border ${
-                      isActive
-                        ? "bg-brand-blue text-white border-brand-blue shadow-sm"
-                        : "bg-white text-brand-black/80 border-gray-200 hover:border-brand-blue hover:text-brand-blue"
-                    }`}
-                  >
-                    {filter}
-                  </button>
-                );
-              })}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div
+                role="tablist"
+                aria-label="Filter masalah rambut"
+                className="flex flex-wrap items-center justify-center sm:justify-start gap-2"
+              >
+                {HAIR_CONCERN_FILTERS.map((filter) => {
+                  const isActive = activeFilter === filter;
+                  return (
+                    <button
+                      key={filter}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => setActiveFilter(filter)}
+                      className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors cursor-pointer border ${
+                        isActive
+                          ? "bg-brand-orange text-white border-brand-orange shadow-xs"
+                          : "bg-white text-brand-black/80 border-gray-200 hover:border-brand-orange hover:text-brand-orange"
+                      }`}
+                    >
+                      {filter}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Mobile & Tablet Slider Arrows */}
+              <div className="flex lg:hidden items-center gap-2 self-end">
+                <span className="text-xs text-gray-500 font-medium mr-1">Geser produk</span>
+                <button
+                  type="button"
+                  onClick={() => scrollCatalog("left")}
+                  aria-label="Geser produk ke kiri"
+                  className="size-9 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center active:scale-95"
+                >
+                  <ChevronLeft className="size-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollCatalog("right")}
+                  aria-label="Geser produk ke kanan"
+                  className="size-9 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center active:scale-95"
+                >
+                  <ChevronRight className="size-4" />
+                </button>
+              </div>
             </div>
           )}
 
-          {/* Responsive Grid: 1 col <480px, 2 col tablet, 3-4 col desktop */}
-          {/* All cards remain in SSR HTML; non-matching filter cards use the `hidden` class */}
-          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 w-full">
+          {/* Horizontal Slide on Phone & Tablet (<lg), Grid on Desktop (lg:grid-cols-3 xl:grid-cols-4) */}
+          {/* All cards remain in SSR HTML; non-matching filter cards use `hidden` */}
+          <div
+            ref={sliderRef}
+            className="flex lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory pb-4 lg:pb-0 w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
             {products.map((product, index) => {
               const matchesFilter =
                 !isHaircare ||
@@ -122,45 +159,44 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
               return (
                 <article
                   key={product.id}
-                  className={`flex flex-col bg-white p-4 sm:p-5 rounded-3xl border border-gray-100 shadow-xs hover:shadow-md transition-shadow duration-300 h-full ${
+                  className={`snap-start shrink-0 w-[82%] sm:w-[46%] lg:w-auto flex flex-col bg-white rounded-3xl border border-gray-200/80 shadow-xs hover:shadow-md transition-shadow duration-300 overflow-hidden h-full ${
                     matchesFilter ? "" : "hidden"
                   }`}
                 >
-                  {/* Product Image + Tags */}
+                  {/* Product Image — Full-bleed object-cover on Desktop, Tablet, and Mobile (No yellow/cream gap) */}
                   <Link
                     href={productHref(product.slug)}
-                    className="relative aspect-square w-full rounded-2xl overflow-hidden flex items-center justify-center mb-4 bg-[#FAF9F6] group"
+                    className="relative aspect-[4/4] w-full overflow-hidden block bg-white group"
                   >
                     <Image
                       src={getCardImage(product.slug, categorySlug, product.heroImage)}
                       alt={productImageAlt(product.slug, categorySlug, product.name)}
                       title={productImageTitle(product.slug, categorySlug, product.name)}
                       fill
-                      sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 280px"
+                      sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 280px"
                       priority={index < 4}
                       loading={index < 4 ? undefined : "lazy"}
                       decoding={index < 4 ? "sync" : "async"}
-                      className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover object-center w-full h-full transition-transform duration-500 group-hover:scale-105"
                     />
 
                     {/* Badges / Tags */}
-                    <div className="absolute top-2.5 left-2.5 right-2.5 flex flex-wrap items-center gap-1.5 z-10">
+                    <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center gap-1.5 z-10">
                       {(product.isNew || product.tags.includes("Baru")) && (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-blue text-white shadow-xs">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-orange text-white shadow-xs">
                           Baru
                         </span>
                       )}
                       {product.concernFilter && (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/90 backdrop-blur-xs text-brand-black border border-gray-200/80">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 backdrop-blur-xs text-brand-black border border-gray-200/80 shadow-2xs">
                           {product.concernFilter}
                         </span>
                       )}
                     </div>
                   </Link>
 
-                  {/* Card Body: Tag, Nama (H3), Deskripsi, Varian, Accordion Bahan Aktif & Kemasan, Tombol Konsultasi */}
-                  <div className="flex flex-col flex-grow">
-                    {/* Tags Row for non-haircare or additional tags */}
+                  {/* Card Body */}
+                  <div className="flex flex-col flex-grow p-4 sm:p-5">
                     {!product.concernFilter && product.tags && product.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mb-2">
                         {product.tags.slice(0, 2).map((tag) => (
@@ -178,7 +214,7 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
                     <h3 className="font-display text-base sm:text-lg font-normal text-brand-black leading-snug mb-2">
                       <Link
                         href={productHref(product.slug)}
-                        className="hover:text-brand-blue transition-colors"
+                        className="hover:text-brand-orange transition-colors"
                       >
                         {product.name}
                       </Link>
@@ -199,7 +235,7 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
                           {variantsList.map((variant) => (
                             <span
                               key={variant}
-                              className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#F1F7FC] text-brand-blue border border-brand-blue/15"
+                              className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-brand-orange/10 text-brand-black border border-brand-orange/20"
                             >
                               {variant}
                             </span>
@@ -209,7 +245,7 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
                     )}
 
                     {/* Accordion: Bahan aktif & kemasan (SSR rendered in HTML) */}
-                    <details className="group/acc mt-auto mb-4 rounded-xl border border-gray-200/80 bg-[#FAF9F6] px-3 py-2 text-xs">
+                    <details className="group/acc mt-auto mb-4 rounded-xl border border-gray-200/80 bg-gray-50/70 px-3 py-2 text-xs">
                       <summary className="flex items-center justify-between cursor-pointer font-bold text-brand-black list-none select-none">
                         <span>Bahan aktif &amp; kemasan</span>
                         <ChevronDown className="size-4 text-gray-500 transition-transform duration-200 group-open/acc:rotate-180" />
