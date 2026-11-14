@@ -16,7 +16,7 @@ const LogoScroll = dynamic(() => import("@/components/LogoScroll"), {
 });
 const ProductTrustBar = dynamic(() => import("@/components/ProductPageV2/ProductTrustBar"), { 
   ssr: true,
-  loading: () => <div className="py-8 bg-white" />
+  loading: () => <div className="py-6 bg-[#D97200]" />
 });
 const AdvantagesGrid = dynamic(() => import("@/components/AdvantagesGrid"), { 
   ssr: true,

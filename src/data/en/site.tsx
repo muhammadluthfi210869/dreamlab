@@ -115,6 +115,10 @@ export const trustBarContentEn = [
     description: "Exclusive custom formulation from an expert R&D team",
   },
   {
+    title: "1 Client, 1 Formula",
+    description: "Formulas developed according to the needs and character of each brand.",
+  },
+  {
     title: "Flexible MOQ",
     description: "Production scale friendly for beginners & scale-up brands",
   },
