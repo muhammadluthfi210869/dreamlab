@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import ProductHero from "./ProductHero";
 import ProductPackagingGrid from "./ProductPackagingGrid";
@@ -8,13 +7,17 @@ import { ProductCategoryV2, ProductVariantV2 } from "@/types/product-v2";
 import { getProductCardImagePath } from "./ProductHero";
 import StrategicMarketPotential from "./Strategic/StrategicMarketPotential";
 import { aboutData } from "@/data/about-us";
-
-const ProductFAQ = dynamic(() => import("./ProductFAQ"));
-const ProductRelated = dynamic(() => import("./ProductRelated"));
-const LogoScroll = dynamic(() => import("@/components/LogoScroll"));
-const OurCertification = dynamic(() => import("@/components/OurCertification"));
-const CtaSection = dynamic(() => import("@/components/CtaSection"));
-const AdvantagesGrid = dynamic(() => import("@/components/AdvantagesGrid"));
+import ProductFAQ from "./ProductFAQ";
+import ProductRelated from "./ProductRelated";
+import LogoScroll from "@/components/LogoScroll";
+import OurCertification from "@/components/OurCertification";
+import CtaSection from "@/components/CtaSection";
+import AdvantagesGrid from "@/components/AdvantagesGrid";
+import {
+  HaircareMarqueeBand,
+  HaircareValueSection,
+  HaircareCertificationsSection,
+} from "./HaircareSections";
 
 interface IndividualProductPageProps {
   categoryData: ProductCategoryV2;
@@ -205,6 +208,10 @@ export default function IndividualProductPage({
   const pathname = usePathname() || "";
   const segments = pathname.split('/').filter(Boolean);
   const subCategorySlug = segments.length > 3 ? segments[2] : undefined;
+  const isHaircare = categoryData.slug === "haircare";
+  const variantsList = productData.variants && productData.variants.length > 0
+    ? productData.variants
+    : productData.tags.filter((t) => t !== "Baru");
 
   return (
     <main className="min-h-screen bg-white">
@@ -214,12 +221,126 @@ export default function IndividualProductPage({
         productData={productData}
       />
 
+      {isHaircare && <HaircareMarqueeBand />}
+
       {/* 2. Strategic Market Potential */}
       <StrategicMarketPotential 
         headline={strategic.marketPotential.headline}
         points={strategic.marketPotential.points}
         image={getProductCardImagePath(productData.slug, categoryData.slug) || productData.heroImage}
       />
+
+      {/* 2b. Spesifikasi, Ukuran, Waktu Produksi, Bahan Aktif & Detail Produk (SSR HTML) */}
+      <section className="py-14 md:py-20 bg-[#FAF9F6] border-y border-gray-100">
+        <div className="container-custom">
+          <div className="max-w-3xl mb-10">
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-blue mb-2">
+              Spesifikasi &amp; Formulasi
+            </span>
+            <h2 className="font-display text-2xl sm:text-3xl font-normal text-brand-black">
+              Detail Maklon {productData.name}
+            </h2>
+          </div>
+
+          {/* Info Bar: Ukuran, Produksi, MOQ Fleksibel, Sertifikasi */}
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
+                Pilihan Ukuran
+              </span>
+              <h3 className="font-display text-base text-brand-black">
+                {(productData.sizeOptions || []).join(", ")}
+              </h3>
+            </div>
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
+                Estimasi Produksi
+              </span>
+              <h3 className="font-display text-base text-brand-black">
+                {productData.productionTime}
+              </h3>
+            </div>
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
+                Minimum Order (MOQ)
+              </span>
+              <h3 className="font-display text-base text-brand-blue">
+                MOQ Fleksibel / menyesuaikan kebutuhan brand
+              </h3>
+            </div>
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
+                Sertifikasi Resmi
+              </span>
+              <h3 className="font-display text-base text-brand-black">
+                {(productData.certifications || ["BPOM", "Halal MUI", "CPKB Grade A"]).join(", ")}
+              </h3>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Varian & Bahan Aktif */}
+            <div className="bg-white p-6 sm:p-7 rounded-3xl border border-gray-200/80 space-y-5">
+              {variantsList.length > 0 && (
+                <div>
+                  <h3 className="font-display text-lg text-brand-black mb-2.5">
+                    Varian Formula {productData.name}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {variantsList.map((v) => (
+                      <span
+                        key={v}
+                        className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F1F7FC] text-brand-blue border border-brand-blue/20"
+                      >
+                        {v}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <h3 className="font-display text-lg text-brand-black mb-3">
+                  Bahan Aktif Unggulan
+                </h3>
+                <div className="space-y-2.5">
+                  {(productData.ingredients || []).map((ing) => (
+                    <div
+                      key={ing.name}
+                      className="p-3.5 rounded-2xl bg-[#FAF9F6] border border-gray-100"
+                    >
+                      <div className="font-bold text-xs sm:text-sm text-brand-black">
+                        {ing.name}
+                      </div>
+                      <p className="text-xs text-gray-600 mt-0.5">{ing.function}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Keunggulan & Deskripsi Lengkap */}
+            <div className="bg-white p-6 sm:p-7 rounded-3xl border border-gray-200/80 space-y-4">
+              <h3 className="font-display text-lg text-brand-black">
+                Keunggulan Formula {productData.name}
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                {productData.story}
+              </p>
+              {productData.benefits && productData.benefits.length > 0 && (
+                <ul className="space-y-2 pt-2">
+                  {productData.benefits.map((b) => (
+                    <li key={b} className="text-xs sm:text-sm text-brand-black flex items-start gap-2">
+                      <span className="text-brand-blue font-bold">•</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 3. Packaging Design Grid */}
       <ProductPackagingGrid 
@@ -229,19 +350,21 @@ export default function IndividualProductPage({
         bottleOptions={productData.bottleOptions}
       />
 
-      {/* 4. 8 Keuntungan Maklon */}
-      <AdvantagesGrid title="8 Keuntungan Maklon" />
+      {/* 4. Value / Keuntungan Maklon */}
+      {isHaircare ? (
+        <>
+          <HaircareValueSection />
+          <HaircareCertificationsSection />
+        </>
+      ) : (
+        <>
+          <AdvantagesGrid title="8 Keuntungan Maklon" />
+          <LogoScroll logos={aboutData.partnerLogos} />
+          <OurCertification />
+        </>
+      )}
 
-      {/* 5. Trusted Brand Partners (Logo Scroll) */}
-      <LogoScroll logos={aboutData.partnerLogos} />
-
-      {/* 5. Our Certifications Banner */}
-      <OurCertification />
-
-      {/* 6. CTA Section (Same as Home Page) */}
-      <CtaSection title={`Wujudkan Brand ${productData.name} Impian Anda dalam 3 Bulan`} />
-
-      {/* 7. Product FAQ */}
+      {/* 6. Product FAQ */}
       <ProductFAQ 
         categorySlug={categoryData.slug} 
         categoryName={categoryData.name}
@@ -250,11 +373,14 @@ export default function IndividualProductPage({
         productName={productData.name}
       />
       
-      {/* 8. Related Products */}
+      {/* 7. Related Products */}
       <ProductRelated 
         products={categoryData.relatedProducts}
         currentProductSlug={productData.slug}
       />
+
+      {/* 8. CTA Section */}
+      <CtaSection title={`Wujudkan Brand ${productData.name} Impian Anda dalam 3 Bulan`} />
     </main>
   );
 }

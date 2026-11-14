@@ -19,7 +19,7 @@ export const alurMaklonData = {
   oneStop: {
     title: "One Stop Maklon",
     subtitle: "Kosmetik Dari ide hingga siap jual",
-    description: "Sebagai perusahaan maklon kosmetik terpercaya, kami telah membantu 500+ Brand menciptakan produk kosmetik berkualitas dengan nilai jual tinggi di pasar.",
+    description: "Sebagai perusahaan maklon kosmetik terpercaya, kami telah membantu 1000+ Brand menciptakan produk kosmetik berkualitas dengan nilai jual tinggi di pasar.",
     image: "/assets/images/641.webp",
     cta: "FREE CONSULTATION",
     ctaLink: "https://forms.kommo.com/rctxldt"

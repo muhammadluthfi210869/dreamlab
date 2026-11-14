@@ -9,7 +9,7 @@ import { clientContentEn, advantagesContentEn, ctaContentEn } from "@/data/en/si
 export const metadata: Metadata = {
   // Terjemahan setia dari metadata halaman Our Client Indonesia.
   title: {
-    absolute: "DREAMLAB | Here Are 500++ Clients Who Trust Production at Dreamlab",
+    absolute: "DREAMLAB | Here Are 1000+ Clients Who Trust Production at Dreamlab",
   },
   description:
     "See the cosmetic & skincare brands that have worked with Dreamlab. Become part of them and become our partner.",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Dreamlab",
-    title: "DREAMLAB | Here Are 500++ Clients Who Trust Production at Dreamlab",
+    title: "DREAMLAB | Here Are 1000+ Clients Who Trust Production at Dreamlab",
     description:
       "See the cosmetic & skincare brands that have worked with Dreamlab. Become part of them and become our partner.",
     url: "https://dreamlab.id/en/our-client/",
@@ -31,7 +31,7 @@ export default function EnOurClientPage() {
     <main className="min-h-screen bg-brand-white pt-20 md:pt-28">
       <PageSchema
         url="https://dreamlab.id/en/our-client/"
-        title="Dreamlab Clients | 500+ Brands Trust Our Production"
+        title="Dreamlab Clients | 1000+ Brands Trust Our Production"
         description="See the cosmetic & skincare brands that have worked with Dreamlab."
         h1="Our Clients"
         type="category"

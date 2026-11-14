@@ -59,7 +59,7 @@ export default function OneStopSection({ title, subtitle, description, image, ct
               {description.split(/(perusahaan maklon kosmetik terpercaya|500\+ Brand|nilai jual tinggi di pasar)/).map((part, i) => (
                 <span key={i} className={
                   part === "perusahaan maklon kosmetik terpercaya" || 
-                  part === "500+ Brand" || 
+                  part === "1000+ Brand" || 
                   part === "nilai jual tinggi di pasar" ? "font-bold text-brand-black" : ""
                 }>
                   {part}

@@ -62,7 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: seoData?.meta_title
       ? { absolute: seoData.meta_title }
       : { absolute: "Dreamlab | Maklon Kosmetik & Parfum BPOM Terbaik - Wujudkan Brand Impian Anda" },
-    description: seoData?.meta_description || "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 500+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
+    description: seoData?.meta_description || "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 1000+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
     keywords: getMetaKeywords(''),
     alternates: buildAlternates("/"),
   };
@@ -123,7 +123,7 @@ export default function Home() {
       {/* 2.3. BRAND SHOWCASE SECTION (Sunscreen Highlight) */}
       <BrandShowcaseSection />
 
-      {/* 2.5. DI PERCAYA 150+ BRAND (LOGO SCROLL - BERWARNA) */}
+      {/* 2.5. DI PERCAYA 1000+ BRAND (LOGO SCROLL - BERWARNA) */}
       <LogoScroll 
         logos={aboutData.partnerLogos} 
         headline={trustedBrands.title}

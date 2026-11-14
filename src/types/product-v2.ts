@@ -34,6 +34,9 @@ export interface ProductVariantV2 {
   heroImage: string;
   galleryImages: string[];
   tags: string[];
+  variants?: string[];
+  concernFilter?: string;
+  isNew?: boolean;
   shortDescription: string;
   story: string;
   seoParagraph: string;

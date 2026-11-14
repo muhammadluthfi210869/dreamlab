@@ -59,11 +59,14 @@ const packagingOptionImageMap: Record<string, string> = {
   "Applicator Tube": "maklon-kosmetik-tube.svg",
 
   "Jar": "maklon-kosmetik-jar.svg",
+  "Jar isi kapsul": "maklon-kosmetik-jar.svg",
   "Jar / Pot": "maklon-kosmetik-jar.svg",
   "Pot": "maklon-kosmetik-jar.svg",
   "Sifter Jar": "maklon-kosmetik-jar.svg",
 
   "Standing Pouch": "maklon-kosmetik-standing-pouch.svg",
+  "Pouch": "maklon-kosmetik-standing-pouch.svg",
+  "Blister": "custom-kemasan- dreamlab-maklon-kosmetik .png",
   "Sachet": "maklon-kosmetik-standing-pouch.svg",
   "Sachet (Booties)": "maklon-kosmetik-standing-pouch.svg",
   "Refill Pouch": "maklon-kosmetik-standing-pouch.svg",

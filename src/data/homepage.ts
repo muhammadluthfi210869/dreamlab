@@ -8,8 +8,8 @@ export const homepageData = {
     backgroundImage: "/assets/images/hero/hero-01.jpg"
   },
   trustedBrands: {
-    title: "DREAMLAB TELAH DIPERCAYA 500+ BRAND",
-    subtitle: "Lebih dari 500+ Brand Telah Memilih Dreamlab Sebagai Maklon Kosmetik Utama Mereka. Dreamlab berkomitmen untuk menghadirkan produk berkualitas, serta layanan purna jual (after-sales service) yang profesional dan memuaskan.",
+    title: "DREAMLAB TELAH DIPERCAYA 1000+ BRAND",
+    subtitle: "Lebih dari 1000+ Brand Telah Memilih Dreamlab Sebagai Maklon Kosmetik Utama Mereka. Dreamlab berkomitmen untuk menghadirkan produk berkualitas, serta layanan purna jual (after-sales service) yang profesional dan memuaskan.",
     logos: [
       { name: "Jilly Daily", src: "/assets/images/Jilly-Daily-300x300.webp" },
       { name: "Tazzi", src: "/assets/images/Tazzi-300x300.webp" },

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       "Dreamlab | Best BPOM Cosmetic & Perfume Manufacturer - Make Your Dream Brand a Reality",
   },
   description:
-    "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 500+ brands have trusted their formulation & production with us.",
+    "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 1000+ brands have trusted their formulation & production with us.",
   alternates: buildAlternates("/en/"),
   openGraph: {
     type: "website",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title:
       "Dreamlab | Best BPOM Cosmetic & Perfume Manufacturer - Make Your Dream Brand a Reality",
     description:
-      "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 500+ brands have trusted their formulation & production with us.",
+      "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 1000+ brands have trusted their formulation & production with us.",
     url: "https://dreamlab.id/en/",
   },
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -71,7 +71,7 @@ export default function EnHome() {
       {/* 2.3. BRAND SHOWCASE */}
       <BrandShowcaseSection content={brandShowcaseContentEn} />
 
-      {/* 2.5. TRUSTED BY 500+ BRAND (LOGO SCROLL) */}
+      {/* 2.5. TRUSTED BY 1000+ BRAND (LOGO SCROLL) */}
       <LogoScroll
         logos={aboutData.partnerLogos}
         headline={trustedBrands.title}

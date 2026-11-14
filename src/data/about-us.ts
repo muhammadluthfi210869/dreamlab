@@ -10,7 +10,7 @@ export const aboutData = {
     trustBadges: [
       { icon: "shield", label: "Sertifikasi CPKB Grade A" },
       { icon: "check", label: "BPOM & Halal Terjamin" },
-      { icon: "users", label: "150+ Brand Partner" },
+      { icon: "users", label: "1000+ Brand Partner" },
       { icon: "heart", label: "After-Sales Support" }
     ]
   },

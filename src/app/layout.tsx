@@ -26,7 +26,7 @@ const onest = Onest({
 export const metadata: Metadata = {
   metadataBase: new URL('https://dreamlab.id'),
   title: "Dreamlab | Maklon Kosmetik & Parfum BPOM Terbaik Indonesia",
-  description: "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 500+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
+  description: "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 1000+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
   verification: {
     google: "xbEDjXMgxa8PqdCWCHtZ9-7xbPIgRcxc2azHdOLUBCE",
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     locale: 'id_ID',
     siteName: 'Dreamlab',
   title: "Dreamlab | Maklon Kosmetik & Parfum BPOM Terbaik Indonesia",
-    description: "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 500+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
+    description: "One-Stop Maklon Kosmetik Bersertifikat BPOM, CPKB Grade A & Halal MUI di Surabaya. 1000+ Brand Sudah Mempercayakan Formulasi & Produksinya pada Kami.",
     url: 'https://dreamlab.id/',
   },
   twitter: {

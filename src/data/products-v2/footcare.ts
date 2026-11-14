@@ -18,7 +18,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Rich cream, high urea",
       haltbarkeit: "Hidrasi 24 Jam",
       marktposition: "Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Deep moisturizing, healing",
       bestFor: ["Cracked Heels", "Very Dry Skin", "Daily Care"],
@@ -28,7 +28,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Light liquid, refreshing",
       haltbarkeit: "Efek Anti-perspirant",
       marktposition: "Refreshment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Cooling, deodorizing, anti-bacterial",
       bestFor: ["Foot Odor", "Active Lifestyle", "Office Shoes"],
@@ -38,7 +38,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Cream/gel with particles",
       haltbarkeit: "Eksfoliasi Instan",
       marktposition: "Essential Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Exfoliating, smoothing",
       bestFor: ["Rough Skin", "Calluses", "Weekly Care"],
@@ -48,7 +48,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Serum-rich booties",
       haltbarkeit: "Treatment Intensif (30-60 min)",
       marktposition: "Premium",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Premium",
       karakter: "Deep treatment, visible results",
       bestFor: ["Spa Treatment", "Intensive Care", "Special Occasion"],
@@ -58,7 +58,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Salt/gel soak",
       haltbarkeit: "Relaksasi Instan",
       marktposition: "Wellness",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Relaxing, aromatherapy, detox",
       bestFor: ["Spa Experience", "Tired Feet", "Relaxation"],
@@ -68,7 +68,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Concentrated serum",
       haltbarkeit: "Perawatan Intensif",
       marktposition: "Premium",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Premium",
       karakter: "Intensive treatment, repairing",
       bestFor: ["Daily Care", "Intensive Repair", "Premium Line"],
@@ -78,7 +78,7 @@ export const footcareData: ProductCategoryV2 = {
       konsentrasi: "Antiseptic liquid/spray",
       haltbarkeit: "Perlindungan 24 Jam",
       marktposition: "Hygiene",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Antibacterial, antifungal, refreshing",
       bestFor: ["Foot Hygiene", "Post-Sport", "Daily Protection"],
@@ -116,7 +116,7 @@ Di Dreamlab, kami menciptakan foot cream yang benar-benar menjawab akar masalah:
       sizeOptions: ["50ml", "80ml", "100ml", "150ml"],
       bottleOptions: ["Tube", "Jar", "Custom Exclusive Packaging", "Spray Bottle"],
       capOptions: ["Flip Cap", "Screw Cap", "Nozzle"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -133,7 +133,7 @@ Di Dreamlab, kami menciptakan foot cream yang benar-benar menjawab akar masalah:
 Kaki menanggung beban literal dari seluruh tubuh: tekanan, gesekan, hingga penumpukan kapalan. Tanpa eksfoliasi rutin, sel kulit mati menumpuk dan menciptakan area kasar yang tidak hanya mengganggu estetika tetapi juga kenyamanan. Foot scrub yang efektif memerlukan keseimbangan: cukup kuat untuk mengangkat kulit mati, namun tetap lembut agar tidak melukai kulit sehat di bawahnya.
 
 Di Dreamlab, kami memformulasikan foot scrub yang memberikan pengalaman eksfoliasi memuaskan: tekstur yang bekerja efektif, kulit terasa halus seketika, dan aroma menyegarkan yang merelaksasi.`,
-      seoParagraph: "Maklon Foot Scrub solusi bagi brand yang ingin menawarkan produk eksfoliasi khusus kaki. Dengan formula yang menggabungkan eksfoliasi fisik (butiran alami) dengan minyak penutrisi, foot scrub Dreamlab menjadikan kaki halus dan siap tampil menawan. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Foot Scrub solusi bagi brand yang ingin menawarkan produk eksfoliasi khusus kaki. Dengan formula yang menggabungkan eksfoliasi fisik (butiran alami) dengan minyak penutrisi, foot scrub Dreamlab menjadikan kaki halus dan siap tampil menawan. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan bersertifikasi BPOM & Halal.",
       benefits: [
         "Agen Eksfoliasi Alami: Pumice (Batu Apung), Gula, atau Garam Bambu",
         "Minyak Penutrisi untuk mencegah kulit kering setelah eksfoliasi",
@@ -150,7 +150,7 @@ Di Dreamlab, kami memformulasikan foot scrub yang memberikan pengalaman eksfolia
       sizeOptions: ["50ml", "100ml", "150ml"],
       bottleOptions: ["Jar", "Tube", "Standing Pouch", "Custom Exclusive Packaging"],
       capOptions: ["Screw Lid", "Flip Cap", "Spatula Included"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -165,7 +165,7 @@ Di Dreamlab, kami memformulasikan foot scrub yang memberikan pengalaman eksfolia
       story: `Foot mask adalah perawatan spa yang dapat dilakukan di rumah tanpa perlu membuat janji temu.
 
 Format masker kaki dalam bentuk 'booties' memastikan bahan aktif meresap jauh lebih dalam dibanding penggunaan krim biasa. Hasilnya: hidrasi yang jauh lebih efektif dan instan. Gunakan secara mingguan selama 20-30 menit sambil bersantai, dan rasakan perubahan tekstur kaki yang menjadi jauh lebih lembut dan sehat.`,
-      seoParagraph: "Maklon Foot Mask solusi bagi brand yang ingin menawarkan produk perawatan kaki premium dengan pengalaman spa. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Tersedia dalam format sheet mask (booties), cream mask, dan peel-off mask bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Foot Mask solusi bagi brand yang ingin menawarkan produk perawatan kaki premium dengan pengalaman spa. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Tersedia dalam format sheet mask (booties), cream mask, dan peel-off mask bersertifikasi BPOM & Halal.",
       benefits: [
         "Format Sheet Mask (Booties) untuk aplikasi yang mudah dan bersih",
         "Konsentrasi Bahan Aktif Tinggi: Hyaluronic Acid, Collagen, Vitamin E",
@@ -182,7 +182,7 @@ Format masker kaki dalam bentuk 'booties' memastikan bahan aktif meresap jauh le
       sizeOptions: ["1 pair (20ml)", "Cream 50ml"],
       bottleOptions: ["Sachet (Booties)", "Tube", "Jar"],
       capOptions: ["Sealable Sachet", "Flip Top", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -197,7 +197,7 @@ Format masker kaki dalam bentuk 'booties' memastikan bahan aktif meresap jauh le
       story: `Foot spray adalah solusi cepat untuk kaki yang lelah dan bau — masalah yang sering dialami oleh mereka yang aktif sepanjang hari.
 
 Foot Spray Dreamlab diformulasikan dengan agen antibakteri yang membunuh bakteri penyebab bau kaki, menthol untuk efek pendinginan (cooling) yang menyegarkan, dan wewangian yang memberikan kesegaran tahan lama. Cukup semprotkan ke kaki setelah beraktivitas atau sebelum memakai sepatu untuk perlindungan maksimal.`,
-      seoParagraph: "Maklon Foot Spray — jasa maklon semprotan kaki antibakteri untuk menghilangkan bau dan menyegarkan. Efek cooling instan dengan aroma tahan lama. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Foot Spray — jasa maklon semprotan kaki antibakteri untuk menghilangkan bau dan menyegarkan. Efek cooling instan dengan aroma tahan lama. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Antibakteri Aktif — membunuh bakteri penyebab bau kaki",
         "Efek Cooling — menthol alami memberikan sensasi segar instan",
@@ -214,7 +214,7 @@ Foot Spray Dreamlab diformulasikan dengan agen antibakteri yang membunuh bakteri
       sizeOptions: ["50ml", "100ml", "150ml"],
       bottleOptions: ["Spray Bottle", "Custom Exclusive Packaging"],
       capOptions: ["Spray Cap", "Flip Cap", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -229,7 +229,7 @@ Foot Spray Dreamlab diformulasikan dengan agen antibakteri yang membunuh bakteri
       story: `Foot soak adalah produk wellness yang mengubah pengalaman merendam kaki menjadi ritual spa di rumah.
 
 Dreamlab memformulasikan foot soak dengan campuran garam alami (Epsom salt, sea salt), ekstrak herbal, dan minyak atsiri yang bekerja sinergis untuk merelaksasi otot kaki yang lelah, mendetoksifikasi, dan mengharumkan kaki. Cukup larutkan dalam air hangat dan rendam kaki selama 15-20 menit untuk merasakan relaksasi total setelah hari yang panjang.`,
-      seoParagraph: "Maklon Foot Soak — jasa maklon rendaman kaki relaksasi dengan garam alami, herbal, dan aromaterapi. Pengalaman spa di rumah. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Foot Soak — jasa maklon rendaman kaki relaksasi dengan garam alami, herbal, dan aromaterapi. Pengalaman spa di rumah. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Epsom Salt — merelaksasi otot kaki yang tegang dan lelah",
         "Essential Oils — aromaterapi menenangkan pikiran dan tubuh",
@@ -246,7 +246,7 @@ Dreamlab memformulasikan foot soak dengan campuran garam alami (Epsom salt, sea 
       sizeOptions: ["200g", "500g", "1kg"],
       bottleOptions: ["Jar", "Standing Pouch", "Custom Exclusive Packaging"],
       capOptions: ["Screw Lid", "Resealable Zipper", "Scoop Included"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -261,7 +261,7 @@ Dreamlab memformulasikan foot soak dengan campuran garam alami (Epsom salt, sea 
       story: `Foot serum adalah evolusi terbaru dalam perawatan kaki — konsentrat bahan aktif dalam basis ringan yang meresap cepat.
 
 Tidak seperti krim kaki yang lebih bersifat melembapkan, foot serum Dreamlab diformulasikan dengan konsentrasi bahan aktif tinggi (Peptide Complex, Hyaluronic Acid, Ceramide) yang ditargetkan untuk masalah kulit spesifik: mencerahkan kulit kaki yang gelap di area lutut dan siku, mengencangkan kulit yang mulai kendur, atau memberikan hidrasi intensif. Tekstur ringan yang cepat meresap tanpa rasa lengket, ideal untuk perawatan sebelum tidur.`,
-      seoParagraph: "Maklon Foot Serum — jasa maklon serum perawatan kaki konsentrasi aktif tinggi untuk brightening, firming, dan hydrating. Formula ringan cepat meresap. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Foot Serum — jasa maklon serum perawatan kaki konsentrasi aktif tinggi untuk brightening, firming, dan hydrating. Formula ringan cepat meresap. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Konsentrasi Bahan Aktif Tinggi — Peptide, Hyaluronic Acid, Ceramide",
         "Tekstur Ringan — cepat meresap tanpa rasa lengket",
@@ -278,7 +278,7 @@ Tidak seperti krim kaki yang lebih bersifat melembapkan, foot serum Dreamlab dif
       sizeOptions: ["30ml", "50ml", "100ml"],
       bottleOptions: ["Dropper Bottle", "Tube", "Custom Exclusive Packaging"],
       capOptions: ["Rubber Dropper", "Flip Cap", "Airless Pump"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -293,7 +293,7 @@ Tidak seperti krim kaki yang lebih bersifat melembapkan, foot serum Dreamlab dif
       story: `Kaki rentan terhadap infeksi bakteri dan jamur karena sering berada dalam lingkungan lembap (sepatu tertutup).
 
 Foot Anti-Bacterial Dreamlab diformulasikan untuk memberikan perlindungan optimal dari bakteri dan jamur penyebab infeksi kaki. Dengan bahan aktif antimikroba yang membunuh kuman sekaligus menjaga kesehatan kulit kaki. Cocok untuk penggunaan setelah olahraga, sebelum memakai sepatu, atau sebagai perawatan kaki harian.`,
-      seoParagraph: "Maklon Foot Anti-Bacterial — jasa maklon pelindung kaki antibakteri dan antijamur untuk higienitas maksimal. Aman untuk penggunaan harian. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Foot Anti-Bacterial — jasa maklon pelindung kaki antibakteri dan antijamur untuk higienitas maksimal. Aman untuk penggunaan harian. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Perlindungan Antibakteri & Antijamur — melawan infeksi kaki",
         "Formula Antiseptik Lembut — aman untuk kulit kaki",
@@ -310,7 +310,7 @@ Foot Anti-Bacterial Dreamlab diformulasikan untuk memberikan perlindungan optima
       sizeOptions: ["50ml", "100ml", "200ml"],
       bottleOptions: ["Spray Bottle", "Pump Bottle", "Lotion Tube"],
       capOptions: ["Spray Cap", "Pump Cap", "Flip Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },

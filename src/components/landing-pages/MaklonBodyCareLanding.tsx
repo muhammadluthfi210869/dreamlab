@@ -336,7 +336,7 @@ export default function MaklonBodyCareLanding({ source }: { source: "google_ads"
           {/* BRAND / OUR CLIENT - LOGO BERJALAN */}
           <LogoScroll 
             logos={aboutData.partnerLogos} 
-            headline="DIPERCAYA 500+ BRAND UNTUK MENGEMBANGKAN PRODUK BEAUTY"
+            headline="DIPERCAYA 1000+ BRAND UNTUK MENGEMBANGKAN PRODUK BEAUTY"
             subHeadline="Dipercaya oleh berbagai brand beauty untuk mengembangkan produk yang siap bersaing di pasar."
           />
 

@@ -18,7 +18,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Tear-free, gentle surfactant",
       haltbarkeit: "Pembersihan Harian",
       marktposition: "Essential",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Tear-free, mild, soothing",
       bestFor: ["Daily Bath", "Sensitive Scalp", "Newborn"],
@@ -28,7 +28,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Tear-free, hair nourishing",
       haltbarkeit: "Perawatan Rambut Harian",
       marktposition: "Essential",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Tear-free, hair growth, soothing",
       bestFor: ["Daily Hair Wash", "Cradle Cap", "Hair Growth"],
@@ -38,7 +38,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Light emulsion",
       haltbarkeit: "Hidrasi Harian",
       marktposition: "Essential",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Gentle, hypoallergenic, moisturizing",
       bestFor: ["Daily Use", "Sensitive Skin", "Newborn"],
@@ -48,7 +48,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Fine powder, talc-free",
       haltbarkeit: "Kering Sepanjang Hari",
       marktposition: "Traditional",
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Absorbing moisture, soothing",
       bestFor: ["Diaper Rash Prevention", "Skin Fold Moisture", "After Bath"],
@@ -58,7 +58,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Alcohol-free fragrance",
       haltbarkeit: "Kesegaran Sepanjang Hari",
       marktposition: "Traditional",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Long-lasting freshness, non-drying",
       bestFor: ["Post-Bath Freshness", "Daily Fragrance", "Newborn safe"],
@@ -68,7 +68,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Pure plant oil base",
       haltbarkeit: "Hidrasi & Pijat",
       marktposition: "Essential",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Moisturizing, soothing, non-greasy",
       bestFor: ["Baby Massage", "Dry Skin", "Cradle Cap"],
@@ -78,7 +78,7 @@ export const babycareData: ProductCategoryV2 = {
       konsentrasi: "Rich cream with Ceramide",
       haltbarkeit: "Hidrasi Intensif 12 Jam",
       marktposition: "Premium Care",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Premium",
       karakter: "Deep moisturizing, barrier protection",
       bestFor: ["Sensitive Skin", "Newborn", "Daily Protection"],
@@ -99,7 +99,7 @@ export const babycareData: ProductCategoryV2 = {
 Bagi bayi, sabun yang masuk ke mata bisa menjadi pengalaman yang menimbulkan trauma. Momen di mana mereka menyadari bahwa mandi bukan lagi hal yang menyenangkan. Baby 2-in-1 wash yang diformulasikan dengan benar harus membersihkan secara efektif tanpa perlu gesekan keras, serta memiliki standar tear-free yang tidak memicu perih di mata.
 
 Di Dreamlab, kami menciptakan baby 2-in-1 wash dengan surfaktan berbasis asam amino alami yang sangat ringan, menjaga kelembapan alami kulit bayi baru lahir tanpa memicu iritasi.`,
-      seoParagraph: "Maklon Baby 2-in-1 Wash solusi bagi brand baby care yang ingin menawarkan produk pembersih lembut. Dengan formula tear-free dan bahan yang aman untuk newborn, baby 2-in-1 wash Dreamlab membantu menciptakan waktu mandi yang menyenangkan. MOQ mulai 2000 pcs bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Baby 2-in-1 Wash solusi bagi brand baby care yang ingin menawarkan produk pembersih lembut. Dengan formula tear-free dan bahan yang aman untuk newborn, baby 2-in-1 wash Dreamlab membantu menciptakan waktu mandi yang menyenangkan. MOQ Fleksibel / menyesuaikan kebutuhan brand bersertifikasi BPOM & Halal.",
       benefits: [
         "Formula Tear-Free — tidak perih di mata bayi",
         "Surfaktan Lembut — membersihkan tanpa menghilangkan minyak alami kulit",
@@ -116,7 +116,7 @@ Di Dreamlab, kami menciptakan baby 2-in-1 wash dengan surfaktan berbasis asam am
       sizeOptions: ["100ml", "200ml", "500ml"],
       bottleOptions: ["Pump Bottle", "Flip Top Bottle", "Custom Exclusive Packaging"],
       capOptions: ["Pump", "Flip Cap", "Screw Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A", "Dermatology Tested"],
     },
@@ -150,7 +150,7 @@ Di Dreamlab, kami memformulasikan sampo bayi dengan kombinasi Kemiri, Seledri, d
       sizeOptions: ["100ml", "200ml"],
       bottleOptions: ["Pump Bottle", "Flip Top", "Tube"],
       capOptions: ["Pump", "Flip Cap", "Screw Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -167,7 +167,7 @@ Di Dreamlab, kami memformulasikan sampo bayi dengan kombinasi Kemiri, Seledri, d
 Baby lotion tidak bisa menggunakan bahan yang sama seperti pelembap dewasa. Formulasi harus jauh lebih lembut, pengawet yang digunakan harus ringan, dan aroma dikurangi atau ditiadakan sama sekali. Namun, efektivitas tetap menjadi kunci — bayi membutuhkan hidrasi yang cukup untuk menjaga skin barrier mereka.
 
 Di Dreamlab, kami memformulasikan baby lotion dengan Ceramide NP, Chamomile, dan Avocado Oil yang cukup aman untuk bayi baru lahir (0+ bulan) namun tetap efektif memberikan kelembapan mendalam.`,
-      seoParagraph: "Maklon Baby Lotion — jasa maklon lotion bayi formula hipoalergenik aman untuk newborn (0+ bulan). Dermatologically tested, bebas paraben & pewangi buatan. ✓ BPOM & Halal ✓ MOQ 2000 pcs. Konsultasi maklon baby care bersama Dreamlab.",
+      seoParagraph: "Maklon Baby Lotion — jasa maklon lotion bayi formula hipoalergenik aman untuk newborn (0+ bulan). Dermatologically tested, bebas paraben & pewangi buatan. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand. Konsultasi maklon baby care bersama Dreamlab.",
       benefits: [
         "Formula Hipoalergenik — aman untuk bayi baru lahir (0+ bulan)",
         "Dermatologically Tested — aman untuk kulit yang sangat sensitif",
@@ -184,7 +184,7 @@ Di Dreamlab, kami memformulasikan baby lotion dengan Ceramide NP, Chamomile, dan
       sizeOptions: ["50ml", "100ml", "200ml"],
       bottleOptions: ["Pump Bottle", "Flip Top", "Tube"],
       capOptions: ["Pump", "Flip Cap", "Screw Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A", "Dermatologically Tested"],
     },
@@ -199,7 +199,7 @@ Di Dreamlab, kami memformulasikan baby lotion dengan Ceramide NP, Chamomile, dan
       story: `Keamanan pernapasan bayi adalah prioritas utama kami dalam memproduksi bedak.
 
 Di Dreamlab, kami sepenuhnya meninggalkan penggunaan talc dan menggantinya dengan bahan nabati yang aman seperti pati jagung (corn starch). Bedak bayi kami memiliki butiran ultra-halus yang efektif menyerap kelembapan di lipatan kulit, mencegah iritasi akibat gesekan, dan memberikan aroma segar yang ikonik bagi bayi tanpa risiko debu yang berbahaya.`,
-      seoParagraph: "Maklon Baby Powder solusi bagi brand yang mengedepankan keamanan dan inovasi produk bayi. Dengan formula talc-free berbasis pati jagung, bedak bayi Dreamlab aman untuk pernapasan dan kulit sensitif. MOQ mulai 3000 pcs bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Baby Powder solusi bagi brand yang mengedepankan keamanan dan inovasi produk bayi. Dengan formula talc-free berbasis pati jagung, bedak bayi Dreamlab aman untuk pernapasan dan kulit sensitif. MOQ Fleksibel / menyesuaikan kebutuhan brand bersertifikasi BPOM & Halal.",
       benefits: [
         "100% Talc-Free — aman untuk pernapasan dan kesehatan bayi",
         "Absorbent Formula — efektif menyerap keringat dan kelembapan berlebih",
@@ -216,7 +216,7 @@ Di Dreamlab, kami sepenuhnya meninggalkan penggunaan talc dan menggantinya denga
       sizeOptions: ["50g", "100g", "150g"],
       bottleOptions: ["Shaker Bottle", "Puff Case", "Refill Pouch"],
       capOptions: ["Sifter Cap", "Screw Cap", "Flip Sifter"],
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -231,7 +231,7 @@ Di Dreamlab, kami sepenuhnya meninggalkan penggunaan talc dan menggantinya denga
       story: `Memberikan keharuman khas bayi yang lembut dan segar tanpa khawatir merusak kulit sensitifnya.
 
 Kulit bayi sangat rentan terhadap efek pengeringan alkohol. Oleh karena itu, Dreamlab memformulasikan baby cologne yang 100% bebas alkohol (alcohol-free). Memanfaatkan basis air dan minyak jarak terhidrogenasi untuk melarutkan wewangian lembut hypoallergenic secara sempurna, cologne ini memberikan aroma segar tahan lama setelah mandi tanpa menimbulkan iritasi.`,
-      seoParagraph: "Maklon Baby Cologne bebas alkohol dengan wewangian hypoallergenic yang aman untuk kulit sensitif bayi. Memberikan aroma segar klasik sepanjang hari. ✓ Bebas Alkohol ✓ Aman untuk pakaian & kulit bayi. MOQ mulai 2000 pcs bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Baby Cologne bebas alkohol dengan wewangian hypoallergenic yang aman untuk kulit sensitif bayi. Memberikan aroma segar klasik sepanjang hari. ✓ Bebas Alkohol ✓ Aman untuk pakaian & kulit bayi. MOQ Fleksibel / menyesuaikan kebutuhan brand bersertifikasi BPOM & Halal.",
       benefits: [
         "100% Alcohol-Free — tidak membuat kulit bayi kering atau iritasi",
         "Aroma Klasik Bayi Lembut — keharuman segar yang tahan lama",
@@ -248,7 +248,7 @@ Kulit bayi sangat rentan terhadap efek pengeringan alkohol. Oleh karena itu, Dre
       sizeOptions: ["50ml", "100ml", "150ml"],
       bottleOptions: ["Spray Bottle", "Splash Bottle"],
       capOptions: ["Spray Pump", "Screw Cap", "Flip Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -263,7 +263,7 @@ Kulit bayi sangat rentan terhadap efek pengeringan alkohol. Oleh karena itu, Dre
       story: `Baby oil adalah bagian penting dari ritual perawatan bayi yang tidak hanya melembapkan tetapi juga mempererat ikatan antara orang tua dan buah hati.
 
 Baby Oil Dreamlab diformulasikan dengan minyak nabati murni yang ringan dan mudah meresap. Sangat ideal untuk pijat bayi yang menstimulasi pertumbuhan dan relaksasi, mengatasi bercak kulit kering, dan membersihkan cradle cap (kerak kepala) secara lembut. 100% aman untuk bayi baru lahir (0+ bulan) dengan formula hypoallergenic tanpa pewangi buatan.`,
-      seoParagraph: "Maklon Baby Oil — jasa maklon minyak bayi 100% nabati untuk pijat dan perawatan kulit kering. Hypoallergenic, aman untuk newborn (0+ bulan). ✓ BPOM & Halal ✓ MOQ 2000 pcs.",
+      seoParagraph: "Maklon Baby Oil — jasa maklon minyak bayi 100% nabati untuk pijat dan perawatan kulit kering. Hypoallergenic, aman untuk newborn (0+ bulan). ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "100% Minyak Nabati — ringan dan mudah meresap",
         "Aman untuk Newborn — formula hypoallergenic 0+ bulan",
@@ -280,7 +280,7 @@ Baby Oil Dreamlab diformulasikan dengan minyak nabati murni yang ringan dan muda
       sizeOptions: ["50ml", "100ml", "200ml"],
       bottleOptions: ["Pump Bottle", "Dropper Bottle", "Splash Bottle"],
       capOptions: ["Pump", "Dropper", "Screw Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },

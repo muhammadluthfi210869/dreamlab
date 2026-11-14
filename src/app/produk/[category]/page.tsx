@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getProductDataV2 } from "@/data/products-v2";
 import { getCategoryTitle, getCategoryMetaDescription } from "@/data/keywords";
 import { ProductPageV2 } from "@/components/ProductPageV2";
+import { getProductFaqs } from "@/data/product-faqs";
 import JsonLd from "@/components/JsonLd";
 import { buildAlternates } from "@/lib/seo-lang";
 
@@ -16,6 +17,14 @@ export default async function CategoryPage({ params }: Props) {
   if (!data) {
     notFound();
   }
+
+  const faqs = getProductFaqs(category);
+  const itemsList = (data.subCategories || data.products || []) as Array<{
+    name: string;
+    slug?: string;
+    shortDescription?: string;
+    description?: string;
+  }>;
 
   // Schema for product category page
   const categorySchema = {
@@ -37,10 +46,15 @@ export default async function CategoryPage({ params }: Props) {
         breadcrumb: { '@id': `https://dreamlab.id/produk/${category}/#breadcrumb` },
         mainEntity: {
           '@type': 'ItemList',
-          itemListElement: (data.subCategories || data.products || []).map((item: { name: string }, i: number) => ({
+          numberOfItems: itemsList.length,
+          itemListElement: itemsList.map((item, i) => ({
             '@type': 'ListItem',
             position: i + 1,
             name: item.name || '',
+            description: item.shortDescription || item.description || '',
+            url: item.slug
+              ? `https://dreamlab.id/produk/${category}/${item.slug}/`
+              : `https://dreamlab.id/produk/${category}/`,
           })),
         },
       },
@@ -52,6 +66,22 @@ export default async function CategoryPage({ params }: Props) {
           { '@type': 'ListItem', position: 2, name: data.name },
         ],
       },
+      ...(faqs.length > 0
+        ? [
+            {
+              '@type': 'FAQPage',
+              '@id': `https://dreamlab.id/produk/${category}/#faq`,
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.answer,
+                },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 

@@ -18,7 +18,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Light emulsion",
       haltbarkeit: "Hidrasi 8-12 Jam",
       marktposition: "Mass Market",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Daily use, fast absorption, moisturizing",
       bestFor: ["Daily Use", "Normal Skin", "Office"],
@@ -28,7 +28,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Surfactant-based liquid",
       haltbarkeit: "Pembersihan Harian",
       marktposition: "Mass Market",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Cleansing, refreshing, fragrant",
       bestFor: ["Daily Bath", "All Skin Types", "Refreshing"],
@@ -38,7 +38,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Cream/gel with particles",
       haltbarkeit: "Eksfoliasi Mingguan",
       marktposition: "Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Physical exfoliation, smoothing",
       bestFor: ["Dry/Flaky Skin", "Pre-Tanning", "Rough Elbows/Knees"],
@@ -48,7 +48,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Rich cream base",
       haltbarkeit: "Hidrasi Intensif",
       marktposition: "Premium Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Premium",
       karakter: "Heavy duty, barrier protection",
       bestFor: ["Very Dry Skin", "Winter/AC", "Post-partum"],
@@ -58,7 +58,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Pure oil base",
       haltbarkeit: "Aromaterapi & Relaksasi",
       marktposition: "Spa/Professional",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Premium",
       karakter: "Smooth glide, therapeutic",
       bestFor: ["Spa/Clinic", "Home Relaxation", "Aromatherapy"],
@@ -68,7 +68,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Pure oil base",
       haltbarkeit: "Nutrisi & Glow",
       marktposition: "Premium",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Premium",
       karakter: "Nourishing, glow, fast absorption",
       bestFor: ["Very Dry Skin", "Glow Treatment", "Night Care"],
@@ -78,7 +78,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Active antibacterial bar",
       haltbarkeit: "Perlindungan 24 Jam",
       marktposition: "Hygiene Essential",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Antibacterial, protective, gentle",
       bestFor: ["Daily Hygiene", "Family Use", "Active Lifestyle"],
@@ -88,7 +88,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Luxury gel base",
       haltbarkeit: "Kesegaran Harian",
       marktposition: "Daily Luxury",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Refreshing, foaming, fragrant",
       bestFor: ["Daily Shower", "Luxury Bath", "Gift Set"],
@@ -98,7 +98,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Mineral salt crystals",
       haltbarkeit: "Relaksasi & Detox",
       marktposition: "Spa/Wellness",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Therapeutic, relaxing, detoxifying",
       bestFor: ["Spa Treatment", "Muscle Relief", "Self-Care"],
@@ -108,7 +108,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Natural cold-process",
       haltbarkeit: "Perawatan Alami",
       marktposition: "Eco Premium",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Premium",
       karakter: "Natural, eco-friendly, gentle",
       bestFor: ["Sensitive Skin", "Eco-Conscious", "Natural Lifestyle"],
@@ -118,7 +118,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Concentrated active serum",
       haltbarkeit: "Treatment Intensif",
       marktposition: "Premium Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Premium",
       karakter: "Concentrated, targeted, fast-absorbing",
       bestFor: ["Brightening", "Firming", "Hydrating Treatment"],
@@ -128,7 +128,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Glycerin-based clear bar",
       haltbarkeit: "Pembersihan Lembut",
       marktposition: "Premium Basic",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Gentle, clear, moisturizing",
       bestFor: ["Sensitive Skin", "Dry Skin", "Gift & Premium"],
@@ -138,7 +138,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Cream with active brighteners",
       haltbarkeit: "Ketiak Cerah Seharian",
       marktposition: "Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Whitening, deodorizing, smoothing",
       bestFor: ["Dark Underarms", "Body Odor", "Daily Care"],
@@ -148,7 +148,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Active brightening bar",
       haltbarkeit: "Pencerahan Bertahap",
       marktposition: "Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Brightening, nourishing, gentle",
       bestFor: ["Body Brightening", "Uneven Skin Tone", "Daily Use"],
@@ -158,7 +158,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Classic soap base",
       haltbarkeit: "Pembersihan Dasar",
       marktposition: "Mass Market",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Cleansing, economical, versatile",
       bestFor: ["Daily Bath", "Household", "Travel"],
@@ -168,7 +168,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Rich therapeutic cream",
       haltbarkeit: "Sesi Pijat 60 Menit",
       marktposition: "Spa/Professional",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Premium",
       karakter: "Therapeutic glide, moisturizing",
       bestFor: ["Spa Therapy", "Muscle Relaxation", "Professional Massage"],
@@ -178,7 +178,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Water-based cooling gel",
       haltbarkeit: "Pendinginan Instan",
       marktposition: "Treatment",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Cooling, calming, fast-absorbing",
       bestFor: ["After Sun", "After Shave", "Skin Irritation"],
@@ -188,7 +188,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Anti-aging cream",
       haltbarkeit: "Perawatan Anti-Aging",
       marktposition: "Premium",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Premium",
       karakter: "Firming, lifting, hydrating",
       bestFor: ["Neck & Décolletage", "Anti-Aging", "Firming Treatment"],
@@ -198,7 +198,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Spray liquid",
       haltbarkeit: "Perlindungan 12-24 Jam",
       marktposition: "Daily Care",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Anti-bau, cepat kering, segar",
       bestFor: ["Daily Use", "Active Lifestyle", "Body Odor"],
@@ -208,7 +208,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Roll-on liquid/gel",
       haltbarkeit: "Perlindungan 24 Jam",
       marktposition: "Sensitive Care",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Lembut, anti-bau, menenangkan",
       bestFor: ["Sensitive Skin", "Daily Use", "Whitening"],
@@ -218,7 +218,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Lightweight serum",
       haltbarkeit: "Perlindungan 24 Jam",
       marktposition: "Premium Trend",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Premium",
       karakter: "Cepat kering, non-sticky, brightening",
       bestFor: ["Brightening", "Korea Trend", "Sensitive Skin"],
@@ -228,7 +228,7 @@ export const bodycareData: ProductCategoryV2 = {
       konsentrasi: "Solid balm stick",
       haltbarkeit: "Perlindungan 24 Jam",
       marktposition: "Premium",
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range - Premium",
       karakter: "Padat, praktis, anti-bau",
       bestFor: ["On-The-Go", "Travel", "Sport"],
@@ -247,7 +247,7 @@ export const bodycareData: ProductCategoryV2 = {
       story: `Langkah pertama dalam menjaga kesehatan kulit tubuh adalah hidrasi yang konsisten.
 
 Di Dreamlab, kami memformulasikan body lotion yang benar-benar memberikan hasil: penyerapan cepat, hidrasi tahan lama, dan aroma yang memikat untuk penggunaan harian. Kami memastikan produk ini nyaman digunakan di iklim Indonesia yang lembap tanpa rasa lengket, memberikan perlindungan skin barrier yang optimal sepanjang hari.`,
-      seoParagraph: "Maklon Body Lotion — jasa maklon body care pelembap harian tekstur ringan penyerapan cepat untuk semua jenis kulit Indonesia. Tersedia varian whitening, firming, deep moisturizing. ✓ BPOM & Halal ✓ MOQ 1000 pcs. Konsultasi maklon body lotion bersama Dreamlab.",
+      seoParagraph: "Maklon Body Lotion — jasa maklon body care pelembap harian tekstur ringan penyerapan cepat untuk semua jenis kulit Indonesia. Tersedia varian whitening, firming, deep moisturizing. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand. Konsultasi maklon body lotion bersama Dreamlab.",
       benefits: [
         "Tekstur Ringan — cepat meresap tanpa residu lengket",
         "Hidrasi Tahan Lama — menjaga kelembapan hingga 12 jam",
@@ -267,7 +267,7 @@ Di Dreamlab, kami memformulasikan body lotion yang benar-benar memberikan hasil:
       sizeOptions: ["100ml", "200ml", "350ml", "500ml"],
       bottleOptions: ["Pump Bottle", "Flip Top Bottle", "Custom Exclusive Packaging"],
       capOptions: ["Pump", "Flip Cap", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -282,7 +282,7 @@ Di Dreamlab, kami memformulasikan body lotion yang benar-benar memberikan hasil:
       story: `Mandi bukan sekadar rutinitas kebersihan, melainkan momen pemulihan diri dari polusi dan kelelahan.
 
 Di Dreamlab, kami menciptakan body wash yang memberikan pengalaman membersihkan yang menyegarkan setiap kalinya. Kami menggabungkan agen pembersih yang efektif namun lembut dengan bahan aktif yang merawat kulit. Produk kami memastikan konsumen Anda merasa segar, bersih, dan kulit tetap lembap tanpa rasa kaku atau kering.`,
-      seoParagraph: "Maklon Body Wash solusi bagi brand yang ingin masuk ke pasar perawatan tubuh dengan produk harian yang efektif membersihkan dan merawat kulit. Dengan formula pH seimbang dan busa yang kaya, body wash Dreamlab membersihkan sekaligus menjaga kelembapan kulit. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Tersedia varian shower gel, cream wash, dan antiseptic wash bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Body Wash solusi bagi brand yang ingin masuk ke pasar perawatan tubuh dengan produk harian yang efektif membersihkan dan merawat kulit. Dengan formula pH seimbang dan busa yang kaya, body wash Dreamlab membersihkan sekaligus menjaga kelembapan kulit. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Tersedia varian shower gel, cream wash, dan antiseptic wash bersertifikasi BPOM & Halal.",
       benefits: [
         "Formula pH Seimbang — menjaga kesehatan alami barrier kulit",
         "Pembersihan Lembut — efektif mengangkat kotoran tanpa iritasi",
@@ -299,7 +299,7 @@ Di Dreamlab, kami menciptakan body wash yang memberikan pengalaman membersihkan 
       sizeOptions: ["200ml", "250ml", "500ml", "1000ml"],
       bottleOptions: ["Pump Bottle", "Flip Top Bottle", "Custom Exclusive Packaging"],
       capOptions: ["Pump", "Screw Cap", "Flip Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -314,7 +314,7 @@ Di Dreamlab, kami menciptakan body wash yang memberikan pengalaman membersihkan 
       story: `Untuk area kulit yang membutuhkan perhatian ekstra, body butter adalah solusinya.
 
 Diformulasikan dengan konsentrasi mentega nabati (plant butters) yang tinggi, body butter Dreamlab menciptakan lapisan pelindung yang mengunci kelembapan secara mendalam. Sangat efektif untuk mengatasi tumit pecah-pecah, siku kering, atau sebagai perawatan pencegahan stretch mark. Produk ini memberikan kesan mewah dan premium pada portofolio brand Anda.`,
-      seoParagraph: "Maklon Body Butter solusi untuk brand yang ingin menawarkan produk perawatan kulit intensif untuk pasar premium. Dengan tekstur kaya dari shea butter dan cocoa butter, pelembap ini memberikan hidrasi mendalam untuk kulit kering. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Sangat cocok bagi brand yang menyasar pasar kelas atas dan spa eksklusif bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Body Butter solusi untuk brand yang ingin menawarkan produk perawatan kulit intensif untuk pasar premium. Dengan tekstur kaya dari shea butter dan cocoa butter, pelembap ini memberikan hidrasi mendalam untuk kulit kering. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Sangat cocok bagi brand yang menyasar pasar kelas atas dan spa eksklusif bersertifikasi BPOM & Halal.",
       benefits: [
         "Tekstur Kaya (Rich Texture) — dari Shea Butter dan Cocoa Butter murni",
         "Hidrasi Mendalam — efektif untuk area kulit yang sangat kering dan kasar",
@@ -331,7 +331,7 @@ Diformulasikan dengan konsentrasi mentega nabati (plant butters) yang tinggi, bo
       sizeOptions: ["100ml", "200ml", "350ml"],
       bottleOptions: ["Tube", "Jar", "Custom Exclusive Packaging"],
       capOptions: ["Screw Lid", "Flip Top", "Pump"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -346,7 +346,7 @@ Diformulasikan dengan konsentrasi mentega nabati (plant butters) yang tinggi, bo
       story: `Eksfoliasi rutin adalah kunci untuk kulit yang tampak cerah dan bercahaya.
 
 Sel kulit mati yang menumpuk sering kali menjadi penghalang bagi penyerapan produk perawatan kulit lainnya. Body scrub Dreamlab membantu mengangkat lapisan kulit mati tersebut, memungkinkan kulit baru untuk bernapas dan menyerap nutrisi dengan lebih efektif. Kami menciptakan butiran scrub yang lembut namun tetap memberikan hasil maksimal tanpa melukai kulit.`,
-      seoParagraph: "Maklon Body Scrub solusi bagi brand yang ingin menawarkan produk eksfoliasi mingguan berkualitas tinggi. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Tersedia berbagai varian: coffee scrub (kaya antioksidan), sugar scrub (lembut untuk kulit sensitif), rice scrub (mencerahkan khas Asia), dan charcoal scrub (detoksifikasi) bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Body Scrub solusi bagi brand yang ingin menawarkan produk eksfoliasi mingguan berkualitas tinggi. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Tersedia berbagai varian: coffee scrub (kaya antioksidan), sugar scrub (lembut untuk kulit sensitif), rice scrub (mencerahkan khas Asia), dan charcoal scrub (detoksifikasi) bersertifikasi BPOM & Halal.",
       benefits: [
         "Berbagai Tipe Scrub: Coffee, Sugar, Rice, Charcoal, dan Salt",
         "Eksfoliasi Lembut — partikel tidak melukai lapisan kulit sehat",
@@ -363,7 +363,7 @@ Sel kulit mati yang menumpuk sering kali menjadi penghalang bagi penyerapan prod
       sizeOptions: ["100ml", "200ml", "300ml"],
       bottleOptions: ["Jar", "Tube", "Custom Exclusive Packaging"],
       capOptions: ["Screw Lid", "Flip Cap", "Spoon Included"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -378,7 +378,7 @@ Sel kulit mati yang menumpuk sering kali menjadi penghalang bagi penyerapan prod
       story: `Minyak pijat bukan sekadar pelumas, melainkan media untuk transformasi dari stres harian menuju relaksasi total.
 
 Di Dreamlab, kami menciptakan minyak pijat yang tidak hanya memberikan luncuran (glide) yang sempurna bagi terapis, tetapi juga memberikan manfaat terapeutik nyata: aroma yang menenangkan untuk mengurangi kecemasan atau sensasi hangat untuk meredakan ketegangan otot. Setiap racikan diformulasikan dengan rasio yang tepat untuk efikasi optimal.`,
-      seoParagraph: "Maklon Massage Oil solusi bagi brand di segmen spa, wellness, dan home care. Menggunakan minyak dasar (base oil) berkualitas tinggi seperti Sweet Almond dan Jojoba, massage oil Dreamlab memberikan pengalaman aromaterapi premium. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Sangat cocok untuk lini produk spa eksklusif bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Massage Oil solusi bagi brand di segmen spa, wellness, dan home care. Menggunakan minyak dasar (base oil) berkualitas tinggi seperti Sweet Almond dan Jojoba, massage oil Dreamlab memberikan pengalaman aromaterapi premium. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Sangat cocok untuk lini produk spa eksklusif bersertifikasi BPOM & Halal.",
       benefits: [
         "Minyak Dasar Premium: Sweet Almond, Grape Seed, Jojoba",
         "Racikan Minyak Esensial: Relaxing (Lavender), Energizing (Citrus), Warming (Eucalyptus)",
@@ -395,7 +395,7 @@ Di Dreamlab, kami menciptakan minyak pijat yang tidak hanya memberikan luncuran 
       sizeOptions: ["50ml", "100ml", "200ml", "500ml"],
       bottleOptions: ["Pump Bottle", "Flip Top Bottle", "Dropper Bottle", "Spray Bottle"],
       capOptions: ["Pump", "Dropper", "Flip Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -410,7 +410,7 @@ Di Dreamlab, kami menciptakan minyak pijat yang tidak hanya memberikan luncuran 
       story: `Body oil adalah simbol kemewahan dalam perawatan tubuh modern.
 
 Tidak ada produk yang memberikan sensasi perawatan diri yang begitu intens seperti body oil. Teksturnya yang halus, cara produk meluncur di kulit, dan efek kilau sehat yang ditinggalkan memberikan pengalaman sensorik yang melampaui perawatan tubuh dasar. Gunakan setelah mandi untuk mengunci kelembapan dan memberikan tampilan kulit yang kenyal dan bercahaya.`,
-      seoParagraph: "Maklon Body Oil solusi bagi brand yang ingin memposisikan diri di pasar perawatan tubuh premium. Dengan basis 100% minyak alami dari jojoba, argan, dan rose hip, body oil Dreamlab memberikan nutrisi mendalam. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Cocok untuk brand kecantikan kelas atas dan lini produk spa bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Body Oil solusi bagi brand yang ingin memposisikan diri di pasar perawatan tubuh premium. Dengan basis 100% minyak alami dari jojoba, argan, dan rose hip, body oil Dreamlab memberikan nutrisi mendalam. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Cocok untuk brand kecantikan kelas atas dan lini produk spa bersertifikasi BPOM & Halal.",
       benefits: [
         "100% Basis Minyak Alami: Jojoba, Argan, dan Rose Hip",
         "Nutrisi Mendalam — ideal untuk kulit sangat kering dan pengunci kelembapan",
@@ -427,7 +427,7 @@ Tidak ada produk yang memberikan sensasi perawatan diri yang begitu intens seper
       sizeOptions: ["50ml", "100ml", "150ml"],
       bottleOptions: ["Amber Glass", "Clear Glass", "Dropper Bottle"],
       capOptions: ["Dropper", "Pump", "Orifice Reducer"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -442,7 +442,7 @@ Tidak ada produk yang memberikan sensasi perawatan diri yang begitu intens seper
       story: `Kebersihan tangan dan tubuh adalah garis pertahanan pertama terhadap kuman dan bakteri.
       
       Anti-Bacterial Soap Dreamlab diformulasikan dengan agen antibakteri aktif yang efektif membunuh 99.9% kuman tanpa membuat kulit kering. Diperkaya dengan pelembap alami seperti Aloe Vera dan Vitamin E, produk ini memberikan perlindungan ekstra yang nyaman untuk penggunaan harian. Cocok untuk seluruh keluarga, termasuk kulit sensitif.`,
-      seoParagraph: "Maklon Anti-Bacterial Soap — jasa maklon sabun antibakteri dengan perlindungan 99.9% kuman. Formula lembut dengan Aloe Vera dan Vitamin E. ✓ BPOM & Halal ✓ MOQ 1000 pcs. Konsultasi maklon body care bersama Dreamlab.",
+      seoParagraph: "Maklon Anti-Bacterial Soap — jasa maklon sabun antibakteri dengan perlindungan 99.9% kuman. Formula lembut dengan Aloe Vera dan Vitamin E. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand. Konsultasi maklon body care bersama Dreamlab.",
       benefits: [
         "Agen Antibakteri Aktif — melindungi dari kuman dan bakteri",
         "Kill Rate 99.9% — efektif membunuh bakteri penyebab penyakit",
@@ -459,7 +459,7 @@ Tidak ada produk yang memberikan sensasi perawatan diri yang begitu intens seper
       sizeOptions: ["60g", "80g", "100g"],
       bottleOptions: ["Pump Bottle", "Tube", "Custom Exclusive Packaging"],
       capOptions: ["N/A", "Pump Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -474,7 +474,7 @@ Tidak ada produk yang memberikan sensasi perawatan diri yang begitu intens seper
       story: `Shower gel memberikan pengalaman mandi yang lebih mewah dibandingkan sabun biasa.
 
 Dengan tekstur gel yang menghasilkan busa lembut dan kaya, shower gel Dreamlab membersihkan kulit secara efektif tanpa menghilangkan minyak alami. Diperkaya dengan bahan aktif pelembap dan fragrance berkualitas tinggi yang memberikan aroma tahan lama, setiap mandi menjadi ritual perawatan diri yang menyenangkan.`,
-      seoParagraph: "Maklon Shower Gel — jasa maklon sabun mandi cair tekstur gel dengan busa lembut dan aroma eksklusif. Formula pH seimbang untuk semua jenis kulit. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Shower Gel — jasa maklon sabun mandi cair tekstur gel dengan busa lembut dan aroma eksklusif. Formula pH seimbang untuk semua jenis kulit. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Tekstur Gel Mewah — menghasilkan busa lembut dan kaya",
         "Formula pH Seimbang — menjaga kesehatan alami kulit",
@@ -491,7 +491,7 @@ Dengan tekstur gel yang menghasilkan busa lembut dan kaya, shower gel Dreamlab m
       sizeOptions: ["200ml", "250ml", "500ml", "1000ml"],
       bottleOptions: ["Pump Bottle", "Flip Top", "Custom Exclusive Packaging"],
       capOptions: ["Pump", "Flip Cap", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -506,7 +506,7 @@ Dengan tekstur gel yang menghasilkan busa lembut dan kaya, shower gel Dreamlab m
       story: `Bath salt adalah cara termudah untuk mengubah mandi biasa menjadi pengalaman spa yang mewah.
 
 Bath Salt Dreamlab menggunakan campuran garam laut dan garam Epsom (Magnesium Sulfate) yang kaya mineral, dikombinasikan dengan minyak esensial alami. Membantu meredakan nyeri otot, mengurangi stres, dan mendetoksifikasi kulit. Cukup tambahkan ke air mandi hangat dan rasakan manfaat terapeutiknya.`,
-      seoParagraph: "Maklon Bath Salt — jasa maklon garam mandi dengan garam laut dan Epsom salt untuk relaksasi dan detoksifikasi. Aromaterapi dengan minyak esensial alami. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Bath Salt — jasa maklon garam mandi dengan garam laut dan Epsom salt untuk relaksasi dan detoksifikasi. Aromaterapi dengan minyak esensial alami. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Garam Epsom & Garam Laut — kaya mineral untuk relaksasi otot",
         "Aromaterapi — minyak esensial lavender, eucalyptus, atau citrus",
@@ -523,7 +523,7 @@ Bath Salt Dreamlab menggunakan campuran garam laut dan garam Epsom (Magnesium Su
       sizeOptions: ["250g", "500g", "1000g"],
       bottleOptions: ["Jar", "Glass Bottle"],
       capOptions: ["Resealable Zipper", "Screw Lid", "Cork Lid"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -538,7 +538,7 @@ Bath Salt Dreamlab menggunakan campuran garam laut dan garam Epsom (Magnesium Su
       story: `Organic soap adalah pilihan sadar bagi konsumen yang peduli lingkungan dan kesehatan kulit.
 
 Organic Soap Dreamlab diformulasikan dengan bahan-bahan nabati organik bersertifikat, bebas dari paraben, SLS, dan pewarna sintetis. Menggunakan minyak kelapa organik, shea butter, dan ekstrak tanaman herbal yang membersihkan sekaligus merawat kulit. Setiap batang dibuat dengan proses cold-process yang mempertahankan nutrisi alami.`,
-      seoParagraph: "Maklon Organic Soap — jasa maklon sabun organik dengan bahan nabati alami. Bebas paraben, SLS, dan pewarna sintetis. ✓ BPOM & Halal ✓ MOQ 1000 pcs. Cocok untuk brand natural dan eco-friendly.",
+      seoParagraph: "Maklon Organic Soap — jasa maklon sabun organik dengan bahan nabati alami. Bebas paraben, SLS, dan pewarna sintetis. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand. Cocok untuk brand natural dan eco-friendly.",
       benefits: [
         "100% Bahan Nabati — minyak kelapa, shea butter, dan herbal",
         "Cold-Process — mempertahankan nutrisi alami",
@@ -555,7 +555,7 @@ Organic Soap Dreamlab diformulasikan dengan bahan-bahan nabati organik bersertif
       sizeOptions: ["50g", "75g", "100g"],
       bottleOptions: ["Bar Wrap", "Kraft Box"],
       capOptions: ["N/A"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -570,7 +570,7 @@ Organic Soap Dreamlab diformulasikan dengan bahan-bahan nabati organik bersertif
       story: `Body serum adalah generasi berikutnya dalam perawatan tubuh — konsentrat bahan aktif dalam basis ringan yang meresap cepat.
 
 Berbeda dengan body lotion yang lebih bersifat melembapkan, body serum Dreamlab diformulasikan dengan konsentrasi bahan aktif tinggi (Niacinamide, Vitamin C, Hyaluronic Acid) yang ditargetkan untuk masalah kulit spesifik: mencerahkan kulit tubuh, mengencangkan kulit yang mulai kendur, atau memberikan hidrasi intensif. Tekstur ringan yang cepat meresap tanpa rasa lengket.`,
-      seoParagraph: "Maklon Body Serum — jasa maklon serum tubuh konsentrasi aktif tinggi untuk brightening, firming, dan hydrating. Formula ringan cepat meresap. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Body Serum — jasa maklon serum tubuh konsentrasi aktif tinggi untuk brightening, firming, dan hydrating. Formula ringan cepat meresap. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Konsentrasi Aktif Tinggi — hasil lebih cepat dan terukur",
         "Tekstur Ringan — cepat meresap tanpa rasa lengket",
@@ -587,7 +587,7 @@ Berbeda dengan body lotion yang lebih bersifat melembapkan, body serum Dreamlab 
       sizeOptions: ["50ml", "100ml", "150ml"],
       bottleOptions: ["Airless Pump Bottle", "Dropper Bottle"],
       capOptions: ["Pump Cap", "Rubber Dropper", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -602,7 +602,7 @@ Berbeda dengan body lotion yang lebih bersifat melembapkan, body serum Dreamlab 
       story: `Transparent soap adalah perpaduan antara seni dan fungsi dalam dunia sabun.
 
 Dengan tampilan bening yang elegan, Transparent Soap Dreamlab dibuat dengan basis gliserin murni yang terkenal akan kemampuannya melembapkan kulit. Proses pembuatan khusus menghasilkan sabun yang bening kristal dengan busa yang lembut dan kaya. Cocok untuk konsumen yang menghargai estetika dan kualitas.`,
-      seoParagraph: "Maklon Transparent Soap — jasa maklon sabun gliserin bening dengan formula lembut untuk kulit sensitif. Tampilan elegan dengan busa kaya. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Transparent Soap — jasa maklon sabun gliserin bening dengan formula lembut untuk kulit sensitif. Tampilan elegan dengan busa kaya. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Basis Gliserin Murni — melembapkan saat membersihkan",
         "Tampilan Bening Elegan — nilai estetika tinggi di mata konsumen",
@@ -619,7 +619,7 @@ Dengan tampilan bening yang elegan, Transparent Soap Dreamlab dibuat dengan basi
       sizeOptions: ["60g", "80g", "100g"],
       bottleOptions: ["Bar Wrap", "Box"],
       capOptions: ["N/A"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -634,7 +634,7 @@ Dengan tampilan bening yang elegan, Transparent Soap Dreamlab dibuat dengan basi
       story: `Area ketiak membutuhkan perawatan khusus yang berbeda dari area tubuh lainnya.
 
 Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area ketiak: hiperpigmentasi, bau badan, dan kulit kasar. Dengan kombinasi Niacinamide untuk mencerahkan, antiperspiran alami untuk mengontrol keringat, dan emolien yang menghaluskan tekstur kulit. Hasilnya: ketiak yang cerah, halus, dan segar sepanjang hari.`,
-      seoParagraph: "Maklon Underarm Cream — jasa maklon krim ketiak dengan Niacinamide untuk mencerahkan dan antiperspiran alami. Formula lembut aman untuk area sensitif. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Underarm Cream — jasa maklon krim ketiak dengan Niacinamide untuk mencerahkan dan antiperspiran alami. Formula lembut aman untuk area sensitif. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Niacinamide — mencerahkan area ketiak yang gelap",
         "Antiperspiran Alami — mengontrol keringat dan bau badan",
@@ -651,7 +651,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["20g", "30g", "50g"],
       bottleOptions: ["Jar", "Tube"],
       capOptions: ["Flip Cap", "Screw Lid", "Roller Ball"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -681,7 +681,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["30ml", "50ml", "75ml", "100ml", "150ml"],
       bottleOptions: ["Spray Bottle", "Roll On Bottle", "Dropper Bottle", "Custom"],
       capOptions: ["Spray Cap", "Roller Ball", "Rubber Dropper", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -712,7 +712,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["50ml", "100ml", "150ml"],
       bottleOptions: ["Spray Bottle", "Custom"],
       capOptions: ["Spray Cap", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -743,7 +743,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["30ml", "50ml", "75ml"],
       bottleOptions: ["Roll On Bottle", "Custom"],
       capOptions: ["Roller Ball", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -774,7 +774,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["30ml", "50ml", "75ml"],
       bottleOptions: ["Dropper Bottle", "Roll On Bottle", "Custom"],
       capOptions: ["Rubber Dropper", "Roller Ball", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -805,7 +805,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["30g", "50g", "75g"],
       bottleOptions: ["Stick Tube", "Custom"],
       capOptions: ["Twist-up Cap", "Screw Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -820,7 +820,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       story: `Sabun pencerah adalah salah satu produk perawatan tubuh paling populer di Indonesia.
       
       Whitening Soap Dreamlab diformulasikan dengan bahan aktif pencerah premium seperti Glutathione, Kolagen, dan Vitamin C yang bekerja sinergis mencerahkan kulit secara bertahap dan aman. Berbeda dengan sabun biasa, formula kami diperkaya dengan bahan pelembap agar kulit tidak kering setelah pemakaian. Hasil: kulit tubuh yang lebih cerah, halus, dan bercahaya.`,
-      seoParagraph: "Maklon Whitening Soap — jasa maklon sabun pencerah dengan Glutathione, Kolagen, dan Vitamin C. Mencerahkan kulit tubuh secara aman dan merata. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Whitening Soap — jasa maklon sabun pencerah dengan Glutathione, Kolagen, dan Vitamin C. Mencerahkan kulit tubuh secara aman dan merata. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Glutathione + Kolagen — bahan pencerah premium teruji",
         "Vitamin C — antioksidan dan pencerah alami",
@@ -837,7 +837,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       sizeOptions: ["60g", "80g", "100g"],
       bottleOptions: ["Bar Wrap", "Box", "Pump Bottle"],
       capOptions: ["N/A", "Pump Cap"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -852,7 +852,7 @@ Underarm Cream Dreamlab diformulasikan khusus untuk mengatasi masalah umum area 
       story: `Bar soap adalah produk perawatan diri paling klasik yang tetap relevan hingga saat ini.
 
 Bar Soap Dreamlab memadukan tradisi dengan inovasi modern. Kami menggunakan bahan-bahan berkualitas yang menghasilkan busa kaya dan lembut, membersihkan secara efektif tanpa menghilangkan kelembapan alami kulit. Tersedia dalam berbagai varian: dari formula basic hingga yang diperkaya dengan ekstrak herbal dan minyak esensial untuk manfaat tambahan.`,
-      seoParagraph: "Maklon Bar Soap — jasa maklon sabun batang berkualitas untuk pembersihan tubuh dan tangan. Formula lembut dengan berbagai pilihan varian. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Bar Soap — jasa maklon sabun batang berkualitas untuk pembersihan tubuh dan tangan. Formula lembut dengan berbagai pilihan varian. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Formula Lembut — membersihkan tanpa membuat kulit kering",
         "Busa Kaya — tekstur busa yang memuaskan",
@@ -869,7 +869,7 @@ Bar Soap Dreamlab memadukan tradisi dengan inovasi modern. Kami menggunakan baha
       sizeOptions: ["50g", "75g", "100g", "125g"],
       bottleOptions: ["Bar Wrap", "Kraft Box"],
       capOptions: ["N/A"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -884,7 +884,7 @@ Bar Soap Dreamlab memadukan tradisi dengan inovasi modern. Kami menggunakan baha
       story: `Massage cream menawarkan alternatif yang tidak berminyak dibandingkan minyak pijat tradisional.
 
 Massage Cream Dreamlab diformulasikan dengan tekstur krim yang memberikan luncuran (glide) sempurna untuk berbagai teknik pijat. Berbeda dengan minyak, krim ini meresap secara perlahan, memberikan hidrasi pada kulit setelah sesi pijat selesai. Tersedia dengan berbagai pilihan aroma terapi: lavender untuk relaksasi, eucalyptus untuk menghangatkan, dan citrus untuk menyegarkan.`,
-      seoParagraph: "Maklon Massage Cream — jasa maklon krim pijat dengan tekstur kaya untuk spa dan terapi. Aromaterapi pilihan: lavender, eucalyptus, citrus. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Massage Cream — jasa maklon krim pijat dengan tekstur kaya untuk spa dan terapi. Aromaterapi pilihan: lavender, eucalyptus, citrus. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Tekstur Krim Kaya — luncuran sempurna untuk berbagai teknik pijat",
         "Tidak Berminyak — meresap perlahan tanpa residu lengket",
@@ -901,7 +901,7 @@ Massage Cream Dreamlab diformulasikan dengan tekstur krim yang memberikan luncur
       sizeOptions: ["100ml", "200ml", "500ml"],
       bottleOptions: ["Jar / Pot", "Tube"],
       capOptions: ["Screw Lid", "Flip Cap", "Pump"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -916,7 +916,7 @@ Massage Cream Dreamlab diformulasikan dengan tekstur krim yang memberikan luncur
       story: `Soothing gel adalah solusi cepat untuk kulit yang membutuhkan pendinginan dan pemulihan.
 
 Soothing Gel Dreamlab diformulasikan dengan Aloe Vera, Centella Asiatica, dan menthol alami yang memberikan efek cooling instan. Sangat efektif untuk menenangkan kulit setelah beraktivitas di luar ruangan, setelah bercukur, atau saat kulit terasa panas dan iritasi. Tekstur gel ringan yang cepat meresap tanpa meninggalkan rasa lengket.`,
-      seoParagraph: "Maklon Soothing Gel — jasa maklon gel pendingin dengan Aloe Vera dan Centella Asiatica. Efek cooling instan untuk kulit setelah sun exposure dan iritasi. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Soothing Gel — jasa maklon gel pendingin dengan Aloe Vera dan Centella Asiatica. Efek cooling instan untuk kulit setelah sun exposure dan iritasi. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Efek Cooling Instan — menthol alami untuk sensasi segar",
         "Aloe Vera & Centella — menenangkan dan memperbaiki kulit",
@@ -933,7 +933,7 @@ Soothing Gel Dreamlab diformulasikan dengan Aloe Vera, Centella Asiatica, dan me
       sizeOptions: ["50ml", "100ml", "200ml"],
       bottleOptions: ["Jar", "Tube"],
       capOptions: ["Flip Cap", "Pump Cap", "Screw Lid"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -948,7 +948,7 @@ Soothing Gel Dreamlab diformulasikan dengan Aloe Vera, Centella Asiatica, dan me
       story: `Area leher sering kali menjadi yang pertama menunjukkan tanda penuaan, namun paling sering terabaikan.
 
 Neck Cream Dreamlab diformulasikan khusus untuk kulit leher yang lebih tipis dan rentan terhadap garis halus serta kekenduran. Dengan Peptide Complex untuk merangsang produksi kolagen, Hyaluronic Acid untuk hidrasi mendalam, dan bahan pengencang alami. Penggunaan rutin membantu mengencangkan kulit leher, menyamarkan garis halus, dan menjaga elastisitas untuk tampilan yang lebih muda.`,
-      seoParagraph: "Maklon Neck Cream — jasa maklon krim leher anti-aging dengan Peptide dan Hyaluronic Acid. Mengencangkan dan melembapkan area leher dan décolletage. ✓ BPOM & Halal ✓ MOQ 1000 pcs.",
+      seoParagraph: "Maklon Neck Cream — jasa maklon krim leher anti-aging dengan Peptide dan Hyaluronic Acid. Mengencangkan dan melembapkan area leher dan décolletage. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Peptide Complex — merangsang produksi kolagen alami",
         "Hyaluronic Acid — hidrasi mendalam area leher",
@@ -965,7 +965,7 @@ Neck Cream Dreamlab diformulasikan khusus untuk kulit leher yang lebih tipis dan
       sizeOptions: ["30ml", "50ml", "75ml"],
       bottleOptions: ["Jar", "Tube", "Airless Pump"],
       capOptions: ["Pump Cap", "Flip Cap", "Screw Lid"],
-      moq: "1000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "2-3 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -1086,7 +1086,7 @@ Neck Cream Dreamlab diformulasikan khusus untuk kulit leher yang lebih tipis dan
   faqs: [
     {
       question: "Berapa MOQ untuk maklon produk body care di Dreamlab?",
-      answer: "MOQ standar kami dimulai dari 1000 pcs per varian. Untuk kemasan khusus seperti jar kaca premium atau botol dengan pompa khusus, MOQ dapat menyesuaikan.",
+      answer: "MOQ standar kami fleksibel menyesuaikan kebutuhan brand. Untuk kemasan khusus seperti jar kaca premium atau botol dengan pompa khusus, MOQ dapat menyesuaikan.",
     },
     {
       question: "Apakah saya bisa menggunakan bahan alami khas Indonesia?",

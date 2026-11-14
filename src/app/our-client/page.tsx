@@ -8,11 +8,11 @@ import { PageSchema } from "@/components/PageSchema";
 import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
-  title: "DREAMLAB | Berikut 500++ Client Percaya produksi di Dreamlab",
+  title: "DREAMLAB | Berikut 1000+ Client Percaya produksi di Dreamlab",
   description: "Lihat brand-brand kosmetik & skincare yang sudah bekerja sama dengan Dreamlab.Jadi bagian dari mereka dan menjadi partner kami.",
   alternates: buildAlternates("/our-client/"),
   openGraph: {
-    title: "DREAMLAB | Berikut 500++ Client Percaya produksi di Dreamlab",
+    title: "DREAMLAB | Berikut 1000+ Client Percaya produksi di Dreamlab",
     description: "Lihat brand-brand kosmetik & skincare yang sudah bekerja sama dengan Dreamlab.",
     url: 'https://dreamlab.id/our-client/',
     siteName: 'Dreamlab',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "DREAMLAB | Berikut 500++ Client Percaya produksi di Dreamlab",
+    title: "DREAMLAB | Berikut 1000+ Client Percaya produksi di Dreamlab",
     description: "Lihat brand-brand kosmetik & skincare yang sudah bekerja sama dengan Dreamlab.",
   },
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -34,7 +34,7 @@ export default function OurClientPage() {
     <main className="min-h-screen bg-brand-white pt-20 md:pt-28">
       <PageSchema
         url="https://dreamlab.id/our-client/"
-        title="Client Dreamlab | 500+ Brand Percaya Produksi"
+        title="Client Dreamlab | 1000+ Brand Percaya Produksi"
         description="Lihat brand-brand kosmetik & skincare yang sudah bekerja sama dengan Dreamlab."
         h1="Our Clients"
         type="category"

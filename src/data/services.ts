@@ -85,7 +85,7 @@ export const serviceCategories: ServiceCategory[] = [
       { image: '/new asset/haircare/hair-gel.webp', title: 'Hair Gel' },
       { image: '/new asset/haircare/hair-mask.webp', title: 'Hair Mask' },
       { image: '/new%20asset/haircare/pomade.webp', title: 'Pomade' },
-      { image: '/new asset/haircare/sclap-care.webp', title: 'Scalp Care' },
+      { image: '/new asset/haircare/scalp-care.webp', title: 'Scalp Care' },
       { image: '/new%20asset/haircare/shampoo.webp', title: 'Shampoo' },
     ],
   },

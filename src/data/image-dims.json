@@ -4935,6 +4935,22 @@
     "height": 1024,
     "width": 1536
   },
+  "/images/certifications/bpom.png": {
+    "width": 1024,
+    "height": 941
+  },
+  "/images/certifications/cpkb.png": {
+    "width": 944,
+    "height": 944
+  },
+  "/images/certifications/halal.png": {
+    "width": 942,
+    "height": 944
+  },
+  "/images/certifications/hki.png": {
+    "width": 767,
+    "height": 272
+  },
   "/images/custom-formula-usp-brand-skincare.jpg": {
     "height": 576,
     "width": 1024
@@ -5207,6 +5223,10 @@
     "width": 1254,
     "height": 1254
   },
+  "/new asset/haircare/anti-split-end-serum.jpg": {
+    "height": 1024,
+    "width": 768
+  },
   "/new asset/haircare/beard-serum.webp": {
     "width": 3451,
     "height": 3451
@@ -5214,6 +5234,10 @@
   "/new asset/haircare/hair-conditioner.webp": {
     "width": 4802,
     "height": 4802
+  },
+  "/new asset/haircare/hair-cuticle-coat.jpg": {
+    "height": 1024,
+    "width": 768
   },
   "/new asset/haircare/hair-gel.webp": {
     "width": 3456,
@@ -5227,6 +5251,14 @@
     "height": 1254,
     "width": 1254
   },
+  "/new asset/haircare/hair-tonic.webp": {
+    "width": 1000,
+    "height": 667
+  },
+  "/new asset/haircare/hair-vitamin.jpg": {
+    "height": 1024,
+    "width": 935
+  },
   "/new asset/haircare/maklon-hair-serum-dreamlab.png": {
     "width": 1333,
     "height": 1180
@@ -5234,6 +5266,10 @@
   "/new asset/haircare/pomade.webp": {
     "width": 2800,
     "height": 2800
+  },
+  "/new asset/haircare/scalp-care.webp": {
+    "width": 3189,
+    "height": 3189
   },
   "/new asset/haircare/sclap-care.webp": {
     "width": 3189,

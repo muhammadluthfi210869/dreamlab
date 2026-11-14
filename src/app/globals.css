@@ -3,7 +3,7 @@
 :root {
   /* Official Brand Colors from Guidelines (dreamlab.id) */
   --dream-orange: #F39200;
-  --dream-blue: #F39200; /* Replaced #4898D3 with #F39200 to change all blues to orange */
+  --dream-blue: #1F6FB2;
   --dream-green: #2A5841;
   --dream-black: #212120;
   --dream-white: #FFFFFF;
@@ -97,9 +97,18 @@
     }
   }
 
-  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee: marquee 36s linear infinite;
   --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
   --animate-fade-in: fadeIn 1s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @layer base {

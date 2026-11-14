@@ -60,7 +60,7 @@ export const PartnerTrustSection = ({ content }: PartnerTrustSectionProps) => {
           variants={fadeInUp(0.8, 0.1, 20)}
           className="text-neutral-500 max-w-4xl mx-auto text-sm md:text-base leading-relaxed font-helvetica"
         >
-          {content?.description || "Lebih dari 5.000 Brand Telah Memilih Dreamlab Sebagai Maklon Kosmetik Utama Mereka. Kepuasan Anda adalah prioritas utama kami. Dreamlab berkomitmen untuk menghadirkan produk berkualitas, serta layanan purna jual (after-sales service) yang profesional and memuaskan."}
+          {content?.description || "Lebih dari 1000+ Brand Telah Memilih Dreamlab Sebagai Maklon Kosmetik Utama Mereka. Kepuasan Anda adalah prioritas utama kami. Dreamlab berkomitmen untuk menghadirkan produk berkualitas, serta layanan purna jual (after-sales service) yang profesional and memuaskan."}
         </motion.p>
       </motion.div>
 

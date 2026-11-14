@@ -126,7 +126,7 @@ export function BrandMarquee() {
       <div className="container-custom mb-12 text-center">
         <h2 className="text-3xl font-display text-brand-black uppercase tracking-widest">
           <span className="font-black text-brand-orange">DREAMLAB TELAH DIPERCAYA</span><br />
-          <span className="font-light">500+ BRAND</span>
+          <span className="font-light">1000+ BRAND</span>
         </h2>
       </div>
       

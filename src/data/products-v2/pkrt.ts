@@ -18,7 +18,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Alcohol 60-70%",
       haltbarkeit: "Kill Kuman Instan",
       marktposition: "Essential",
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Quick-dry, non-sticky, portable",
       bestFor: ["Daily Carry", "Office", "Public Places"],
@@ -28,7 +28,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Surfactant-based",
       haltbarkeit: "Pembersihan Harian",
       marktposition: "Essential",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Gentle cleansing, moisturizing, fragrant",
       bestFor: ["Home Use", "Office", "Public Facility"],
@@ -38,7 +38,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Active agents 0.5-1%",
       haltbarkeit: "Perlindungan Jangka Panjang",
       marktposition: "Professional",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Multi-surface, kill 99.9% bacteria",
       bestFor: ["Home", "Hospital", "Office", "School"],
@@ -48,7 +48,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Concentrated formula",
       haltbarkeit: "Pembersihan Mendalam",
       marktposition: "Household",
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Multi-purpose, degreasing, fragrant",
       bestFor: ["Home", "Hotel", "Restaurant", "Office"],
@@ -58,7 +58,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Fragrance oil 1-3%",
       haltbarkeit: "Aroma 2-4 Jam",
       marktposition: "Lifestyle",
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Instant freshening, long-lasting scent",
       bestFor: ["Home", "Car", "Office", "Bathroom"],
@@ -68,7 +68,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Soap base with active",
       haltbarkeit: "Pembersihan Dasar",
       marktposition: "Mass Market",
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Affordable",
       karakter: "Cleansing, affordable, multiple use",
       bestFor: ["Household", "Industrial", "Hospital"],
@@ -78,7 +78,7 @@ export const pkrtData: ProductCategoryV2 = {
       konsentrasi: "Herbal soap base",
       haltbarkeit: "Perawatan Herbal",
       marktposition: "Natural",
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       preisklasse: "Mid-Range",
       karakter: "Natural, traditional, therapeutic",
       bestFor: ["Family Use", "Traditional Care", "Daily Hygiene"],
@@ -99,7 +99,7 @@ export const pkrtData: ProductCategoryV2 = {
 Di Dreamlab, kami memformulasikan hand sanitizer yang tidak hanya efektif membunuh kuman, tetapi juga lembut di kulit. Kami menggunakan alkohol berkualitas farmasi dengan konsentrasi 70% yang terbukti efektif membunuh bakteri dan virus, sambil menambahkan Aloe Vera dan Glycerin untuk menjaga kelembapan kulit.
 
 Produk ini dirancang untuk penggunaan berulang throughout hari tanpa menyebabkan iritasi atau kekeringan pada kulit. Tekstur yang cepat meresap (quick-dry) dan tidak lengket menjadikannya nyaman digunakan kapan saja dan di mana saja.`,
-      seoParagraph: "Maklon Hand Sanitizer — jasa maklon handsanitizer alkohol 70% kill rate 99.9% kuman. Tersedia varian gel & spray dengan aroma segar. ✓ BPOM & Halal ✓ MOQ 1000 pcs. Konsultasi maklon PKRT bersama Dreamlab.",
+      seoParagraph: "Maklon Hand Sanitizer — jasa maklon handsanitizer alkohol 70% kill rate 99.9% kuman. Tersedia varian gel & spray dengan aroma segar. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand. Konsultasi maklon PKRT bersama Dreamlab.",
       benefits: [
         "Alcohol 70% — Efektif membunuh 99.9% bakteri dan virus",
         "Quick-Dry Formula — Tidak lengket, langsung meresap",
@@ -117,7 +117,7 @@ Produk ini dirancang untuk penggunaan berulang throughout hari tanpa menyebabkan
       sizeOptions: ["50ml", "100ml", "250ml", "500ml"],
       bottleOptions: ["Spray Bottle", "Flip Top Bottle", "Custom Exclusive Packaging"],
       capOptions: ["Pump Cap", "Flip Cap", "Spray Cap", "Push Cap"],
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -134,7 +134,7 @@ Produk ini dirancang untuk penggunaan berulang throughout hari tanpa menyebabkan
 Di Dreamlab, kami menciptakan hand wash yang memberikan pengalaman membersihkan yang menyenangkan. Formula kami menggunakan surfaktan lembut yang efektif mengangkat kotoran tanpa merusak lapisan pelindung kulit alami. Dengan pH yang disesuaikan dengan kulit manusia, hand wash kami aman untuk penggunaan berulang.
 
 Kami juga menambahkan bahan-bahan seringkutan seperti Aloe Vera, Vitamin E, dan minyak esensial untuk memberikan manfaat tambahan: kelembapan, nutrisi, dan aroma yang menyegarkan.`,
-      seoParagraph: "Maklon Hand Wash solusi bagi brand yang ingin memasuki pasar produk kebersihan rumah tangga. Dengan formula gentle yang efektif membersihkan dan merawat kulit, hand wash Dreamlab cocok untuk penggunaan di rumah, kantor, dan fasilitas publik. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Tersedia dalam berbagai varian aroma dan ukuran bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Hand Wash solusi bagi brand yang ingin memasuki pasar produk kebersihan rumah tangga. Dengan formula gentle yang efektif membersihkan dan merawat kulit, hand wash Dreamlab cocok untuk penggunaan di rumah, kantor, dan fasilitas publik. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Tersedia dalam berbagai varian aroma dan ukuran bersertifikasi BPOM & Halal.",
       benefits: [
         "Gentle Formula — Surfaktan lembut yang tidak mengiritasi kulit",
         "pH Balanced — Sesuai dengan pH kulit manusia",
@@ -153,7 +153,7 @@ Kami juga menambahkan bahan-bahan seringkutan seperti Aloe Vera, Vitamin E, dan 
       sizeOptions: ["200ml", "250ml", "500ml", "1000ml"],
       bottleOptions: ["Pump Bottle", "Refill Pouch", "Dispenser", "Flip Top"],
       capOptions: ["Pump Cap", "Flip Cap", "Dispenser Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -170,7 +170,7 @@ Kami juga menambahkan bahan-bahan seringkutan seperti Aloe Vera, Vitamin E, dan 
 Di Dreamlab, kami memformulasikan disinfectant spray yang efektif membunuh 99.9% kuman pada permukaan keras sambil tetap aman digunakan di sekitar anak-anak dan hewan peliharaan. Kami menggunakan bahan aktif yang telah teruji secara klinis dan memastikan bahwa formula kami tidak meninggalkan residu berbahaya.
 
 Produk ini sangat versatile — dapat digunakan pada berbagai permukaan termasuk plastik, metal, kaca, keramik, dan kayu. Dengan aroma segar yang tersisa setelah penyemburan, ruangan Anda tidak hanya bersih dari kuman tetapi juga harum.`,
-      seoParagraph: "Maklon Disinfectant Spray solusi bagi brand yang ingin menawarkan produk pembersih profesional untuk rumah dan kantor. Dengan kemampuan membunuh 99.9% bakteri pada berbagai permukaan, disinfectant spray Dreamlab adalah investasi kebersihan yang tepat. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Tersedia dalam formula regular dan eco-friendly bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Disinfectant Spray solusi bagi brand yang ingin menawarkan produk pembersih profesional untuk rumah dan kantor. Dengan kemampuan membunuh 99.9% bakteri pada berbagai permukaan, disinfectant spray Dreamlab adalah investasi kebersihan yang tepat. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Tersedia dalam formula regular dan eco-friendly bersertifikasi BPOM & Halal.",
       benefits: [
         "Kill 99.9% Bacteria — Efektif membunuh bakteri, virus, dan jamur",
         "Multi-Surface — Aman untuk plastik, metal, kaca, keramik, kayu",
@@ -189,7 +189,7 @@ Produk ini sangat versatile — dapat digunakan pada berbagai permukaan termasuk
       sizeOptions: ["100ml", "250ml", "500ml", "1000ml"],
       bottleOptions: ["Spray Bottle", "Trigger Spray", "Refill Pouch"],
       capOptions: ["Spray Cap", "Trigger Cap", "Flip Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -206,7 +206,7 @@ Produk ini sangat versatile — dapat digunakan pada berbagai permukaan termasuk
 Di Dreamlab, kami menciptakan floor cleaner yang mampu mengatasi berbagai jenis kotoran pada lantai. Formula concentrated kami dapat diencerkan sesuai kebutuhan, memberikan fleksibilitas dari pembersihan harian hingga perawatan intensif.
 
 Kami menggunakan kombinasi surfaktan yang efektif mengangkat lemak, agen pembersih yang aman untuk berbagai jenis lantai (keramik, parket, marmer, ubin), dan pewangi alami yang memberikan aroma segar yang tahan lama. Produk ini juga aman untuk anak-anak karena menggunakan bahan-bahan yang ramah lingkungan.`,
-      seoParagraph: "Maklon Floor Cleaner solusi bagi brand yang ingin memasuki pasar produk pembersih rumah tangga. Dengan formula concentrated yang efektif mengangkat kotoran dan lemak, floor cleaner Dreamlab memberikan hasil pembersihan yang memuaskan. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan. Tersedia dalam berbagai varian aroma yang segar bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Floor Cleaner solusi bagi brand yang ingin memasuki pasar produk pembersih rumah tangga. Dengan formula concentrated yang efektif mengangkat kotoran dan lemak, floor cleaner Dreamlab memberikan hasil pembersihan yang memuaskan. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Tersedia dalam berbagai varian aroma yang segar bersertifikasi BPOM & Halal.",
       benefits: [
         "Concentrated Formula — Dapat diencerkan untuk penggunaan ekonomis",
         "Multi-Surface — Aman untuk keramik, parket, marmer, ubin",
@@ -225,7 +225,7 @@ Kami menggunakan kombinasi surfaktan yang efektif mengangkat lemak, agen pembers
       sizeOptions: ["500ml", "750ml", "1000ml", "2000ml"],
       bottleOptions: ["Refill Pouch", "Trigger Bottle", "Jerigen"],
       capOptions: ["Flip Cap", "Trigger Cap", "Screw Cap"],
-      moq: "2000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -242,7 +242,7 @@ Kami menggunakan kombinasi surfaktan yang efektif mengangkat lemak, agen pembers
 Di Dreamlab, kami menciptakan room spray yang tidak hanya menyegarkan ruangan tetapi juga memberikan manfaat aromaterapi. Kami menggunakan fragrance oil berkualitas tinggi yang telah dikurasi untuk memberikan aroma yang tahan lama namun tidak terlalu kuat.
 
 Produk ini sangat versatile — dapat digunakan di ruang tamu, kamar tidur, kamar mandi, dapur, bahkan di dalam mobil. Dengan desain packaging yang estetik, room spray juga dapat menjadi elemen dekoratif yang menambah keindahan ruangan.`,
-      seoParagraph: "Maklon Room Spray solusi bagi brand yang ingin menawarkan produk pewangi ruangan berkualitas. Dengan berbagai pilihan aroma yang menarik, room spray Dreamlab memberikan kesegaran yang tahan lama untuk rumah, kantor, dan kendaraan. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Room Spray solusi bagi brand yang ingin menawarkan produk pewangi ruangan berkualitas. Dengan berbagai pilihan aroma yang menarik, room spray Dreamlab memberikan kesegaran yang tahan lama untuk rumah, kantor, dan kendaraan. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan bersertifikasi BPOM & Halal.",
       benefits: [
         "Long-Lasting Fragrance — Aroma tahan hingga 4-6 jam",
         "Multiple Scents — Lebih dari 50 pilihan aroma (Citrus, Floral, Woody, Fresh)",
@@ -261,7 +261,7 @@ Produk ini sangat versatile — dapat digunakan di ruang tamu, kamar tidur, kama
       sizeOptions: ["50ml", "100ml", "200ml", "300ml"],
       bottleOptions: ["Spray Bottle", "Custom Exclusive Packaging"],
       capOptions: ["Spray Cap", "Trigger Cap", "Magnetic Cap"],
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -278,7 +278,7 @@ Produk ini sangat versatile — dapat digunakan di ruang tamu, kamar tidur, kama
 Di Dreamlab, kami memproduksi bar soap dengan kualitas yang konsisten dan berbagai variasi. Dari basic cleaning soap hingga herbal soap dengan manfaat tambahan, kami menggunakan bahan-bahan berkualitas yang menghasilkan busa yang kaya dan membersihkan dengan efektif.
 
 Kami juga menawarkan opsi untuk produk herbal yang menggunakan ekstrak tanaman lokal Indonesia seperti绿茶, kunyit, dan buah-buahan tropis yang memberikan manfaat tambahan seperti moisturizing, brightening, atau antibakteri.`,
-      seoParagraph: "Maklon Bar Soap solusi bagi brand yang ingin menawarkan produk pembersih yang ekonomis dan terpercaya. Dengan berbagai pilihan formula dari basic hingga premium, bar soap Dreamlab cocok untuk pasar mass market hingga premium. MOQ mulai 1000 pcs dengan waktu produksi 2-3 bulan bersertifikasi BPOM & Halal.",
+      seoParagraph: "Maklon Bar Soap solusi bagi brand yang ingin menawarkan produk pembersih yang ekonomis dan terpercaya. Dengan berbagai pilihan formula dari basic hingga premium, bar soap Dreamlab cocok untuk pasar mass market hingga premium. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan bersertifikasi BPOM & Halal.",
       benefits: [
         "Economical — Harga terjangkau dengan hasil pembersihan yang baik",
         "Long-Lasting — Lebih tahan lama dibandingkan produk cair",
@@ -297,7 +297,7 @@ Kami juga menawarkan opsi untuk produk herbal yang menggunakan ekstrak tanaman l
       sizeOptions: ["50g", "75g", "100g", "125g", "150g"],
       bottleOptions: ["Wrapper", "Paper Box", "Shrink Wrap"],
       capOptions: ["N/A"],
-      moq: "5000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
@@ -312,7 +312,7 @@ Kami juga menawarkan opsi untuk produk herbal yang menggunakan ekstrak tanaman l
       story: `Sabun herbal adalah warisan tradisi Indonesia yang kini dikemas dalam formula modern.
 
 Herbal Soap Dreamlab menggabungkan kearifan lokal dengan teknologi manufaktur modern. Diformulasikan dengan ekstrak tanaman herbal pilihan seperti kunyit (anti-inflamasi), jahe (menghangatkan), sereh (antibakteri), dan atau绿茶 (antioksidan). Setiap batang sabun memberikan manfaat kesehatan tradisional yang telah teruji secara turun-temurun dalam kemasan yang higienis dan modern.`,
-      seoParagraph: "Maklon Herbal Soap — jasa maklon sabun herbal dengan ekstrak tanaman tradisional Indonesia. Manfaat alami untuk kesehatan kulit keluarga. ✓ BPOM & Halal ✓ MOQ 3000 pcs.",
+      seoParagraph: "Maklon Herbal Soap — jasa maklon sabun herbal dengan ekstrak tanaman tradisional Indonesia. Manfaat alami untuk kesehatan kulit keluarga. ✓ BPOM & Halal ✓ MOQ Fleksibel / menyesuaikan kebutuhan brand.",
       benefits: [
         "Ekstrak Herbal Asli Indonesia: Kunyit, Jahe, Sereh,绿茶",
         "Anti-inflamasi Alami — menenangkan iritasi kulit",
@@ -329,7 +329,7 @@ Herbal Soap Dreamlab menggabungkan kearifan lokal dengan teknologi manufaktur mo
       sizeOptions: ["50g", "75g", "100g", "125g"],
       bottleOptions: ["Wrapper", "Paper Box", "Shrink Wrap"],
       capOptions: ["N/A"],
-      moq: "3000 pcs",
+      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
       productionTime: "1-2 bulan",
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },

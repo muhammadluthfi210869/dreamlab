@@ -310,6 +310,9 @@ const productTitleMap: Record<string, string> = {
   "haircare-beard-serum": "Jasa Maklon Beard Serum BPOM & Halal | Dreamlab",
   "haircare-hair-conditioner": "Jasa Maklon Hair Conditioner BPOM & Halal | Dreamlab",
   "haircare-hair-mist": "Maklon Hair Mist BPOM Terbaik | Dreamlab",
+  "haircare-anti-split-end-serum": "Jasa Maklon Anti Split-End Smoothing Serum BPOM & Halal | Dreamlab",
+  "haircare-hair-cuticle-coat": "Jasa Maklon Hair Cuticle Coat BPOM & Halal | Dreamlab",
+  "haircare-hair-vitamin": "Jasa Maklon Hair Vitamin Kapsul BPOM & Halal | Dreamlab",
   "babycare-baby-lotion": "Jasa Maklon Baby Lotion BPOM & Halal | Dreamlab",
   "babycare-baby-shampoo": "Jasa Maklon shampoo Bayi BPOM & Halal | Dreamlab",
   "babycare-baby-wash": "Jasa Maklon Baby Wash BPOM & Halal | Dreamlab",
@@ -392,8 +395,11 @@ const productMetaDescriptionMap: Record<string, string> = {
   "haircare-hair-gel": "Jasa maklon hair gel BPOM & Halal, styling rambut tahan lama. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab!",
   "haircare-pomade": "Jasa maklon pomade BPOM & Halal, water based & oil based. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",
   "haircare-scalp-care": "Jasa maklon scalp care BPOM & Halal, perawatan kulit kepala sehat. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",
-  "haircare-beard-serum": "Jasa maklon beard serum BPOM & Halal, perawatan & penyubur jenggot. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",
-  "haircare-hair-mist": "Jasa maklon hair mist BPOM & Halal, pewangi rambut ringan dengan aroma tahan lama. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",
+  "haircare-beard-serum": "Jasa maklon beard serum BPOM & Halal, perawatan & penyubur jenggot. Formula custom, MOQ Fleksibel / menyesuaikan kebutuhan brand. Konsultasi gratis dengan Dreamlab",
+  "haircare-hair-mist": "Jasa maklon hair mist BPOM & Halal, pewangi rambut ringan dengan aroma tahan lama. Formula custom, MOQ Fleksibel / menyesuaikan kebutuhan brand. Konsultasi gratis dengan Dreamlab",
+  "haircare-anti-split-end-serum": "Jasa maklon Anti Split-End Smoothing Serum BPOM, CPKB Grade A & Halal MUI. Serum leave-in perbaikan rambut bercabang. MOQ Fleksibel / menyesuaikan kebutuhan brand.",
+  "haircare-hair-cuticle-coat": "Jasa maklon Hair Cuticle Coat BPOM, CPKB Grade A & Halal MUI. Minyak pelapis kutikula untuk rambut halus & berkilau. MOQ Fleksibel / menyesuaikan kebutuhan brand.",
+  "haircare-hair-vitamin": "Jasa maklon Hair Vitamin kapsul twist-off BPOM, CPKB Grade A & Halal MUI untuk rambut kering & rusak. MOQ Fleksibel / menyesuaikan kebutuhan brand.",
   "parfum-body-mist": "Jasa maklon body mist BPOM & Halal, Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",
   "parfum-eau-de-cologne": "Jasa maklon eau de cologne BPOM & Halal, parfum cologne aroma segar. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab",
   "parfum-eau-de-toilette": "Jasa maklon eau de toilette (EDT) BPOM & Halal, parfum tahan menengah. Formula custom, MOQ fleksibel. Konsultasi gratis dengan Dreamlab!",
@@ -473,22 +479,23 @@ export function getSubCategoryMetaDescription(categorySlug: string, subCategoryS
   return subCategoryMetaDescriptionMap[key] || null;
 }
 
-export function getProductMetaDescription(productName: string, categoryName: string, shortDescription: string, moq: string, productionTime: string, certifications: string[], categorySlug?: string, productSlug?: string): string {
+export function getProductMetaDescription(productName: string, categoryName: string, shortDescription: string, _moq: string, productionTime: string, certifications: string[], categorySlug?: string, productSlug?: string): string {
   if (categorySlug && productSlug) {
     const key = `${categorySlug}-${productSlug}`;
     const mapped = productMetaDescriptionMap[key];
     if (mapped) return mapped;
   }
   const certs = certifications.length > 0 ? certifications.join(" & ") : "BPOM";
-  const desc = `Jasa maklon ${productName.toLowerCase()} — layanan maklon ${categoryName.toLowerCase()} profesional. ${shortDescription} ✓ ${certs} ✓ MOQ ${moq} ✓ Produksi ${productionTime}. Konsultasi gratis.`;
+  const flexibleMoq = "MOQ Fleksibel / menyesuaikan kebutuhan brand";
+  const desc = `Jasa maklon ${productName.toLowerCase()} — layanan maklon ${categoryName.toLowerCase()} profesional. ${shortDescription} ✓ ${certs} ✓ ${flexibleMoq} ✓ Produksi ${productionTime}. Konsultasi gratis.`;
 
   if (desc.length <= 160) return desc;
 
-  const truncated = shortDescription.length > 120
-    ? shortDescription.substring(0, shortDescription.lastIndexOf(" ", 117)) + "..."
+  const truncated = shortDescription.length > 100
+    ? shortDescription.substring(0, shortDescription.lastIndexOf(" ", 97)) + "..."
     : shortDescription;
 
-  const fallback = `Jasa maklon ${productName.toLowerCase()}. ${truncated} ✓ ${certs} ✓ MOQ ${moq}. Konsultasi gratis.`;
+  const fallback = `Jasa maklon ${productName.toLowerCase()}. ${truncated} ✓ ${certs} ✓ ${flexibleMoq}. Konsultasi gratis.`;
   return fallback.length > 160
     ? fallback.substring(0, fallback.lastIndexOf(" ", 157)) + "..."
     : fallback;

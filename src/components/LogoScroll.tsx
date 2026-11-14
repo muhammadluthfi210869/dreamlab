@@ -12,7 +12,7 @@ interface LogoScrollProps {
   subHeadline?: string;
 }
 
-export default function LogoScroll({ logos, headline = "DIPERCAYA OLEH 150+ BRAND DI SELURUH INDONESIA", subHeadline }: LogoScrollProps) {
+export default function LogoScroll({ logos, headline = "DIPERCAYA OLEH 1000+ BRAND DI SELURUH INDONESIA", subHeadline }: LogoScrollProps) {
   // Duplikasi logo agar efek putaran infinite marquee berjalan mulus tanpa celah kosong (100% seamless)
   const duplicatedLogos = [...logos, ...logos];
 

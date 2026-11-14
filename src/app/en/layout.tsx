@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s | Dreamlab",
   },
   description:
-    "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 500+ brands have trusted their formulation & production with us.",
+    "One-Stop Cosmetic Manufacturing (Maklon) Certified BPOM, CPKB Grade A & Halal MUI in Surabaya. 1000+ brands have trusted their formulation & production with us.",
   alternates: {
     languages: {
       "id-ID": "https://dreamlab.id/",

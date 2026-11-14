@@ -15,8 +15,8 @@ export const homepageDataEn = {
   },
   trustedBrands: {
     ...homepageData.trustedBrands,
-    title: "DREAMLAB HAS BEEN TRUSTED BY 500+ BRANDS",
-    subtitle: "More than 500+ brands have chosen Dreamlab as their main cosmetic manufacturer. Dreamlab is committed to delivering quality products, as well as professional and satisfying after-sales service.",
+    title: "DREAMLAB HAS BEEN TRUSTED BY 1000+ BRANDS",
+    subtitle: "More than 1000+ brands have chosen Dreamlab as their main cosmetic manufacturer. Dreamlab is committed to delivering quality products, as well as professional and satisfying after-sales service.",
   },
   advantages: {
     title: "8 Advantages of Manufacturing at Dreamlab",
@@ -135,7 +135,7 @@ export const trustBarContentEn = [
 export const brandShowcaseContentEn = {
   productsDevelopedLabel: "Products Developed",
   certifiedFacility: "CPKB Grade A certified production facility",
-  innovationText: "500+ formulations for brands in 15+ countries",
+  innovationText: "2000+ formulations for brands in 15+ countries",
   eyebrow: "Dreamlab #CHAMPION OF FORMULAS",
   title: <>Create Your Brand <span className="text-brand-orange text-glow">with Dreamlab</span></>,
   description: <>Dreamlab is a cosmetic manufacturing company with complete end-to-end services. We offer <strong className="text-brand-black">One Stop Manufacturing Service</strong>, from consultation, formula creation, packaging design, production, to BPOM and Halal permit handling.</>,
@@ -172,7 +172,7 @@ export const aboutDataEn = {
     trustBadges: [
       { icon: "shield", label: "CPKB Grade A Certification" },
       { icon: "check", label: "BPOM & Halal Guaranteed" },
-      { icon: "users", label: "150+ Brand Partners" },
+      { icon: "users", label: "1000+ Brand Partners" },
       { icon: "heart", label: "After-Sales Support" },
     ],
   },
@@ -270,7 +270,7 @@ export const aboutSectionContentEn = {
     eyebrow: "Authority & Certification",
     productsDevelopedLabel: "Products Developed",
     certifiedFacility: "CPKB Grade A certified production facility",
-    innovationText: "500+ formulations for brands in 15+ countries",
+    innovationText: "2000+ formulations for brands in 15+ countries",
   },
   afterSales: {
     eyebrow: "[ PREMIUM SERVICES ]",
