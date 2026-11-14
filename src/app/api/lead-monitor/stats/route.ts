@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMonitorPool, resetMonitorPool } from '@/lib/db';
-import { isAuthFailure, requireUser, serviceTokenOk } from '@/lib/crm-auth';
+import { isAuthFailure, json, requireUser, serviceTokenOk, type SessionUser } from '@/lib/crm-auth';
+import { isAdminRole } from '@/lib/crm-stages';
 import { attachCrmState } from '@/lib/lead-monitor-data';
 import {
   computeKpi,
@@ -113,12 +114,15 @@ export async function GET(req: NextRequest) {
   // Data ini memuat nomor WhatsApp prospek: wajib login. Dicek SEBELUM cache respons.
   // Pengguna lewat cookie login; ERP (mesin) lewat token Bearer khusus dan hanya mendapat format lama yang dibacanya.
   const serviceAuthed = serviceTokenOk(req);
-  // ERP boleh meminta bentuk lengkap (sama persis dengan yang dilihat Head) lewat `shape=full`; tanpa itu bentuk lama.
+  // ERP boleh meminta bentuk lengkap (sama persis dengan yang dilihat Admin) lewat `shape=full`; tanpa itu bentuk lama.
   const serviceMode = serviceAuthed && new URL(req.url).searchParams.get('shape') !== 'full';
+  let currentUser: SessionUser | null = null;
   if (!serviceAuthed) {
     const auth = await requireUser(req);
     if (isAuthFailure(auth)) return auth;
+    currentUser = auth.user;
   }
+  const isAdmin = serviceAuthed || (currentUser ? isAdminRole(currentUser.role) : false);
 
   const url = new URL(req.url);
   const sp = url.searchParams;
@@ -130,7 +134,11 @@ export async function GET(req: NextRequest) {
   if (endDate < startDate) endDate = startDate;
   if (daysBetween(startDate, endDate) >= MAX_RANGE_DAYS) startDate = addDays(endDate, -(MAX_RANGE_DAYS - 1));
 
-  const busdev = sp.get('busdev') || 'all';
+  const requestedBusdev = (sp.get('busdev') || 'all').trim();
+  if (!isAdmin && currentUser && requestedBusdev.toLowerCase() !== 'all' && requestedBusdev.toLowerCase() !== currentUser.name.toLowerCase()) {
+    return json({ success: false, error: 'Anda hanya memiliki izin melihat laporan milik Anda sendiri' }, 403);
+  }
+  const busdev = isAdmin ? requestedBusdev : (currentUser?.name || 'all');
   const tabParam = sp.get('tab') || 'chat';
   const tab: StatusTab = (['chat', 'dropoff', 'all', 'direct'] as const).includes(tabParam as StatusTab)
     ? (tabParam as StatusTab)
@@ -155,7 +163,8 @@ export async function GET(req: NextRequest) {
   const page = intParam(sp.get('page'), 1);
   const pageSize = isExport ? RAW_ROW_CAP : Math.min(Math.max(intParam(sp.get('pageSize'), 25), 5), 100);
 
-  const cacheKey = isExport ? null : (serviceMode ? 'svc|' : '') + url.searchParams.toString();
+  const userScopeKey = serviceAuthed ? 'svc' : `${currentUser?.role}:${currentUser?.id}:${busdev.toLowerCase()}`;
+  const cacheKey = isExport ? null : `${userScopeKey}|${serviceMode ? 'legacy|' : ''}${url.searchParams.toString()}`;
   if (cacheKey) {
     const hit = responseCache.get(cacheKey);
     if (hit && Date.now() - hit.at < RESPONSE_TTL_MS) {
@@ -263,9 +272,11 @@ export async function GET(req: NextRequest) {
     const kpi = computeKpi(scoped);
     const kpiPrev = hasPrev ? computeKpi(scopedPrev) : null;
 
-    // ---- chat masuk per sales: selalu semua sales AKTIF (tidak ikut filter BusDev) agar perbandingannya utuh.
-    // Sales nonaktif tidak ditampilkan; datanya dirangkum di `inactive` supaya total tetap cocok dengan kartu.
-    const { active: busdevRows, inactive: inactiveSummary } = splitActive(perBusdev(merged, activeNames), activeNames);
+    // ---- chat masuk per sales: Admin melihat semua sales aktif; Busdev hanya melihat datanya sendiri.
+    const { active: allBusdevRows, inactive: inactiveSummary } = splitActive(perBusdev(isAdmin ? merged : scoped, activeNames), activeNames);
+    const busdevRows = isAdmin
+      ? allBusdevRows
+      : allBusdevRows.filter((b) => b.name.toLowerCase() === (currentUser?.name || '').toLowerCase());
 
     // ---- mode pembagian (hanya ada setelah migrasi round robin dijalankan)
     const rrMode: string | null = (rrRes.rows[0] as any)?.value ?? null;

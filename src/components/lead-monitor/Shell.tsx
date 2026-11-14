@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Home, LogOut, Menu, MessageSquare, Settings, ShieldCheck, Target, Users, X } from "lucide-react";
-import type { CrmUserInfo } from "@/lib/crm-stages";
+import { isAdminRole, type CrmUserInfo } from "@/lib/crm-stages";
 import { BRAND } from "./ui";
 import { MonitorProviders } from "./filters";
 
@@ -36,7 +36,8 @@ export function MonitorShell({ user, guest = false, children }: { user: CrmUserI
     router.refresh();
   };
 
-  const items = NAV.filter((n) => (!n.headOnly || user.role === "head") && !(guest && n.href.endsWith("/pengaturan")));
+  const isAdmin = isAdminRole(user.role);
+  const items = NAV.filter((n) => (!n.headOnly || isAdmin) && !(guest && n.href.endsWith("/pengaturan")));
   const isActive = (n: (typeof NAV)[number]) => (n.exact ? pathname === n.href || pathname === n.href + "/" : pathname.startsWith(n.href));
 
   const sidebar = (
@@ -74,7 +75,7 @@ export function MonitorShell({ user, guest = false, children }: { user: CrmUserI
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-600">{user.name.slice(0, 1).toUpperCase()}</div>
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold text-slate-900">{user.name}</div>
-            <div className="text-[11px] text-slate-500">{guest ? "Lihat saja · masuk untuk mengedit" : user.role === "head" ? "Head · bisa edit semua" : "BusDev · edit lead milik sendiri"}</div>
+            <div className="text-[11px] text-slate-500">{isAdmin ? "Admin · kelola semua lead & tim" : "BusDev · kelola lead milik sendiri"}</div>
           </div>
         </div>
         {guest ? (

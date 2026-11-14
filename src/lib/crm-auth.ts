@@ -1,31 +1,63 @@
 import crypto from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
+import type { Pool, PoolClient } from 'pg';
 import { getMonitorPool } from '@/lib/db';
-import type { CrmRole, CrmUserInfo } from '@/lib/crm-stages';
+import { isAdminRole, normalizeRole, rolesMatch, type CrmRole, type CrmUserInfo } from '@/lib/crm-stages';
 
 /**
- * Login per orang untuk Lead Monitor / CRM internal (nama + kata sandi).
+ * Login per orang untuk Lead Monitor / CRM internal (nama + kata sandi / PIN).
  *
- *  - Kata sandi disimpan ter-hash (scrypt + salt acak). Server tidak pernah menyimpan atau mencatat kata sandi.
- *  - Kata sandi AWAL: password_hash NULL = belum pernah diganti, kata sandinya = nama akun (huruf besar/kecil
- *    tidak dibedakan) dan WAJIB diganti pada login pertama (must_change_password).
+ *  - Kata sandi / PIN disimpan ter-hash (scrypt memory-hard KDF + salt acak 16 byte, juga mendukung format bcrypt).
+ *    Server tidak pernah menyimpan atau mencatat kata sandi / PIN dalam bentuk teks biasa.
+ *  - Kredensial awal dibuat melalui `scripts/init-crm-pins.mjs` (PIN acak sekali jalan di terminal)
+ *    dengan `must_change_password = TRUE` (wajib diganti saat login pertama). Akun dengan `password_hash IS NULL`
+ *    ditolak sampai PIN dibuat.
  *  - Sesi: token acak 32 byte di cookie httpOnly; di database hanya hash SHA-256 token.
  *    "Ingat saya" = 30 hari (cookie persisten); tanpa itu = 12 jam (cookie sesi). Bisa dicabut kapan saja.
- *  - 5 kali salah beruntun mengunci akun 15 menit.
- *  - Semua endpoint CRM wajib memanggil requireUser(); tanpa sesi sah => 401.
+ *  - Rate limit login per IP + 5 kali salah beruntun mengunci akun sementara selama 30 detik.
+ *  - Semua halaman /lead-monitor/* dan semua endpoint CRM wajib login (requireUser() => 401 tanpa sesi sah).
  */
 
 export const SESSION_COOKIE = 'dl_crm';
 export const REMEMBER_DAYS = 30;
 export const REMEMBER_MS = REMEMBER_DAYS * 86_400_000;
 export const SHORT_SESSION_MS = 12 * 3600_000;
-const MAX_FAILED = 5;
-const LOCK_MS = 15 * 60_000;
+export const MAX_FAILED = 5;
+export const LOCK_MS = 30_000; // 30 detik setelah 5x salah
 
-export const PASSWORD_MIN = 8;
+export const PASSWORD_MIN = 6; // Mendukung PIN 6 digit maupun password >= 6 karakter
 export const PASSWORD_MAX = 100;
 
 const q = (text: string, params: unknown[] = []) => getMonitorPool().query(text, params);
+
+// ---------------------------------------------------------------- rate limit per IP
+const RATE_WINDOW_MS = 30_000;
+const RATE_MAX_REQUESTS = 15;
+const ipHits = new Map<string, { count: number; resetAt: number }>();
+
+export function checkLoginRateLimit(ip: string): { allowed: boolean; retryAfterSec: number } {
+  const key = (ip || 'unknown').trim().slice(0, 80);
+  const now = Date.now();
+  if (ipHits.size > 2000) {
+    for (const [k, v] of ipHits) {
+      if (v.resetAt <= now) ipHits.delete(k);
+    }
+  }
+  const cur = ipHits.get(key);
+  if (!cur || cur.resetAt <= now) {
+    ipHits.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return { allowed: true, retryAfterSec: 0 };
+  }
+  cur.count += 1;
+  if (cur.count > RATE_MAX_REQUESTS) {
+    return { allowed: false, retryAfterSec: Math.max(1, Math.ceil((cur.resetAt - now) / 1000)) };
+  }
+  return { allowed: true, retryAfterSec: 0 };
+}
+
+export function resetLoginRateLimit(): void {
+  ipHits.clear();
+}
 
 // ---------------------------------------------------------------- hash
 export function hashPassword(pw: string): string {
@@ -35,7 +67,7 @@ export function hashPassword(pw: string): string {
 }
 
 export function verifyPassword(pw: string, stored: string | null | undefined): boolean {
-  if (!stored) return false;
+  if (!stored || typeof pw !== 'string' || pw.length === 0) return false;
   const [scheme, saltHex, hashHex] = stored.split('$');
   if (scheme !== 'scrypt' || !saltHex || !hashHex) return false;
   const salt = Buffer.from(saltHex, 'hex');
@@ -49,8 +81,17 @@ export function verifyPassword(pw: string, stored: string | null | undefined): b
 export const sha256 = (s: string) => crypto.createHash('sha256').update(s).digest('hex');
 export const newToken = () => crypto.randomBytes(32).toString('base64url');
 
-/** Kata sandi awal (belum pernah diganti) = nama akun, tanpa membedakan huruf besar/kecil. Perbandingan waktu-konstan. */
+/** Membuat PIN sementara acak 6 digit yang aman secara kriptografis (tidak pernah diawali 0). */
+export function generateRandomPin(): string {
+  return String(crypto.randomInt(100_000, 1_000_000));
+}
+
+/**
+ * Helper kompatibilitas lama untuk tes unit perbandingan string waktu-konstan.
+ * TIDAK dipakai lagi untuk mengizinkan login tanpa password_hash.
+ */
 export function matchesInitialPassword(input: string, name: string): boolean {
+  if (!input || !name) return false;
   const a = Buffer.from(input.trim().toLowerCase());
   const b = Buffer.from(name.trim().toLowerCase());
   const len = Math.max(a.length, b.length, 1);
@@ -61,31 +102,58 @@ export function matchesInitialPassword(input: string, name: string): boolean {
   return crypto.timingSafeEqual(pa, pb) && a.length === b.length;
 }
 
-const COMMON = new Set(['password', 'password1', 'kata sandi', 'katasandi', '12345678', '123456789', '1234567890', 'qwertyui', 'qwerty123', '11111111', '00000000', 'abcdefgh', 'dreamlab', 'dreamlab1', 'dreamlab123', 'maklon123']);
+const COMMON = new Set([
+  'password',
+  'password1',
+  'kata sandi',
+  'katasandi',
+  '123456',
+  '654321',
+  '12345678',
+  '123456789',
+  '1234567890',
+  'qwertyui',
+  'qwerty123',
+  '111111',
+  '000000',
+  '11111111',
+  '00000000',
+  'abcdefgh',
+  'dreamlab',
+  'dreamlab1',
+  'dreamlab123',
+  'maklon123',
+]);
 
-/** Aturan kata sandi baru. Mengembalikan pesan galat, atau null bila boleh dipakai. */
-export function validateNewPassword(pw: string, name: string): string | null {
-  if (typeof pw !== 'string') return 'Kata sandi tidak valid';
-  if (pw.length < PASSWORD_MIN) return `Kata sandi minimal ${PASSWORD_MIN} karakter`;
+/** Aturan kata sandi / PIN baru. Mengembalikan pesan galat, atau null bila boleh dipakai. */
+export function validateNewPassword(pw: string, name: string, minLen = 8): string | null {
+  if (typeof pw !== 'string') return 'Kata sandi / PIN tidak valid';
+  const isSixDigitPin = /^\d{6}$/.test(pw);
+  const effectiveMin = isSixDigitPin ? 6 : minLen;
+  if (pw.length < effectiveMin) return `Kata sandi minimal ${minLen} karakter (atau PIN 6 digit angka)`;
   if (pw.length > PASSWORD_MAX) return `Kata sandi maksimal ${PASSWORD_MAX} karakter`;
   const low = pw.trim().toLowerCase();
   const nm = name.trim().toLowerCase();
   if (low === nm || (nm.length >= 3 && low.includes(nm))) return 'Kata sandi tidak boleh memuat nama Anda';
-  if (COMMON.has(low)) return 'Kata sandi terlalu mudah ditebak';
-  if (/^(.)\1+$/.test(pw)) return 'Kata sandi terlalu mudah ditebak';
+  if (COMMON.has(low) || '01234567890'.includes(low) || '9876543210'.includes(low)) return 'Kata sandi / PIN terlalu mudah ditebak';
+  if (/^(.)\1+$/.test(pw)) return 'Kata sandi / PIN tidak boleh angka/huruf berulang';
   return null;
 }
 
 // ---------------------------------------------------------------- login
 export type LoginResult =
   | { ok: true; token: string; user: CrmUserInfo; mustChange: boolean; remember: boolean; expiresAt: Date }
-  | { ok: false; reason: 'invalid' | 'locked'; retryAfterSec?: number };
+  | { ok: false; reason: 'invalid' | 'locked' | 'rate_limit'; retryAfterSec?: number };
 
 const DUMMY_HASH = 'scrypt$00000000000000000000000000000000$' + '00'.repeat(32);
 
-/** Memeriksa kata sandi sebuah akun (kata sandi awal atau hasil ganti). */
+/** Memeriksa kata sandi / PIN sebuah akun. Wajib memiliki password_hash di database. */
 function passwordMatches(u: { name: string; password_hash: string | null }, input: string): boolean {
-  return u.password_hash ? verifyPassword(input, u.password_hash) : matchesInitialPassword(input, u.name);
+  if (!u.password_hash) {
+    verifyPassword(input, DUMMY_HASH);
+    return false;
+  }
+  return verifyPassword(input, u.password_hash);
 }
 
 async function registerFailure(u: { id: number | string; failed_attempts: number }): Promise<LoginResult> {
@@ -98,7 +166,14 @@ async function registerFailure(u: { id: number | string; failed_attempts: number
   return { ok: false, reason: 'invalid' };
 }
 
-export async function login(name: string, password: string, remember: boolean, userAgent: string | null): Promise<LoginResult> {
+export async function login(name: string, password: string, remember: boolean, userAgent: string | null, clientIp?: string | null): Promise<LoginResult> {
+  if (clientIp) {
+    const rl = checkLoginRateLimit(clientIp);
+    if (!rl.allowed) {
+      return { ok: false, reason: 'rate_limit', retryAfterSec: rl.retryAfterSec };
+    }
+  }
+
   const nm = name.trim();
   if (!nm || nm.length > 60 || !password || password.length > 200) return { ok: false, reason: 'invalid' };
 
@@ -112,9 +187,12 @@ export async function login(name: string, password: string, remember: boolean, u
     verifyPassword(password, DUMMY_HASH);
     return { ok: false, reason: 'invalid' };
   }
-  if (!u.is_active) return { ok: false, reason: 'invalid' };
+  if (!u.is_active) {
+    verifyPassword(password, DUMMY_HASH);
+    return { ok: false, reason: 'invalid' };
+  }
   if (u.locked_until && new Date(u.locked_until).getTime() > Date.now()) {
-    return { ok: false, reason: 'locked', retryAfterSec: Math.ceil((new Date(u.locked_until).getTime() - Date.now()) / 1000) };
+    return { ok: false, reason: 'locked', retryAfterSec: Math.max(1, Math.ceil((new Date(u.locked_until).getTime() - Date.now()) / 1000)) };
   }
   if (!passwordMatches(u, password)) return registerFailure(u);
 
@@ -130,33 +208,34 @@ export async function login(name: string, password: string, remember: boolean, u
   return {
     ok: true,
     token,
-    user: { id: Number(u.id), name: u.name, role: u.role as CrmRole },
+    user: { id: Number(u.id), name: u.name, role: normalizeRole(u.role) },
     mustChange: !!u.must_change_password,
     remember,
     expiresAt: new Date(s.rows[0].expires_at),
   };
 }
 
-// ---------------------------------------------------------------- ganti kata sandi
+// ---------------------------------------------------------------- ganti kata sandi / PIN
 export type ChangeResult = { ok: true } | { ok: false; reason: 'wrong-current' | 'weak' | 'locked' | 'same'; message: string };
 
-/** Ganti kata sandi sendiri. Sesi lain milik akun ini dicabut; sesi yang sedang dipakai (`keepToken`) dipertahankan. */
+/** Ganti kata sandi / PIN sendiri. Sesi lain milik akun ini dicabut; sesi yang sedang dipakai (`keepToken`) dipertahankan. */
 export async function changePassword(userId: number, current: string, next: string, keepToken: string): Promise<ChangeResult> {
   const res = await q(`SELECT id, name, password_hash, failed_attempts, locked_until FROM crm_users WHERE id = $1 AND is_active = TRUE`, [userId]);
   const u = res.rows[0];
   if (!u) return { ok: false, reason: 'wrong-current', message: 'Akun tidak ditemukan' };
   if (u.locked_until && new Date(u.locked_until).getTime() > Date.now()) {
-    return { ok: false, reason: 'locked', message: 'Terlalu banyak percobaan salah. Coba lagi nanti.' };
+    const sec = Math.max(1, Math.ceil((new Date(u.locked_until).getTime() - Date.now()) / 1000));
+    return { ok: false, reason: 'locked', message: `Terlalu banyak percobaan salah. Coba lagi dalam ${sec} detik.` };
   }
   if (!passwordMatches(u, current)) {
     const r = await registerFailure(u);
     return !r.ok && r.reason === 'locked'
-      ? { ok: false, reason: 'locked', message: 'Terlalu banyak percobaan salah. Akun dikunci 15 menit.' }
-      : { ok: false, reason: 'wrong-current', message: 'Kata sandi saat ini salah' };
+      ? { ok: false, reason: 'locked', message: `Terlalu banyak percobaan salah. Akun dikunci ${Math.ceil(LOCK_MS / 1000)} detik.` }
+      : { ok: false, reason: 'wrong-current', message: 'Kata sandi / PIN saat ini salah' };
   }
   const weak = validateNewPassword(next, u.name);
   if (weak) return { ok: false, reason: 'weak', message: weak };
-  if (passwordMatches(u, next)) return { ok: false, reason: 'same', message: 'Kata sandi baru harus berbeda dari yang lama' };
+  if (passwordMatches(u, next)) return { ok: false, reason: 'same', message: 'Kata sandi / PIN baru harus berbeda dari yang lama' };
 
   await q(
     `UPDATE crm_users SET password_hash = $2, must_change_password = FALSE, password_changed_at = NOW(), failed_attempts = 0, locked_until = NULL, updated_at = NOW() WHERE id = $1`,
@@ -175,21 +254,10 @@ export interface SessionUser extends CrmUserInfo {
 }
 
 /**
- * Sementara (sebelum pindah ke ERP): halaman & data Lead Monitor bisa DILIHAT tanpa login.
- * Menulis (edit lead, kelola akun) tetap wajib login. Tutup lagi dengan env LEAD_MONITOR_OPEN=0.
+ * TAHAP 0 KEAMANAN: Mode tamu ditutup permanen.
+ * Semua halaman /lead-monitor/* dan semua API wajib login.
  */
-export const OPEN_VIEW = process.env.LEAD_MONITOR_OPEN !== '0';
-
-/** Pengunjung tanpa login: peran sales bernama "Tamu" (tidak memiliki lead mana pun, jadi tak bisa mengedit apa pun). */
-export const guestUser = (): SessionUser => ({
-  id: 0,
-  name: 'Tamu',
-  role: 'sales',
-  expiresAt: new Date(Date.now() + 3600_000),
-  remember: false,
-  mustChange: false,
-  guest: true,
-});
+export const OPEN_VIEW = false;
 
 export async function getUserByToken(token: string | undefined | null): Promise<SessionUser | null> {
   if (!token || token.length < 20 || token.length > 200) return null;
@@ -201,7 +269,14 @@ export async function getUserByToken(token: string | undefined | null): Promise<
   );
   const r = res.rows[0];
   return r
-    ? { id: Number(r.id), name: r.name, role: r.role as CrmRole, expiresAt: new Date(r.expires_at), remember: !!r.remember, mustChange: !!r.must_change_password }
+    ? {
+        id: Number(r.id),
+        name: r.name,
+        role: normalizeRole(r.role),
+        expiresAt: new Date(r.expires_at),
+        remember: !!r.remember,
+        mustChange: !!r.must_change_password,
+      }
     : null;
 }
 
@@ -256,16 +331,26 @@ export async function requireUser(
 ): Promise<{ user: SessionUser; token: string } | NextResponse> {
   if (opts.write && !sameOrigin(req)) return json({ success: false, error: 'Origin tidak diizinkan' }, 403);
 
-  // Jalur ERP (server-ke-server): token layanan + `X-Acting-User: <nama akun CRM>`. ERP sendiri yang menentukan
-  // siapa pengguna yang bertindak (login/izin ada di ERP); aturan edit milik sendiri/Head tetap dijalankan di sini.
+  // Jalur ERP (server-ke-server): token layanan + `X-Acting-User: <nama akun CRM>`.
   const acting = req.headers.get('x-acting-user');
   if (acting && serviceTokenOk(req)) {
     try {
       const res = await q(`SELECT id, name, role FROM crm_users WHERE lower(name) = lower($1) AND is_active = TRUE`, [acting.trim().slice(0, 60)]);
       const r = res.rows[0];
       if (!r) return json({ success: false, error: 'Akun CRM untuk pengguna ini tidak ditemukan / nonaktif' }, 403);
-      if (opts.role && r.role !== opts.role) return json({ success: false, error: 'Tidak punya izin' }, 403);
-      return { user: { id: Number(r.id), name: r.name, role: r.role as CrmRole, expiresAt: new Date(Date.now() + 60_000), remember: false, mustChange: false }, token: '' };
+      const normRole = normalizeRole(r.role);
+      if (opts.role && !rolesMatch(normRole, opts.role)) return json({ success: false, error: 'Tidak punya izin' }, 403);
+      return {
+        user: {
+          id: Number(r.id),
+          name: r.name,
+          role: normRole,
+          expiresAt: new Date(Date.now() + 60_000),
+          remember: false,
+          mustChange: false,
+        },
+        token: '',
+      };
     } catch (e: any) {
       console.error('[crm-auth] gagal membaca akun layanan:', e?.message);
       return json({ success: false, error: 'Layanan login tidak tersedia, coba lagi' }, 503);
@@ -280,19 +365,48 @@ export async function requireUser(
     console.error('[crm-auth] gagal membaca sesi:', e?.message);
     return json({ success: false, error: 'Layanan login tidak tersedia, coba lagi' }, 503);
   }
-  // Mode lihat-saja terbuka: pengunjung tanpa sesi boleh MEMBACA (bukan menulis / kelola akun).
-  if (!user && OPEN_VIEW && !opts.write && !opts.role) return { user: guestUser(), token: '' };
-  if (!user || !token) return json({ success: false, error: 'Belum masuk' }, 401);
-  // Kata sandi awal (= nama) harus diganti dulu sebelum data apa pun bisa diakses.
-  if (user.mustChange && !opts.allowMustChange) return json({ success: false, error: 'Ganti kata sandi dulu', code: 'must_change' }, 403);
-  if (opts.role && user.role !== opts.role) return json({ success: false, error: 'Tidak punya izin' }, 403);
+  if (!user || !token) return json({ success: false, error: 'Belum masuk. Silakan login terlebih dahulu.' }, 401);
+  // PIN / kata sandi sementara wajib diganti dulu sebelum data apa pun bisa diakses.
+  if (user.mustChange && !opts.allowMustChange) return json({ success: false, error: 'Ganti PIN / kata sandi sementara Anda terlebih dahulu', code: 'must_change' }, 403);
+  if (opts.role && !rolesMatch(user.role, opts.role)) return json({ success: false, error: 'Hanya Admin yang memiliki akses ke fitur ini' }, 403);
   return { user, token };
 }
 
 /**
+ * Menjalankan operasi database dengan konteks sesi PostgreSQL Row Level Security (RLS):
+ *   - app.current_user_id   = ID user CRM
+ *   - app.current_user_role = 'admin' | 'busdev'
+ *   - app.current_user_name = nama sales / user
+ */
+export async function withCrmRls<T>(
+  pool: Pool,
+  user: Pick<CrmUserInfo, 'id' | 'name' | 'role'>,
+  fn: (client: PoolClient) => Promise<T>
+): Promise<T> {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const roleNorm = isAdminRole(user.role) ? 'admin' : 'busdev';
+    await client.query(
+      `SELECT
+         set_config('app.current_user_id', $1, true),
+         set_config('app.current_user_role', $2, true),
+         set_config('app.current_user_name', $3, true)`,
+      [String(user.id || 0), roleNorm, user.name || '']
+    );
+    const result = await fn(client);
+    await client.query('COMMIT');
+    return result;
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => undefined);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+/**
  * Akses mesin-ke-mesin (ERP) HANYA-BACA ke statistik: header `Authorization: Bearer <LEAD_MONITOR_TOKEN>`.
- * Token ini nilainya sama dengan env LEAD_MONITOR_TOKEN di server ERP. Tertutup bila env belum diisi atau
- * kurang dari 24 karakter (fail-closed). Hanya dipakai endpoint statistik, tidak bisa menulis apa pun.
  */
 export function serviceTokenOk(req: NextRequest): boolean {
   const expected = process.env.LEAD_MONITOR_TOKEN;

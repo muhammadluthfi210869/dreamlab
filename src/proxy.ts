@@ -288,6 +288,18 @@ export function proxy(request: NextRequest) {
   // Konsekuensi: path invalid kembali menjadi soft-404 (200 + noindex) — ini
   // adalah perilaku asli/status quo sebelum commit, sesuai permintaan.
 
+  // Proteksi halaman /lead-monitor/*: wajib memiliki cookie sesi dl_crm (kecuali /lead-monitor/masuk)
+  if (
+    (pathname === '/lead-monitor' || pathname.startsWith('/lead-monitor/')) &&
+    !pathname.startsWith('/lead-monitor/masuk')
+  ) {
+    const sessionCookie = request.cookies.get('dl_crm')?.value;
+    if (!sessionCookie || sessionCookie.length < 20) {
+      const loginUrl = new URL('/lead-monitor/masuk/', request.url);
+      return NextResponse.redirect(loginUrl, 302);
+    }
+  }
+
   // Teruskan pathname sebagai request header supaya root layout bisa
   // menentukan <html lang> yang benar (id/en) saat SSR. Ini penting
   // untuk halaman English /en/... supaya output HTML awal sudah

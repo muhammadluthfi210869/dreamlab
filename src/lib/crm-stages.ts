@@ -41,7 +41,25 @@ export function resolveTrafficStageByMoq(moq: number | null | undefined): Pipeli
   return 'warm_1000';
 }
 
-export type CrmRole = 'head' | 'sales';
+/**
+ * Role CRM:
+ *  - 'admin' (kompatibel mundur dengan 'head')
+ *  - 'busdev' (kompatibel mundur dengan 'sales')
+ */
+export type CrmRole = 'admin' | 'busdev' | 'head' | 'sales';
+export type NormalizedCrmRole = 'admin' | 'busdev';
+
+export function normalizeRole(role: string | null | undefined): NormalizedCrmRole {
+  return role === 'admin' || role === 'head' ? 'admin' : 'busdev';
+}
+
+export function isAdminRole(role: string | null | undefined): boolean {
+  return normalizeRole(role) === 'admin';
+}
+
+export function rolesMatch(actualRole: string | null | undefined, requiredRole: CrmRole): boolean {
+  return normalizeRole(actualRole) === normalizeRole(requiredRole);
+}
 
 export interface CrmUserInfo {
   id: number;
@@ -49,11 +67,31 @@ export interface CrmUserInfo {
   role: CrmRole;
 }
 
-/** Aturan edit: Head boleh semua; sales hanya lead yang `assigned_to`-nya namanya sendiri. */
-export function canEditLead(user: Pick<CrmUserInfo, 'name' | 'role'>, assignedTo: string | null | undefined): boolean {
-  if (user.role === 'head') return true;
-  return !!assignedTo && assignedTo.trim().toLowerCase() === user.name.trim().toLowerCase();
+/**
+ * Aturan akses & edit:
+ *  - Admin ('admin' / 'head') boleh membaca & mengubah semua lead.
+ *  - Busdev ('busdev' / 'sales') HANYA boleh membaca & mengubah lead dengan owner_sales_id = dirinya
+ *    (atau assigned_to sesuai namanya untuk baris lama yang belum punya owner_sales_id).
+ */
+export function canEditLead(
+  user: { id?: number; name: string; role: CrmRole },
+  assignedToOrOwnerId: string | number | null | undefined,
+  ownerSalesId?: number | null
+): boolean {
+  if (isAdminRole(user.role)) return true;
+  if (typeof ownerSalesId === 'number' && ownerSalesId > 0 && typeof user.id === 'number' && user.id > 0) {
+    return ownerSalesId === user.id;
+  }
+  if (typeof assignedToOrOwnerId === 'number' && assignedToOrOwnerId > 0 && typeof user.id === 'number' && user.id > 0) {
+    return assignedToOrOwnerId === user.id;
+  }
+  if (typeof assignedToOrOwnerId === 'string' && assignedToOrOwnerId.trim() !== '') {
+    return assignedToOrOwnerId.trim().toLowerCase() === user.name.trim().toLowerCase();
+  }
+  return false;
 }
+
+export const canReadLead = canEditLead;
 
 export const PRODUK_MAX = 120;
 export const NOTE_MAX = 500;
@@ -81,4 +119,3 @@ export function formatWaChatLink(
   const text = `Halo ${kName}, saya ${sName} dari Dreamlab Kosmetik.\nTerima kasih sudah menghubungi kami mengenai rencana ${pName}. Ada yang bisa saya bantu diskusikan?`;
   return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
 }
-

@@ -1,19 +1,19 @@
 import { NextRequest } from 'next/server';
 import { getMonitorPool } from '@/lib/db';
-import { isAuthFailure, json, requireUser } from '@/lib/crm-auth';
+import { generateRandomPin, hashPassword, isAuthFailure, json, requireUser } from '@/lib/crm-auth';
 
 export const dynamic = 'force-dynamic';
 
 /**
- * Tindakan Head atas satu akun:
- *   reset-password : kembalikan ke kata sandi awal (= nama akun) dan wajibkan ganti saat masuk; mencabut semua sesi
+ * Tindakan Admin atas satu akun:
+ *   reset-password : buat PIN sementara acak baru (6 digit), simpan hash-nya, wajibkan ganti saat masuk, cabut semua sesi
  *   deactivate     : nonaktifkan + cabut semua sesi
  *   activate       : aktifkan lagi
- *   unlock         : buka kunci akibat salah kata sandi
+ *   unlock         : buka kunci akibat salah kata sandi / PIN
  *   logout-all     : cabut semua sesi akun
  */
 export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
-  const auth = await requireUser(req, { role: 'head', write: true });
+  const auth = await requireUser(req, { role: 'admin', write: true });
   if (isAuthFailure(auth)) return auth;
   const { id } = await ctx.params;
   const uid = parseInt(id, 10);
@@ -28,12 +28,14 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
 
   switch (action) {
     case 'reset-password': {
+      const tempPin = generateRandomPin();
+      const pwHash = hashPassword(tempPin);
       await pool.query(
-        `UPDATE crm_users SET password_hash = NULL, must_change_password = TRUE, password_changed_at = NULL, failed_attempts = 0, locked_until = NULL, updated_at = NOW() WHERE id = $1`,
-        [uid]
+        `UPDATE crm_users SET password_hash = $2, must_change_password = TRUE, password_changed_at = NULL, failed_attempts = 0, locked_until = NULL, updated_at = NOW() WHERE id = $1`,
+        [uid, pwHash]
       );
       await pool.query(`DELETE FROM crm_sessions WHERE user_id = $1`, [uid]);
-      return json({ success: true, name: t.name });
+      return json({ success: true, name: t.name, tempPin });
     }
     case 'deactivate': {
       if (uid === auth.user.id) return json({ success: false, error: 'Tidak bisa menonaktifkan akun sendiri' }, 400);

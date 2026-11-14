@@ -4,11 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { BRAND, Card } from "@/components/lead-monitor/ui";
 import { useMe } from "@/components/lead-monitor/filters";
+import { isAdminRole } from "@/lib/crm-stages";
 
 interface UserRow {
   id: number;
   name: string;
-  role: "head" | "sales";
+  role: "admin" | "busdev" | "head" | "sales";
   is_active: boolean;
   using_initial_password: boolean;
   is_locked: boolean;
@@ -26,7 +27,7 @@ export default function PenggunaPage() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [newName, setNewName] = useState("");
-  const [newRole, setNewRole] = useState<"sales" | "head">("sales");
+  const [newRole, setNewRole] = useState<"busdev" | "admin">("busdev");
   const [busy, setBusy] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -59,7 +60,9 @@ export default function PenggunaPage() {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.success) throw new Error(json.error || "Gagal");
-      if (action === "reset-password") setInfo(`Kata sandi ${json.name} dikembalikan ke nama ${json.name} (huruf kecil). Yang bersangkutan diminta menggantinya saat masuk.`);
+      if (action === "reset-password") {
+        setInfo(`PIN sementara baru untuk ${json.name}: ${json.tempPin || "(lihat terminal)"}. Catat sekarang — wajib diganti saat yang bersangkutan masuk pertama kali.`);
+      }
       await load();
     } catch (e: any) {
       setError(e?.message || "Gagal");
@@ -91,10 +94,10 @@ export default function PenggunaPage() {
 
   const btn = "h-8 rounded-md border border-[#E5E2DA] bg-white px-2.5 text-[11px] font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50";
 
-  if (me.role !== "head") {
+  if (!isAdminRole(me.role)) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-10">
-        <p className="rounded-xl border border-[#ECEAE4] bg-white p-6 text-sm text-slate-600">Halaman ini hanya untuk Head.</p>
+        <p className="rounded-xl border border-[#ECEAE4] bg-white p-6 text-sm text-slate-600">Halaman ini hanya untuk Admin.</p>
       </main>
     );
   }
@@ -142,7 +145,7 @@ export default function PenggunaPage() {
                   {users.map((u) => (
                     <tr key={u.id} className={u.is_active ? "" : "opacity-60"}>
                       <td className="px-4 py-3 font-semibold text-slate-900">{u.name}</td>
-                      <td className="px-4 py-3 text-slate-600">{u.role === "head" ? "Head (edit semua)" : "BusDev (edit milik sendiri)"}</td>
+                      <td className="px-4 py-3 text-slate-600">{isAdminRole(u.role) ? "Admin (kelola semua)" : "BusDev (lead milik sendiri)"}</td>
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-1.5">
                           {!u.is_active && <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">Nonaktif</span>}
@@ -203,9 +206,9 @@ export default function PenggunaPage() {
               <label className="mb-1 block text-[11px] font-semibold text-slate-500" htmlFor="nr">
                 Peran
               </label>
-              <select id="nr" value={newRole} onChange={(e) => setNewRole(e.target.value as "sales" | "head")} className="h-9 rounded-lg border border-[#E5E2DA] bg-white px-2 text-sm focus:border-[#D98A00] focus:outline-none">
-                <option value="sales">BusDev</option>
-                <option value="head">Head</option>
+              <select id="nr" value={newRole} onChange={(e) => setNewRole(e.target.value as "busdev" | "admin")} className="h-9 rounded-lg border border-[#E5E2DA] bg-white px-2 text-sm focus:border-[#D98A00] focus:outline-none">
+                <option value="busdev">BusDev</option>
+                <option value="admin">Admin</option>
               </select>
             </div>
             <button type="submit" disabled={busy !== null || !newName.trim()} className="inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold text-white disabled:opacity-50" style={{ background: BRAND }}>

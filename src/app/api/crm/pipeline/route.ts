@@ -4,7 +4,7 @@ import { isAuthFailure, json, requireUser } from '@/lib/crm-auth';
 import { articlesMeta } from '@/data/articles-meta';
 import { attachCrmState, colExpr, getLeadColumns, GHOST_SQL } from '@/lib/lead-monitor-data';
 import { classify, cleanName, computeBusdevChannelFunnels, mergeForMonitor, quantityOf, referrerInfo, pagePath, type MonitorLead } from '@/lib/lead-monitor-stats';
-import { PIPELINE_STAGES, resolveTrafficStageByMoq, normalizeStage } from '@/lib/crm-stages';
+import { isAdminRole, PIPELINE_STAGES, resolveTrafficStageByMoq, normalizeStage } from '@/lib/crm-stages';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -27,12 +27,15 @@ const daysBetween = (a: string, b: string) => Math.round((Date.parse(`${b}T00:00
 const isConnError = (e: any) => /ECONNRESET|ETIMEDOUT|Connection terminated|timeout|ECONNREFUSED/i.test(`${e?.code ?? ''} ${e?.message ?? ''}`);
 
 /**
- * Papan pipeline: setiap prospek (kode klik, atau nomor WA yang sama dalam 24 jam digabung) berada di satu tahap.
- * Tanpa isian CRM = tahap 'traffic', jadi semua lead baru otomatis masuk Traffic.
+ * Papan pipeline:
+ *  - Admin bisa melihat semua sales atau memfilter per sales.
+ *  - Busdev HANYA bisa membaca lead dengan owner_sales_id / assigned_to = dirinya.
  */
 export async function GET(req: NextRequest) {
   const auth = await requireUser(req);
   if (isAuthFailure(auth)) return auth;
+  const { user } = auth;
+  const isAdmin = isAdminRole(user.role);
 
   const sp = new URL(req.url).searchParams;
   let endDate = DATE_RE.test(sp.get('endDate') || '') ? sp.get('endDate')! : wibToday();
@@ -40,12 +43,19 @@ export async function GET(req: NextRequest) {
   if (startDate < SYSTEM_LAUNCH_DATE) startDate = SYSTEM_LAUNCH_DATE;
   if (endDate < startDate) endDate = startDate;
   if (daysBetween(startDate, endDate) >= MAX_RANGE_DAYS) startDate = addDays(endDate, -(MAX_RANGE_DAYS - 1));
-  const busdev = sp.get('busdev') || 'all';
+
+  const requestedBusdev = (sp.get('busdev') || 'all').trim();
+  if (!isAdmin && requestedBusdev.toLowerCase() !== 'all' && requestedBusdev.toLowerCase() !== user.name.toLowerCase()) {
+    return json({ success: false, error: 'Anda hanya memiliki izin melihat pipeline milik Anda sendiri' }, 403);
+  }
+  const effectiveBusdev = isAdmin ? requestedBusdev : user.name;
 
   const run = async () => {
     const pool = getMonitorPool();
     const cols = await getLeadColumns(pool);
     const formExpr = cols.has('inquiry_reference') ? `(inquiry_reference IS NOT NULL OR intent LIKE '[QUALIFIED]%')` : `(intent LIKE '[QUALIFIED]%')`;
+    const ownerFilterSql = isAdmin ? '' : `AND lower(COALESCE(assigned_to, '')) = lower($3)`;
+    const sqlParams = isAdmin ? [startDate, endDate] : [startDate, endDate, user.name];
     const sql = `SELECT id, tracking_code, assigned_to, source, left(page_url, 200) AS page_url, left(referrer, 300) AS referrer, status,
                   nama, hp, wa_profile_name, wa_phone, produk,
                   COALESCE(${formExpr}, FALSE) AS is_form_lead, COALESCE(${GHOST_SQL}, FALSE) AS is_ghost,
@@ -55,13 +65,18 @@ export async function GET(req: NextRequest) {
             WHERE is_test IS NOT TRUE
               AND created_at >= (($1::date)::timestamp AT TIME ZONE 'Asia/Jakarta')
               AND created_at <  ((($2::date + 1))::timestamp AT TIME ZONE 'Asia/Jakarta')
+              ${ownerFilterSql}
             ORDER BY created_at DESC
             LIMIT ${RAW_ROW_CAP}`;
     const [rows, bds] = await Promise.all([
-      pool.query(sql, [startDate, endDate]),
+      pool.query(sql, sqlParams),
       pool.query(`SELECT name FROM busdevs WHERE is_active = TRUE ORDER BY id ASC`),
     ]);
-    return { rows: rows.rows as any[], busdevNames: bds.rows.map((r: any) => r.name as string) };
+    const allBusdevs = bds.rows.map((r: any) => r.name as string);
+    return {
+      rows: rows.rows as any[],
+      busdevNames: isAdmin ? allBusdevs : allBusdevs.filter((n) => n.toLowerCase() === user.name.toLowerCase()),
+    };
   };
 
   try {
@@ -78,7 +93,9 @@ export async function GET(req: NextRequest) {
     const capped = raw.length >= RAW_ROW_CAP;
     let merged = mergeForMonitor(raw) as any[];
     await attachCrmState(getMonitorPool(), merged);
-    if (busdev.toLowerCase() !== 'all') merged = merged.filter((l) => (l.assigned_to || '').toLowerCase() === busdev.toLowerCase());
+    if (effectiveBusdev.toLowerCase() !== 'all') {
+      merged = merged.filter((l) => (l.assigned_to || '').toLowerCase() === effectiveBusdev.toLowerCase());
+    }
 
     const byStage = new Map<string, any[]>(PIPELINE_STAGES.map((s) => [s.id as string, []]));
     for (const l of merged) {
@@ -111,7 +128,7 @@ export async function GET(req: NextRequest) {
     }
 
     const columns = PIPELINE_STAGES.map((s) => {
-      const list = byStage.get(s.id)!; // mergeForMonitor sudah mengurutkan terbaru dulu
+      const list = byStage.get(s.id)!;
       return { id: s.id, count: list.length, cards: list.slice(0, CARDS_PER_STAGE) };
     });
 

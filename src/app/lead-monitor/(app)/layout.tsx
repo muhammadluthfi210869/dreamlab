@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { getUserByToken, OPEN_VIEW, SESSION_COOKIE } from "@/lib/crm-auth";
+import { getUserByToken, SESSION_COOKIE } from "@/lib/crm-auth";
 import { MonitorShell } from "@/components/lead-monitor/Shell";
 import { ForcedChangeScreen } from "@/components/lead-monitor/ForcedChangeScreen";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Semua halaman di sini wajib login. Tanpa sesi sah => dialihkan ke halaman masuk. */
+/** Semua halaman di /lead-monitor/* wajib login. Tanpa sesi sah => dialihkan ke /lead-monitor/masuk. */
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   let user = null;
@@ -22,11 +22,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     console.error("[lead-monitor] gagal membaca sesi:", (e as Error)?.message);
   }
   if (!user) {
-    if (!OPEN_VIEW) redirect("/lead-monitor/masuk");
-    // Mode lihat-saja: pengunjung tanpa login melihat semuanya, tetapi tidak bisa mengedit.
-    return <MonitorShell user={{ id: 0, name: "Tamu", role: "sales" }} guest>{children}</MonitorShell>;
+    redirect("/lead-monitor/masuk");
   }
-  // Masih kata sandi awal (= nama): wajib diganti dulu, tidak ada halaman lain yang dirender.
+  // PIN / kata sandi sementara wajib diganti dulu sebelum halaman lain dirender.
   if (user.mustChange) return <ForcedChangeScreen name={user.name} />;
   return <MonitorShell user={{ id: user.id, name: user.name, role: user.role }}>{children}</MonitorShell>;
 }
