@@ -4,8 +4,7 @@ import type { ReactNode } from "react";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { getImageTitle } from "@/lib/image-utils";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 interface KatalogProps {
   title?: string;
@@ -27,187 +26,230 @@ const visualCategories = [
     id: "skincare",
     name: "Skincare",
     tag: "15+ Formula Premium",
-    image: "/new asset/skincare&facecare/cleansing-oill.webp",
-    subcategories: "Day & Night Cream • Sunscreen • Facial Wash • Face Serum • Masker",
-    link: "/produk/skincare"
+    image: "/assets/images/catalog/skincare.jpg",
+    subcategories: "Essence Toner • Face Serum • Moisturizer Cream • Gel Cleanser • Sunscreen",
+    link: "/produk/skincare",
   },
   {
     id: "bodycare",
     name: "Body Care",
     tag: "20+ Formula Premium",
-    image: "/new asset/bodycare/body-scrub.webp",
-    subcategories: "Body Scrub • Body Lotion • Body Butter • Shower Gel • Bath Salt",
-    link: "/produk/bodycare"
+    image: "/assets/images/catalog/bodycare.jpg",
+    subcategories: "Body Wash • Body Mask • Body Serum • Body Lotion • Body Scrub",
+    link: "/produk/bodycare",
   },
   {
     id: "haircare",
     name: "Hair Care",
     tag: "10+ Formula Premium",
-    image: "/new asset/haircare/shampoo.webp",
-    subcategories: "Shampoo • Conditioner • Hair Mask • Pomade • Beard Serum",
-    link: "/produk/haircare"
+    image: "/assets/images/catalog/haircare.jpg",
+    subcategories: "Bonding Shampoo • Hair Mask • Hair Serum • Hair Mist • No Wash Treatment",
+    link: "/produk/haircare",
   },
   {
     id: "decorative",
     name: "Decorative (Makeup)",
     tag: "12+ Formula Premium",
-    image: "/new asset/lipcare/lip-cream.webp",
-    subcategories: "Lip Matte • Lip Cream • Foundation • Cushion • Face Primer",
-    link: "/produk/decorative"
+    image: "/assets/images/catalog/decorative.jpg",
+    subcategories: "Peptide Lip Treatment • Lip Matte • Lip Cream • Cushion • Foundation",
+    link: "/produk/decorative",
   },
   {
     id: "babycare",
     name: "Baby Care",
     tag: "8+ Formula Premium",
-    image: "/new asset/baby-care/baby-cologne.webp",
-    subcategories: "Baby Oil • Baby Cologne • Shampoo Baby • Baby Wash • Lotion",
-    link: "/produk/babycare"
+    image: "/assets/images/catalog/babycare.jpg",
+    subcategories: "Baby Hair & Body Wash • Baby Lotion • Baby Massage Oil • Baby Face Cream",
+    link: "/produk/babycare",
   },
   {
     id: "parfum",
     name: "Parfum & Fragrance",
     tag: "15+ Signature Scent",
-    image: "/new asset/parfum/edpp.webp",
+    image: "/assets/images/catalog/parfum.jpg",
     subcategories: "Extrait de Parfum • Eau de Parfum • Eau de Toilette • Body Mist",
-    link: "/produk/parfum"
+    link: "/produk/parfum",
   },
   {
     id: "footcare",
     name: "Foot Care & Special Care",
     tag: "10+ Formula Premium",
-    image: "/new asset/footcare/Footcream-maklon .png",
-    subcategories: "Foot Cream • Foot Scrub • Underarm Cream • Soothing Gel",
-    link: "/produk/footcare"
-  }
+    image: "/assets/images/catalog/footcare.jpg",
+    subcategories: "Hydrating Foot Scrub • Foot Serum • Cooling Foot Gel • Foot Cream",
+    link: "/produk/footcare",
+  },
 ];
 
-// Elite Custom Easing Curve (Apple / Tom Ford Premium Ease-Out)
 const premiumEase = [0.16, 1, 0.3, 1] as any;
 
 export default function KatalogProduk({ content }: KatalogProps) {
   const categories = content?.categories || visualCategories;
-  
-  // Container stagger animation variants
+  const isEn = Boolean(content);
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08
-      }
-    }
+        staggerChildren: 0.07,
+      },
+    },
   };
 
-  // Staggered Spring reveals for cards
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    show: { 
-      opacity: 1, 
+    hidden: { opacity: 0, y: 28 },
+    show: {
+      opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 85,
-        damping: 20
-      }
-    }
+        duration: 0.6,
+        ease: premiumEase,
+      },
+    },
   };
 
   return (
-    <section id="katalog" className="py-20 lg:py-28 bg-[#FDFCF9] relative overflow-hidden">
-      {/* Decorative ambient gradients */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand-orange/[0.03] rounded-full blur-[120px] pointer-events-none -translate-y-1/2" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-brand-orange/[0.02] rounded-full blur-[140px] pointer-events-none translate-y-1/2" />
+    <section
+      id="katalog"
+      className="py-20 lg:py-28 bg-gradient-to-b from-[#FAF8F5] via-white to-[#FAF8F5] relative overflow-hidden"
+    >
+      {/* Subtle Ambient Accents */}
+      <div className="absolute top-0 left-1/4 w-[480px] h-[480px] bg-brand-orange/[0.03] rounded-full blur-[120px] pointer-events-none -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-[520px] h-[520px] bg-sky-200/20 rounded-full blur-[130px] pointer-events-none translate-y-1/2" />
 
-      <div className="container-custom relative z-10">
-        
-        {/* Header Section - Elegant Slide Down */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
+      <div className="container-custom max-w-[1280px] relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: premiumEase }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="max-w-3xl mx-auto text-center mb-16 lg:mb-20"
+          transition={{ duration: 0.7, ease: premiumEase }}
+          viewport={{ once: true, margin: "-80px" }}
+          className="max-w-3xl mx-auto text-center mb-14 lg:mb-18"
         >
-          <span className="text-[11px] font-bold tracking-[0.2em] text-brand-orange uppercase bg-brand-orange/10 px-4 py-1.5 rounded-full inline-block mb-4 shadow-sm border border-brand-orange/10">
+          <span className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] text-[#C86400] uppercase bg-[#FFF5E9] px-4 py-1.5 rounded-full mb-4 border border-[#F39200]/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F39200]" />
             {content?.eyebrow || "Formulasi Eksklusif & CPKB Grade A"}
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold font-display tracking-tight text-brand-black mb-6 uppercase">
-            {content?.title || <>Katalog Layanan <span className="text-brand-orange">Maklon Premium</span></>}
+
+          <h2 className="text-3xl md:text-5xl font-extrabold font-display tracking-tight text-brand-black mb-5 uppercase">
+            {content?.title || (
+              <>
+                Katalog Layanan <span className="text-brand-orange">Maklon Premium</span>
+              </>
+            )}
           </h2>
-          <div className="h-[2px] w-20 bg-brand-orange/40 mx-auto mb-6 rounded-full" />
-          <p className="text-sm md:text-base text-gray-600 leading-relaxed font-medium">
-            {content?.description || "Dari formulasi riset laboratorium (R&D) kustom, visualisasi desain branding eksklusif, hingga pendaftaran legalitas resmi BPOM, Halal, & HKI - kami mewujudkan brand kecantikan juara Anda tanpa batas."}
+
+          <div className="h-1 w-16 bg-brand-orange mx-auto mb-5 rounded-full" />
+
+          <p className="text-sm md:text-base text-neutral-600 leading-relaxed font-medium">
+            {content?.description ||
+              "Dari formulasi riset laboratorium (R&D) kustom, visualisasi desain branding eksklusif, hingga pendaftaran legalitas resmi BPOM, Halal, & HKI — kami mewujudkan brand kecantikan juara Anda."}
           </p>
         </motion.div>
 
-        {/* Visual 8-Category Portal Grid */}
-        <motion.div 
+        {/* Tidy, Symmetrical 7-Category Editorial Grid (4 top + 3 centered bottom on Desktop) */}
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          viewport={{ once: true, margin: "-60px" }}
+          className="flex flex-wrap justify-center gap-6 lg:gap-7"
         >
-          {categories.map((category) => (
-            <Link 
-              key={category.id}
-              href={category.link}
-              className="block group"
-            >
-              <motion.div 
+          {categories.map((category, index) => {
+            const subItems = category.subcategories
+              .split(/[•·]/)
+              .map((s) => s.trim())
+              .filter(Boolean);
+
+            return (
+              <motion.div
+                key={category.id}
                 variants={cardVariants}
-                whileHover={{ 
-                  y: -8, 
-                  scale: 1.015, 
-                  transition: { duration: 0.45, ease: premiumEase } 
-                }}
-                className="relative overflow-hidden aspect-[4/5] rounded-[2rem] border border-gray-100/60 shadow-[0_12px_35px_rgba(0,0,0,0.015)] group-hover:shadow-[0_22px_50px_rgba(33,33,32,0.065)] transition-shadow duration-500 bg-white cursor-pointer"
+                className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-21px)] flex"
               >
-                {/* Background Product Image - slow Focusing zoom on hover */}
-                <Image
-                  src={category.image}
-                  alt={content ? `${category.name} manufacturing service` : `Maklon ${category.name}`}
-                  title={content ? `${category.name} manufacturing service - Dreamlab` : getImageTitle(category.image)}
-                  fill
-                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-108"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
+                <Link
+                  href={category.link}
+                  className="group flex flex-col w-full rounded-[22px] bg-white border border-neutral-200/80 hover:border-brand-orange/45 shadow-[0_8px_28px_rgba(12,35,64,0.04)] hover:shadow-[0_20px_44px_rgba(243,146,0,0.12)] transition-all duration-500 overflow-hidden hover:-translate-y-1.5"
+                >
+                  {/* Unobstructed 4:5 Studio Image Stage */}
+                  <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#F2F6FA]">
+                    <Image
+                      src={category.image}
+                      alt={
+                        isEn
+                          ? `${category.name} manufacturing service`
+                          : `Maklon ${category.name} Dreamlab`
+                      }
+                      title={
+                        isEn
+                          ? `${category.name} manufacturing service - Dreamlab`
+                          : `Maklon ${category.name} - Dreamlab Indonesia`
+                      }
+                      fill
+                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      quality={90}
+                    />
 
-                {/* Dark Vignette Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent z-10 transition-opacity duration-500 group-hover:from-neutral-950 group-hover:via-neutral-950/50" />
-
-                {/* Card Content (Aligned to Bottom) */}
-                <div className="absolute bottom-0 inset-x-0 p-6 lg:p-7 z-20 flex flex-col justify-end min-h-[50%]">
-                  
-                  {/* Category Tag - slides down and fades in on hover */}
-                  <span className="text-[10px] font-bold text-brand-orange tracking-widest uppercase mb-2 block transform translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out delay-75">
-                    {category.tag}
-                  </span>
-
-                  {/* Title & Chevron Indicator */}
-                  <div className="flex justify-between items-center mb-2.5">
-                    <h3 className="text-lg lg:text-xl font-bold font-onest text-white tracking-wide uppercase transition-colors duration-300 group-hover:text-brand-orange">
-                      {category.name}
-                    </h3>
-                    
-                    {/* Glassmorphic Chevron Arrow - scales and changes color on hover */}
-                    <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-500 group-hover:bg-brand-orange group-hover:border-brand-orange group-hover:scale-110 shadow-inner">
-                      <ArrowUpRight size={15} className="text-white transform transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    {/* Top Floating Formula Count Badge & Index */}
+                    <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between z-10 pointer-events-none">
+                      <span className="px-3 py-1 rounded-full bg-white/92 backdrop-blur-xs border border-white text-[10px] font-bold uppercase tracking-[0.12em] text-[#C86400] shadow-xs font-onest">
+                        {category.tag}
+                      </span>
+                      <span className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs border border-white text-[10px] font-bold text-neutral-700 flex items-center justify-center shadow-xs font-onest">
+                        0{index + 1}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Subcategories (Bullet point layout) - slides up slightly on hover */}
-                  <p className="text-[11px] text-neutral-300/80 font-medium leading-relaxed tracking-wide group-hover:text-white transition-all duration-500 transform translate-y-1 group-hover:translate-y-0">
-                    {category.subcategories}
-                  </p>
-                </div>
+                  {/* Clean White Editorial Footer */}
+                  <div className="p-5 lg:p-5.5 flex flex-col justify-between flex-1 bg-white border-t border-neutral-100">
+                    <div>
+                      {/* Title & Action Icon */}
+                      <div className="flex items-center justify-between gap-3 mb-3">
+                        <h3 className="text-[15px] lg:text-base font-extrabold font-onest text-brand-black uppercase tracking-wide group-hover:text-brand-orange transition-colors duration-300">
+                          {category.name}
+                        </h3>
+                        <span className="w-8 h-8 rounded-full bg-[#FFF6EB] border border-brand-orange/20 text-brand-orange group-hover:bg-brand-orange group-hover:border-brand-orange group-hover:text-white flex items-center justify-center transition-all duration-300 shrink-0">
+                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
+                      </div>
+
+                      {/* Tidy Subcategory Pills */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {subItems.slice(0, 4).map((sub) => (
+                          <span
+                            key={sub}
+                            className="inline-block text-[11px] font-medium text-neutral-600 bg-[#F8F9FA] group-hover:bg-[#FFF9F2] border border-neutral-200/70 group-hover:border-brand-orange/20 px-2.5 py-0.5 rounded-md transition-colors duration-300"
+                          >
+                            {sub}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Subtle Bottom Link Prompt */}
+                    <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-500 group-hover:text-brand-orange transition-colors duration-300 font-onest">
+                      <span>{isEn ? "Explore Category" : "Lihat Varian Produk"}</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
               </motion.div>
-            </Link>
-          ))}
+            );
+          })}
         </motion.div>
 
-
+        {/* Bottom CTA to Full Product Hub */}
+        <div className="mt-12 lg:mt-14 text-center">
+          <Link
+            href={isEn ? "/en/produk/" : "/produk/"}
+            className="inline-flex items-center gap-3 px-7 py-3.5 rounded-xl bg-white hover:bg-brand-orange text-brand-black hover:text-white border border-neutral-200 hover:border-brand-orange font-bold text-xs md:text-sm uppercase tracking-[0.15em] font-onest shadow-xs hover:shadow-lg hover:shadow-brand-orange/15 transition-all duration-300 group"
+          >
+            <span>{isEn ? "View Full Product Catalog" : "Lihat Seluruh Katalog Produk"}</span>
+            <ArrowRight className="w-4 h-4 text-brand-orange group-hover:text-white transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </section>
   );
