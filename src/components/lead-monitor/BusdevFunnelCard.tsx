@@ -1,6 +1,6 @@
 "use client";
 
-import type { BusdevChannelFunnel, ChannelFunnelMetrics } from "@/lib/lead-monitor-stats";
+import type { BusdevChannelFunnel, ChannelFunnelMetrics, ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 
 interface ChannelConfig {
   key: keyof Pick<BusdevChannelFunnel, "meta_ads" | "google_ads" | "google_organic" | "social_media">;
@@ -46,7 +46,7 @@ const CHANNELS: ChannelConfig[] = [
   },
 ];
 
-export function BusdevFunnelCard({
+function SingleBusdevFunnelCard({
   funnel,
   className = "",
   compact = false,
@@ -55,6 +55,12 @@ export function BusdevFunnelCard({
   className?: string;
   compact?: boolean;
 }) {
+  const totalQualified =
+    (funnel.meta_ads.warm + funnel.meta_ads.hot) +
+    (funnel.google_ads.warm + funnel.google_ads.hot) +
+    (funnel.google_organic.warm + funnel.google_organic.hot) +
+    (funnel.social_media.warm + funnel.social_media.hot);
+
   return (
     <div className={`rounded-2xl border border-[#ECEAE4] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)] ${className}`}>
       {/* Header BusDev */}
@@ -73,7 +79,7 @@ export function BusdevFunnelCard({
             {funnel.totalTraffic} <span className="text-[10px] font-normal text-slate-400">lead</span>
           </div>
           <div className="text-[10px] font-bold text-amber-700 font-mono">
-            {funnel.totalMoq} lolos MOQ
+            {totalQualified} Qualified (Warm+Hot)
           </div>
         </div>
       </div>
@@ -82,19 +88,28 @@ export function BusdevFunnelCard({
       <div className={compact ? "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2.5" : "space-y-2.5"}>
         {CHANNELS.map((ch) => {
           const m: ChannelFunnelMetrics = funnel[ch.key];
+          const qualifiedCount = m.warm + m.hot;
           return (
             <div
               key={ch.key}
               className={`rounded-xl border ${ch.borderCls} bg-white p-3 shadow-xs transition hover:border-[#D98A00]/40`}
             >
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5">
+              <div className="flex items-center justify-between mb-2 gap-1">
+                <span className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5 min-w-0">
                   <span className={`h-2 w-2 shrink-0 rounded-full ${ch.dotColor}`} />
                   <span className="truncate">{ch.label}</span>
                 </span>
-                <span className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-full ${ch.badgeCls}`}>
-                  {m.traffic > 0 ? `${m.moqRate}% lolos` : "0% lolos"}
-                </span>
+                <div className="flex items-center gap-1 shrink-0">
+                  <span
+                    className="font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200"
+                    title="Qualified Leads = Warm + Hot"
+                  >
+                    {qualifiedCount} Qual
+                  </span>
+                  <span className={`font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-full ${ch.badgeCls}`}>
+                    {m.traffic > 0 ? `${m.moqRate}% lolos` : "0% lolos"}
+                  </span>
+                </div>
               </div>
 
               {/* 5 Step Boxes: TRAFFIC | COLD | WARM | HOT | SAMPLE */}
@@ -107,7 +122,7 @@ export function BusdevFunnelCard({
                   <div className="text-[8px] sm:text-[9px] font-semibold text-sky-700 uppercase tracking-wider truncate">Cold</div>
                   <div className="font-mono text-xs sm:text-sm font-bold text-sky-700 mt-0.5">{m.cold}</div>
                 </div>
-                <div className="rounded-lg bg-[#FFF9F0] border border-amber-100/80 p-1.5" title="Prospek hangat (Warm 500 / 1.000+)">
+                <div className="rounded-lg bg-[#FFF9F0] border border-amber-100/80 p-1.5" title="Prospek hangat (Warm)">
                   <div className="text-[8px] sm:text-[9px] font-semibold text-[#B45309] uppercase tracking-wider truncate">Warm</div>
                   <div className="font-mono text-xs sm:text-sm font-bold text-[#B45309] mt-0.5">{m.warm}</div>
                 </div>
@@ -155,4 +170,40 @@ export function BusdevFunnelCard({
       </div>
     </div>
   );
+}
+
+export function BusdevFunnelCard({
+  funnel,
+  data,
+  activeBusdev,
+  className = "",
+  compact = false,
+}: {
+  funnel?: BusdevChannelFunnel;
+  data?: ChannelFunnelsOverview;
+  loading?: boolean;
+  activeBusdev?: string;
+  className?: string;
+  compact?: boolean;
+}) {
+  if (funnel) {
+    return <SingleBusdevFunnelCard funnel={funnel} className={className} compact={compact} />;
+  }
+
+  if (data) {
+    const rows =
+      activeBusdev && activeBusdev !== "all"
+        ? data.byBusdev.filter((b) => b.name.toLowerCase() === activeBusdev.toLowerCase())
+        : data.byBusdev;
+
+    return (
+      <div className="grid gap-3 md:grid-cols-3">
+        {rows.map((b) => (
+          <SingleBusdevFunnelCard key={b.name} funnel={b} className={className} compact={compact} />
+        ))}
+      </div>
+    );
+  }
+
+  return null;
 }

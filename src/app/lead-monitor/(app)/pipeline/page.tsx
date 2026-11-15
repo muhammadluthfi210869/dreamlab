@@ -33,6 +33,7 @@ import { BRAND, BRAND_BLUE } from "@/components/lead-monitor/ui";
 import { useFilters, useMe } from "@/components/lead-monitor/filters";
 import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
+import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
 
 const PAGE_STEP = 50;
 const REFRESH_MS = 60_000;
@@ -725,7 +726,14 @@ export default function PipelinePage() {
       )}
 
       {showFunnel && data?.channelFunnels && (
-        <section className="mb-3">
+        <section className="mb-3 space-y-3">
+          <WeeklyBudgetPerformanceCard
+            busdev={f.busdev}
+            onSelectWeek={(start, end) => {
+              setPeriodPreset("custom");
+              f.setRange(start, end);
+            }}
+          />
           <BusdevFunnelCard data={data.channelFunnels} loading={loading && !data} activeBusdev={f.busdev} />
         </section>
       )}
