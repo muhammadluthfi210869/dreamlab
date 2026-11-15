@@ -33,9 +33,9 @@ export function ForcedChangeScreen({ name }: { name: string }) {
           </div>
         ) : (
           <>
-            <h1 className="mb-1 text-lg font-semibold text-slate-900">Halo, {name}. Ganti kata sandi dulu</h1>
+            <h1 className="mb-1 text-lg font-semibold text-slate-900">Halo, {name}. Ganti PIN / kata sandi dulu</h1>
             <p className="mb-5 text-xs leading-relaxed text-slate-500">
-              Kata sandi awal Anda sama dengan nama, sehingga mudah ditebak orang lain. Buat kata sandi baru yang hanya Anda ketahui. Ini cuma sekali, lalu Anda bisa langsung memakai dashboard.
+              Anda masuk menggunakan PIN sementara sekali pakai. Masukkan kembali PIN sementara tersebut di kolom pertama, lalu buat PIN 6 digit baru atau kata sandi baru (minimal 8 karakter) yang hanya Anda ketahui.
             </p>
             <ChangePasswordForm forced name={name} onDone={() => setDone(true)} />
           </>

@@ -17,8 +17,9 @@ export function ChangePasswordForm({ forced, name, onDone }: { forced: boolean; 
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState(false);
 
+  const isSixDigitPin = /^\d{6}$/.test(next) && !/^(.)\1+$/.test(next) && !'01234567890'.includes(next) && !'9876543210'.includes(next);
   const hints = [
-    { ok: next.length >= 8, text: "Minimal 8 karakter" },
+    { ok: next.length >= 8 || isSixDigitPin, text: "Minimal 8 karakter atau PIN 6 digit angka (tidak kembar/berurutan)" },
     { ok: next.length > 0 && !next.toLowerCase().includes(name.toLowerCase()), text: "Tidak memuat nama Anda" },
     { ok: again.length > 0 && next === again, text: "Kedua isian sama" },
   ];
@@ -58,7 +59,7 @@ export function ChangePasswordForm({ forced, name, onDone }: { forced: boolean; 
       <input type="text" name="username" autoComplete="username" value={name} readOnly hidden />
 
       <label className="mb-1 block text-xs font-semibold text-slate-600" htmlFor="pw-now">
-        {forced ? "Kata sandi awal (nama Anda)" : "Kata sandi saat ini"}
+        {forced ? "PIN sementara saat ini" : "PIN / kata sandi saat ini"}
       </label>
       <input id="pw-now" type={type} autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} className={`${field} mb-4`} required />
 
