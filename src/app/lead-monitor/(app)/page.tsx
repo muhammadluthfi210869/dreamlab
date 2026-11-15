@@ -31,6 +31,7 @@ interface Kpi {
 import type { MoqOverview, ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
 import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
+import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
 
 interface ApiData {
   period: { startDate: string; endDate: string; days: number; hasPrevious: boolean };
@@ -420,6 +421,11 @@ export default function DashboardPage() {
           busdev={f.busdev}
           onSelectWeek={(start, end) => f.setRange(start, end)}
         />
+
+        {/* Conversion Rate per BusDev & Laporan Blended (Total & Per Channel) */}
+        {data?.channelFunnels && (
+          <BusdevConversionRateCard channelFunnels={data.channelFunnels} />
+        )}
 
         {/* Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial */}
         {data?.channelFunnels && (

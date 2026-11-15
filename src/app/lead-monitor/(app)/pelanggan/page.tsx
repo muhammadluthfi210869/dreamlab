@@ -6,6 +6,9 @@ import { PIPELINE_STAGES } from "@/lib/crm-stages";
 import { BRAND, Card, KpiCard } from "@/components/lead-monitor/ui";
 import { FilterToolbar, useFilters, useMe } from "@/components/lead-monitor/filters";
 import { LeadTable, rowsToCsv, type PatchHandler, type TableData, type TableState } from "@/components/lead-monitor/LeadTable";
+import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
+import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
+import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
 
 const REFRESH_MS = 30_000;
 
@@ -22,6 +25,7 @@ interface ApiData {
   kpi: { current: Kpi; delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null };
   busdevs: { name: string }[];
   stageCounts: Record<string, number>;
+  channelFunnels?: ChannelFunnelsOverview;
   table: TableData;
   meta: { rawCapped: boolean };
 }
@@ -257,6 +261,15 @@ export default function PelangganPage() {
             hint="Dari isian form atau MOQ manual busdev (isian manual yang dipakai bila ada)."
           />
         </div>
+
+        {data?.channelFunnels && (
+          <BusdevConversionRateCard channelFunnels={data.channelFunnels} />
+        )}
+
+        <WeeklyBudgetPerformanceCard
+          busdev={f.busdev}
+          onSelectWeek={(start, end) => f.setRange(start, end)}
+        />
 
         <Card title="Prospek per Tahap" subtitle="Klik tahap untuk memfilter tabel · atur tahap di halaman Sales Pipeline">
           <div className="flex flex-wrap gap-2">
