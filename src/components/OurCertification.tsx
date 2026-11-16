@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { getImageAlt, getImageTitle } from "@/lib/image-utils";
 
 interface OurCertificationProps {
   alt?: string;
@@ -10,25 +9,25 @@ interface OurCertificationProps {
 }
 
 export default function OurCertification({
-  alt = "Sertifikasi Resmi Dreamlab CPKB BPOM Halal Kemenkumham",
-  title,
+  alt = "Our Certifications - HSA, Kementerian Kesehatan RI, Sertifikat CPKB, Vegan, Badan POM",
+  title = "Sertifikasi Resmi Dreamlab",
 }: OurCertificationProps) {
   return (
-    <section className="w-full bg-[#FAF9F5] overflow-hidden leading-none select-none">
+    <section className="w-full bg-[#F4F8FC] overflow-hidden leading-none select-none">
       <motion.div
-        initial={{ opacity: 0.9, y: 0 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.2 }}
         className="w-full"
       >
         <Image
-          src="/new asset/banner-bawah.webp"
+          src="/assets/images/home/our-certifications.jpg"
           alt={alt}
-          title={title || getImageTitle("/new asset/banner-bawah.webp")}
+          title={title}
           width={1920}
-          height={800}
-          className="w-full h-auto object-contain block"
+          height={640}
+          className="w-full h-auto object-cover block"
           sizes="100vw"
           priority
         />
