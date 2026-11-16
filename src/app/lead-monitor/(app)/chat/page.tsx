@@ -173,6 +173,21 @@ export default function CrmChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Auto-refresh thread tiap 12 detik agar balasan baru dari WA/HP tampil otomatis
+  useEffect(() => {
+    if (!activePhone) return;
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/crm/chat?phone=${encodeURIComponent(activePhone)}`, { cache: "no-store" });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.messages)) {
+          setMessages(data.messages);
+        }
+      } catch {}
+    }, 12_000);
+    return () => clearInterval(timer);
+  }, [activePhone]);
+
   // Send reply
   const handleSendReply = async () => {
     if (!replyText.trim() || !activePhone || sending) return;
@@ -180,14 +195,15 @@ export default function CrmChatPage() {
     setSending(true);
 
     // Optimistic UI update
+    const tempId = Date.now();
     const tempMsg: ChatMessage = {
-      id: Date.now(),
+      id: tempId,
       tracking_code: leadDetail?.tracking_code || null,
       phone: activePhone,
       sender_type: "busdev",
       sender_name: "Saya",
       message_text: currentText,
-      status: "delivered",
+      status: "sent",
       direction: "outbound",
       channel: "whatsapp",
       busdev_name: leadDetail?.assigned_to || "Busdev",
@@ -212,9 +228,17 @@ export default function CrmChatPage() {
       const data = await res.json();
       if (!data.success) {
         alert(data.error || "Gagal mengirim balasan.");
+      } else {
+        if (data.message) {
+          setMessages((prev) => prev.map((m) => (m.id === tempId ? data.message : m)));
+        }
+        if (data.conviaSent === false && data.conviaError) {
+          alert(`Catatan: Pesan tercatat di CRM, namun gagal dikirim ke WhatsApp via Convia (${data.conviaError}). Anda bisa gunakan tombol "Kirim di WA Web" sebagai cadangan.`);
+        }
       }
     } catch (err) {
       console.error("Gagal kirim chat:", err);
+      alert("Gagal menghubungi server untuk mengirim chat.");
     } finally {
       setSending(false);
     }

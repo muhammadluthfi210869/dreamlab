@@ -101,6 +101,36 @@ export async function POST(req: NextRequest) {
     return reply({ success: true, ignored: true, reason: 'bentuk payload tidak dikenal / test event' });
   }
 
+  // Catat balasan keluar (outbound) dari HP / WA Business App / Convia ke crm_chat_messages agar tampil di Chat CRM
+  if ((ev.direction === 'outbound' || ev.eventType === 'message.sent') && !ev.isHistory && ev.channel === 'whatsapp' && ev.phone && ev.text) {
+    try {
+      const pool = getMonitorPool();
+      const rawDigits = ev.phone.replace(/\D/g, '');
+      const normPhone = rawDigits.startsWith('0') ? '62' + rawDigits.slice(1) : rawDigits;
+      const bizDigits = (ev.businessPhone || '').replace(/\D/g, '');
+      let salesName = 'Sales';
+      if (bizDigits.endsWith('87776550657')) salesName = 'Diaz';
+      else if (bizDigits.endsWith('87712232389')) salesName = 'Jessica';
+      else if (bizDigits.endsWith('81952417051')) salesName = 'Annisa';
+
+      const wamid = ev.wamid || (ev.messageId ? `convia:${ev.messageId}` : null);
+      await pool.query(
+        `INSERT INTO crm_chat_messages (
+           tracking_code, phone, sender_type, sender_name, message_text, wamid, status, direction, channel, busdev_name, is_read, created_at
+         )
+         VALUES (
+           (SELECT tracking_code FROM leads WHERE whatsapp_phone_e164 = $1 OR wa_phone = $1 OR hp = $1 ORDER BY created_at DESC LIMIT 1),
+           $1, 'busdev', $2, $3, $4, 'delivered', 'outbound', 'whatsapp', $2, TRUE, NOW()
+         )
+         ON CONFLICT (wamid) DO NOTHING`,
+        [normPhone, salesName, ev.text, wamid]
+      );
+    } catch (e: any) {
+      console.warn('[convia] gagal simpan outbound message:', e?.message);
+    }
+    return reply({ success: true, outboundRecorded: true });
+  }
+
   const skip = skipReason(ev);
   const tag = `[convia] ${ev.shape} ${ev.eventType} ...${(ev.businessPhone || '').replace(/\D/g, '').slice(-4)}`;
   if (skip) {

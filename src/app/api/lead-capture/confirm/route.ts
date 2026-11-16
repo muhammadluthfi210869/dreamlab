@@ -147,6 +147,44 @@ export async function POST(req: NextRequest) {
     let phoneNumberId: string | null = null;
     let wamid: string | null = null;
 
+    // A0. Deteksi balasan keluar (outbound echo) dari HP / WhatsApp Business App via Meta Coexistence (smb_message_echoes)
+    const echoList = body?.entry?.[0]?.changes?.[0]?.value?.message_echoes;
+    if (Array.isArray(echoList) && echoList.length > 0) {
+      const value = body.entry[0].changes[0].value;
+      const destPhone = value.metadata?.display_phone_number ? String(value.metadata.display_phone_number) : null;
+      const phId = value.metadata?.phone_number_id ? String(value.metadata.phone_number_id) : null;
+      const busdevName = resolveBusdevName(destPhone, phId);
+
+      for (const echo of echoList) {
+        const toRaw = echo?.to ? String(echo.to).replace(/\D/g, '') : '';
+        const normTo = toRaw.startsWith('0') ? '62' + toRaw.slice(1) : toRaw;
+        const echoText =
+          echo?.text?.body ||
+          echo?.image?.caption ||
+          echo?.video?.caption ||
+          echo?.document?.caption ||
+          (echo?.type && echo.type !== 'text' ? `[${echo.type}]` : null);
+        const echoWamid = echo?.id ? String(echo.id) : null;
+
+        if (normTo && echoText) {
+          await pool
+            .query(
+              `INSERT INTO crm_chat_messages (
+                 tracking_code, phone, sender_type, sender_name, message_text, wamid, status, direction, channel, busdev_name, is_read, created_at
+               )
+               VALUES (
+                 (SELECT tracking_code FROM leads WHERE whatsapp_phone_e164 = $1 OR wa_phone = $1 OR hp = $1 ORDER BY created_at DESC LIMIT 1),
+                 $1, 'busdev', $2, $3, $4, 'delivered', 'outbound', 'whatsapp', $2, TRUE, NOW()
+               )
+               ON CONFLICT (wamid) DO NOTHING`,
+              [normTo, busdevName !== 'Unassigned' ? busdevName : 'Sales', echoText, echoWamid]
+            )
+            .catch((e) => console.warn('[lead-capture/confirm] echo insert failed:', e?.message));
+        }
+      }
+      return NextResponse.json({ success: true, echoRecorded: true }, { status: 200, headers: NO_STORE_HEADERS });
+    }
+
     // A. Deteksi format payload Meta WhatsApp Cloud API
     if (body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
       const value = body.entry[0].changes[0].value;
