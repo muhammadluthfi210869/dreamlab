@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { getMonitorPool } from '@/lib/db';
 import { isAuthFailure, json, requireUser, withCrmRls } from '@/lib/crm-auth';
 import { canEditLead, canReadLead, formatWaChatLink, isAdminRole } from '@/lib/crm-stages';
+import { convia } from '@/lib/convia';
 
 export const dynamic = 'force-dynamic';
 
@@ -278,6 +279,45 @@ export async function POST(req: NextRequest) {
     return json({ success: false, error: 'Anda tidak memiliki izin membalas pesan milik sales lain' }, 403);
   }
 
+  // Cari nomor pengirim Convia (whatsapp_phone_number_id) milik sales pemilik lead atau fallback nomor bersama/utama
+  const ownerName = own.lead?.owner || own.lead?.assigned_to || user.name;
+  let conviaPhoneId: string | null = null;
+  try {
+    const numRes = await pool.query(
+      `SELECT cn.convia_id
+         FROM convia_numbers cn
+         LEFT JOIN sales s ON s.id = cn.sales_id
+        WHERE lower(s.name) = lower($1)
+        LIMIT 1`,
+      [ownerName]
+    );
+    if (numRes.rows[0]?.convia_id) {
+      conviaPhoneId = numRes.rows[0].convia_id;
+    } else {
+      const fallbackRes = await pool.query(
+        `SELECT convia_id
+           FROM convia_numbers
+          WHERE is_shared = TRUE OR is_primary = TRUE
+          ORDER BY is_shared DESC, is_primary DESC
+          LIMIT 1`
+      );
+      conviaPhoneId = fallbackRes.rows[0]?.convia_id || null;
+    }
+  } catch (e) {
+    console.warn('[crm/chat] gagal lookup convia_numbers:', (e as Error)?.message);
+  }
+
+  let sendResult: { ok: boolean; messageId?: string; error?: string } = { ok: false, error: 'Nomor Convia belum terkonfigurasi' };
+  if (conviaPhoneId) {
+    sendResult = await convia.sendText({
+      to: phone,
+      content: messageText,
+      phoneId: conviaPhoneId,
+    });
+  }
+
+  const msgStatus = sendResult.ok ? 'sent' : 'failed';
+
   const insertRes = await withCrmRls(pool, user, async (client) => {
     const res = await client.query(
       `INSERT INTO crm_chat_messages (
@@ -286,6 +326,7 @@ export async function POST(req: NextRequest) {
         sender_type,
         sender_name,
         message_text,
+        wamid,
         status,
         direction,
         channel,
@@ -293,9 +334,17 @@ export async function POST(req: NextRequest) {
         is_read,
         created_at
       )
-      VALUES ($1, $2, 'busdev', $3, $4, 'delivered', 'outbound', 'whatsapp', $5, TRUE, NOW())
+      VALUES ($1, $2, 'busdev', $3, $4, $5, $6, 'outbound', 'whatsapp', $7, TRUE, NOW())
       RETURNING *`,
-      [trackingCode || own.lead?.tracking_code || null, phone, user.name, messageText, user.name]
+      [
+        trackingCode || own.lead?.tracking_code || null,
+        phone,
+        user.name,
+        messageText,
+        sendResult.messageId || null,
+        msgStatus,
+        user.name,
+      ]
     );
 
     // Balasan pertama busdev memindahkan Lead Masuk (traffic) -> Cold
@@ -322,6 +371,8 @@ export async function POST(req: NextRequest) {
 
   return json({
     success: true,
+    conviaSent: sendResult.ok,
+    conviaError: sendResult.ok ? null : sendResult.error,
     message: insertRes.rows[0],
     waUrl,
   });
