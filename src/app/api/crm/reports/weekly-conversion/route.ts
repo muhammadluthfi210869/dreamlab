@@ -178,8 +178,13 @@ export async function GET(req: NextRequest) {
     );
     const busdevNames: string[] = bdRes.rows.map((r: any) => r.name);
 
-    // Ambil semua leads & input manual harian secara paralel
-    const [leadsRes, manualRes] = await Promise.all([
+    const periodKey =
+      customStart && customEnd && /^\d{4}-\d{2}-\d{2}$/.test(customStart) && /^\d{4}-\d{2}-\d{2}$/.test(customEnd)
+        ? `${startDate}__${endDate}`
+        : monthParam;
+
+    // Ambil semua leads, input manual harian & input manual source secara paralel
+    const [leadsRes, manualRes, sourceManualRes] = await Promise.all([
       pool.query(
         `
         SELECT
@@ -218,6 +223,14 @@ export async function GET(req: NextRequest) {
         WHERE metric_date >= $1::date AND metric_date <= $2::date
         `,
         [startDate, endDate]
+      ),
+      pool.query(
+        `
+        SELECT channel, traffic, prospecting, sample
+        FROM crm_source_manual_metrics
+        WHERE period_key = $1
+        `,
+        [periodKey]
       ),
     ]);
 
@@ -455,24 +468,55 @@ export async function GET(req: NextRequest) {
       other: "Lainnya / Direct",
     };
 
+    const sourceManualMap: Record<string, { traffic: number; prospecting: number; sample: number }> = {};
+    for (const r of sourceManualRes.rows) {
+      sourceManualMap[r.channel] = {
+        traffic: Number(r.traffic) || 0,
+        prospecting: Number(r.prospecting) || 0,
+        sample: Number(r.sample) || 0,
+      };
+    }
+
+    const effectiveSourceAgg: Record<AdChannel, RawBlock & { isManual: boolean }> = {
+      meta_ads: { ...sourceAgg.meta_ads, isManual: false },
+      google_ads: { ...sourceAgg.google_ads, isManual: false },
+      google_organic: { ...sourceAgg.google_organic, isManual: false },
+      social_media: { ...sourceAgg.social_media, isManual: false },
+      other: { ...sourceAgg.other, isManual: false },
+    };
+
+    for (const ch of channelList) {
+      if (sourceManualMap[ch]) {
+        effectiveSourceAgg[ch] = {
+          ...sourceManualMap[ch],
+          isManual: true,
+        };
+      }
+    }
+
     let maxProspecting = 0;
     for (const ch of channelList) {
-      if (sourceAgg[ch].prospecting > maxProspecting) maxProspecting = sourceAgg[ch].prospecting;
+      if (effectiveSourceAgg[ch].prospecting > maxProspecting) maxProspecting = effectiveSourceAgg[ch].prospecting;
     }
     const sourceOverview: SourceOverviewRow[] = isAdmin
       ? channelList.map((ch) => {
-          const agg = sourceAgg[ch];
-          const prospectingPct = agg.traffic > 0 ? Math.round((agg.prospecting / agg.traffic) * 100) : 0;
-          const samplePct = agg.prospecting > 0 ? Math.round((agg.sample / agg.prospecting) * 100) : 0;
+          const eff = effectiveSourceAgg[ch];
+          const auto = sourceAgg[ch];
+          const prospectingPct = eff.traffic > 0 ? Math.round((eff.prospecting / eff.traffic) * 100) : 0;
+          const samplePct = eff.prospecting > 0 ? Math.round((eff.sample / eff.prospecting) * 100) : 0;
           return {
             channel: ch,
             label: CHANNEL_LABELS[ch],
-            traffic: agg.traffic,
-            prospecting: agg.prospecting,
+            traffic: eff.traffic,
+            prospecting: eff.prospecting,
             prospectingPct,
-            sample: agg.sample,
+            sample: eff.sample,
             samplePct,
-            isTopScaleUp: maxProspecting > 0 && agg.prospecting === maxProspecting,
+            isTopScaleUp: maxProspecting > 0 && eff.prospecting === maxProspecting,
+            isManual: eff.isManual,
+            autoTraffic: auto.traffic,
+            autoProspecting: auto.prospecting,
+            autoSample: auto.sample,
           };
         })
       : [];
@@ -486,9 +530,15 @@ export async function GET(req: NextRequest) {
       .sort((a, b) => b.count - a.count);
 
     const simpleSourceOverview = {
-      google: (chSrc.google_ads?.total?.traffic || 0) + (chSrc.google_organic?.total?.traffic || 0),
-      meta: chSrc.meta_ads?.total?.traffic || 0,
-      other: (chSrc.social_media?.total?.traffic || 0) + (chSrc.other?.total?.traffic || 0),
+      google: isAdmin
+        ? effectiveSourceAgg.google_ads.traffic + effectiveSourceAgg.google_organic.traffic
+        : (chSrc.google_ads?.total?.traffic || 0) + (chSrc.google_organic?.total?.traffic || 0),
+      meta: isAdmin
+        ? effectiveSourceAgg.meta_ads.traffic
+        : (chSrc.meta_ads?.total?.traffic || 0),
+      other: isAdmin
+        ? effectiveSourceAgg.social_media.traffic + effectiveSourceAgg.other.traffic
+        : (chSrc.social_media?.total?.traffic || 0) + (chSrc.other?.total?.traffic || 0),
       otherBreakdown,
     };
 
@@ -496,6 +546,7 @@ export async function GET(req: NextRequest) {
       success: true,
       period: {
         month: monthParam,
+        periodKey,
         title: periodTitle,
         startDate,
         endDate,

@@ -50,12 +50,17 @@ interface SourceOverviewRow {
   sample: number;
   samplePct: number;
   isTopScaleUp: boolean;
+  isManual?: boolean;
+  autoTraffic?: number;
+  autoProspecting?: number;
+  autoSample?: number;
 }
 
 interface ApiResponse {
   success: boolean;
   period: {
     month: string;
+    periodKey?: string;
     title: string;
     startDate: string;
     endDate: string;
@@ -112,6 +117,73 @@ export function WeeklyLeadConversionReportCard({
   const [viewMode, setViewMode] = useState<"standard" | "matrix" | "daily">("standard");
   const [prospectTargetPct, setProspectTargetPct] = useState<number>(40);
   const [sampleTargetPct, setSampleTargetPct] = useState<number>(30);
+
+  // Manual source editing state (Head/Admin)
+  const [editingSource, setEditingSource] = useState(false);
+  const [savingSource, setSavingSource] = useState(false);
+  const [sourceDrafts, setSourceDrafts] = useState<
+    Record<string, { traffic: number; prospecting: number; sample: number }>
+  >({});
+
+  const startEditSource = () => {
+    if (!data?.sourceOverview) return;
+    const next: Record<string, { traffic: number; prospecting: number; sample: number }> = {};
+    for (const s of data.sourceOverview) {
+      next[s.channel] = {
+        traffic: s.traffic,
+        prospecting: s.prospecting,
+        sample: s.sample,
+      };
+    }
+    setSourceDrafts(next);
+    setEditingSource(true);
+  };
+
+  const handleSaveSource = async () => {
+    const periodKey = data?.period.periodKey || month;
+    setSavingSource(true);
+    setError(null);
+    try {
+      const entries = Object.entries(sourceDrafts).map(([channel, vals]) => ({
+        channel,
+        ...vals,
+      }));
+      const res = await fetch("/api/crm/reports/source-metrics", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ periodKey, entries }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.error || "Gagal menyimpan source manual");
+      setEditingSource(false);
+      await loadReport();
+    } catch (e: any) {
+      setError(e?.message || "Gagal menyimpan source manual");
+    } finally {
+      setSavingSource(false);
+    }
+  };
+
+  const handleResetSource = async () => {
+    const periodKey = data?.period.periodKey || month;
+    setSavingSource(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/crm/reports/source-metrics", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset", periodKey }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.error || "Gagal reset source");
+      setEditingSource(false);
+      await loadReport();
+    } catch (e: any) {
+      setError(e?.message || "Gagal reset source");
+    } finally {
+      setSavingSource(false);
+    }
+  };
 
   const loadReport = useCallback(async () => {
     setLoading(true);
@@ -376,7 +448,7 @@ export function WeeklyLeadConversionReportCard({
           </div>
         </div>
 
-        {/* OVERVIEW SUMBER PROSPECT LEADS (UNTUK REKOMENDASI SCALE-UP BUDGET) */}
+        {/* OVERVIEW SUMBER PROSPECT LEADS (UNTUK REKOMENDASI SCALE-UP BUDGET — BISA EDIT MANUAL) */}
         {isAdmin && data?.sourceOverview && data.sourceOverview.length > 0 && (
           <div className="rounded-xl border border-[#ECEAE4] bg-white p-3.5">
             <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2">
@@ -386,13 +458,137 @@ export function WeeklyLeadConversionReportCard({
                   Sumber Prospect Leads Terbanyak (Panduan Scale-Up Budget)
                 </span>
               </div>
-              <span className="text-[11px] text-slate-500">
-                Klik kartu channel untuk memfilter tabel di bawah
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                {!editingSource ? (
+                  <>
+                    <span className="hidden sm:inline text-[11px] text-slate-500">
+                      Klik kartu channel untuk memfilter tabel
+                    </span>
+                    <button
+                      type="button"
+                      onClick={startEditSource}
+                      className="inline-flex h-7 items-center gap-1 rounded-lg border border-amber-300 bg-amber-50 px-2.5 text-[11px] font-semibold text-amber-900 hover:bg-amber-100 transition"
+                    >
+                      <span>Edit Source Manual</span>
+                    </button>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={handleResetSource}
+                      disabled={savingSource}
+                      className="inline-flex h-7 items-center rounded-lg border border-slate-200 bg-white px-2.5 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-40"
+                    >
+                      Reset ke Auto
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingSource(false)}
+                      disabled={savingSource}
+                      className="inline-flex h-7 items-center rounded-lg border border-slate-200 bg-white px-2.5 text-[11px] font-semibold text-slate-600 hover:bg-slate-50"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSaveSource}
+                      disabled={savingSource}
+                      className="inline-flex h-7 items-center gap-1 rounded-lg bg-slate-900 px-3 text-[11px] font-bold text-white hover:bg-slate-800 disabled:opacity-40"
+                    >
+                      <Check className="h-3 w-3" />
+                      <span>{savingSource ? "Menyimpan..." : "Simpan Source"}</span>
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
+
             <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-5">
               {data.sourceOverview.map((src) => {
                 const isSelected = selectedChannel === src.channel;
+                const d = sourceDrafts[src.channel] || {
+                  traffic: src.traffic,
+                  prospecting: src.prospecting,
+                  sample: src.sample,
+                };
+
+                if (editingSource) {
+                  return (
+                    <div
+                      key={src.channel}
+                      className="rounded-xl border border-amber-300 bg-amber-50/30 p-3 space-y-2"
+                    >
+                      <div className="text-xs font-bold text-slate-900 truncate">{src.label}</div>
+                      <div className="grid grid-cols-3 gap-1.5 text-[10px]">
+                        <div>
+                          <label className="block text-slate-500 font-semibold">Traffic</label>
+                          <input
+                            type="number"
+                            min={0}
+                            value={d.traffic}
+                            onChange={(e) =>
+                              setSourceDrafts((prev) => ({
+                                ...prev,
+                                [src.channel]: {
+                                  ...d,
+                                  traffic: Math.max(0, parseInt(e.target.value || "0", 10) || 0),
+                                },
+                              }))
+                            }
+                            className="mt-0.5 h-7 w-full rounded border border-[#D5D9E2] bg-white px-1 text-center font-mono text-xs font-bold text-slate-900 focus:border-[#D98A00] outline-none"
+                          />
+                          <div className="mt-0.5 font-mono text-[9px] text-slate-400">
+                            Auto: {src.autoTraffic ?? src.traffic}
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-amber-800 font-semibold">Prospect</label>
+                          <input
+                            type="number"
+                            min={0}
+                            value={d.prospecting}
+                            onChange={(e) =>
+                              setSourceDrafts((prev) => ({
+                                ...prev,
+                                [src.channel]: {
+                                  ...d,
+                                  prospecting: Math.max(0, parseInt(e.target.value || "0", 10) || 0),
+                                },
+                              }))
+                            }
+                            className="mt-0.5 h-7 w-full rounded border border-[#D5D9E2] bg-white px-1 text-center font-mono text-xs font-bold text-[#9A6200] focus:border-[#D98A00] outline-none"
+                          />
+                          <div className="mt-0.5 font-mono text-[9px] text-slate-400">
+                            Auto: {src.autoProspecting ?? src.prospecting}
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-emerald-800 font-semibold">Sample</label>
+                          <input
+                            type="number"
+                            min={0}
+                            value={d.sample}
+                            onChange={(e) =>
+                              setSourceDrafts((prev) => ({
+                                ...prev,
+                                [src.channel]: {
+                                  ...d,
+                                  sample: Math.max(0, parseInt(e.target.value || "0", 10) || 0),
+                                },
+                              }))
+                            }
+                            className="mt-0.5 h-7 w-full rounded border border-[#D5D9E2] bg-white px-1 text-center font-mono text-xs font-bold text-emerald-700 focus:border-[#D98A00] outline-none"
+                          />
+                          <div className="mt-0.5 font-mono text-[9px] text-slate-400">
+                            Auto: {src.autoSample ?? src.sample}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <button
                     key={src.channel}
@@ -408,11 +604,18 @@ export function WeeklyLeadConversionReportCard({
                         : "border-[#ECEAE4] bg-[#FAFAF8] hover:bg-slate-50"
                     }`}
                   >
-                    {src.isTopScaleUp && (
-                      <span className="mb-1.5 inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
-                        Rekomendasi Scale-Up
-                      </span>
-                    )}
+                    <div className="flex flex-wrap items-center gap-1 mb-1">
+                      {src.isTopScaleUp && (
+                        <span className="inline-flex items-center rounded-full bg-emerald-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                          Rekomendasi Scale-Up
+                        </span>
+                      )}
+                      {src.isManual && (
+                        <span className="inline-flex items-center rounded-full bg-amber-100 border border-amber-300 px-1.5 py-0.5 text-[9px] font-bold text-amber-900">
+                          Manual
+                        </span>
+                      )}
+                    </div>
                     <div className="text-xs font-bold text-slate-900 truncate">{src.label}</div>
                     <div className="mt-2 grid grid-cols-3 gap-1 text-[10px]">
                       <div>

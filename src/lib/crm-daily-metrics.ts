@@ -29,6 +29,10 @@ export interface SourceOverviewRow {
   sample: number;
   samplePct: number;
   isTopScaleUp: boolean;
+  isManual?: boolean;
+  autoTraffic?: number;
+  autoProspecting?: number;
+  autoSample?: number;
 }
 
 let dailyTableEnsured = false;
@@ -48,6 +52,18 @@ export async function ensureDailyMetricsTable() {
       updated_by  TEXT,
       updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       PRIMARY KEY (metric_date, busdev_name)
+    )
+  `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS crm_source_manual_metrics (
+      period_key  TEXT NOT NULL,
+      channel     TEXT NOT NULL,
+      traffic     INTEGER NOT NULL DEFAULT 0 CHECK (traffic >= 0),
+      prospecting INTEGER NOT NULL DEFAULT 0 CHECK (prospecting >= 0),
+      sample      INTEGER NOT NULL DEFAULT 0 CHECK (sample >= 0),
+      updated_by  TEXT,
+      updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (period_key, channel)
     )
   `);
   dailyTableEnsured = true;
