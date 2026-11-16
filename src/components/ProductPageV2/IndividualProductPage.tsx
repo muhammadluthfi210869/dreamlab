@@ -242,9 +242,10 @@ export default function IndividualProductPage({
       />
 
       {/* 2b. Spesifikasi, Ukuran, Waktu Produksi, Bahan Aktif & Detail Produk (SSR HTML) */}
-      {!isHaircare && (
       <section className="py-14 md:py-20 bg-gradient-to-b from-[#F5F9FE] via-[#FAF9F6] to-white border-y border-blue-100/60">
         <div className="container-custom">
+          {!isHaircare && (
+            <>
           <div className="max-w-3xl mb-10">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 border border-amber-200/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#D97706] mb-3">
               <Sparkles className="h-3.5 w-3.5 text-[#F39200]" />
@@ -325,6 +326,8 @@ export default function IndividualProductPage({
               </p>
             </div>
           </div>
+            </>
+          )}
 
           {/* Side-by-Side Layout (Referensi Visual Bersih & Terstruktur): Varian & Keunggulan + Bahan Aktif Bergambar */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -471,7 +474,6 @@ export default function IndividualProductPage({
           </div>
         </div>
       </section>
-      )}
 
       {/* 3. Packaging Design Grid */}
       <ProductPackagingGrid 
