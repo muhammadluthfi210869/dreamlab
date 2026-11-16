@@ -11,18 +11,28 @@ export function wibDate(offsetDays = 0): string {
   return t.toISOString().slice(0, 10);
 }
 
+export function getWibWeekStart(offsetDays = 0): string {
+  const d = new Date(Date.now() + 7 * 3600_000 + offsetDays * 86_400_000);
+  const day = d.getUTCDay(); // 0 = Minggu, 1 = Senin...
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(d.getTime() + diffToMonday * 86_400_000);
+  return monday.toISOString().slice(0, 10);
+}
+
 export const PRESETS = [
   { id: "today", label: "Hari Ini" },
-  { id: "yesterday", label: "Kemarin" },
+  { id: "this_week", label: "Minggu Ini (Weekly)" },
   { id: "7d", label: "7 Hari" },
   { id: "30d", label: "30 Hari" },
-  { id: "since", label: "Sejak 06 Okt" },
+  { id: "since", label: "Total (Semua)" },
 ] as const;
 
 export function presetRange(id: string): { start: string; end: string } {
   switch (id) {
     case "yesterday":
       return { start: wibDate(-1), end: wibDate(-1) };
+    case "this_week":
+      return { start: getWibWeekStart(0), end: wibDate(0) };
     case "7d":
       return { start: wibDate(-6), end: wibDate(0) };
     case "30d":

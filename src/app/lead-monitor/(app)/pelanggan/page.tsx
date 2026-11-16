@@ -2,13 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HelpCircle, MessageSquare, Phone, RefreshCw, Target } from "lucide-react";
-import { PIPELINE_STAGES } from "@/lib/crm-stages";
+import { PIPELINE_STAGES, isAdminRole } from "@/lib/crm-stages";
 import { BRAND, Card, KpiCard } from "@/components/lead-monitor/ui";
 import { FilterToolbar, useFilters, useMe } from "@/components/lead-monitor/filters";
 import { LeadTable, rowsToCsv, type PatchHandler, type TableData, type TableState } from "@/components/lead-monitor/LeadTable";
 import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
 import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
+import { MasterHeadOverviewCard, type MasterHeadOverviewData } from "@/components/lead-monitor/MasterHeadOverviewCard";
+import { KpiWeeklyTotalSection } from "@/components/lead-monitor/KpiWeeklyTotalSection";
 
 const REFRESH_MS = 30_000;
 
@@ -22,10 +24,17 @@ interface Kpi {
 
 interface ApiData {
   period: { startDate: string; endDate: string; days: number };
-  kpi: { current: Kpi; delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null };
+  kpi: {
+    current: Kpi;
+    previous: Kpi | null;
+    weekly?: Kpi;
+    total?: Kpi;
+    delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null;
+  };
   busdevs: { name: string }[];
   stageCounts: Record<string, number>;
   channelFunnels?: ChannelFunnelsOverview;
+  masterHeadOverview?: MasterHeadOverviewData;
   table: TableData;
   meta: { rawCapped: boolean };
 }
@@ -246,21 +255,45 @@ export default function PelangganPage() {
           </div>
         )}
 
-        <FilterToolbar busdevNames={busdevNames} showBusdev={false} />
+        <FilterToolbar busdevNames={busdevNames} showBusdev={isAdminRole(me.role)} />
 
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <KpiCard label="Total Prospek" icon={<Phone className="h-4 w-4" />} value={k?.totalClicks ?? "–"} caption="Prospek unik pada periode ini" delta={d?.totalClicks} />
-          <KpiCard label="Sudah Chat" icon={<MessageSquare className="h-4 w-4" />} value={k?.chat ?? "–"} caption="Chat masuk berkode" delta={d?.chat} tone="brand" />
-          <KpiCard label="Belum Chat" icon={<HelpCircle className="h-4 w-4" />} value={k?.dropoff ?? "–"} caption="Klik tanpa chat (drop-off)" delta={d?.dropoff} invertDelta />
-          <KpiCard
-            label="Memenuhi MOQ"
-            icon={<Target className="h-4 w-4" />}
-            value={k?.moqMet ?? "–"}
-            caption="500 pcs ke atas"
-            delta={d?.moqMet}
-            hint="Dari isian form atau MOQ manual busdev (isian manual yang dipakai bila ada)."
+        {/* Master Head Overview: Total Leads Masing-Masing BusDev */}
+        {data?.masterHeadOverview && (
+          <MasterHeadOverviewCard
+            data={data.masterHeadOverview}
+            activeBusdev={f.busdev}
+            onSelectBusdev={(n) => {
+              f.setBusdev(n);
+              patchTable({ page: 1 });
+            }}
+            isAdmin={isAdminRole(me.role)}
           />
-        </div>
+        )}
+
+        {/* KPI Weekly & Total */}
+        <KpiWeeklyTotalSection
+          current={data?.kpi.current}
+          weekly={data?.kpi.weekly}
+          total={data?.kpi.total}
+          delta={data?.kpi.delta}
+          presetLabel={
+            f.preset === "this_week"
+              ? "Minggu Ini (Weekly)"
+              : f.preset === "since"
+              ? "Total Kumulatif"
+              : f.preset === "today"
+              ? "Hari Ini"
+              : f.preset === "yesterday"
+              ? "Kemarin"
+              : f.preset === "7d"
+              ? "7 Hari Terakhir"
+              : f.preset === "30d"
+              ? "30 Hari Terakhir"
+              : `${f.startDate} s/d ${f.endDate}`
+          }
+          onSelectWeekly={() => f.applyPreset("this_week")}
+          onSelectTotal={() => f.applyPreset("since")}
+        />
 
         {data?.channelFunnels && (
           <BusdevConversionRateCard channelFunnels={data.channelFunnels} />

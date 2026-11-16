@@ -16,7 +16,8 @@ import {
   type GroupRow,
 } from "@/components/lead-monitor/charts";
 import { ReferrerCard, RR_LABEL, TopLeadsCard, type ReferrerRankRow, type TopLeadRow } from "@/components/lead-monitor/panels";
-import { FilterToolbar, useFilters } from "@/components/lead-monitor/filters";
+import { FilterToolbar, useFilters, useMe } from "@/components/lead-monitor/filters";
+import { isAdminRole } from "@/lib/crm-stages";
 
 const REFRESH_MS = 20_000;
 
@@ -32,10 +33,18 @@ import type { MoqOverview, ChannelFunnelsOverview } from "@/lib/lead-monitor-sta
 import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
 import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
 import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
+import { MasterHeadOverviewCard, type MasterHeadOverviewData } from "@/components/lead-monitor/MasterHeadOverviewCard";
+import { KpiWeeklyTotalSection } from "@/components/lead-monitor/KpiWeeklyTotalSection";
 
 interface ApiData {
   period: { startDate: string; endDate: string; days: number; hasPrevious: boolean };
-  kpi: { current: Kpi; previous: Kpi | null; delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null };
+  kpi: {
+    current: Kpi;
+    previous: Kpi | null;
+    weekly?: Kpi;
+    total?: Kpi;
+    delta: { totalClicks: number | null; chat: number | null; dropoff: number | null; moqMet: number | null } | null;
+  };
   busdevs: BusdevRow[];
   inactiveBusdevs: { names: string[]; chat: number; clicks: number };
   fairness: FairnessInfo;
@@ -48,12 +57,15 @@ interface ApiData {
   referrers: ReferrerRankRow[];
   moqOverview?: MoqOverview;
   channelFunnels?: ChannelFunnelsOverview;
+  masterHeadOverview?: MasterHeadOverviewData;
   rrMode: string | null;
   meta: { rawRows: number; rawCapped: boolean; serverTime: string };
 }
 
 export default function DashboardPage() {
   const f = useFilters();
+  const me = useMe();
+  const isAdmin = isAdminRole(me.role);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [data, setData] = useState<ApiData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -173,43 +185,40 @@ export default function DashboardPage() {
           right={<p className="hidden text-[11px] text-slate-400 lg:block">Data dihitung sejak 06 Okt 2026 (sistem pelacakan terpadu). Zona waktu WIB.</p>}
         />
 
-        {/* KPI */}
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <KpiCard
-            label="Total Klik CTA"
-            icon={<Phone className="h-4 w-4" />}
-            value={k?.totalClicks ?? "–"}
-            caption="Prospek unik yang klik tombol WhatsApp"
-            delta={d?.totalClicks}
-            hint="Satu prospek = satu nomor. Klik berulang dari nomor sama dalam 24 jam dihitung sekali. Total klik = Chat Masuk + Drop-off."
+        {/* Master Head Overview: Total Leads Masing-Masing BusDev */}
+        {data?.masterHeadOverview && (
+          <MasterHeadOverviewCard
+            data={data.masterHeadOverview}
+            activeBusdev={f.busdev}
+            onSelectBusdev={(n) => f.setBusdev(n)}
+            isAdmin={isAdmin}
           />
-          <KpiCard
-            label="Chat Masuk"
-            icon={<MessageSquare className="h-4 w-4" />}
-            value={k?.chat ?? "–"}
-            caption={k && k.direct > 0 ? `Sudah kirim chat · +${k.direct} chat langsung` : "Sudah kirim chat"}
-            delta={d?.chat}
-            tone="brand"
-            hint="Prospek dari klik CTA yang pesan pertamanya (berkode) sudah diterima. Chat langsung ke nomor tanpa klik dihitung terpisah."
-          />
-          <KpiCard
-            label="Drop-off"
-            icon={<HelpCircle className="h-4 w-4" />}
-            value={k?.dropoff ?? "–"}
-            caption="Klik, tapi belum kirim chat"
-            delta={d?.dropoff}
-            invertDelta
-            hint="Termasuk yang sudah mengisi form tetapi belum mengirim chat."
-          />
-          <KpiCard
-            label="Memenuhi MOQ"
-            icon={<Target className="h-4 w-4" />}
-            value={k?.moqMet ?? "–"}
-            caption="Rencana produksi 500 pcs ke atas"
-            delta={d?.moqMet}
-            hint="Dari isian form atau MOQ yang diisi manual oleh busdev (isian manual yang dipakai bila ada)."
-          />
-        </div>
+        )}
+
+        {/* KPI Weekly & Total */}
+        <KpiWeeklyTotalSection
+          current={data?.kpi.current}
+          weekly={data?.kpi.weekly}
+          total={data?.kpi.total}
+          delta={data?.kpi.delta}
+          presetLabel={
+            f.preset === "this_week"
+              ? "Minggu Ini (Weekly)"
+              : f.preset === "since"
+              ? "Total Kumulatif"
+              : f.preset === "today"
+              ? "Hari Ini"
+              : f.preset === "yesterday"
+              ? "Kemarin"
+              : f.preset === "7d"
+              ? "7 Hari Terakhir"
+              : f.preset === "30d"
+              ? "30 Hari Terakhir"
+              : `${f.startDate} s/d ${f.endDate}`
+          }
+          onSelectWeekly={() => f.applyPreset("this_week")}
+          onSelectTotal={() => f.applyPreset("since")}
+        />
 
         {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak */}
         {data?.moqOverview && (

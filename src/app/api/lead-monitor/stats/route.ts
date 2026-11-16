@@ -223,12 +223,28 @@ export async function GET(req: NextRequest) {
 
     // Semua query berjalan BERSAMAAN (tiap query memakai koneksi sendiri dari pool).
     const mp = getMonitorPool;
+    const overviewSql = `
+      SELECT
+        COALESCE(assigned_to, 'Unassigned') AS busdev,
+        COUNT(*)::int AS total_leads,
+        COUNT(*) FILTER (WHERE status = 'confirmed_chat' OR confirmed_at IS NOT NULL)::int AS total_chat,
+        COUNT(*) FILTER (WHERE requested_quantity_pcs >= 500 OR production_tier_name IN ('scale_up', 'enterprise'))::int AS total_moq,
+        COUNT(*) FILTER (WHERE created_at >= date_trunc('week', NOW() AT TIME ZONE 'Asia/Jakarta'))::int AS weekly_leads,
+        COUNT(*) FILTER (WHERE (status = 'confirmed_chat' OR confirmed_at IS NOT NULL) AND created_at >= date_trunc('week', NOW() AT TIME ZONE 'Asia/Jakarta'))::int AS weekly_chat,
+        COUNT(*) FILTER (WHERE (requested_quantity_pcs >= 500 OR production_tier_name IN ('scale_up', 'enterprise')) AND created_at >= date_trunc('week', NOW() AT TIME ZONE 'Asia/Jakarta'))::int AS weekly_moq
+      FROM leads
+      WHERE is_test IS NOT TRUE
+      GROUP BY 1
+      ORDER BY 2 DESC
+    `;
+
     const runAll = () =>
       Promise.all([
         mp().query(curSql, [startDate, endDate]),
         hasPrev ? mp().query(prevSql, [prevStart, prevEnd]) : Promise.resolve({ rows: [] as any[] }),
         mp().query(`SELECT name, is_active FROM busdevs ORDER BY is_active DESC, id ASC`),
         mp().query(`SELECT value FROM rr_settings WHERE key = 'rr_mode'`).catch(() => ({ rows: [] as any[] })), // tabel baru ada setelah migrasi 00024
+        mp().query(overviewSql).catch(() => ({ rows: [] as any[] })),
       ]);
     let results: Awaited<ReturnType<typeof runAll>>;
     try {
@@ -239,7 +255,7 @@ export async function GET(req: NextRequest) {
       resetMonitorPool();
       results = await runAll();
     }
-    const [curRes, prevRes, bdRes, rrRes] = results;
+    const [curRes, prevRes, bdRes, rrRes, overviewRes] = results;
 
     const withPhone = (r: any) => ({ ...r, display_phone: r.wa_phone || r.hp || null });
     const curRaw = (curRes.rows as any[]).map(withPhone) as MonitorLead[];
@@ -288,44 +304,44 @@ export async function GET(req: NextRequest) {
       // Referrer mentah tidak dikirim ke browser (bisa memuat UTM/fbclid); hanya label bersih.
       const ref = referrerInfo(l.referrer, articleTitleOf);
       return {
-      id: l.id,
-      tracking_code: l.tracking_code,
-      assigned_to: l.assigned_to,
-      busdevs: l.busdevs,
-      source: l.source,
-      page_url: pagePath(l.page_url as string | null),
-      codes: [l.tracking_code, ...((l.merged_tracking_codes as string[] | undefined) ?? [])],
-      crm_stage: l.crm_stage ?? 'traffic',
-      produk_manual: l.produk_manual ?? null,
-      moq_manual: l.moq_manual ?? null,
-      note: l.note ?? null,
-      referrer_label: ref.label,
-      referrer_kind: ref.kind,
-      referrer_path: ref.path,
-      status: l.status,
-      nama: l.nama ?? null,
-      wa_profile_name: l.wa_profile_name ?? null,
-      display_phone: (l.display_phone as string) ?? l.wa_phone ?? l.hp ?? null,
-      phone_from: l.wa_phone ? 'WA' : l.hp ? 'Form' : null,
-      phone_country_iso2: (l.phone_country_iso2 as string) ?? null,
-      whatsapp_phone_e164: (l.whatsapp_phone_e164 as string) ?? null,
-      produk: l.produk ?? null,
-      utm_campaign: l.utm_campaign ?? null,
-      is_form_lead: !!l.is_form_lead,
-      production_tier_name: l.production_tier_name ?? null,
-      requested_quantity_pcs: l.requested_quantity_pcs ?? null,
-      inquiry_reference: l.inquiry_reference ?? null,
-      tier: l.tier ?? null,
-      qualified: typeof l.qualified === 'boolean' ? l.qualified : null,
-      disqualify_reason: l.disqualify_reason ?? null,
-      inquiry_code: l.inquiry_code ?? null,
-      capi_status: (l as any).capi_status ?? (l.qualified ? 'pending' : 'skipped'),
-      created_at: l.created_at,
-      confirmed_at: l.confirmed_at,
-      latency_seconds: (l as any).latency_seconds ?? null,
-      duplicate_count: l.duplicate_count,
-      merged_tracking_codes: l.merged_tracking_codes,
-      last_seen_at: l.last_seen_at,
+        id: l.id,
+        tracking_code: l.tracking_code,
+        assigned_to: l.assigned_to,
+        busdevs: l.busdevs,
+        source: l.source,
+        page_url: pagePath(l.page_url as string | null),
+        codes: [l.tracking_code, ...((l.merged_tracking_codes as string[] | undefined) ?? [])],
+        crm_stage: l.crm_stage ?? 'traffic',
+        produk_manual: l.produk_manual ?? null,
+        moq_manual: l.moq_manual ?? null,
+        note: l.note ?? null,
+        referrer_label: ref.label,
+        referrer_kind: ref.kind,
+        referrer_path: ref.path,
+        status: l.status,
+        nama: l.nama ?? null,
+        wa_profile_name: l.wa_profile_name ?? null,
+        display_phone: (l.display_phone as string) ?? l.wa_phone ?? l.hp ?? null,
+        phone_from: l.wa_phone ? 'WA' : l.hp ? 'Form' : null,
+        phone_country_iso2: (l.phone_country_iso2 as string) ?? null,
+        whatsapp_phone_e164: (l.whatsapp_phone_e164 as string) ?? null,
+        produk: l.produk ?? null,
+        utm_campaign: l.utm_campaign ?? null,
+        is_form_lead: !!l.is_form_lead,
+        production_tier_name: l.production_tier_name ?? null,
+        requested_quantity_pcs: l.requested_quantity_pcs ?? null,
+        inquiry_reference: l.inquiry_reference ?? null,
+        tier: l.tier ?? null,
+        qualified: typeof l.qualified === 'boolean' ? l.qualified : null,
+        disqualify_reason: l.disqualify_reason ?? null,
+        inquiry_code: l.inquiry_code ?? null,
+        capi_status: (l as any).capi_status ?? (l.qualified ? 'pending' : 'skipped'),
+        created_at: l.created_at,
+        confirmed_at: l.confirmed_at,
+        latency_seconds: (l as any).latency_seconds ?? null,
+        duplicate_count: l.duplicate_count,
+        merged_tracking_codes: l.merged_tracking_codes,
+        last_seen_at: l.last_seen_at,
       };
     };
 
@@ -370,12 +386,82 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(legacy, { status: 200, headers: NO_STORE_HEADERS });
     }
 
+    const overviewRows = (overviewRes.rows as any[]) || [];
+    const filteredOverviewRows =
+      busdev.toLowerCase() === 'all'
+        ? overviewRows
+        : overviewRows.filter((r) => r.busdev.toLowerCase() === busdev.toLowerCase());
+
+    const sumMetric = (key: string) => filteredOverviewRows.reduce((acc, r) => acc + (Number(r[key]) || 0), 0);
+
+    const kpiWeekly = {
+      totalClicks: sumMetric('weekly_leads'),
+      chat: sumMetric('weekly_chat'),
+      dropoff: Math.max(0, sumMetric('weekly_leads') - sumMetric('weekly_chat')),
+      direct: 0,
+      moqMet: sumMetric('weekly_moq'),
+    };
+
+    const kpiTotal = {
+      totalClicks: sumMetric('total_leads'),
+      chat: sumMetric('total_chat'),
+      dropoff: Math.max(0, sumMetric('total_leads') - sumMetric('total_chat')),
+      direct: 0,
+      moqMet: sumMetric('total_moq'),
+    };
+
+    const masterHeadOverview = {
+      byBusdev: overviewRows
+        .filter((r) => r.busdev !== 'Unassigned' || isAdmin)
+        .filter((r) => isAdmin || r.busdev.toLowerCase() === (currentUser?.name || '').toLowerCase())
+        .map((r) => ({
+          busdev: r.busdev as string,
+          isActive: activeNames.some((n) => n.toLowerCase() === (r.busdev || '').toLowerCase()),
+          totalLeads: Number(r.total_leads) || 0,
+          totalChat: Number(r.total_chat) || 0,
+          totalMoq: Number(r.total_moq) || 0,
+          weeklyLeads: Number(r.weekly_leads) || 0,
+          weeklyChat: Number(r.weekly_chat) || 0,
+          weeklyMoq: Number(r.weekly_moq) || 0,
+          conversionRate:
+            Number(r.total_leads) > 0 ? Math.round(((Number(r.total_chat) || 0) / Number(r.total_leads)) * 1000) / 10 : 0,
+          weeklyConversionRate:
+            Number(r.weekly_leads) > 0 ? Math.round(((Number(r.weekly_chat) || 0) / Number(r.weekly_leads)) * 1000) / 10 : 0,
+        })),
+      summary: {
+        totalLeads: overviewRows.reduce((a, r) => a + (Number(r.total_leads) || 0), 0),
+        totalChat: overviewRows.reduce((a, r) => a + (Number(r.total_chat) || 0), 0),
+        totalMoq: overviewRows.reduce((a, r) => a + (Number(r.total_moq) || 0), 0),
+        weeklyLeads: overviewRows.reduce((a, r) => a + (Number(r.weekly_leads) || 0), 0),
+        weeklyChat: overviewRows.reduce((a, r) => a + (Number(r.weekly_chat) || 0), 0),
+        weeklyMoq: overviewRows.reduce((a, r) => a + (Number(r.weekly_moq) || 0), 0),
+        conversionRate:
+          overviewRows.reduce((a, r) => a + (Number(r.total_leads) || 0), 0) > 0
+            ? Math.round(
+                (overviewRows.reduce((a, r) => a + (Number(r.total_chat) || 0), 0) /
+                  overviewRows.reduce((a, r) => a + (Number(r.total_leads) || 0), 0)) *
+                  1000
+              ) / 10
+            : 0,
+        weeklyConversionRate:
+          overviewRows.reduce((a, r) => a + (Number(r.weekly_leads) || 0), 0) > 0
+            ? Math.round(
+                (overviewRows.reduce((a, r) => a + (Number(r.weekly_chat) || 0), 0) /
+                  overviewRows.reduce((a, r) => a + (Number(r.weekly_leads) || 0), 0)) *
+                  1000
+              ) / 10
+            : 0,
+      },
+    };
+
     const body = {
         success: true,
         period: { startDate, endDate, days: rangeDays, hasPrevious: hasPrev },
         kpi: {
           current: kpi,
           previous: kpiPrev,
+          weekly: kpiWeekly,
+          total: kpiTotal,
           delta: kpiPrev
             ? {
                 totalClicks: deltaPct(kpi.totalClicks, kpiPrev.totalClicks),
@@ -397,6 +483,7 @@ export async function GET(req: NextRequest) {
         stageCounts: stageCounts(scoped),
         moqOverview: computeMoqOverview(scoped, articleTitleOf, 6),
         channelFunnels: computeBusdevChannelFunnels(scoped, busdev.toLowerCase() === 'all' ? activeNames : [busdev]),
+        masterHeadOverview,
         referrers: topReferrers(scoped, articleTitleOf, 8),
         rrMode,
         // Dashboard hanya butuh kartu/grafik (light=1); tabel ada di halaman Pelanggan.
