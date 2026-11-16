@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Factory, FlaskConical, Users } from 'lucide-react';
+import { ArrowRight, Award, Factory, FlaskConical, Users } from 'lucide-react';
 
 interface BrandShowcaseSectionProps {
   content?: {
@@ -418,62 +418,92 @@ export default function BrandShowcaseSection({ content }: BrandShowcaseSectionPr
             </div>
           </div>
 
-          {/* RIGHT COLUMN: 3 Interactive Service Cards */}
+          {/* RIGHT COLUMN: Stample Counting + 3 Full-View Interactive Service Cards */}
           <div className="lg:col-span-7 space-y-4">
-            {SERVICE_CARDS.map((card) => {
-              const IconComp = card.icon;
-              const px = isDesktopPointer && !reducedMotion ? mouseOffset.x * card.parallaxSpeed : 0;
-              const py = isDesktopPointer && !reducedMotion ? mouseOffset.y * card.parallaxSpeed : 0;
+            {/* Stample Counting Badge: 1.000++ Brand Kerjasama */}
+            <div
+              className="flex items-center justify-between gap-3"
+              style={{
+                opacity: entered ? 1 : 0,
+                transform: entered || reducedMotion ? 'translate3d(0,0,0)' : 'translate3d(0,14px,0)',
+                transition: reducedMotion
+                  ? 'opacity 150ms ease'
+                  : 'opacity 600ms ease-out 120ms, transform 600ms ease-out 120ms',
+              }}
+            >
+              <div className="inline-flex items-center gap-3 rounded-full border-2 border-dashed border-[#F39200]/60 bg-white/95 px-4 py-2 shadow-[0_8px_24px_rgba(243,146,0,0.12)] backdrop-blur-sm">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#E67E00] to-[#FBB03B] text-white shadow-sm">
+                  <Award className="h-4 w-4" />
+                </div>
+                <div className="flex items-baseline gap-2 pr-1">
+                  <span className="text-lg sm:text-xl font-extrabold text-[#0A2558] leading-none">
+                    <AnimatedStatCounter target={1000} suffix="++" reducedMotion={reducedMotion} />
+                  </span>
+                  <span className="text-xs sm:text-[13px] font-bold uppercase tracking-wide text-[#E67E00]">
+                    Brand Kerjasama
+                  </span>
+                </div>
+              </div>
+              <span className="hidden sm:inline-block text-[11px] font-semibold text-slate-500">
+                One Stop Maklon Kosmetik Terintegrasi
+              </span>
+            </div>
 
-              return (
-                <div
-                  key={card.id}
-                  style={{
-                    opacity: entered ? 1 : 0,
-                    transform: entered || reducedMotion
-                      ? `translate3d(${px.toFixed(2)}px, ${py.toFixed(2)}px, 0)`
-                      : 'translate3d(30px, 25px, 0)',
-                    transition: entered
-                      ? 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease-out'
-                      : `opacity 600ms ease-out ${card.revealDelay}ms, transform 600ms ease-out ${card.revealDelay}ms`,
-                  }}
-                >
-                  <Link
-                    href={card.href}
-                    className="group relative block h-[145px] sm:h-[168px] w-full overflow-hidden rounded-[22px] border-[3px] border-white bg-white shadow-[0_8px_28px_rgba(10,37,88,0.08)] transition-transform duration-300 ease-out hover:scale-[1.015] active:scale-[0.99]"
+            {/* 3 Full-View Square Image Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {SERVICE_CARDS.map((card) => {
+                const IconComp = card.icon;
+                const px = isDesktopPointer && !reducedMotion ? mouseOffset.x * card.parallaxSpeed : 0;
+                const py = isDesktopPointer && !reducedMotion ? mouseOffset.y * card.parallaxSpeed : 0;
+
+                return (
+                  <div
+                    key={card.id}
+                    style={{
+                      opacity: entered ? 1 : 0,
+                      transform: entered || reducedMotion
+                        ? `translate3d(${px.toFixed(2)}px, ${py.toFixed(2)}px, 0)`
+                        : 'translate3d(30px, 25px, 0)',
+                      transition: entered
+                        ? 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease-out'
+                        : `opacity 600ms ease-out ${card.revealDelay}ms, transform 600ms ease-out ${card.revealDelay}ms`,
+                    }}
                   >
-                    <Image
-                      src={card.image}
-                      alt={card.alt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 55vw"
-                      className="object-cover object-center transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-[1.03]"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/15" />
-
-                    {/* Floating Label Pill inside card */}
-                    <div
-                      className={`absolute top-1/2 -translate-y-1/2 transition-transform duration-300 ease-out group-hover:-translate-y-[53%] ${
-                        card.labelSide === 'left' ? 'left-4 sm:left-6' : 'right-4 sm:right-6'
-                      }`}
+                    <Link
+                      href={card.href}
+                      className="group flex flex-col overflow-hidden rounded-[22px] border-[3px] border-white bg-white shadow-[0_10px_30px_rgba(10,37,88,0.08)] transition-all duration-300 ease-out hover:scale-[1.015] hover:shadow-[0_16px_36px_rgba(10,37,88,0.12)] active:scale-[0.99]"
                     >
-                      <div className="flex items-center gap-3 rounded-full border border-white/80 bg-white/92 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_8px_24px_rgba(10,37,88,0.12)] backdrop-blur-md">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-50 text-[#F39200] transition-transform duration-300 ease-out group-hover:rotate-[4deg]">
-                          <IconComp className="h-4 w-4" />
-                        </div>
-                        <div className="pr-1 leading-tight">
-                          <div className="text-xs sm:text-sm font-extrabold text-[#0A2558]">{card.title}</div>
-                          <div className="text-xs sm:text-sm font-extrabold text-[#0A2558]">{card.subtitle}</div>
+                      {/* Full Square Image (zero vertical crop) */}
+                      <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
+                        <Image
+                          src={card.image}
+                          alt={card.alt}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 22vw"
+                          className="object-cover object-top transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-[1.03]"
+                        />
+                      </div>
+
+                      {/* Clean Interactive Label Footer */}
+                      <div className="flex items-center justify-between gap-2 bg-white px-3.5 py-3 transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-50 text-[#F39200] transition-transform duration-300 ease-out group-hover:rotate-[4deg]">
+                            <IconComp className="h-4 w-4" />
+                          </div>
+                          <div className="min-w-0 leading-tight">
+                            <div className="truncate text-xs font-extrabold text-[#0A2558]">{card.title}</div>
+                            <div className="truncate text-xs font-extrabold text-[#0A2558]">{card.subtitle}</div>
+                          </div>
                         </div>
                         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F39200] text-white transition-transform duration-300 ease-out group-hover:translate-x-[4px]">
                           <ArrowRight className="h-3.5 w-3.5" />
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
