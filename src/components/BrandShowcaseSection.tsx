@@ -97,7 +97,7 @@ const SERVICE_CARDS = [
     id: 'formula',
     title: 'Pengembangan',
     subtitle: 'Formula',
-    image: '/new asset/people/17.webp',
+    image: '/assets/images/home/service-rnd-team.jpg',
     alt: 'Pengembangan Formula Kosmetik di Laboratorium R&D Dreamlab',
     href: '/services/',
     icon: FlaskConical,

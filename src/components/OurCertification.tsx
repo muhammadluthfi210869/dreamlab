@@ -58,15 +58,15 @@ export default function OurCertification({
   return (
     <section
       aria-label={alt}
-      className="relative w-full overflow-hidden bg-gradient-to-b from-[#081D46] via-[#0B2860] to-[#0A2252] py-16 sm:py-20 lg:py-24 border-y border-white/10 select-none"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-[#EDF4FC] via-[#E5F0FB] to-[#F4F8FD] py-16 sm:py-20 lg:py-24 border-y border-blue-100/80 select-none"
     >
-      {/* Animated Ambient Luxury Background Orbs & Subtle Lab Grid */}
+      {/* Soft Animated Ice-Blue & Warm Amber Ambient Highlights */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.8) 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, rgba(10,37,88,0.08) 1px, transparent 0)",
           backgroundSize: "28px 28px",
         }}
       />
@@ -74,13 +74,19 @@ export default function OurCertification({
         aria-hidden="true"
         animate={{ x: [-16, 16, -16], y: [-8, 10, -8] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -top-24 left-[10%] h-72 w-72 rounded-full bg-[#F39200]/18 blur-3xl"
+        className="pointer-events-none absolute -top-24 left-[12%] h-72 w-72 rounded-full bg-white/80 blur-3xl"
       />
       <motion.div
         aria-hidden="true"
         animate={{ x: [14, -14, 14], y: [8, -10, 8] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -bottom-24 right-[10%] h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 right-[10%] h-80 w-80 rounded-full bg-[#F39200]/10 blur-3xl"
+      />
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: [-10, 12, -10] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none -bottom-16 -left-12 absolute h-56 w-56 rounded-full bg-sky-200/45 blur-3xl"
       />
 
       <div className="container-custom relative z-10">
@@ -92,12 +98,12 @@ export default function OurCertification({
           viewport={{ once: true, amount: 0.2 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-white/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-amber-300 backdrop-blur-md mb-4">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#FBB03B]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/90 bg-white/90 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#0A2558] shadow-xs backdrop-blur-md mb-4">
+            <ShieldCheck className="h-3.5 w-3.5 text-[#F39200]" />
             <span>Sertifikasi &amp; Legalitas Resmi</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-[#0A2558] leading-tight">
             Our Certifications
           </h2>
 
@@ -112,12 +118,12 @@ export default function OurCertification({
             <svg width="180" height="10" viewBox="0 0 180 10" fill="none" aria-hidden="true">
               <path
                 d="M2 7.5C48 2 124 1.5 178 6.5"
-                stroke="url(#certSwooshDark)"
+                stroke="url(#certSwooshLight)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
               <defs>
-                <linearGradient id="certSwooshDark" x1="2" y1="5" x2="178" y2="5" gradientUnits="userSpaceOnUse">
+                <linearGradient id="certSwooshLight" x1="2" y1="5" x2="178" y2="5" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#F39200" />
                   <stop offset="1" stopColor="#FBB03B" />
                 </linearGradient>
@@ -125,9 +131,9 @@ export default function OurCertification({
             </svg>
           </motion.div>
 
-          <p className="mt-3.5 text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
+          <p className="mt-3.5 text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
             Dreamlab memiliki sertifikasi yang diakui{' '}
-            <strong className="font-bold text-white">secara nasional dan internasional</strong> untuk
+            <strong className="font-bold text-[#0A2558]">secara nasional dan internasional</strong> untuk
             menjamin kualitas, keamanan, dan legalitas setiap produk brand Anda.
           </p>
         </motion.div>
@@ -145,13 +151,13 @@ export default function OurCertification({
                 ease: [0.16, 1, 0.3, 1],
               }}
               viewport={{ once: true, amount: 0.2 }}
-              className="group relative flex flex-col items-center rounded-3xl border border-white/15 bg-white/[0.97] p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.22)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(243,146,0,0.18)]"
+              className="group relative flex flex-col items-center rounded-3xl border border-white bg-white/95 p-6 text-center shadow-[0_14px_38px_rgba(10,37,88,0.07)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_22px_48px_rgba(10,37,88,0.12)]"
             >
-              {/* Top Gradient Accent Bar on Hover */}
-              <div className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-gradient-to-r from-[#F39200] to-[#FBB03B] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+              {/* Top Gradient Accent Bar */}
+              <div className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-gradient-to-r from-[#F39200] to-[#FBB03B] opacity-75 transition-opacity duration-300 group-hover:opacity-100" />
 
-              {/* Logo Frame with Soft Glow */}
-              <div className="relative mt-1 flex h-24 w-full items-center justify-center rounded-2xl bg-gradient-to-b from-slate-50 to-blue-50/40 px-4 border border-slate-100 transition-colors duration-300 group-hover:border-amber-200/70">
+              {/* Logo Frame with Soft Ice-Blue Glow */}
+              <div className="relative mt-1 flex h-24 w-full items-center justify-center rounded-2xl bg-gradient-to-b from-[#F8FBFF] to-[#EEF5FC] px-4 border border-blue-100/70 transition-colors duration-300 group-hover:border-amber-200/80">
                 <Image
                   src={cert.src}
                   alt={cert.name}
@@ -184,18 +190,18 @@ export default function OurCertification({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.35, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.2 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-slate-300"
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-[#0A2558]/75"
         >
           <span className="inline-flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5 text-[#FBB03B]" />
+            <Sparkles className="h-3.5 w-3.5 text-[#F39200]" />
             Standar Mutu Nasional &amp; Internasional
           </span>
-          <span className="hidden sm:inline text-white/25">•</span>
+          <span className="hidden sm:inline text-slate-300">•</span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             Pendampingan Legalitas End-to-End
           </span>
-          <span className="hidden sm:inline text-white/25">•</span>
+          <span className="hidden sm:inline text-slate-300">•</span>
           <span>Uji Stabilitas &amp; Laboratorium Terakreditasi</span>
         </motion.div>
       </div>
