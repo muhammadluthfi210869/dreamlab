@@ -300,6 +300,17 @@ interface ActiveIngredientItem {
   suitableFor: string;
   featured: boolean;
   iconType: "peptide" | "vitamin" | "protein" | "botanical" | "oil" | "mineral";
+  image: string;
+}
+
+export function getHaircareIngredientImage(name: string): string {
+  const n = name.toLowerCase();
+  if (n.includes("aloe")) return "/assets/images/haircare/ingredients/aloe-vera.jpg";
+  if (n.includes("ginseng") || n.includes("kemiri")) return "/assets/images/haircare/ingredients/ginseng-extract.jpg";
+  if (n.includes("capixyl") || n.includes("clover") || n.includes("floral") || n.includes("rose")) return "/assets/images/haircare/ingredients/capixyl-clover.jpg";
+  if (n.includes("redensyl") || n.includes("tea tree") || n.includes("rosemary") || n.includes("mint") || n.includes("green")) return "/assets/images/haircare/ingredients/botanical-redensyl.jpg";
+  if (n.includes("procapil") || n.includes("argan") || n.includes("jojoba") || n.includes("olive") || n.includes("oil") || n.includes("biotin") || n.includes("vitamin")) return "/assets/images/haircare/ingredients/hair-follicle-oil.jpg";
+  return "/assets/images/haircare/ingredients/peptide-protein.jpg";
 }
 
 const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
@@ -311,6 +322,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Tonic, Scalp Care",
     featured: true,
     iconType: "peptide",
+    image: "/assets/images/haircare/ingredients/capixyl-clover.jpg",
   },
   {
     name: "Redensyl®",
@@ -320,6 +332,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Tonic",
     featured: true,
     iconType: "peptide",
+    image: "/assets/images/haircare/ingredients/botanical-redensyl.jpg",
   },
   {
     name: "Procapil™",
@@ -329,6 +342,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Tonic, Scalp Care",
     featured: true,
     iconType: "peptide",
+    image: "/assets/images/haircare/ingredients/hair-follicle-oil.jpg",
   },
   {
     name: "Biotin",
@@ -338,6 +352,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Tonic, Shampoo",
     featured: true,
     iconType: "vitamin",
+    image: "/assets/images/haircare/ingredients/hair-follicle-oil.jpg",
   },
   {
     name: "Bio-Keratin",
@@ -347,6 +362,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Mask, Conditioner, Hair Serum",
     featured: true,
     iconType: "protein",
+    image: "/assets/images/haircare/ingredients/peptide-protein.jpg",
   },
   {
     name: "Hydrolyzed Soy Protein",
@@ -356,6 +372,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Shampoo, Conditioner, Hair Mask",
     featured: true,
     iconType: "protein",
+    image: "/assets/images/haircare/ingredients/peptide-protein.jpg",
   },
   {
     name: "Aloe Vera",
@@ -365,6 +382,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Tonic, Scalp Care, Hair Gel",
     featured: true,
     iconType: "botanical",
+    image: "/assets/images/haircare/ingredients/aloe-vera.jpg",
   },
   // Bahan pendukung
   {
@@ -375,6 +393,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Tonic, Shampoo, Scalp Care",
     featured: false,
     iconType: "botanical",
+    image: "/assets/images/haircare/ingredients/ginseng-extract.jpg",
   },
   {
     name: "Argan Oil",
@@ -384,6 +403,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Serum, Hair Cuticle Coat, Hair Mask",
     featured: false,
     iconType: "oil",
+    image: "/assets/images/haircare/ingredients/hair-follicle-oil.jpg",
   },
   {
     name: "Tea Tree Oil",
@@ -393,6 +413,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Shampoo, Scalp Care",
     featured: false,
     iconType: "botanical",
+    image: "/assets/images/haircare/ingredients/botanical-redensyl.jpg",
   },
   {
     name: "Zinc Pyrithione",
@@ -402,6 +423,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Shampoo, Scalp Care",
     featured: false,
     iconType: "mineral",
+    image: "/assets/images/haircare/ingredients/peptide-protein.jpg",
   },
   {
     name: "Silk Protein",
@@ -411,6 +433,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Conditioner, Hair Mask, Anti Split-End Serum",
     featured: false,
     iconType: "protein",
+    image: "/assets/images/haircare/ingredients/peptide-protein.jpg",
   },
   {
     name: "Jojoba Oil",
@@ -420,6 +443,7 @@ const ACTIVE_INGREDIENTS: ActiveIngredientItem[] = [
     suitableFor: "Hair Vitamin, Beard Serum, Hair Serum",
     featured: false,
     iconType: "oil",
+    image: "/assets/images/haircare/ingredients/hair-follicle-oil.jpg",
   },
 ];
 
@@ -553,7 +577,15 @@ export function HaircareActiveIngredientsSlider() {
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-4">
-                  <IngredientIcon type={item.iconType} featured={item.featured} />
+                  <div className="relative size-16 rounded-full overflow-hidden border-2 border-white shadow-md bg-white shrink-0">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover scale-[1.12] transition-transform duration-300 hover:scale-[1.18]"
+                    />
+                  </div>
                   <span
                     className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
                       item.featured

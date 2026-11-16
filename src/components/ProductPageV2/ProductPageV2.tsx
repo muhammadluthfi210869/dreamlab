@@ -9,10 +9,10 @@ import AdvantagesGrid from "@/components/AdvantagesGrid";
 import ProductProcess from "./ProductProcess";
 import ProductFAQ from "./ProductFAQ";
 import CtaSection from "@/components/CtaSection";
+import OurCertification from "@/components/OurCertification";
 import {
   HaircareMarqueeBand,
   HaircareValueSection,
-  HaircareCertificationsSection,
   HaircareActiveIngredientsSlider,
   HaircareBusinessPackages,
   HaircareClientsSection,
@@ -44,16 +44,13 @@ export default function ProductPageV2({ data }: ProductPageV2Props) {
         {/* 4. Value: "Nilai yang Kamu Dapat dari Dreamlab" */}
         <HaircareValueSection />
 
-        {/* 5. Our Certifications: "Legalitas dan Sertifikasi Resmi" */}
-        <HaircareCertificationsSection />
+        {/* 5. Our Certifications */}
+        <OurCertification />
 
         {/* 6. Bahan aktif (slider): "Bahan Aktif Unggulan Hair Care" */}
         <HaircareActiveIngredientsSlider />
 
-        {/* 7. Kemasan */}
-        <ProductPackagingGrid categorySlug={data.slug} />
-
-        {/* 8. Proses maklon (1 versi responsif) */}
+        {/* 7. Proses maklon (1 versi responsif) */}
         <ProductProcess />
 
         {/* 9. Paket Bisnis: "Simulasi Paket Maklon Hair Care" */}

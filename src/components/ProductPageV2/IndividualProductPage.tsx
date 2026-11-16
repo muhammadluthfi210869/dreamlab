@@ -1,6 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import {
+  Award,
+  CheckCircle2,
+  Clock,
+  FlaskConical,
+  Package,
+  PackageCheck,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import ProductHero from "./ProductHero";
 import ProductPackagingGrid from "./ProductPackagingGrid";
 import { ProductCategoryV2, ProductVariantV2 } from "@/types/product-v2";
@@ -16,7 +27,8 @@ import AdvantagesGrid from "@/components/AdvantagesGrid";
 import {
   HaircareMarqueeBand,
   HaircareValueSection,
-  HaircareCertificationsSection,
+  HaircareActiveIngredientsSlider,
+  getHaircareIngredientImage,
 } from "./HaircareSections";
 
 interface IndividualProductPageProps {
@@ -231,112 +243,230 @@ export default function IndividualProductPage({
       />
 
       {/* 2b. Spesifikasi, Ukuran, Waktu Produksi, Bahan Aktif & Detail Produk (SSR HTML) */}
-      <section className="py-14 md:py-20 bg-[#FAF9F6] border-y border-gray-100">
+      <section className="py-14 md:py-20 bg-gradient-to-b from-[#F5F9FE] via-[#FAF9F6] to-white border-y border-blue-100/60">
         <div className="container-custom">
           <div className="max-w-3xl mb-10">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-blue mb-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 border border-amber-200/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#D97706] mb-3">
+              <Sparkles className="h-3.5 w-3.5 text-[#F39200]" />
               Spesifikasi &amp; Formulasi
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-brand-black">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0A2558]">
               Detail Maklon {productData.name}
             </h2>
           </div>
 
-          {/* Info Bar: Ukuran, Produksi, MOQ Fleksibel, Sertifikasi */}
+          {/* Info Bar: Pilihan Ukuran, Estimasi Produksi, MOQ Fleksibel, Sertifikasi Resmi */}
           <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
-              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                Pilihan Ukuran
-              </span>
-              <h3 className="font-display text-base text-brand-black">
+            <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-[#EAF4FC] via-[#F4F9FE] to-white p-5 shadow-[0_8px_24px_rgba(10,37,88,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#0A2558] shadow-xs border border-blue-100">
+                  <Package className="h-4 w-4" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  Pilihan Ukuran
+                </span>
+              </div>
+              <h3 className="font-display text-base font-bold text-[#0A2558]">
                 {(productData.sizeOptions || []).join(", ")}
               </h3>
+              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                Ukuran kemasan dapat disesuaikan dengan target pasar &amp; positioning brand Anda.
+              </p>
             </div>
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
-              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                Estimasi Produksi
-              </span>
-              <h3 className="font-display text-base text-brand-black">
-                {productData.productionTime}
+
+            <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-[#EAF4FC] via-[#F4F9FE] to-white p-5 shadow-[0_8px_24px_rgba(10,37,88,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#F39200] shadow-xs border border-blue-100">
+                  <Clock className="h-4 w-4" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  Estimasi Produksi
+                </span>
+              </div>
+              <h3 className="font-display text-base font-bold text-[#0A2558]">
+                {productData.productionTime || "2–3 Bulan"}
               </h3>
+              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                Mencakup riset formula R&amp;D, uji stabilitas, pengurusan BPOM/Halal, hingga siap edar.
+              </p>
             </div>
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
-              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                Minimum Order (MOQ)
-              </span>
-              <h3 className="font-display text-base text-brand-blue">
+
+            <div className="rounded-3xl border border-amber-200/80 bg-gradient-to-br from-amber-50/80 via-white to-white p-5 shadow-[0_8px_24px_rgba(243,146,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#F39200]/15 text-[#E67E00] border border-amber-200">
+                  <PackageCheck className="h-4 w-4" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#D97706]">
+                  Minimum Order (MOQ)
+                </span>
+              </div>
+              <h3 className="font-display text-base font-bold text-[#0A2558]">
                 MOQ Fleksibel / menyesuaikan kebutuhan brand
               </h3>
+              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                Skala produksi &amp; HPP dapat dikonsultasikan sesuai tahap pertumbuhan dan modal brand.
+              </p>
             </div>
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80">
-              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                Sertifikasi Resmi
-              </span>
-              <h3 className="font-display text-base text-brand-black">
+
+            <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-[#EAF4FC] via-[#F4F9FE] to-white p-5 shadow-[0_8px_24px_rgba(10,37,88,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-emerald-600 shadow-xs border border-blue-100">
+                  <ShieldCheck className="h-4 w-4" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  Sertifikasi Resmi
+                </span>
+              </div>
+              <h3 className="font-display text-base font-bold text-[#0A2558]">
                 {(productData.certifications || ["BPOM", "Halal MUI", "CPKB Grade A"]).join(", ")}
               </h3>
+              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                Diproduksi di pabrik berstandar CPKB Grade A; izin BPOM &amp; Halal diurus tuntas oleh tim kami.
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Varian & Bahan Aktif */}
-            <div className="bg-white p-6 sm:p-7 rounded-3xl border border-gray-200/80 space-y-5">
-              {variantsList.length > 0 && (
-                <div>
-                  <h3 className="font-display text-lg text-brand-black mb-2.5">
-                    Varian Formula {productData.name}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {variantsList.map((v) => (
-                      <span
-                        key={v}
-                        className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F1F7FC] text-brand-blue border border-brand-blue/20"
-                      >
-                        {v}
-                      </span>
-                    ))}
-                  </div>
+          {/* Side-by-Side Layout (Referensi Visual Bersih & Terstruktur): Varian & Keunggulan + Bahan Aktif Bergambar */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* LEFT: Varian Formula Dikemas Elegan + Keunggulan & Penjelasan */}
+            <div className="lg:col-span-6 rounded-3xl border border-blue-100 bg-gradient-to-b from-[#EAF4FC] via-[#F5FAFF] to-white p-6 sm:p-8 shadow-[0_12px_36px_rgba(10,37,88,0.06)] flex flex-col justify-between space-y-6">
+              <div className="space-y-5">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A2558] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                    <Sparkles className="h-3 w-3 text-[#FBB03B]" />
+                    Custom Formula · 1 Klien 1 Formula
+                  </span>
+                  <span className="text-xs font-bold text-[#E67E00]">
+                    Siap Dikustomisasi
+                  </span>
                 </div>
-              )}
 
-              <div>
-                <h3 className="font-display text-lg text-brand-black mb-3">
-                  Bahan Aktif Unggulan
-                </h3>
-                <div className="space-y-2.5">
-                  {(productData.ingredients || []).map((ing) => (
-                    <div
-                      key={ing.name}
-                      className="p-3.5 rounded-2xl bg-[#FAF9F6] border border-gray-100"
-                    >
-                      <div className="font-bold text-xs sm:text-sm text-brand-black">
-                        {ing.name}
-                      </div>
-                      <p className="text-xs text-gray-600 mt-0.5">{ing.function}</p>
+                {variantsList.length > 0 && (
+                  <div>
+                    <h3 className="font-display text-xl font-extrabold text-[#0A2558] mb-3">
+                      Varian Formula {productData.name}
+                    </h3>
+                    <div className="grid grid-cols-1 min-[440px]:grid-cols-2 gap-2.5">
+                      {variantsList.map((v, idx) => (
+                        <div
+                          key={v}
+                          className="flex items-center gap-2.5 rounded-2xl border border-blue-100/90 bg-white/95 px-3.5 py-2.5 shadow-2xs transition-all duration-200 hover:border-[#F39200]/50 hover:shadow-xs"
+                        >
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[11px] font-extrabold text-[#0A2558]">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs sm:text-[13px] font-bold text-[#0A2558] leading-snug">
+                            {v}
+                          </span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                )}
+
+                <div className="rounded-2xl border border-white bg-white/85 p-5 shadow-2xs space-y-3">
+                  <h4 className="font-display text-base font-extrabold text-[#0A2558]">
+                    Keunggulan &amp; Penjelasan Formula
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+                    {productData.story}
+                  </p>
+                  {productData.benefits && productData.benefits.length > 0 && (
+                    <ul className="space-y-2 pt-1">
+                      {productData.benefits.map((b) => (
+                        <li key={b} className="text-xs sm:text-sm text-[#0A2558] font-medium flex items-start gap-2.5">
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F39200] mt-0.5" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+
+              {/* 3-Icon Summary Strip (mengikuti gaya referensi) */}
+              <div className="grid grid-cols-3 gap-3 border-t border-blue-100/80 pt-5 text-center">
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0A2558] shadow-xs border border-blue-100">
+                    <FlaskConical className="h-4 w-4" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#0A2558] leading-tight">
+                    R&amp;D Teruji
+                  </span>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#F39200] shadow-xs border border-blue-100">
+                    <Award className="h-4 w-4" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#0A2558] leading-tight">
+                    Formula Eksklusif
+                  </span>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-emerald-600 shadow-xs border border-blue-100">
+                    <ShieldCheck className="h-4 w-4" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#0A2558] leading-tight">
+                    BPOM &amp; Halal
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* Keunggulan & Deskripsi Lengkap */}
-            <div className="bg-white p-6 sm:p-7 rounded-3xl border border-gray-200/80 space-y-4">
-              <h3 className="font-display text-lg text-brand-black">
-                Keunggulan Formula {productData.name}
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                {productData.story}
-              </p>
-              {productData.benefits && productData.benefits.length > 0 && (
-                <ul className="space-y-2 pt-2">
-                  {productData.benefits.map((b) => (
-                    <li key={b} className="text-xs sm:text-sm text-brand-black flex items-start gap-2">
-                      <span className="text-brand-blue font-bold">•</span>
-                      <span>{b}</span>
-                    </li>
+            {/* RIGHT: Penjelasan Bahan Aktif Unggulan dengan Visual Bulat Ingredient */}
+            <div className="lg:col-span-6 rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-[0_12px_36px_rgba(10,37,88,0.05)] flex flex-col justify-between space-y-5">
+              <div>
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#F39200]">
+                      Active Ingredients
+                    </span>
+                    <h3 className="font-display text-xl font-extrabold text-[#0A2558]">
+                      Bahan Aktif Unggulan {productData.name}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {(productData.ingredients || []).map((ing) => (
+                    <div
+                      key={ing.name}
+                      className="group flex items-center gap-4 rounded-2xl border border-blue-100/70 bg-gradient-to-r from-[#F4F9FE] to-white p-3.5 transition-all duration-200 hover:border-[#F39200]/40 hover:shadow-sm"
+                    >
+                      {isHaircare && (
+                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-white bg-white shadow-md">
+                          <Image
+                            src={getHaircareIngredientImage(ing.name)}
+                            alt={ing.name}
+                            fill
+                            sizes="64px"
+                            className="object-cover scale-[1.12] transition-transform duration-300 group-hover:scale-[1.18]"
+                          />
+                        </div>
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-bold text-sm text-[#0A2558]">
+                            {ing.name}
+                          </span>
+                          <span className="rounded-full bg-amber-50 border border-amber-200/70 px-2 py-0.5 text-[10px] font-bold text-[#D97706]">
+                            Active
+                          </span>
+                        </div>
+                        <p className="text-xs sm:text-[13px] text-slate-600 mt-1 leading-relaxed">
+                          {ing.function}
+                        </p>
+                      </div>
+                    </div>
                   ))}
-                </ul>
-              )}
+                </div>
+              </div>
+
+              <div className="rounded-2xl bg-[#F8FAFC] border border-slate-200/70 px-4 py-3 text-xs text-slate-600 flex items-center justify-between gap-3">
+                <span>
+                  Ingin kombinasi bahan aktif khusus? Tim apoteker &amp; R&amp;D kami siap memformulasikannya.
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -354,7 +484,8 @@ export default function IndividualProductPage({
       {isHaircare ? (
         <>
           <HaircareValueSection />
-          <HaircareCertificationsSection />
+          <OurCertification />
+          <HaircareActiveIngredientsSlider />
         </>
       ) : (
         <>
