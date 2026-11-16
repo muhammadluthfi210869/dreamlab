@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/lead-monitor/ui";
 import { ChangePasswordForm } from "@/components/lead-monitor/ChangePassword";
+import { ConviaSettingsCard } from "@/components/lead-monitor/ConviaSettingsCard";
 import { useMe } from "@/components/lead-monitor/filters";
 import { isAdminRole } from "@/lib/crm-stages";
 
@@ -29,6 +30,8 @@ export default function PengaturanPage() {
             </div>
           </div>
         </Card>
+
+        {isAdmin && <ConviaSettingsCard />}
 
         <Card title="Ganti kata sandi" subtitle="Setelah diganti, perangkat lain yang sedang masuk dikeluarkan otomatis.">
           <div className="max-w-sm">

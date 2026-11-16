@@ -5,6 +5,7 @@ import {
   skipReason,
   verifyConviaSignature,
 } from '@/lib/convia-webhook';
+import { getMonitorPool } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -47,6 +48,40 @@ export async function POST(req: NextRequest) {
   }
 
   const rawBody = await req.text();
+
+  // Simpan salinan payload mentah ke convia_webhook_log (source = 'nexerp')
+  // Dijalankan di paling awal, aman (try/catch) dan tidak mengganggu proses asli.
+  try {
+    let rawPayload: unknown = null;
+    let eventType: string | null = null;
+    try {
+      rawPayload = JSON.parse(rawBody);
+      if (rawPayload && typeof rawPayload === 'object') {
+        eventType = (rawPayload as any).event_type ?? (rawPayload as any).type ?? (rawPayload as any).event ?? null;
+      }
+    } catch {}
+
+    const safeHeaders: Record<string, string> = {};
+    for (const k of ['content-type', 'user-agent', 'x-webhook-signature', 'x-convia-signature', 'x-webhook-event']) {
+      const v = req.headers.get(k);
+      if (v) safeHeaders[k] = v;
+    }
+
+    const pool = getMonitorPool();
+    await pool.query(
+      `INSERT INTO convia_webhook_log (event_type, headers, payload, raw_body, source, received_at)
+       VALUES ($1, $2::jsonb, $3::jsonb, $4, 'nexerp', NOW())`,
+      [
+        eventType,
+        JSON.stringify(safeHeaders),
+        rawPayload && typeof rawPayload === 'object' ? JSON.stringify(rawPayload) : null,
+        rawBody,
+      ]
+    );
+  } catch (err: any) {
+    console.warn('[convia/nexerp-copy] Gagal menyimpan log webhook mentah:', err?.message);
+  }
+
   if (!verifyConviaSignature(rawBody, req.headers, secret)) {
     return reply({ success: false, error: 'invalid signature' }, 401);
   }
