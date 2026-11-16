@@ -175,10 +175,10 @@ export interface SessionUser extends CrmUserInfo {
 }
 
 /**
- * Sementara (sebelum pindah ke ERP): halaman & data Lead Monitor bisa DILIHAT tanpa login.
- * Menulis (edit lead, kelola akun) tetap wajib login. Tutup lagi dengan env LEAD_MONITOR_OPEN=0.
+ * [2026-11-16] Lead Monitor pindah ke ERP (halaman situs ini dihapus). Data memuat nomor WhatsApp prospek, jadi BACA TANPA LOGIN
+ * kini DEFAULT TERTUTUP; hanya terbuka bila env LEAD_MONITOR_OPEN=1 diisi sengaja. ERP memakai token layanan, bukan mode ini.
  */
-export const OPEN_VIEW = process.env.LEAD_MONITOR_OPEN !== '0';
+export const OPEN_VIEW = process.env.LEAD_MONITOR_OPEN === '1';
 
 /** Pengunjung tanpa login: peran sales bernama "Tamu" (tidak memiliki lead mana pun, jadi tak bisa mengedit apa pun). */
 export const guestUser = (): SessionUser => ({
