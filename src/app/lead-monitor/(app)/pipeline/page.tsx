@@ -15,6 +15,7 @@ import {
   RefreshCw,
   Search,
   UserCheck,
+  UserPlus,
   X,
 } from "lucide-react";
 import {
@@ -35,6 +36,7 @@ import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
 import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
 import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
+import { CreateManualLeadModal } from "@/components/lead-monitor/CreateManualLeadModal";
 
 const PAGE_STEP = 50;
 const REFRESH_MS = 60_000;
@@ -147,6 +149,8 @@ export default function PipelinePage() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [showManualModal, setShowManualModal] = useState(false);
+  const [salesList, setSalesList] = useState<Array<{ id: number; name: string; role: string }>>([]);
   const [visible, setVisible] = useState<Record<string, number>>({});
   const [dragKey, setDragKey] = useState<string | null>(null);
   const [overStage, setOverStage] = useState<string | null>(null);
@@ -210,6 +214,11 @@ export default function PipelinePage() {
         if (id !== reqId.current) return;
         setData(json as ApiData);
         setCols(Object.fromEntries((json as ApiData).columns.map((c) => [c.id, c])));
+        if (Array.isArray((json as any).sales)) {
+          setSalesList((json as any).sales);
+        } else if (Array.isArray((json as ApiData).busdevs)) {
+          setSalesList((json as ApiData).busdevs.map((name: string, i: number) => ({ id: i + 1, name, role: "busdev" })));
+        }
         setError(null);
       } catch (e: any) {
         if (id !== reqId.current) return;
@@ -468,6 +477,15 @@ export default function PipelinePage() {
         </div>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowManualModal(true)}
+            className="inline-flex h-8 items-center gap-1.5 rounded-[6px] bg-[#F39200] hover:bg-[#D98200] text-white px-2.5 text-xs font-semibold shadow-xs transition"
+            title="Tambah lead baru secara manual"
+          >
+            <UserPlus className="h-3.5 w-3.5" />
+            <span>+ Lead manual</span>
+          </button>
           {data?.channelFunnels && (
             <button
               type="button"
@@ -983,6 +1001,20 @@ export default function PipelinePage() {
           onSave={saveDetail}
         />
       )}
+
+      {/* Modal Tambah Lead Manual */}
+      <CreateManualLeadModal
+        isOpen={showManualModal}
+        onClose={() => setShowManualModal(false)}
+        onCreated={() => {
+          setToast("Lead manual berhasil ditambahkan");
+          load(true);
+        }}
+        isAdmin={isAdmin}
+        userName={me.name}
+        salesList={salesList}
+        availableCampaigns={data?.availableCampaigns ?? []}
+      />
 
       {toast && (
         <div
