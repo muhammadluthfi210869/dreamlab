@@ -258,6 +258,10 @@ export async function PUT(req: NextRequest) {
   const { user } = auth;
   const isAdmin = isAdminRole(user.role);
 
+  if (!isAdmin) {
+    return json({ success: false, error: "Hanya Head dan Admin yang dapat mengisi input harian manual" }, 403);
+  }
+
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") {
     return json({ success: false, error: "Payload tidak valid" }, 400);

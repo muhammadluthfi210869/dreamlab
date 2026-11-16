@@ -73,6 +73,7 @@ export default function DashboardPage() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
+  const [showDetailAnalytics, setShowDetailAnalytics] = useState(false);
   const reqId = useRef(0);
 
   const query = useMemo(
@@ -186,8 +187,43 @@ export default function DashboardPage() {
           right={<p className="hidden text-[11px] text-slate-400 lg:block">Data dihitung sejak 06 Okt 2026 (sistem pelacakan terpadu). Zona waktu WIB.</p>}
         />
 
-        {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak (Khusus Head / Admin) */}
-        {isAdmin && data?.moqOverview && (
+        {/* Laporan Konversi Leads: Traffic >> Prospecting >> Sample (Week 1 – Week 4) */}
+        <WeeklyLeadConversionReportCard
+          initialBusdev={f.busdev}
+          onSelectDateRange={(start, end) => f.setRange(start, end)}
+        />
+
+        {/* Weekly Budget & Cost Performance per Channel (Khusus Head / Admin) */}
+        {isAdmin && (
+          <WeeklyBudgetPerformanceCard
+            busdev={f.busdev}
+            onSelectWeek={(start, end) => f.setRange(start, end)}
+          />
+        )}
+
+        {/* Tombol Toggle Analisis Detail Campaign, Landing, MOQ & Tren Harian (Khusus Head / Admin) */}
+        {isAdmin && (
+          <div className="flex items-center justify-between rounded-xl border border-[#ECEAE4] bg-white px-4 py-3 shadow-[0_1px_2px_rgba(16,24,40,0.03)]">
+            <div>
+              <div className="text-xs font-bold text-slate-800">
+                Analisis Detail Campaign, Landing Page, Sebaran MOQ &amp; Tren Harian
+              </div>
+              <div className="text-[11px] text-slate-500">
+                Grafik tren klik per jam, performa landing page teratas, dan daftar sumber kampanye
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowDetailAnalytics((v) => !v)}
+              className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-[#D5D9E2] bg-[#F8F9FB] px-3 text-xs font-semibold text-slate-800 hover:bg-slate-100 transition"
+            >
+              <span>{showDetailAnalytics ? "Tutup Analisis Detail" : "Buka Analisis Detail"}</span>
+            </button>
+          </div>
+        )}
+
+        {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak (Khusus Head / Admin, saat dibuka) */}
+        {isAdmin && showDetailAnalytics && data?.moqOverview && (
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECEAE4] pb-2">
               <div>
@@ -391,22 +427,8 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Weekly Budget & Cost Performance per Channel (Khusus Head / Admin) */}
-        {isAdmin && (
-          <WeeklyBudgetPerformanceCard
-            busdev={f.busdev}
-            onSelectWeek={(start, end) => f.setRange(start, end)}
-          />
-        )}
-
-        {/* Laporan Konversi Leads: Traffic >> Prospecting >> Sample (Week 1 – Week 4) */}
-        <WeeklyLeadConversionReportCard
-          initialBusdev={f.busdev}
-          onSelectDateRange={(start, end) => f.setRange(start, end)}
-        />
-
-        {/* Grafik Tren, Sumber & Kampanye, Halaman Tujuan, Jam Chat Masuk (Khusus Head / Admin) */}
-        {isAdmin && (
+        {/* Grafik Tren, Sumber & Kampanye, Halaman Tujuan, Jam Chat Masuk (Khusus Head / Admin, saat dibuka) */}
+        {isAdmin && showDetailAnalytics && (
           <>
             {/* Tren + batang per sales */}
             <div className="grid gap-4 lg:grid-cols-3">

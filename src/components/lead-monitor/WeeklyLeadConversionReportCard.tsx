@@ -275,20 +275,20 @@ export function WeeklyLeadConversionReportCard({
               </button>
             </div>
 
-            {/* Pilihan Tampilan: Standar vs Matriks Tim (Admin) vs Matriks Harian Manual */}
-            <div className="flex flex-wrap items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
-              <button
-                type="button"
-                onClick={() => setViewMode("standard")}
-                className={`rounded-lg px-2.5 py-1 transition ${
-                  viewMode === "standard"
-                    ? "bg-white text-slate-900 shadow-xs font-bold"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                Tabel Week 1–4
-              </button>
-              {isAdmin && (
+            {/* Pilihan Tampilan: Standar vs Matriks Tim & Matriks Harian Manual (Admin) */}
+            {isAdmin && (
+              <div className="flex flex-wrap items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("standard")}
+                  className={`rounded-lg px-2.5 py-1 transition ${
+                    viewMode === "standard"
+                      ? "bg-white text-slate-900 shadow-xs font-bold"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  Tabel Week 1–4
+                </button>
                 <button
                   type="button"
                   onClick={() => setViewMode("matrix")}
@@ -300,19 +300,19 @@ export function WeeklyLeadConversionReportCard({
                 >
                   Matriks Semua Tim
                 </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setViewMode("daily")}
-                className={`rounded-lg px-2.5 py-1 transition ${
-                  viewMode === "daily"
-                    ? "bg-[#D98A00] text-white shadow-xs font-bold"
-                    : "text-slate-700 hover:text-slate-900"
-                }`}
-              >
-                Matriks Harian (Input Manual)
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("daily")}
+                  className={`rounded-lg px-2.5 py-1 transition ${
+                    viewMode === "daily"
+                      ? "bg-[#D98A00] text-white shadow-xs font-bold"
+                      : "text-slate-700 hover:text-slate-900"
+                  }`}
+                >
+                  Input Harian (Head)
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Tab Pemilih Sales (Blended vs Tiap BusDev) */}
@@ -359,25 +359,14 @@ export function WeeklyLeadConversionReportCard({
               )}
             </div>
 
-            {/* Filter Channel (Khusus Head / Admin) */}
-            {isAdmin && (
-              <div className="flex flex-wrap items-center gap-1">
-                {CHANNEL_OPTIONS.map((ch) => (
-                  <button
-                    key={ch.key}
-                    type="button"
-                    onClick={() => setSelectedChannel(ch.key)}
-                    className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-semibold transition ${
-                      selectedChannel === ch.key
-                        ? "bg-slate-800 text-white"
-                        : "bg-white text-slate-600 border border-[#E5E2DA] hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className={`h-1.5 w-1.5 rounded-full ${ch.dot}`} />
-                    <span>{ch.label}</span>
-                  </button>
-                ))}
-              </div>
+            {isAdmin && selectedChannel !== "all" && (
+              <button
+                type="button"
+                onClick={() => setSelectedChannel("all")}
+                className="rounded-md bg-amber-100 px-2.5 py-1 text-[11px] font-semibold text-amber-900 hover:bg-amber-200 transition"
+              >
+                Filter aktif: {CHANNEL_OPTIONS.find((c) => c.key === selectedChannel)?.label || selectedChannel} ✕
+              </button>
             )}
           </div>
         </div>
@@ -472,8 +461,8 @@ export function WeeklyLeadConversionReportCard({
           </div>
         )}
 
-        {/* TAMPILAN 3: Matriks Harian Manual & Mingguan (Total Week 1, Week 2 + Growth %) */}
-        {viewMode === "daily" && (
+        {/* TAMPILAN 3: Matriks Harian Manual & Mingguan (Khusus Head / Admin) */}
+        {isAdmin && viewMode === "daily" && (
           <DailyManualMetricsSection
             month={month}
             isCustomDate={isCustomDate}
@@ -983,7 +972,14 @@ function DailyManualMetricsSection({
 
   const activeSales = isAdmin ? (selectedBusdev || busdevNames[0] || "") : myName;
 
-  // Kelompokkan baris harian ke Week 1 (1-7), Week 2 (8-14), Week 3 (15-21), Week 4 (22-28), Week 5 (29+)
+  const todayWib = useMemo(() => new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10), []);
+  const defaultWeekNum = useMemo(() => {
+    const dayNum = parseInt(todayWib.slice(8, 10), 10) || 1;
+    return dayNum <= 7 ? 1 : dayNum <= 14 ? 2 : dayNum <= 21 ? 3 : dayNum <= 28 ? 4 : 5;
+  }, [todayWib]);
+  const [selectedWeekFilter, setSelectedWeekFilter] = useState<number | "all">(defaultWeekNum);
+
+  // Kelompokkan baris harian (hanya s/d hari ini) ke Week 1 (1-7), Week 2 (8-14), Week 3 (15-21), Week 4 (22-28), Week 5 (29+)
   const weekGroups = useMemo(() => {
     const groups: { weekIndex: number; label: string; days: DailyRow[]; totals: DailyCounts }[] = [
       { weekIndex: 1, label: "Total Week 1", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
@@ -993,6 +989,7 @@ function DailyManualMetricsSection({
       { weekIndex: 5, label: "Total Week 5", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
     ];
     for (const r of rows) {
+      if (r.date > todayWib) continue; // sembunyikan tanggal masa depan
       const dayNum = parseInt(r.date.slice(8, 10), 10) || 1;
       const wIdx = dayNum <= 7 ? 0 : dayNum <= 14 ? 1 : dayNum <= 21 ? 2 : dayNum <= 28 ? 3 : 4;
       groups[wIdx].days.push(r);
@@ -1007,7 +1004,29 @@ function DailyManualMetricsSection({
       }
     }
     return groups.filter((g) => g.days.length > 0);
-  }, [rows, drafts, activeSales]);
+  }, [rows, drafts, activeSales, todayWib]);
+
+  const visibleGroups = useMemo(() => {
+    if (selectedWeekFilter === "all") return weekGroups;
+    const filtered = weekGroups.filter((g) => g.weekIndex === selectedWeekFilter);
+    return filtered.length > 0 ? filtered : weekGroups;
+  }, [weekGroups, selectedWeekFilter]);
+
+  const handleCopyAutoForVisible = () => {
+    const nextDrafts = { ...drafts };
+    const nextDirty = { ...dirtyKeys };
+    for (const g of visibleGroups) {
+      for (const r of g.days) {
+        const entry = r.byBusdev[activeSales];
+        if (!entry) continue;
+        const key = `${r.date}__${activeSales}`;
+        nextDrafts[key] = { ...entry.auto };
+        nextDirty[key] = true;
+      }
+    }
+    setDrafts(nextDrafts);
+    setDirtyKeys(nextDirty);
+  };
 
   const totals = useMemo(() => {
     const t = { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 };
@@ -1034,13 +1053,42 @@ function DailyManualMetricsSection({
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-200 bg-amber-50/70 p-3 text-xs">
         <div>
           <div className="font-bold text-amber-950">
-            Matriks Harian &amp; Mingguan ({activeSales}) — Input Manual + Cross-Check
+            Input Harian Head ({activeSales}) — Ringkas per Minggu
           </div>
           <div className="text-[11px] text-amber-900">
-            Isi / koreksi angka harian (<b>Traffic, Cold, Warm, Hot, Sample</b>). Total Week 1–4, Growth %, dan Laporan Konversi otomatis terhitung ulang.
+            Isi / koreksi angka harian (<b>Traffic, Cold, Warm, Hot, Sample</b>). Tanggal masa depan disembunyikan agar rapi.
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          {/* Filter Minggu */}
+          <div className="flex items-center rounded-lg bg-white p-0.5 border border-amber-200">
+            {weekGroups.map((g) => (
+              <button
+                key={g.weekIndex}
+                type="button"
+                onClick={() => setSelectedWeekFilter(g.weekIndex)}
+                className={`rounded-md px-2 py-1 text-[11px] font-semibold transition ${
+                  selectedWeekFilter === g.weekIndex
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-600 hover:bg-slate-50"
+                }`}
+              >
+                W{g.weekIndex}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => setSelectedWeekFilter("all")}
+              className={`rounded-md px-2 py-1 text-[11px] font-semibold transition ${
+                selectedWeekFilter === "all"
+                  ? "bg-slate-900 text-white"
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              Semua
+            </button>
+          </div>
+
           {isAdmin && (
             <div className="flex items-center rounded-lg bg-white p-0.5 border border-amber-200">
               {busdevNames.map((name) => (
@@ -1048,7 +1096,7 @@ function DailyManualMetricsSection({
                   key={name}
                   type="button"
                   onClick={() => setSelectedBusdev(name)}
-                  className={`rounded-md px-3 py-1 text-xs font-semibold transition ${
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${
                     activeSales === name
                       ? "bg-[#D98A00] text-white"
                       : "text-slate-700 hover:bg-slate-50"
@@ -1059,6 +1107,16 @@ function DailyManualMetricsSection({
               ))}
             </div>
           )}
+
+          <button
+            type="button"
+            onClick={handleCopyAutoForVisible}
+            className="inline-flex h-8 items-center gap-1 rounded-lg border border-amber-300 bg-white px-2.5 text-[11px] font-semibold text-amber-900 hover:bg-amber-100/50 transition"
+            title="Salin semua hitungan Auto dari Buku Tamu & Pipeline ke kotak input minggu ini"
+          >
+            <span>Pakai Auto</span>
+          </button>
+
           <button
             type="button"
             onClick={handleSaveAll}
@@ -1066,7 +1124,7 @@ function DailyManualMetricsSection({
             className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-slate-900 px-3 text-xs font-bold text-white hover:bg-slate-800 disabled:opacity-40 transition"
           >
             <Check className="h-3.5 w-3.5" />
-            <span>{saving ? "Menyimpan..." : `Simpan Perubahan${dirtyCount > 0 ? ` (${dirtyCount})` : ""}`}</span>
+            <span>{saving ? "Menyimpan..." : `Simpan${dirtyCount > 0 ? ` (${dirtyCount})` : ""}`}</span>
           </button>
         </div>
       </div>
@@ -1103,8 +1161,9 @@ function DailyManualMetricsSection({
                 </td>
               </tr>
             ) : (
-              weekGroups.map((grp, gIdx) => {
-                const prevGrp = gIdx > 0 ? weekGroups[gIdx - 1] : null;
+              visibleGroups.map((grp) => {
+                const realIdx = weekGroups.findIndex((g) => g.weekIndex === grp.weekIndex);
+                const prevGrp = realIdx > 0 ? weekGroups[realIdx - 1] : null;
                 const fields: (keyof DailyCounts)[] = ["traffic", "cold", "warm", "hot", "sample"];
 
                 return (
