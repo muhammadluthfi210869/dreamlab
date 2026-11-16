@@ -33,10 +33,13 @@ const pool = new Pool({
 });
 
 async function main() {
-  console.log(`\n=== DRY-RUN PEMETAAN STAGE LAMA -> STAGE BARU CRM (warm_500 -> ${warm500Target}) ===\n`);
+  const client = await pool.connect();
+  try {
+    await client.query("SELECT set_config('app.current_user_role', 'admin', false)");
+    console.log(`\n=== DRY-RUN PEMETAAN STAGE LAMA -> STAGE BARU CRM (warm_500 -> ${warm500Target}) ===\n`);
 
-  // 1. Ringkasan seluruh baris leads vs yang memiliki nomor HP
-  const overview = await pool.query(`
+    // 1. Ringkasan seluruh baris leads vs yang memiliki nomor HP
+    const overview = await client.query(`
     SELECT
       COUNT(*)::int AS total_rows,
       COUNT(*) FILTER (WHERE COALESCE(NULLIF(trim(whatsapp_phone_e164),''), NULLIF(trim(wa_phone),''), NULLIF(trim(hp),'')) IS NOT NULL)::int AS rows_with_phone,
@@ -47,8 +50,40 @@ async function main() {
   console.log('1. Ringkasan Tabel `leads` (Log Klik Website):');
   console.table(overview.rows);
 
+  // 1B. Ringkasan seluruh baris `crm_lead_state` (Stage Pipeline Eksisting)
+  const clsRes = await client.query(
+    `
+    SELECT
+      cls.stage AS "Stage Lama (crm_lead_state)",
+      CASE
+        WHEN cls.stage = 'traffic' THEN 'lead_masuk (Lead Masuk)'
+        WHEN cls.stage = 'cold' THEN 'cold (Cold)'
+        WHEN cls.stage = 'traffic_below_500' THEN 'warm_below_500 (Warm below 500)'
+        WHEN cls.stage IN ('warm', 'traffic_500') AND COALESCE(cls.moq_manual, l.requested_quantity_pcs, 500) <= 500
+          THEN $1::text
+        WHEN cls.stage IN ('warm', 'traffic_500', 'warm_up_500')
+          THEN 'warm_up_500 (Warm up 500)'
+        WHEN cls.stage IN ('traffic_1000', 'warm_up_1000')
+          THEN 'warm_up_1000 (Warm up 1000)'
+        WHEN cls.stage = 'hot' THEN 'hot (Hot)'
+        WHEN cls.stage = 'sample' THEN 'sample (Sample)'
+        WHEN cls.stage = 'deal' THEN 'deal (Deal)'
+        WHEN cls.stage = 'lost' THEN 'lost (Lost)'
+        ELSE cls.stage
+      END AS "Stage Baru (Hasil Pemetaan)",
+      COUNT(*)::int AS "Jumlah Baris crm_lead_state"
+    FROM crm_lead_state cls
+    LEFT JOIN leads l ON l.tracking_code = cls.tracking_code
+    GROUP BY 1, 2
+    ORDER BY 3 DESC
+    `,
+    [warm500Target === 'warm_below_500' ? 'warm_below_500 (Warm below 500)' : 'warm_up_500 (Warm up 500)']
+  );
+  console.log('1B. Hasil Pemetaan Tabel `crm_lead_state` (Semua Stage Eksisting):');
+  console.table(clsRes.rows);
+
   // 2. Hasil pemetaan per nomor E.164 unik (calon isi tabel `crm_leads`)
-  const mappingRes = await pool.query(
+  const mappingRes = await client.query(
     `
     WITH norm AS (
       SELECT
@@ -131,7 +166,7 @@ async function main() {
   console.table(mappingRes.rows);
 
   // 3. Detail khusus "Warm 500 pcs" lama untuk dicek user
-  const warm500Detail = await pool.query(`
+  const warm500Detail = await client.query(`
     SELECT
       COALESCE(cls.moq_manual, l.requested_quantity_pcs) AS eff_moq,
       l.quantity_range,
@@ -150,6 +185,9 @@ async function main() {
   if (!apply) {
     console.log('Status: DRY-RUN SELESAI (Tidak ada data yang ditulis ke `crm_leads`).');
   }
+  } finally {
+    client.release();
+  }
 }
 
 main()
@@ -158,3 +196,4 @@ main()
     process.exit(1);
   })
   .finally(() => pool.end());
+

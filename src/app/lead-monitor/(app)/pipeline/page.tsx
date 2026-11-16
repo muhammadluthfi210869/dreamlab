@@ -36,6 +36,7 @@ import type { ChannelFunnelsOverview } from "@/lib/lead-monitor-stats";
 import { BusdevFunnelCard } from "@/components/lead-monitor/BusdevFunnelCard";
 import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
 import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
+import { WeeklyLeadConversionReportCard } from "@/components/lead-monitor/WeeklyLeadConversionReportCard";
 import { CreateManualLeadModal } from "@/components/lead-monitor/CreateManualLeadModal";
 
 const PAGE_STEP = 50;
@@ -746,14 +747,22 @@ export default function PipelinePage() {
 
       {showFunnel && data?.channelFunnels && (
         <section className="mb-3 space-y-3">
-          <BusdevConversionRateCard channelFunnels={data.channelFunnels} />
-          <WeeklyBudgetPerformanceCard
-            busdev={f.busdev}
-            onSelectWeek={(start, end) => {
+          <WeeklyLeadConversionReportCard
+            initialBusdev={f.busdev}
+            onSelectDateRange={(start, end) => {
               setPeriodPreset("custom");
               f.setRange(start, end);
             }}
           />
+          {isAdmin && (
+            <WeeklyBudgetPerformanceCard
+              busdev={f.busdev}
+              onSelectWeek={(start, end) => {
+                setPeriodPreset("custom");
+                f.setRange(start, end);
+              }}
+            />
+          )}
           <BusdevFunnelCard data={data.channelFunnels} loading={loading && !data} activeBusdev={f.busdev} />
         </section>
       )}

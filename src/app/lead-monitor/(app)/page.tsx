@@ -35,6 +35,7 @@ import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBud
 import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConversionRateCard";
 import { MasterHeadOverviewCard, type MasterHeadOverviewData } from "@/components/lead-monitor/MasterHeadOverviewCard";
 import { KpiWeeklyTotalSection } from "@/components/lead-monitor/KpiWeeklyTotalSection";
+import { WeeklyLeadConversionReportCard } from "@/components/lead-monitor/WeeklyLeadConversionReportCard";
 
 interface ApiData {
   period: { startDate: string; endDate: string; days: number; hasPrevious: boolean };
@@ -425,16 +426,19 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Weekly Budget & Cost Performance per Channel */}
-        <WeeklyBudgetPerformanceCard
-          busdev={f.busdev}
-          onSelectWeek={(start, end) => f.setRange(start, end)}
-        />
-
-        {/* Conversion Rate per BusDev & Laporan Blended (Total & Per Channel) */}
-        {data?.channelFunnels && (
-          <BusdevConversionRateCard channelFunnels={data.channelFunnels} />
+        {/* Weekly Budget & Cost Performance per Channel (Khusus Head / Admin) */}
+        {isAdmin && (
+          <WeeklyBudgetPerformanceCard
+            busdev={f.busdev}
+            onSelectWeek={(start, end) => f.setRange(start, end)}
+          />
         )}
+
+        {/* Laporan Konversi Leads: Traffic >> Prospecting >> Sample (Week 1 – Week 4) */}
+        <WeeklyLeadConversionReportCard
+          initialBusdev={f.busdev}
+          onSelectDateRange={(start, end) => f.setRange(start, end)}
+        />
 
         {/* Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial */}
         {data?.channelFunnels && (

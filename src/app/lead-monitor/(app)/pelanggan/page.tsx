@@ -11,6 +11,7 @@ import { BusdevConversionRateCard } from "@/components/lead-monitor/BusdevConver
 import { WeeklyBudgetPerformanceCard } from "@/components/lead-monitor/WeeklyBudgetPerformanceCard";
 import { MasterHeadOverviewCard, type MasterHeadOverviewData } from "@/components/lead-monitor/MasterHeadOverviewCard";
 import { KpiWeeklyTotalSection } from "@/components/lead-monitor/KpiWeeklyTotalSection";
+import { WeeklyLeadConversionReportCard } from "@/components/lead-monitor/WeeklyLeadConversionReportCard";
 
 const REFRESH_MS = 30_000;
 
@@ -167,21 +168,21 @@ export default function PelangganPage() {
         setData((d) =>
           d
             ? {
-                ...d,
-                table: {
-                  ...d.table,
-                  rows: d.table.rows.map((x) =>
-                    x.id === row.id
-                      ? {
-                          ...x,
-                          ...(patch.produk_manual !== undefined ? { produk_manual: patch.produk_manual } : {}),
-                          ...(patch.moq_manual !== undefined ? { moq_manual: patch.moq_manual } : {}),
-                          ...(patch.stage !== undefined ? { crm_stage: patch.stage } : {}),
-                        }
-                      : x
-                  ),
-                },
-              }
+              ...d,
+              table: {
+                ...d.table,
+                rows: d.table.rows.map((x) =>
+                  x.id === row.id
+                    ? {
+                      ...x,
+                      ...(patch.produk_manual !== undefined ? { produk_manual: patch.produk_manual } : {}),
+                      ...(patch.moq_manual !== undefined ? { moq_manual: patch.moq_manual } : {}),
+                      ...(patch.stage !== undefined ? { crm_stage: patch.stage } : {}),
+                    }
+                    : x
+                ),
+              },
+            }
             : d
         );
         setToast("Tersimpan");
@@ -280,29 +281,33 @@ export default function PelangganPage() {
             f.preset === "this_week"
               ? "Minggu Ini (Weekly)"
               : f.preset === "since"
-              ? "Total Kumulatif"
-              : f.preset === "today"
-              ? "Hari Ini"
-              : f.preset === "yesterday"
-              ? "Kemarin"
-              : f.preset === "7d"
-              ? "7 Hari Terakhir"
-              : f.preset === "30d"
-              ? "30 Hari Terakhir"
-              : `${f.startDate} s/d ${f.endDate}`
+                ? "Total Kumulatif"
+                : f.preset === "today"
+                  ? "Hari Ini"
+                  : f.preset === "yesterday"
+                    ? "Kemarin"
+                    : f.preset === "7d"
+                      ? "7 Hari Terakhir"
+                      : f.preset === "30d"
+                        ? "30 Hari Terakhir"
+                        : `${f.startDate} s/d ${f.endDate}`
           }
           onSelectWeekly={() => f.applyPreset("this_week")}
           onSelectTotal={() => f.applyPreset("since")}
         />
 
-        {data?.channelFunnels && (
-          <BusdevConversionRateCard channelFunnels={data.channelFunnels} />
-        )}
-
-        <WeeklyBudgetPerformanceCard
-          busdev={f.busdev}
-          onSelectWeek={(start, end) => f.setRange(start, end)}
+        {/* Laporan Konversi Leads: Traffic >> Prospecting >> Sample (Week 1 – Week 4) */}
+        <WeeklyLeadConversionReportCard
+          initialBusdev={f.busdev}
+          onSelectDateRange={(start, end) => f.setRange(start, end)}
         />
+
+        {isAdminRole(me.role) && (
+          <WeeklyBudgetPerformanceCard
+            busdev={f.busdev}
+            onSelectWeek={(start, end) => f.setRange(start, end)}
+          />
+        )}
 
         <Card title="Prospek per Tahap" subtitle="Klik tahap untuk memfilter tabel · atur tahap di halaman Sales Pipeline">
           <div className="flex flex-wrap gap-2">

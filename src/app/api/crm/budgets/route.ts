@@ -19,7 +19,7 @@ const addDays = (d: string, n: number) => new Date(Date.parse(`${d}T00:00:00Z`) 
 /**
  * Mengembalikan tanggal hari Senin (awal minggu ISO) dari tanggal YYYY-MM-DD.
  */
-export function getMondayOf(dateStr: string): string {
+function getMondayOf(dateStr: string): string {
   const dt = new Date(`${dateStr}T00:00:00Z`);
   const day = dt.getUTCDay(); // 0=Minggu, 1=Senin, ...
   const diffToMonday = day === 0 ? -6 : 1 - day;
@@ -129,10 +129,14 @@ export async function GET(req: NextRequest) {
   const { user } = auth;
   const isAdmin = isAdminRole(user.role);
 
+  if (!isAdmin) {
+    return json({ success: false, error: 'Akses laporan performa budget hanya untuk Head & Admin' }, 403);
+  }
+
   const sp = new URL(req.url).searchParams;
   const weeksCount = Math.min(16, Math.max(4, parseInt(sp.get('weeks') || '8', 10) || 8));
   const requestedBusdev = (sp.get('busdev') || 'all').trim();
-  const effectiveBusdev = isAdmin ? requestedBusdev : user.name;
+  const effectiveBusdev = requestedBusdev;
 
   try {
     await ensureBudgetTable();
@@ -272,6 +276,10 @@ export async function PUT(req: NextRequest) {
   const auth = await requireUser(req, { write: true });
   if (isAuthFailure(auth)) return auth;
   const { user } = auth;
+
+  if (!isAdminRole(user.role)) {
+    return json({ success: false, error: 'Hanya Head dan Admin yang dapat mengubah budget mingguan' }, 403);
+  }
 
   const body = await req.json().catch(() => null);
   const rawWeek = typeof body?.weekStart === 'string' ? body.weekStart.trim() : '';

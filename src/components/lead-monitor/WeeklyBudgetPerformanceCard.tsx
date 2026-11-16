@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Calendar, Check, Copy, DollarSign, RefreshCw, Save, TrendingUp } from "lucide-react";
 import { Card } from "@/components/lead-monitor/ui";
+import { useMe } from "@/components/lead-monitor/filters";
+import { isAdminRole } from "@/lib/crm-stages";
 import type { BudgetChannelKey, ChannelCostMetrics, WeeklyChannelPerformance } from "@/app/api/crm/budgets/route";
 
 interface ChannelMeta {
@@ -94,6 +96,9 @@ export function WeeklyBudgetPerformanceCard({
   busdev?: string;
   onSelectWeek?: (startDate: string, endDate: string) => void;
 }) {
+  const me = useMe();
+  const isAdmin = isAdminRole(me?.role);
+
   const [weeks, setWeeks] = useState<WeeklyChannelPerformance[]>([]);
   const [selectedWeekStart, setSelectedWeekStart] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -111,6 +116,7 @@ export function WeeklyBudgetPerformanceCard({
   });
 
   const loadBudgets = useCallback(async () => {
+    if (!isAdmin) return;
     setLoading(true);
     setError(null);
     try {
@@ -219,6 +225,10 @@ export function WeeklyBudgetPerformanceCard({
     };
     setDraftBudgets(copied);
   };
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <Card

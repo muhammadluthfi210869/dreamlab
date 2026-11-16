@@ -34,7 +34,7 @@ export function CreateManualLeadModal({
   const [brand, setBrand] = useState("");
   const [product, setProduct] = useState("");
   const [moq, setMoq] = useState("");
-  const [source, setSource] = useState(CRM_SOURCES[0] || "Referral");
+  const [source, setSource] = useState<string>(CRM_SOURCES[0] || "Referral");
   const [campaign, setCampaign] = useState("");
   const [entryDate, setEntryDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [stage, setStage] = useState<PipelineStage>("lead_masuk");
