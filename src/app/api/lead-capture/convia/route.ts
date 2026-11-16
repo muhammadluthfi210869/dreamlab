@@ -48,9 +48,12 @@ export async function POST(req: NextRequest) {
   }
 
   const rawBody = await req.text();
+  if (!verifyConviaSignature(rawBody, req.headers, secret)) {
+    return reply({ success: false, error: 'invalid signature' }, 401);
+  }
 
-  // Simpan salinan payload mentah ke convia_webhook_log (source = 'nexerp')
-  // Dijalankan di paling awal, aman (try/catch) dan tidak mengganggu proses asli.
+  // Simpan salinan payload mentah yang lolos tanda tangan ke convia_webhook_log (source = 'nexerp')
+  // Dijalankan di awal, aman (try/catch), membersihkan data > 30 hari, dan tidak mengganggu proses asli.
   try {
     let rawPayload: unknown = null;
     let eventType: string | null = null;
@@ -78,12 +81,11 @@ export async function POST(req: NextRequest) {
         rawBody,
       ]
     );
+
+    // Pembersihan otomatis: hapus log webhook yang lebih tua dari 30 hari
+    pool.query(`DELETE FROM convia_webhook_log WHERE received_at < NOW() - INTERVAL '30 days'`).catch(() => {});
   } catch (err: any) {
     console.warn('[convia/nexerp-copy] Gagal menyimpan log webhook mentah:', err?.message);
-  }
-
-  if (!verifyConviaSignature(rawBody, req.headers, secret)) {
-    return reply({ success: false, error: 'invalid signature' }, 401);
   }
 
   let body: unknown;

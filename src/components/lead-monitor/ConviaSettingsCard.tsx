@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { CheckCircle2, AlertCircle, RefreshCw, Smartphone, Radio } from "lucide-react";
+import { CheckCircle2, AlertCircle, RefreshCw, Smartphone, Radio, Users2, ShieldAlert } from "lucide-react";
 import { Card } from "@/components/lead-monitor/ui";
 
-interface ConviaPhoneNumber {
-  id: string;
-  display_phone_number?: string;
-  verified_name?: string;
-  quality_rating?: string;
-  code_verification_status?: string;
-  status?: string;
+interface ConviaNumberRow {
+  convia_id: string;
+  display_phone_number: string;
+  verified_name: string | null;
+  quality_rating: "GREEN" | "YELLOW" | "RED" | "UNKNOWN";
+  is_primary: boolean;
+  sales_id: number | null;
+  is_shared: boolean;
+  synced_at: string;
+  sales_name: string | null;
 }
 
 interface SalesRow {
@@ -19,49 +22,41 @@ interface SalesRow {
   wa_number: string | null;
   role: string;
   is_active: boolean;
-  convia_phone_id: string | null;
 }
 
-interface ConviaSettingsData {
-  convia: {
-    health: {
-      ok: boolean;
-      configured: boolean;
-      status?: string;
-      statusCode?: number;
-      error?: string;
-    };
-    phoneNumbers: ConviaPhoneNumber[];
-    phoneError: string | null;
-  };
-  sales: SalesRow[];
+interface ConviaHealthInfo {
+  ok: boolean;
+  status: string;
+  statusCode?: number;
+  checkedAt: string;
+  error?: string;
 }
 
 export function ConviaSettingsCard() {
-  const [data, setData] = useState<ConviaSettingsData | null>(null);
+  const [health, setHealth] = useState<ConviaHealthInfo | null>(null);
+  const [numbers, setNumbers] = useState<ConviaNumberRow[]>([]);
+  const [salesList, setSalesList] = useState<SalesRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
+  const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [savingId, setSavingId] = useState<number | null>(null);
-  const [saveSuccess, setSaveSuccess] = useState<number | null>(null);
+  const [savingId, setSavingId] = useState<string | null>(null);
 
-  const loadData = useCallback(async (isManual = false) => {
-    if (isManual) setRefreshing(true);
-    else setLoading(true);
+  const loadData = useCallback(async () => {
+    setLoading(true);
     setError(null);
-
     try {
       const res = await fetch("/api/crm/settings/convia", { cache: "no-store" });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.success) {
         throw new Error(json.error || `Gagal memuat status Convia (${res.status})`);
       }
-      setData(json);
+      setHealth(json.health);
+      setNumbers(json.numbers || []);
+      setSalesList(json.sales || []);
     } catch (err: any) {
       setError(err?.message || "Gagal menghubungi server");
     } finally {
       setLoading(false);
-      setRefreshing(false);
     }
   }, []);
 
@@ -69,57 +64,76 @@ export function ConviaSettingsCard() {
     loadData();
   }, [loadData]);
 
-  const handleMapSales = async (salesId: number, conviaPhoneId: string) => {
-    setSavingId(salesId);
+  const handleSyncNumbers = async () => {
+    setSyncing(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/crm/settings/convia", { method: "POST" });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Gagal sinkronisasi nomor Convia");
+      }
+      await loadData();
+    } catch (err: any) {
+      setError(err?.message || "Gagal sinkronisasi nomor Convia");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const handleUpdateMapping = async (conviaId: string, salesId: number | null, isShared: boolean) => {
+    setSavingId(conviaId);
     try {
       const res = await fetch("/api/crm/settings/convia", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          sales_id: salesId,
-          convia_phone_id: conviaPhoneId || null,
+          convia_id: conviaId,
+          sales_id: isShared ? null : salesId,
+          is_shared: isShared,
         }),
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.success) {
-        throw new Error(json.error || "Gagal menyimpan pemetaan");
+        throw new Error(json.error || "Gagal menyimpan pemetaan nomor");
       }
-      setSaveSuccess(salesId);
-      setTimeout(() => setSaveSuccess(null), 2500);
-      setData((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          sales: prev.sales.map((s) =>
-            s.id === salesId ? { ...s, convia_phone_id: conviaPhoneId || null } : s
-          ),
-        };
-      });
+      setNumbers((prev) =>
+        prev.map((n) =>
+          n.convia_id === conviaId
+            ? {
+                ...n,
+                sales_id: isShared ? null : salesId,
+                is_shared: isShared,
+                sales_name: isShared ? null : salesList.find((s) => s.id === salesId)?.name || null,
+              }
+            : n
+        )
+      );
     } catch (err: any) {
-      alert(err?.message || "Gagal menyimpan pemetaan");
+      alert(err?.message || "Gagal menyimpan pemetaan nomor");
     } finally {
       setSavingId(null);
     }
   };
 
-  const health = data?.convia?.health;
-  const phoneNumbers = data?.convia?.phoneNumbers || [];
-  const salesList = data?.sales || [];
+  const isWarningRating = (r: string) => r === "YELLOW" || r === "RED";
 
   return (
     <Card
-      title="Integrasi WhatsApp Convia (Coexistence)"
-      subtitle="Status koneksi Meta/Convia API dan pemetaan nomor WhatsApp ke tim sales BusDev"
+      title="Integrasi WhatsApp Convia (Banyak Nomor)"
+      subtitle="Koneksi resmi Convia API, sinkronisasi nomor WhatsApp WABA, dan pemetaan ke masing-masing sales BusDev"
       right={
-        <button
-          type="button"
-          onClick={() => loadData(true)}
-          disabled={loading || refreshing}
-          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-white px-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-        >
-          <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
-          <span>Refresh Status</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleSyncNumbers}
+            disabled={syncing || loading}
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-[#D98A00] hover:bg-[#B45309] text-white px-3 text-xs font-semibold shadow-xs transition disabled:opacity-50"
+          >
+            <RefreshCw className={`h-3 w-3 ${syncing ? "animate-spin" : ""}`} />
+            <span>{syncing ? "Menyinkronkan..." : "Sinkronkan Nomor"}</span>
+          </button>
+        </div>
       }
     >
       <div className="space-y-5">
@@ -130,11 +144,11 @@ export function ConviaSettingsCard() {
           </div>
         )}
 
-        {/* 1. Status GET /health */}
+        {/* 1. Status GET /health & Quality Alert */}
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-xl border border-[#ECEAE4] bg-[#F8F9FB] p-3.5">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-              Koneksi API Convia (GET /health)
+              Koneksi Convia API (GET /health)
             </div>
             <div className="mt-2 flex items-center gap-2">
               {loading ? (
@@ -143,147 +157,159 @@ export function ConviaSettingsCard() {
                 <>
                   <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                   <span className="text-xs font-bold text-emerald-700">
-                    Tersambung (Status: {health.status || "OK"})
+                    Tersambung (Status: {health.status.toUpperCase()})
                   </span>
                 </>
               ) : (
                 <>
                   <AlertCircle className="h-4 w-4 text-rose-600" />
                   <span className="text-xs font-bold text-rose-700">
-                    {health?.configured ? health.error || "Gagal" : "API Key Belum Dikonfigurasi"}
+                    Gagal ({health?.error || "Koneksi terputus"})
                   </span>
                 </>
               )}
             </div>
-            <div className="mt-1 text-[11px] text-slate-500">
-              Endpoint: <code className="font-mono text-[10px] text-slate-700">GET /health</code>
+            <div className="mt-1 text-[11px] text-slate-400 font-mono">
+              Terakhir dicek: {health?.checkedAt ? new Date(health.checkedAt).toLocaleTimeString("id-ID") + " WIB" : "—"}
             </div>
           </div>
 
           <div className="rounded-xl border border-[#ECEAE4] bg-[#F8F9FB] p-3.5">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-              Nomor Terdaftar (GET /phone-numbers)
+              Total Nomor Tersinkronisasi (convia_numbers)
             </div>
             <div className="mt-2 flex items-center gap-2">
               <Smartphone className="h-4 w-4 text-blue-600" />
               <span className="font-mono text-sm font-bold text-slate-900">
-                {phoneNumbers.length} Nomor Aktif
+                {numbers.length} Nomor Terdaftar
               </span>
             </div>
             <div className="mt-1 text-[11px] text-slate-500">
-              Nomor resmi WABA yang terhubung ke Convia
+              Klik &quot;Sinkronkan Nomor&quot; untuk memperbarui dari server Convia
             </div>
           </div>
         </div>
 
-        {/* 2. Daftar Nomor Convia */}
-        {phoneNumbers.length > 0 && (
-          <div className="space-y-2">
-            <div className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-              <Radio className="h-3.5 w-3.5 text-[#F39200]" />
-              <span>Daftar Nomor WhatsApp di Akun Convia</span>
-            </div>
-            <div className="overflow-x-auto rounded-xl border border-[#ECEAE4]">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-[#ECEAE4] bg-[#F8F9FB] text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                    <th className="py-2.5 pl-4 pr-3">Nomor WhatsApp</th>
-                    <th className="py-2.5 px-3">Nama Terverifikasi</th>
-                    <th className="py-2.5 px-3">Quality Rating</th>
-                    <th className="py-2.5 pl-3 pr-4 font-mono">Convia Phone ID</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#F1EFEA] bg-white">
-                  {phoneNumbers.map((p) => {
-                    const quality = (p.quality_rating || "").toUpperCase();
-                    const isGreen = quality === "GREEN" || quality === "GOOD";
-                    return (
-                      <tr key={p.id} className="hover:bg-slate-50/70">
-                        <td className="py-2.5 pl-4 pr-3 font-mono font-bold text-slate-900">
-                          {p.display_phone_number || "—"}
-                        </td>
-                        <td className="py-2.5 px-3 text-slate-700">
-                          {p.verified_name || "—"}
-                        </td>
-                        <td className="py-2.5 px-3">
-                          <span
-                            className={`inline-block rounded-full px-2 py-0.5 font-mono text-[10px] font-bold ${
-                              isGreen
-                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                : "bg-amber-50 text-amber-700 border border-amber-200"
-                            }`}
-                          >
-                            {p.quality_rating || "UNKNOWN"}
-                          </span>
-                        </td>
-                        <td className="py-2.5 pl-3 pr-4 font-mono text-[11px] text-slate-500">
-                          {p.id}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+        {/* Peringatan Quality Rating Kuning/Merah jika ada */}
+        {numbers.some((n) => isWarningRating(n.quality_rating)) && (
+          <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
+            <ShieldAlert className="h-4 w-4 shrink-0 text-amber-700 mt-0.5" />
+            <div>
+              <div className="font-bold">Peringatan Kualitas Nomor (Meta Quality Rating)</div>
+              <div>
+                Terdapat nomor dengan status kualitas <b>YELLOW</b> atau <b>RED</b>. Kurangi pengiriman pesan massal dan pastikan respon cepat agar nomor tidak terblokir oleh Meta.
+              </div>
             </div>
           </div>
         )}
 
-        {/* 3. Pemetaan Sales ke Nomor Convia */}
-        <div className="space-y-2 pt-2 border-t border-[#ECEAE4]">
-          <div className="text-xs font-bold text-slate-800">
-            Pemetaan Nomor WhatsApp Convia ke Tim Sales BusDev
+        {/* 2. Tabel Pemetaan Nomor convia_numbers */}
+        <div className="space-y-2">
+          <div className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <Radio className="h-3.5 w-3.5 text-[#F39200]" />
+            <span>Daftar Nomor WhatsApp & Pemetaan Sales</span>
           </div>
-          <p className="text-[11px] text-slate-500">
-            Pilih nomor Convia yang dipegang oleh masing-masing sales agar pesan keluar dan alur chat diarahkan ke nomor yang tepat.
-          </p>
 
           <div className="overflow-x-auto rounded-xl border border-[#ECEAE4]">
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-[#ECEAE4] bg-[#F8F9FB] text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  <th className="py-2.5 pl-4 pr-3">Nama Sales</th>
-                  <th className="py-2.5 px-3">Role</th>
-                  <th className="py-2.5 px-3">Nomor WA Database</th>
-                  <th className="py-2.5 pl-3 pr-4 min-w-[220px]">Nomor Convia Terpetakan</th>
+                  <th className="py-2.5 pl-4 pr-3">Nomor WhatsApp</th>
+                  <th className="py-2.5 px-3">Nama Akun WABA</th>
+                  <th className="py-2.5 px-3">Quality Rating</th>
+                  <th className="py-2.5 pl-3 pr-4 min-w-[240px]">Pemegang Nomor</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F1EFEA] bg-white">
-                {salesList.map((s) => (
-                  <tr key={s.id} className="hover:bg-slate-50/70">
-                    <td className="py-2.5 pl-4 pr-3 font-semibold text-slate-900">
-                      {s.name}
-                    </td>
-                    <td className="py-2.5 px-3">
-                      <span className="capitalize text-slate-500">{s.role}</span>
-                    </td>
-                    <td className="py-2.5 px-3 font-mono text-slate-700">
-                      {s.wa_number || "—"}
-                    </td>
-                    <td className="py-2.5 pl-3 pr-4">
-                      <div className="flex items-center gap-2">
-                        <select
-                          value={s.convia_phone_id || ""}
-                          onChange={(e) => handleMapSales(s.id, e.target.value)}
-                          disabled={savingId === s.id}
-                          className="h-8 rounded-lg border border-[#D5D9E2] bg-white px-2 text-xs font-medium text-slate-800 outline-none focus:border-[#F39200]"
-                        >
-                          <option value="">-- Belum Dipetakan --</option>
-                          {phoneNumbers.map((p) => (
-                            <option key={p.id} value={p.id}>
-                              {p.display_phone_number || p.id} ({p.verified_name || "Convia"})
-                            </option>
-                          ))}
-                        </select>
-                        {savingId === s.id && (
-                          <span className="text-[10px] text-slate-400 animate-pulse">Menyimpan...</span>
-                        )}
-                        {saveSuccess === s.id && (
-                          <span className="text-[10px] font-semibold text-emerald-600">Tersimpan!</span>
-                        )}
-                      </div>
+                {numbers.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="py-6 text-center text-slate-400">
+                      Belum ada nomor tersinkron. Klik tombol &quot;Sinkronkan Nomor&quot; di atas.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  numbers.map((n) => {
+                    const isYellowOrRed = isWarningRating(n.quality_rating);
+                    return (
+                      <tr key={n.convia_id} className="hover:bg-slate-50/70">
+                        <td className="py-2.5 pl-4 pr-3">
+                          <div className="font-mono font-bold text-slate-900">
+                            {n.display_phone_number || n.convia_id}
+                          </div>
+                          {n.is_primary && (
+                            <span className="inline-block rounded-sm bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px] font-semibold border border-blue-200">
+                              Primary
+                            </span>
+                          )}
+                        </td>
+                        <td className="py-2.5 px-3 text-slate-700">
+                          {n.verified_name || "—"}
+                        </td>
+                        <td className="py-2.5 px-3">
+                          <span
+                            className={`inline-block rounded-full px-2 py-0.5 font-mono text-[10px] font-bold border ${
+                              n.quality_rating === "GREEN"
+                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                : n.quality_rating === "YELLOW"
+                                ? "bg-amber-100 text-amber-900 border-amber-300 font-extrabold"
+                                : n.quality_rating === "RED"
+                                ? "bg-rose-100 text-rose-900 border-rose-300 font-extrabold"
+                                : "bg-slate-100 text-slate-700 border-slate-200"
+                            }`}
+                          >
+                            {n.quality_rating}
+                          </span>
+                        </td>
+                        <td className="py-2.5 pl-3 pr-4">
+                          <div className="flex flex-col gap-1.5">
+                            <div className="flex items-center gap-2">
+                              <select
+                                value={n.is_shared ? "shared" : String(n.sales_id || "")}
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  if (val === "shared") {
+                                    handleUpdateMapping(n.convia_id, null, true);
+                                  } else {
+                                    handleUpdateMapping(n.convia_id, val ? Number(val) : null, false);
+                                  }
+                                }}
+                                disabled={savingId === n.convia_id}
+                                className="h-8 rounded-lg border border-[#D5D9E2] bg-white px-2 text-xs font-medium text-slate-800 outline-none focus:border-[#F39200]"
+                              >
+                                <option value="">-- Belum Dipetakan --</option>
+                                <option value="shared">Nomor Bersama (Round Robin)</option>
+                                <optgroup label="Tugaskan ke BusDev:">
+                                  {salesList.map((s) => (
+                                    <option key={s.id} value={s.id}>
+                                      {s.name} ({s.role})
+                                    </option>
+                                  ))}
+                                </optgroup>
+                              </select>
+
+                              {savingId === n.convia_id && (
+                                <span className="text-[10px] text-slate-400 animate-pulse">Menyimpan...</span>
+                              )}
+                            </div>
+
+                            {n.is_shared ? (
+                              <span className="flex items-center gap-1 text-[11px] font-semibold text-blue-700">
+                                <Users2 className="h-3 w-3" />
+                                <span>Nomor Bersama: Lead baru dibagi bergiliran via Round Robin</span>
+                              </span>
+                            ) : n.sales_name ? (
+                              <span className="text-[11px] text-slate-500">
+                                Dikelola langsung oleh: <b className="text-slate-800">{n.sales_name}</b>
+                              </span>
+                            ) : (
+                              <span className="text-[10px] text-slate-400">Pilih sales atau nomor bersama</span>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>
