@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ShieldCheck } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
 
 interface OurCertificationProps {
   alt?: string;
@@ -13,38 +13,42 @@ const CERTIFICATIONS = [
   {
     id: "bpom",
     name: "Badan POM RI",
-    subtitle: "Izin Edar Resmi",
+    badge: "Izin Edar Resmi",
+    description: "Registrasi notifikasi BPOM resmi untuk keamanan & legalitas produk.",
     src: "/assets/images/BPOM.webp",
-    width: 112,
-    height: 103,
-    imgClass: "h-12 sm:h-14 w-auto object-contain",
+    width: 120,
+    height: 110,
+    imgClass: "h-14 sm:h-16 w-auto object-contain",
   },
   {
     id: "cpkb",
     name: "CPKB Grade A",
-    subtitle: "Standar Produksi",
+    badge: "Standar Tertinggi",
+    description: "Fasilitas produksi higienis berstandar Cara Pembuatan Kosmetik yang Baik.",
     src: "/images/certifications/cpkb.png",
-    width: 100,
-    height: 100,
-    imgClass: "h-12 sm:h-14 w-auto object-contain",
+    width: 110,
+    height: 110,
+    imgClass: "h-14 sm:h-16 w-auto object-contain",
   },
   {
     id: "halal",
     name: "Halal Indonesia",
-    subtitle: "Tersertifikasi Halal",
+    badge: "Tersertifikasi Halal",
+    description: "Jaminan bahan baku dan proses produksi sesuai standar halal resmi.",
     src: "/images/certifications/halal.png",
-    width: 100,
-    height: 100,
-    imgClass: "h-12 sm:h-14 w-auto object-contain",
+    width: 110,
+    height: 110,
+    imgClass: "h-14 sm:h-16 w-auto object-contain",
   },
   {
     id: "hki",
     name: "Terdaftar HKI",
-    subtitle: "Perlindungan Merek",
+    badge: "Perlindungan Merek",
+    description: "Dukungan legalitas hak kekayaan intelektual untuk keamanan brand Anda.",
     src: "/images/certifications/hki.png",
-    width: 140,
-    height: 50,
-    imgClass: "h-9 sm:h-11 w-auto object-contain",
+    width: 150,
+    height: 54,
+    imgClass: "h-10 sm:h-12 w-auto object-contain",
   },
 ] as const;
 
@@ -54,108 +58,147 @@ export default function OurCertification({
   return (
     <section
       aria-label={alt}
-      className="relative w-full overflow-hidden bg-gradient-to-b from-[#F4F8FD] via-[#EDF4FC] to-[#F8FAFC] py-14 sm:py-16 lg:py-20 border-b border-slate-100 select-none"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-[#081D46] via-[#0B2860] to-[#0A2252] py-16 sm:py-20 lg:py-24 border-y border-white/10 select-none"
     >
-      {/* Soft ambient glass highlights */}
+      {/* Animated Ambient Luxury Background Orbs & Subtle Lab Grid */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[780px] h-[320px] rounded-full bg-white/70 blur-3xl"
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.8) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
       />
-      <div
+      <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-10 -left-10 w-56 h-24 rounded-full bg-[#F39200]/10 blur-2xl"
+        animate={{ x: [-16, 16, -16], y: [-8, 10, -8] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -top-24 left-[10%] h-72 w-72 rounded-full bg-[#F39200]/18 blur-3xl"
       />
-      <div
+      <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-10 -right-10 w-56 h-24 rounded-full bg-[#F39200]/10 blur-2xl"
+        animate={{ x: [14, -14, 14], y: [8, -10, 8] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -bottom-24 right-[10%] h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"
       />
 
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        viewport={{ once: true, amount: 0.2 }}
-        className="container-custom relative z-10"
-      >
+      <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/85 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0A2558] shadow-xs mb-3">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#F39200]" />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="mx-auto max-w-2xl text-center"
+        >
+          <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-white/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-amber-300 backdrop-blur-md mb-4">
+            <ShieldCheck className="h-3.5 w-3.5 text-[#FBB03B]" />
             <span>Sertifikasi &amp; Legalitas Resmi</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#0A2558] leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-white leading-tight">
             Our Certifications
           </h2>
 
-          {/* Signature orange curved swoosh */}
-          <div className="mx-auto mt-1.5 flex justify-center">
-            <svg
-              width="170"
-              height="10"
-              viewBox="0 0 170 10"
-              fill="none"
-              aria-hidden="true"
-            >
+          {/* Animated Orange Swoosh */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+            className="mx-auto mt-2 flex justify-center origin-center"
+          >
+            <svg width="180" height="10" viewBox="0 0 180 10" fill="none" aria-hidden="true">
               <path
-                d="M2 7.5C46 2 118 1.5 168 6.5"
-                stroke="url(#certSwoosh)"
+                d="M2 7.5C48 2 124 1.5 178 6.5"
+                stroke="url(#certSwooshDark)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
               <defs>
-                <linearGradient id="certSwoosh" x1="2" y1="5" x2="168" y2="5" gradientUnits="userSpaceOnUse">
+                <linearGradient id="certSwooshDark" x1="2" y1="5" x2="178" y2="5" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#F39200" />
                   <stop offset="1" stopColor="#FBB03B" />
                 </linearGradient>
               </defs>
             </svg>
-          </div>
+          </motion.div>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+          <p className="mt-3.5 text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
             Dreamlab memiliki sertifikasi yang diakui{' '}
-            <strong className="font-bold text-[#0A2558]">secara nasional dan internasional.</strong>
+            <strong className="font-bold text-white">secara nasional dan internasional</strong> untuk
+            menjamin kualitas, keamanan, dan legalitas setiap produk brand Anda.
           </p>
+        </motion.div>
+
+        {/* Staggered Animated Certification Cards */}
+        <div className="mx-auto mt-10 sm:mt-12 grid max-w-5xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {CERTIFICATIONS.map((cert, idx) => (
+            <motion.div
+              key={cert.id}
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.55,
+                delay: idx * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="group relative flex flex-col items-center rounded-3xl border border-white/15 bg-white/[0.97] p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.22)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(243,146,0,0.18)]"
+            >
+              {/* Top Gradient Accent Bar on Hover */}
+              <div className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-gradient-to-r from-[#F39200] to-[#FBB03B] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+
+              {/* Logo Frame with Soft Glow */}
+              <div className="relative mt-1 flex h-24 w-full items-center justify-center rounded-2xl bg-gradient-to-b from-slate-50 to-blue-50/40 px-4 border border-slate-100 transition-colors duration-300 group-hover:border-amber-200/70">
+                <Image
+                  src={cert.src}
+                  alt={cert.name}
+                  width={cert.width}
+                  height={cert.height}
+                  className={`${cert.imgClass} transition-transform duration-300 ease-out group-hover:scale-105`}
+                />
+              </div>
+
+              {/* Verified Pill */}
+              <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#D97706]">
+                <CheckCircle2 className="h-3 w-3 text-[#F39200]" />
+                {cert.badge}
+              </span>
+
+              {/* Title & Description */}
+              <h3 className="mt-2.5 text-base font-extrabold text-[#0A2558] leading-snug">
+                {cert.name}
+              </h3>
+              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed font-medium">
+                {cert.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Sleek Glassmorphic Pedestal Pill Bar */}
-        <div className="mx-auto mt-8 sm:mt-10 max-w-4xl">
-          <div className="relative rounded-3xl md:rounded-full border border-white bg-white/95 px-5 py-6 sm:px-8 sm:py-5 shadow-[0_18px_48px_rgba(10,37,88,0.08)] backdrop-blur-md">
-            <div className="grid grid-cols-2 md:grid-cols-4 items-center gap-y-6 gap-x-4 md:gap-0 md:divide-x md:divide-slate-200/80">
-              {CERTIFICATIONS.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="group flex flex-col items-center justify-center px-3 text-center transition-transform duration-200 ease-out hover:-translate-y-0.5"
-                >
-                  <div className="flex h-14 sm:h-16 items-center justify-center">
-                    <Image
-                      src={cert.src}
-                      alt={cert.name}
-                      width={cert.width}
-                      height={cert.height}
-                      className={`${cert.imgClass} transition-transform duration-200 ease-out group-hover:scale-105`}
-                    />
-                  </div>
-                  <div className="mt-2">
-                    <div className="text-xs font-extrabold text-[#0A2558] leading-tight">
-                      {cert.name}
-                    </div>
-                    <div className="text-[10px] font-semibold text-slate-500 mt-0.5">
-                      {cert.subtitle}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Subtle Pedestal Reflection */}
-          <div
-            aria-hidden="true"
-            className="mx-auto mt-2 h-2.5 w-[86%] rounded-full bg-gradient-to-r from-transparent via-slate-300/45 to-transparent blur-xs"
-          />
-        </div>
-      </motion.div>
+        {/* Bottom Credibility Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.35, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-slate-300"
+        >
+          <span className="inline-flex items-center gap-1.5">
+            <Sparkles className="h-3.5 w-3.5 text-[#FBB03B]" />
+            Standar Mutu Nasional &amp; Internasional
+          </span>
+          <span className="hidden sm:inline text-white/25">•</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            Pendampingan Legalitas End-to-End
+          </span>
+          <span className="hidden sm:inline text-white/25">•</span>
+          <span>Uji Stabilitas &amp; Laboratorium Terakreditasi</span>
+        </motion.div>
+      </div>
     </section>
   );
 }

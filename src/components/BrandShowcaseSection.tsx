@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Award, Factory, FlaskConical, Users } from 'lucide-react';
+import { ArrowRight, Factory, FlaskConical, Users } from 'lucide-react';
 
 interface BrandShowcaseSectionProps {
   content?: {
@@ -418,47 +418,19 @@ export default function BrandShowcaseSection({ content }: BrandShowcaseSectionPr
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Stample Counting + 3 Full-View Interactive Service Cards */}
-          <div className="lg:col-span-7 space-y-4">
-            {/* Stample Counting Badge: 1.000++ Brand Kerjasama */}
-            <div
-              className="flex items-center justify-between gap-3"
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered || reducedMotion ? 'translate3d(0,0,0)' : 'translate3d(0,14px,0)',
-                transition: reducedMotion
-                  ? 'opacity 150ms ease'
-                  : 'opacity 600ms ease-out 120ms, transform 600ms ease-out 120ms',
-              }}
-            >
-              <div className="inline-flex items-center gap-3 rounded-full border-2 border-dashed border-[#F39200]/60 bg-white/95 px-4 py-2 shadow-[0_8px_24px_rgba(243,146,0,0.12)] backdrop-blur-sm">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#E67E00] to-[#FBB03B] text-white shadow-sm">
-                  <Award className="h-4 w-4" />
-                </div>
-                <div className="flex items-baseline gap-2 pr-1">
-                  <span className="text-lg sm:text-xl font-extrabold text-[#0A2558] leading-none">
-                    <AnimatedStatCounter target={1000} suffix="++" reducedMotion={reducedMotion} />
-                  </span>
-                  <span className="text-xs sm:text-[13px] font-bold uppercase tracking-wide text-[#E67E00]">
-                    Brand Kerjasama
-                  </span>
-                </div>
-              </div>
-              <span className="hidden sm:inline-block text-[11px] font-semibold text-slate-500">
-                One Stop Maklon Kosmetik Terintegrasi
-              </span>
-            </div>
-
-            {/* 3 Full-View Square Image Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {SERVICE_CARDS.map((card) => {
+          {/* RIGHT COLUMN: Asymmetric Editorial Bento Showcase (3 Full-Framing Interactive Cards) */}
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-stretch">
+              {/* Featured Tall Card (Pengembangan Formula) */}
+              {(() => {
+                const card = SERVICE_CARDS[0];
                 const IconComp = card.icon;
                 const px = isDesktopPointer && !reducedMotion ? mouseOffset.x * card.parallaxSpeed : 0;
                 const py = isDesktopPointer && !reducedMotion ? mouseOffset.y * card.parallaxSpeed : 0;
 
                 return (
                   <div
-                    key={card.id}
+                    className="sm:col-span-6"
                     style={{
                       opacity: entered ? 1 : 0,
                       transform: entered || reducedMotion
@@ -471,38 +443,92 @@ export default function BrandShowcaseSection({ content }: BrandShowcaseSectionPr
                   >
                     <Link
                       href={card.href}
-                      className="group flex flex-col overflow-hidden rounded-[22px] border-[3px] border-white bg-white shadow-[0_10px_30px_rgba(10,37,88,0.08)] transition-all duration-300 ease-out hover:scale-[1.015] hover:shadow-[0_16px_36px_rgba(10,37,88,0.12)] active:scale-[0.99]"
+                      className="group relative block h-[320px] sm:h-[424px] w-full overflow-hidden rounded-[24px] border-[3px] border-white bg-white shadow-[0_12px_34px_rgba(10,37,88,0.1)] transition-all duration-300 ease-out hover:scale-[1.015] hover:shadow-[0_18px_42px_rgba(10,37,88,0.14)] active:scale-[0.99]"
                     >
-                      {/* Full Square Image (zero vertical crop) */}
-                      <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
-                        <Image
-                          src={card.image}
-                          alt={card.alt}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 22vw"
-                          className="object-cover object-top transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-[1.03]"
-                        />
-                      </div>
+                      <Image
+                        src={card.image}
+                        alt={card.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 28vw"
+                        className="object-cover object-top transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-[1.03]"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0A2558]/40 via-transparent to-transparent" />
 
-                      {/* Clean Interactive Label Footer */}
-                      <div className="flex items-center justify-between gap-2 bg-white px-3.5 py-3 transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-50 text-[#F39200] transition-transform duration-300 ease-out group-hover:rotate-[4deg]">
+                      {/* Floating Frosted-Glass Pill */}
+                      <div className="absolute bottom-4 left-4 right-4 transition-transform duration-300 ease-out group-hover:-translate-y-1">
+                        <div className="inline-flex items-center gap-3 rounded-full border border-white/80 bg-white/92 px-3.5 py-2 shadow-[0_8px_24px_rgba(10,37,88,0.14)] backdrop-blur-md">
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-50 text-[#F39200] transition-transform duration-300 ease-out group-hover:rotate-[4deg]">
                             <IconComp className="h-4 w-4" />
                           </div>
-                          <div className="min-w-0 leading-tight">
-                            <div className="truncate text-xs font-extrabold text-[#0A2558]">{card.title}</div>
-                            <div className="truncate text-xs font-extrabold text-[#0A2558]">{card.subtitle}</div>
+                          <div className="pr-1 leading-tight">
+                            <div className="text-xs sm:text-[13px] font-extrabold text-[#0A2558]">{card.title}</div>
+                            <div className="text-xs sm:text-[13px] font-extrabold text-[#0A2558]">{card.subtitle}</div>
                           </div>
-                        </div>
-                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F39200] text-white transition-transform duration-300 ease-out group-hover:translate-x-[4px]">
-                          <ArrowRight className="h-3.5 w-3.5" />
+                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F39200] text-white transition-transform duration-300 ease-out group-hover:translate-x-[4px]">
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </div>
                         </div>
                       </div>
                     </Link>
                   </div>
                 );
-              })}
+              })()}
+
+              {/* Right Stack: Produksi Berkualitas & Konsultasi dan Konsep */}
+              <div className="sm:col-span-6 flex flex-col gap-4">
+                {SERVICE_CARDS.slice(1).map((card) => {
+                  const IconComp = card.icon;
+                  const px = isDesktopPointer && !reducedMotion ? mouseOffset.x * card.parallaxSpeed : 0;
+                  const py = isDesktopPointer && !reducedMotion ? mouseOffset.y * card.parallaxSpeed : 0;
+
+                  return (
+                    <div
+                      key={card.id}
+                      style={{
+                        opacity: entered ? 1 : 0,
+                        transform: entered || reducedMotion
+                          ? `translate3d(${px.toFixed(2)}px, ${py.toFixed(2)}px, 0)`
+                          : 'translate3d(30px, 25px, 0)',
+                        transition: entered
+                          ? 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease-out'
+                          : `opacity 600ms ease-out ${card.revealDelay}ms, transform 600ms ease-out ${card.revealDelay}ms`,
+                      }}
+                    >
+                      <Link
+                        href={card.href}
+                        className="group relative block h-[204px] w-full overflow-hidden rounded-[24px] border-[3px] border-white bg-white shadow-[0_12px_34px_rgba(10,37,88,0.1)] transition-all duration-300 ease-out hover:scale-[1.015] hover:shadow-[0_18px_42px_rgba(10,37,88,0.14)] active:scale-[0.99]"
+                      >
+                        <Image
+                          src={card.image}
+                          alt={card.alt}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 28vw"
+                          className={`object-cover transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-[1.03] ${
+                            card.id === 'production' ? 'object-[center_22%]' : 'object-center'
+                          }`}
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0A2558]/40 via-transparent to-transparent" />
+
+                        {/* Floating Frosted-Glass Pill */}
+                        <div className="absolute bottom-3.5 left-3.5 right-3.5 transition-transform duration-300 ease-out group-hover:-translate-y-1">
+                          <div className="inline-flex items-center gap-2.5 rounded-full border border-white/80 bg-white/92 px-3 py-1.5 shadow-[0_8px_24px_rgba(10,37,88,0.14)] backdrop-blur-md">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-50 text-[#F39200] transition-transform duration-300 ease-out group-hover:rotate-[4deg]">
+                              <IconComp className="h-4 w-4" />
+                            </div>
+                            <div className="pr-1 leading-tight">
+                              <div className="text-xs font-extrabold text-[#0A2558]">{card.title}</div>
+                              <div className="text-xs font-extrabold text-[#0A2558]">{card.subtitle}</div>
+                            </div>
+                            <div className="flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-full bg-[#F39200] text-white transition-transform duration-300 ease-out group-hover:translate-x-[4px]">
+                              <ArrowRight className="h-3.5 w-3.5" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
