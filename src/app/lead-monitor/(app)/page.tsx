@@ -186,31 +186,6 @@ export default function DashboardPage() {
           right={<p className="hidden text-[11px] text-slate-400 lg:block">Data dihitung sejak 06 Okt 2026 (sistem pelacakan terpadu). Zona waktu WIB.</p>}
         />
 
-        {/* KPI Weekly & Total */}
-        <KpiWeeklyTotalSection
-          current={data?.kpi.current}
-          weekly={data?.kpi.weekly}
-          total={data?.kpi.total}
-          delta={data?.kpi.delta}
-          presetLabel={
-            f.preset === "this_week"
-              ? "Minggu Ini (Weekly)"
-              : f.preset === "since"
-              ? "Total Kumulatif"
-              : f.preset === "today"
-              ? "Hari Ini"
-              : f.preset === "yesterday"
-              ? "Kemarin"
-              : f.preset === "7d"
-              ? "7 Hari Terakhir"
-              : f.preset === "30d"
-              ? "30 Hari Terakhir"
-              : `${f.startDate} s/d ${f.endDate}`
-          }
-          onSelectWeekly={() => f.applyPreset("this_week")}
-          onSelectTotal={() => f.applyPreset("since")}
-        />
-
         {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak (Khusus Head / Admin) */}
         {isAdmin && data?.moqOverview && (
           <div className="space-y-4">
@@ -429,104 +404,6 @@ export default function DashboardPage() {
           initialBusdev={f.busdev}
           onSelectDateRange={(start, end) => f.setRange(start, end)}
         />
-
-        {/* Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial (Khusus Head / Admin) */}
-        {isAdmin && data?.channelFunnels && (
-          <Card
-            title="Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial"
-            subtitle="Pantau alur konversi setiap BusDev dari Traffic iklan & organik >> Lolos MOQ (>= 500 pcs) >> Masuk tahap Sample"
-            right={
-              <div className="flex items-center gap-2 text-xs">
-                <div className="hidden sm:flex items-center gap-2">
-                  <span className="flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 font-semibold text-blue-700 border border-blue-200">
-                    <span className="h-2 w-2 rounded-full bg-blue-600" /> Meta Ads
-                  </span>
-                  <span className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1 font-semibold text-emerald-700 border border-emerald-200">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" /> Google Ads
-                  </span>
-                  <span className="flex items-center gap-1.5 rounded-md bg-sky-50 px-2 py-1 font-semibold text-sky-700 border border-sky-200">
-                    <span className="h-2 w-2 rounded-full bg-sky-600" /> Google Organik
-                  </span>
-                  <span className="flex items-center gap-1.5 rounded-md bg-purple-50 px-2 py-1 font-semibold text-purple-700 border border-purple-200">
-                    <span className="h-2 w-2 rounded-full bg-purple-600" /> Media Sosial
-                  </span>
-                </div>
-                <Link
-                  href="/lead-monitor/pipeline"
-                  className="inline-flex items-center gap-1 rounded-md bg-[#FFF4DC] border border-[#F0D9A8] px-2.5 py-1 text-xs font-semibold text-[#9A6200] hover:bg-[#FFECC4] transition"
-                  title="Buka Papan Kanban Sales Pipeline"
-                >
-                  <Target className="h-3 w-3" />
-                  <span>Papan Kanban &rarr;</span>
-                </Link>
-              </div>
-            }
-          >
-            <div className="space-y-4">
-              {/* Cards per BusDev */}
-              <div className="grid gap-4 md:grid-cols-3">
-                {data.channelFunnels.byBusdev.map((b) => (
-                  <BusdevFunnelCard key={b.name} funnel={b} />
-                ))}
-              </div>
-
-              {/* Summary Total Tim */}
-              {data.channelFunnels.summary && (
-                <div className="rounded-xl border border-slate-200 bg-white p-3.5 flex flex-col lg:flex-row items-center justify-between gap-3 text-xs">
-                  <span className="font-semibold text-slate-700 shrink-0">
-                    Total Konversi Gabungan Seluruh Tim:
-                  </span>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-blue-600" />
-                      <span className="font-bold text-blue-700">Meta Ads:</span>
-                      <span className="font-mono text-slate-800">
-                        {data.channelFunnels.summary.meta_ads.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-sky-700">{data.channelFunnels.summary.meta_ads.cold} Cold</b> &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.meta_ads.warm} Warm</b> &gt;&gt;{" "}
-                        <b className="text-rose-700">{data.channelFunnels.summary.meta_ads.hot} Hot</b> &gt;&gt;{" "}
-                        <b className="text-emerald-700">{data.channelFunnels.summary.meta_ads.sample} Sample</b>
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                      <span className="font-bold text-emerald-700">Google Ads:</span>
-                      <span className="font-mono text-slate-800">
-                        {data.channelFunnels.summary.google_ads.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-sky-700">{data.channelFunnels.summary.google_ads.cold} Cold</b> &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.google_ads.warm} Warm</b> &gt;&gt;{" "}
-                        <b className="text-rose-700">{data.channelFunnels.summary.google_ads.hot} Hot</b> &gt;&gt;{" "}
-                        <b className="text-emerald-700">{data.channelFunnels.summary.google_ads.sample} Sample</b>
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-sky-600" />
-                      <span className="font-bold text-sky-700">Google Organik:</span>
-                      <span className="font-mono text-slate-800">
-                        {data.channelFunnels.summary.google_organic.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-sky-700">{data.channelFunnels.summary.google_organic.cold} Cold</b> &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.google_organic.warm} Warm</b> &gt;&gt;{" "}
-                        <b className="text-rose-700">{data.channelFunnels.summary.google_organic.hot} Hot</b> &gt;&gt;{" "}
-                        <b className="text-emerald-700">{data.channelFunnels.summary.google_organic.sample} Sample</b>
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-purple-600" />
-                      <span className="font-bold text-purple-700">Media Sosial:</span>
-                      <span className="font-mono text-slate-800">
-                        {data.channelFunnels.summary.social_media.traffic} Traffic &gt;&gt;{" "}
-                        <b className="text-sky-700">{data.channelFunnels.summary.social_media.cold} Cold</b> &gt;&gt;{" "}
-                        <b className="text-amber-700">{data.channelFunnels.summary.social_media.warm} Warm</b> &gt;&gt;{" "}
-                        <b className="text-rose-700">{data.channelFunnels.summary.social_media.hot} Hot</b> &gt;&gt;{" "}
-                        <b className="text-emerald-700">{data.channelFunnels.summary.social_media.sample} Sample</b>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </Card>
-        )}
 
         {/* Grafik Tren, Sumber & Kampanye, Halaman Tujuan, Jam Chat Masuk (Khusus Head / Admin) */}
         {isAdmin && (

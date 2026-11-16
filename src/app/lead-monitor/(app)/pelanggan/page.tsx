@@ -258,43 +258,54 @@ export default function PelangganPage() {
 
         <FilterToolbar busdevNames={busdevNames} showBusdev={isAdminRole(me.role)} />
 
-        {/* KPI Weekly & Total */}
-        <KpiWeeklyTotalSection
-          current={data?.kpi.current}
-          weekly={data?.kpi.weekly}
-          total={data?.kpi.total}
-          delta={data?.kpi.delta}
-          presetLabel={
-            f.preset === "this_week"
-              ? "Minggu Ini (Weekly)"
-              : f.preset === "since"
-                ? "Total Kumulatif"
-                : f.preset === "today"
-                  ? "Hari Ini"
-                  : f.preset === "yesterday"
-                    ? "Kemarin"
-                    : f.preset === "7d"
-                      ? "7 Hari Terakhir"
-                      : f.preset === "30d"
-                        ? "30 Hari Terakhir"
-                        : `${f.startDate} s/d ${f.endDate}`
-          }
-          onSelectWeekly={() => f.applyPreset("this_week")}
-          onSelectTotal={() => f.applyPreset("since")}
-        />
-
-        {/* Laporan Konversi Leads: Traffic >> Prospecting >> Sample (Week 1 – Week 4) */}
-        <WeeklyLeadConversionReportCard
-          initialBusdev={f.busdev}
-          onSelectDateRange={(start, end) => f.setRange(start, end)}
-        />
-
-        {isAdminRole(me.role) && (
-          <WeeklyBudgetPerformanceCard
-            busdev={f.busdev}
-            onSelectWeek={(start, end) => f.setRange(start, end)}
-          />
-        )}
+        {/* Ringkasan Buku Tamu: Total Leads & Sumber Masuk */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="rounded-2xl border border-[#ECEAE4] bg-white p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Total Leads Masuk</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-slate-900">
+              {(data?.kpi.current.totalClicks ?? 0).toLocaleString("id-ID")}
+            </div>
+            <div className="text-[10px] text-slate-400">Semua klik &amp; form periode ini</div>
+          </div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50/40 p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-amber-800">Chat Masuk</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-[#9A6200]">
+              {(data?.kpi.current.chat ?? 0).toLocaleString("id-ID")}
+            </div>
+            <div className="text-[10px] text-slate-500">Prospek terhubung WA</div>
+          </div>
+          <div className="rounded-2xl border border-blue-200 bg-blue-50/40 p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-blue-800">Meta Ads</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-blue-900">
+              {(data?.channelFunnels?.summary?.meta_ads.traffic ?? 0).toLocaleString("id-ID")}
+            </div>
+            <div className="text-[10px] text-slate-500">FB / IG Ads</div>
+          </div>
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-800">Google Ads</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-emerald-900">
+              {(data?.channelFunnels?.summary?.google_ads.traffic ?? 0).toLocaleString("id-ID")}
+            </div>
+            <div className="text-[10px] text-slate-500">Iklan Pencarian</div>
+          </div>
+          <div className="rounded-2xl border border-sky-200 bg-sky-50/40 p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-sky-800">Google Organik</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-sky-900">
+              {(data?.channelFunnels?.summary?.google_organic.traffic ?? 0).toLocaleString("id-ID")}
+            </div>
+            <div className="text-[10px] text-slate-500">SEO / Artikel</div>
+          </div>
+          <div className="rounded-2xl border border-purple-200 bg-purple-50/40 p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-purple-800">Medsos &amp; Lainnya</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-purple-900">
+              {(
+                (data?.channelFunnels?.summary?.social_media.traffic ?? 0) +
+                (data?.channelFunnels?.summary?.other.traffic ?? 0)
+              ).toLocaleString("id-ID")}
+            </div>
+            <div className="text-[10px] text-slate-500">IG / TikTok / Direct</div>
+          </div>
+        </div>
 
         <Card title="Prospek per Tahap" subtitle="Klik tahap untuk memfilter tabel · atur tahap di halaman Sales Pipeline">
           <div className="flex flex-wrap gap-2">
