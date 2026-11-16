@@ -186,16 +186,6 @@ export default function DashboardPage() {
           right={<p className="hidden text-[11px] text-slate-400 lg:block">Data dihitung sejak 06 Okt 2026 (sistem pelacakan terpadu). Zona waktu WIB.</p>}
         />
 
-        {/* Master Head Overview: Total Leads Masing-Masing BusDev (Khusus Head / Admin) */}
-        {isAdmin && data?.masterHeadOverview && (
-          <MasterHeadOverviewCard
-            data={data.masterHeadOverview}
-            activeBusdev={f.busdev}
-            onSelectBusdev={(n) => f.setBusdev(n)}
-            isAdmin={isAdmin}
-          />
-        )}
-
         {/* KPI Weekly & Total */}
         <KpiWeeklyTotalSection
           current={data?.kpi.current}

@@ -101,13 +101,17 @@ export function WeeklyBudgetPerformanceCard({
 
   const [weeks, setWeeks] = useState<WeeklyChannelPerformance[]>([]);
   const [selectedWeekStart, setSelectedWeekStart] = useState<string>("");
+  const [budgetMode, setBudgetMode] = useState<"weekly" | "custom">("weekly");
+  const [customStart, setCustomStart] = useState<string>("2026-11-01");
+  const [customEnd, setCustomEnd] = useState<string>("2026-11-16");
+  const [customRangeData, setCustomRangeData] = useState<WeeklyChannelPerformance | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [saving, setSaving] = useState<boolean>(false);
   const [saveSuccess, setSaveSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [historyChannel, setHistoryChannel] = useState<BudgetChannelKey | "total">("total");
 
-  // Draft input budget untuk minggu yang sedang dipilih
+  // Draft input budget untuk minggu / range yang sedang dipilih
   const [draftBudgets, setDraftBudgets] = useState<Record<BudgetChannelKey, number>>({
     meta_ads: 0,
     google_ads: 0,
@@ -121,6 +125,10 @@ export function WeeklyBudgetPerformanceCard({
     setError(null);
     try {
       const qs = new URLSearchParams({ weeks: "8", busdev });
+      if (budgetMode === "custom" && customStart && customEnd) {
+        qs.set("startDate", customStart);
+        qs.set("endDate", customEnd);
+      }
       const res = await fetch(`/api/crm/budgets?${qs.toString()}`, { cache: "no-store" });
       if (res.status === 401) {
         window.location.href = "/lead-monitor/masuk";
@@ -132,6 +140,7 @@ export function WeeklyBudgetPerformanceCard({
       }
       const list = (json.weeks ?? []) as WeeklyChannelPerformance[];
       setWeeks(list);
+      setCustomRangeData((json.customRange ?? null) as WeeklyChannelPerformance | null);
       setSelectedWeekStart((prev) => {
         if (prev && list.some((w) => w.weekStart === prev)) return prev;
         return list[0]?.weekStart ?? "";
@@ -141,16 +150,16 @@ export function WeeklyBudgetPerformanceCard({
     } finally {
       setLoading(false);
     }
-  }, [busdev]);
+  }, [busdev, isAdmin, budgetMode, customStart, customEnd]);
 
   useEffect(() => {
     loadBudgets();
   }, [loadBudgets]);
 
-  const currentWeek = useMemo(
-    () => weeks.find((w) => w.weekStart === selectedWeekStart) ?? weeks[0] ?? null,
-    [weeks, selectedWeekStart]
-  );
+  const currentWeek = useMemo(() => {
+    if (budgetMode === "custom" && customRangeData) return customRangeData;
+    return weeks.find((w) => w.weekStart === selectedWeekStart) ?? weeks[0] ?? null;
+  }, [budgetMode, customRangeData, weeks, selectedWeekStart]);
 
   const previousWeek = useMemo(() => {
     if (!currentWeek) return null;
@@ -193,13 +202,15 @@ export function WeeklyBudgetPerformanceCard({
     setError(null);
     setSaveSuccess(false);
     try {
+      const payload =
+        budgetMode === "custom"
+          ? { startDate: customStart, endDate: customEnd, budgets: budgetsToSave }
+          : { weekStart: currentWeek.weekStart, budgets: budgetsToSave };
+
       const res = await fetch("/api/crm/budgets", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          weekStart: currentWeek.weekStart,
-          budgets: budgetsToSave,
-        }),
+        body: JSON.stringify(payload),
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.success) {
@@ -209,7 +220,7 @@ export function WeeklyBudgetPerformanceCard({
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 2500);
     } catch (e: any) {
-      setError(e?.message || "Gagal menyimpan budget mingguan");
+      setError(e?.message || "Gagal menyimpan budget");
     } finally {
       setSaving(false);
     }
@@ -232,35 +243,82 @@ export function WeeklyBudgetPerformanceCard({
 
   return (
     <Card
-      title="Weekly Performance: Budget, Cost per Traffic, Qualified Leads & Sample"
-      subtitle="Evaluasi efisiensi biaya mingguan (Senin–Minggu WIB) per channel: Cost / Traffic = Budget ÷ Traffic · Cost / Qualified = Budget ÷ (Warm + Hot) · Cost / Sample = Budget ÷ Sample"
+      title="Budget & Cost Performance (Mingguan & Custom Range)"
+      subtitle="Pilih mode Mingguan atau atur Rentang Tanggal Sendiri untuk menghitung Cost / Traffic, Cost / Qualified (Warm+Hot), dan Cost / Sample"
       right={
         <div className="flex flex-wrap items-center gap-2">
-          {/* Pemilih Minggu */}
-          <div className="flex items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-[#F8F9FB] px-2.5 py-1">
-            <Calendar className="h-3.5 w-3.5 text-[#D98A00]" />
-            <select
-              aria-label="Pilih minggu evaluasi"
-              value={selectedWeekStart}
-              onChange={(e) => setSelectedWeekStart(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-slate-800 outline-none cursor-pointer"
+          {/* Toggle Mode: Mingguan vs Custom Range */}
+          <div className="flex items-center rounded-lg bg-slate-100 p-0.5 text-[11px] font-semibold">
+            <button
+              type="button"
+              onClick={() => setBudgetMode("weekly")}
+              className={`rounded-md px-2.5 py-1 transition ${
+                budgetMode === "weekly" ? "bg-white text-slate-900 shadow-xs" : "text-slate-600 hover:text-slate-900"
+              }`}
             >
-              {weeks.map((w) => (
-                <option key={w.weekStart} value={w.weekStart}>
-                  {w.label}
-                </option>
-              ))}
-            </select>
+              Per Minggu
+            </button>
+            <button
+              type="button"
+              onClick={() => setBudgetMode("custom")}
+              className={`rounded-md px-2.5 py-1 transition ${
+                budgetMode === "custom" ? "bg-[#D98A00] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Pilih Range Sendiri
+            </button>
           </div>
+
+          {budgetMode === "weekly" ? (
+            <div className="flex items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-[#F8F9FB] px-2.5 py-1">
+              <Calendar className="h-3.5 w-3.5 text-[#D98A00]" />
+              <select
+                aria-label="Pilih minggu evaluasi"
+                value={selectedWeekStart}
+                onChange={(e) => setSelectedWeekStart(e.target.value)}
+                className="bg-transparent text-xs font-semibold text-slate-800 outline-none cursor-pointer"
+              >
+                {weeks.map((w) => (
+                  <option key={w.weekStart} value={w.weekStart}>
+                    {w.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-[#F8F9FB] px-2 py-1">
+              <Calendar className="h-3.5 w-3.5 text-[#D98A00]" />
+              <input
+                type="date"
+                value={customStart}
+                onChange={(e) => setCustomStart(e.target.value)}
+                className="bg-transparent text-xs font-mono font-semibold text-slate-800 outline-none"
+                aria-label="Tanggal mulai budget"
+              />
+              <span className="text-[11px] text-slate-400">s/d</span>
+              <input
+                type="date"
+                value={customEnd}
+                onChange={(e) => setCustomEnd(e.target.value)}
+                className="bg-transparent text-xs font-mono font-semibold text-slate-800 outline-none"
+                aria-label="Tanggal akhir budget"
+              />
+            </div>
+          )}
 
           {currentWeek && onSelectWeek && (
             <button
               type="button"
-              onClick={() => onSelectWeek(currentWeek.weekStart, currentWeek.weekEnd)}
+              onClick={() =>
+                onSelectWeek(
+                  budgetMode === "custom" ? customStart : currentWeek.weekStart,
+                  budgetMode === "custom" ? customEnd : currentWeek.weekEnd
+                )
+              }
               className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-white px-2.5 text-[11px] font-semibold text-slate-700 hover:bg-slate-50 transition"
-              title="Terapkan rentang tanggal minggu ini ke seluruh filter Dashboard"
+              title="Terapkan rentang tanggal ini ke seluruh filter Dashboard"
             >
-              <span>Filter Minggu Ini</span>
+              <span>{budgetMode === "custom" ? "Filter Range Ini" : "Filter Minggu Ini"}</span>
             </button>
           )}
 

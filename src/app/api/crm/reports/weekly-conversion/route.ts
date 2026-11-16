@@ -3,6 +3,7 @@ import { getMonitorPool } from "@/lib/db";
 import { isAuthFailure, json, requireUser } from "@/lib/crm-auth";
 import { isAdminRole } from "@/lib/crm-stages";
 import { detectAdChannel, type AdChannel } from "@/lib/lead-monitor-stats";
+import { ensureDailyMetricsTable, type SourceOverviewRow } from "@/lib/crm-daily-metrics";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -169,37 +170,56 @@ export async function GET(req: NextRequest) {
 
   const pool = getMonitorPool();
   try {
+    await ensureDailyMetricsTable();
+
     // Ambil daftar sales aktif
     const bdRes = await pool.query(
       `SELECT name FROM busdevs WHERE is_active = TRUE ORDER BY id ASC`
     );
-    const busdevNames = bdRes.rows.map((r: any) => r.name);
+    const busdevNames: string[] = bdRes.rows.map((r: any) => r.name);
 
-    // Ambil semua leads pada rentang waktu ini
-    const leadsRes = await pool.query(
-      `
-      SELECT
-        l.id,
-        COALESCE(l.assigned_to, 'Unassigned') AS assigned_to,
-        l.source,
-        l.referrer,
-        l.page_url,
-        l.status,
-        l.confirmed_at,
-        l.requested_quantity_pcs,
-        l.production_tier_name,
-        l.tier,
-        to_char(l.created_at AT TIME ZONE 'Asia/Jakarta', 'YYYY-MM-DD') AS lead_date,
-        cls.stage AS crm_stage
-      FROM leads l
-      LEFT JOIN crm_lead_state cls ON cls.tracking_code = l.tracking_code
-      WHERE l.is_test IS NOT TRUE
-        AND l.created_at >= (($1::date)::timestamp AT TIME ZONE 'Asia/Jakarta')
-        AND l.created_at <  ((($2::date + 1))::timestamp AT TIME ZONE 'Asia/Jakarta')
-      ORDER BY l.created_at ASC
-      `,
-      [startDate, endDate]
-    );
+    // Ambil semua leads & input manual harian secara paralel
+    const [leadsRes, manualRes] = await Promise.all([
+      pool.query(
+        `
+        SELECT
+          l.id,
+          COALESCE(l.assigned_to, 'Unassigned') AS assigned_to,
+          l.source,
+          l.referrer,
+          l.page_url,
+          l.status,
+          l.confirmed_at,
+          l.requested_quantity_pcs,
+          l.production_tier_name,
+          l.tier,
+          to_char(l.created_at AT TIME ZONE 'Asia/Jakarta', 'YYYY-MM-DD') AS lead_date,
+          cls.stage AS crm_stage
+        FROM leads l
+        LEFT JOIN crm_lead_state cls ON cls.tracking_code = l.tracking_code
+        WHERE l.is_test IS NOT TRUE
+          AND l.created_at >= (($1::date)::timestamp AT TIME ZONE 'Asia/Jakarta')
+          AND l.created_at <  ((($2::date + 1))::timestamp AT TIME ZONE 'Asia/Jakarta')
+        ORDER BY l.created_at ASC
+        `,
+        [startDate, endDate]
+      ),
+      pool.query(
+        `
+        SELECT
+          to_char(metric_date, 'YYYY-MM-DD') AS metric_date,
+          busdev_name,
+          traffic,
+          cold,
+          warm,
+          hot,
+          sample
+        FROM crm_daily_busdev_metrics
+        WHERE metric_date >= $1::date AND metric_date <= $2::date
+        `,
+        [startDate, endDate]
+      ),
+    ]);
 
     const weekKeys = weekSlices.map((w) => w.key);
     const channelList: AdChannel[] = ["meta_ads", "google_ads", "google_organic", "social_media", "other"];
@@ -242,8 +262,21 @@ export async function GET(req: NextRequest) {
       return weekKeys[weekKeys.length - 1]; // fallback ke minggu terakhir
     };
 
+    // Hitung auto per (date, busdev) agar bisa di-override oleh input manual harian jika ada
+    const autoDaily: Record<string, Record<string, RawBlock>> = {};
+    const unassignedDaily: Record<string, RawBlock> = {};
+
+    const sourceAgg: Record<AdChannel, RawBlock> = {
+      meta_ads: createEmptyBlock(),
+      google_ads: createEmptyBlock(),
+      google_organic: createEmptyBlock(),
+      social_media: createEmptyBlock(),
+      other: createEmptyBlock(),
+    };
+
     for (const l of leadsRes.rows) {
-      const wk = findWeekKey(l.lead_date);
+      const d = l.lead_date as string;
+      const wk = findWeekKey(d);
       const ch = detectAdChannel(l);
       const assigned = busdevNames.find(
         (n) => n.toLowerCase() === (l.assigned_to || "").trim().toLowerCase()
@@ -269,6 +302,11 @@ export async function GET(req: NextRequest) {
 
       const isSample = rawStage === "sample" || rawStage === "deal";
 
+      // Source overview agg
+      sourceAgg[ch].traffic++;
+      if (isQualified) sourceAgg[ch].prospecting++;
+      if (isSample) sourceAgg[ch].sample++;
+
       const addLead = (targetWeekMap: WeekMap) => {
         targetWeekMap[wk].traffic++;
         targetWeekMap.total.traffic++;
@@ -282,18 +320,68 @@ export async function GET(req: NextRequest) {
         }
       };
 
-      // Tambahkan ke Blended (All Channel & Specific Channel)
-      addLead(store.blended.all);
-      if (store.blended[ch]) {
-        addLead(store.blended[ch]);
-      }
+      // Tambahkan ke specific channel (tetap dari tracking)
+      if (store.blended[ch]) addLead(store.blended[ch]);
+      if (assigned && store[assigned]?.[ch]) addLead(store[assigned][ch]);
 
-      // Tambahkan ke Sales bersangkutan
-      if (assigned && store[assigned]) {
-        addLead(store[assigned].all);
-        if (store[assigned][ch]) {
-          addLead(store[assigned][ch]);
-        }
+      // Kumpulkan per (date, busdev) untuk `all` (digabung dengan manual override)
+      if (assigned) {
+        if (!autoDaily[d]) autoDaily[d] = {};
+        if (!autoDaily[d][assigned]) autoDaily[d][assigned] = createEmptyBlock();
+        autoDaily[d][assigned].traffic++;
+        if (isQualified) autoDaily[d][assigned].prospecting++;
+        if (isSample) autoDaily[d][assigned].sample++;
+      } else {
+        if (!unassignedDaily[d]) unassignedDaily[d] = createEmptyBlock();
+        unassignedDaily[d].traffic++;
+        if (isQualified) unassignedDaily[d].prospecting++;
+        if (isSample) unassignedDaily[d].sample++;
+      }
+    }
+
+    // Pemetaan manual overrides: [date][busdev] -> RawBlock
+    const manualDaily: Record<string, Record<string, RawBlock>> = {};
+    for (const row of manualRes.rows) {
+      const d = row.metric_date as string;
+      const b = busdevNames.find((n) => n.toLowerCase() === String(row.busdev_name || "").toLowerCase());
+      if (!b) continue;
+      if (!manualDaily[d]) manualDaily[d] = {};
+      manualDaily[d][b] = {
+        traffic: Number(row.traffic) || 0,
+        prospecting: (Number(row.warm) || 0) + (Number(row.hot) || 0),
+        sample: Number(row.sample) || 0,
+      };
+    }
+
+    // Gabungkan semua tanggal (baik yang ada di autoDaily maupun manualDaily) ke store[busdev].all dan store.blended.all
+    const allDates = new Set([...Object.keys(autoDaily), ...Object.keys(manualDaily), ...Object.keys(unassignedDaily)]);
+    for (const d of allDates) {
+      const wk = findWeekKey(d);
+      for (const b of busdevNames) {
+        const eff = manualDaily[d]?.[b] ?? autoDaily[d]?.[b];
+        if (!eff) continue;
+        store[b].all[wk].traffic += eff.traffic;
+        store[b].all[wk].prospecting += eff.prospecting;
+        store[b].all[wk].sample += eff.sample;
+        store[b].all.total.traffic += eff.traffic;
+        store[b].all.total.prospecting += eff.prospecting;
+        store[b].all.total.sample += eff.sample;
+
+        store.blended.all[wk].traffic += eff.traffic;
+        store.blended.all[wk].prospecting += eff.prospecting;
+        store.blended.all[wk].sample += eff.sample;
+        store.blended.all.total.traffic += eff.traffic;
+        store.blended.all.total.prospecting += eff.prospecting;
+        store.blended.all.total.sample += eff.sample;
+      }
+      const un = unassignedDaily[d];
+      if (un) {
+        store.blended.all[wk].traffic += un.traffic;
+        store.blended.all[wk].prospecting += un.prospecting;
+        store.blended.all[wk].sample += un.sample;
+        store.blended.all.total.traffic += un.traffic;
+        store.blended.all.total.prospecting += un.prospecting;
+        store.blended.all.total.sample += un.sample;
       }
     }
 
@@ -338,6 +426,36 @@ export async function GET(req: NextRequest) {
           conversion: userBusdevData?.conversion || ({} as any),
         };
 
+    const CHANNEL_LABELS: Record<AdChannel, string> = {
+      meta_ads: "Meta Ads",
+      google_ads: "Google Ads",
+      google_organic: "Google Organik (SEO)",
+      social_media: "Media Sosial (IG / TikTok)",
+      other: "Lainnya / Direct",
+    };
+
+    let maxProspecting = 0;
+    for (const ch of channelList) {
+      if (sourceAgg[ch].prospecting > maxProspecting) maxProspecting = sourceAgg[ch].prospecting;
+    }
+    const sourceOverview: SourceOverviewRow[] = isAdmin
+      ? channelList.map((ch) => {
+          const agg = sourceAgg[ch];
+          const prospectingPct = agg.traffic > 0 ? Math.round((agg.prospecting / agg.traffic) * 100) : 0;
+          const samplePct = agg.prospecting > 0 ? Math.round((agg.sample / agg.prospecting) * 100) : 0;
+          return {
+            channel: ch,
+            label: CHANNEL_LABELS[ch],
+            traffic: agg.traffic,
+            prospecting: agg.prospecting,
+            prospectingPct,
+            sample: agg.sample,
+            samplePct,
+            isTopScaleUp: maxProspecting > 0 && agg.prospecting === maxProspecting,
+          };
+        })
+      : [];
+
     return json({
       success: true,
       period: {
@@ -350,6 +468,7 @@ export async function GET(req: NextRequest) {
       busdevNames: targetBusdevs,
       blended: blendedData,
       byBusdev: resultByBusdev,
+      sourceOverview,
     });
   } catch (err: any) {
     console.error("[api/crm/reports/weekly-conversion] Error:", err);

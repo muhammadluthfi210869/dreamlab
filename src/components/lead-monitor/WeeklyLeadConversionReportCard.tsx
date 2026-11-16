@@ -41,6 +41,17 @@ interface BusdevWeeklyData {
   conversion: Record<string, ConversionMetrics>;
 }
 
+interface SourceOverviewRow {
+  channel: string;
+  label: string;
+  traffic: number;
+  prospecting: number;
+  prospectingPct: number;
+  sample: number;
+  samplePct: number;
+  isTopScaleUp: boolean;
+}
+
 interface ApiResponse {
   success: boolean;
   period: {
@@ -56,6 +67,7 @@ interface ApiResponse {
     conversion: Record<string, ConversionMetrics>;
   };
   byBusdev: BusdevWeeklyData[];
+  sourceOverview?: SourceOverviewRow[];
 }
 
 const CHANNEL_OPTIONS = [
@@ -91,7 +103,7 @@ export function WeeklyLeadConversionReportCard({
     return initialBusdev || "blended";
   });
   const [selectedChannel, setSelectedChannel] = useState<string>("all");
-  const [viewMode, setViewMode] = useState<"standard" | "matrix">("standard");
+  const [viewMode, setViewMode] = useState<"standard" | "matrix" | "daily">("standard");
 
   const loadReport = useCallback(async () => {
     setLoading(true);
@@ -230,9 +242,9 @@ export function WeeklyLeadConversionReportCard({
               </button>
             </div>
 
-            {/* Pilihan Tampilan: Standar vs Matriks (Khusus Admin) */}
+            {/* Pilihan Tampilan: Standar vs Matriks vs Input Harian Manual (Khusus Admin) */}
             {isAdmin && (
-              <div className="flex items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
+              <div className="flex flex-wrap items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
                 <button
                   type="button"
                   onClick={() => setViewMode("standard")}
@@ -254,6 +266,17 @@ export function WeeklyLeadConversionReportCard({
                   }`}
                 >
                   Matriks Semua Tim
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("daily")}
+                  className={`rounded-lg px-2.5 py-1 transition ${
+                    viewMode === "daily"
+                      ? "bg-[#D98A00] text-white shadow-xs font-bold"
+                      : "text-slate-700 hover:text-slate-900"
+                  }`}
+                >
+                  Input Harian Manual (Edit)
                 </button>
               </div>
             )}
@@ -323,6 +346,80 @@ export function WeeklyLeadConversionReportCard({
             </div>
           </div>
         </div>
+
+        {/* OVERVIEW SUMBER PROSPECT LEADS (UNTUK REKOMENDASI SCALE-UP BUDGET) */}
+        {isAdmin && data?.sourceOverview && data.sourceOverview.length > 0 && (
+          <div className="rounded-xl border border-[#ECEAE4] bg-white p-3.5">
+            <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-[#D98A00]" />
+                <span className="text-xs font-bold text-slate-900">
+                  Sumber Prospect Leads Terbanyak (Panduan Scale-Up Budget)
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-500">
+                Klik kartu channel untuk memfilter tabel di bawah
+              </span>
+            </div>
+            <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-5">
+              {data.sourceOverview.map((src) => {
+                const isSelected = selectedChannel === src.channel;
+                return (
+                  <button
+                    key={src.channel}
+                    type="button"
+                    onClick={() =>
+                      setSelectedChannel((prev) => (prev === src.channel ? "all" : src.channel))
+                    }
+                    className={`relative text-left rounded-xl border p-3 transition ${
+                      isSelected
+                        ? "border-[#D98A00] bg-[#FFFDF7] ring-2 ring-[#D98A00]/20"
+                        : src.isTopScaleUp
+                        ? "border-emerald-300 bg-emerald-50/40 hover:bg-emerald-50/70"
+                        : "border-[#ECEAE4] bg-[#FAFAF8] hover:bg-slate-50"
+                    }`}
+                  >
+                    {src.isTopScaleUp && (
+                      <span className="mb-1.5 inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                        Rekomendasi Scale-Up
+                      </span>
+                    )}
+                    <div className="text-xs font-bold text-slate-900 truncate">{src.label}</div>
+                    <div className="mt-2 grid grid-cols-3 gap-1 text-[10px]">
+                      <div>
+                        <div className="text-slate-400">Traffic</div>
+                        <div className="font-mono font-bold text-slate-800">{src.traffic}</div>
+                      </div>
+                      <div>
+                        <div className="text-slate-400">Prospect</div>
+                        <div className="font-mono font-bold text-[#9A6200]">
+                          {src.prospecting} <span className="text-[9px] text-slate-500">({src.prospectingPct}%)</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-slate-400">Sample</div>
+                        <div className="font-mono font-bold text-emerald-700">
+                          {src.sample}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* TAMPILAN 3: Input Harian Manual & Cross-Check (Admin) */}
+        {isAdmin && viewMode === "daily" && (
+          <DailyManualMetricsSection
+            month={month}
+            isCustomDate={isCustomDate}
+            customStart={customStart}
+            customEnd={customEnd}
+            onSaved={() => loadReport()}
+          />
+        )}
 
         {/* TAMPILAN 1: Tabel Standar Week 1, Week 2, Week 3, Week 4, Total */}
         {viewMode === "standard" && (
@@ -648,6 +745,339 @@ function MetricCellTriplet({
         {target.toLocaleString("id-ID")}
       </td>
     </>
+  );
+}
+
+interface DailyCounts {
+  traffic: number;
+  cold: number;
+  warm: number;
+  hot: number;
+  sample: number;
+}
+
+interface DailyEntry {
+  auto: DailyCounts;
+  manual: (DailyCounts & { updatedBy: string | null; updatedAt: string }) | null;
+  effective: DailyCounts;
+}
+
+interface DailyRow {
+  date: string;
+  byBusdev: Record<string, DailyEntry>;
+}
+
+function DailyManualMetricsSection({
+  month,
+  isCustomDate,
+  customStart,
+  customEnd,
+  onSaved,
+}: {
+  month: string;
+  isCustomDate: boolean;
+  customStart: string;
+  customEnd: string;
+  onSaved: () => void;
+}) {
+  const [rows, setRows] = useState<DailyRow[]>([]);
+  const [busdevNames, setBusdevNames] = useState<string[]>([]);
+  const [selectedBusdev, setSelectedBusdev] = useState<string>("");
+  const [drafts, setDrafts] = useState<Record<string, DailyCounts>>({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+
+  const loadDaily = useCallback(async () => {
+    setLoading(true);
+    setErr(null);
+    try {
+      const qs = new URLSearchParams();
+      if (isCustomDate) {
+        qs.set("startDate", customStart);
+        qs.set("endDate", customEnd);
+      } else {
+        qs.set("month", month);
+      }
+      const res = await fetch(`/api/crm/reports/daily-metrics?${qs.toString()}`, { cache: "no-store" });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || `Gagal memuat data harian (${res.status})`);
+      }
+      const loadedRows: DailyRow[] = json.days || [];
+      const names: string[] = json.busdevNames || [];
+      setRows(loadedRows);
+      setBusdevNames(names);
+      setSelectedBusdev((prev) => (prev && names.includes(prev) ? prev : names[0] || ""));
+
+      const nextDrafts: Record<string, DailyCounts> = {};
+      for (const r of loadedRows) {
+        for (const b of names) {
+          const eff = r.byBusdev[b]?.effective ?? { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 };
+          nextDrafts[`${r.date}__${b}`] = { ...eff };
+        }
+      }
+      setDrafts(nextDrafts);
+    } catch (e: any) {
+      setErr(e?.message || "Gagal memuat data harian");
+    } finally {
+      setLoading(false);
+    }
+  }, [month, isCustomDate, customStart, customEnd]);
+
+  useEffect(() => {
+    loadDaily();
+  }, [loadDaily]);
+
+  const [dirtyKeys, setDirtyKeys] = useState<Record<string, boolean>>({});
+
+  const updateCell = (date: string, busdev: string, field: keyof DailyCounts, val: string) => {
+    const num = Math.max(0, parseInt(val.replace(/[^0-9]/g, "") || "0", 10) || 0);
+    const key = `${date}__${busdev}`;
+    setDrafts((prev) => ({
+      ...prev,
+      [key]: {
+        ...(prev[key] || { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 }),
+        [field]: num,
+      },
+    }));
+    setDirtyKeys((prev) => ({ ...prev, [key]: true }));
+  };
+
+  const handleSaveAll = async () => {
+    const keysToSave = Object.keys(dirtyKeys).filter((k) => dirtyKeys[k]);
+    if (keysToSave.length === 0) {
+      setMsg("Tidak ada perubahan untuk disimpan.");
+      setTimeout(() => setMsg(null), 2500);
+      return;
+    }
+    setSaving(true);
+    setErr(null);
+    setMsg(null);
+    try {
+      const entries = keysToSave.map((k) => {
+        const [date, busdev] = k.split("__");
+        const d = drafts[k] || { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 };
+        return { date, busdev, ...d };
+      });
+      const res = await fetch("/api/crm/reports/daily-metrics", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ entries }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || `Gagal menyimpan (${res.status})`);
+      }
+      setDirtyKeys({});
+      setMsg(`Tersimpan ${entries.length} baris harian. Laporan Week 1–4 telah dihitung ulang.`);
+      await loadDaily();
+      onSaved();
+      setTimeout(() => setMsg(null), 4000);
+    } catch (e: any) {
+      setErr(e?.message || "Gagal menyimpan data harian");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleResetRow = async (date: string, busdev: string) => {
+    setSaving(true);
+    setErr(null);
+    try {
+      const res = await fetch("/api/crm/reports/daily-metrics", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset", date, busdev }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.error || "Gagal reset");
+      setDirtyKeys((prev) => {
+        const next = { ...prev };
+        delete next[`${date}__${busdev}`];
+        return next;
+      });
+      await loadDaily();
+      onSaved();
+    } catch (e: any) {
+      setErr(e?.message || "Gagal reset ke Auto");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const activeSales = selectedBusdev || busdevNames[0] || "";
+  const totals = useMemo(() => {
+    const t = { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 };
+    if (!activeSales) return t;
+    for (const r of rows) {
+      const d = drafts[`${r.date}__${activeSales}`];
+      if (d) {
+        t.traffic += d.traffic;
+        t.cold += d.cold;
+        t.warm += d.warm;
+        t.hot += d.hot;
+        t.sample += d.sample;
+      }
+    }
+    return t;
+  }, [rows, drafts, activeSales]);
+
+  const dirtyCount = Object.values(dirtyKeys).filter(Boolean).length;
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-200 bg-amber-50/70 p-3 text-xs">
+        <div>
+          <div className="font-bold text-amber-950">
+            Input Harian Manual & Cross-Check (Buku Tamu & Pipeline)
+          </div>
+          <div className="text-[11px] text-amber-900">
+            Jika data otomatis belum 100% sesuai (ada lead offline/DM/miss), Admin bisa langsung edit angka harian tiap BusDev di sini. Angka <b>Week 1–4</b> otomatis mengikuti data yang disimpan.
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center rounded-lg bg-white p-0.5 border border-amber-200">
+            {busdevNames.map((name) => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => setSelectedBusdev(name)}
+                className={`rounded-md px-3 py-1 text-xs font-semibold transition ${
+                  activeSales === name
+                    ? "bg-[#D98A00] text-white"
+                    : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={handleSaveAll}
+            disabled={saving || dirtyCount === 0}
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-slate-900 px-3 text-xs font-bold text-white hover:bg-slate-800 disabled:opacity-40 transition"
+          >
+            <Check className="h-3.5 w-3.5" />
+            <span>{saving ? "Menyimpan..." : `Simpan Perubahan${dirtyCount > 0 ? ` (${dirtyCount})` : ""}`}</span>
+          </button>
+        </div>
+      </div>
+
+      {err && (
+        <div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800">
+          {err}
+        </div>
+      )}
+      {msg && (
+        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-800">
+          {msg}
+        </div>
+      )}
+
+      <div className="overflow-x-auto rounded-xl border border-[#D5D9E2]">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-b border-[#D5D9E2] bg-[#F8F9FB] text-[11px] font-bold text-slate-700">
+              <th className="px-3 py-2.5 text-left">Tanggal</th>
+              <th className="px-2 py-2.5 text-center">Traffic</th>
+              <th className="px-2 py-2.5 text-center">Cold</th>
+              <th className="px-2 py-2.5 text-center">Warm</th>
+              <th className="px-2 py-2.5 text-center">Hot</th>
+              <th className="px-2 py-2.5 text-center bg-emerald-50 text-emerald-900">Sample</th>
+              <th className="px-3 py-2.5 text-center">Status / Aksi</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#ECEAE4]">
+            {loading ? (
+              <tr>
+                <td colSpan={7} className="py-8 text-center text-slate-400">
+                  Memuat data harian...
+                </td>
+              </tr>
+            ) : (
+              rows.map((r) => {
+                const entry = r.byBusdev[activeSales];
+                if (!entry) return null;
+                const key = `${r.date}__${activeSales}`;
+                const d = drafts[key] || entry.effective;
+                const isManual = !!entry.manual;
+                const isDirty = !!dirtyKeys[key];
+
+                const fields: (keyof DailyCounts)[] = ["traffic", "cold", "warm", "hot", "sample"];
+
+                return (
+                  <tr
+                    key={r.date}
+                    className={`transition-colors ${
+                      isDirty
+                        ? "bg-amber-50/70"
+                        : isManual
+                        ? "bg-sky-50/30"
+                        : "hover:bg-slate-50/70"
+                    }`}
+                  >
+                    <td className="px-3 py-2 font-mono text-[11px] font-semibold text-slate-800 whitespace-nowrap">
+                      {r.date}
+                    </td>
+                    {fields.map((fld) => (
+                      <td key={fld} className={`px-2 py-1.5 text-center ${fld === "sample" ? "bg-emerald-50/30" : ""}`}>
+                        <input
+                          type="number"
+                          min={0}
+                          value={d[fld]}
+                          onChange={(e) => updateCell(r.date, activeSales, fld, e.target.value)}
+                          className="h-7 w-16 rounded border border-[#D5D9E2] bg-white px-1.5 text-center font-mono text-xs font-bold text-slate-900 focus:border-[#D98A00] focus:outline-none"
+                        />
+                        <div className="mt-0.5 font-mono text-[9px] text-slate-400">
+                          Auto: {entry.auto[fld]}
+                        </div>
+                      </td>
+                    ))}
+                    <td className="px-3 py-1.5 text-center whitespace-nowrap">
+                      {isManual ? (
+                        <div className="flex items-center justify-center gap-1.5">
+                          <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-900">
+                            Manual
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleResetRow(r.date, activeSales)}
+                            className="text-[10px] text-slate-500 underline hover:text-slate-800"
+                            title="Hapus input manual dan gunakan hitungan otomatis sistem"
+                          >
+                            Reset Auto
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-500">
+                          Auto (Sistem)
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+          <tfoot>
+            <tr className="border-t-2 border-[#D5D9E2] bg-[#FFFDF7] font-mono text-xs font-bold text-slate-900">
+              <td className="px-3 py-2.5 font-sans">TOTAL ({activeSales})</td>
+              <td className="px-2 py-2.5 text-center">{totals.traffic.toLocaleString("id-ID")}</td>
+              <td className="px-2 py-2.5 text-center">{totals.cold.toLocaleString("id-ID")}</td>
+              <td className="px-2 py-2.5 text-center">{totals.warm.toLocaleString("id-ID")}</td>
+              <td className="px-2 py-2.5 text-center">{totals.hot.toLocaleString("id-ID")}</td>
+              <td className="px-2 py-2.5 text-center text-emerald-700">{totals.sample.toLocaleString("id-ID")}</td>
+              <td className="px-3 py-2.5 text-center font-sans text-[10px] text-slate-500">
+                Prospecting: {(totals.warm + totals.hot).toLocaleString("id-ID")}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
   );
 }
 

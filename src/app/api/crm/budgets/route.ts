@@ -59,6 +59,17 @@ async function ensureBudgetTable() {
       PRIMARY KEY (week_start, channel)
     )
   `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS crm_range_budgets (
+      start_date  DATE NOT NULL,
+      end_date    DATE NOT NULL,
+      channel     TEXT NOT NULL CHECK (channel IN ('meta_ads', 'google_ads', 'google_organic', 'social_media')),
+      budget_idr  BIGINT NOT NULL DEFAULT 0 CHECK (budget_idr >= 0),
+      updated_by  TEXT,
+      updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (start_date, end_date, channel)
+    )
+  `);
   tableEnsured = true;
 }
 
@@ -137,6 +148,9 @@ export async function GET(req: NextRequest) {
   const weeksCount = Math.min(16, Math.max(4, parseInt(sp.get('weeks') || '8', 10) || 8));
   const requestedBusdev = (sp.get('busdev') || 'all').trim();
   const effectiveBusdev = requestedBusdev;
+  const rawCustomStart = (sp.get('startDate') || '').trim();
+  const rawCustomEnd = (sp.get('endDate') || '').trim();
+  const hasCustomRange = DATE_RE.test(rawCustomStart) && DATE_RE.test(rawCustomEnd) && rawCustomStart <= rawCustomEnd;
 
   try {
     await ensureBudgetTable();
@@ -157,8 +171,10 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const earliestDate = weekRanges[weekRanges.length - 1].weekStart;
-    const latestDate = weekRanges[0].weekEnd;
+    const earliestWeekDate = weekRanges[weekRanges.length - 1].weekStart;
+    const latestWeekDate = weekRanges[0].weekEnd;
+    const earliestDate = hasCustomRange && rawCustomStart < earliestWeekDate ? rawCustomStart : earliestWeekDate;
+    const latestDate = hasCustomRange && rawCustomEnd > latestWeekDate ? rawCustomEnd : latestWeekDate;
 
     const cols = await getLeadColumns(pool);
     const formExpr = cols.has('inquiry_reference')
@@ -167,7 +183,7 @@ export async function GET(req: NextRequest) {
     const ownerFilterSql = isAdmin ? '' : `AND lower(COALESCE(assigned_to, '')) = lower($3)`;
     const sqlParams = isAdmin ? [earliestDate, latestDate] : [earliestDate, latestDate, user.name];
 
-    const [leadsRes, bdsRes, budgetsRes] = await Promise.all([
+    const [leadsRes, bdsRes, budgetsRes, rangeBudgetsRes] = await Promise.all([
       pool.query(
         `SELECT id, tracking_code, assigned_to, source, left(page_url, 200) AS page_url, left(referrer, 300) AS referrer, status,
                 nama, hp, wa_profile_name, wa_phone, produk,
@@ -190,6 +206,14 @@ export async function GET(req: NextRequest) {
           WHERE week_start >= $1::date AND week_start <= $2::date`,
         [earliestDate, latestDate]
       ),
+      hasCustomRange
+        ? pool.query(
+            `SELECT channel, budget_idr
+               FROM crm_range_budgets
+              WHERE start_date = $1::date AND end_date = $2::date`,
+            [rawCustomStart, rawCustomEnd]
+          )
+        : Promise.resolve({ rows: [] }),
     ]);
 
     const busdevNames = bdsRes.rows.map((r: any) => r.name as string);
@@ -256,10 +280,51 @@ export async function GET(req: NextRequest) {
       };
     });
 
+    let customRange: WeeklyChannelPerformance | null = null;
+    if (hasCustomRange) {
+      const customLeads = merged.filter((l) => {
+        const createdWib = wibDateStr(new Date(l.created_at).getTime());
+        return createdWib >= rawCustomStart && createdWib <= rawCustomEnd;
+      });
+      const customFunnel = computeBusdevChannelFunnels(customLeads, busdevNames);
+      const cb: Record<BudgetChannelKey, number> = {
+        meta_ads: 0,
+        google_ads: 0,
+        google_organic: 0,
+        social_media: 0,
+      };
+      for (const r of rangeBudgetsRes.rows) {
+        const ch = r.channel as BudgetChannelKey;
+        if (BUDGET_CHANNELS.includes(ch)) cb[ch] = Number(r.budget_idr || 0);
+      }
+      const chMetrics: Record<BudgetChannelKey, ChannelCostMetrics> = {
+        meta_ads: buildCostMetrics('meta_ads', cb.meta_ads, customFunnel.summary.meta_ads),
+        google_ads: buildCostMetrics('google_ads', cb.google_ads, customFunnel.summary.google_ads),
+        google_organic: buildCostMetrics('google_organic', cb.google_organic, customFunnel.summary.google_organic),
+        social_media: buildCostMetrics('social_media', cb.social_media, customFunnel.summary.social_media),
+      };
+      const totalBudget = cb.meta_ads + cb.google_ads + cb.google_organic + cb.social_media;
+      const totalFunnel = {
+        traffic: BUDGET_CHANNELS.reduce((acc, k) => acc + chMetrics[k].traffic, 0),
+        cold: BUDGET_CHANNELS.reduce((acc, k) => acc + chMetrics[k].cold, 0),
+        warm: BUDGET_CHANNELS.reduce((acc, k) => acc + chMetrics[k].warm, 0),
+        hot: BUDGET_CHANNELS.reduce((acc, k) => acc + chMetrics[k].hot, 0),
+        sample: BUDGET_CHANNELS.reduce((acc, k) => acc + chMetrics[k].sample, 0),
+      };
+      customRange = {
+        weekStart: rawCustomStart,
+        weekEnd: rawCustomEnd,
+        label: `Custom Range (${formatWeekLabel(rawCustomStart, rawCustomEnd)})`,
+        channels: chMetrics,
+        total: buildCostMetrics('total', totalBudget, totalFunnel),
+      };
+    }
+
     return json({
       success: true,
       currentWeekStart: currentMonday,
       weeks,
+      customRange,
     });
   } catch (e: any) {
     console.error('[crm/budgets] GET error:', e?.message);
@@ -270,7 +335,7 @@ export async function GET(req: NextRequest) {
 
 /**
  * PUT /api/crm/budgets
- * Body: { weekStart: 'YYYY-MM-DD', budgets: { meta_ads?: number, google_ads?: number, google_organic?: number, social_media?: number } }
+ * Body: { weekStart?: 'YYYY-MM-DD', startDate?: 'YYYY-MM-DD', endDate?: 'YYYY-MM-DD', budgets: { ... } }
  */
 export async function PUT(req: NextRequest) {
   const auth = await requireUser(req, { write: true });
@@ -282,11 +347,15 @@ export async function PUT(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => null);
+  const rawStart = typeof body?.startDate === 'string' ? body.startDate.trim() : '';
+  const rawEnd = typeof body?.endDate === 'string' ? body.endDate.trim() : '';
+  const isCustomRange = DATE_RE.test(rawStart) && DATE_RE.test(rawEnd) && rawStart <= rawEnd;
+
   const rawWeek = typeof body?.weekStart === 'string' ? body.weekStart.trim() : '';
-  if (!DATE_RE.test(rawWeek)) {
-    return json({ success: false, error: 'Format tanggal minggu (weekStart) tidak valid' }, 400);
+  if (!isCustomRange && !DATE_RE.test(rawWeek)) {
+    return json({ success: false, error: 'Format tanggal minggu atau rentang tanggal tidak valid' }, 400);
   }
-  const weekStart = getMondayOf(rawWeek);
+  const weekStart = isCustomRange ? rawStart : getMondayOf(rawWeek);
   const budgetsIn = body?.budgets;
   if (!budgetsIn || typeof budgetsIn !== 'object') {
     return json({ success: false, error: 'Data budgets wajib diisi' }, 400);
@@ -304,22 +373,34 @@ export async function PUT(req: NextRequest) {
             ? Math.max(0, Math.round(rawVal))
             : Math.max(0, parseInt(String(rawVal || '0').replace(/[^\d]/g, ''), 10) || 0);
 
-        await pool.query(
-          `INSERT INTO crm_weekly_budgets (week_start, channel, budget_idr, updated_by, updated_at)
-           VALUES ($1::date, $2, $3, $4, NOW())
-           ON CONFLICT (week_start, channel) DO UPDATE SET
-             budget_idr = EXCLUDED.budget_idr,
-             updated_by = EXCLUDED.updated_by,
-             updated_at = NOW()`,
-          [weekStart, ch, cleanNum, user.name]
-        );
+        if (isCustomRange) {
+          await pool.query(
+            `INSERT INTO crm_range_budgets (start_date, end_date, channel, budget_idr, updated_by, updated_at)
+             VALUES ($1::date, $2::date, $3, $4, $5, NOW())
+             ON CONFLICT (start_date, end_date, channel) DO UPDATE SET
+               budget_idr = EXCLUDED.budget_idr,
+               updated_by = EXCLUDED.updated_by,
+               updated_at = NOW()`,
+            [rawStart, rawEnd, ch, cleanNum, user.name]
+          );
+        } else {
+          await pool.query(
+            `INSERT INTO crm_weekly_budgets (week_start, channel, budget_idr, updated_by, updated_at)
+             VALUES ($1::date, $2, $3, $4, NOW())
+             ON CONFLICT (week_start, channel) DO UPDATE SET
+               budget_idr = EXCLUDED.budget_idr,
+               updated_by = EXCLUDED.updated_by,
+               updated_at = NOW()`,
+            [weekStart, ch, cleanNum, user.name]
+          );
+        }
       }
     }
 
-    return json({ success: true, weekStart });
+    return json({ success: true, weekStart, isCustomRange });
   } catch (e: any) {
     console.error('[crm/budgets] PUT error:', e?.message);
-    return json({ success: false, error: 'Gagal menyimpan budget mingguan' }, 500);
+    return json({ success: false, error: 'Gagal menyimpan budget' }, 500);
   }
 }
 
