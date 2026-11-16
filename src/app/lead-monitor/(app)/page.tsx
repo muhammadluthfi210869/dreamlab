@@ -211,8 +211,8 @@ export default function DashboardPage() {
           onSelectTotal={() => f.applyPreset("since")}
         />
 
-        {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak */}
-        {data?.moqOverview && (
+        {/* Overview Sebaran MOQ & Sumber Traffic Terbanyak (Khusus Head / Admin) */}
+        {isAdmin && data?.moqOverview && (
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ECEAE4] pb-2">
               <div>
@@ -430,8 +430,8 @@ export default function DashboardPage() {
           onSelectDateRange={(start, end) => f.setRange(start, end)}
         />
 
-        {/* Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial */}
-        {data?.channelFunnels && (
+        {/* Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial (Khusus Head / Admin) */}
+        {isAdmin && data?.channelFunnels && (
           <Card
             title="Funnel per BusDev: Meta Ads, Google Ads, Google Organik & Media Sosial"
             subtitle="Pantau alur konversi setiap BusDev dari Traffic iklan & organik >> Lolos MOQ (>= 500 pcs) >> Masuk tahap Sample"
@@ -528,64 +528,69 @@ export default function DashboardPage() {
           </Card>
         )}
 
-        {/* Tren + batang per sales */}
-        <div className="grid gap-4 lg:grid-cols-3">
-          <Card
-            title="Tren Lead per Hari"
-            subtitle={data ? `${data.period.days} hari · ${data.kpi.current.totalClicks.toLocaleString("id-ID")} klik · ${data.kpi.current.chat.toLocaleString("id-ID")} chat` : undefined}
-            className="lg:col-span-2"
-          >
-            {data ? <TrendChart data={data.daily} hourly={data.hourlyClicks} /> : <div className="h-[280px]" />}
-          </Card>
-          <Card
-            title="Chat Masuk per BusDev"
-            subtitle="Klik batang untuk memfilter semua data"
-            right={
-              data ? (
-                <div className="flex items-center gap-1.5">
-                  {data.rrMode && (
-                    <span title="Cara sistem membagi klik baru ke sales">
-                      <Pill tone="brand">{RR_LABEL[data.rrMode] ?? data.rrMode}</Pill>
-                    </span>
-                  )}
-                  <FairnessPill fairness={data.fairness} />
-                </div>
-              ) : undefined
-            }
-          >
-            {data ? (
-              <>
-                <BusdevBars rows={data.busdevs} selected={f.busdev} onSelect={(n) => f.setBusdev(n)} />
-                {data.inactiveBusdevs.names.length > 0 && (
-                  <p className="mt-3 border-t border-[#F1EFEA] pt-3 text-[11px] leading-relaxed text-slate-400">
-                    Tidak ditampilkan: {data.inactiveBusdevs.names.join(", ")} (nonaktif) · {data.inactiveBusdevs.chat} chat dan {data.inactiveBusdevs.clicks} klik pada periode ini tetap masuk total kartu.
-                  </p>
+        {/* Grafik Tren, Sumber & Kampanye, Halaman Tujuan, Jam Chat Masuk (Khusus Head / Admin) */}
+        {isAdmin && (
+          <>
+            {/* Tren + batang per sales */}
+            <div className="grid gap-4 lg:grid-cols-3">
+              <Card
+                title="Tren Lead per Hari"
+                subtitle={data ? `${data.period.days} hari · ${data.kpi.current.totalClicks.toLocaleString("id-ID")} klik · ${data.kpi.current.chat.toLocaleString("id-ID")} chat` : undefined}
+                className="lg:col-span-2"
+              >
+                {data ? <TrendChart data={data.daily} hourly={data.hourlyClicks} /> : <div className="h-[280px]" />}
+              </Card>
+              <Card
+                title="Chat Masuk per BusDev"
+                subtitle="Klik batang untuk memfilter semua data"
+                right={
+                  data ? (
+                    <div className="flex items-center gap-1.5">
+                      {data.rrMode && (
+                        <span title="Cara sistem membagi klik baru ke sales">
+                          <Pill tone="brand">{RR_LABEL[data.rrMode] ?? data.rrMode}</Pill>
+                        </span>
+                      )}
+                      <FairnessPill fairness={data.fairness} />
+                    </div>
+                  ) : undefined
+                }
+              >
+                {data ? (
+                  <>
+                    <BusdevBars rows={data.busdevs} selected={f.busdev} onSelect={(n) => f.setBusdev(n)} />
+                    {data.inactiveBusdevs.names.length > 0 && (
+                      <p className="mt-3 border-t border-[#F1EFEA] pt-3 text-[11px] leading-relaxed text-slate-400">
+                        Tidak ditampilkan: {data.inactiveBusdevs.names.join(", ")} (nonaktif) · {data.inactiveBusdevs.chat} chat dan {data.inactiveBusdevs.clicks} klik pada periode ini tetap masuk total kartu.
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <div className="h-[280px]" />
                 )}
-              </>
-            ) : (
-              <div className="h-[280px]" />
-            )}
-          </Card>
-        </div>
+              </Card>
+            </div>
 
-        {/* Sumber / halaman / jam */}
-        <div className="grid gap-4 lg:grid-cols-3">
-          <Card title="Sumber & Kampanye" subtitle="Asal klik teratas">
-            <HBarList rows={data?.sources ?? []} empty="Belum ada data sumber." />
-          </Card>
-          <Card title="Halaman Tujuan" subtitle="Landing page teratas">
-            <HBarList rows={data?.pages ?? []} empty="Belum ada data halaman." />
-          </Card>
-          <Card title="Jam Chat Masuk" subtitle="Sebaran per jam (WIB)">
-            <HourChart data={data?.hourly ?? []} />
-          </Card>
-        </div>
+            {/* Sumber / halaman / jam */}
+            <div className="grid gap-4 lg:grid-cols-3">
+              <Card title="Sumber & Kampanye" subtitle="Asal klik teratas">
+                <HBarList rows={data?.sources ?? []} empty="Belum ada data sumber." />
+              </Card>
+              <Card title="Halaman Tujuan" subtitle="Landing page teratas">
+                <HBarList rows={data?.pages ?? []} empty="Belum ada data halaman." />
+              </Card>
+              <Card title="Jam Chat Masuk" subtitle="Sebaran per jam (WIB)">
+                <HourChart data={data?.hourly ?? []} />
+              </Card>
+            </div>
 
-        {/* Top leads + halaman asal */}
-        <div className="grid gap-4 lg:grid-cols-2">
-          <TopLeadsCard rows={data?.topLeads ?? []} />
-          <ReferrerCard rows={data?.referrers ?? []} />
-        </div>
+            {/* Top leads + halaman asal */}
+            <div className="grid gap-4 lg:grid-cols-2">
+              <TopLeadsCard rows={data?.topLeads ?? []} />
+              <ReferrerCard rows={data?.referrers ?? []} />
+            </div>
+          </>
+        )}
 
         {loading && !data && <p className="text-center text-xs text-slate-400">Memuat data...</p>}
       </main>

@@ -456,6 +456,13 @@ export async function GET(req: NextRequest) {
         })
       : [];
 
+    const chSrc = isAdmin ? blendedChannelsRes : (userBusdevData?.channels || {});
+    const simpleSourceOverview = {
+      google: (chSrc.google_ads?.total?.traffic || 0) + (chSrc.google_organic?.total?.traffic || 0),
+      meta: chSrc.meta_ads?.total?.traffic || 0,
+      other: (chSrc.social_media?.total?.traffic || 0) + (chSrc.other?.total?.traffic || 0),
+    };
+
     return json({
       success: true,
       period: {
@@ -469,6 +476,7 @@ export async function GET(req: NextRequest) {
       blended: blendedData,
       byBusdev: resultByBusdev,
       sourceOverview,
+      simpleSourceOverview,
     });
   } catch (err: any) {
     console.error("[api/crm/reports/weekly-conversion] Error:", err);

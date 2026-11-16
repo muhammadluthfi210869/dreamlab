@@ -68,6 +68,7 @@ interface ApiResponse {
   };
   byBusdev: BusdevWeeklyData[];
   sourceOverview?: SourceOverviewRow[];
+  simpleSourceOverview?: { google: number; meta: number; other: number };
 }
 
 const CHANNEL_OPTIONS = [
@@ -242,20 +243,20 @@ export function WeeklyLeadConversionReportCard({
               </button>
             </div>
 
-            {/* Pilihan Tampilan: Standar vs Matriks vs Input Harian Manual (Khusus Admin) */}
-            {isAdmin && (
-              <div className="flex flex-wrap items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
-                <button
-                  type="button"
-                  onClick={() => setViewMode("standard")}
-                  className={`rounded-lg px-2.5 py-1 transition ${
-                    viewMode === "standard"
-                      ? "bg-white text-slate-900 shadow-xs font-bold"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  Tabel Week 1–4
-                </button>
+            {/* Pilihan Tampilan: Standar vs Matriks Tim (Admin) vs Matriks Harian Manual */}
+            <div className="flex flex-wrap items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
+              <button
+                type="button"
+                onClick={() => setViewMode("standard")}
+                className={`rounded-lg px-2.5 py-1 transition ${
+                  viewMode === "standard"
+                    ? "bg-white text-slate-900 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                Tabel Week 1–4
+              </button>
+              {isAdmin && (
                 <button
                   type="button"
                   onClick={() => setViewMode("matrix")}
@@ -267,19 +268,19 @@ export function WeeklyLeadConversionReportCard({
                 >
                   Matriks Semua Tim
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setViewMode("daily")}
-                  className={`rounded-lg px-2.5 py-1 transition ${
-                    viewMode === "daily"
-                      ? "bg-[#D98A00] text-white shadow-xs font-bold"
-                      : "text-slate-700 hover:text-slate-900"
-                  }`}
-                >
-                  Input Harian Manual (Edit)
-                </button>
-              </div>
-            )}
+              )}
+              <button
+                type="button"
+                onClick={() => setViewMode("daily")}
+                className={`rounded-lg px-2.5 py-1 transition ${
+                  viewMode === "daily"
+                    ? "bg-[#D98A00] text-white shadow-xs font-bold"
+                    : "text-slate-700 hover:text-slate-900"
+                }`}
+              >
+                Matriks Harian (Input Manual)
+              </button>
+            </div>
           </div>
 
           {/* Tab Pemilih Sales (Blended vs Tiap BusDev) */}
@@ -326,24 +327,26 @@ export function WeeklyLeadConversionReportCard({
               )}
             </div>
 
-            {/* Filter Channel */}
-            <div className="flex flex-wrap items-center gap-1">
-              {CHANNEL_OPTIONS.map((ch) => (
-                <button
-                  key={ch.key}
-                  type="button"
-                  onClick={() => setSelectedChannel(ch.key)}
-                  className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-semibold transition ${
-                    selectedChannel === ch.key
-                      ? "bg-slate-800 text-white"
-                      : "bg-white text-slate-600 border border-[#E5E2DA] hover:bg-slate-50"
-                  }`}
-                >
-                  <span className={`h-1.5 w-1.5 rounded-full ${ch.dot}`} />
-                  <span>{ch.label}</span>
-                </button>
-              ))}
-            </div>
+            {/* Filter Channel (Khusus Head / Admin) */}
+            {isAdmin && (
+              <div className="flex flex-wrap items-center gap-1">
+                {CHANNEL_OPTIONS.map((ch) => (
+                  <button
+                    key={ch.key}
+                    type="button"
+                    onClick={() => setSelectedChannel(ch.key)}
+                    className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-semibold transition ${
+                      selectedChannel === ch.key
+                        ? "bg-slate-800 text-white"
+                        : "bg-white text-slate-600 border border-[#E5E2DA] hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${ch.dot}`} />
+                    <span>{ch.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -410,13 +413,42 @@ export function WeeklyLeadConversionReportCard({
           </div>
         )}
 
-        {/* TAMPILAN 3: Input Harian Manual & Cross-Check (Admin) */}
-        {isAdmin && viewMode === "daily" && (
+        {/* OVERVIEW SEDERHANA UNTUK BUSDEV: Google, Meta, Lainnya */}
+        {!isAdmin && data?.simpleSourceOverview && (
+          <div className="grid grid-cols-3 gap-2.5">
+            <div className="rounded-xl border border-emerald-200/80 bg-emerald-50/40 p-3">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-800">Google</div>
+              <div className="mt-1 font-mono text-xl font-bold text-slate-900">
+                {data.simpleSourceOverview.google.toLocaleString("id-ID")}
+              </div>
+              <div className="text-[10px] text-slate-500">Leads dari Google</div>
+            </div>
+            <div className="rounded-xl border border-blue-200/80 bg-blue-50/40 p-3">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-blue-800">Meta</div>
+              <div className="mt-1 font-mono text-xl font-bold text-slate-900">
+                {data.simpleSourceOverview.meta.toLocaleString("id-ID")}
+              </div>
+              <div className="text-[10px] text-slate-500">Leads dari Meta</div>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-600">Lainnya</div>
+              <div className="mt-1 font-mono text-xl font-bold text-slate-900">
+                {data.simpleSourceOverview.other.toLocaleString("id-ID")}
+              </div>
+              <div className="text-[10px] text-slate-500">Medsos / Direct / Lain</div>
+            </div>
+          </div>
+        )}
+
+        {/* TAMPILAN 3: Matriks Harian Manual & Mingguan (Total Week 1, Week 2 + Growth %) */}
+        {viewMode === "daily" && (
           <DailyManualMetricsSection
             month={month}
             isCustomDate={isCustomDate}
             customStart={customStart}
             customEnd={customEnd}
+            isAdmin={isAdmin}
+            myName={me.name}
             onSaved={() => loadReport()}
           />
         )}
@@ -772,17 +804,21 @@ function DailyManualMetricsSection({
   isCustomDate,
   customStart,
   customEnd,
+  isAdmin,
+  myName,
   onSaved,
 }: {
   month: string;
   isCustomDate: boolean;
   customStart: string;
   customEnd: string;
+  isAdmin: boolean;
+  myName: string;
   onSaved: () => void;
 }) {
   const [rows, setRows] = useState<DailyRow[]>([]);
   const [busdevNames, setBusdevNames] = useState<string[]>([]);
-  const [selectedBusdev, setSelectedBusdev] = useState<string>("");
+  const [selectedBusdev, setSelectedBusdev] = useState<string>(isAdmin ? "" : myName);
   const [drafts, setDrafts] = useState<Record<string, DailyCounts>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -907,53 +943,84 @@ function DailyManualMetricsSection({
     }
   };
 
-  const activeSales = selectedBusdev || busdevNames[0] || "";
-  const totals = useMemo(() => {
-    const t = { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 };
-    if (!activeSales) return t;
+  const activeSales = isAdmin ? (selectedBusdev || busdevNames[0] || "") : myName;
+
+  // Kelompokkan baris harian ke Week 1 (1-7), Week 2 (8-14), Week 3 (15-21), Week 4 (22-28), Week 5 (29+)
+  const weekGroups = useMemo(() => {
+    const groups: { weekIndex: number; label: string; days: DailyRow[]; totals: DailyCounts }[] = [
+      { weekIndex: 1, label: "Total Week 1", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
+      { weekIndex: 2, label: "Total Week 2", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
+      { weekIndex: 3, label: "Total Week 3", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
+      { weekIndex: 4, label: "Total Week 4", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
+      { weekIndex: 5, label: "Total Week 5", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
+    ];
     for (const r of rows) {
-      const d = drafts[`${r.date}__${activeSales}`];
+      const dayNum = parseInt(r.date.slice(8, 10), 10) || 1;
+      const wIdx = dayNum <= 7 ? 0 : dayNum <= 14 ? 1 : dayNum <= 21 ? 2 : dayNum <= 28 ? 3 : 4;
+      groups[wIdx].days.push(r);
+      const entry = r.byBusdev[activeSales];
+      const d = drafts[`${r.date}__${activeSales}`] || entry?.effective;
       if (d) {
-        t.traffic += d.traffic;
-        t.cold += d.cold;
-        t.warm += d.warm;
-        t.hot += d.hot;
-        t.sample += d.sample;
+        groups[wIdx].totals.traffic += d.traffic;
+        groups[wIdx].totals.cold += d.cold;
+        groups[wIdx].totals.warm += d.warm;
+        groups[wIdx].totals.hot += d.hot;
+        groups[wIdx].totals.sample += d.sample;
       }
     }
-    return t;
+    return groups.filter((g) => g.days.length > 0);
   }, [rows, drafts, activeSales]);
 
+  const totals = useMemo(() => {
+    const t = { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 };
+    for (const g of weekGroups) {
+      t.traffic += g.totals.traffic;
+      t.cold += g.totals.cold;
+      t.warm += g.totals.warm;
+      t.hot += g.totals.hot;
+      t.sample += g.totals.sample;
+    }
+    return t;
+  }, [weekGroups]);
+
   const dirtyCount = Object.values(dirtyKeys).filter(Boolean).length;
+
+  const formatGrowth = (curr: number, prev: number) => {
+    if (prev === 0) return curr > 0 ? "+100%" : "–";
+    const pct = Math.round(((curr - prev) / prev) * 100);
+    return `${pct > 0 ? "+" : ""}${pct}%`;
+  };
 
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-200 bg-amber-50/70 p-3 text-xs">
         <div>
           <div className="font-bold text-amber-950">
-            Input Harian Manual & Cross-Check (Buku Tamu & Pipeline)
+            Matriks Harian &amp; Mingguan ({activeSales}) — Input Manual + Cross-Check
           </div>
           <div className="text-[11px] text-amber-900">
-            Jika data otomatis belum 100% sesuai (ada lead offline/DM/miss), Admin bisa langsung edit angka harian tiap BusDev di sini. Angka <b>Week 1–4</b> otomatis mengikuti data yang disimpan.
+            Isi / koreksi angka harian (<b>Traffic, Cold, Warm, Hot, Sample</b>). Total Week 1–4, Growth %, dan Laporan Konversi otomatis terhitung ulang.
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center rounded-lg bg-white p-0.5 border border-amber-200">
-            {busdevNames.map((name) => (
-              <button
-                key={name}
-                type="button"
-                onClick={() => setSelectedBusdev(name)}
-                className={`rounded-md px-3 py-1 text-xs font-semibold transition ${
-                  activeSales === name
-                    ? "bg-[#D98A00] text-white"
-                    : "text-slate-700 hover:bg-slate-50"
-                }`}
-              >
-                {name}
-              </button>
-            ))}
-          </div>
+          {isAdmin && (
+            <div className="flex items-center rounded-lg bg-white p-0.5 border border-amber-200">
+              {busdevNames.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => setSelectedBusdev(name)}
+                  className={`rounded-md px-3 py-1 text-xs font-semibold transition ${
+                    activeSales === name
+                      ? "bg-[#D98A00] text-white"
+                      : "text-slate-700 hover:bg-slate-50"
+                  }`}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          )}
           <button
             type="button"
             onClick={handleSaveAll}
@@ -980,13 +1047,13 @@ function DailyManualMetricsSection({
       <div className="overflow-x-auto rounded-xl border border-[#D5D9E2]">
         <table className="w-full border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#D5D9E2] bg-[#F8F9FB] text-[11px] font-bold text-slate-700">
-              <th className="px-3 py-2.5 text-left">Tanggal</th>
+            <tr className="border-b border-[#D5D9E2] bg-blue-100/70 text-[11px] font-bold text-slate-900">
+              <th className="px-3 py-2.5 text-left">Matriks ({activeSales})</th>
               <th className="px-2 py-2.5 text-center">Traffic</th>
               <th className="px-2 py-2.5 text-center">Cold</th>
               <th className="px-2 py-2.5 text-center">Warm</th>
               <th className="px-2 py-2.5 text-center">Hot</th>
-              <th className="px-2 py-2.5 text-center bg-emerald-50 text-emerald-900">Sample</th>
+              <th className="px-2 py-2.5 text-center bg-emerald-100/70 text-emerald-950">Sample</th>
               <th className="px-3 py-2.5 text-center">Status / Aksi</th>
             </tr>
           </thead>
@@ -998,79 +1065,124 @@ function DailyManualMetricsSection({
                 </td>
               </tr>
             ) : (
-              rows.map((r) => {
-                const entry = r.byBusdev[activeSales];
-                if (!entry) return null;
-                const key = `${r.date}__${activeSales}`;
-                const d = drafts[key] || entry.effective;
-                const isManual = !!entry.manual;
-                const isDirty = !!dirtyKeys[key];
-
+              weekGroups.map((grp, gIdx) => {
+                const prevGrp = gIdx > 0 ? weekGroups[gIdx - 1] : null;
                 const fields: (keyof DailyCounts)[] = ["traffic", "cold", "warm", "hot", "sample"];
 
                 return (
-                  <tr
-                    key={r.date}
-                    className={`transition-colors ${
-                      isDirty
-                        ? "bg-amber-50/70"
-                        : isManual
-                        ? "bg-sky-50/30"
-                        : "hover:bg-slate-50/70"
-                    }`}
-                  >
-                    <td className="px-3 py-2 font-mono text-[11px] font-semibold text-slate-800 whitespace-nowrap">
-                      {r.date}
-                    </td>
-                    {fields.map((fld) => (
-                      <td key={fld} className={`px-2 py-1.5 text-center ${fld === "sample" ? "bg-emerald-50/30" : ""}`}>
-                        <input
-                          type="number"
-                          min={0}
-                          value={d[fld]}
-                          onChange={(e) => updateCell(r.date, activeSales, fld, e.target.value)}
-                          className="h-7 w-16 rounded border border-[#D5D9E2] bg-white px-1.5 text-center font-mono text-xs font-bold text-slate-900 focus:border-[#D98A00] focus:outline-none"
-                        />
-                        <div className="mt-0.5 font-mono text-[9px] text-slate-400">
-                          Auto: {entry.auto[fld]}
-                        </div>
+                  <FragmentGroup key={grp.weekIndex}>
+                    {grp.days.map((r) => {
+                      const entry = r.byBusdev[activeSales];
+                      if (!entry) return null;
+                      const key = `${r.date}__${activeSales}`;
+                      const d = drafts[key] || entry.effective;
+                      const isManual = !!entry.manual;
+                      const isDirty = !!dirtyKeys[key];
+
+                      return (
+                        <tr
+                          key={r.date}
+                          className={`transition-colors ${
+                            isDirty
+                              ? "bg-amber-50/70"
+                              : isManual
+                              ? "bg-sky-50/30"
+                              : "hover:bg-slate-50/70"
+                          }`}
+                        >
+                          <td className="px-3 py-2 font-mono text-[11px] font-semibold text-slate-800 whitespace-nowrap">
+                            {r.date}
+                          </td>
+                          {fields.map((fld) => (
+                            <td key={fld} className={`px-2 py-1.5 text-center ${fld === "sample" ? "bg-emerald-50/30" : ""}`}>
+                              <input
+                                type="number"
+                                min={0}
+                                value={d[fld]}
+                                onChange={(e) => updateCell(r.date, activeSales, fld, e.target.value)}
+                                className="h-7 w-16 rounded border border-[#D5D9E2] bg-white px-1.5 text-center font-mono text-xs font-bold text-slate-900 focus:border-[#D98A00] focus:outline-none"
+                              />
+                              <div className="mt-0.5 font-mono text-[9px] text-slate-400">
+                                Auto: {entry.auto[fld]}
+                              </div>
+                            </td>
+                          ))}
+                          <td className="px-3 py-1.5 text-center whitespace-nowrap">
+                            {isManual ? (
+                              <div className="flex items-center justify-center gap-1.5">
+                                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-900">
+                                  Manual
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleResetRow(r.date, activeSales)}
+                                  className="text-[10px] text-slate-500 underline hover:text-slate-800"
+                                  title="Hapus input manual dan gunakan hitungan otomatis sistem"
+                                >
+                                  Reset Auto
+                                </button>
+                              </div>
+                            ) : (
+                              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-500">
+                                Auto (Sistem)
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                    {/* Baris Total Week X (Kuning seperti Excel) */}
+                    <tr className="border-y-2 border-amber-300 bg-[#FEF08A]/80 font-mono text-xs font-bold text-slate-950">
+                      <td className="px-3 py-2 font-sans">{grp.label}</td>
+                      {fields.map((fld) => (
+                        <td key={fld} className="px-2 py-2 text-center tabular-nums">
+                          {grp.totals[fld].toLocaleString("id-ID")}
+                        </td>
+                      ))}
+                      <td className="px-3 py-2 text-center font-sans text-[10px] text-amber-950">
+                        Prospect: {(grp.totals.warm + grp.totals.hot).toLocaleString("id-ID")}
                       </td>
-                    ))}
-                    <td className="px-3 py-1.5 text-center whitespace-nowrap">
-                      {isManual ? (
-                        <div className="flex items-center justify-center gap-1.5">
-                          <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-900">
-                            Manual
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleResetRow(r.date, activeSales)}
-                            className="text-[10px] text-slate-500 underline hover:text-slate-800"
-                            title="Hapus input manual dan gunakan hitungan otomatis sistem"
-                          >
-                            Reset Auto
-                          </button>
-                        </div>
-                      ) : (
-                        <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-500">
-                          Auto (Sistem)
-                        </span>
-                      )}
-                    </td>
-                  </tr>
+                    </tr>
+
+                    {/* Baris Growth % (Peach seperti Excel, untuk Week 2 ke atas) */}
+                    {prevGrp && (
+                      <tr className="border-b-2 border-[#D5D9E2] bg-[#FFEDD5]/80 font-mono text-[11px] font-semibold text-slate-800">
+                        <td className="px-3 py-1.5 font-sans">Growth %</td>
+                        {fields.map((fld) => {
+                          const gText = formatGrowth(grp.totals[fld], prevGrp.totals[fld]);
+                          const isPos = gText.startsWith("+");
+                          const isNeg = gText.startsWith("-");
+                          return (
+                            <td
+                              key={fld}
+                              className={`px-2 py-1.5 text-center tabular-nums ${
+                                isPos ? "text-emerald-700 font-bold" : isNeg ? "text-rose-700" : "text-slate-500"
+                              }`}
+                            >
+                              {gText}
+                            </td>
+                          );
+                        })}
+                        <td className="px-3 py-1.5 text-center font-sans text-[10px] text-slate-500">
+                          vs Week {prevGrp.weekIndex}
+                        </td>
+                      </tr>
+                    )}
+                  </FragmentGroup>
                 );
               })
             )}
           </tbody>
           <tfoot>
-            <tr className="border-t-2 border-[#D5D9E2] bg-[#FFFDF7] font-mono text-xs font-bold text-slate-900">
-              <td className="px-3 py-2.5 font-sans">TOTAL ({activeSales})</td>
+            <tr className="border-t-2 border-slate-400 bg-[#FFFDF7] font-mono text-xs font-bold text-slate-950">
+              <td className="px-3 py-2.5 font-sans">TOTAL BULAN ({activeSales})</td>
               <td className="px-2 py-2.5 text-center">{totals.traffic.toLocaleString("id-ID")}</td>
               <td className="px-2 py-2.5 text-center">{totals.cold.toLocaleString("id-ID")}</td>
               <td className="px-2 py-2.5 text-center">{totals.warm.toLocaleString("id-ID")}</td>
               <td className="px-2 py-2.5 text-center">{totals.hot.toLocaleString("id-ID")}</td>
               <td className="px-2 py-2.5 text-center text-emerald-700">{totals.sample.toLocaleString("id-ID")}</td>
-              <td className="px-3 py-2.5 text-center font-sans text-[10px] text-slate-500">
+              <td className="px-3 py-2.5 text-center font-sans text-[10px] text-slate-600">
                 Prospecting: {(totals.warm + totals.hot).toLocaleString("id-ID")}
               </td>
             </tr>
@@ -1079,5 +1191,9 @@ function DailyManualMetricsSection({
       </div>
     </div>
   );
+}
+
+function FragmentGroup({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }
 

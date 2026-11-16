@@ -256,10 +256,7 @@ export async function PUT(req: NextRequest) {
   const auth = await requireUser(req, { write: true });
   if (isAuthFailure(auth)) return auth;
   const { user } = auth;
-
-  if (!isAdminRole(user.role)) {
-    return json({ success: false, error: "Hanya Head dan Admin yang dapat mengubah input harian manual" }, 403);
-  }
+  const isAdmin = isAdminRole(user.role);
 
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") {
@@ -276,6 +273,9 @@ export async function PUT(req: NextRequest) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr) || !busdev) {
         return json({ success: false, error: "Parameter reset tidak valid" }, 400);
       }
+      if (!isAdmin && busdev.toLowerCase() !== user.name.toLowerCase()) {
+        return json({ success: false, error: "Anda hanya bisa mereset data milik Anda sendiri" }, 403);
+      }
       await pool.query(
         `DELETE FROM crm_daily_busdev_metrics WHERE metric_date = $1::date AND lower(busdev_name) = lower($2)`,
         [dateStr, busdev]
@@ -286,6 +286,15 @@ export async function PUT(req: NextRequest) {
     const entries = Array.isArray(body.entries) ? body.entries : [body];
     if (entries.length === 0 || entries.length > 200) {
       return json({ success: false, error: "Jumlah entri tidak valid (1..200)" }, 400);
+    }
+
+    if (!isAdmin) {
+      const unauthorized = entries.some(
+        (e: any) => String(e?.busdev || "").trim().toLowerCase() !== user.name.toLowerCase()
+      );
+      if (unauthorized) {
+        return json({ success: false, error: "Anda hanya bisa mengubah data harian milik Anda sendiri" }, 403);
+      }
     }
 
     const client = await pool.connect();
