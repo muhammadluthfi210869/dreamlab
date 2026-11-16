@@ -161,6 +161,15 @@ const nextConfig: NextConfig = {
       permanent: boolean;
     }> = [];
 
+    // 0. Lead Monitor pindah total ke ERP (nexerp.id/lead-monitor). Halaman + login di situs ini dihapus; API data
+    //    (/api/lead-monitor/stats, /api/crm/*) tetap karena dipakai ERP lewat token layanan. Sementara non-permanen (307)
+    //    supaya bisa dibalik tanpa cache peramban yang menempel.
+    redirects.push({
+      source: '/lead-monitor/:path*',
+      destination: 'https://nexerp.id/lead-monitor',
+      permanent: false,
+    });
+
     // 1. Redirect /news-blog/{slug} → /{slug}/ (articles should live at root, matching legacy WordPress)
     // This prevents duplicate content between /news-blog/slug and /slug
     articleSlugs.forEach(slug => {
