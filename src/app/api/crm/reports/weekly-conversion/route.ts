@@ -274,6 +274,19 @@ export async function GET(req: NextRequest) {
       other: createEmptyBlock(),
     };
 
+    const otherSubAgg: Record<string, Record<string, number>> = { blended: {} };
+    for (const name of busdevNames) otherSubAgg[name] = {};
+
+    const classifyOtherLabel = (l: any): string => {
+      const s = `${l.source || ""} ${l.referrer || ""} ${l.page_url || ""}`.toLowerCase();
+      if (s.includes("tiktok")) return "TikTok";
+      if (s.includes("instagram") || s.includes("ig") || s.includes("medsos")) return "Instagram / Medsos";
+      if (s.includes("linktree") || s.includes("link_tree")) return "Linktree";
+      if (s.includes("wa-direct") || s.includes("whatsapp")) return "WA Langsung";
+      if (s.includes("referral")) return "Referral";
+      return "Direct / Web";
+    };
+
     for (const l of leadsRes.rows) {
       const d = l.lead_date as string;
       const wk = findWeekKey(d);
@@ -281,6 +294,14 @@ export async function GET(req: NextRequest) {
       const assigned = busdevNames.find(
         (n) => n.toLowerCase() === (l.assigned_to || "").trim().toLowerCase()
       );
+
+      if (ch === "social_media" || ch === "other") {
+        const subLbl = classifyOtherLabel(l);
+        otherSubAgg.blended[subLbl] = (otherSubAgg.blended[subLbl] || 0) + 1;
+        if (assigned && otherSubAgg[assigned]) {
+          otherSubAgg[assigned][subLbl] = (otherSubAgg[assigned][subLbl] || 0) + 1;
+        }
+      }
 
       const moq = Number(l.requested_quantity_pcs) || 0;
       const tierName = String(l.production_tier_name || "").toLowerCase();
@@ -457,10 +478,18 @@ export async function GET(req: NextRequest) {
       : [];
 
     const chSrc = isAdmin ? blendedChannelsRes : (userBusdevData?.channels || {});
+    const targetSubMap = isAdmin
+      ? otherSubAgg.blended
+      : otherSubAgg[userBusdevData?.busdev || ""] || {};
+    const otherBreakdown = Object.entries(targetSubMap)
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count);
+
     const simpleSourceOverview = {
       google: (chSrc.google_ads?.total?.traffic || 0) + (chSrc.google_organic?.total?.traffic || 0),
       meta: chSrc.meta_ads?.total?.traffic || 0,
       other: (chSrc.social_media?.total?.traffic || 0) + (chSrc.other?.total?.traffic || 0),
+      otherBreakdown,
     };
 
     return json({

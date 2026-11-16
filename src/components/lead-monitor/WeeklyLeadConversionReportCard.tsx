@@ -68,7 +68,12 @@ interface ApiResponse {
   };
   byBusdev: BusdevWeeklyData[];
   sourceOverview?: SourceOverviewRow[];
-  simpleSourceOverview?: { google: number; meta: number; other: number };
+  simpleSourceOverview?: {
+    google: number;
+    meta: number;
+    other: number;
+    otherBreakdown?: { label: string; count: number }[];
+  };
 }
 
 const CHANNEL_OPTIONS = [
@@ -456,7 +461,21 @@ export function WeeklyLeadConversionReportCard({
               <div className="mt-1 font-mono text-xl font-bold text-slate-900">
                 {data.simpleSourceOverview.other.toLocaleString("id-ID")}
               </div>
-              <div className="text-[10px] text-slate-500">Medsos / Direct / Lain</div>
+              {data.simpleSourceOverview.otherBreakdown && data.simpleSourceOverview.otherBreakdown.length > 0 ? (
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  {data.simpleSourceOverview.otherBreakdown.map((item) => (
+                    <span
+                      key={item.label}
+                      className="inline-flex items-center gap-1 rounded bg-white border border-slate-200 px-1.5 py-0.5 text-[10px] font-medium text-slate-700"
+                    >
+                      <span>{item.label}:</span>
+                      <b className="font-mono text-slate-900">{item.count}</b>
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-[10px] text-slate-500">Medsos / Direct / Lain</div>
+              )}
             </div>
           </div>
         )}
