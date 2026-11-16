@@ -998,7 +998,7 @@ function DailyManualMetricsSection({
   }, [todayWib]);
   const [selectedWeekFilter, setSelectedWeekFilter] = useState<number | "all">(defaultWeekNum);
 
-  // Kelompokkan baris harian (hanya s/d hari ini) ke Week 1 (1-7), Week 2 (8-14), Week 3 (15-21), Week 4 (22-28), Week 5 (29+)
+  // Kelompokkan seluruh baris harian (tgl 1 s/d akhir bulan) ke Week 1 (1-7), Week 2 (8-14), Week 3 (15-21), Week 4 (22-28), Week 5 (29+)
   const weekGroups = useMemo(() => {
     const groups: { weekIndex: number; label: string; days: DailyRow[]; totals: DailyCounts }[] = [
       { weekIndex: 1, label: "Total Week 1", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
@@ -1008,7 +1008,6 @@ function DailyManualMetricsSection({
       { weekIndex: 5, label: "Total Week 5", days: [], totals: { traffic: 0, cold: 0, warm: 0, hot: 0, sample: 0 } },
     ];
     for (const r of rows) {
-      if (r.date > todayWib) continue; // sembunyikan tanggal masa depan
       const dayNum = parseInt(r.date.slice(8, 10), 10) || 1;
       const wIdx = dayNum <= 7 ? 0 : dayNum <= 14 ? 1 : dayNum <= 21 ? 2 : dayNum <= 28 ? 3 : 4;
       groups[wIdx].days.push(r);
@@ -1023,7 +1022,7 @@ function DailyManualMetricsSection({
       }
     }
     return groups.filter((g) => g.days.length > 0);
-  }, [rows, drafts, activeSales, todayWib]);
+  }, [rows, drafts, activeSales]);
 
   const visibleGroups = useMemo(() => {
     if (selectedWeekFilter === "all") return weekGroups;
@@ -1075,7 +1074,7 @@ function DailyManualMetricsSection({
             Input Harian Head ({activeSales}) — Ringkas per Minggu
           </div>
           <div className="text-[11px] text-amber-900">
-            Isi / koreksi angka harian (<b>Traffic, Cold, Warm, Hot, Sample</b>). Tanggal masa depan disembunyikan agar rapi.
+            Isi / koreksi angka harian (<b>Traffic, Cold, Warm, Hot, Sample</b>) dari tanggal 1 s/d akhir bulan (W1–W5).
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
