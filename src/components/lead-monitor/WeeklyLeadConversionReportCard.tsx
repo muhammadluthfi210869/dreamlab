@@ -105,6 +105,8 @@ export function WeeklyLeadConversionReportCard({
   });
   const [selectedChannel, setSelectedChannel] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"standard" | "matrix" | "daily">("standard");
+  const [prospectTargetPct, setProspectTargetPct] = useState<number>(40);
+  const [sampleTargetPct, setSampleTargetPct] = useState<number>(30);
 
   const loadReport = useCallback(async () => {
     setLoading(true);
@@ -160,9 +162,39 @@ export function WeeklyLeadConversionReportCard({
   return (
     <Card
       title="Laporan Konversi Leads: Traffic >> Prospecting >> Sample (Week 1 – Week 4)"
-      subtitle="Evaluasi konversi mingguan sesuai target standar KPI Dreamlab: Target Prospecting 40% dari Traffic · Target Sample 30% dari Target Prospecting"
+      subtitle={`Evaluasi konversi mingguan: Target Prospecting ${prospectTargetPct}% dari Traffic · Target Sample ${sampleTargetPct}% dari Target Prospecting`}
       right={
         <div className="flex flex-wrap items-center gap-2">
+          {/* Kustomisasi Target % */}
+          <div className="flex items-center gap-1.5 rounded-lg border border-[#E5E2DA] bg-[#F8F9FB] px-2 py-1 text-[11px]">
+            <span className="font-semibold text-slate-500">Target %:</span>
+            <label className="flex items-center gap-0.5 font-mono">
+              <span className="text-amber-800 font-bold">Prosp</span>
+              <input
+                type="number"
+                min={1}
+                max={100}
+                value={prospectTargetPct}
+                onChange={(e) => setProspectTargetPct(Math.max(1, Math.min(100, Number(e.target.value) || 40)))}
+                className="w-10 rounded border border-[#D5D9E2] bg-white px-1 py-0.5 text-center font-bold text-slate-900 outline-none focus:border-[#D98A00]"
+              />
+              <span>%</span>
+            </label>
+            <span className="text-slate-300">·</span>
+            <label className="flex items-center gap-0.5 font-mono">
+              <span className="text-emerald-800 font-bold">Smpl</span>
+              <input
+                type="number"
+                min={1}
+                max={100}
+                value={sampleTargetPct}
+                onChange={(e) => setSampleTargetPct(Math.max(1, Math.min(100, Number(e.target.value) || 30)))}
+                className="w-10 rounded border border-[#D5D9E2] bg-white px-1 py-0.5 text-center font-bold text-slate-900 outline-none focus:border-[#D98A00]"
+              />
+              <span>%</span>
+            </label>
+          </div>
+
           {/* Tombol Refresh */}
           <button
             type="button"
@@ -539,12 +571,12 @@ export function WeeklyLeadConversionReportCard({
                   </td>
                 </tr>
 
-                {/* BARIS 2: PROSPECTING (TARGET 40%) */}
+                {/* BARIS 2: PROSPECTING (TARGET CUSTOM %) */}
                 <tr className="hover:bg-amber-50/20 transition">
                   <td className="border-r border-[#D5D9E2] px-4 py-3 font-bold text-slate-900 whitespace-nowrap bg-[#FDFCFB]">
                     <div className="flex items-center gap-1.5">
                       <span className="flex h-2 w-2 rounded-full bg-[#D98A00]" />
-                      <span>2. Prospecting (<b className="text-amber-800">40%</b>)</span>
+                      <span>2. Prospecting (<b className="text-amber-800">{prospectTargetPct}%</b>)</span>
                     </div>
                     <div className="text-[10px] text-slate-400 font-normal">
                       Warm + Hot (Lolos Kualifikasi MOQ &ge; 500 pcs)
@@ -553,13 +585,14 @@ export function WeeklyLeadConversionReportCard({
 
                   {weeks.map((w) => {
                     const m = activeConversionMap ? activeConversionMap[w.key] : null;
-                    const pass = (m?.prospectingPct ?? 0) >= 40;
+                    const target = Math.round((m?.traffic ?? 0) * (prospectTargetPct / 100));
+                    const pass = (m?.prospectingPct ?? 0) >= prospectTargetPct;
                     return (
                       <MetricCellTriplet
                         key={w.key}
                         count={m?.prospecting ?? 0}
                         pct={m?.prospectingPct ?? 0}
-                        target={m?.prospectingTarget ?? 0}
+                        target={target}
                         isGood={pass}
                       />
                     );
@@ -569,18 +602,18 @@ export function WeeklyLeadConversionReportCard({
                   <MetricCellTriplet
                     count={activeConversionMap?.total.prospecting ?? 0}
                     pct={activeConversionMap?.total.prospectingPct ?? 0}
-                    target={activeConversionMap?.total.prospectingTarget ?? 0}
-                    isGood={(activeConversionMap?.total.prospectingPct ?? 0) >= 40}
+                    target={Math.round((activeConversionMap?.total.traffic ?? 0) * (prospectTargetPct / 100))}
+                    isGood={(activeConversionMap?.total.prospectingPct ?? 0) >= prospectTargetPct}
                     isTotal
                   />
                 </tr>
 
-                {/* BARIS 3: SAMPLE (TARGET 30%) */}
+                {/* BARIS 3: SAMPLE (TARGET CUSTOM %) */}
                 <tr className="hover:bg-emerald-50/20 transition">
                   <td className="border-r border-[#D5D9E2] px-4 py-3 font-bold text-slate-900 whitespace-nowrap bg-[#FDFCFB]">
                     <div className="flex items-center gap-1.5">
                       <span className="flex h-2 w-2 rounded-full bg-emerald-600" />
-                      <span>3. Sample (<b className="text-emerald-800">30%</b>)</span>
+                      <span>3. Sample (<b className="text-emerald-800">{sampleTargetPct}%</b>)</span>
                     </div>
                     <div className="text-[10px] text-slate-400 font-normal">
                       Tahap Pembuatan Sampel Formula / Deal
@@ -589,13 +622,15 @@ export function WeeklyLeadConversionReportCard({
 
                   {weeks.map((w) => {
                     const m = activeConversionMap ? activeConversionMap[w.key] : null;
-                    const pass = (m?.samplePct ?? 0) >= 30;
+                    const pTarget = Math.round((m?.traffic ?? 0) * (prospectTargetPct / 100));
+                    const sTarget = Math.round(pTarget * (sampleTargetPct / 100));
+                    const pass = (m?.samplePct ?? 0) >= sampleTargetPct;
                     return (
                       <MetricCellTriplet
                         key={w.key}
                         count={m?.sample ?? 0}
                         pct={m?.samplePct ?? 0}
-                        target={m?.sampleTarget ?? 0}
+                        target={sTarget}
                         isGood={pass}
                       />
                     );
@@ -605,8 +640,11 @@ export function WeeklyLeadConversionReportCard({
                   <MetricCellTriplet
                     count={activeConversionMap?.total.sample ?? 0}
                     pct={activeConversionMap?.total.samplePct ?? 0}
-                    target={activeConversionMap?.total.sampleTarget ?? 0}
-                    isGood={(activeConversionMap?.total.samplePct ?? 0) >= 30}
+                    target={Math.round(
+                      Math.round((activeConversionMap?.total.traffic ?? 0) * (prospectTargetPct / 100)) *
+                        (sampleTargetPct / 100)
+                    )}
+                    isGood={(activeConversionMap?.total.samplePct ?? 0) >= sampleTargetPct}
                     isTotal
                   />
                 </tr>
