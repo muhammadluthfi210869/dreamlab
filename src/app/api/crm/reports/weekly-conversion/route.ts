@@ -327,6 +327,17 @@ export async function GET(req: NextRequest) {
       blendedChannelsRes[ch] = formatWeekConversion(store.blended[ch] || createWeekMap());
     }
 
+    const userBusdevData = resultByBusdev.find((r) => r.busdev.toLowerCase() === user.name.toLowerCase());
+    const blendedData = isAdmin
+      ? {
+          channels: blendedChannelsRes,
+          conversion: blendedChannelsRes.all,
+        }
+      : {
+          channels: userBusdevData?.channels || {},
+          conversion: userBusdevData?.conversion || ({} as any),
+        };
+
     return json({
       success: true,
       period: {
@@ -337,10 +348,7 @@ export async function GET(req: NextRequest) {
       },
       weeks: weekSlices,
       busdevNames: targetBusdevs,
-      blended: {
-        channels: blendedChannelsRes,
-        conversion: blendedChannelsRes.all,
-      },
+      blended: blendedData,
       byBusdev: resultByBusdev,
     });
   } catch (err: any) {

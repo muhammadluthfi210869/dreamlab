@@ -14,6 +14,8 @@ import {
   Users,
 } from "lucide-react";
 import { Card } from "@/components/lead-monitor/ui";
+import { useMe } from "@/components/lead-monitor/filters";
+import { isAdminRole } from "@/lib/crm-stages";
 
 interface ConversionMetrics {
   traffic: number;
@@ -71,6 +73,9 @@ export function WeeklyLeadConversionReportCard({
   initialBusdev?: string;
   onSelectDateRange?: (start: string, end: string) => void;
 }) {
+  const me = useMe();
+  const isAdmin = isAdminRole(me?.role);
+
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -81,7 +86,10 @@ export function WeeklyLeadConversionReportCard({
   const [customStart, setCustomStart] = useState<string>("2026-11-01");
   const [customEnd, setCustomEnd] = useState<string>("2026-11-30");
 
-  const [selectedSales, setSelectedSales] = useState<string>(initialBusdev || "blended");
+  const [selectedSales, setSelectedSales] = useState<string>(() => {
+    if (!isAdminRole(me?.role)) return me?.name || "all";
+    return initialBusdev || "blended";
+  });
   const [selectedChannel, setSelectedChannel] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"standard" | "matrix">("standard");
 
@@ -222,31 +230,33 @@ export function WeeklyLeadConversionReportCard({
               </button>
             </div>
 
-            {/* Pilihan Tampilan: Standar vs Matriks */}
-            <div className="flex items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
-              <button
-                type="button"
-                onClick={() => setViewMode("standard")}
-                className={`rounded-lg px-2.5 py-1 transition ${
-                  viewMode === "standard"
-                    ? "bg-white text-slate-900 shadow-xs font-bold"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                Tabel Week 1–4
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("matrix")}
-                className={`rounded-lg px-2.5 py-1 transition ${
-                  viewMode === "matrix"
-                    ? "bg-white text-slate-900 shadow-xs font-bold"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                Matriks Semua Tim
-              </button>
-            </div>
+            {/* Pilihan Tampilan: Standar vs Matriks (Khusus Admin) */}
+            {isAdmin && (
+              <div className="flex items-center rounded-xl bg-slate-200/70 p-1 text-[11px] font-semibold">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("standard")}
+                  className={`rounded-lg px-2.5 py-1 transition ${
+                    viewMode === "standard"
+                      ? "bg-white text-slate-900 shadow-xs font-bold"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  Tabel Week 1–4
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("matrix")}
+                  className={`rounded-lg px-2.5 py-1 transition ${
+                    viewMode === "matrix"
+                      ? "bg-white text-slate-900 shadow-xs font-bold"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  Matriks Semua Tim
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Tab Pemilih Sales (Blended vs Tiap BusDev) */}
@@ -257,32 +267,40 @@ export function WeeklyLeadConversionReportCard({
                 <span>Sales:</span>
               </span>
 
-              <button
-                type="button"
-                onClick={() => setSelectedSales("blended")}
-                className={`rounded-lg px-3 py-1 text-xs font-bold transition ${
-                  selectedSales === "blended" || selectedSales === "all"
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "bg-white text-slate-700 border border-[#E5E2DA] hover:bg-slate-50"
-                }`}
-              >
-                🏆 Blended Tim (Total)
-              </button>
+              {isAdmin ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSales("blended")}
+                    className={`rounded-lg px-3 py-1 text-xs font-bold transition ${
+                      selectedSales === "blended" || selectedSales === "all"
+                        ? "bg-slate-900 text-white shadow-xs"
+                        : "bg-white text-slate-700 border border-[#E5E2DA] hover:bg-slate-50"
+                    }`}
+                  >
+                    🏆 Blended Tim (Total)
+                  </button>
 
-              {(data?.busdevNames || ["Annisa", "Diaz", "Jessica"]).map((name) => (
-                <button
-                  key={name}
-                  type="button"
-                  onClick={() => setSelectedSales(name)}
-                  className={`rounded-lg px-3 py-1 text-xs font-semibold transition ${
-                    selectedSales.toLowerCase() === name.toLowerCase()
-                      ? "bg-[#D98A00] text-white shadow-xs"
-                      : "bg-white text-slate-700 border border-[#E5E2DA] hover:bg-slate-50"
-                  }`}
-                >
-                  👤 {name}
-                </button>
-              ))}
+                  {(data?.busdevNames || ["Annisa", "Diaz", "Jessica"]).map((name) => (
+                    <button
+                      key={name}
+                      type="button"
+                      onClick={() => setSelectedSales(name)}
+                      className={`rounded-lg px-3 py-1 text-xs font-semibold transition ${
+                        selectedSales.toLowerCase() === name.toLowerCase()
+                          ? "bg-[#D98A00] text-white shadow-xs"
+                          : "bg-white text-slate-700 border border-[#E5E2DA] hover:bg-slate-50"
+                      }`}
+                    >
+                      👤 {name}
+                    </button>
+                  ))}
+                </>
+              ) : (
+                <div className="inline-flex items-center gap-1.5 rounded-lg bg-[#D98A00]/10 border border-[#D98A00]/30 px-3 py-1 text-xs font-bold text-[#9A6200]">
+                  <span>👤 Laporan Saya: <b>{me.name}</b></span>
+                </div>
+              )}
             </div>
 
             {/* Filter Channel */}

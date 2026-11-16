@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Download, Edit3, Search } from "lucide-react";
-import { canEditLead, formatWaChatLink, PIPELINE_STAGES, stageLabel, type CrmUserInfo } from "@/lib/crm-stages";
+import { canEditLead, formatWaChatLink, isAdminRole, PIPELINE_STAGES, stageLabel, type CrmUserInfo } from "@/lib/crm-stages";
 import { BRAND, Card, Pill } from "./ui";
 
 export interface TableRow {
@@ -64,6 +64,63 @@ export function formatDisqualifyReason(reason?: string | null): string {
     default:
       return reason;
   }
+}
+
+export function SourceBadge({ source }: { source: string | null }) {
+  const s = (source || "").toLowerCase();
+  if (s.includes("meta") || s.includes("fb") || s.includes("instagram_ads")) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-blue-50 border border-blue-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-blue-700">
+        <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+        Meta Ads
+      </span>
+    );
+  }
+  if (s.includes("google_ads") || s.includes("gads") || s.includes("adwords") || s.includes("cpc")) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-emerald-700">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+        Google Ads
+      </span>
+    );
+  }
+  if (s.includes("google") || s.includes("organic") || s.includes("organik") || s.includes("seo")) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-sky-50 border border-sky-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-sky-700">
+        <span className="h-1.5 w-1.5 rounded-full bg-sky-600" />
+        Google Organik
+      </span>
+    );
+  }
+  if (s.includes("tiktok")) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-slate-900 border border-slate-700 px-1.5 py-0.5 font-sans text-[10px] font-bold text-white">
+        <span className="h-1.5 w-1.5 rounded-full bg-pink-500" />
+        TikTok
+      </span>
+    );
+  }
+  if (s.includes("instagram") || s.includes("ig") || s.includes("medsos") || s.includes("sosial")) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-purple-50 border border-purple-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-purple-700">
+        <span className="h-1.5 w-1.5 rounded-full bg-purple-600" />
+        Media Sosial
+      </span>
+    );
+  }
+  if (s.includes("linktree") || s.includes("link_tree")) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-lime-50 border border-lime-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-lime-800">
+        <span className="h-1.5 w-1.5 rounded-full bg-lime-600" />
+        Linktree
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center gap-1 rounded bg-slate-100 border border-slate-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-slate-700">
+      {source || "Direct / Web"}
+    </span>
+  );
 }
 
 export interface TableData {
@@ -305,8 +362,8 @@ export function LeadTable({
 
   return (
     <Card
-      title="Database Pelanggan"
-      subtitle="Satu baris per prospek (nomor sama dalam 24 jam digabung). Produk, MOQ, dan Tahap bisa diisi busdev pemilik lead; Head bisa mengubah semua."
+      title="Buku Tamu Prospek Masuk Harian"
+      subtitle="Log real-time prospek masuk per hari: sumber akuisisi (Meta Ads, Google, TikTok, Organik), sub-campaign, produk & MOQ."
       right={
         <button
           type="button"
@@ -340,24 +397,31 @@ export function LeadTable({
           ))}
         </div>
 
-        {/* Pilih sales */}
-        <div className="flex items-center rounded-xl bg-slate-100 p-1" role="group" aria-label="Pilih sales">
-          {["all", ...busdevNames].map((n) => {
-            const active = busdev.toLowerCase() === n.toLowerCase();
-            return (
-              <button
-                key={n}
-                type="button"
-                onClick={() => onBusdev(n)}
-                aria-pressed={active}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${active ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
-                style={active ? { color: BRAND } : undefined}
-              >
-                {n === "all" ? "Semua Sales" : n}
-              </button>
-            );
-          })}
-        </div>
+        {/* Pilih sales (Hanya Admin / Head yang bisa melihat dan memilih sales lain) */}
+        {isAdminRole(me.role) ? (
+          <div className="flex items-center rounded-xl bg-slate-100 p-1" role="group" aria-label="Pilih sales">
+            {["all", ...busdevNames].map((n) => {
+              const active = busdev.toLowerCase() === n.toLowerCase();
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => onBusdev(n)}
+                  aria-pressed={active}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${active ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+                  style={active ? { color: BRAND } : undefined}
+                >
+                  {n === "all" ? "Semua Sales" : n}
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="inline-flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-semibold text-amber-900">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span>Buku Tamu Prospek: <b>{me.name}</b></span>
+          </div>
+        )}
       </div>
 
       {/* Filter */}
@@ -439,7 +503,7 @@ export function LeadTable({
               <th className="px-4 py-3 font-semibold text-slate-500">Nomor WhatsApp</th>
               <SortHead label="Produk" k="product" state={state} onSort={onSort} />
               <SortHead label="MOQ (pcs)" k="quantity" state={state} onSort={onSort} />
-              <th className="px-4 py-3 font-semibold text-slate-500">Asal → Halaman Tujuan</th>
+              <th className="px-4 py-3 font-semibold text-slate-500">Sumber & Sub-nya (Campaign / Asal)</th>
               <SortHead label="Sales" k="busdev" state={state} onSort={onSort} />
               <th className="px-4 py-3 font-semibold text-slate-500">Tahap</th>
               <SortHead label="Waktu Chat" k="chat_time" state={state} onSort={onSort} />
@@ -579,33 +643,41 @@ export function LeadTable({
                         {r.production_tier_name && <span className="text-[10px] text-slate-400">{r.production_tier_name}</span>}
                       </div>
                     </td>
-                    <td className="max-w-[300px] px-4 py-3">
-                      <div className="flex items-start gap-1.5">
-                        <span className="mt-0.5 w-9 shrink-0 text-[10px] font-semibold uppercase tracking-wide text-slate-400">Dari</span>
+                    <td className="max-w-[320px] px-4 py-3">
+                      {/* Sumber Utama & Sub-Campaign */}
+                      <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
+                        <SourceBadge source={r.source} />
+                        {r.utm_campaign && (
+                          <span
+                            className="truncate rounded bg-slate-100 border border-slate-200 px-1.5 py-0.5 font-mono text-[9px] text-slate-700 max-w-[160px]"
+                            title={`Sub-Campaign: ${r.utm_campaign}`}
+                          >
+                            Sub: {r.utm_campaign}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Sub-Asal / Referrer */}
+                      <div className="flex items-start gap-1 text-[10px]">
+                        <span className="shrink-0 text-slate-400 font-semibold">Dari:</span>
                         <div className="min-w-0">
-                          <div className="truncate font-medium text-slate-800" title={r.referrer_label || ""}>
-                            {r.referrer_label || <span className="text-slate-300">Langsung / tidak tercatat</span>}
-                          </div>
+                          <span className="truncate font-medium text-slate-800" title={r.referrer_label || ""}>
+                            {r.referrer_label || <span className="text-slate-400">Langsung / Landing</span>}
+                          </span>
                           {r.referrer_kind && (
-                            <span className="rounded bg-slate-100 px-1 text-[9px] font-medium uppercase text-slate-600">{REFERRER_KIND_LABEL[r.referrer_kind]}</span>
+                            <span className="ml-1 rounded bg-slate-100 px-1 text-[8px] font-medium uppercase text-slate-500">
+                              {REFERRER_KIND_LABEL[r.referrer_kind]}
+                            </span>
                           )}
                         </div>
                       </div>
-                      <div className="mt-1.5 flex items-start gap-1.5">
-                        <span className="mt-0.5 w-9 shrink-0 text-[10px] font-semibold uppercase tracking-wide text-slate-400">Ke</span>
-                        <div className="min-w-0">
-                          <div className="truncate font-mono text-[11px] font-medium" style={{ color: BRAND }} title={r.page_url || ""}>
-                            {r.page_url || "—"}
-                          </div>
-                          <div className="flex items-center gap-1 text-[10px] text-slate-400">
-                            <span className="rounded bg-slate-100 px-1 font-mono text-[9px] uppercase text-slate-600">{r.source || "direct"}</span>
-                            {r.utm_campaign && (
-                              <span className="truncate" title={r.utm_campaign}>
-                                {r.utm_campaign}
-                              </span>
-                            )}
-                          </div>
-                        </div>
+
+                      {/* Sub-Halaman Tujuan */}
+                      <div className="mt-0.5 flex items-start gap-1 text-[10px]">
+                        <span className="shrink-0 text-slate-400 font-semibold">Ke:</span>
+                        <span className="truncate font-mono font-medium text-[#D98A00]" title={r.page_url || ""}>
+                          {r.page_url || "—"}
+                        </span>
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">

@@ -12,7 +12,7 @@ const NAV = [
   { href: "/lead-monitor", label: "Dashboard", icon: Home, exact: true, headOnly: false },
   { href: "/lead-monitor/chat", label: "Chat WA", icon: MessageSquare, exact: false, headOnly: false },
   { href: "/lead-monitor/pipeline", label: "Pipeline", icon: Target, exact: false, headOnly: false },
-  { href: "/lead-monitor/pelanggan", label: "Laporan & Lead", icon: Users, exact: false, headOnly: false },
+  { href: "/lead-monitor/pelanggan", label: "Buku Tamu & Prospek", icon: Users, exact: false, headOnly: false },
   { href: "/lead-monitor/pengguna", label: "Tim Sales", icon: ShieldCheck, exact: false, headOnly: true },
   { href: "/lead-monitor/pengaturan", label: "Pengaturan", icon: Settings, exact: false, headOnly: true },
 ] as const;

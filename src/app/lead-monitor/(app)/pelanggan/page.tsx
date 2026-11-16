@@ -258,8 +258,8 @@ export default function PelangganPage() {
 
         <FilterToolbar busdevNames={busdevNames} showBusdev={isAdminRole(me.role)} />
 
-        {/* Master Head Overview: Total Leads Masing-Masing BusDev */}
-        {data?.masterHeadOverview && (
+        {/* Master Head Overview: Total Leads Masing-Masing BusDev (Khusus Head / Admin) */}
+        {isAdminRole(me.role) && data?.masterHeadOverview && (
           <MasterHeadOverviewCard
             data={data.masterHeadOverview}
             activeBusdev={f.busdev}
