@@ -41,14 +41,14 @@ export default function ProductPageV2({ data }: ProductPageV2Props) {
           categorySlug={data.slug}
         />
 
-        {/* 4. Value: "Nilai yang Kamu Dapat dari Dreamlab" */}
+        {/* 4. Bahan aktif (slider): "Bahan Aktif Unggulan Hair Care" */}
+        <HaircareActiveIngredientsSlider />
+
+        {/* 5. Value: "Nilai yang Kamu Dapat dari Dreamlab" */}
         <HaircareValueSection />
 
-        {/* 5. Our Certifications */}
+        {/* 6. Our Certifications */}
         <OurCertification />
-
-        {/* 6. Bahan aktif (slider): "Bahan Aktif Unggulan Hair Care" */}
-        <HaircareActiveIngredientsSlider />
 
         {/* 7. Proses maklon (1 versi responsif) */}
         <ProductProcess />

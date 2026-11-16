@@ -27,7 +27,6 @@ import AdvantagesGrid from "@/components/AdvantagesGrid";
 import {
   HaircareMarqueeBand,
   HaircareValueSection,
-  HaircareActiveIngredientsSlider,
   getHaircareIngredientImage,
 } from "./HaircareSections";
 
@@ -243,6 +242,7 @@ export default function IndividualProductPage({
       />
 
       {/* 2b. Spesifikasi, Ukuran, Waktu Produksi, Bahan Aktif & Detail Produk (SSR HTML) */}
+      {!isHaircare && (
       <section className="py-14 md:py-20 bg-gradient-to-b from-[#F5F9FE] via-[#FAF9F6] to-white border-y border-blue-100/60">
         <div className="container-custom">
           <div className="max-w-3xl mb-10">
@@ -471,6 +471,7 @@ export default function IndividualProductPage({
           </div>
         </div>
       </section>
+      )}
 
       {/* 3. Packaging Design Grid */}
       <ProductPackagingGrid 
@@ -485,7 +486,6 @@ export default function IndividualProductPage({
         <>
           <HaircareValueSection />
           <OurCertification />
-          <HaircareActiveIngredientsSlider />
         </>
       ) : (
         <>
