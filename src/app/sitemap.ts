@@ -33,7 +33,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about-us/alur-maklon',
     '/services',
     '/contact-us',
-    '/contact-medsos',
     '/our-client',
     '/career',
     '/terms-of-service',
