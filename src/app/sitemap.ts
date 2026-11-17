@@ -82,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'post-sitemap', 'search/', 'juaranyaformula/',
     'produk/pkrt/',
     'thankyou-page', 'thankyoupage-google', 'google-ads/', 'e-floating-buttons/',
-    'thankyou/', 'thankyou-medsos/', 'landing/',
+    'thankyou/', 'thankyou-medsos/', 'landing/', 'metaads/',
     // Maklon legacy redirects (301 to /produk/*/ via proxy.ts LEGACY_PATH_REDIRECTS)
     'maklon-body-care/', 'maklon-baby-care/', 'maklon-decorative/', 'maklon-foot-care/',
   ];

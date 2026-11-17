@@ -214,6 +214,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                     </div>
                     <Link
                       href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=b2b_service_box`}
+                      rel="nofollow"
                       className="shrink-0 bg-gradient-to-r from-[#D98A00] via-[#F39200] to-[#FF9E00] hover:brightness-110 text-white px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-[#D98A00]/30 cursor-pointer border border-white/20 hover:scale-[1.02] active:scale-[0.98] inline-block text-center"
                     >
                       Konsultasi Gratis
@@ -341,6 +342,7 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                 </div>
                 <Link
                   href={`/thankyou/google/?source=organic&from=${encodeURIComponent(article.slug)}&cta=sidebar_article`}
+                  rel="nofollow"
                   className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 rounded-xl font-bold text-center text-xs tracking-wider transition-all shadow-md shadow-brand-orange/20"
                 >
                   <MessageCircle className="w-4 h-4" />

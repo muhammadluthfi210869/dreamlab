@@ -15,7 +15,7 @@ export default function ProductClosingCTA() {
           <p className="font-onest text-lg lg:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
             Jadwalkan pembuatan sampel (prototipe) untuk Anda tes dan evaluasi secara personal sebelum melangkah ke tahap produksi massal.
           </p>
-          <Link href="/thankyou/google/" className="inline-block bg-brand-orange text-white font-bold py-6 px-16 rounded-2xl shadow-xl hover:-translate-y-2 transition-all">
+          <Link href="/thankyou/google/" rel="nofollow" className="inline-block bg-brand-orange text-white font-bold py-6 px-16 rounded-2xl shadow-xl hover:-translate-y-2 transition-all">
             JADWALKAN PEMBUATAN SAMPEL
           </Link>
         </div>

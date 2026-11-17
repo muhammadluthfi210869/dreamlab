@@ -132,6 +132,7 @@ export default function DecorativeProductDetailTabs({ categories }: DecorativeTa
                   <div className="flex flex-wrap gap-3 mt-6">
                     <Link
                       href="/thankyou/google/"
+                      rel="nofollow"
                       className="flex items-center justify-between gap-4 bg-brand-orange text-white px-6 py-3 rounded-xl font-onest font-black uppercase tracking-wider text-[11px] hover:bg-brand-black transition-all shadow-lg shadow-brand-orange/20 group min-w-[200px]"
                     >
                       HUBUNGI TIM KAMI

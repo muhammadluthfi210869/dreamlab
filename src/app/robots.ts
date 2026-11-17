@@ -44,8 +44,6 @@ export default function robots(): MetadataRoute.Robots {
         '/author/admin/',
         '/e-floating-buttons/',
         '/.help/dhl/',
-        // Legacy thin product categories (return 410 via proxy.ts)
-        '/produk/pkrt/',
 // NOTE: Disallow /maklon-*, /bisnis-*, /dreampreneur*, /tips-* dsb.
         // DIHAPUS. Semua slug legacy ini kini 301 redirect ke /produk/* atau
         // /category/panduan-bisnis-kosmetik/ via proxy.ts. Jika di-disallow,

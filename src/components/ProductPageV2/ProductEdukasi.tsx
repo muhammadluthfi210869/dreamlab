@@ -31,6 +31,7 @@ export default function ProductEdukasi({ items }: ProductEdukasiProps) {
                <p className="text-brand-gray mb-6 relative z-10">Tim konsultan kami siap bantu bedah strategi brand kamu via WhatsApp.</p>
                <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="inline-flex items-center gap-2 font-bold text-brand-orange hover:gap-4 transition-all"
                >
                  Tanya Langsung Sekarang

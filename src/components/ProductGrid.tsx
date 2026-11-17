@@ -113,6 +113,7 @@ export default function ProductGrid() {
                 <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                    <Link
                     href={waUrl}
+                    rel="nofollow"
                     className="inline-flex items-center gap-2 text-[9px] font-black text-brand-orange uppercase tracking-widest"
                    >
                      Mulai Diskusi 

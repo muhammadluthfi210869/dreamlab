@@ -225,6 +225,7 @@ export default function PremiumHero({ smallTitle, title, subtitle, ctaText, ctaL
               ) : (
                 <Link
                   href="/thankyou/google/"
+                  rel="nofollow"
                   className="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-xs md:text-sm font-onest uppercase tracking-wider shadow-lg shadow-brand-orange/15 hover:bg-neutral-900 transition-all duration-300 inline-flex items-center justify-center gap-3 group"
                 >
                   <span>{ctaText || "FREE KONSULTASI BISNIS"}</span>

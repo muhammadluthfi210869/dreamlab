@@ -290,6 +290,7 @@ Simulasi dilakukan via Kalkulator Kapasitas Dreamlab (https://dreamlab.id/jasa-m
 
         <a
           href={`https://dreamlab.id/thankyou/google/?source=calculator-gap&target=${calculations.validTarget}&gap=${calculations.capacityGap}`}
+          rel="nofollow"
           className="btn-calculator-cta inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D98A00] to-[#f0b830] px-6 py-3 text-xs sm:text-sm font-extrabold !text-white !no-underline shadow-lg shadow-amber-500/20 transition hover:brightness-105 hover:!text-white sm:w-auto"
           style={{ color: '#ffffff', textDecoration: 'none' }}
         >

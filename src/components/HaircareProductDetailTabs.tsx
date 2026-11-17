@@ -152,6 +152,7 @@ export default function HaircareProductDetailTabs({ categories }: HaircareTabsPr
                   <div className="flex flex-wrap gap-4 mt-10">
                     <Link
                       href="/thankyou/google/"
+                      rel="nofollow"
                       className="flex items-center justify-between gap-4 bg-brand-orange text-white px-8 py-4 rounded-xl font-onest font-black uppercase tracking-wider text-[12px] hover:bg-brand-black transition-all shadow-lg shadow-brand-orange/20 group min-w-[240px]"
                     >
                       HUBUNGI TIM KAMI

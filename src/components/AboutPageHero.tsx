@@ -60,6 +60,7 @@ export default function AboutPageHero({ data }: { data: AboutHeroData }) {
               ) : (
                 <Link
                   href="/thankyou/google/"
+                  rel="nofollow"
                   className="inline-flex items-center gap-2.5 bg-brand-orange text-white font-bold text-sm md:text-base px-7 py-3.5 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/20 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {data.ctaText}

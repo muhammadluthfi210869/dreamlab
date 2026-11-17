@@ -67,6 +67,7 @@ export default function ProductSubCategoryFormula({
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-4 justify-center">
             <Link
               href={waUrl}
+              rel="nofollow"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#212120] hover:bg-brand-orange text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5"
             >
               <span className="uppercase tracking-[0.15em] text-[9px] font-black">Konsultasi Formula</span>

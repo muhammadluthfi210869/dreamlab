@@ -430,6 +430,24 @@ function rewriteAnchorsAndImages(html: string): string {
     return `<a href="${h2 || THANKYOU_URL}">${inner}</a>`;
   });
 
+  // h) Pastikan semua link ke thankyou pages dan /produk/pkrt/ memiliki rel="nofollow"
+  c = c.replace(
+    /<a\b([^>]*?)href=(["'])([^"']*(?:\/thankyou\/|\/thankyou-medsos\/|\/ads\/thankyou\/|\/thankyou-page|\/thankyoupage-google|\/produk\/pkrt\/)[^"']*)\2([^>]*)>/gi,
+    (_full, pre: string, quote: string, href: string, post: string) => {
+      const attrs = `${pre} ${post}`;
+      if (/\brel\s*=\s*["'][^"']*nofollow/i.test(attrs)) {
+        return `<a${pre}href=${quote}${href}${quote}${post}>`;
+      }
+      if (/\brel\s*=\s*(["'])([^"']*)\1/i.test(attrs)) {
+        return `<a${pre}href=${quote}${href}${quote}${post}>`.replace(
+          /\brel\s*=\s*(["'])([^"']*)\1/i,
+          (_r, q: string, val: string) => `rel=${q}${val ? `${val} nofollow` : 'nofollow'}${q}`
+        );
+      }
+      return `<a${pre}href=${quote}${href}${quote}${post} rel="nofollow">`;
+    }
+  );
+
   return c;
 }
 

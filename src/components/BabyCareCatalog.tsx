@@ -87,6 +87,7 @@ export default function BabyCareCatalog({ products }: BabyCareCatalogProps) {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="flex items-center gap-2 bg-brand-orange text-white px-6 py-3 rounded-xl font-onest font-black uppercase tracking-wider text-[11px] hover:bg-brand-black transition-all shadow-lg group"
               >
                 HUBUNGI TIM KAMI

@@ -315,7 +315,7 @@ export default function MetaAdsMofLandingPage() {
             {/* Primary CTA Button */}
             <div className="mt-4">
               <a
-                href={THANKYOU_URL}
+                href={THANKYOU_URL} rel="nofollow"
                 className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-[#F39200] to-[#E07B00] text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-[0_14px_32px_rgba(243,146,0,0.40)] hover:brightness-105 active:scale-95"
               >
                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
@@ -409,7 +409,7 @@ export default function MetaAdsMofLandingPage() {
             {catalogSlides.map((cat) => (
               <a
                 key={cat.id}
-                href={THANKYOU_URL}
+                href={THANKYOU_URL} rel="nofollow"
                 className="group snap-center shrink-0 w-[76vw] sm:w-[270px] md:w-[290px] relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900 shadow-[0_12px_30px_rgba(0,0,0,0.10)] border border-neutral-200/80 block"
               >
                 <Image
@@ -504,7 +504,7 @@ export default function MetaAdsMofLandingPage() {
 
               <div className="pt-1">
                 <a
-                  href={THANKYOU_URL}
+                  href={THANKYOU_URL} rel="nofollow"
                   className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-[#F39200] to-[#E07B00] text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_12px_28px_rgba(243,146,0,0.35)] hover:brightness-105 active:scale-95 transition-all"
                 >
                   <MessageCircle className="w-4 h-4 fill-current shrink-0" />
@@ -711,7 +711,7 @@ export default function MetaAdsMofLandingPage() {
 
           <div className="pt-1">
             <a
-              href={THANKYOU_URL}
+              href={THANKYOU_URL} rel="nofollow"
               className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-9 py-4 bg-brand-orange text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider hover:bg-neutral-900 transition-all shadow-[0_12px_28px_rgba(243,146,0,0.3)] active:scale-95"
             >
               <MessageCircle className="w-4 h-4 fill-current shrink-0" />

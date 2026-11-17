@@ -20,8 +20,6 @@ const GONE_PATTERNS = [
   '/post-sitemap',
   '/search/',
   '/juaranyaformula/',
-  // Thin product sub-categories — template only, 0 traffic, 0 backlink value
-  '/produk/pkrt/',
   // Floating buttons preview page — template only, no content
   '/e-floating-buttons/',
   // Orphaned pagination pages (/page/2/, /page/8/) — zero SEO value, conflicting robots meta
@@ -306,7 +304,11 @@ export function proxy(request: NextRequest) {
   // lang="en" (bukan hanya setelah hydration).
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-dreamlab-path", pathname);
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  if (pathname === '/produk/pkrt' || pathname === '/produk/pkrt/') {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+  return response;
 }
 
 export const config = {

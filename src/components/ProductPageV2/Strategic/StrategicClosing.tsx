@@ -110,6 +110,7 @@ export default function StrategicClosing({ headline, subheadline, ctaText, produ
           >
             <motion.a
               href={waUrl}
+              rel="nofollow"
               whileHover={{ scale: 1.04, y: -4 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}

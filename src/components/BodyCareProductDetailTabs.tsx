@@ -145,6 +145,7 @@ export default function BodyCareProductDetailTabs({ categories }: BodyCareProduc
                   <div className="flex flex-wrap gap-4 mt-12">
                     <Link
                       href="/thankyou/google/"
+                      rel="nofollow"
                       className="flex items-center gap-3 bg-brand-orange text-white px-10 py-5 rounded-xl font-onest font-black uppercase tracking-wider text-[13px] hover:bg-brand-black transition-all shadow-xl shadow-brand-orange/20 group"
                     >
                       HUBUNGI TIM KAMI

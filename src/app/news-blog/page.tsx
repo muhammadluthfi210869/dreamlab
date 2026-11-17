@@ -385,6 +385,7 @@ onChange={(e) => handleSearch(e.target.value)}
                   </div>
                   <Link
                     href="/thankyou/google/?source=organic&from=/news-blog/"
+                    rel="nofollow"
                     className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-[#D98200] text-white py-3.5 px-6 rounded-2xl font-black text-xs tracking-wider transition-all shadow-lg shadow-brand-orange/30 text-center"
                   >
                     <span>KONSULTASI VIA WHATSAPP</span>

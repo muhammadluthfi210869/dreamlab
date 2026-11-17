@@ -402,6 +402,7 @@ export default function BrandShowcaseSection({ content }: BrandShowcaseSectionPr
             >
               <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="group inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#E67E00] via-[#F39200] to-[#F7A623] px-7 py-3.5 text-sm sm:text-[15px] font-bold text-white shadow-[0_10px_25px_rgba(243,146,0,0.32)] transition-all duration-200 ease-out hover:-translate-y-[2px] hover:shadow-[0_14px_30px_rgba(243,146,0,0.42)] active:scale-[0.98]"
               >
                 <svg

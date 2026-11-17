@@ -882,6 +882,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
               >
                 <motion.a
                   href={waUrl}
+                  rel="nofollow"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -1423,6 +1424,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
               >
                 <motion.a
                   href={waUrl}
+                  rel="nofollow"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -1646,6 +1648,7 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           >
             <a
               href={waUrl}
+              rel="nofollow"
               className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-brand-orange hover:bg-[#212120] text-white font-bold py-4 px-10 rounded-xl transition-all duration-500 shadow-[0_15px_30px_rgba(246,145,30,0.15)] hover:-translate-y-1"
             >
                   <span className="uppercase tracking-[0.2em] text-[10px] font-onest">{content.ctaText || "FREE KONSULTASI BISNIS"}</span>

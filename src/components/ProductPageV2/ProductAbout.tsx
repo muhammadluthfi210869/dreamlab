@@ -174,6 +174,7 @@ export default function ProductAbout({ categoryName }: ProductAboutProps) {
             <div className="flex flex-col sm:flex-row items-center gap-8 pt-4 border-t border-gray-100">
               <Link
                 href={waUrl}
+                rel="nofollow"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-brand-orange/10 hover:-translate-y-0.5"
               >
                 <span className="uppercase tracking-[0.15em] text-[10px] font-onest">Konsultasi Sekarang</span>

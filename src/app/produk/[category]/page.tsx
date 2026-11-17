@@ -121,11 +121,15 @@ export async function generateMetadata({ params }: Props) {
   const description = getCategoryMetaDescription(data.name, data.description, category);
   const title = getCategoryTitle(category);
 
+  const isPkrt = category === "pkrt";
+
   return {
     title,
     description,
     alternates: buildAlternates(`/produk/${category}/`),
-    robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+    robots: isPkrt
+      ? "noindex, nofollow"
+      : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     openGraph: {
       title,
       description,

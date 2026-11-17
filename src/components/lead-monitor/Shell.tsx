@@ -102,15 +102,15 @@ export function MonitorShell({ user, guest = false, children }: { user: CrmUserI
               style={
                 active
                   ? {
-                      background: "var(--crm-accent-soft)",
-                      color: "var(--crm-accent)",
-                      border: "1px solid var(--crm-accent-border)",
-                      fontWeight: 600,
-                    }
+                    background: "var(--crm-accent-soft)",
+                    color: "var(--crm-accent)",
+                    border: "1px solid var(--crm-accent-border)",
+                    fontWeight: 600,
+                  }
                   : {
-                      color: "var(--crm-text-secondary)",
-                      border: "1px solid transparent",
-                    }
+                    color: "var(--crm-text-secondary)",
+                    border: "1px solid transparent",
+                  }
               }
             >
               <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} style={active ? { color: BRAND } : undefined} />

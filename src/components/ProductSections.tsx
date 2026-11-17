@@ -34,6 +34,7 @@ export function ProductHero({ category, tagline, description, imageSrc }: Produc
           <div className="flex flex-wrap gap-4 pt-4">
             <Link
               href="/thankyou/google/"
+              rel="nofollow"
               className="bg-brand-orange text-brand-white px-8 py-4 rounded-full font-onest font-bold uppercase tracking-widest hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-brand-orange/20"
             >
               Hubungi Tim Kami <ChevronRight className="w-5 h-5" />
@@ -192,6 +193,7 @@ export function ProductCTA({ category }: { category: string }) {
         </p>
         <Link
           href="/thankyou/google/"
+          rel="nofollow"
           className="inline-flex items-center gap-3 bg-brand-white text-brand-orange px-10 py-5 rounded-full font-onest font-black uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-2xl"
         >
           <Phone className="w-6 h-6" />

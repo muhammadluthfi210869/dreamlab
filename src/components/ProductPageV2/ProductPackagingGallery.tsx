@@ -373,6 +373,7 @@ export default function ProductPackagingGallery({ productSlug, categorySlug, pro
             </div>
             <Link
               href={waUrl}
+              rel="nofollow"
               className="group flex items-center gap-3 bg-brand-orange hover:bg-[#212120] text-white font-bold py-4 px-8 rounded-xl transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex-shrink-0"
             >
               <span className="text-[10px] uppercase tracking-[0.2em]">Konsultasi Design</span>

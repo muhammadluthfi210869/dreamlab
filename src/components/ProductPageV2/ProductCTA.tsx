@@ -85,6 +85,7 @@ export default function ProductCTA({ data, productName }: ProductCTAProps) {
           >
             <Link
               href={waUrl}
+              rel="nofollow"
               className="group relative inline-flex items-center gap-6 px-10 py-5 bg-[#212120] text-white overflow-hidden transition-all duration-500 hover:pr-14"
             >
               <span className="relative z-10 text-[12px] font-black uppercase tracking-[0.3em]">

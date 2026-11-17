@@ -81,6 +81,7 @@ export default function ProductSelectionMatrix() {
       >
         <Link
           href={waUrl}
+          rel="nofollow"
           className={`group relative block bg-white border rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-brand-orange/10 flex flex-col h-full text-left w-full ${
             product.isPopular ? "border-brand-orange ring-1 ring-brand-orange/20 shadow-xl shadow-brand-orange/10" : "border-gray-100"
           }`}

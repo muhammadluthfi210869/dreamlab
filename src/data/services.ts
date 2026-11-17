@@ -117,16 +117,6 @@ export const serviceCategories: ServiceCategory[] = [
     ],
   },
   {
-    id: 'pkrt',
-    name: 'PKRT',
-    items: [
-      { image: '/new asset/pkrt/bar-soap.webp', title: 'Bar Soap' },
-      { image: '/new%20asset/pkrt/hand-sanis.webp', title: 'Hand Sanitizer' },
-      { image: '/new asset/pkrt/hand-wash.webp', title: 'Hand Wash' },
-      { image: '/new asset/pkrt/herbal-soap.webp', title: 'Herbal Soap' },
-    ],
-  },
-  {
     id: 'footcare',
     name: 'Foot Care',
     items: [

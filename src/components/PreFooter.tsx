@@ -41,6 +41,7 @@ const PreFooter = () => {
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
               <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="bg-[#F7941D] text-white px-6 py-3 rounded-md font-bold text-xs uppercase tracking-wider flex items-center gap-3 transition-colors hover:bg-orange-600"
               >
                 Hubungi Tim Kami

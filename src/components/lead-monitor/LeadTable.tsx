@@ -473,11 +473,10 @@ export function LeadTable({
         <button
           type="button"
           onClick={() => onChange({ qualifiedOnly: !state.qualifiedOnly, page: 1 })}
-          className={`h-9 inline-flex items-center gap-1.5 rounded-lg border px-3 text-xs font-semibold transition ${
-            state.qualifiedOnly
+          className={`h-9 inline-flex items-center gap-1.5 rounded-lg border px-3 text-xs font-semibold transition ${state.qualifiedOnly
               ? "border-emerald-400 bg-emerald-50 text-emerald-800 shadow-xs"
               : "border-[#E5E2DA] bg-white text-slate-600 hover:bg-slate-50"
-          }`}
+            }`}
         >
           <span className={`h-2 w-2 rounded-full ${state.qualifiedOnly ? "bg-emerald-600" : "bg-slate-300"}`} />
           <span>Qualified only</span>

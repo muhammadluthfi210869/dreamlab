@@ -65,6 +65,7 @@ export default function ServicesPageHero({
             <div className="flex flex-col sm:flex-row gap-4 pt-1">
               <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="inline-flex items-center justify-center gap-3 bg-brand-orange text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:bg-brand-orange/90 transition-all duration-300 group shadow-lg shadow-brand-orange/25"
               >
                 {primaryCta}

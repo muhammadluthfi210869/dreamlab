@@ -36,6 +36,7 @@ export default function EDPClosing() {
           <div className="flex flex-col items-center gap-8">
             <Link
               href="/thankyou/google/"
+              rel="nofollow"
               className="group relative inline-flex items-center justify-center gap-6 bg-brand-orange hover:bg-white hover:text-[#1B1B1B] text-white font-bold py-6 px-14 rounded-2xl transition-all duration-500 shadow-[0_20px_40px_rgba(246,145,30,0.2)] hover:-translate-y-2"
             >
               <span className="uppercase tracking-[0.2em] text-xs font-onest">Jadwalkan Pembuatan Sampel</span>

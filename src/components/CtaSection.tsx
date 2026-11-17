@@ -69,6 +69,7 @@ export default function CtaSection({
             <div className="rounded-2xl w-fit mt-2">
               <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="inline-flex items-center justify-center bg-[#F39200] hover:bg-[#D98200] hover:scale-[1.03] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-extrabold text-sm md:text-base lg:text-lg uppercase tracking-wider transition-all duration-300 shadow-xl shadow-[#F39200]/15 w-fit"
               >
                 {buttonText}

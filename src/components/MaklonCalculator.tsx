@@ -259,6 +259,7 @@ export default function MaklonCalculator() {
         {/* CTA Button */}
         <Link
           href={waUrl}
+          rel="nofollow"
           className="flex items-center justify-center gap-3 w-full bg-brand-orange hover:bg-white text-white hover:text-brand-orange py-4 rounded-2xl font-black text-center text-xs tracking-widest transition-all duration-300 shadow-xl border border-transparent hover:border-brand-orange group"
         >
           <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />

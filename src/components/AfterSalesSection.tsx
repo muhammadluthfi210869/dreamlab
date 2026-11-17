@@ -161,6 +161,7 @@ export default function AfterSalesSection({ data, content }: AfterSalesSectionPr
             <div className="pt-4">
               <Link
                 href="/thankyou/google/"
+                rel="nofollow"
                 className="bg-brand-orange hover:bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-xl transition-all duration-300 group inline-flex items-center gap-2.5 shadow-lg shadow-brand-orange/15 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>{content?.cta || "Mulai Maklon Sekarang"}</span>

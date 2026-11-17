@@ -67,6 +67,7 @@ const ConsultCTA: React.FC<ConsultCTAProps> = ({
       </p>
       <a
         href={buttonHref}
+        rel={buttonHref.includes('thankyou') ? 'nofollow' : undefined}
         style={{
           background: 'linear-gradient(135deg, #D98A00 0%, #e6a020 50%, #f0b830 100%)',
           color: '#ffffff',
