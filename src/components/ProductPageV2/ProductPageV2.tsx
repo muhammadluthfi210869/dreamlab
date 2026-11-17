@@ -3,6 +3,7 @@
 import ProductHero from "./ProductHero";
 import ProductAbout from "./ProductAbout";
 import ProductGrid from "./ProductGrid";
+import HaircareCatalogGrid from "./HaircareCatalogGrid";
 import SubCategoryGrid from "./SubCategoryGrid";
 import ProductPackagingGrid from "./ProductPackagingGrid";
 import AdvantagesGrid from "@/components/AdvantagesGrid";
@@ -36,7 +37,7 @@ export default function ProductPageV2({ data }: ProductPageV2Props) {
         <HaircareMarqueeBand />
 
         {/* 3. Katalog produk (dengan filter masalah rambut) */}
-        <ProductGrid
+        <HaircareCatalogGrid
           products={data.products}
           categorySlug={data.slug}
         />

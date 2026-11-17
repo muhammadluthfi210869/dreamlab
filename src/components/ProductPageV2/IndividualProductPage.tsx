@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Award,
@@ -27,7 +26,6 @@ import AdvantagesGrid from "@/components/AdvantagesGrid";
 import {
   HaircareMarqueeBand,
   HaircareValueSection,
-  getHaircareIngredientImage,
 } from "./HaircareSections";
 
 interface IndividualProductPageProps {
@@ -331,8 +329,8 @@ export default function IndividualProductPage({
 
           {/* Side-by-Side Layout (Referensi Visual Bersih & Terstruktur): Varian & Keunggulan + Bahan Aktif Bergambar */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* LEFT: Varian Formula Dikemas Elegan + Keunggulan & Penjelasan */}
-            <div className="lg:col-span-6 rounded-3xl border border-blue-100 bg-gradient-to-b from-[#EAF4FC] via-[#F5FAFF] to-white p-6 sm:p-8 shadow-[0_12px_36px_rgba(10,37,88,0.06)] flex flex-col justify-between space-y-6">
+            {/* Varian Formula Dikemas Elegan + Keunggulan & Penjelasan */}
+            <div className="lg:col-span-12 rounded-3xl border border-blue-100 bg-gradient-to-b from-[#EAF4FC] via-[#F5FAFF] to-white p-6 sm:p-8 shadow-[0_12px_36px_rgba(10,37,88,0.06)] flex flex-col justify-between space-y-6">
               <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A2558] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
@@ -413,62 +411,6 @@ export default function IndividualProductPage({
                     BPOM &amp; Halal
                   </span>
                 </div>
-              </div>
-            </div>
-
-            {/* RIGHT: Penjelasan Bahan Aktif Unggulan dengan Visual Bulat Ingredient */}
-            <div className="lg:col-span-6 rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-[0_12px_36px_rgba(10,37,88,0.05)] flex flex-col justify-between space-y-5">
-              <div>
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#F39200]">
-                      Active Ingredients
-                    </span>
-                    <h3 className="font-display text-xl font-extrabold text-[#0A2558]">
-                      Bahan Aktif Unggulan {productData.name}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  {(productData.ingredients || []).map((ing) => (
-                    <div
-                      key={ing.name}
-                      className="group flex items-center gap-4 rounded-2xl border border-blue-100/70 bg-gradient-to-r from-[#F4F9FE] to-white p-3.5 transition-all duration-200 hover:border-[#F39200]/40 hover:shadow-sm"
-                    >
-                      {isHaircare && (
-                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-white bg-white shadow-md">
-                          <Image
-                            src={getHaircareIngredientImage(ing.name)}
-                            alt={ing.name}
-                            fill
-                            sizes="64px"
-                            className="object-cover scale-[1.12] transition-transform duration-300 group-hover:scale-[1.18]"
-                          />
-                        </div>
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="font-bold text-sm text-[#0A2558]">
-                            {ing.name}
-                          </span>
-                          <span className="rounded-full bg-amber-50 border border-amber-200/70 px-2 py-0.5 text-[10px] font-bold text-[#D97706]">
-                            Active
-                          </span>
-                        </div>
-                        <p className="text-xs sm:text-[13px] text-slate-600 mt-1 leading-relaxed">
-                          {ing.function}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-2xl bg-[#F8FAFC] border border-slate-200/70 px-4 py-3 text-xs text-slate-600 flex items-center justify-between gap-3">
-                <span>
-                  Ingin kombinasi bahan aktif khusus? Tim apoteker &amp; R&amp;D kami siap memformulasikannya.
-                </span>
               </div>
             </div>
           </div>

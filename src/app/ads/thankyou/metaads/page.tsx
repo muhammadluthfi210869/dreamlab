@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import { ThankYouRoundRobin } from "@/components/ThankYouRoundRobin";
+import { MetaAdsQualifiedPixel } from "@/components/MetaAdsQualifiedPixel";
 import { buildWaMessage } from "@/lib/wa-message";
 
 
@@ -19,6 +21,7 @@ const WA_MSGS: Record<string, string> = {
   "meta-bodycare": buildWaMessage("produk body care", "metaads"),
   "meta-mof": buildWaMessage("peluang bisnis maklon & konsultasi formula", "metaads"),
   "meta-bof": buildWaMessage("maklon kosmetik siap produksi & MOQ", "metaads"),
+  "meta-ramadan": buildWaMessage("promo maklon Ramadan Dreamlab", "metaads"),
   "promo-kemerdekaan": buildWaMessage("promo kemerdekaan Dreamlab", "metaads"),
   "promo-kemerdekaan-kidscare": buildWaMessage("paket kidscare promo kemerdekaan", "metaads"),
   "promo-kemerdekaan-haircare-growth": buildWaMessage("paket haircare growth promo kemerdekaan", "metaads"),
@@ -28,12 +31,17 @@ const WA_MSGS: Record<string, string> = {
 
 export default function ThankYouMetaAds() {
   return (
-    <ThankYouRoundRobin
-      defaultSource="metaads"
-      title="Terima Kasih!"
-      description="Kami sudah menerima minat Anda. Sekarang, saatnya ngobrol langsung dengan tim kami."
-      message={buildWaMessage("produk kosmetik", "metaads")}
-      messageMap={WA_MSGS}
-    />
+    <>
+      <Suspense fallback={null}>
+        <MetaAdsQualifiedPixel />
+      </Suspense>
+      <ThankYouRoundRobin
+        defaultSource="metaads"
+        title="Terima Kasih!"
+        description="Kami sudah menerima minat Anda. Sekarang, saatnya ngobrol langsung dengan tim kami."
+        message={buildWaMessage("produk kosmetik", "metaads")}
+        messageMap={WA_MSGS}
+      />
+    </>
   );
 }

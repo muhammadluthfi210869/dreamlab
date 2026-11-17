@@ -1,4 +1,4 @@
-﻿import { ProductCategoryV2 } from "@/types/product-v2";
+import { ProductCategoryV2 } from "@/types/product-v2";
 import { parfumData } from "./parfum";
 import { bodycareData } from "./bodycare";
 import { haircareData } from "./haircare";

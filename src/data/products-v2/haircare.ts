@@ -279,8 +279,8 @@ Di Dreamlab, kami memformulasikan serum yang memberikan: efek penghalusan instan
       id: "hair-tonic",
       name: "Hair Tonic",
       slug: "hair-tonic",
-      heroImage: "/new asset/haircare/hair-tonic.webp",
-      galleryImages: ["/new asset/haircare/hair-tonic.webp"],
+      heroImage: "/assets/images/haircare/hair-tonic.jpg",
+      galleryImages: ["/assets/images/haircare/hair-tonic.jpg"],
       tags: ["Growth", "Scalp Care", "Daily Use"],
       variants: ["Hair Growth", "Anti-Hair Fall", "Cooling Scalp", "Ginseng Vital"],
       concernFilter: "Rontok & Ketombe",
@@ -674,7 +674,7 @@ Hair Vitamin Dreamlab menghadirkan dosis presisi 1 ml dalam setiap kapsul softge
       name: "Nadia Putri",
       brand: "Founder Brand Hair Care Lokal",
       avatarImage: "",
-      productImage: "/new asset/haircare/hair-tonic.webp",
+      productImage: "/assets/images/haircare/hair-tonic.jpg",
     },
   ],
   faqs: [
@@ -705,6 +705,6 @@ Hair Vitamin Dreamlab menghadirkan dosis presisi 1 ml dalam setiap kapsul softge
     { name: "Anti Split-End Smoothing Serum", slug: "anti-split-end-serum", image: "/new asset/haircare/anti-split-end-serum.jpg", category: "Hair Care", categorySlug: "haircare" },
     { name: "Hair Cuticle Coat", slug: "hair-cuticle-coat", image: "/new asset/haircare/hair-cuticle-coat.jpg", category: "Hair Care", categorySlug: "haircare" },
     { name: "Hair Vitamin", slug: "hair-vitamin", image: "/new asset/haircare/hair-vitamin.jpg", category: "Hair Care", categorySlug: "haircare" },
-    { name: "Hair Tonic", slug: "hair-tonic", image: "/new asset/haircare/hair-tonic.webp", category: "Hair Care", categorySlug: "haircare" },
+    { name: "Hair Tonic", slug: "hair-tonic", image: "/assets/images/haircare/hair-tonic.jpg", category: "Hair Care", categorySlug: "haircare" },
   ],
 };

@@ -26,6 +26,10 @@ const OurCertification = dynamic(() => import("@/components/OurCertification"), 
   ssr: true,
   loading: () => <div className="py-20 bg-white" />
 });
+const FactoryFacilityMarquee = dynamic(() => import("@/components/FactoryFacilityMarquee"), {
+  ssr: true,
+  loading: () => <div className="py-20 bg-[#E9F2FC]" />
+});
 const KatalogProduk = dynamic(() => import("@/components/KatalogProduk"), { 
   ssr: true,
   loading: () => <div className="py-16 bg-white" />
@@ -140,6 +144,9 @@ export default function Home() {
 
       {/* 5.5. SERTIFIKASI RESMI TERPERCAYA (Our Certification Section) */}
       <OurCertification />
+
+      {/* 5.6. FASILITAS PRODUKSI & PABRIK (Panoramic Factory Marquee) */}
+      <FactoryFacilityMarquee />
 
       {/* 6. TESTIMONIALS */}
       {/* TODO: Re-enable testimonials slider when content is ready */}

@@ -64,7 +64,7 @@ export const slugToCardImageMap: Record<string, Record<string, string>> = {
     "shampoo": "new asset/haircare/shampoo.webp",
     "hair-mask": "new asset/haircare/hair-mask.webp",
     "hair-serum": "new asset/haircare/maklon-hair-serum-dreamlab.png",
-    "hair-tonic": "new asset/haircare/hair-tonic.webp",
+    "hair-tonic": "assets/images/haircare/hair-tonic.jpg",
     "hair-gel": "new asset/haircare/hair-gel.webp",
     "scalp-care": "new asset/haircare/scalp-care.webp",
     "beard-serum": "new asset/haircare/beard-serum.webp",

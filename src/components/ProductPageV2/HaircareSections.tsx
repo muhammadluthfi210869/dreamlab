@@ -464,170 +464,241 @@ function IngredientIcon({ type, featured }: { type: ActiveIngredientItem["iconTy
   );
 }
 
+const MARQUEE_INGREDIENT_CONFIG: Array<{
+  name: string;
+  image: string;
+  mirror?: boolean;
+  star?: boolean;
+}> = [
+  { name: "Capixyl™", image: "/assets/images/haircare/ingredients/capixyl-clover.jpg", star: true },
+  { name: "Redensyl®", image: "/assets/images/haircare/ingredients/botanical-redensyl.jpg", star: true },
+  { name: "Procapil™", image: "/assets/images/haircare/ingredients/procapil-peptide.jpg", star: true },
+  { name: "Bio-Keratin", image: "/assets/images/haircare/ingredients/bio-keratin.jpg" },
+  { name: "Ginseng Extract", image: "/assets/images/haircare/ingredients/ginseng-extract.jpg" },
+  { name: "Aloe Vera", image: "/assets/images/haircare/ingredients/aloe-vera.jpg" },
+  { name: "Tea Tree Oil", image: "/assets/images/haircare/ingredients/tea-tree-oil.jpg" },
+  { name: "Argan Oil", image: "/assets/images/haircare/ingredients/argan-oil.jpg" },
+];
+
 export function HaircareActiveIngredientsSlider() {
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const updateScrollState = useCallback(() => {
-    const el = sliderRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 8);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 8);
-
-    const cardWidth = el.firstElementChild?.clientWidth || 280;
-    const idx = Math.round(scrollLeft / (cardWidth + 20));
-    setActiveIndex(Math.min(Math.max(idx, 0), ACTIVE_INGREDIENTS.length - 1));
-  }, []);
-
-  useEffect(() => {
-    const el = sliderRef.current;
-    if (!el) return;
-    updateScrollState();
-    el.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
+  const marqueeItems = MARQUEE_INGREDIENT_CONFIG.map((cfg) => {
+    const found = ACTIVE_INGREDIENTS.find((i) => i.name === cfg.name);
+    return {
+      name: cfg.name,
+      category: found?.category || "",
+      benefit: found?.benefit || "",
+      suitableFor: found?.suitableFor || "",
+      image: cfg.image,
+      mirror: Boolean(cfg.mirror),
+      star: Boolean(cfg.star),
     };
-  }, [updateScrollState]);
+  });
 
-  const scrollByCard = (direction: "left" | "right") => {
-    const el = sliderRef.current;
-    if (!el) return;
-    const cardWidth = el.firstElementChild?.clientWidth || 300;
-    const scrollAmount = direction === "left" ? -(cardWidth + 20) : cardWidth + 20;
-    el.scrollBy({ left: scrollAmount, behavior: "smooth" });
-  };
+  const renderCard = (
+    item: (typeof marqueeItems)[number],
+    idx: number,
+    isDuplicate: boolean
+  ) => (
+    <article
+      key={`${isDuplicate ? "dup" : "main"}-${item.name}-${idx}`}
+      tabIndex={isDuplicate ? -1 : 0}
+      style={{ ["--fx" as string]: item.mirror ? -1 : 1 }}
+      className="hc-ing-card group relative shrink-0 w-[240px] sm:w-[290px] aspect-[4/5] rounded-[22px] overflow-hidden bg-[#ECE6DF]"
+    >
+      <Image
+        src={item.image}
+        alt={isDuplicate ? "" : `${item.name} - Bahan Aktif Maklon Hair Care Dreamlab`}
+        fill
+        loading="eager"
+        sizes="290px"
+        className="hc-ing-img object-cover object-center"
+      />
 
-  const scrollToIndex = (index: number) => {
-    const el = sliderRef.current;
-    if (!el) return;
-    const child = el.children[index] as HTMLElement | undefined;
-    if (child) {
-      el.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
-    }
-  };
+      {item.star && (
+        <span className="absolute top-[16px] left-[16px] z-10 pointer-events-none rounded-full bg-[#F39200] px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.08em] text-white">
+          BAHAN BINTANG
+        </span>
+      )}
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      scrollByCard("left");
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
-      scrollByCard("right");
-    }
-  };
+      <div className="absolute inset-x-[12px] bottom-[12px] z-10 rounded-[14px] bg-[rgba(255,255,255,0.96)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.90)] backdrop-blur-[14px] [-webkit-backdrop-filter:blur(14px)] px-[18px] py-[16px] shadow-[0_8px_24px_-10px_rgba(60,35,10,0.25)]">
+        <span className="block text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#C86400] mb-1">
+          {item.category}
+        </span>
+        <h3 className="font-display text-[21px] font-normal text-[#212120] leading-[1.15]">
+          {item.name}
+        </h3>
 
-  return (
-    <section className="py-16 md:py-24 bg-white border-b border-gray-100">
-      <div className="container-custom">
-        {/* Header + Top-Right Round Navigation Arrows */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-          <div className="space-y-2 max-w-2xl">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
-              Formulasi R&amp;D Teruji
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
-              Bahan Aktif Unggulan Hair Care
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-2 self-end">
-            <button
-              type="button"
-              onClick={() => scrollByCard("left")}
-              disabled={!canScrollLeft}
-              aria-label="Geser bahan aktif ke kiri"
-              className="size-11 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center hover:border-brand-orange hover:text-brand-orange disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer shadow-2xs"
-            >
-              <ChevronLeft className="size-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByCard("right")}
-              disabled={!canScrollRight}
-              aria-label="Geser bahan aktif ke kanan"
-              className="size-11 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center hover:border-brand-orange hover:text-brand-orange disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer shadow-2xs"
-            >
-              <ChevronRight className="size-5" />
-            </button>
+        <div className="hidden sm:block">
+          <div className="hc-ing-desc">
+            <div className="overflow-hidden">
+              <p className="text-[13px] text-[#6B6762] leading-relaxed">
+                {item.benefit}
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Horizontal CSS Scroll-Snap Slider: ~1.2 cards on mobile, 2 on tablet, 4 on desktop */}
-        <div
-          ref={sliderRef}
-          tabIndex={0}
-          role="region"
-          aria-label="Slider Bahan Aktif Unggulan Hair Care"
-          onKeyDown={handleKeyDown}
-          className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 pt-1 focus:outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {ACTIVE_INGREDIENTS.map((item) => (
-            <article
-              key={item.name}
-              className={`snap-start shrink-0 w-[82%] min-[480px]:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-3*1.25rem)/4)] p-6 rounded-3xl border flex flex-col justify-between transition-shadow hover:shadow-md ${
-                item.featured
-                  ? "bg-gradient-to-br from-[#EAF4FC] via-[#F3F9FE] to-white border-brand-blue/25"
-                  : "bg-white border-gray-200/80"
-              }`}
-            >
-              <div>
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="relative size-16 rounded-full overflow-hidden border-2 border-white shadow-md bg-white shrink-0">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      sizes="64px"
-                      className="object-cover scale-[1.12] transition-transform duration-300 hover:scale-[1.18]"
-                    />
-                  </div>
-                  <span
-                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                      item.featured
-                        ? "bg-brand-blue text-white"
-                        : "bg-brand-orange/10 text-brand-orange"
-                    }`}
-                  >
-                    {item.category}
-                  </span>
-                </div>
-
-                <h3 className="font-display text-lg font-normal text-brand-black mb-2">
-                  {item.name}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
-                  {item.benefit}
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-gray-200/60 text-xs text-brand-black/80">
-                <strong className="text-brand-black">Cocok untuk:</strong> {item.suitableFor}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Dot Indicators */}
-        <div className="flex items-center justify-center gap-1.5 mt-6" role="tablist" aria-label="Indikator slide bahan aktif">
-          {ACTIVE_INGREDIENTS.map((item, idx) => (
-            <button
-              key={item.name}
-              type="button"
-              aria-label={`Ke bahan aktif ${item.name}`}
-              onClick={() => scrollToIndex(idx)}
-              className={`h-2 rounded-full transition-all cursor-pointer ${
-                activeIndex === idx ? "w-6 bg-brand-orange" : "w-2 bg-gray-300 hover:bg-gray-400"
-              }`}
-            />
-          ))}
+        <div className="border-t border-[rgba(33,33,32,0.10)] mt-2.5 pt-2 text-[12px]">
+          <span className="text-[#6B6762]">Cocok untuk: </span>
+          <span className="font-medium text-[#212120]">{item.suitableFor}</span>
         </div>
       </div>
+    </article>
+  );
+
+  return (
+    <section className="py-[72px] lg:py-[104px] bg-[#F3EEE8] overflow-x-clip">
+      <style>{`
+        @keyframes hc-ing-marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-50% - 10px));
+          }
+        }
+        .hc-ing-viewport {
+          margin: 0 calc(50% - 50vw);
+          padding: 10px 0 40px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          -webkit-overflow-scrolling: touch;
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+        .hc-ing-viewport::-webkit-scrollbar {
+          display: none;
+        }
+        .hc-ing-track {
+          display: flex;
+          width: max-content;
+          gap: 20px;
+          animation: hc-ing-marquee 48s linear infinite;
+          will-change: transform;
+        }
+        .hc-ing-viewport:hover .hc-ing-track,
+        .hc-ing-viewport:focus-within .hc-ing-track {
+          animation-play-state: paused;
+        }
+        .hc-ing-card {
+          box-shadow: 0 1px 2px rgba(60, 35, 10, 0.04), 0 8px 24px -6px rgba(60, 35, 10, 0.1), 0 24px 48px -12px rgba(60, 35, 10, 0.14);
+          transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .hc-ing-card:focus-visible {
+          outline: 2px solid #F39200;
+          outline-offset: 4px;
+        }
+        @media (hover: hover) {
+          .hc-ing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 2px 4px rgba(60, 35, 10, 0.05), 0 16px 40px -8px rgba(60, 35, 10, 0.18), 0 36px 70px -16px rgba(60, 35, 10, 0.22);
+          }
+        }
+        .hc-ing-card:focus-within {
+          transform: translateY(-6px);
+          box-shadow: 0 2px 4px rgba(60, 35, 10, 0.05), 0 16px 40px -8px rgba(60, 35, 10, 0.18), 0 36px 70px -16px rgba(60, 35, 10, 0.22);
+        }
+        .hc-ing-img {
+          transform: scaleX(var(--fx, 1)) scale(1.45);
+          transform-origin: center;
+          transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @media (hover: hover) {
+          .hc-ing-card:hover .hc-ing-img {
+            transform: scaleX(var(--fx, 1)) scale(1.52);
+          }
+        }
+        .hc-ing-card:focus-within .hc-ing-img {
+          transform: scaleX(var(--fx, 1)) scale(1.52);
+        }
+        .hc-ing-desc {
+          display: grid;
+          grid-template-rows: 0fr;
+          opacity: 0;
+          margin-top: 0;
+          transition: grid-template-rows 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms cubic-bezier(0.22, 1, 0.36, 1), margin-top 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @media (hover: hover) {
+          .hc-ing-card:hover .hc-ing-desc {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 6px;
+          }
+        }
+        .hc-ing-card:focus-within .hc-ing-desc {
+          grid-template-rows: 1fr;
+          opacity: 1;
+          margin-top: 6px;
+        }
+        .hc-ing-hint {
+          display: block;
+        }
+        @media (hover: none) {
+          .hc-ing-hint {
+            display: none;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hc-ing-viewport {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-mask-image: none;
+            mask-image: none;
+            padding-left: 16px;
+            padding-right: 16px;
+          }
+          .hc-ing-track {
+            animation: none !important;
+          }
+          .hc-ing-dup {
+            display: none !important;
+          }
+          .hc-ing-card {
+            scroll-snap-align: start;
+            transition: none !important;
+          }
+          .hc-ing-img,
+          .hc-ing-desc {
+            transition: none !important;
+          }
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
+        <div className="text-center max-w-[760px] mx-auto mb-10 lg:mb-12">
+          <span className="inline-block text-[12px] font-semibold uppercase tracking-[0.16em] text-[#C86400] mb-3">
+            FORMULASI R&amp;D TERUJI
+          </span>
+          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-normal text-[#212120] leading-[1.15]">
+            Bahan Aktif Unggulan <span className="text-[#F39200]">Hair Care</span>
+          </h2>
+        </div>
+      </div>
+
+      {/* Full-bleed continuous marquee */}
+      <div
+        role="region"
+        aria-label="Bahan Aktif Unggulan Hair Care"
+        className="hc-ing-viewport"
+      >
+        <div className="hc-ing-track">
+          <div className="flex flex-nowrap gap-[20px] shrink-0">
+            {marqueeItems.map((item, idx) => renderCard(item, idx, false))}
+          </div>
+          <div
+            aria-hidden="true"
+            className="hc-ing-dup flex flex-nowrap gap-[20px] shrink-0"
+          >
+            {marqueeItems.map((item, idx) => renderCard(item, idx, true))}
+          </div>
+        </div>
+      </div>
+
+      <p className="hc-ing-hint text-center text-[12px] text-[#6B6762]">
+        Arahkan kursor untuk berhenti
+      </p>
     </section>
   );
 }
@@ -639,44 +710,29 @@ const BUSINESS_PACKAGES = [
   {
     name: "Starter Hair Tonic",
     quantity: "500 botol × 100 ml",
-    totalCapital: "± Rp 23,5 jt",
-    hpp: "± Rp 47.000/botol",
+    hppAmount: "± Rp 47.000",
+    hppUnit: "/botol",
     suggestedRetailPrice: "Rp 129.000",
-    includes: [
-      "R&D sampel dan aroma custom",
-      "BPOM 1 SKU",
-      "Botol spray amber + label + dus",
-      "Uji stabilitas",
-    ],
+    bpomCount: "1 SKU",
     featured: false,
   },
   {
     name: "Shampoo Sulfate-Free",
     quantity: "1.000 botol × 250 ml",
-    totalCapital: "± Rp 37,25 jt",
-    hpp: "± Rp 37.250/botol",
+    hppAmount: "± Rp 37.250",
+    hppUnit: "/botol",
     suggestedRetailPrice: "Rp 99.000–119.000",
-    includes: [
-      "Formula tanpa SLS dengan keratin",
-      "BPOM 1 SKU",
-      "Botol pump + stiker vinyl",
-      "QA + Halal",
-    ],
+    bpomCount: "1 SKU",
     featured: true,
-    badge: "Paling diminati",
+    badge: "PALING DIMINATI",
   },
   {
     name: "Duo Scalp Regimen",
     quantity: "1.000 shampoo + 1.000 tonic",
-    totalCapital: "± Rp 65 jt",
-    hpp: "± Rp 32.500/unit",
+    hppAmount: "± Rp 32.500",
+    hppUnit: "/unit",
     suggestedRetailPrice: "Rp 199.000 per bundling",
-    includes: [
-      "R&D 2 formula",
-      "BPOM 2 SKU",
-      "Kemasan 2.000 unit",
-      "Uji lab + Halal + QC",
-    ],
+    bpomCount: "2 SKU",
     featured: false,
   },
 ];
@@ -698,86 +754,152 @@ const PAYMENT_STEPS = [
 
 export function HaircareBusinessPackages() {
   return (
-    <section className="py-16 md:py-24 bg-[#FAF9F6] border-b border-gray-100">
-      <div className="container-custom">
+    <section className="py-[72px] lg:py-[104px] bg-[#FAF8F5]">
+      <style>{`
+        .hc-pkg-card {
+          box-shadow: 0 1px 2px rgba(60, 35, 10, 0.04), 0 8px 24px -6px rgba(60, 35, 10, 0.1), 0 24px 48px -12px rgba(60, 35, 10, 0.14);
+          transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @media (hover: hover) {
+          .hc-pkg-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 2px 4px rgba(60, 35, 10, 0.05), 0 16px 40px -8px rgba(60, 35, 10, 0.18), 0 36px 70px -16px rgba(60, 35, 10, 0.22);
+          }
+        }
+        .hc-pkg-featured {
+          background: linear-gradient(180deg, #FFF4E5 0%, #FFFFFF 55%);
+          border: 2px solid #F39200;
+          box-shadow: 0 2px 4px rgba(243, 146, 0, 0.08), 0 24px 50px -16px rgba(243, 146, 0, 0.35);
+          transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @media (min-width: 1024px) {
+          .hc-pkg-featured {
+            transform: translateY(-12px);
+          }
+          .hc-pkg-featured:hover {
+            transform: translateY(-16px);
+          }
+        }
+        .hc-pkg-btn:focus-visible {
+          outline: 2px solid #F39200;
+          outline-offset: 4px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hc-pkg-card,
+          .hc-pkg-featured {
+            transition: none !important;
+          }
+          .hc-pkg-card:hover {
+            transform: none !important;
+          }
+          @media (min-width: 1024px) {
+            .hc-pkg-featured:hover {
+              transform: translateY(-12px) !important;
+            }
+          }
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-14 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
-            Estimasi Investasi Brand
+          <span className="inline-block text-[12px] font-semibold uppercase tracking-[0.16em] text-[#C86400]">
+            ESTIMASI INVESTASI BRAND
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
-            Simulasi Paket Maklon Hair Care
+          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-normal text-[#212120] leading-[1.15]">
+            Simulasi Paket Maklon <span className="text-[#F39200]">Hair Care</span>
           </h2>
-          <p className="text-xs sm:text-sm text-gray-600">
+          <p className="text-[14px] sm:text-[16px] text-[#6B6762]">
             Pilih simulasi paket sesuai rencana peluncuran brand Anda. Semua paket dapat disesuaikan kembali saat konsultasi.
           </p>
         </div>
 
         {/* 3 Package Cards */}
-        <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-[22px] max-w-[520px] lg:max-w-none mx-auto items-stretch mb-10">
           {BUSINESS_PACKAGES.map((pkg) => {
             const waText = encodeURIComponent(
               `Halo Dreamlab, saya tertarik konsultasi mengenai paket maklon "${pkg.name}" (${pkg.quantity}).`
             );
+            const includedItems = [
+              { pill: "EKSKLUSIF", label: "1 Klien, 1 Formula" },
+              { pill: "FREE", label: `Pengurusan BPOM ${pkg.bpomCount}` },
+              { pill: "FREE", label: "Desain custom" },
+              { pill: "FREE", label: "Desain logo & kemasan" },
+              { pill: "FREE", label: "Digital marketing kit" },
+            ];
+
             return (
               <div
                 key={pkg.name}
-                className={`relative bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-shadow ${
-                  pkg.featured
-                    ? "border-2 border-brand-blue shadow-lg"
-                    : "border border-gray-200/80 shadow-xs hover:shadow-md"
-                }`}
+                className={`relative rounded-[22px] p-[32px_28px_28px] flex flex-col justify-between ${pkg.featured ? "hc-pkg-featured" : "hc-pkg-card bg-white"
+                  }`}
               >
                 {pkg.badge && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="inline-block bg-brand-blue text-white text-[11px] font-bold uppercase tracking-wider px-4 py-1 rounded-full shadow-xs">
+                    <span className="inline-block bg-[#F39200] text-[#212120] text-[11px] font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
                       {pkg.badge}
                     </span>
                   </div>
                 )}
 
                 <div>
-                  <div className="mb-5 pb-5 border-b border-gray-100">
-                    <h3 className="font-display text-xl font-normal text-brand-black mb-1">
+                  <div className="mb-5">
+                    <h3 className="font-display text-[22px] font-normal text-[#212120] mb-1">
                       {pkg.name}
                     </h3>
-                    <p className="text-xs font-bold text-brand-orange">
+                    <p className="text-[14px] text-[#6B6762]">
                       {pkg.quantity}
                     </p>
                   </div>
 
-                  {/* Pricing rows */}
-                  <div className="space-y-3 mb-6 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between py-1.5 border-b border-gray-50">
-                      <span className="text-gray-500">Modal total</span>
-                      <span className="font-display text-lg text-brand-black">
-                        {pkg.totalCapital}
+                  {/* Estimate box */}
+                  <div
+                    className={`rounded-[16px] p-[20px] mb-6 ${pkg.featured
+                      ? "bg-white border border-[rgba(243,146,0,0.25)]"
+                      : "bg-[#FAF8F5]"
+                      }`}
+                  >
+                    <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6B6762] mb-1">
+                      ESTIMASI HPP
+                    </span>
+                    <div className="flex items-baseline gap-1">
+                      <span
+                        className={`font-display text-[32px] leading-tight ${pkg.featured ? "text-[#C86400]" : "text-[#212120]"
+                          }`}
+                      >
+                        {pkg.hppAmount}
+                      </span>
+                      <span className="text-[13px] font-medium text-[#6B6762]">
+                        {pkg.hppUnit}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between py-1.5 border-b border-gray-50">
-                      <span className="text-gray-500">Estimasi HPP</span>
-                      <span className="font-bold text-brand-black">{pkg.hpp}</span>
-                    </div>
-                    <div className="flex items-center justify-between py-1.5 border-b border-gray-50">
-                      <span className="text-gray-500">Saran harga jual</span>
-                      <span className="font-bold text-brand-orange">
+                    <p className="text-[13px] text-[#6B6762] mt-1.5">
+                      Saran harga jual{" "}
+                      <span className="font-semibold text-[#212120]">
                         {pkg.suggestedRetailPrice}
                       </span>
-                    </div>
+                    </p>
                   </div>
 
                   {/* Included items */}
-                  <div className="mb-8">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-3">
-                      Termasuk:
+                  <div className="mb-7">
+                    <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6B6762] mb-3">
+                      TERMASUK
                     </span>
-                    <ul className="space-y-2">
-                      {pkg.includes.map((inc) => (
+                    <ul className="space-y-[11px]">
+                      {includedItems.map((inc) => (
                         <li
-                          key={inc}
-                          className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700"
+                          key={inc.label}
+                          className="flex items-center gap-2.5 text-[14px] text-[#212120]"
                         >
-                          <CheckCircle2 className="size-4 text-brand-orange shrink-0 mt-0.5" />
-                          <span>{inc}</span>
+                          <span className="size-5 rounded-full bg-[#FFF3E2] text-[#C86400] flex items-center justify-center shrink-0">
+                            <CheckCircle2 className="size-3.5" />
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 flex-wrap">
+                            <span className="rounded-full bg-[#F39200] px-[7px] py-[3px] text-[9.5px] font-bold uppercase tracking-wider text-white leading-none">
+                              {inc.pill}
+                            </span>
+                            <span>{inc.label}</span>
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -788,40 +910,40 @@ export function HaircareBusinessPackages() {
                   href={`https://wa.me/6281131900095?text=${waText}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-brand-orange hover:bg-brand-black text-white text-center font-bold py-3.5 px-5 rounded-xl text-xs uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
+                  className={`hc-pkg-btn w-full rounded-full py-3.5 px-5 text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-2 ${pkg.featured
+                    ? "bg-[#F39200] text-[#212120] hover:bg-[#C86400] hover:text-white"
+                    : "bg-white text-[#212120] border border-[#212120] hover:bg-[#212120] hover:text-white"
+                    }`}
                 >
-                  <span>Konsultasi Paket Ini</span>
-                  <ArrowRight className="size-4" />
+                  <span>Konsultasi Paket Ini →</span>
                 </a>
               </div>
             );
           })}
         </div>
 
-        {/* Baris Pembayaran Bertahap (3 Langkah) */}
-        <div className="bg-white rounded-3xl border border-gray-200/80 p-6 sm:p-8">
-          <h3 className="font-display text-base sm:text-lg font-normal text-brand-black text-center mb-6">
+        {/* Payment Strip */}
+        <div className="bg-white rounded-[20px] shadow-[0_1px_2px_rgba(60,35,10,.04),0_6px_18px_-8px_rgba(60,35,10,.12)] p-[28px_32px] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <h3 className="font-display text-[18px] font-normal text-[#212120] shrink-0">
             Skema Pembayaran Bertahap yang Ringan
           </h3>
-          <div className="grid grid-cols-1 min-[480px]:grid-cols-3 gap-4 sm:gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
             {PAYMENT_STEPS.map((item) => (
-              <div
-                key={item.step}
-                className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FAF9F6] border border-gray-100"
-              >
-                <span className="size-9 rounded-full bg-brand-orange text-white font-display text-sm flex items-center justify-center shrink-0">
+              <div key={item.step} className="flex items-center gap-3">
+                <span className="size-[28px] rounded-full bg-[#212120] text-white text-[12px] font-bold flex items-center justify-center shrink-0">
                   {item.step}
                 </span>
-                <span className="text-xs sm:text-sm font-medium text-brand-black leading-snug">
+                <span className="text-[13.5px] text-[#6B6762] leading-snug">
                   {item.text}
                 </span>
               </div>
             ))}
           </div>
-          <p className="text-center text-xs text-gray-500 mt-5">
-            Angka adalah simulasi, bukan penawaran harga resmi.
-          </p>
         </div>
+
+        <p className="text-center text-[12.5px] text-[#6B6762] mt-5">
+          Angka adalah simulasi, bukan penawaran harga resmi.
+        </p>
       </div>
     </section>
   );
