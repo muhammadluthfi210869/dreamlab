@@ -45,7 +45,8 @@ export async function GET(req: NextRequest) {
   let leadRow: any = null;
 
   const baseSelect = `
-    SELECT l.id, l.tracking_code, l.assigned_to, l.nama, l.wa_profile_name, l.hp, l.wa_phone, l.whatsapp_phone_e164,
+    SELECT l.id, l.tracking_code, l.assigned_to, l.nama, l.wa_profile_name, l.name_source, l.name_original, l.name_updated_by, l.name_updated_at,
+           l.hp, l.wa_phone, l.whatsapp_phone_e164,
            l.produk, l.requested_quantity_pcs, l.source, l.utm_source, l.utm_medium, l.utm_campaign, l.page_url, l.referrer,
            l.created_at, l.confirmed_at,
            cls.stage, cls.produk_manual, cls.moq_manual, cls.note, cls.owner, cls.stage_changed_at,
@@ -102,6 +103,21 @@ export async function GET(req: NextRequest) {
     [leadRow.tracking_code]
   );
 
+  let auditHistory: any[] = [];
+  try {
+    const auditRes = await pool.query(
+      `SELECT action, summary, old_value, new_value, actor, created_at
+         FROM crm_lead_audit_log
+        WHERE tracking_code = $1
+        ORDER BY created_at DESC
+        LIMIT 30`,
+      [leadRow.tracking_code]
+    );
+    auditHistory = auditRes.rows;
+  } catch {
+    // abaikan jika tabel audit belum ada
+  }
+
   const normalizedStage = normalizeStage(leadRow.stage);
   const srcInfo = normalizeCrmSource({
     source: extraState.source_manual || leadRow.source,
@@ -121,6 +137,10 @@ export async function GET(req: NextRequest) {
       id: Number(leadRow.id),
       tracking_code: leadRow.tracking_code,
       name: leadRow.nama || leadRow.wa_profile_name || null,
+      name_source: leadRow.name_source || (leadRow.nama ? 'form' : leadRow.wa_profile_name ? 'whatsapp' : null),
+      name_original: leadRow.name_original || null,
+      name_updated_by: leadRow.name_updated_by || null,
+      name_updated_at: leadRow.name_updated_at || null,
       phone: leadRow.whatsapp_phone_e164 || leadRow.wa_phone || leadRow.hp || null,
       brand: extraState.brand ?? null,
       assigned_to: effectiveOwnerName,
@@ -147,6 +167,7 @@ export async function GET(req: NextRequest) {
       changed_by: h.changed_by,
       changed_at: h.changed_at,
     })),
+    audit_history: auditHistory,
   });
 }
 
@@ -186,6 +207,8 @@ export async function PATCH(req: NextRequest) {
 
   const has = (k: string) => body && Object.prototype.hasOwnProperty.call(body, k);
   const patch: {
+    name?: string;
+    phone?: string;
     brand?: string | null;
     produk?: string | null;
     moq?: number | null;
@@ -197,6 +220,46 @@ export async function PATCH(req: NextRequest) {
     newOwnerName?: string;
     newOwnerId?: number;
   } = {};
+
+  if (has('name') || has('nama')) {
+    const rawName = String(has('name') ? body.name ?? '' : body.nama ?? '').trim();
+    if (rawName.length < 2 || rawName.length > 60) {
+      return json({ success: false, error: 'Nama lead harus 2–60 karakter' }, 400);
+    }
+    patch.name = rawName;
+  }
+
+  if (has('phone')) {
+    if (!isAdmin) {
+      return json({ success: false, error: 'Hanya Admin yang boleh mengoreksi nomor WA lead' }, 403);
+    }
+    let digits = String(body.phone || '').replace(/\D/g, '');
+    if (digits.startsWith('0')) digits = '62' + digits.slice(1);
+    else if (digits.startsWith('8')) digits = '62' + digits;
+    if (digits.length < 9 || digits.length > 15) {
+      return json({ success: false, error: 'Nomor WhatsApp harus 9–15 digit dalam format E.164 (mis. 628123456789)' }, 400);
+    }
+    const dup = await pool.query(
+      `SELECT id, tracking_code, nama, wa_profile_name
+         FROM leads
+        WHERE tracking_code <> ALL($1::text[])
+          AND is_test IS NOT TRUE
+          AND (whatsapp_phone_e164 IN ($2, $3) OR wa_phone IN ($2, $3) OR hp IN ($2, $3))
+        LIMIT 1`,
+      [codes, digits, '+' + digits]
+    );
+    if (dup.rowCount) {
+      const d = dup.rows[0];
+      return json(
+        {
+          success: false,
+          error: `Nomor ${digits} sudah terdaftar pada lead ${d.nama || d.wa_profile_name || d.tracking_code}`,
+        },
+        409
+      );
+    }
+    patch.phone = digits;
+  }
 
   if (has('owner_sales_id') || has('sales') || has('assigned_to')) {
     if (!isAdmin) {
@@ -456,6 +519,76 @@ export async function PATCH(req: NextRequest) {
           await client.query(`UPDATE leads SET assigned_to = $2 WHERE tracking_code = $1`, [code, patch.newOwnerName]);
         }
 
+        if (patch.name !== undefined) {
+          const prevRes = await client.query(
+            `SELECT id, COALESCE(NULLIF(TRIM(nama), ''), NULLIF(TRIM(wa_profile_name), ''), '-') AS old_name
+               FROM leads WHERE tracking_code = $1 LIMIT 1`,
+            [code]
+          );
+          const oldName = prevRes.rows[0]?.old_name || '-';
+          const leadIdVal = prevRes.rows[0]?.id ? Number(prevRes.rows[0].id) : null;
+          await client.query(
+            `UPDATE leads
+                SET nama = $2,
+                    name_source = 'manual',
+                    name_original = COALESCE(name_original, NULLIF(TRIM(nama), ''), NULLIF(TRIM(wa_profile_name), ''), $2),
+                    name_updated_by = $3,
+                    name_updated_at = NOW()
+              WHERE tracking_code = $1`,
+            [code, patch.name, user.name]
+          );
+          if (oldName !== patch.name) {
+            await client
+              .query(
+                `INSERT INTO crm_lead_audit_log (tracking_code, lead_id, action, summary, old_value, new_value, actor)
+                 VALUES ($1, $2, 'update_name', $3, $4, $5, $6)`,
+                [
+                  code,
+                  leadIdVal,
+                  `Nama diubah dari ${oldName} menjadi ${patch.name} oleh ${user.name}`,
+                  oldName,
+                  patch.name,
+                  user.name,
+                ]
+              )
+              .catch(() => undefined);
+          }
+        }
+
+        if (patch.phone !== undefined) {
+          const prevRes = await client.query(
+            `SELECT id, COALESCE(NULLIF(whatsapp_phone_e164, ''), NULLIF(wa_phone, ''), NULLIF(hp, ''), '-') AS old_phone
+               FROM leads WHERE tracking_code = $1 LIMIT 1`,
+            [code]
+          );
+          const oldPhone = prevRes.rows[0]?.old_phone || '-';
+          const leadIdVal = prevRes.rows[0]?.id ? Number(prevRes.rows[0].id) : null;
+          await client.query(
+            `UPDATE leads
+                SET whatsapp_phone_e164 = $2,
+                    wa_phone = $2,
+                    hp = CASE WHEN hp IS NOT NULL AND hp <> '' THEN $2 ELSE hp END
+              WHERE tracking_code = $1`,
+            [code, patch.phone]
+          );
+          if (oldPhone !== patch.phone) {
+            await client
+              .query(
+                `INSERT INTO crm_lead_audit_log (tracking_code, lead_id, action, summary, old_value, new_value, actor)
+                 VALUES ($1, $2, 'update_phone', $3, $4, $5, $6)`,
+                [
+                  code,
+                  leadIdVal,
+                  `Nomor diubah dari ${oldPhone} menjadi ${patch.phone} oleh ${user.name}`,
+                  oldPhone,
+                  patch.phone,
+                  user.name,
+                ]
+              )
+              .catch(() => undefined);
+          }
+        }
+
         if (stageChanged) {
           await client.query(
             `INSERT INTO crm_stage_history (tracking_code, from_stage, to_stage, changed_by) VALUES ($1, $2, $3, $4)`,
@@ -471,6 +604,8 @@ export async function PATCH(req: NextRequest) {
 
   return json({
     success: true,
+    name: patch.name,
+    phone: patch.phone,
     stage: patch.stage,
     moq_label: patch.moqLabel,
     moq: patch.moq,

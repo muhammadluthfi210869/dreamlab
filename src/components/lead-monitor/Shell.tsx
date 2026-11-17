@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Home, LogOut, Menu, MessageSquare, Moon, Settings, ShieldCheck, Sun, Target, Users, X } from "lucide-react";
+import { BarChart3, Clock, FileText, Home, Layers, LogOut, Menu, MessageSquare, Moon, Repeat, Settings, ShieldCheck, Sun, Target, Users, X, Zap } from "lucide-react";
 import { isAdminRole, type CrmUserInfo } from "@/lib/crm-stages";
 import { BRAND } from "./ui";
 import { MonitorProviders } from "./filters";
@@ -13,7 +13,13 @@ const NAV = [
   { href: "/lead-monitor/chat", label: "Chat WA", icon: MessageSquare, exact: false, headOnly: false },
   { href: "/lead-monitor/pipeline", label: "Pipeline", icon: Target, exact: false, headOnly: false },
   { href: "/lead-monitor/pelanggan", label: "Buku Tamu & Prospek", icon: Users, exact: false, headOnly: false },
+  { href: "/lead-monitor/reminder", label: "Reminder", icon: Clock, exact: false, headOnly: false },
+  { href: "/lead-monitor/laporan", label: "Laporan", icon: BarChart3, exact: false, headOnly: false },
+  { href: "/lead-monitor/otomasi", label: "Otomasi & Segmen", icon: Zap, exact: false, headOnly: false },
+  { href: "/lead-monitor/flows", label: "Flow Journey", icon: Layers, exact: false, headOnly: true },
+  { href: "/lead-monitor/round-robin", label: "Round Robin", icon: Repeat, exact: false, headOnly: true },
   { href: "/lead-monitor/pengguna", label: "Tim Sales", icon: ShieldCheck, exact: false, headOnly: true },
+  { href: "/lead-monitor/migrasi", label: "Migrasi", icon: FileText, exact: false, headOnly: true },
   { href: "/lead-monitor/pengaturan", label: "Pengaturan", icon: Settings, exact: false, headOnly: true },
 ] as const;
 

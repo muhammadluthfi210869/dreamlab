@@ -395,10 +395,19 @@ export async function POST(req: NextRequest) {
       const updateRes = await pool.query(
         `UPDATE leads
             SET status = 'confirmed',
-                wa_profile_name = COALESCE($1, wa_profile_name),
-                wa_phone = COALESCE($2, wa_phone),
-                wa_message = COALESCE($3, wa_message),
-                confirmed_at = NOW()
+                wa_profile_name = CASE
+                  WHEN leads.name_source = 'manual' THEN leads.wa_profile_name
+                  ELSE COALESCE($1, leads.wa_profile_name)
+                END,
+                name_source = COALESCE(
+                  leads.name_source,
+                  CASE WHEN NULLIF(TRIM($1), '') IS NOT NULL THEN 'whatsapp' ELSE NULL END
+                ),
+                name_original = COALESCE(leads.name_original, NULLIF(TRIM($1), '')),
+                wa_phone = COALESCE($2, leads.wa_phone),
+                whatsapp_phone_e164 = COALESCE(leads.whatsapp_phone_e164, $2),
+                wa_message = COALESCE($3, leads.wa_message),
+                confirmed_at = COALESCE(leads.confirmed_at, NOW())
           WHERE tracking_code = $4
              OR session_id = $4
           RETURNING id, tracking_code, assigned_to, status, confirmed_at`,
@@ -435,8 +444,10 @@ export async function POST(req: NextRequest) {
         // catat sebagai confirmed lead baru untuk busdev terkait
         await pool.query(
           `INSERT INTO leads
-             (tracking_code, assigned_to, status, wa_profile_name, wa_phone, wa_message, confirmed_at, source)
-           VALUES ($1, $2, 'confirmed', $3, $4, $5, NOW(), 'wa-direct')
+             (tracking_code, assigned_to, status, wa_profile_name, wa_phone, whatsapp_phone_e164, wa_message, confirmed_at, source, name_source, name_original)
+           VALUES ($1, $2, 'confirmed', $3, $4, $4, $5, NOW(), 'wa-direct',
+                   CASE WHEN NULLIF(TRIM($3), '') IS NOT NULL THEN 'whatsapp' ELSE NULL END,
+                   NULLIF(TRIM($3), ''))
            ON CONFLICT (tracking_code) DO NOTHING`,
           [trackingCode, busdevName, waName, normalizedPhone, messageText]
         );

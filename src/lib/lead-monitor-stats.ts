@@ -41,6 +41,10 @@ const TIER_PCS: Record<string, number> = {
 
 export interface MonitorLead extends MergeableLead {
   nama?: string | null;
+  name_source?: 'form' | 'whatsapp' | 'manual' | null;
+  name_original?: string | null;
+  name_updated_by?: string | null;
+  name_updated_at?: string | null;
   hp?: string | null;
   wa_profile_name?: string | null;
   wa_phone?: string | null;
@@ -561,10 +565,29 @@ export function filterLeads(leads: ViewedLead[], f: TableFilters): ViewedLead[] 
     if (f.source !== 'all' && (l.source || 'direct') !== f.source) return false;
     if (f.stage && f.stage !== 'all' && (l.crm_stage || 'traffic') !== f.stage) return false;
     if (q) {
-      const hay = [l.tracking_code, l.nama, l.wa_profile_name, l.wa_phone, l.hp, l.page_url, l.referrer, l.produk, l.produk_manual, l.note, l.inquiry_reference]
+      const hay = [l.tracking_code, l.nama, l.wa_profile_name, l.whatsapp_phone_e164, l.wa_phone, l.hp, l.page_url, l.referrer, l.produk, l.produk_manual, l.note, l.inquiry_reference]
         .map(norm)
         .join(' ');
-      if (!hay.includes(q)) return false;
+      if (!hay.includes(q)) {
+        const qDigits = q.replace(/\D/g, '');
+        if (qDigits.length < 3) return false;
+        const phoneDigits = [l.whatsapp_phone_e164, l.wa_phone, l.hp]
+          .map((p) => String(p || '').replace(/\D/g, ''))
+          .filter(Boolean);
+        const qVariants = new Set([
+          qDigits,
+          qDigits.startsWith('0') ? '62' + qDigits.slice(1) : qDigits,
+          qDigits.startsWith('62') ? '0' + qDigits.slice(2) : qDigits,
+        ]);
+        const phoneMatch = phoneDigits.some((pd) => {
+          const pdLocal = pd.startsWith('62') ? '0' + pd.slice(2) : pd;
+          for (const v of qVariants) {
+            if (pd.includes(v) || pdLocal.includes(v)) return true;
+          }
+          return false;
+        });
+        if (!phoneMatch) return false;
+      }
     }
     return true;
   });

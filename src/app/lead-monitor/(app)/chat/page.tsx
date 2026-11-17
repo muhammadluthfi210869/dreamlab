@@ -657,9 +657,27 @@ export default function CrmChatPage() {
                   <div className="min-w-0">
                     <div className="font-bold text-xs text-slate-900 truncate flex items-center gap-2">
                       <span>{leadDetail?.nama || leadDetail?.wa_profile_name || activeConv?.customer_name || "Calon Klien"}</span>
-                      <span className="rounded-full bg-emerald-50 px-2 py-0.2 text-[10px] font-semibold text-emerald-700 border border-emerald-200">
-                        Online via WABA
-                      </span>
+                      {(() => {
+                        const lastIn = [...messages].reverse().find((m) => m.direction === "inbound");
+                        const diffMs = lastIn ? Date.now() - new Date(lastIn.created_at).getTime() : Infinity;
+                        const in24h = diffMs <= 24 * 3600 * 1000;
+                        const remH = in24h ? Math.max(1, Math.ceil((24 * 3600 * 1000 - diffMs) / 3600000)) : 0;
+                        return in24h ? (
+                          <span
+                            title="Pelanggan membalas dalam 24 jam terakhir — bisa kirim pesan teks bebas"
+                            className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200"
+                          >
+                            Jendela 24j aktif ({remH}j)
+                          </span>
+                        ) : (
+                          <span
+                            title="Lebih dari 24 jam sejak pesan terakhir pelanggan — gunakan template Convia"
+                            className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-800 border border-amber-200"
+                          >
+                            Di luar 24j (template)
+                          </span>
+                        );
+                      })()}
                     </div>
                     <div className="text-[11px] text-slate-400 truncate">
                       +{activePhone} · Sales: {leadDetail?.assigned_to || activeConv?.busdev || "Dreamlab"}

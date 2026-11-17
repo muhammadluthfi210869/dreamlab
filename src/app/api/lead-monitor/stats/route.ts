@@ -203,6 +203,7 @@ export async function GET(req: NextRequest) {
                 ${FORM_FLAG}, ${GHOST_ROWS},
                 ${col('production_tier_name')}, ${col('requested_quantity_pcs')},
                 ${col('inquiry_reference')}, ${col('phone_country_iso2')}, ${col('whatsapp_phone_e164')},
+                ${col('name_source')}, ${col('name_original')}, ${col('name_updated_by')}, ${col('name_updated_at')},
                 ${col('tier')}, ${col('qualified')}, ${col('disqualify_reason')}, ${col('inquiry_code')},
                 (SELECT CASE WHEN ce.http_status = 200 THEN 'sent' WHEN ce.http_status IS NOT NULL OR ce.error_message IS NOT NULL THEN 'failed' ELSE 'pending' END FROM capi_events ce WHERE ce.lead_id = leads.id ORDER BY ce.id DESC LIMIT 1) AS capi_status,
                 created_at, confirmed_at
@@ -321,6 +322,10 @@ export async function GET(req: NextRequest) {
         status: l.status,
         nama: l.nama ?? null,
         wa_profile_name: l.wa_profile_name ?? null,
+        name_source: (l as any).name_source ?? null,
+        name_original: (l as any).name_original ?? null,
+        name_updated_by: (l as any).name_updated_by ?? null,
+        name_updated_at: (l as any).name_updated_at ?? null,
         display_phone: (l.display_phone as string) ?? l.wa_phone ?? l.hp ?? null,
         phone_from: l.wa_phone ? 'WA' : l.hp ? 'Form' : null,
         phone_country_iso2: (l.phone_country_iso2 as string) ?? null,

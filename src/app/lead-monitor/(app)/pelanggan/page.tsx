@@ -175,6 +175,7 @@ export default function PelangganPage() {
                   x.id === row.id
                     ? {
                       ...x,
+                      ...(patch.nama !== undefined ? { nama: patch.nama, name_source: "manual" as const } : {}),
                       ...(patch.produk_manual !== undefined ? { produk_manual: patch.produk_manual } : {}),
                       ...(patch.moq_manual !== undefined ? { moq_manual: patch.moq_manual } : {}),
                       ...(patch.stage !== undefined ? { crm_stage: patch.stage } : {}),

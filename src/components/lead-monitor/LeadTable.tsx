@@ -20,6 +20,10 @@ export interface TableRow {
   status: string | null;
   nama: string | null;
   wa_profile_name: string | null;
+  name_source?: "form" | "whatsapp" | "manual" | null;
+  name_original?: string | null;
+  name_updated_by?: string | null;
+  name_updated_at?: string | null;
   display_phone: string | null;
   phone_from: "WA" | "Form" | null;
   phone_country_iso2: string | null;
@@ -116,6 +120,14 @@ export function SourceBadge({ source }: { source: string | null }) {
       </span>
     );
   }
+  if (s === "wa-direct") {
+    return (
+      <span className="inline-flex items-center gap-1 rounded bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-emerald-700">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+        WhatsApp organik
+      </span>
+    );
+  }
   return (
     <span className="inline-flex items-center gap-1 rounded bg-slate-100 border border-slate-200 px-1.5 py-0.5 font-sans text-[10px] font-bold text-slate-700">
       {source || "Direct / Web"}
@@ -155,7 +167,7 @@ export interface TableState {
 export const MOQ_PCS = 500;
 
 /** Perubahan yang bisa disimpan dari tabel. Mengembalikan pesan galat, atau null bila berhasil. */
-export type RowPatch = { produk_manual?: string | null; moq_manual?: number | null; stage?: string };
+export type RowPatch = { nama?: string; produk_manual?: string | null; moq_manual?: number | null; stage?: string };
 export type PatchHandler = (row: TableRow, patch: RowPatch) => Promise<string | null>;
 
 const REFERRER_KIND_LABEL: Record<NonNullable<TableRow["referrer_kind"]>, string> = {
@@ -306,6 +318,110 @@ function InlineEdit({
       {current ? <span className="text-slate-800">{display ?? current}</span> : <span className={canEdit ? "text-slate-400" : "text-slate-300"}>{canEdit ? placeholder : "—"}</span>}
       {canEdit && <Edit3 className="h-3 w-3 shrink-0 text-slate-300 opacity-0 transition group-hover:opacity-100" />}
     </button>
+  );
+}
+
+function NameEditCell({
+  name,
+  isChat,
+  nameSource,
+  canEdit,
+  onSave,
+}: {
+  name: string | null;
+  isChat: boolean;
+  nameSource: "form" | "whatsapp" | "manual" | null;
+  canEdit: boolean;
+  onSave: (nextName: string) => Promise<string | null>;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(name ?? "");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  const commit = async () => {
+    const trimmed = draft.trim();
+    if (trimmed === (name ?? "").trim()) {
+      setEditing(false);
+      setErr(null);
+      return;
+    }
+    if (trimmed.length < 2 || trimmed.length > 60) {
+      setErr("Nama harus 2–60 karakter");
+      return;
+    }
+    setBusy(true);
+    setErr(null);
+    const e = await onSave(trimmed);
+    setBusy(false);
+    if (e) setErr(e);
+    else setEditing(false);
+  };
+
+  if (editing) {
+    return (
+      <div className="space-y-1">
+        <input
+          autoFocus
+          value={draft}
+          maxLength={60}
+          disabled={busy}
+          onChange={(e) => setDraft(e.target.value)}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+            if (e.key === "Escape") {
+              setEditing(false);
+              setErr(null);
+            }
+          }}
+          className="h-8 w-40 rounded-md border border-[#D98A00] bg-white px-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#D98A00]/25 disabled:opacity-60"
+        />
+        {err && <div className="max-w-[180px] text-[10px] text-rose-600">{err}</div>}
+      </div>
+    );
+  }
+
+  const sourceLabel =
+    nameSource === "form"
+      ? "Form"
+      : nameSource === "whatsapp"
+        ? "WhatsApp"
+        : nameSource === "manual"
+          ? "Manual"
+          : null;
+
+  return (
+    <div className="flex items-center gap-1.5">
+      {name ? (
+        <span className="font-semibold text-slate-900">{name}</span>
+      ) : !isChat ? (
+        <span className="italic text-slate-400 text-xs">Belum chat</span>
+      ) : (
+        <span className="text-slate-300">—</span>
+      )}
+      {sourceLabel && (
+        <span
+          title={`Sumber nama: ${sourceLabel}`}
+          className="rounded bg-slate-100 border border-slate-200 px-1 py-0.5 text-[9px] font-semibold text-slate-600"
+        >
+          {sourceLabel}
+        </span>
+      )}
+      {canEdit && (
+        <button
+          type="button"
+          onClick={() => {
+            setDraft(name ?? "");
+            setErr(null);
+            setEditing(true);
+          }}
+          className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-[#1F6FB2] hover:bg-blue-50 transition"
+        >
+          Ubah
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -539,9 +655,15 @@ export function LeadTable({
                       <div className="font-sans text-[10px] text-slate-400">{wibDay(r.created_at)}</div>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">
-                      {name ? (
-                        <div>
-                          <div className="font-semibold text-slate-900">{name}</div>
+                      <div>
+                        <NameEditCell
+                          name={name}
+                          isChat={isChat}
+                          nameSource={r.name_source ?? (r.is_form_lead ? "form" : clean(r.wa_profile_name) ? "whatsapp" : null)}
+                          canEdit={canEdit && Boolean(onPatch)}
+                          onSave={(nextName) => onPatch!(r, { nama: nextName })}
+                        />
+                        {name && (
                           <div className="flex flex-wrap items-center gap-1 mt-1">
                             {r.is_form_lead && <Pill tone="brand">Isi form</Pill>}
                             {r.tier && (
@@ -586,10 +708,8 @@ export function LeadTable({
                               </span>
                             )}
                           </div>
-                        </div>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
+                        )}
+                      </div>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px]">
                       {r.display_phone ? (
@@ -610,6 +730,8 @@ export function LeadTable({
                             </svg>
                           </a>
                         </div>
+                      ) : !isChat ? (
+                        <span className="font-sans text-[11px] italic text-slate-400">muncul setelah chat</span>
                       ) : (
                         <span className="text-slate-300">—</span>
                       )}
