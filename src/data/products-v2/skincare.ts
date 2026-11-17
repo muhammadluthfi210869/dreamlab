@@ -340,38 +340,6 @@ Konsepnya sederhana namun kuat: misel — molekul kecil yang menarik dan menjeba
       certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
     },
     {
-      id: "facial-sunscreen",
-      name: "Facial Sunscreen",
-      slug: "facial-sunscreen",
-      heroImage: "/new asset/produk/skincare/bg-lands-card3.webp",
-      galleryImages: ["/new asset/produk/skincare/bg-lands-card3.webp"],
-      tags: ["Essential", "Protection", "Daily"],
-      shortDescription: "Maklon Facial Sunscreen dengan perlindungan UV spektrum luas. Formula ringan, non-greasy, dan tanpa white cast, ideal untuk iklim tropis.",
-      story: `Perlindungan matahari bukan lagi opsi, melainkan kebutuhan dasar kesehatan kulit.
-
-Di iklim tropis Indonesia, sunscreen adalah investasi terbaik untuk mencegah penuaan dini dan hiperpigmentasi. Tantangan utamanya adalah menciptakan formula yang nyaman: tidak lengket, tidak menyebabkan jerawat, dan tidak meninggalkan noda putih (white cast). Sunscreen Dreamlab dirancang untuk memberikan perlindungan maksimal sekaligus kenyamanan sepanjang hari.`,
-      seoParagraph: "Maklon Facial Sunscreen solusi bagi brand yang ingin menawarkan produk perlindungan esensial. Dengan pilihan SPF 30 hingga 50+ dan perlindungan PA++++, sunscreen Dreamlab melindungi kulit dari sinar UVA dan UVB. MOQ Fleksibel / menyesuaikan kebutuhan brand dengan waktu produksi 2-3 bulan. Formula kami dirancang khusus agar stabil di suhu tinggi dan nyaman digunakan sebagai dasar makeup bersertifikasi BPOM & Halal.",
-      benefits: [
-        "Broad Spectrum Protection — melindungi dari sinar UVA & UVB",
-        "Pilihan SPF 30, SPF 50, dan SPF 50+ PA++++",
-        "Tekstur Non-Greasy — ringan dan nyaman di bawah sinar matahari",
-        "Zero White Cast — tidak meninggalkan noda putih pada kulit",
-        "Opsi Physical, Hybrid, atau Chemical sesuai target pasar",
-        "Sertifikasi BPOM & Halal",
-      ],
-      ingredients: [
-        { name: "Zinc Oxide", origin: "USA", function: "Physical UV filter, safe for sensitive skin" },
-        { name: "Avobenzone", origin: "Germany", function: "Chemical UV filter, UVA protection" },
-        { name: "Niacinamide", origin: "Korea", function: "Brightening, reduces UV damage" },
-      ],
-      sizeOptions: ["30ml", "40ml", "50ml"],
-      bottleOptions: ["Jar", "Tube", "Airless Pump Bottle", "Stick", "Pump Bottle"],
-      capOptions: ["Screw Cap", "Pump", "Click Lid"],
-      moq: "MOQ Fleksibel / menyesuaikan kebutuhan brand",
-      productionTime: "2 bulan",
-      certifications: ["BPOM", "Halal MUI", "CPKB Grade A"],
-    },
-    {
       id: "facial-moisturizer",
       name: "Facial Moisturizer",
       slug: "facial-moisturizer",
@@ -585,7 +553,7 @@ Sleeping Mask Dreamlab diformulasikan dengan Hyaluronic Acid, Centella Asiatica,
       id: "sunscreen",
       name: "Sunscreen",
       slug: "sunscreen",
-      description: "Tabir surya dengan perlindungan UV spektrum luas. Formula ringan, non-greasy, tanpa white cast untuk iklim tropis.",
+      description: "Tabir surya wajah spektrum luas (SPF 30 hingga 50+ PA++++) untuk iklim tropis Indonesia. Formula ringan, non-greasy, tanpa white cast, stabil di suhu tinggi, dan nyaman sebagai dasar makeup dengan pilihan kemasan Tube, Airless Pump, hingga Stick — bersertifikasi BPOM & Halal.",
       heroImage: "/new asset/produk/skincare/bg-lands-card3.webp",
       bgColor: "#EADBC8",
       products: [
@@ -1060,7 +1028,7 @@ Peeling Serum Dreamlab menggabungkan Glycolic Acid (AHA) untuk mengangkat sel ku
   relatedProducts: [
     { name: "Facial Toner", slug: "facial-toner", image: "/new asset/skincare&facecare/mois-facial-toner.webp", category: "Skincare", categorySlug: "skincare" },
     { name: "Facial Wash", slug: "facial-wash", image: "/new asset/skincare&facecare/facial-wash.webp", category: "Skincare", categorySlug: "skincare" },
-    { name: "Facial Sunscreen", slug: "facial-sunscreen", image: "/new asset/skincare&facecare/physical-sunscreen.webp", category: "Skincare", categorySlug: "skincare" },
+    { name: "Sunscreen", slug: "sunscreen", image: "/new asset/skincare&facecare/physical-sunscreen.webp", category: "Skincare", categorySlug: "skincare" },
     { name: "Micellar Cleansing Gel", slug: "micellar-cleansing-gel", image: "/new asset/skincare&facecare/micellar-cleansing-gel.webp", category: "Skincare", categorySlug: "skincare" },
   ],
 };

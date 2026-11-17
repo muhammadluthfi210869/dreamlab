@@ -544,7 +544,6 @@ export const SITE_PATHS: string[] = [
   "produk/skincare/facial-serum/peeling-serum",
   "produk/skincare/facial-serum/radiant-advance-serum",
   "produk/skincare/facial-serum/serum-gel",
-  "produk/skincare/facial-sunscreen",
   "produk/skincare/facial-toner",
   "produk/skincare/facial-toner/acne-facial-toner",
   "produk/skincare/facial-toner/brightening-facial-toner",
