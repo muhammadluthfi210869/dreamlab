@@ -4762,6 +4762,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 9
   },
   {
+    "slug": "/maklon-shampoo-herbal",
+    "title": "Maklon Shampoo Herbal: Kembangkan Shampoo dengan Formula Sesuai Konsep Brand",
+    "publishDate": "2026-11-17T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Formula & R&D"
+    ],
+    "tags": [
+      "Maklon Kosmetik",
+      "Maklon Haircare",
+      "Maklon Shampoo Herbal",
+      "Bisnis Haircare",
+      "Formula Shampoo Herbal",
+      "Brand Shampoo Sendiri",
+      "Pabrik Maklon Shampoo"
+    ],
+    "featuredImage": "/images/artikel-maklon-shampoo-herbal/maklon_shampoo_herbal_cover.jpg",
+    "excerpt": "Ingin membuat brand shampoo herbal? Pelajari cara mengembangkan konsep, formula, bahan aktif, hingga proses maklon shampoo herbal bersama partner produksi.",
+    "readingMinutes": 14
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

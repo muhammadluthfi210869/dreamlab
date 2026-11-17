@@ -310,6 +310,7 @@ export const SITE_PATHS: string[] = [
   "maklon-pkrt",
   "maklon-produk-man-care",
   "maklon-scalp-haircare-bisnis-produk-rambut-sehat",
+  "maklon-shampoo-herbal",
   "maklon-shampoo-psoriasis-formula-juara",
   "maklon-skincare",
   "maklon-skincare-batam",

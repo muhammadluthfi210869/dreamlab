@@ -3379,6 +3379,38 @@
     "width": 1080,
     "height": 1080
   },
+  "/assets/images/factory-showcase/factory-01-lotion-line.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-02-qc-inspection.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-03-cream-filling.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-04-parfum-filling.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-05-deodorant-line.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-06-laser-qc.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-07-shrink-wrap.jpg": {
+    "height": 682,
+    "width": 1024
+  },
+  "/assets/images/factory-showcase/factory-08-parfum-boxes.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
   "/assets/images/female-pink-bathrobe-using-spray-1-1024x683.jpg": {
     "height": 683,
     "width": 1024
@@ -3471,6 +3503,50 @@
     "width": 2560,
     "height": 2560
   },
+  "/assets/images/haircare/hair-tonic.jpg": {
+    "height": 1024,
+    "width": 819
+  },
+  "/assets/images/haircare/ingredients/aloe-vera.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/argan-oil.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/bio-keratin.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/botanical-redensyl.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/capixyl-clover.jpg": {
+    "height": 1009,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/ginseng-extract.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/hair-follicle-oil.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/peptide-protein.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/procapil-peptide.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/haircare/ingredients/tea-tree-oil.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
   "/assets/images/hand-sanis-scaled.webp": {
     "width": 2560,
     "height": 2560
@@ -3518,6 +3594,22 @@
   "/assets/images/high-angle-view-coffee-cup-table-scaled.webp": {
     "width": 1920,
     "height": 1280
+  },
+  "/assets/images/home/our-certifications.jpg": {
+    "height": 341,
+    "width": 1024
+  },
+  "/assets/images/home/service-consultation.jpg": {
+    "height": 1024,
+    "width": 1002
+  },
+  "/assets/images/home/service-production.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/assets/images/home/service-rnd-team.jpg": {
+    "height": 1024,
+    "width": 819
   },
   "/assets/images/hybrid-sunscreen-scaled.webp": {
     "width": 2560,
@@ -4255,6 +4347,38 @@
     "width": 1080,
     "height": 1080
   },
+  "/assets/ramadan/hero-desktop.webp": {
+    "width": 1376,
+    "height": 768
+  },
+  "/assets/ramadan/hero-mobile.webp": {
+    "width": 1080,
+    "height": 1920
+  },
+  "/assets/ramadan/kat-babycare.webp": {
+    "width": 848,
+    "height": 1264
+  },
+  "/assets/ramadan/kat-bodycare.webp": {
+    "width": 848,
+    "height": 1264
+  },
+  "/assets/ramadan/kat-haircare.webp": {
+    "width": 848,
+    "height": 1264
+  },
+  "/assets/ramadan/kat-parfum.webp": {
+    "width": 848,
+    "height": 1264
+  },
+  "/assets/ramadan/kat-personalcare.webp": {
+    "width": 848,
+    "height": 1264
+  },
+  "/assets/ramadan/kat-skincare.webp": {
+    "width": 848,
+    "height": 1264
+  },
   "/images/artikel-affiliate-kol/perbedaan-affiliate-vs-kol.jpg": {
     "height": 1024,
     "width": 1536
@@ -4586,6 +4710,26 @@
   "/images/artikel-maklon-parfum-halal/maklon-parfum-halal-dreamlab-cover.webp": {
     "width": 1024,
     "height": 682
+  },
+  "/images/artikel-maklon-shampoo-herbal/maklon_botanical_daily_shampoo.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/images/artikel-maklon-shampoo-herbal/maklon_herbal_anti_dandruff_shampoo.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/images/artikel-maklon-shampoo-herbal/maklon_herbal_scalp_care_shampoo.jpg": {
+    "height": 1024,
+    "width": 1024
+  },
+  "/images/artikel-maklon-shampoo-herbal/maklon_herbal_strengthening_shampoo.jpg": {
+    "height": 1024,
+    "width": 935
+  },
+  "/images/artikel-maklon-shampoo-herbal/maklon_shampoo_herbal_cover.jpg": {
+    "height": 576,
+    "width": 1024
   },
   "/images/artikel-maklon-solid-perfume-parfum-balm-bpom/custom_parfum_solid_di_dreamlab.png": {
     "width": 1086,
