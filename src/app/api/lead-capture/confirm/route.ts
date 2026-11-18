@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'node:crypto';
 import pool, { resetPool } from '@/lib/db';
+import { applyAutoWarm } from '@/lib/crm-auto-warm';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -257,6 +258,15 @@ export async function POST(req: NextRequest) {
         );
       } catch (crmMsgErr) {
         console.warn('[lead-capture/confirm] gagal simpan crm_chat_messages:', crmMsgErr);
+      }
+      // Otomasi Warm: 5 pesan masuk -> tahap Warm (tidak pernah mundur). Tidak boleh menggagalkan penerimaan lead.
+      if (normalizedPhone) {
+        try {
+          const moved = await applyAutoWarm(pool, normalizedPhone);
+          if (moved) console.log(`[lead-capture/confirm] otomasi Warm: ...${normalizedPhone.slice(-4)} -> ${moved}`);
+        } catch (warmErr) {
+          console.warn('[lead-capture/confirm] otomasi Warm gagal (diabaikan):', warmErr);
+        }
       }
     }
 
