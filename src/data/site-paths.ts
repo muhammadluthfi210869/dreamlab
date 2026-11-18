@@ -74,6 +74,7 @@ export const SITE_PATHS: string[] = [
   "cara-membuka-offline-store-kosmetik-2026",
   "cara-memilih-produk-haircare-pertama",
   "cara-memulai-bisnis-bodycare",
+  "cara-memulai-brand-hair-tonic-ginseng",
   "cara-menentukan-harga-jual-parfum",
   "cara-menentukan-harga-jual-produk-kosmetik",
   "cara-menentukan-usp-produk-kosmetik",

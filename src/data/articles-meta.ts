@@ -4828,6 +4828,29 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 12
   },
   {
+    "slug": "/cara-memulai-brand-hair-tonic-ginseng",
+    "title": "Cara Memulai Brand Hair Tonic Ginseng: Panduan Lengkap, Ide Formula, & Biaya Maklon",
+    "publishDate": "2026-11-18T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "maklon hair tonic",
+      "jasa maklon hair tonic",
+      "hair tonic ginseng",
+      "cara membuat brand hair tonic",
+      "biaya maklon hair tonic",
+      "bisnis hair tonic",
+      "maklon haircare",
+      "custom formula hair tonic"
+    ],
+    "featuredImage": "/images/artikel-cara-memulai-brand-hair-tonic-ginseng/cara_memulai_brand_hair_tonic_ginseng_cover.jpg",
+    "excerpt": "Ingin memulai brand hair tonic ginseng sendiri? Pelajari 5 ide formula, panduan merintis dari nol, simulasi target HPP Rp35.000, proses maklon, hingga legalitas BPOM & Halal.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
