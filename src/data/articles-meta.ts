@@ -4784,6 +4784,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 14
   },
   {
+    "slug": "/langkah-praktis-sertifikasi-halal-kosmetik",
+    "title": "Langkah Praktis Mengajukan Sertifikasi Halal Kosmetik untuk Pemilik Brand",
+    "publishDate": "2026-11-18T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis",
+      "Legalitas & Regulasi"
+    ],
+    "tags": [
+      "Sertifikasi Halal Kosmetik",
+      "Maklon Kosmetik Halal",
+      "BPJPH Kosmetik",
+      "Syarat Halal Skincare",
+      "Biaya Sertifikasi Halal",
+      "Legalitas Kosmetik",
+      "Panduan Bisnis Kosmetik"
+    ],
+    "featuredImage": "/images/artikel-langkah-praktis-sertifikasi-halal-kosmetik/sertifikasi_halal_kosmetik_cover.jpg",
+    "excerpt": "Pelajari cara mengajukan sertifikasi halal kosmetik, dokumen yang perlu disiapkan, biaya, proses, hingga tips memilih partner maklon kosmetik.",
+    "readingMinutes": 14
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
