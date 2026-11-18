@@ -4806,6 +4806,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 14
   },
   {
+    "slug": "/maklon-kosmetik-bogor",
+    "title": "Cara Memilih Jasa Maklon Kosmetik di Bogor: Cek Sertifikat, MOQ, dan Kualitas Formulasi",
+    "publishDate": "2026-11-18T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "Maklon Kosmetik Bogor",
+      "Jasa Maklon Bogor",
+      "Pabrik Kosmetik Bogor",
+      "Bisnis Kosmetik Bogor",
+      "MOQ Maklon Kosmetik",
+      "Maklon Skincare BPOM",
+      "Dreamlab Maklon Kosmetik"
+    ],
+    "featuredImage": "/images/artikel-maklon-kosmetik-bogor/maklon_kosmetik_bogor_cover.jpg",
+    "excerpt": "Cari maklon kosmetik Bogor? Cek 6 hal penting sebelum memilih partner, 5 ide produk, MOQ, biaya, formula, legalitas, dan layanan Dreamlab.",
+    "readingMinutes": 12
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
