@@ -4851,6 +4851,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 11
   },
   {
+    "slug": "/checklist-legalitas-brand-kosmetik",
+    "title": "Bikin Brand Kosmetik Sendiri: Checklist Legalitas Lengkap untuk Calon Founder",
+    "publishDate": "2026-11-18T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis",
+      "Legalitas & Regulasi"
+    ],
+    "tags": [
+      "legalitas brand kosmetik",
+      "checklist legalitas kosmetik",
+      "izin edar bpom kosmetik",
+      "dokumen informasi produk dip",
+      "sertifikasi halal kosmetik",
+      "perbpom 18 tahun 2024",
+      "maklon kosmetik bpom"
+    ],
+    "featuredImage": "/images/artikel-checklist-legalitas-brand-kosmetik/checklist_legalitas_brand_kosmetik_cover.jpg",
+    "excerpt": "Mau bikin brand kosmetik sendiri? Simak checklist legalitas usaha, BPOM, halal, label, klaim produk, dan dokumen DIP yang perlu disiapkan sebelum produksi.",
+    "readingMinutes": 11
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",

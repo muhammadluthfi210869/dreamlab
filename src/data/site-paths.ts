@@ -109,6 +109,7 @@ export const SITE_PATHS: string[] = [
   "category/panduan-bisnis-kosmetik",
   "category/personal-care",
   "category/tips-trick",
+  "checklist-legalitas-brand-kosmetik",
   "contact-medsos",
   "contact-us",
   "contoh-kalimat-iklan-kosmetik-unik",
