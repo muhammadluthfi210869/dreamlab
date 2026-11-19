@@ -5,6 +5,9 @@ import {
   skipReason,
   verifyConviaSignature,
 } from '@/lib/convia-webhook';
+import pool from '@/lib/db';
+import { applyAutoWarm } from '@/lib/crm-auto-warm';
+import { chatDisplayText, normalizeChatPhone, recordChatMessage } from '@/lib/crm-chat-capture';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -63,6 +66,31 @@ export async function POST(req: NextRequest) {
     // Termasuk payload "Test" dari dashboard Convia.
     return reply({ success: true, ignored: true, reason: 'bentuk payload tidak dikenal / test event' });
   }
+
+  // Balasan KELUAR sales (dari aplikasi WhatsApp Business / dashboard Convia): disimpan sebagai pesan sales di
+  // percakapan nomor lead dan ikut dihitung otomasi Warm. Tidak membuat/mengubah lead.
+  if (ev.direction === 'outbound' && ev.eventType.startsWith('message.') && ev.channel === 'whatsapp' && !ev.isHistory) {
+    const phone = normalizeChatPhone(ev.phone);
+    const text = chatDisplayText(ev.text, ev.messageType);
+    if (!phone || !text) return reply({ success: true, ignored: true, reason: 'pesan keluar kosong / nomor tidak valid' });
+    try {
+      const saved = await recordChatMessage(pool, {
+        phone,
+        direction: 'outbound',
+        text,
+        wamid: ev.wamid || (ev.messageId ? `convia:${ev.messageId}` : null),
+        busdevName: null,
+      });
+      if (saved) await applyAutoWarm(pool, phone).catch((e) => console.warn('[convia] otomasi Warm (keluar) gagal:', e?.message || e));
+      return reply({ success: true, recorded: saved, direction: 'outbound' });
+    } catch (e: any) {
+      console.error('[convia] gagal simpan pesan keluar:', e?.message || e);
+      return reply({ success: false, error: 'record failed' }, 500);
+    }
+  }
+
+  // Balasan lead berupa gambar/suara/dokumen tanpa teks: tetap diteruskan dengan penanda ("[Gambar]") agar tidak hilang.
+  if (ev.direction === 'inbound' && !ev.text) ev.text = chatDisplayText(null, ev.messageType);
 
   const skip = skipReason(ev);
   const tag = `[convia] ${ev.shape} ${ev.eventType} ...${(ev.businessPhone || '').replace(/\D/g, '').slice(-4)}`;

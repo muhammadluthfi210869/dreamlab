@@ -25,6 +25,11 @@ export const stageLabel = (id: string | null | undefined): string =>
 
 export function normalizeStage(st: string | null | undefined): PipelineStage {
   if (!st) return 'traffic';
+  // Nama tahap dari versi pipeline lain yang masih sah di database produksi (constraint crm_lead_state_stage_check).
+  if (st === 'lead_masuk') return 'traffic';
+  if (st === 'warm_below_500') return 'warm_500';
+  if (st === 'warm_below_1000') return 'warm_up_500';
+  if (st === 'warm_up_1000') return 'warm_1000';
   if (st === 'traffic_below_500') return 'cold';
   if (st === 'traffic_500' || st === 'warm') return 'warm_500';
   if (st === 'traffic_1000') return 'warm_1000';

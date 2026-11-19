@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Home, LogOut, Menu, MessageSquare, Settings, ShieldCheck, Target, Users, X } from "lucide-react";
+import { BellRing, Home, LogOut, Menu, MessageSquare, Settings, ShieldCheck, Target, Users, X } from "lucide-react";
 import type { CrmUserInfo } from "@/lib/crm-stages";
 import { BRAND } from "./ui";
 import { MonitorProviders } from "./filters";
@@ -12,6 +12,7 @@ const NAV = [
   { href: "/lead-monitor", label: "Dashboard", icon: Home, exact: true, headOnly: false },
   { href: "/lead-monitor/chat", label: "Chat WABA", icon: MessageSquare, exact: false, headOnly: false },
   { href: "/lead-monitor/pipeline", label: "Sales Pipeline", icon: Target, exact: false, headOnly: false },
+  { href: "/lead-monitor/pengingat", label: "Pengingat", icon: BellRing, exact: false, headOnly: false },
   { href: "/lead-monitor/pelanggan", label: "Pelanggan", icon: Users, exact: false, headOnly: false },
   { href: "/lead-monitor/pengguna", label: "Pengguna", icon: ShieldCheck, exact: false, headOnly: true },
   { href: "/lead-monitor/pengaturan", label: "Pengaturan", icon: Settings, exact: false, headOnly: false },

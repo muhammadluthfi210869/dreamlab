@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'node:crypto';
 import pool, { resetPool } from '@/lib/db';
 import { applyAutoWarm } from '@/lib/crm-auto-warm';
+import { chatDisplayText, extractMetaText, isNonChatType, normalizeChatPhone, recordChatMessage } from '@/lib/crm-chat-capture';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -147,6 +148,37 @@ export async function POST(req: NextRequest) {
     let destinationPhone: string | null = null;
     let phoneNumberId: string | null = null;
     let wamid: string | null = null;
+    let mediaType: string | null = null;
+
+    // 0. Pesan KELUAR sales dari aplikasi WhatsApp Business (Coexistence): Meta mengirimnya sebagai `message_echoes`
+    //    (from = nomor bisnis, to = nomor lead). Disimpan sebagai balasan sales agar percakapan tampil dua arah.
+    const echo = body?.entry?.[0]?.changes?.[0]?.value?.message_echoes?.[0];
+    if (echo) {
+      const ev = body.entry[0].changes[0].value;
+      const echoPhone = normalizeChatPhone(echo.to);
+      const { text: echoText, type: echoType } = extractMetaText(echo);
+      const stored = chatDisplayText(echoText, echoType);
+      const echoBusdev = resolveBusdevName(
+        ev.metadata?.display_phone_number ? String(ev.metadata.display_phone_number) : String(echo.from || ''),
+        ev.metadata?.phone_number_id ? String(ev.metadata.phone_number_id) : null
+      );
+      if (echoPhone && stored) {
+        try {
+          const saved = await recordChatMessage(pool, {
+            phone: echoPhone,
+            direction: 'outbound',
+            text: stored,
+            wamid: echo.id ? String(echo.id) : null,
+            senderName: echoBusdev !== 'Unassigned' ? echoBusdev : null,
+            busdevName: echoBusdev,
+          });
+          if (saved) await applyAutoWarm(pool, echoPhone).catch((e) => console.warn('[lead-capture/confirm] otomasi Warm (echo) gagal:', e?.message || e));
+        } catch (e: any) {
+          console.warn('[lead-capture/confirm] gagal simpan balasan sales (echo):', e?.message || e);
+        }
+      }
+      return NextResponse.json({ success: true, recorded: !!(echoPhone && stored), direction: 'outbound' }, { status: 200, headers: NO_STORE_HEADERS });
+    }
 
     // A. Deteksi format payload Meta WhatsApp Cloud API
     if (body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
@@ -157,7 +189,9 @@ export async function POST(req: NextRequest) {
       phone = msg.from ? String(msg.from) : null;
       waName = contact?.profile?.name || null;
       wamid = msg.id ? String(msg.id) : null;
-      messageText = msg.text?.body || msg.interactive?.button_reply?.title || null;
+      const extracted = extractMetaText(msg);
+      messageText = extracted.text;
+      mediaType = extracted.type;
       destinationPhone = value.metadata?.display_phone_number ? String(value.metadata.display_phone_number) : null;
       phoneNumberId = value.metadata?.phone_number_id ? String(value.metadata.phone_number_id) : null;
 
@@ -177,6 +211,7 @@ export async function POST(req: NextRequest) {
       waName = body.waName || body.wa_name || body.profileName || null;
       wamid = body.wamid || body.messageId || body.msgId || null;
       messageText = body.waMessage || body.message || body.text || null;
+      mediaType = body.messageType || body.message_type || null;
       destinationPhone = body.destinationPhone || body.destination_phone || null;
       phoneNumberId = body.phoneNumberId || body.phone_number_id || null;
 
@@ -239,23 +274,18 @@ export async function POST(req: NextRequest) {
     }
 
     // ── CATAT PERCAKAPAN LIVE CHAT WABA KE CRM ──
-    if (messageText && (normalizedPhone || trackingCode)) {
+    const storedText = chatDisplayText(messageText, mediaType); // gambar/suara tanpa teks tetap disimpan ("[Gambar]")
+    if (storedText && (normalizedPhone || trackingCode)) {
       try {
-        await pool.query(
-          `INSERT INTO crm_chat_messages (
-             tracking_code, phone, sender_type, sender_name, message_text, wamid, direction, channel, busdev_name, is_read, created_at
-           )
-           VALUES ($1, $2, 'customer', $3, $4, $5, 'inbound', 'whatsapp', $6, FALSE, NOW())
-           ON CONFLICT (wamid) DO NOTHING`,
-          [
-            trackingCode || null,
-            normalizedPhone || 'unknown',
-            waName || null,
-            messageText,
-            wamid || null,
-            busdevName !== 'Unassigned' ? busdevName : null,
-          ]
-        );
+        await recordChatMessage(pool, {
+          phone: normalizedPhone || 'unknown',
+          direction: 'inbound',
+          text: storedText,
+          wamid,
+          trackingCode,
+          senderName: waName,
+          busdevName,
+        });
       } catch (crmMsgErr) {
         console.warn('[lead-capture/confirm] gagal simpan crm_chat_messages:', crmMsgErr);
       }

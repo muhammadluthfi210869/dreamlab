@@ -17,6 +17,11 @@
     "test:lead-monitor": "npx tsx scripts/test-lead-monitor-stats.ts",
     "test:crm": "npx tsx scripts/test-crm.ts",
     "test:crm-warm": "npx tsx scripts/test-crm-auto-warm.ts",
+    "test:crm-chat": "npx tsx scripts/test-crm-chat-capture.ts",
+    "test:crm-reminders": "npx tsx scripts/test-crm-reminders.ts",
+    "test:crm-sql": "npx tsx scripts/test-crm-sql.ts",
+    "test:rr-live": "npx tsx scripts/test-round-robin-live-txn.ts",
+    "test:crm-all": "npm run test:crm && npm run test:crm-warm && npm run test:crm-chat && npm run test:crm-reminders && npm run test:crm-sql",
     "verify:crm-sql": "node scripts/validate-crm-sql.mjs",
     "test:rr-balance": "npx tsx scripts/test-round-robin-balance.ts",
     "verify:rr-sql": "node scripts/validate-round-robin-sql.mjs",
@@ -57,6 +62,7 @@
     "recharts": "^3.10.1"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.16",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.20.0",

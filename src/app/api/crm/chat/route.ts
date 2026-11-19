@@ -1,7 +1,9 @@
 import { NextRequest } from 'next/server';
 import { getMonitorPool } from '@/lib/db';
 import { isAuthFailure, json, requireUser } from '@/lib/crm-auth';
-import { formatWaChatLink } from '@/lib/crm-stages';
+import { formatWaChatLink, normalizeStage } from '@/lib/crm-stages';
+import { applyAutoWarm } from '@/lib/crm-auto-warm';
+import { normalizeChatPhone } from '@/lib/crm-chat-capture';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,117 +23,101 @@ export async function GET(req: NextRequest) {
   // JIKA MEMINTA DETAIL THREAD SATU PERCAKAPAN
   if (phoneParam || codeParam) {
     const threadQuery = `
-      SELECT 
-        m.id,
-        m.tracking_code,
-        m.phone,
-        m.sender_type,
-        m.sender_name,
-        m.message_text,
-        m.status,
-        m.direction,
-        m.channel,
-        m.busdev_name,
-        m.created_at,
-        m.is_read
-      FROM crm_chat_messages m
-      WHERE ${phoneParam ? 'm.phone = $1' : 'm.tracking_code = $1'}
-      ORDER BY m.created_at ASC
-      LIMIT 200
+      SELECT * FROM (
+        SELECT
+          m.id, m.tracking_code, m.phone, m.sender_type, m.sender_name, m.message_text, m.status,
+          m.direction, m.channel, m.busdev_name, m.created_at, m.is_read
+        FROM crm_chat_messages m
+        WHERE ${phoneParam ? 'm.phone = $1' : 'm.tracking_code = $1'}
+        ORDER BY m.created_at DESC, m.id DESC
+        LIMIT 300
+      ) t ORDER BY created_at ASC, id ASC
     `;
-    const targetKey = phoneParam || codeParam;
+    const targetKey = phoneParam ? normalizeChatPhone(phoneParam) || phoneParam : codeParam;
     const messagesRes = await pool.query(threadQuery, [targetKey]);
 
     // Ambil detail lead untuk panel tengah
     const leadQuery = `
-      SELECT 
-        l.id,
-        l.tracking_code,
-        l.nama,
-        l.wa_profile_name,
-        COALESCE(NULLIF(l.whatsapp_phone_e164, ''), NULLIF(l.wa_phone, ''), NULLIF(l.hp, ''), m.phone) as phone,
-        l.perusahaan,
-        l.assigned_to,
-        l.source,
-        l.utm_source,
-        l.utm_campaign,
-        l.page_title,
-        l.page_url,
-        l.created_at,
-        l.confirmed_at,
+      SELECT
+        l.id, l.tracking_code, l.nama, l.wa_profile_name,
+        COALESCE(NULLIF(l.whatsapp_phone_e164, ''), NULLIF(l.wa_phone, ''), NULLIF(l.hp, ''), $2::text) AS phone,
+        l.perusahaan, l.assigned_to, l.source, l.utm_source, l.utm_campaign, l.page_title, l.page_url,
+        l.created_at, l.confirmed_at,
         cls.stage,
-        COALESCE(cls.produk_manual, l.produk) as produk,
-        COALESCE(cls.moq_manual, l.requested_quantity_pcs) as moq,
+        COALESCE(cls.produk_manual, l.produk) AS produk,
+        COALESCE(cls.moq_manual, l.requested_quantity_pcs) AS moq,
         cls.note
-      FROM crm_chat_messages m
-      LEFT JOIN leads l ON (m.tracking_code = l.tracking_code OR m.phone = l.whatsapp_phone_e164 OR m.phone = l.wa_phone OR m.phone = l.hp)
-      LEFT JOIN crm_lead_state cls ON (l.tracking_code = cls.tracking_code OR m.tracking_code = cls.tracking_code)
-      WHERE ${phoneParam ? 'm.phone = $1' : 'm.tracking_code = $1'}
-      ORDER BY l.id DESC NULLS LAST
-      LIMIT 1
+      FROM (SELECT 1) one
+      LEFT JOIN LATERAL (
+        SELECT x.* FROM leads x
+         WHERE x.is_test IS NOT TRUE
+           AND (${phoneParam
+             ? "x.wa_phone = $1 OR x.hp = $1 OR x.whatsapp_phone_e164 = $1 OR regexp_replace(COALESCE(x.hp, ''), '^0', '62') = $1"
+             : 'x.tracking_code = $1'})
+         ORDER BY (x.status = 'confirmed') DESC, x.id DESC
+         LIMIT 1
+      ) l ON TRUE
+      LEFT JOIN crm_lead_state cls ON cls.tracking_code = l.tracking_code
     `;
-    const leadRes = await pool.query(leadQuery, [targetKey]);
+    const leadRes = await pool.query(leadQuery, [targetKey, phoneParam ? targetKey : null]);
+    const leadRow = leadRes.rows[0] || null; // selalu ada satu baris; field lead kosong bila nomor belum punya lead
+    if (leadRow) leadRow.stage = normalizeStage(leadRow.stage);
 
     return json({
       success: true,
       messages: messagesRes.rows,
-      lead: leadRes.rows[0] || null,
+      lead: leadRow,
     });
   }
 
   // JIKA MEMINTA DAFTAR KOTAK MASUK (CONVERSATIONS LIST)
   // Mengambil percakapan unik terakhir per nomor telepon
   const listQuery = `
-    WITH ranked_messages AS (
-      SELECT 
-        m.id,
-        m.phone,
-        m.tracking_code,
-        m.sender_name,
-        m.sender_type,
-        m.message_text,
-        m.direction,
-        m.channel,
-        m.busdev_name,
-        m.created_at,
-        m.is_read,
-        ROW_NUMBER() OVER (PARTITION BY m.phone ORDER BY m.created_at DESC) as rn
+    WITH last_msg AS (
+      SELECT DISTINCT ON (m.phone)
+        m.id, m.phone, m.tracking_code, m.sender_name, m.sender_type, m.message_text,
+        m.direction, m.channel, m.busdev_name, m.created_at, m.is_read
       FROM crm_chat_messages m
+      ORDER BY m.phone, m.created_at DESC, m.id DESC
     ),
     unread_counts AS (
-      SELECT 
-        phone, 
-        COUNT(*) as unread_count 
-      FROM crm_chat_messages 
+      SELECT phone, COUNT(*) AS unread_count
+      FROM crm_chat_messages
       WHERE is_read = FALSE AND direction = 'inbound'
       GROUP BY phone
     )
-    SELECT 
-      rm.id as last_message_id,
-      rm.phone,
-      rm.tracking_code,
-      COALESCE(NULLIF(l.nama, ''), NULLIF(l.wa_profile_name, ''), rm.sender_name, 'Calon Klien') as customer_name,
-      COALESCE(NULLIF(l.assigned_to, ''), rm.busdev_name, 'Unassigned') as busdev,
-      COALESCE(cls.stage, 'traffic') as stage,
-      COALESCE(cls.produk_manual, l.produk, 'Kosmetik') as produk,
-      COALESCE(cls.moq_manual, l.requested_quantity_pcs, 0) as moq,
-      COALESCE(l.source, 'WhatsApp Webhook') as source,
-      rm.message_text as last_message,
-      rm.direction as last_direction,
-      rm.channel,
-      rm.created_at as last_message_at,
-      COALESCE(uc.unread_count, 0) as unread_count
-    FROM ranked_messages rm
-    LEFT JOIN leads l ON (rm.tracking_code = l.tracking_code OR rm.phone = l.whatsapp_phone_e164 OR rm.phone = l.wa_phone OR rm.phone = l.hp)
-    LEFT JOIN crm_lead_state cls ON (l.tracking_code = cls.tracking_code OR rm.tracking_code = cls.tracking_code)
-    LEFT JOIN unread_counts uc ON rm.phone = uc.phone
-    WHERE rm.rn = 1
-    ORDER BY rm.created_at DESC
+    SELECT
+      lm.id AS last_message_id,
+      lm.phone,
+      COALESCE(l.tracking_code, lm.tracking_code) AS tracking_code,
+      COALESCE(NULLIF(l.nama, ''), NULLIF(l.wa_profile_name, ''), lm.sender_name, 'Calon Klien') AS customer_name,
+      COALESCE(NULLIF(l.assigned_to, ''), lm.busdev_name, 'Unassigned') AS busdev,
+      COALESCE(cls.stage, 'traffic') AS stage,
+      COALESCE(cls.produk_manual, l.produk, 'Kosmetik') AS produk,
+      COALESCE(cls.moq_manual, l.requested_quantity_pcs, 0) AS moq,
+      COALESCE(l.source, 'WhatsApp Webhook') AS source,
+      lm.message_text AS last_message,
+      lm.direction AS last_direction,
+      lm.channel,
+      lm.created_at AS last_message_at,
+      COALESCE(uc.unread_count, 0) AS unread_count
+    FROM last_msg lm
+    LEFT JOIN LATERAL (
+      SELECT x.* FROM leads x
+       WHERE x.is_test IS NOT TRUE
+         AND (x.tracking_code = lm.tracking_code OR x.wa_phone = lm.phone OR x.hp = lm.phone
+              OR x.whatsapp_phone_e164 = lm.phone OR regexp_replace(COALESCE(x.hp, ''), '^0', '62') = lm.phone)
+       ORDER BY (x.tracking_code = lm.tracking_code) DESC NULLS LAST, (x.status = 'confirmed') DESC, x.id DESC
+       LIMIT 1
+    ) l ON TRUE
+    LEFT JOIN crm_lead_state cls ON cls.tracking_code = COALESCE(l.tracking_code, lm.tracking_code)
+    LEFT JOIN unread_counts uc ON uc.phone = lm.phone
+    ORDER BY lm.created_at DESC
     LIMIT 200
   `;
 
   const listRes = await pool.query(listQuery);
-  let rows = listRes.rows;
+  let rows = listRes.rows.map((r) => ({ ...r, stage: normalizeStage(r.stage) }));
 
   // Filter jika ada Busdev tab
   if (busdevFilter && busdevFilter !== 'all' && busdevFilter !== 'Semua') {
@@ -209,6 +195,9 @@ export async function POST(req: NextRequest) {
       [trackingCode, user.name]
     ).catch(() => undefined);
   }
+
+  // Otomasi Warm: pesan keluar ikut dihitung (5 pesan dua arah). Gagal tidak boleh menggagalkan pengiriman.
+  await applyAutoWarm(pool, phone).catch((e) => console.warn('[crm/chat] otomasi Warm gagal (diabaikan):', e?.message || e));
 
   // Buat deep link WhatsApp Web dengan teks terisi
   const waUrl = formatWaChatLink(phone, body?.customer_name || null, user.name, body?.product || null);

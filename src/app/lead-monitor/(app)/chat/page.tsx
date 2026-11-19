@@ -115,26 +115,38 @@ export default function CrmChatPage() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Load conversation list
-  const loadConversations = async () => {
+  // Nilai terbaru untuk penyegaran otomatis (interval tidak boleh memakai nilai basi dari render lama).
+  const activePhoneRef = useRef<string | null>(null);
+  const activeBusdevRef = useRef<string>("Semua");
+  const searchRef = useRef("");
+  const sendingRef = useRef(false);
+  activePhoneRef.current = activePhone;
+  activeBusdevRef.current = activeBusdev;
+  searchRef.current = searchQuery;
+  sendingRef.current = sending;
+
+  // Load conversation list. `silent` = penyegaran latar: tanpa kedip loading dan tanpa memilih percakapan pertama.
+  const loadConversations = async (silent = false) => {
     try {
-      setLoadingList(true);
+      if (!silent) setLoadingList(true);
       const params = new URLSearchParams();
-      if (activeBusdev !== "Semua") params.set("busdev", activeBusdev);
-      if (searchQuery) params.set("q", searchQuery);
+      const busdevNow = silent ? activeBusdevRef.current : activeBusdev;
+      const queryNow = silent ? searchRef.current : searchQuery;
+      if (busdevNow !== "Semua") params.set("busdev", busdevNow);
+      if (queryNow) params.set("q", queryNow);
 
       const res = await fetch(`/api/crm/chat?${params.toString()}`, { cache: "no-store" });
       const data = await res.json();
       if (data.success && Array.isArray(data.conversations)) {
         setConversations(data.conversations);
-        if (!activePhone && data.conversations.length > 0) {
+        if (!silent && !activePhone && data.conversations.length > 0) {
           selectConversation(data.conversations[0].phone);
         }
       }
     } catch (err) {
-      console.error("Gagal load conversations:", err);
+      if (!silent) console.error("Gagal load conversations:", err);
     } finally {
-      setLoadingList(false);
+      if (!silent) setLoadingList(false);
     }
   };
 
@@ -143,30 +155,60 @@ export default function CrmChatPage() {
   }, [activeBusdev]);
 
   // Load active conversation messages and lead info
-  const selectConversation = async (phone: string) => {
-    setActivePhone(phone);
-    setLoadingThread(true);
-    setMobileView("chat");
+  const selectConversation = async (phone: string, silent = false) => {
+    if (!silent) {
+      setActivePhone(phone);
+      setLoadingThread(true);
+      setMobileView("chat");
+    }
     try {
       const res = await fetch(`/api/crm/chat?phone=${encodeURIComponent(phone)}`, { cache: "no-store" });
       const data = await res.json();
+      // Percakapan sudah diganti selama menunggu: abaikan hasil lama (cegah pesan nyasar ke percakapan lain).
+      if (silent && activePhoneRef.current !== phone) return;
       if (data.success) {
-        setMessages(data.messages || []);
+        const incoming: ChatMessage[] = data.messages || [];
+        setMessages((prev) => {
+          // Penyegaran latar: ganti hanya bila ada perubahan, supaya tampilan tidak melompat.
+          if (silent && prev.length === incoming.length && prev[prev.length - 1]?.id === incoming[incoming.length - 1]?.id) return prev;
+          return incoming;
+        });
         setLeadDetail(data.lead || null);
 
-        // Mark as read in background
-        fetch("/api/crm/chat", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone }),
-        }).catch(() => undefined);
+        // Tandai sudah dibaca (pada penyegaran latar hanya bila ada pesan masuk belum dibaca).
+        if (!silent || incoming.some((m) => m.direction === "inbound" && !m.is_read)) {
+          fetch("/api/crm/chat", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone }),
+          }).catch(() => undefined);
+        }
       }
     } catch (err) {
-      console.error("Gagal load thread:", err);
+      if (!silent) console.error("Gagal load thread:", err);
     } finally {
-      setLoadingThread(false);
+      if (!silent) setLoadingThread(false);
     }
   };
+
+  // Penyegaran otomatis tiap 8 detik saat tab terlihat: balasan lead muncul di percakapan yang sedang dibuka
+  // dan di daftar tanpa perlu membuka ulang halaman.
+  useEffect(() => {
+    const tick = () => {
+      if (document.visibilityState !== "visible" || sendingRef.current) return;
+      loadConversations(true);
+      const ph = activePhoneRef.current;
+      if (ph) selectConversation(ph, true);
+    };
+    const id = setInterval(tick, 8000);
+    const onVisible = () => { if (document.visibilityState === "visible") tick(); };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -309,7 +351,7 @@ export default function CrmChatPage() {
                 </span>
               </div>
               <button
-                onClick={loadConversations}
+                onClick={() => loadConversations()}
                 disabled={loadingList}
                 className="text-slate-400 hover:text-slate-600 transition p-1"
                 title="Muat ulang kotak masuk"
