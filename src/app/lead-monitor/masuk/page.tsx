@@ -96,7 +96,7 @@ export default function MasukPage() {
           {busy ? "Memeriksa..." : "Masuk"}
         </button>
         <p className="mt-4 text-center text-[11px] leading-relaxed text-slate-400">
-          Pertama kali masuk? Kata sandi awal adalah nama Anda, lalu Anda diminta menggantinya. Lupa kata sandi? Minta Head mereset akun Anda. Jangan centang &ldquo;ingat saya&rdquo; di perangkat bersama.
+          Belum pernah ganti kata sandi? Pakai <b>password123</b>. Lupa kata sandi? Minta Head atau Admin mereset akun Anda (kembali ke password123). Jangan centang &ldquo;ingat saya&rdquo; di perangkat bersama.
         </p>
       </form>
     </div>

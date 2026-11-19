@@ -7,8 +7,8 @@ import type { CrmRole, CrmUserInfo } from '@/lib/crm-stages';
  * Login per orang untuk Lead Monitor / CRM internal (nama + kata sandi).
  *
  *  - Kata sandi disimpan ter-hash (scrypt + salt acak). Server tidak pernah menyimpan atau mencatat kata sandi.
- *  - Kata sandi AWAL: password_hash NULL = belum pernah diganti, kata sandinya = nama akun (huruf besar/kecil
- *    tidak dibedakan) dan WAJIB diganti pada login pertama (must_change_password).
+ *  - Kata sandi BAWAAN: password_hash NULL = belum pernah diganti, kata sandinya = password123 (nama akun juga diterima).
+ *    Tidak ada paksaan ganti; mengganti tetap bisa lewat Pengaturan.
  *  - Sesi: token acak 32 byte di cookie httpOnly; di database hanya hash SHA-256 token.
  *    "Ingat saya" = 30 hari (cookie persisten); tanpa itu = 12 jam (cookie sesi). Bisa dicabut kapan saja.
  *  - 5 kali salah beruntun mengunci akun 15 menit.
@@ -83,9 +83,25 @@ export type LoginResult =
 
 const DUMMY_HASH = 'scrypt$00000000000000000000000000000000$' + '00'.repeat(32);
 
-/** Memeriksa kata sandi sebuah akun (kata sandi awal atau hasil ganti). */
-function passwordMatches(u: { name: string; password_hash: string | null }, input: string): boolean {
-  return u.password_hash ? verifyPassword(input, u.password_hash) : matchesInitialPassword(input, u.name);
+/**
+ * Kata sandi bawaan untuk akun yang belum pernah mengganti kata sandi (password_hash NULL).
+ * Keputusan pemilik 2026-11-19: utamakan kemudahan operasional; tidak ada paksaan ganti.
+ */
+export const DEFAULT_PASSWORD = 'password123';
+
+/**
+ * Database produksi juga memuat peran 'admin' / 'busdev' (ditulis kode di luar repo ini). Disamakan ke peran website:
+ * admin -> head (kelola akun, edit semua), busdev -> sales (edit milik sendiri). Nilai asing dianggap sales (paling sempit).
+ */
+export function normalizeRole(role: unknown): CrmRole {
+  const r = String(role ?? '').trim().toLowerCase();
+  return r === 'head' || r === 'admin' ? 'head' : 'sales';
+}
+
+/** Akun tanpa hash menerima kata sandi bawaan (dan, demi kompatibilitas, nama akun). Yang sudah ganti memakai miliknya. */
+export function passwordMatches(u: { name: string; password_hash: string | null }, input: string): boolean {
+  if (u.password_hash) return verifyPassword(input, u.password_hash);
+  return matchesInitialPassword(input, DEFAULT_PASSWORD) || matchesInitialPassword(input, u.name);
 }
 
 async function registerFailure(u: { id: number | string; failed_attempts: number }): Promise<LoginResult> {
@@ -130,8 +146,8 @@ export async function login(name: string, password: string, remember: boolean, u
   return {
     ok: true,
     token,
-    user: { id: Number(u.id), name: u.name, role: u.role as CrmRole },
-    mustChange: !!u.must_change_password,
+    user: { id: Number(u.id), name: u.name, role: normalizeRole(u.role) },
+    mustChange: false, // tidak ada paksaan ganti kata sandi (keputusan pemilik 2026-11-19)
     remember,
     expiresAt: new Date(s.rows[0].expires_at),
   };
@@ -201,7 +217,7 @@ export async function getUserByToken(token: string | undefined | null): Promise<
   );
   const r = res.rows[0];
   return r
-    ? { id: Number(r.id), name: r.name, role: r.role as CrmRole, expiresAt: new Date(r.expires_at), remember: !!r.remember, mustChange: !!r.must_change_password }
+    ? { id: Number(r.id), name: r.name, role: normalizeRole(r.role), expiresAt: new Date(r.expires_at), remember: !!r.remember, mustChange: false }
     : null;
 }
 
@@ -264,8 +280,8 @@ export async function requireUser(
       const res = await q(`SELECT id, name, role FROM crm_users WHERE lower(name) = lower($1) AND is_active = TRUE`, [acting.trim().slice(0, 60)]);
       const r = res.rows[0];
       if (!r) return json({ success: false, error: 'Akun CRM untuk pengguna ini tidak ditemukan / nonaktif' }, 403);
-      if (opts.role && r.role !== opts.role) return json({ success: false, error: 'Tidak punya izin' }, 403);
-      return { user: { id: Number(r.id), name: r.name, role: r.role as CrmRole, expiresAt: new Date(Date.now() + 60_000), remember: false, mustChange: false }, token: '' };
+      if (opts.role && normalizeRole(r.role) !== opts.role) return json({ success: false, error: 'Tidak punya izin' }, 403);
+      return { user: { id: Number(r.id), name: r.name, role: normalizeRole(r.role), expiresAt: new Date(Date.now() + 60_000), remember: false, mustChange: false }, token: '' };
     } catch (e: any) {
       console.error('[crm-auth] gagal membaca akun layanan:', e?.message);
       return json({ success: false, error: 'Layanan login tidak tersedia, coba lagi' }, 503);

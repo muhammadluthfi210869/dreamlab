@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getMonitorPool } from '@/lib/db';
-import { isAuthFailure, json, requireUser } from '@/lib/crm-auth';
+import { isAuthFailure, json, normalizeRole, requireUser } from '@/lib/crm-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,13 +9,13 @@ export async function GET(req: NextRequest) {
   const auth = await requireUser(req, { role: 'head' });
   if (isAuthFailure(auth)) return auth;
   const res = await getMonitorPool().query(
-    `SELECT id, name, role, is_active, must_change_password AS using_initial_password,
+    `SELECT id, name, role, is_active, (password_hash IS NULL) AS using_initial_password,
             (locked_until IS NOT NULL AND locked_until > NOW()) AS is_locked,
             last_login_at, password_changed_at,
             (SELECT COUNT(*)::int FROM crm_sessions s WHERE s.user_id = crm_users.id AND s.expires_at > NOW()) AS sessions
        FROM crm_users ORDER BY (role = 'head') DESC, is_active DESC, name`
   );
-  return json({ success: true, users: res.rows });
+  return json({ success: true, users: res.rows.map((u: any) => ({ ...u, role: normalizeRole(u.role) })) });
 }
 
 /** Tambah akun baru (khusus Head). Nama sales harus sama dengan nama di daftar BusDev. */

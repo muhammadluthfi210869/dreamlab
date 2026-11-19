@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 /**
  * Tindakan Head atas satu akun:
- *   reset-password : kembalikan ke kata sandi awal (= nama akun) dan wajibkan ganti saat masuk; mencabut semua sesi
+ *   reset-password : kembalikan ke kata sandi bawaan (password123), tanpa paksaan ganti; mencabut semua sesi
  *   deactivate     : nonaktifkan + cabut semua sesi
  *   activate       : aktifkan lagi
  *   unlock         : buka kunci akibat salah kata sandi
@@ -29,7 +29,7 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
   switch (action) {
     case 'reset-password': {
       await pool.query(
-        `UPDATE crm_users SET password_hash = NULL, must_change_password = TRUE, password_changed_at = NULL, failed_attempts = 0, locked_until = NULL, updated_at = NOW() WHERE id = $1`,
+        `UPDATE crm_users SET password_hash = NULL, must_change_password = FALSE, password_changed_at = NULL, failed_attempts = 0, locked_until = NULL, updated_at = NOW() WHERE id = $1`,
         [uid]
       );
       await pool.query(`DELETE FROM crm_sessions WHERE user_id = $1`, [uid]);

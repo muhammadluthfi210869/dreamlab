@@ -3,7 +3,7 @@
  * Jalankan: npx tsx scripts/test-crm.ts
  */
 import { NextRequest } from 'next/server';
-import { hashPassword, matchesInitialPassword, newToken, sameOrigin, serviceTokenOk, sha256, validateNewPassword, verifyPassword } from '../src/lib/crm-auth';
+import { DEFAULT_PASSWORD, hashPassword, normalizeRole, matchesInitialPassword, passwordMatches, newToken, sameOrigin, serviceTokenOk, sha256, validateNewPassword, verifyPassword } from '../src/lib/crm-auth';
 import { canEditLead, isStage, PIPELINE_STAGES, STAGE_IDS, stageLabel } from '../src/lib/crm-stages';
 
 let failed = 0;
@@ -24,6 +24,15 @@ check('Hash rusak / kosong ditolak tanpa error', !verifyPassword('x', null) && !
 // kata sandi awal = nama (huruf besar/kecil tidak dibedakan)
 check('Kata sandi awal: nama akun diterima tanpa peduli huruf besar/kecil/spasi', matchesInitialPassword('annisa', 'Annisa') && matchesInitialPassword(' ANNISA ', 'Annisa') && matchesInitialPassword('Annisa', 'Annisa'));
 check('Kata sandi awal: tebakan lain ditolak', !matchesInitialPassword('diaz', 'Annisa') && !matchesInitialPassword('annis', 'Annisa') && !matchesInitialPassword('annisaa', 'Annisa') && !matchesInitialPassword('', 'Annisa') && !matchesInitialPassword('password', 'Annisa'));
+check('Login mudah: akun belum ganti (hash NULL) masuk dengan password123', DEFAULT_PASSWORD === 'password123' && passwordMatches({ name: 'Annisa', password_hash: null }, 'password123'));
+check('Login mudah: Admin belum ganti masuk dengan password123', passwordMatches({ name: 'Admin', password_hash: null }, 'password123'));
+check('Login mudah: akun belum ganti juga masih bisa pakai nama', passwordMatches({ name: 'Jessica', password_hash: null }, 'jessica'));
+check('Login mudah: akun belum ganti menolak tebakan lain', !passwordMatches({ name: 'Annisa', password_hash: null }, 'password12') && !passwordMatches({ name: 'Annisa', password_hash: null }, ''));
+check('Peran DB admin/busdev disamakan ke head/sales; nilai asing = sales', normalizeRole('admin') === 'head' && normalizeRole('HEAD') === 'head' && normalizeRole('busdev') === 'sales' && normalizeRole('sales') === 'sales' && normalizeRole(null) === 'sales' && normalizeRole('x') === 'sales');
+{
+  const h = hashPassword('RahasiaJessica9');
+  check('Akun yang SUDAH ganti: password123 ditolak, kata sandi miliknya diterima', !passwordMatches({ name: 'Jessica', password_hash: h }, 'password123') && !passwordMatches({ name: 'Jessica', password_hash: h }, 'jessica') && passwordMatches({ name: 'Jessica', password_hash: h }, 'RahasiaJessica9'));
+}
 
 // aturan kata sandi baru
 check('Kata sandi baru: yang baik diterima', validateNewPassword('Kopi-Susu-27!', 'Annisa') === null && validateNewPassword('langitbiru88', 'Diaz') === null);

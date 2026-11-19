@@ -47,7 +47,7 @@ export default function PenggunaPage() {
   }, [load]);
 
   const act = async (u: UserRow, action: string) => {
-    if (action === "reset-password" && !window.confirm(`Reset kata sandi ${u.name}? Perangkat ${u.name} akan dikeluarkan dan kata sandinya kembali ke nama.`)) return;
+    if (action === "reset-password" && !window.confirm(`Reset kata sandi ${u.name}? Perangkat ${u.name} akan dikeluarkan dan kata sandinya kembali ke password123.`)) return;
     setBusy(`${u.id}:${action}`);
     setError(null);
     setInfo(null);
@@ -59,7 +59,7 @@ export default function PenggunaPage() {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.success) throw new Error(json.error || "Gagal");
-      if (action === "reset-password") setInfo(`Kata sandi ${json.name} dikembalikan ke nama ${json.name} (huruf kecil). Yang bersangkutan diminta menggantinya saat masuk.`);
+      if (action === "reset-password") setInfo(`Kata sandi ${json.name} dikembalikan ke password123.`);
       await load();
     } catch (e: any) {
       setError(e?.message || "Gagal");
@@ -123,7 +123,7 @@ export default function PenggunaPage() {
           </div>
         )}
 
-        <Card title="Akun" subtitle="Kata sandi awal = nama akun (huruf kecil), wajib diganti saat pertama masuk. Kata sandi tidak pernah terlihat oleh siapa pun.">
+        <Card title="Akun" subtitle="Akun yang belum ganti kata sandi memakai password123. Reset mengembalikan ke password123.">
           {!users ? (
             <p className="py-6 text-center text-xs text-slate-400">Memuat...</p>
           ) : (
@@ -146,7 +146,7 @@ export default function PenggunaPage() {
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-1.5">
                           {!u.is_active && <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">Nonaktif</span>}
-                          {u.is_active && u.using_initial_password && <span className="rounded bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700" title="Masih memakai kata sandi awal (nama). Belum mengganti.">Belum ganti kata sandi</span>}
+                          {u.is_active && u.using_initial_password && <span className="rounded bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700" title="Masih memakai kata sandi bawaan (password123).">Belum ganti kata sandi</span>}
                           {u.is_active && !u.using_initial_password && <span className="rounded bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">Kata sandi sendiri</span>}
                           {u.is_locked && <span className="rounded bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold text-rose-700">Terkunci</span>}
                           {u.sessions > 0 && <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600">{u.sessions} perangkat</span>}

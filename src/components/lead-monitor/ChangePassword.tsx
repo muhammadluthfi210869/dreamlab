@@ -58,7 +58,7 @@ export function ChangePasswordForm({ forced, name, onDone }: { forced: boolean; 
       <input type="text" name="username" autoComplete="username" value={name} readOnly hidden />
 
       <label className="mb-1 block text-xs font-semibold text-slate-600" htmlFor="pw-now">
-        {forced ? "Kata sandi awal (nama Anda)" : "Kata sandi saat ini"}
+        {forced ? "Kata sandi saat ini (password123)" : "Kata sandi saat ini"}
       </label>
       <input id="pw-now" type={type} autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} className={`${field} mb-4`} required />
 
