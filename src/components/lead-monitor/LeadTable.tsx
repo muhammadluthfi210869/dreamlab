@@ -599,6 +599,11 @@ export function LeadTable({
                           </div>
                           <div className="flex items-center gap-1 text-[10px] text-slate-400">
                             <span className="rounded bg-slate-100 px-1 font-mono text-[9px] uppercase text-slate-600">{r.source || "direct"}</span>
+                            {!direct && !r.is_form_lead && (
+                              <span className="rounded bg-amber-50 px-1 text-[9px] font-semibold text-amber-700" title="Pengunjung mengeklik tombol WhatsApp di landing page">
+                                Landing Page – Klik WhatsApp
+                              </span>
+                            )}
                             {r.utm_campaign && (
                               <span className="truncate" title={r.utm_campaign}>
                                 {r.utm_campaign}
