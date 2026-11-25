@@ -514,7 +514,7 @@ const semarangContent = `
       <p style="font-size:14px;color:#475569;line-height:1.7;margin:0 0 18px">
         Program ini dirancang khusus untuk membantu calon dan pelaku bisnis memahami berbagai aspek dalam membangun beauty business. Bagi brand owner, pembelajaran seperti ini dapat membantu Anda tidak hanya memahami <strong>produk apa yang dibuat</strong>, tetapi juga <strong>untuk siapa produk tersebut dibuat dan bagaimana mengembangkannya menjadi bisnis yang menguntungkan</strong>.
       </p>
-      <a href="https://dreamlab.id/category/dreampreneur-beauty-academy/" style="display:inline-flex;align-items:center;gap:8px;background:#0f2a58;color:#ffffff;font-size:13px;font-weight:700;padding:12px 24px;border-radius:12px;text-decoration:none">
+      <a href="https://dreamlab.id/category/aipreneur/" style="display:inline-flex;align-items:center;gap:8px;background:#0f2a58;color:#ffffff;font-size:13px;font-weight:700;padding:12px 24px;border-radius:12px;text-decoration:none">
         <span>Kenali Dreampreneur Beauty Academy</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>

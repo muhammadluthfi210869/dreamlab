@@ -35,7 +35,7 @@ export const cityArticles: Article[] = [
       }
     ],
     seo: {
-      title: 'Jasa Maklon Kosmetik Jember | Free Custom Formula',
+      title: 'Jasa Maklon Kosmetik Jember BPOM & Free Custom Formula',
       description: 'Bikin brand skincare BPOM tren terkini di Jember. Nikmati sistem 1-client 1-formula, MOQ fleksibel, dan legalitas resmi bersama Dreamlab maklon juaranya formula.'
     }
   },
@@ -64,7 +64,7 @@ export const cityArticles: Article[] = [
       }
     ],
     seo: {
-      title: 'Jasa Maklon Kosmetik Madiun | Free Custom Formula',
+      title: 'Jasa Maklon Kosmetik Madiun BPOM & Free Custom Formula',
       description: 'Jasa maklon kosmetik untuk brand di Madiun, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.'
     }
   },
@@ -93,7 +93,7 @@ export const cityArticles: Article[] = [
       }
     ],
     seo: {
-      title: 'Jasa Maklon Kosmetik Banyuwangi, Free Custom Formula | Dreamlab',
+      title: 'Jasa Maklon Kosmetik Banyuwangi BPOM & Free Custom Formula',
       description: 'Jasa maklon kosmetik untuk brand di Banyuwangi, dengan free custom formula, BPOM, Halal, kemasan, hingga produksi bersama Dreamlab.'
     }
   },
@@ -122,7 +122,7 @@ export const cityArticles: Article[] = [
       }
     ],
     seo: {
-      title: 'Jasa Maklon Kosmetik Bekasi: One Stop Partner Bangun Brand',
+      title: 'Jasa Maklon Kosmetik Bekasi: One Stop Solution Bangun Brand',
       description: 'Jasa maklon kosmetik Bekasi untuk membangun brand dari custom formula, sample, branding, legalitas, produksi hingga free support digital marketing.'
     }
   },
@@ -151,7 +151,7 @@ export const cityArticles: Article[] = [
       }
     ],
     seo: {
-      title: 'Jasa Maklon Kosmetik Blitar: Partner Brand & Free Digital Marketing',
+      title: 'Jasa Maklon Kosmetik Blitar: Custom Formula & BPOM | Dreamlab',
       description: 'Jasa maklon kosmetik Blitar untuk mengembangkan brand dengan custom formula, R&D, sample, legalitas, produksi hingga free support digital marketing.'
     }
   },

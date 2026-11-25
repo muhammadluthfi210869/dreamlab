@@ -236,6 +236,10 @@ const nextConfig: NextConfig = {
       ['/ide-bisnis-kosmetik', '/news-blog/'],
       ['/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan', '/news-blog/'],
       ['/maklon-kosmetik-terbaik', '/news-blog/'],
+      ['/maklon-kosmetik-terbaik-bahasa', '/news-blog/'],
+      ['/ide-bisnis-kosmetik-menjan-jikan-2026', '/news-blog/'],
+      ['/dreampreneur-beauty-academy-surabaya-2026', '/category/aipreneur/'],
+      ['/produk/skincare/moisturizer', '/produk/skincare/facial-moisturizer/'],
       ['/category/bisnis-kosmetik/page/2', '/category/panduan-bisnis/'],
       // NOTE: /shop, /cart, /my-account, /cms_block_cat/*, /e-floating-buttons/*, and *.php
       // are intentionally NOT redirected here so that src/proxy.ts returns 410 Gone for them.

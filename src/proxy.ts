@@ -288,6 +288,8 @@ export function proxy(request: NextRequest) {
     '/produk/body-care/': '/produk/bodycare/',
     '/produk/lipcare': '/produk/decorative/lipcare/',
     '/produk/lipcare/': '/produk/decorative/lipcare/',
+    '/produk/skincare/moisturizer': '/produk/skincare/facial-moisturizer/',
+    '/produk/skincare/moisturizer/': '/produk/skincare/facial-moisturizer/',
     '/produk/skincare/face-serum': '/produk/skincare/facial-serum/',
     '/produk/skincare/face-serum/': '/produk/skincare/facial-serum/',
     '/produk/skincare/facial-sunscreen': '/produk/skincare/sunscreen/',
