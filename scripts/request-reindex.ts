@@ -7,22 +7,37 @@ const CREDENTIALS_PATH = path.join(process.cwd(), 'scripts', 'gsc-credentials.js
 const OUTPUT_DIR = path.join(process.cwd(), 'scripts', 'output');
 
 const URLS = [
-  'https://www.dreamlab.id/produk/bodycare/body-lotion/',
-  'https://www.dreamlab.id/produk/bodycare/body-butter/',
-  'https://www.dreamlab.id/produk/bodycare/bath-salt/',
-  'https://www.dreamlab.id/produk/bodycare/massage-cream/',
-  'https://www.dreamlab.id/produk/bodycare/massage-oil/',
-  'https://www.dreamlab.id/produk/bodycare/bar-soap/',
-  'https://www.dreamlab.id/produk/bodycare/soothing-gel/',
-  'https://www.dreamlab.id/produk/bodycare/body-serum/',
-  'https://www.dreamlab.id/produk/bodycare/transparent-soap/',
-  'https://www.dreamlab.id/produk/bodycare/underarm-cream/',
-  'https://www.dreamlab.id/produk/bodycare/whitening-soap/',
-  'https://www.dreamlab.id/produk/bodycare/organic-soap/',
-  'https://www.dreamlab.id/produk/bodycare/neck-cream/',
-  'https://www.dreamlab.id/produk/bodycare/body-wash/',
-  'https://www.dreamlab.id/produk/bodycare/body-scrub/',
-  'https://www.dreamlab.id/produk/bodycare/shower-gel/',
+  // 9 Sub-Category Hub Pages (newly added Service + WebPage + BreadcrumbList + FAQPage Schema)
+  'https://dreamlab.id/produk/skincare/facial-serum/',
+  'https://dreamlab.id/produk/skincare/facial-toner/',
+  'https://dreamlab.id/produk/skincare/facial-wash/',
+  'https://dreamlab.id/produk/skincare/face-cream/',
+  'https://dreamlab.id/produk/skincare/face-mask/',
+  'https://dreamlab.id/produk/skincare/sunscreen/',
+  'https://dreamlab.id/produk/skincare/cleansing/',
+  'https://dreamlab.id/produk/decorative/make-up/',
+  'https://dreamlab.id/produk/decorative/lipcare/',
+  // 7 Core Category Pages & Main Catalog Hub
+  'https://dreamlab.id/produk/',
+  'https://dreamlab.id/produk/skincare/',
+  'https://dreamlab.id/produk/bodycare/',
+  'https://dreamlab.id/produk/haircare/',
+  'https://dreamlab.id/produk/parfum/',
+  'https://dreamlab.id/produk/decorative/',
+  'https://dreamlab.id/produk/babycare/',
+  'https://dreamlab.id/produk/footcare/',
+  // Priority Bodycare & New Blog Articles
+  'https://dreamlab.id/maklon-hb-dosting/',
+  'https://dreamlab.id/cara-membuat-hb-dosting-sendiri/',
+  'https://dreamlab.id/checklist-legalitas-brand-kosmetik/',
+  'https://dreamlab.id/cara-memulai-brand-hair-tonic-ginseng/',
+  'https://dreamlab.id/maklon-kosmetik-bogor/',
+  'https://dreamlab.id/langkah-praktis-sertifikasi-halal-kosmetik/',
+  'https://dreamlab.id/produk/bodycare/body-lotion/',
+  'https://dreamlab.id/produk/bodycare/body-butter/',
+  'https://dreamlab.id/produk/bodycare/body-serum/',
+  'https://dreamlab.id/produk/bodycare/body-wash/',
+  'https://dreamlab.id/produk/bodycare/body-scrub/',
 ];
 
 async function main() {

@@ -43,9 +43,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/produk',
     '/category/maklon-kosmetik',
     '/category/panduan-bisnis',
-    '/category/formula-rd',
+    '/category/formula-rnd',
     '/category/legalitas-regulasi',
     '/category/tren-inovasi',
+    '/category/aipreneur',
+    '/category/event-aktivitas',
   ].map(route => ({
     url: `${baseUrl}${route}/`,
     lastModified: new Date(),
@@ -115,9 +117,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'maklon-skincare', 'maklon-bodycare', 'maklon-footcare',
     'maklon-haircare', 'maklon-baby-care', 'maklon-parfum',
     'personal-care', 'bisnis-kosmetik', 'bisnis-skincare',
+    'bisnis-parfum', 'panduan-bisnis-kosmetik', 'bisnis-men-grooming',
     'tren-kosmetik', 'dreampreneur', 'bisnis-dreampreneur',
     'tips-bisnis', 'tips-trick', 'dreamlab-pedia', 'dreamlabpedia',
-    'maklon-kosmetik-skincare',
+    'maklon-kosmetik-skincare', 'formula-rd', 'formula-r-d',
+    'formula-kosmetik', 'event', 'dreampreneur-beauty-academy',
   ]);
 
   function isRedirectingCategorySlug(slug: string): boolean {

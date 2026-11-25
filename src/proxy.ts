@@ -101,14 +101,15 @@ export function proxy(request: NextRequest) {
     '/maklon-haircare/': '/produk/haircare/',
     '/maklon-parfum/': '/produk/parfum/',
     '/bisnis-men-grooming/': '/category/maklon-kosmetik/',
-    // Legacy bisnis categories → Panduan Bisnis Kosmetik
-    '/bisnis-kosmetik/': '/category/panduan-bisnis-kosmetik/',
+    // Legacy bisnis categories → Panduan Bisnis
+    '/bisnis-kosmetik/': '/category/panduan-bisnis/',
     // Previous pillar slugs → new pillar slugs
     '/tren-kosmetik/': '/category/tren-inovasi/',
-    '/bisnis-dreampreneur/': '/category/panduan-bisnis-kosmetik/',
-    '/tips-bisnis/': '/category/panduan-bisnis-kosmetik/',
-    '/tips-trick/': '/category/panduan-bisnis-kosmetik/',
-    '/dreamlab-pedia/': '/category/panduan-bisnis-kosmetik/',
+    '/bisnis-dreampreneur/': '/category/panduan-bisnis/',
+    '/tips-bisnis/': '/category/panduan-bisnis/',
+    '/tips-trick/': '/category/panduan-bisnis/',
+    '/dreamlab-pedia/': '/category/panduan-bisnis/',
+    '/dreamlabpedia/': '/category/panduan-bisnis/',
   };
   const directSlugMatch = LEGACY_SLUG_REDIRECTS[pathname] || LEGACY_SLUG_REDIRECTS[pathname.replace(/\/$/, '') + '/'];
   // Also match legacy sub-pages: /maklon-body-care/something → redirect to base
@@ -116,7 +117,7 @@ export function proxy(request: NextRequest) {
     pathname.startsWith(pattern) && pattern !== '/'
   );
 
-  // 301 redirect old category slugs + previous pillar slugs to new pillar categories
+  // 301 redirect old category slugs + previous pillar slugs to new canonical 7-pillar categories
   const CATEGORY_REDIRECTS: Record<string, string> = {
     // All legacy maklon categories → Maklon Kosmetik
     'maklon-skincare': 'maklon-kosmetik',
@@ -129,16 +130,24 @@ export function proxy(request: NextRequest) {
     'maklon-parfum': 'maklon-kosmetik',
     // Bisnis Men Grooming → Maklon Kosmetik
     'bisnis-men-grooming': 'maklon-kosmetik',
-    // Legacy bisnis categories → Panduan Bisnis Kosmetik
-    'bisnis-kosmetik': 'panduan-bisnis-kosmetik',
-    'bisnis-skincare': 'panduan-bisnis-kosmetik',
-    // Previous pillar slugs → new pillar slugs
-    'tren-kosmetik': 'maklon-kosmetik',
+    // Legacy bisnis categories → Panduan Bisnis
+    'bisnis-kosmetik': 'panduan-bisnis',
+    'bisnis-skincare': 'panduan-bisnis',
+    'bisnis-parfum': 'panduan-bisnis',
+    'panduan-bisnis-kosmetik': 'panduan-bisnis',
+    // Previous pillar slugs & route aliases → canonical 7-pillar slugs
+    'tren-kosmetik': 'tren-inovasi',
     'maklon-kosmetik-skincare': 'maklon-kosmetik',
-    'bisnis-dreampreneur': 'panduan-bisnis-kosmetik',
-    'tips-bisnis': 'panduan-bisnis-kosmetik',
-    'tips-trick': 'panduan-bisnis-kosmetik',
-    'dreamlab-pedia': 'panduan-bisnis-kosmetik',
+    'bisnis-dreampreneur': 'panduan-bisnis',
+    'tips-bisnis': 'panduan-bisnis',
+    'tips-trick': 'panduan-bisnis',
+    'dreamlab-pedia': 'panduan-bisnis',
+    'dreamlabpedia': 'panduan-bisnis',
+    'formula-rd': 'formula-rnd',
+    'formula-r-d': 'formula-rnd',
+    'formula-kosmetik': 'formula-rnd',
+    'event': 'event-aktivitas',
+    'dreampreneur-beauty-academy': 'aipreneur',
   };
   const categoryRedirectMatch = pathname.match(/^\/category\/([^/]+)\/?$/);
   const categoryRedirectTo = categoryRedirectMatch ? CATEGORY_REDIRECTS[categoryRedirectMatch[1]] : null;
@@ -155,7 +164,9 @@ export function proxy(request: NextRequest) {
     }
 
     if (categoryPaginationMatch) {
-      canonicalUrl.pathname = `/category/${categoryPaginationMatch[1]}/`;
+      const rawCat = categoryPaginationMatch[1];
+      const targetCat = CATEGORY_REDIRECTS[rawCat] || rawCat;
+      canonicalUrl.pathname = `/category/${targetCat}/`;
     }
 
     if (categoryRedirectTo) {

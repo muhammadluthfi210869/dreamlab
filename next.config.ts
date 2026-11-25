@@ -205,14 +205,14 @@ const nextConfig: NextConfig = {
       ['/result-body-lotion-a', '/produk/skincare/'],
       ['/thank-you-maklon', '/thankyou/google/'],
       ['/dreampreneur-id-konfirmasi-pembayaran', '/contact-us/'],
-      ['/academy-beautypreneur', '/category/dreampreneur-beauty-academy/'],
+      ['/academy-beautypreneur', '/category/aipreneur/'],
       ['/advantages-and-challenges-in-registering-hki-products-and-bpom-maklon-kosmetik', '/news-blog/'],
       ['/menghadapi-tantangan-dalam-industri-maklon-kosmetik', '/news-blog/'],
       ['/career-2', '/career'],
       ['/career-3', '/career'],
       ['/newest-innovations-in-the-world-of-skincare-opportunities-for-women-careers', '/news-blog/'],
       ['/perbedaan-moisturizer-gel-vs-cream/dreamlab{/}?', '/perbedaan-moisturizer-gel-vs-cream/'],
-      ['/category/bisnis-kosmetik/page/4', '/category/bisnis-kosmetik/'],
+      ['/category/bisnis-kosmetik/page/4', '/category/panduan-bisnis/'],
       ['/news-blog/page/8', '/news-blog/'],
       // GSC Crawled Not Indexed — legacy content → redirect to canonical
       ['/memunculkan-keranjang-reels', '/news-blog/'],
@@ -236,7 +236,7 @@ const nextConfig: NextConfig = {
       ['/ide-bisnis-kosmetik', '/news-blog/'],
       ['/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan', '/news-blog/'],
       ['/maklon-kosmetik-terbaik', '/news-blog/'],
-      ['/category/bisnis-kosmetik/page/2', '/category/bisnis-kosmetik/'],
+      ['/category/bisnis-kosmetik/page/2', '/category/panduan-bisnis/'],
       // NOTE: /shop, /cart, /my-account, /cms_block_cat/*, /e-floating-buttons/*, and *.php
       // are intentionally NOT redirected here so that src/proxy.ts returns 410 Gone for them.
       // URL with special unicode dash char — redirect to clean URL

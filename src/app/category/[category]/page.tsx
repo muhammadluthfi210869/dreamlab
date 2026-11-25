@@ -71,8 +71,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
   if (!categoryName && !seoData) return { title: 'Category Not Found' };
 
-  // Category canonical always uses the category path as the canonical URL
-  const canonical = (seoData?.canonical || `https://dreamlab.id${pathStr}/`).replace(/\/?$/, '/');
+  const resolvedPillar = resolveBlogCategoryWithRouteAliases(slug);
+  const canonicalSlug = resolvedPillar ? resolvedPillar.slug : slug;
+  const canonicalPathStr = `/category/${canonicalSlug}`;
+
+  // Category canonical always points to the canonical 7-pillar slug to prevent duplicate content on route aliases
+  const canonical = `https://dreamlab.id${canonicalPathStr}/`;
   const isThinCategory = articleCount > 0 && articleCount <= THIN_CATEGORY_MAX_ARTICLES;
 
   return {
