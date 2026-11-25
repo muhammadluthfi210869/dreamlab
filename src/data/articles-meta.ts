@@ -4898,6 +4898,28 @@ export const articlesMeta: ArticleMeta[] =
     "readingMinutes": 11
   },
   {
+    "slug": "/maklon-body-serum",
+    "title": "Maklon Body Serum: Pilihan Formula, MOQ, Proses Produksi, dan Kisaran Biaya",
+    "publishDate": "2026-11-25T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Maklon Kosmetik",
+      "Panduan Bisnis"
+    ],
+    "tags": [
+      "maklon body serum",
+      "jasa maklon body serum",
+      "MOQ maklon body serum",
+      "biaya maklon body serum",
+      "maklon bodycare",
+      "custom formula body serum",
+      "pabrik maklon kosmetik bpom"
+    ],
+    "featuredImage": "/assets/images/blog/fragrance-brightening-body-serum-mockup.jpg",
+    "excerpt": "Ingin memulai brand body serum sendiri? Simak panduan pilihan formula, proses produksi, faktor penentu MOQ maklon body serum, dan perencanaan biaya di Dreamlab.",
+    "readingMinutes": 12
+  },
+  {
     "slug": "/jasa-maklon-kosmetik-di-jember",
     "title": "Jasa Maklon Kosmetik Jember | Free Custom Formula",
     "publishDate": "2026-09-02T00:00:00+00:00",
