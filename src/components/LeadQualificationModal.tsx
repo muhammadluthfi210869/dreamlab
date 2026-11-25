@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { trackLeadEvent } from '@/lib/lead-analytics';
 import { fireConversion } from '@/lib/tracking';
 import { InternationalPhoneInput } from '@/components/InternationalPhoneInput';
+import { validateAndNormalizePhone } from '@/lib/country-phone-data';
+import { CountryCode } from 'libphonenumber-js';
 
 export interface LeadQualificationModalProps {
   isOpen: boolean;
@@ -116,6 +118,7 @@ export function LeadQualificationModal({
   const [fullName, setFullName] = useState<string>('');
   const [phoneInput, setPhoneInput] = useState<string>('');
   const [selectedBudget, setSelectedBudget] = useState<BudgetOption | null>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   const [phoneMeta, setPhoneMeta] = useState<{
     e164: string;
@@ -146,6 +149,69 @@ export function LeadQualificationModal({
       }
     }
   }, [isOpen, defaultBudget]);
+
+  // Auto-fill Nama & Nomor WhatsApp dari URL query params atau localStorage jika tersedia
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      const paramName =
+        sp.get('name') || sp.get('nama') || sp.get('full_name') || sp.get('fullName') || '';
+      const paramPhone =
+        sp.get('phone') || sp.get('hp') || sp.get('wa') || sp.get('whatsapp') || '';
+
+      const savedName = localStorage.getItem('dl_lead_name') || '';
+      const savedPhone =
+        localStorage.getItem('dl_lead_phone') || localStorage.getItem('dl_client_phone') || '';
+
+      const candidateName = (paramName || savedName).trim();
+      const candidatePhone = (paramPhone || savedPhone).trim();
+
+      if (!fullName && candidateName) {
+        setFullName(candidateName);
+      }
+      if (!phoneInput && candidatePhone) {
+        const check = validateAndNormalizePhone(candidatePhone, 'ID');
+        setPhoneInput(candidatePhone);
+        setPhoneMeta({
+          e164: check.e164,
+          countryIso2: check.countryIso2,
+          dialCode: check.dialCode,
+          isValid: check.isValid,
+        });
+      }
+    } catch {
+      /* ignore storage errors */
+    }
+  }, [isOpen]);
+
+  // Auto-focus input Nama saat modal dibuka agar prompt Autofill browser/HP langsung muncul,
+  // serta sinkronkan perubahan DOM autofill browser ke state React
+  useEffect(() => {
+    if (!isOpen) return;
+    const focusTimer = setTimeout(() => {
+      if (nameInputRef.current && !nameInputRef.current.value) {
+        nameInputRef.current.focus();
+      }
+    }, 80);
+
+    const el = nameInputRef.current;
+    const syncNameFromDom = () => {
+      if (el && el.value && el.value !== fullName) {
+        setFullName(el.value);
+      }
+    };
+    el?.addEventListener('change', syncNameFromDom);
+    el?.addEventListener('input', syncNameFromDom);
+    const pollTimer = setInterval(syncNameFromDom, 400);
+
+    return () => {
+      clearTimeout(focusTimer);
+      el?.removeEventListener('change', syncNameFromDom);
+      el?.removeEventListener('input', syncNameFromDom);
+      clearInterval(pollTimer);
+    };
+  }, [isOpen, fullName]);
 
   // Track modal open
   useEffect(() => {
@@ -185,29 +251,44 @@ export function LeadQualificationModal({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
+  // Keep form mounted in DOM (hidden when closed) so Meta In-App Browser & mobile browser autofill engines detect the form on page load
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
+    const currentName = (nameInputRef.current?.value || fullName).trim();
+    if (currentName && currentName !== fullName) {
+      setFullName(currentName);
+    }
+
     // 1. Validate Full Name
-    if (!fullName.trim() || fullName.trim().length < 2) {
+    if (!currentName || currentName.length < 2) {
       setError('Silakan isi nama lengkap Anda (minimal 2 karakter).');
       return;
     }
 
-    // 2. Validate WhatsApp Phone
+    // 2. Validate WhatsApp Phone (re-validate on submit to support browser/Meta autofill)
     if (!phoneInput.trim()) {
       setError('Silakan masukkan nomor WhatsApp aktif Anda.');
       return;
     }
 
-    if (!phoneMeta.isValid) {
+    const activeValidation = phoneMeta.isValid
+      ? phoneMeta
+      : validateAndNormalizePhone(phoneInput, (phoneMeta.countryIso2 || 'ID') as CountryCode);
+
+    if (!activeValidation.isValid) {
       setError(
-        `Nomor WhatsApp tidak valid untuk kode negara ${phoneMeta.dialCode}. Pastikan digit nomor sudah sesuai.`
+        `Nomor WhatsApp tidak valid untuk kode negara ${activeValidation.dialCode}. Pastikan digit nomor sudah sesuai.`
       );
       return;
+    }
+
+    try {
+      localStorage.setItem('dl_lead_name', currentName);
+      localStorage.setItem('dl_lead_phone', phoneInput.trim());
+    } catch {
+      /* ignore storage errors */
     }
 
     // 3. Validate Rencana Budget
@@ -282,11 +363,11 @@ export function LeadQualificationModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           category: defaultCategory,
-          fullName: fullName.trim(),
+          fullName: currentName,
           whatsappPhone: phoneInput.trim(),
-          whatsappPhoneE164: phoneMeta.e164,
-          phoneCountryIso2: phoneMeta.countryIso2,
-          phoneCountryDialCode: phoneMeta.dialCode,
+          whatsappPhoneE164: activeValidation.e164,
+          phoneCountryIso2: activeValidation.countryIso2,
+          phoneCountryDialCode: activeValidation.dialCode,
           budgetRange: selectedBudget.value,
           productionTierName: selectedBudget.tierName,
           requestedQuantityPcs: selectedBudget.quantityPcs,
@@ -383,11 +464,16 @@ export function LeadQualificationModal({
 
   return (
     <div
-      className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto animate-fadeIn lead-qualification-modal"
+      className={
+        isOpen
+          ? 'fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto animate-fadeIn lead-qualification-modal'
+          : 'fixed -left-[9999px] top-0 w-px h-px overflow-hidden opacity-0 pointer-events-none'
+      }
       role="dialog"
-      aria-modal="true"
+      aria-modal={isOpen}
+      aria-hidden={!isOpen}
       onClick={(e) => {
-        if (e.target === e.currentTarget && !submitting && !redirecting) onClose();
+        if (isOpen && e.target === e.currentTarget && !submitting && !redirecting) onClose();
       }}
     >
       <div className="relative w-full max-w-[480px] bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden my-auto transition-all">
@@ -459,18 +545,38 @@ export function LeadQualificationModal({
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              id="lead-qualification-form"
+              name="lead-qualification-form"
+              onSubmit={handleSubmit}
+              autoComplete="on"
+              className="space-y-4"
+            >
               
               {/* Field 1: Nama Lengkap */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1">
+                <label htmlFor="name" className="block text-xs font-bold text-slate-800 mb-1">
                   Nama Lengkap <span className="text-red-500">*</span>
                 </label>
                 <input
+                  ref={nameInputRef}
+                  id="name"
+                  name="name"
                   type="text"
+                  autoComplete="name"
                   required
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setFullName(val);
+                    try {
+                      if (val.trim().length >= 2) localStorage.setItem('dl_lead_name', val.trim());
+                    } catch {}
+                  }}
+                  onInput={(e) => {
+                    const val = (e.target as HTMLInputElement).value;
+                    if (val !== fullName) setFullName(val);
+                  }}
                   placeholder="Contoh: Rina Anggraini"
                   className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-white placeholder:text-slate-400 focus:border-[#0f2e6b] focus:ring-2 focus:ring-[#0f2e6b]/15 outline-none transition-all"
                 />
@@ -478,14 +584,20 @@ export function LeadQualificationModal({
 
               {/* Field 2: Nomor WhatsApp / HP */}
               <div>
-                <label className="block text-xs font-bold text-slate-800 mb-1">
+                <label htmlFor="tel" className="block text-xs font-bold text-slate-800 mb-1">
                   Nomor WhatsApp / HP <span className="text-red-500">*</span>
                 </label>
                 <InternationalPhoneInput
+                  id="tel"
+                  name="tel"
+                  autoComplete="tel"
                   value={phoneInput}
                   onChange={(rawVal, meta) => {
                     setPhoneInput(rawVal);
                     setPhoneMeta(meta);
+                    try {
+                      if (meta.isValid && rawVal.trim()) localStorage.setItem('dl_lead_phone', rawVal.trim());
+                    } catch {}
                   }}
                   defaultCountry="ID"
                   placeholder="81234567890"

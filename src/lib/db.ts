@@ -61,7 +61,7 @@ function buildPool(overrides: Partial<PoolConfig> = {}) {
     ssl,
     max: poolMax,
     idleTimeoutMillis: 5000,
-    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 4000),
+    connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT_MS ?? 8000),
     statement_timeout: Number(process.env.DB_STATEMENT_TIMEOUT_MS ?? 15000),
     keepAlive: true,
     keepAliveInitialDelayMillis: 10000,

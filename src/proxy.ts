@@ -5,22 +5,36 @@ const GONE_PATTERNS = [
   '/maklon-kosmetik-jombang',
   '/maklon-kosmetik-jombang/',
   '/.help/dhl/',
+  '/wp-content',
   '/wp-content/',
+  '/wp-admin',
   '/wp-admin/',
+  '/wp-json',
   '/wp-json/',
+  '/pages',
   '/pages/',
+  '/product-category',
   '/product-category/',
+  '/shop',
   '/shop/',
+  '/cms_block_cat',
   '/cms_block_cat/',
+  '/cgi-sys',
   '/cgi-sys/',
+  '/checkout',
   '/checkout/',
+  '/cart',
   '/cart/',
+  '/my-account',
   '/my-account/',
   '/blog/',
   '/post-sitemap',
+  '/search',
   '/search/',
+  '/juaranyaformula',
   '/juaranyaformula/',
   // Floating buttons preview page — template only, no content
+  '/e-floating-buttons',
   '/e-floating-buttons/',
   // Orphaned pagination pages (/page/2/, /page/8/) — zero SEO value, conflicting robots meta
   '/page/',
@@ -72,28 +86,25 @@ export function proxy(request: NextRequest) {
   const shouldNormalizeBlog = pathname === '/blog' || pathname === '/blog/';
   const categoryPaginationMatch = pathname.match(/^\/category\/([^/]+)\/page\/(\d+)\/?$/);
 
-  // 301 redirect legacy direct slugs (NON /category/ variants) to new pillar URLs
-  // NOTE: Dikembalikan ke perilaku SEMULA (sebelum commit SEO) — target maklon
-  // mengarah ke /maklon/kosmetik/ dan sub-path dipertahankan. Ini memulihkan
-  // penempatan URL persis seperti sebelumnya.
+  // 301 redirect legacy direct slugs (NON /category/ variants) to new pillar/product URLs
   const LEGACY_SLUG_REDIRECTS: Record<string, string> = {
     // Dreampreneur landing → batch 2 slug
     '/dreampreneur/': '/dreampreneur-batch-2/',
     '/dreampreneur/thankyou/': '/dreampreneur-batch-2/thankyou/',
-    // Legacy maklon categories → Maklon Kosmetik
-    '/maklon-skincare/': '/maklon/kosmetik/',
-    '/maklon-personal-care/': '/maklon/kosmetik/',
-    '/personal-care/': '/maklon/kosmetik/',
-    '/maklon-bodycare/': '/maklon/kosmetik/',
-    '/maklon-footcare/': '/maklon/kosmetik/',
-    '/maklon-baby-care/': '/maklon/kosmetik/',
-    '/maklon-haircare/': '/maklon/kosmetik/',
-    '/maklon-parfum/': '/maklon/kosmetik/',
-    '/bisnis-men-grooming/': '/maklon/kosmetik/',
+    // Legacy maklon categories → Valid /produk/* Silo or Category Pillar (prevents 404 to /maklon/kosmetik/)
+    '/maklon-skincare/': '/produk/skincare/',
+    '/maklon-personal-care/': '/produk/bodycare/',
+    '/personal-care/': '/produk/bodycare/',
+    '/maklon-bodycare/': '/produk/bodycare/',
+    '/maklon-footcare/': '/produk/footcare/',
+    '/maklon-baby-care/': '/produk/babycare/',
+    '/maklon-haircare/': '/produk/haircare/',
+    '/maklon-parfum/': '/produk/parfum/',
+    '/bisnis-men-grooming/': '/category/maklon-kosmetik/',
     // Legacy bisnis categories → Panduan Bisnis Kosmetik
     '/bisnis-kosmetik/': '/category/panduan-bisnis-kosmetik/',
     // Previous pillar slugs → new pillar slugs
-    '/tren-kosmetik/': '/maklon/kosmetik/',
+    '/tren-kosmetik/': '/category/tren-inovasi/',
     '/bisnis-dreampreneur/': '/category/panduan-bisnis-kosmetik/',
     '/tips-bisnis/': '/category/panduan-bisnis-kosmetik/',
     '/tips-trick/': '/category/panduan-bisnis-kosmetik/',

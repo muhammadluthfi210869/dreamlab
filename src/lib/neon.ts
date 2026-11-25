@@ -51,8 +51,8 @@ export function getNeonPool(): Pool | null {
       ssl,
       max: Number(process.env.DATABASE_POOL_MAX ?? 5),
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 3000,
-      statement_timeout: 5000,
+      connectionTimeoutMillis: 8000,
+      statement_timeout: 10000,
     });
 
     return _neonPool;

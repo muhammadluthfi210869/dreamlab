@@ -299,38 +299,36 @@ interface CategoryPackagingCardProps {
   index: number;
 }
 
-function CategoryPackagingCard({ iconName, index }: CategoryPackagingCardProps) {
-  const { ref, isInView } = useInView();
+function CategoryPackagingCard({ iconName }: CategoryPackagingCardProps) {
   const imagePath = `/new asset/new-icon-packing-design/${iconName}`;
+  const label = getDisplayLabel(toTitleCase(iconName));
+  const isCustom = label === "Custom";
 
   return (
-    <div
-      ref={ref as any}
-      className={`group flex flex-col bg-white p-4 rounded-[28px] border border-gray-100 transition-all duration-700 hover:shadow-xl hover:shadow-brand-orange/5 hover:-translate-y-1.5 h-full ${
-        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
-      style={{ transitionDelay: `${index * 50}ms` }}
-    >
-      <div className="relative aspect-square w-full rounded-[20px] overflow-hidden flex items-center justify-center mb-4 bg-[#FAF9F6] border border-gray-100">
-        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-100/5 via-transparent to-transparent" />
-        <div className="relative w-4/5 h-4/5 transition-transform duration-500 group-hover:scale-108 flex items-center justify-center">
+    <div className="group flex flex-col h-full">
+      <div
+        className={`relative aspect-square w-full rounded-[18px] overflow-hidden flex items-center justify-center mb-3 transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none motion-reduce:group-hover:transform-none ${
+          isCustom
+            ? "bg-[#FFF3E2]/45 border-2 border-[#F39200]"
+            : "bg-[#F2EEE9]"
+        }`}
+      >
+        <div className="relative w-4/5 h-4/5 flex items-center justify-center">
           <Image
             src={imagePath}
             alt={`Kemasan ${toTitleCase(iconName)} — opsi packaging maklon kosmetik`}
             title={`Kemasan ${toTitleCase(iconName)} — Maklon Kosmetik Dreamlab`}
             fill
-            sizes="(max-width: 768px) 50vw, 250px"
+            sizes="(max-width: 768px) 46vw, 250px"
             loading="lazy"
             decoding="async"
-            className="object-contain p-2 transition-transform"
+            className="object-contain p-3 transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
           />
         </div>
       </div>
-      <div className="flex flex-col flex-grow">
-        <h4 className="font-onest text-sm md:text-base font-bold text-[#212120] leading-snug tracking-tight flex-grow transition-colors group-hover:text-brand-orange">
-          {getDisplayLabel(toTitleCase(iconName))}
-        </h4>
-      </div>
+      <h4 className="font-sans !font-semibold text-[14px] sm:text-[15px] text-[#212120] leading-snug">
+        {label}
+      </h4>
     </div>
   );
 }
@@ -341,39 +339,39 @@ interface FlatPackagingCardProps {
   index: number;
 }
 
-function FlatPackagingCard({ label, imageFile, index }: FlatPackagingCardProps) {
-  const { ref, isInView } = useInView();
+function FlatPackagingCard({ label, imageFile }: FlatPackagingCardProps) {
   const imagePath = `/new asset/new-icon-packing-design/${imageFile}`;
+  const displayLabel = getDisplayLabel(label);
+  const isCustom = displayLabel === "Custom";
 
   return (
-    <div
-      ref={ref as any}
-      className={`group flex flex-col bg-white p-4 rounded-[28px] border border-gray-100 transition-all duration-700 hover:shadow-xl hover:shadow-brand-orange/5 hover:-translate-y-1.5 h-full ${
-        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
-      style={{ transitionDelay: `${index * 50}ms` }}
-    >
-      <div className="relative aspect-square w-full rounded-[20px] overflow-hidden flex items-center justify-center mb-4 bg-[#FAF9F6] border border-gray-100">
-        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-100/5 via-transparent to-transparent" />
-        <div className="relative w-4/5 h-4/5 transition-transform duration-500 group-hover:scale-108 flex items-center justify-center">
+    <div className="group flex flex-col h-full">
+      <div
+        className={`relative aspect-square w-full rounded-[18px] overflow-hidden flex items-center justify-center mb-3 transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none motion-reduce:group-hover:transform-none ${
+          isCustom
+            ? "bg-[#FFF3E2]/45 border-2 border-[#F39200]"
+            : "bg-[#F2EEE9]"
+        }`}
+      >
+        <div className="relative w-4/5 h-4/5 flex items-center justify-center">
           <Image
             src={imagePath}
             alt={`Kemasan ${label} — opsi packaging maklon kosmetik`}
             title={`Kemasan ${label} — Maklon Kosmetik Dreamlab`}
             fill
-            sizes="(max-width: 768px) 50vw, 250px"
+            sizes="(max-width: 768px) 46vw, 250px"
             loading="lazy"
             decoding="async"
-            className="object-contain p-2 transition-transform"
+            className="object-contain p-3 transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
           />
         </div>
       </div>
 
       <div className="flex flex-col flex-grow">
-        <h4 className="font-onest text-sm md:text-base font-bold text-[#212120] leading-snug tracking-tight flex-grow transition-colors group-hover:text-brand-orange">
-          {getDisplayLabel(label)}
+        <h4 className="font-sans !font-semibold text-[14px] sm:text-[15px] text-[#212120] leading-snug">
+          {displayLabel}
         </h4>
-        <p className="text-xs text-gray-400 font-medium mt-1 leading-relaxed">
+        <p className="text-[12.5px] text-[#6B6762] mt-0.5 leading-relaxed">
           {getDisplayLabel(toTitleCase(label))}
         </p>
       </div>
@@ -404,35 +402,31 @@ export default function ProductPackagingGrid({ categorySlug, subCategorySlug, pr
     if (filteredIconsWithCustom.length === 0) return null;
 
     return (
-      <section className="relative z-10 bg-gradient-to-b from-white via-[#FAF9F6] to-white py-16 lg:py-24 overflow-hidden border-b border-gray-100">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-48 w-96 h-96 bg-brand-orange/3 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-brand-orange/3 rounded-full blur-3xl" />
-        </div>
-        <div className="container-custom relative z-10">
-          <div className="flex flex-col gap-10 w-full">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/10 rounded-full border border-brand-orange/20">
-                <Palette className="w-3.5 h-3.5 text-brand-orange" />
-                <span className="text-[10px] font-black text-brand-orange uppercase tracking-[0.2em]">Studio Kemasan</span>
-              </div>
-              <h2 className="font-display text-[28px] md:text-[36px] lg:text-[42px] font-normal text-[#212120] leading-tight">
-                Pilihan Kemasan <span className="text-brand-orange font-bold">{displayName} Premium</span>
-              </h2>
-              <p className="text-sm text-gray-500 font-medium max-w-xl mx-auto leading-relaxed">
-                Jelajahi koleksi kemasan {displayName.toLowerCase()} berkualitas tinggi yang siap dikustomisasi penuh dengan logo, warna, dan cetakan brand Anda.
-              </p>
-            </div>
+      <section className="relative z-10 bg-white py-[64px] sm:py-[104px] overflow-hidden">
+        <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+          <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
+              Studio Kemasan
+            </span>
+            <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+              Pilihan Kemasan{" "}
+              <span className="text-[#F39200]">{displayName} Premium</span>
+            </h2>
+            <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+              Jelajahi koleksi kemasan {displayName.toLowerCase()} berkualitas
+              tinggi yang siap dikustomisasi penuh dengan logo, warna, dan
+              cetakan brand Anda.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-8 w-full">
-              {filteredIconsWithCustom.map((iconName, index) => (
-                <CategoryPackagingCard
-                  key={iconName}
-                  iconName={iconName}
-                  index={index}
-                />
-              ))}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[12px] gap-y-[24px] sm:gap-[24px] w-full">
+            {filteredIconsWithCustom.map((iconName, index) => (
+              <CategoryPackagingCard
+                key={iconName}
+                iconName={iconName}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -504,51 +498,49 @@ export default function ProductPackagingGrid({ categorySlug, subCategorySlug, pr
   const isIconView = !!categoryIcons;
 
   return (
-    <section className="relative z-10 bg-gradient-to-b from-white via-[#FAF9F6] to-white py-16 lg:py-24 overflow-hidden border-b border-gray-100">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-brand-orange/3 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-brand-orange/3 rounded-full blur-3xl" />
-      </div>
-      <div className="container-custom relative z-10">
-        <div className="flex flex-col gap-10 w-full">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/10 rounded-full border border-brand-orange/20">
-              <Palette className="w-3.5 h-3.5 text-brand-orange" />
-              <span className="text-[10px] font-black text-brand-orange uppercase tracking-[0.2em]">Studio Kemasan</span>
-            </div>
-            <h2 className="font-display text-[28px] md:text-[36px] lg:text-[42px] font-normal text-[#212120] leading-tight">
-              Pilihan Kemasan <span className="text-brand-orange font-bold">{displayName} Premium</span>
-            </h2>
-            <p className="text-sm text-gray-500 font-medium max-w-xl mx-auto leading-relaxed">
-              Jelajahi koleksi kemasan {displayName.toLowerCase()} berkualitas tinggi yang siap dikustomisasi penuh dengan logo, warna, dan cetakan brand Anda.
-            </p>
-          </div>
-
-          {isIconView ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-8 w-full">
-              {allIconFiles.map((iconName, index) => (
-                <CategoryPackagingCard
-                  key={iconName}
-                  iconName={iconName}
-                  index={index}
-                />
-              ))}
-            </div>
-          ) : dedupedOptions.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-8 w-full">
-              {dedupedOptions.map((item, index) => (
-                <FlatPackagingCard
-                  key={item.imageFile}
-                  label={item.label}
-                  imageFile={item.imageFile}
-                  index={index}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-400">Pilih varian produk terlebih dahulu.</p>
-          )}
+    <section className="relative z-10 bg-white py-[64px] sm:py-[104px] overflow-hidden">
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+        <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
+            Studio Kemasan
+          </span>
+          <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+            Pilihan Kemasan{" "}
+            <span className="text-[#F39200]">{displayName} Premium</span>
+          </h2>
+          <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+            Jelajahi koleksi kemasan {displayName.toLowerCase()} berkualitas
+            tinggi yang siap dikustomisasi penuh dengan logo, warna, dan cetakan
+            brand Anda.
+          </p>
         </div>
+
+        {isIconView ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[12px] gap-y-[24px] sm:gap-[24px] w-full">
+            {allIconFiles.map((iconName, index) => (
+              <CategoryPackagingCard
+                key={iconName}
+                iconName={iconName}
+                index={index}
+              />
+            ))}
+          </div>
+        ) : dedupedOptions.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[12px] gap-y-[24px] sm:gap-[24px] w-full">
+            {dedupedOptions.map((item, index) => (
+              <FlatPackagingCard
+                key={item.imageFile}
+                label={item.label}
+                imageFile={item.imageFile}
+                index={index}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-[#9A958F]">
+            Pilih varian produk terlebih dahulu.
+          </p>
+        )}
       </div>
     </section>
   );

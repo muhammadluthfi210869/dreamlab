@@ -12,6 +12,9 @@ export interface InternationalPhoneInputProps {
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
+  id?: string;
+  name?: string;
+  autoComplete?: string;
 }
 
 export function InternationalPhoneInput({
@@ -22,12 +25,16 @@ export function InternationalPhoneInput({
   placeholder = '81234567890',
   required = true,
   disabled = false,
+  id = 'phone',
+  name = 'phone',
+  autoComplete = 'tel',
 }: InternationalPhoneInputProps) {
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>(defaultCountry);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
 
   // Current active country object
   const activeCountry = useMemo(() => {
@@ -65,15 +72,56 @@ export function InternationalPhoneInput({
     };
   }, [isOpen]);
 
-  // Handle phone input changes & paste
+  // Sync validation whenever value prop is pre-filled or updated externally (e.g. autofill)
+  useEffect(() => {
+    if (value && value.trim()) {
+      const validation = validateAndNormalizePhone(value, selectedCountry);
+      onChange(value, {
+        e164: validation.e164,
+        countryIso2: validation.countryIso2,
+        dialCode: validation.dialCode,
+        isValid: validation.isValid,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  // Detect native browser/WebView autofill that mutates DOM input.value directly
+  useEffect(() => {
+    const el = phoneInputRef.current;
+    if (!el) return;
+    const syncFromDom = () => {
+      if (el.value && el.value !== value) {
+        handleInputChange(el.value);
+      }
+    };
+    el.addEventListener('change', syncFromDom);
+    el.addEventListener('input', syncFromDom);
+    const timer = setInterval(syncFromDom, 400);
+    return () => {
+      el.removeEventListener('change', syncFromDom);
+      el.removeEventListener('input', syncFromDom);
+      clearInterval(timer);
+    };
+  });
+
+  // Handle phone input changes & paste & browser autofill
   const handleInputChange = (raw: string) => {
     let clean = raw;
 
-    // If pasted full international number with '+' e.g. +60123456789 or +62812...
+    // If pasted or autofilled full international number with '+' e.g. +60123456789 or +62812...
     if (clean.startsWith('+')) {
       const check = validateAndNormalizePhone(clean, selectedCountry);
       if (check.countryIso2 && check.countryIso2 !== selectedCountry) {
         setSelectedCountry(check.countryIso2 as CountryCode);
+      }
+    }
+
+    // Strip leading +62 or 62 for display if country is ID so it doesn't show "+62 +62812..."
+    if (selectedCountry === 'ID') {
+      const stripped = clean.trim().replace(/^\+?62[\s\-]?/, '0');
+      if (/^08[0-9\s\-]{7,14}$/.test(stripped)) {
+        clean = stripped;
       }
     }
 
@@ -110,9 +158,10 @@ export function InternationalPhoneInput({
             : 'border-slate-200 focus-within:border-[#1E3A8A] focus-within:ring-2 focus-within:ring-[#1E3A8A]/15'
         }`}
       >
-        {/* Country Selector Button */}
+        {/* Country Selector Button (tabIndex=-1 so keyboard Next/Autofill goes straight from Name to Phone) */}
         <button
           type="button"
+          tabIndex={-1}
           disabled={disabled}
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-1.5 px-3 py-2.5 bg-slate-50 hover:bg-slate-100/80 border-r border-slate-200 rounded-l-xl text-xs sm:text-sm font-medium text-slate-700 transition-colors shrink-0"
@@ -134,13 +183,22 @@ export function InternationalPhoneInput({
 
         {/* Phone Number Input */}
         <input
+          ref={phoneInputRef}
+          id={id}
+          name={name}
           type="tel"
           inputMode="tel"
-          autoComplete="tel"
+          autoComplete={autoComplete}
           disabled={disabled}
           required={required}
           value={value}
           onChange={(e) => handleInputChange(e.target.value)}
+          onInput={(e) => handleInputChange((e.target as HTMLInputElement).value)}
+          onBlur={(e) => {
+            if (e.target.value && e.target.value !== value) {
+              handleInputChange(e.target.value);
+            }
+          }}
           placeholder={placeholder}
           className="w-full px-3.5 py-2.5 text-xs sm:text-sm font-mono text-slate-900 bg-transparent outline-none placeholder:text-slate-400"
         />
@@ -168,6 +226,7 @@ export function InternationalPhoneInput({
               <input
                 ref={searchInputRef}
                 type="text"
+                autoComplete="off"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Cari negara atau kode telepon..."

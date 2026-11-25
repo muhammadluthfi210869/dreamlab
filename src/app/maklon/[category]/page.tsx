@@ -177,16 +177,10 @@ export default async function MaklonCategoryPage({ params }: Props) {
   const mapped = maklonCategoryMap[category];
   const pageName = maklonPage.pageName;
 
-  // Build schema for maklon page
+  // Build schema for maklon page (Organization is provided globally by OrganizationSchema in layout.tsx)
   const maklonSchema = {
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'Organization',
-        '@id': 'https://dreamlab.id/#organization',
-        name: 'Dreamlab Indonesia',
-        url: 'https://dreamlab.id/',
-      },
       {
         '@type': 'Service',
         '@id': `https://dreamlab.id/maklon/${category}/#service`,

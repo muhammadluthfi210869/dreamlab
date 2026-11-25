@@ -91,11 +91,14 @@ export function validateAndNormalizePhone(
   }
 
   // Pre-process Indonesian input specifically to avoid edge cases with leading zero/country code
+  // (including browser/Meta autofill formats with spaces or dashes, e.g. "62 812-3456-7890")
   let toParse = trimmed;
   if (selectedCountryIso2 === 'ID') {
-    // If user typed 628xxx without plus
-    if (/^62[0-9]{8,13}$/.test(toParse)) {
-      toParse = '+' + toParse;
+    const digitsOnly = toParse.replace(/[\s\-\.\(\)]/g, '');
+    if (/^62[0-9]{8,14}$/.test(digitsOnly)) {
+      toParse = '+' + digitsOnly;
+    } else if (/^0?8[0-9]{7,13}$/.test(digitsOnly)) {
+      toParse = digitsOnly;
     }
   }
 

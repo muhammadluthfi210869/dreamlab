@@ -1543,22 +1543,33 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
   }
 
   // ═══════════════════════════════════════════════════════════════════
-  // CATEGORY PAGE HERO — Original fullscreen background image layout
+  // CATEGORY PAGE HERO — Restyled Dreamlab warm editorial hero
   // ═══════════════════════════════════════════════════════════════════
   return (
-    <section className="relative min-h-[600px] lg:min-h-screen xl:min-h-[800px] flex items-center overflow-hidden bg-white pt-24 pb-16 lg:pt-36 lg:pb-24">
-      {/* 1. Cinematic Background Visual - Optimized for 100% Crystal Sharpness */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="absolute inset-0 z-0"
-        style={{
-          backfaceVisibility: "hidden",
-          WebkitBackfaceVisibility: "hidden",
-          transform: "translate3d(0,0,0)",
-        }}
-      >
+    <section className="relative min-h-0 lg:min-h-[620px] xl:min-h-[680px] flex items-center overflow-hidden bg-[#FAF8F5] pt-24 pb-0 lg:pt-32 lg:pb-20">
+      <style>{`
+        .cat-hero-overlay {
+          background: linear-gradient(180deg, #ffffff 0%, #ffffff 58%, rgba(255, 255, 255, 0.65) 70%, rgba(255, 255, 255, 0) 82%);
+        }
+        @media (min-width: 1025px) {
+          .cat-hero-overlay {
+            background:
+              linear-gradient(90deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.92) 34%, rgba(255, 255, 255, 0.55) 52%, rgba(255, 255, 255, 0) 68%),
+              linear-gradient(0deg, #ffffff, transparent 16%);
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cat-hero-cta {
+            transition: none !important;
+          }
+          .cat-hero-cta:hover {
+            transform: none !important;
+          }
+        }
+      `}</style>
+
+      {/* Background Visual */}
+      <div className="absolute inset-0 z-0">
         <Image
           src={isMobile && content.mobileImage ? content.mobileImage : content.image}
           alt={productImageAlt(categoryData.slug, categoryData.slug, title)}
@@ -1567,112 +1578,76 @@ export default function ProductHero({ categoryData, productData, subCategorySlug
           priority
           fetchPriority="high"
           decoding="sync"
-          className="object-cover"
+          className="object-cover object-[72%_bottom] max-lg:!top-auto max-lg:!h-[48%] max-lg:sm:!h-[60%] lg:object-[70%_center]"
           sizes="100vw"
-          style={{
-            imageRendering: "auto",
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-          }}
         />
-        
-        {/* 2. Surgical White Halo - Soft gradients to protect visual clarity while maintaining text legibility */}
-        {/* Desktop: Elegant left-to-right gradient overlay that completely leaves the right-side visual crisp and clean */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1.0 }}
-          className="absolute inset-0 bg-gradient-to-r from-white/55 via-white/20 to-transparent z-10 hidden lg:block" 
+        <div
+          aria-hidden="true"
+          className="cat-hero-overlay absolute inset-0 z-10 pointer-events-none"
         />
-        {/* Mobile: Ultra-soft radial center to prevent "foggy" effect on background products */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1.0 }}
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.45)_0%,transparent_95%)] lg:hidden z-10" 
-        />
-      </motion.div>
-
-      <div className="container-custom relative z-20 w-full">
-        <div className="max-w-2xl lg:max-w-3xl">
-
-          {/* 3. Authority Badge - Staggered */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="inline-flex items-center gap-3 px-3 py-1 bg-brand-orange/5 rounded-full mb-2.5 md:mb-4 border border-brand-orange/20 backdrop-blur-sm"
-          >
-            <span className="w-1 h-1 rounded-full bg-brand-orange" />
-            <span className="text-[9px] lg:text-[10px] font-black text-brand-orange uppercase tracking-[0.2em] font-onest">
-              {"MAKLON JUARANYA FORMULA"}
-            </span>
-          </motion.div>
-
-          {/* 4. Headline - Staggered with subtle text-lift and adaptive font-size based on product page */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className={`font-normal text-[#212120] mb-3 md:mb-4 leading-[1.1] tracking-tight uppercase ${
-              isProductPage 
-                ? "text-[24px] sm:text-[32px] md:text-[40px] lg:text-[44px] xl:text-[48px]" 
-                : "text-[28px] sm:text-[38px] md:text-[48px] lg:text-[64px] xl:text-[72px]"
-            }`}
-            style={{ textShadow: '0 0 30px rgba(255,255,255,0.8)' }}
-          >
-            {content.headline}
-          </motion.h1>
-
-          {/* 5. Subheadline - Staggered and scaled dynamically */}
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.6, duration: 1 }}
-            className={`text-xs sm:text-sm text-[#212120]/80 lg:text-[#212120]/70 font-medium leading-relaxed mb-6 md:mb-8 max-w-xl ${
-              isProductPage 
-                ? "lg:text-[14px] xl:text-[16px]" 
-                : "lg:text-[18px] xl:text-[20px]"
-            }`}
-            style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
-          >
-            {content.description}
-          </motion.p>
-
-          {/* 6. CTA - Staggered */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.8, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
-          >
-            <a
-              href={waUrl}
-              rel="nofollow"
-              className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-brand-orange hover:bg-[#212120] text-white font-bold py-4 px-10 rounded-xl transition-all duration-500 shadow-[0_15px_30px_rgba(246,145,30,0.15)] hover:-translate-y-1"
-            >
-                  <span className="uppercase tracking-[0.2em] text-[10px] font-onest">{content.ctaText || "FREE KONSULTASI BISNIS"}</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-
-            {content.microCTA && (
-              <button className="text-[10px] font-black text-[#212120] uppercase tracking-[0.3em] hover:text-brand-orange transition-colors border-b-2 border-brand-orange/30 pb-1">
-                {content.microCTA}
-              </button>
-            )}
-          </motion.div>
-        </div>
       </div>
 
-      {/* Subtle Bottom Fade */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.0, duration: 1 }}
-        className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#F9F7F2] to-transparent z-10" 
-      />
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px] relative z-20 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6 items-center">
+          <div className="max-w-2xl">
+            {/* Authority Badge */}
+            <div className="inline-flex items-center gap-[8px] px-[14px] py-[8px] bg-[#FFF3E2] rounded-full mb-4">
+              <span className="size-[6px] rounded-full bg-[#F39200]" />
+              <span className="text-[11px] font-semibold text-[#C86400] uppercase tracking-[0.14em]">
+                MAKLON JUARANYA FORMULA
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="font-display font-normal text-[clamp(38px,4.6vw,60px)] text-[#212120] mb-4 leading-[1.05] tracking-[-0.02em] uppercase">
+              {content.headline}
+            </h1>
+
+            {/* Subheadline */}
+            <p className="text-[15.5px] sm:text-[18px] text-[#6B6762] leading-[1.6] mb-7 max-w-[540px]">
+              {content.description}
+            </p>
+
+            {/* CTA */}
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={waUrl}
+                rel="nofollow"
+                className="cat-hero-cta w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#F39200] hover:bg-[#e08600] text-[#212120] font-semibold text-[15px] py-[16px] px-[28px] rounded-full transition-all duration-300 shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-10px_rgba(243,146,0,0.8)] focus-visible:outline-2 focus-visible:outline-[#F39200] focus-visible:outline-offset-4"
+              >
+                <span className="uppercase tracking-[0.08em] text-[13px] font-semibold">
+                  {content.ctaText || "FREE KONSULTASI BISNIS"}
+                </span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+
+              {content.microCTA && (
+                <button
+                  type="button"
+                  className="rounded-full bg-white text-[#212120] border border-[rgba(33,33,32,0.10)] hover:border-[#212120] text-[15px] font-semibold py-[16px] px-[28px] transition-colors"
+                >
+                  {content.microCTA}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile/tablet spacer so photo shows cleanly below text */}
+          <div aria-hidden="true" className="min-h-[260px] sm:min-h-[320px] lg:min-h-0" />
+        </div>
+      </div>
     </section>
   );
 }

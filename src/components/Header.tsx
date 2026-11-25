@@ -32,6 +32,7 @@ export default function Header() {
   };
 
   const cleanPathname = normalizePath(pathname || "");
+  const isProdukIndex = cleanPathname === "/produk";
 
   // Deteksi bahasa: halaman /en/... → nav menunjuk ke versi English
   const isEn = isEnPath(cleanPathname);
@@ -143,6 +144,132 @@ export default function Header() {
       </div>
     );
   };
+
+  if (isProdukIndex) {
+    const produkNav = [
+      { name: "About Us", path: "/about-us" },
+      { name: "Services", path: "/services" },
+      { name: "Product", path: "/produk", active: true },
+      { name: "Blog", path: "/news-blog" },
+      { name: "Contact", path: "/contact-us" },
+    ];
+
+    return (
+      <header className="sticky top-0 z-50 w-full border-b border-[rgba(33,33,32,0.10)] bg-[rgba(255,255,255,0.96)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.92)] backdrop-blur-[12px]">
+        <div className="max-w-[1240px] mx-auto px-[16px] sm:px-[40px] flex items-center justify-between h-[60px] lg:h-[72px] gap-6">
+          <Link href={localHref("/")} className="flex items-center shrink-0">
+            <Image
+              src="/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp"
+              alt="Dreamlab Logo"
+              title={getImageTitle("/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik-.webp")}
+              width={140}
+              height={46}
+              className="h-[28px] lg:h-[34px] w-auto object-contain"
+              priority
+              fetchPriority="high"
+            />
+          </Link>
+
+          <nav className="hidden lg:flex items-center gap-[28px] text-[13px]" aria-label="Navigasi utama">
+            {produkNav.map((item) => (
+              <Link
+                key={item.name}
+                href={localHref(item.path)}
+                className={`transition-colors focus-visible:outline-2 focus-visible:outline-[#F39200] focus-visible:outline-offset-4 rounded-[6px] ${
+                  item.active
+                    ? "text-[#212120] font-medium"
+                    : "text-[#6B6762] hover:text-[#212120]"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/thankyou/google/?source=produk-header"
+              rel="nofollow"
+              className="text-[12.5px] sm:text-[13px] font-semibold bg-[#F39200] text-[#212120] px-[14px] sm:px-[18px] py-[8px] sm:py-[10px] rounded-full hover:bg-[#e08600] transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-[#F39200] focus-visible:outline-offset-4"
+            >
+              Konsultasi Gratis
+            </Link>
+            <button
+              type="button"
+              aria-label={isMenuOpen ? "Tutup menu" : "Buka menu"}
+              aria-expanded={isMenuOpen}
+              className="lg:hidden p-2 text-brand-black"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Overlay (existing mobile menu) */}
+        {isMenuOpen && (
+          <div className="lg:hidden fixed inset-0 top-[60px] bg-brand-white z-40 overflow-y-auto px-8 py-10 space-y-10 animate-in slide-in-from-right duration-500">
+            {menuItems.map((item) => {
+              const isActive = checkIsActive(item.path, item.dropdown);
+
+              return (
+                <div key={item.name} className="border-b border-gray-50 pb-6 last:border-none">
+                  {item.dropdown ? (
+                    <div className="space-y-6">
+                      <div className={`text-[12px] font-black uppercase tracking-[0.3em] font-onest ${isActive ? 'text-brand-orange' : 'text-brand-black/70'}`}>
+                        {item.name}
+                      </div>
+                      <div className="pl-4 space-y-5 border-l-2 border-brand-orange/10">
+                        {item.dropdown.map((subItem) => {
+                          const isSubActive = cleanPathname === normalizePath(localHref(subItem.path)) || cleanPathname.startsWith(normalizePath(localHref(subItem.path)) + "/");
+                          return (
+                            <Link
+                              key={subItem.name}
+                              href={localHref(subItem.path)}
+                              className={`block text-[14px] font-bold uppercase tracking-[0.15em] transition-colors
+                                ${isSubActive ? 'text-brand-orange' : 'text-brand-black/80 hover:text-brand-orange'}`}
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              {subItem.name}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      href={localHref(item.path)}
+                      className={`block text-[16px] font-black uppercase tracking-[0.2em] font-onest transition-colors
+                        ${isActive ? 'text-brand-orange' : 'text-brand-black hover:text-brand-orange'}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+
+            <div className="pt-6">
+              <Link
+                href={localHref("/contact-us")}
+                className="btn-dreamlab w-full text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Consult Now
+              </Link>
+            </div>
+
+            <div className="pt-4 flex justify-center">
+              <LanguageSwitcher />
+            </div>
+          </div>
+        )}
+      </header>
+    );
+  }
 
   return (
     <header className="absolute top-0 left-0 w-full z-50 bg-transparent transition-all duration-300">

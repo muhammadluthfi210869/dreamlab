@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ProductVariantV2 } from "@/types/product-v2";
 import { productImageAlt, productImageTitle } from "@/lib/image-utils";
 import { getCardImagePath } from "@/data/product-card-images";
@@ -14,7 +14,11 @@ interface ProductGridProps {
   subCategorySlug?: string;
 }
 
-const getCardImage = (slug: string, categorySlug: string, fallbackImage: string): string => {
+const getCardImage = (
+  slug: string,
+  categorySlug: string,
+  fallbackImage: string
+): string => {
   return getCardImagePath(slug, categorySlug) || fallbackImage;
 };
 
@@ -25,9 +29,12 @@ const HAIR_CONCERN_FILTERS = [
   "Styling & Harian",
 ] as const;
 
-export default function ProductGrid({ products, categorySlug, subCategorySlug }: ProductGridProps) {
+export default function ProductGrid({
+  products,
+  categorySlug,
+  subCategorySlug,
+}: ProductGridProps) {
   const [activeFilter, setActiveFilter] = useState<string>("Semua");
-  const sliderRef = useRef<HTMLDivElement>(null);
 
   const isHaircare = categorySlug === "haircare";
   const categoryName =
@@ -42,246 +49,252 @@ export default function ProductGrid({ products, categorySlug, subCategorySlug }:
       ? `/produk/${categorySlug}/${subCategorySlug}/${slug}/`
       : `/produk/${categorySlug}/${slug}/`;
 
-  const scrollCatalog = (direction: "left" | "right") => {
-    const el = sliderRef.current;
-    if (!el) return;
-    const cardWidth = el.firstElementChild?.clientWidth || 290;
-    el.scrollBy({
-      left: direction === "left" ? -(cardWidth + 16) : cardWidth + 16,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <section
       id="katalog-produk"
-      className="relative z-10 bg-white py-14 lg:py-20 overflow-hidden border-b border-gray-100"
+      className="relative z-10 bg-[#FAF8F5] py-[64px] sm:py-[104px] overflow-x-clip"
     >
-      <div className="container-custom w-full">
-        <div className="flex flex-col gap-8 lg:gap-10 w-full">
-          {/* Header */}
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange">
-              Katalog Produk Maklon
-            </span>
-            <h2 className="font-display text-[26px] md:text-[34px] lg:text-[40px] font-normal text-brand-black leading-tight">
-              {isHaircare ? (
-                <>
-                  13 Produk <span className="text-brand-orange font-bold">Hair Care</span> Siap Maklon
-                </>
-              ) : (
-                <>
-                  Pilihan Produk <span className="text-brand-orange font-bold">{categoryName}</span> Siap Maklon
-                </>
-              )}
-            </h2>
-            <p className="text-xs md:text-sm text-gray-600 font-medium max-w-xl mx-auto leading-relaxed">
-              Pilih formulasi dasar terbaik yang siap kami sesuaikan bahan aktif, aroma, dan kemasannya untuk brand kosmetik Anda.
-            </p>
-          </div>
+      <style>{`
+        .pg-card {
+          box-shadow: 0 2px 6px rgba(60, 35, 10, 0.05), 0 14px 32px -16px rgba(60, 35, 10, 0.22);
+          transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @media (hover: hover) {
+          .pg-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 2px 4px rgba(60, 35, 10, 0.04), 0 18px 40px -14px rgba(60, 35, 10, 0.18);
+          }
+          .pg-card:hover .pg-card-img {
+            transform: scale(1.05);
+          }
+          .pg-card:hover .pg-card-expand {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 10px;
+          }
+          .pg-card:hover .pg-card-arrow {
+            background-color: #F39200;
+            color: #212120;
+            transform: rotate(-45deg);
+          }
+        }
+        .pg-card:focus-within {
+          transform: translateY(-6px);
+          box-shadow: 0 2px 4px rgba(60, 35, 10, 0.04), 0 18px 40px -14px rgba(60, 35, 10, 0.18);
+        }
+        .pg-card:focus-within .pg-card-expand {
+          grid-template-rows: 1fr;
+          opacity: 1;
+          margin-top: 10px;
+        }
+        .pg-card-img {
+          transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .pg-card-expand {
+          display: grid;
+          grid-template-rows: 0fr;
+          opacity: 0;
+          margin-top: 0;
+          transition: grid-template-rows 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms cubic-bezier(0.22, 1, 0.36, 1), margin-top 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .pg-card-arrow {
+          transition: background-color 450ms cubic-bezier(0.22, 1, 0.36, 1), color 450ms cubic-bezier(0.22, 1, 0.36, 1), transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .pg-card a:focus-visible,
+        .pg-filter-btn:focus-visible {
+          outline: 2px solid #F39200;
+          outline-offset: 4px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pg-card,
+          .pg-card-img,
+          .pg-card-expand,
+          .pg-card-arrow {
+            transition: none !important;
+          }
+          .pg-card:hover,
+          .pg-card:focus-within,
+          .pg-card:hover .pg-card-img {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
-          {/* Hair Concern Filter Pills + Mobile/Tablet Slide Controls */}
-          {isHaircare && (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div
-                role="tablist"
-                aria-label="Filter masalah rambut"
-                className="flex flex-wrap items-center justify-center sm:justify-start gap-2"
-              >
-                {HAIR_CONCERN_FILTERS.map((filter) => {
-                  const isActive = activeFilter === filter;
-                  return (
-                    <button
-                      key={filter}
-                      type="button"
-                      role="tab"
-                      aria-selected={isActive}
-                      onClick={() => setActiveFilter(filter)}
-                      className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors cursor-pointer border ${
-                        isActive
-                          ? "bg-brand-orange text-white border-brand-orange shadow-xs"
-                          : "bg-white text-brand-black/80 border-gray-200 hover:border-brand-orange hover:text-brand-orange"
-                      }`}
-                    >
-                      {filter}
-                    </button>
-                  );
-                })}
-              </div>
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+        {/* Header */}
+        <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
+            Katalog Produk Maklon
+          </span>
+          <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+            {isHaircare ? (
+              <>
+                13 Produk{" "}
+                <span className="text-[#F39200]">Hair Care</span> Siap Maklon
+              </>
+            ) : (
+              <>
+                Pilihan Produk{" "}
+                <span className="text-[#F39200]">{categoryName}</span> Siap
+                Maklon
+              </>
+            )}
+          </h2>
+          <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+            Pilih formulasi dasar terbaik yang siap kami sesuaikan bahan aktif,
+            aroma, dan kemasannya untuk brand kosmetik Anda.
+          </p>
+        </div>
 
-              {/* Mobile & Tablet Slider Arrows */}
-              <div className="flex lg:hidden items-center gap-2 self-end">
-                <span className="text-xs text-gray-500 font-medium mr-1">Geser produk</span>
-                <button
-                  type="button"
-                  onClick={() => scrollCatalog("left")}
-                  aria-label="Geser produk ke kiri"
-                  className="size-9 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center active:scale-95"
-                >
-                  <ChevronLeft className="size-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollCatalog("right")}
-                  aria-label="Geser produk ke kanan"
-                  className="size-9 rounded-full border border-gray-200 bg-white text-brand-black flex items-center justify-center active:scale-95"
-                >
-                  <ChevronRight className="size-4" />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Horizontal Slide on Phone & Tablet (<lg), Grid on Desktop (lg:grid-cols-3 xl:grid-cols-4) */}
-          {/* All cards remain in SSR HTML; non-matching filter cards use `hidden` */}
+        {/* Hair Concern Filter Pills */}
+        {isHaircare && (
           <div
-            ref={sliderRef}
-            className="flex lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory pb-4 lg:pb-0 w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            role="tablist"
+            aria-label="Filter masalah rambut"
+            className="flex flex-nowrap sm:flex-wrap items-center justify-start sm:justify-center gap-2.5 overflow-x-auto pb-2 mb-8 lg:mb-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
-            {products.map((product, index) => {
-              const matchesFilter =
-                !isHaircare ||
-                activeFilter === "Semua" ||
-                product.concernFilter === activeFilter ||
-                (product.tags && product.tags.includes(activeFilter));
-
-              const variantsList =
-                product.variants && product.variants.length > 0
-                  ? product.variants
-                  : product.tags.filter((t) => t !== "Baru");
-
-              const ingredientsList = (product.ingredients || []).map((ing) => ing.name).join(", ");
-              const packagingList = (product.bottleOptions || []).join(", ");
-              const waMessage = encodeURIComponent(
-                `Halo Dreamlab, saya ingin konsultasi maklon produk ${product.name}.`
-              );
-
+            {HAIR_CONCERN_FILTERS.map((filter) => {
+              const isActive = activeFilter === filter;
               return (
-                <article
-                  key={product.id}
-                  className={`snap-start shrink-0 w-[82%] sm:w-[46%] lg:w-auto flex flex-col bg-white rounded-3xl border border-gray-200/80 shadow-xs hover:shadow-md transition-shadow duration-300 overflow-hidden h-full ${
-                    matchesFilter ? "" : "hidden"
-                  }`}
+                <button
+                  key={filter}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`pg-filter-btn shrink-0 px-[18px] py-[10px] rounded-full text-[14px] font-medium transition-colors cursor-pointer border ${isActive
+                    ? "bg-[#F39200] text-[#212120] border-[#F39200] shadow-[0_6px_18px_-10px_rgba(243,146,0,0.6)]"
+                    : "bg-white text-[#212120] border-[rgba(33,33,32,0.10)] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] hover:border-[#212120]"
+                    }`}
                 >
-                  {/* Product Image — Full-bleed object-cover on Desktop, Tablet, and Mobile (No yellow/cream gap) */}
-                  <Link
-                    href={productHref(product.slug)}
-                    className="relative aspect-[4/4] w-full overflow-hidden block bg-white group"
-                  >
-                    <Image
-                      src={getCardImage(product.slug, categorySlug, product.heroImage)}
-                      alt={productImageAlt(product.slug, categorySlug, product.name)}
-                      title={productImageTitle(product.slug, categorySlug, product.name)}
-                      fill
-                      sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 280px"
-                      priority={index < 4}
-                      loading={index < 4 ? undefined : "lazy"}
-                      decoding={index < 4 ? "sync" : "async"}
-                      className="object-cover object-center w-full h-full transition-transform duration-500 group-hover:scale-105"
-                    />
-
-                    {/* Badges / Tags */}
-                    <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center gap-1.5 z-10">
-                      {(product.isNew || product.tags.includes("Baru")) && (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-orange text-white shadow-xs">
-                          Baru
-                        </span>
-                      )}
-                      {product.concernFilter && (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 backdrop-blur-xs text-brand-black border border-gray-200/80 shadow-2xs">
-                          {product.concernFilter}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-
-                  {/* Card Body */}
-                  <div className="flex flex-col flex-grow p-4 sm:p-5">
-                    {!product.concernFilter && product.tags && product.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {product.tags.slice(0, 2).map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-gray-100 text-gray-700"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Nama (H3) */}
-                    <h3 className="font-display text-base sm:text-lg font-normal text-brand-black leading-snug mb-2">
-                      <Link
-                        href={productHref(product.slug)}
-                        className="hover:text-brand-orange transition-colors"
-                      >
-                        {product.name}
-                      </Link>
-                    </h3>
-
-                    {/* Deskripsi */}
-                    <p className="text-xs text-gray-600 leading-relaxed mb-3">
-                      {product.shortDescription}
-                    </p>
-
-                    {/* Varian */}
-                    {variantsList.length > 0 && (
-                      <div className="mb-3">
-                        <span className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">
-                          Varian Formula:
-                        </span>
-                        <div className="flex flex-wrap gap-1">
-                          {variantsList.map((variant) => (
-                            <span
-                              key={variant}
-                              className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-brand-orange/10 text-brand-black border border-brand-orange/20"
-                            >
-                              {variant}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Accordion: Bahan aktif & kemasan (SSR rendered in HTML) */}
-                    <details className="group/acc mt-auto mb-4 rounded-xl border border-gray-200/80 bg-gray-50/70 px-3 py-2 text-xs">
-                      <summary className="flex items-center justify-between cursor-pointer font-bold text-brand-black list-none select-none">
-                        <span>Bahan aktif &amp; kemasan</span>
-                        <ChevronDown className="size-4 text-gray-500 transition-transform duration-200 group-open/acc:rotate-180" />
-                      </summary>
-                      <div className="pt-2.5 mt-2 border-t border-gray-200/70 space-y-1.5 text-[11px] text-gray-700 leading-relaxed">
-                        <p>
-                          <strong className="text-brand-black">Bahan aktif:</strong> {ingredientsList}
-                        </p>
-                        <p>
-                          <strong className="text-brand-black">Kemasan:</strong> {packagingList}
-                        </p>
-                      </div>
-                    </details>
-
-                    {/* CTA Buttons */}
-                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100">
-                      <a
-                        href={`https://wa.me/6281131900095?text=${waMessage}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full bg-brand-orange hover:bg-brand-black text-white text-center py-2.5 px-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-colors flex items-center justify-center"
-                      >
-                        Konsultasi
-                      </a>
-                      <Link
-                        href={productHref(product.slug)}
-                        className="w-full bg-white hover:bg-gray-50 text-brand-black border border-gray-200 text-center py-2.5 px-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-colors flex items-center justify-center"
-                      >
-                        Detail Produk
-                      </Link>
-                    </div>
-                  </div>
-                </article>
+                  {filter}
+                </button>
               );
             })}
           </div>
+        )}
+
+        {/* Floating-Panel Grid */}
+        <div className="grid grid-cols-2 min-[641px]:grid-cols-3 min-[1025px]:grid-cols-4 gap-[12px] sm:gap-[24px] w-full">
+          {products.map((product) => {
+            const matchesFilter =
+              !isHaircare ||
+              activeFilter === "Semua" ||
+              product.concernFilter === activeFilter ||
+              (product.tags && product.tags.includes(activeFilter));
+
+            const variantsList =
+              product.variants && product.variants.length > 0
+                ? product.variants
+                : product.tags.filter((t) => t !== "Baru");
+
+            const consultHref = `/thankyou/google/?source=${encodeURIComponent(categorySlug)}-catalog&product=${encodeURIComponent(product.slug)}`;
+
+            return (
+              <article
+                key={product.id}
+                className={`pg-card group relative aspect-[4/5] rounded-[16px] sm:rounded-[22px] overflow-hidden bg-[#F2EEE9] ${matchesFilter ? "block" : "hidden"
+                  }`}
+              >
+                <Image
+                  src={getCardImage(
+                    product.slug,
+                    categorySlug,
+                    product.heroImage
+                  )}
+                  alt={productImageAlt(
+                    product.slug,
+                    categorySlug,
+                    product.name
+                  )}
+                  title={productImageTitle(
+                    product.slug,
+                    categorySlug,
+                    product.name
+                  )}
+                  fill
+                  sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 280px"
+                  loading="lazy"
+                  className="pg-card-img object-cover object-center"
+                />
+
+                <Link
+                  href={productHref(product.slug)}
+                  aria-label={`${product.name} — Detail Produk`}
+                  className="absolute inset-0 z-10 rounded-[16px] sm:rounded-[22px]"
+                />
+
+                {/* Top-left Badges / Tags */}
+                <div className="absolute top-[10px] left-[10px] sm:top-[14px] sm:left-[14px] z-10 pointer-events-none flex flex-wrap items-center gap-1.5">
+                  {(product.isNew || product.tags.includes("Baru")) && (
+                    <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10.5px] font-semibold uppercase tracking-[0.1em] bg-[#F39200] text-white">
+                      Baru
+                    </span>
+                  )}
+                  {product.concernFilter ? (
+                    <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10.5px] font-semibold uppercase tracking-[0.1em] bg-[rgba(255,255,255,0.9)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.82)] backdrop-blur-[8px] text-[#212120]">
+                      {product.concernFilter}
+                    </span>
+                  ) : (
+                    product.tags &&
+                    product.tags[0] && (
+                      <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10.5px] font-semibold uppercase tracking-[0.1em] bg-[rgba(255,255,255,0.9)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.82)] backdrop-blur-[8px] text-[#212120]">
+                        {product.tags[0]}
+                      </span>
+                    )
+                  )}
+                </div>
+
+                {/* Floating Glass Panel at Bottom */}
+                <div className="absolute inset-x-[8px] bottom-[8px] sm:inset-x-[12px] sm:bottom-[12px] z-20 pointer-events-none rounded-[12px] sm:rounded-[16px] bg-[rgba(255,255,255,0.96)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.90)] backdrop-blur-[14px] p-[12px] sm:pt-[16px] sm:pr-[16px] sm:pb-[16px] sm:pl-[18px] shadow-[0_8px_24px_-10px_rgba(60,35,10,0.25)]">
+                  <div className="flex items-center justify-between gap-2.5">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-[15px] sm:text-[19px] font-normal text-[#212120] leading-snug">
+                        {product.name}
+                      </h3>
+                      <p className="text-[11.5px] sm:text-[12.5px] text-[#6B6762] mt-1 line-clamp-2 sm:line-clamp-1 group-hover:sm:line-clamp-3 group-focus-within:sm:line-clamp-3">
+                        {product.shortDescription}
+                      </p>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="pg-card-arrow hidden sm:flex w-[34px] h-[34px] rounded-full bg-[#FFF3E2] text-[#C86400] items-center justify-center shrink-0"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+
+                  {/* Desktop Hover / Focus Expandable Variants & Consult Link */}
+                  <div className="hidden sm:block">
+                    <div className="pg-card-expand">
+                      <div className="overflow-hidden border-t border-[rgba(33,33,32,0.10)] pt-2">
+                        {variantsList.length > 0 && (
+                          <p className="text-[12px] font-medium text-[#C86400] leading-snug">
+                            {variantsList.join(" · ")}
+                          </p>
+                        )}
+                        <div className="mt-1.5 flex items-center gap-3 pointer-events-auto relative z-30">
+                          <Link
+                            href={consultHref}
+                            rel="nofollow"
+                            className="text-[12px] font-semibold text-[#212120] underline underline-offset-2 hover:text-[#C86400]"
+                          >
+                            Konsultasi
+                          </Link>
+                          <Link
+                            href={productHref(product.slug)}
+                            className="text-[12px] font-semibold text-[#C86400] hover:underline underline-offset-2"
+                          >
+                            Detail Produk →
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

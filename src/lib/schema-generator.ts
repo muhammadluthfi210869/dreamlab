@@ -25,51 +25,9 @@ export function generatePageSchema(data: SchemaPageData) {
   const cleanUrl = fullUrl.replace(/\/?$/, '/');
 
   const graph: Record<string, unknown>[] = [
-    // Organization
-    {
-      '@type': 'Organization',
-      '@id': `${siteUrl}/#organization`,
-      name: 'Dreamlab Indonesia',
-      legalName: 'PT Karya Impian Laboratoris',
-      url: `${siteUrl}/`,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteUrl}/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp`,
-        width: 192,
-        height: 192,
-      },
-      sameAs: [
-        'https://www.instagram.com/dreamlab.id',
-        'https://www.facebook.com/dreamlab.id',
-        'https://www.tiktok.com/@dreamlab.id',
-      ],
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
-          telephone: '+62-819-5241-7051',
-          contactType: 'sales',
-          name: 'Annisa (Sales & Business Development)',
-          areaServed: 'ID',
-          availableLanguage: 'Indonesian',
-        },
-        {
-          '@type': 'ContactPoint',
-          telephone: '+62-877-1223-2389',
-          contactType: 'sales',
-          name: 'Jessica (Sales & Business Development)',
-          areaServed: 'ID',
-          availableLanguage: 'Indonesian',
-        },
-      ],
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan',
-        addressLocality: 'Surabaya',
-        addressRegion: 'Jawa Timur',
-        postalCode: '60256',
-        addressCountry: 'ID',
-      },
-    },
+    // NOTE: Organization (@id: https://dreamlab.id/#organization) is rendered
+    // globally once by <OrganizationSchema /> in src/app/layout.tsx.
+    // All entities below reference it via { '@id': `${siteUrl}/#organization` }.
 
     // WebSite
     {
@@ -229,51 +187,9 @@ export function generateProductPageSchema(data: ProductPageSchemaData) {
   const cleanUrl = url.replace(/\/?$/, '/');
 
   const graph: Record<string, unknown>[] = [
-    // Organization
-    {
-      '@type': 'Organization',
-      '@id': `${siteUrl}/#organization`,
-      name: 'Dreamlab Indonesia',
-      legalName: 'PT Karya Impian Laboratoris',
-      url: `${siteUrl}/`,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteUrl}/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp`,
-        width: 192,
-        height: 192,
-      },
-      sameAs: [
-        'https://www.instagram.com/dreamlab.id',
-        'https://www.facebook.com/dreamlab.id',
-        'https://www.tiktok.com/@dreamlab.id',
-      ],
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
-          telephone: '+62-819-5241-7051',
-          contactType: 'sales',
-          name: 'Annisa (Sales & Business Development)',
-          areaServed: 'ID',
-          availableLanguage: 'Indonesian',
-        },
-        {
-          '@type': 'ContactPoint',
-          telephone: '+62-877-1223-2389',
-          contactType: 'sales',
-          name: 'Jessica (Sales & Business Development)',
-          areaServed: 'ID',
-          availableLanguage: 'Indonesian',
-        },
-      ],
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Dukuh Kupang Timur XX No.77B, Pakis, Kec. Sawahan',
-        addressLocality: 'Surabaya',
-        addressRegion: 'Jawa Timur',
-        postalCode: '60256',
-        addressCountry: 'ID',
-      },
-    },
+    // NOTE: Organization (@id: https://dreamlab.id/#organization) is rendered
+    // globally once by <OrganizationSchema /> in src/app/layout.tsx.
+    // All entities below reference it via { '@id': `${siteUrl}/#organization` }.
 
     // WebSite
     {

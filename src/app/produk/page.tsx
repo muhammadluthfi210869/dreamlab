@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
 import CtaSection from "@/components/CtaSection";
 import JsonLd from "@/components/JsonLd";
+import {
+  DreamlabIntroSection,
+  DreamlabDocumentationSection,
+} from "@/components/ProdukShowcaseSections";
 import { buildAlternates } from "@/lib/seo-lang";
 
 export const metadata: Metadata = {
@@ -24,145 +27,79 @@ export const metadata: Metadata = {
 };
 
 const catalogTabs = [
-  { label: "SEMUA", sup: "7", href: "#katalog", active: true },
-  { label: "SKINCARE", sup: "15+", href: "/produk/skincare/" },
-  { label: "BODY CARE", sup: "20+", href: "/produk/bodycare/" },
-  { label: "HAIR CARE", sup: "10+", href: "/produk/haircare/" },
-  { label: "DECORATIVE", sup: "12+", href: "/produk/decorative/" },
-  { label: "BABY CARE", sup: "8+", href: "/produk/babycare/" },
-  { label: "PARFUM & FRAGRANCE", sup: "15+", href: "/produk/parfum/" },
-  { label: "FOOT CARE", sup: "10+", href: "/produk/footcare/" },
+  { label: "Semua", sup: "7", href: "#katalog", active: true },
+  { label: "Skincare", sup: "15+", href: "/produk/skincare/" },
+  { label: "Body Care", sup: "20+", href: "/produk/bodycare/" },
+  { label: "Hair Care", sup: "10+", href: "/produk/haircare/" },
+  { label: "Decorative", sup: "12+", href: "/produk/decorative/" },
+  { label: "Baby Care", sup: "8+", href: "/produk/babycare/" },
+  { label: "Parfum", sup: "15+", href: "/produk/parfum/" },
+  { label: "Foot Care", sup: "10+", href: "/produk/footcare/" },
 ];
 
 const catalogCategories = [
   {
     id: "skincare",
     name: "Skincare",
-    eyebrow: "15+ FORMULA PREMIUM",
-    countLabel: "15+ formula",
+    tag: "15+ FORMULA",
     image: "/assets/images/catalog/skincare.jpg",
     alt: "Maklon Skincare Dreamlab",
-    variants: "Essence Toner · Face Serum · Moisturizer Cream · Gel Cleanser · Sunscreen",
+    variants: "Essence Toner · Face Serum · Moisturizer · Gel Cleanser · Sunscreen",
     href: "/produk/skincare/",
-    isParfum: false,
   },
   {
     id: "bodycare",
     name: "Body Care",
-    eyebrow: "20+ FORMULA PREMIUM",
-    countLabel: "20+ formula",
+    tag: "20+ FORMULA",
     image: "/assets/images/catalog/bodycare.jpg",
     alt: "Maklon Body Care Dreamlab",
     variants: "Body Wash · Body Mask · Body Serum · Body Lotion · Body Scrub",
     href: "/produk/bodycare/",
-    isParfum: false,
   },
   {
     id: "haircare",
     name: "Hair Care",
-    eyebrow: "10+ FORMULA PREMIUM",
-    countLabel: "10+ formula",
+    tag: "10+ FORMULA",
     image: "/assets/images/catalog/haircare.jpg",
     alt: "Maklon Hair Care Dreamlab",
-    variants: "Bonding Shampoo · Hair Mask · Hair Serum · Hair Mist · No Wash Treatment",
+    variants: "Bonding Shampoo · Hair Mask · Hair Serum · Hair Mist",
     href: "/produk/haircare/",
-    isParfum: false,
   },
   {
     id: "decorative",
     name: "Decorative (Makeup)",
-    eyebrow: "12+ FORMULA PREMIUM",
-    countLabel: "12+ formula",
+    tag: "12+ FORMULA",
     image: "/assets/images/catalog/decorative.jpg",
     alt: "Maklon Decorative (Makeup) Dreamlab",
-    variants: "Peptide Lip Treatment · Lip Matte · Lip Cream · Cushion · Foundation",
+    variants: "Lip Treatment · Lip Matte · Lip Cream · Cushion · Foundation",
     href: "/produk/decorative/",
-    isParfum: false,
   },
   {
     id: "babycare",
     name: "Baby Care",
-    eyebrow: "8+ FORMULA PREMIUM",
-    countLabel: "8+ formula",
+    tag: "8+ FORMULA",
     image: "/assets/images/catalog/babycare.jpg",
     alt: "Maklon Baby Care Dreamlab",
-    variants: "Baby Hair & Body Wash · Baby Lotion · Baby Massage Oil · Baby Face Cream",
+    variants: "Baby Hair & Body Wash · Baby Lotion · Baby Massage Oil",
     href: "/produk/babycare/",
-    isParfum: false,
   },
   {
     id: "parfum",
     name: "Parfum & Fragrance",
-    eyebrow: "15+ SIGNATURE SCENT",
-    countLabel: "15+ aroma",
+    tag: "15+ SIGNATURE SCENT",
     image: "/assets/images/catalog/parfum.jpg",
     alt: "Maklon Parfum & Fragrance Dreamlab",
     variants: "Extrait de Parfum · Eau de Parfum · Eau de Toilette · Body Mist",
     href: "/produk/parfum/",
-    isParfum: true,
   },
   {
     id: "footcare",
-    name: "Foot Care & Special Care",
-    eyebrow: "10+ FORMULA PREMIUM",
-    countLabel: "10+ formula",
+    name: "Foot Care",
+    tag: "10+ FORMULA",
     image: "/assets/images/catalog/footcare.jpg",
     alt: "Maklon Foot Care & Special Care Dreamlab",
-    variants: "Hydrating Foot Scrub · Foot Serum · Cooling Foot Gel · Foot Cream",
+    variants: "Foot Scrub · Foot Serum · Cooling Foot Gel · Foot Cream",
     href: "/produk/footcare/",
-    isParfum: false,
-  },
-];
-
-const categorySummaries = [
-  {
-    num: "01",
-    name: "Skincare & Face Care",
-    href: "/produk/skincare/",
-    description:
-      "Rangkaian perawatan wajah harian hingga perawatan intensif seperti facial wash, essence toner, facial serum, moisturizer cream, dan sunscreen. Cocok untuk brand baru, klinik estetika, maupun lini perawatan kulit yang ingin menonjolkan bahan aktif spesifik dengan klaim aman berizin BPOM.",
-  },
-  {
-    num: "02",
-    name: "Body Care",
-    href: "/produk/bodycare/",
-    description:
-      "Produk perawatan tubuh mulai dari body wash, body scrub, body lotion, body serum, hingga body butter dengan tekstur dan aroma khas. Ideal bagi brand yang menyasar kebutuhan perawatan kulit tubuh harian dengan tingkat pembelian ulang yang tinggi.",
-  },
-  {
-    num: "03",
-    name: "Hair Care",
-    href: "/produk/haircare/",
-    description:
-      "Solusi perawatan rambut dan kulit kepala seperti bonding shampoo, hair conditioner, hair mask, hair serum, dan hair mist. Tepat untuk brand personal care, salon profesional, atau lini perawatan rambut rontok dan rusak.",
-  },
-  {
-    num: "04",
-    name: "Decorative (Makeup)",
-    href: "/produk/decorative/",
-    description:
-      "Kosmetik dekoratif modern meliputi lip cream, lip matte, peptide lip treatment, cushion, dan foundation dengan pilihan shade yang dapat disesuaikan. Cocok untuk brand kecantikan yang membidik segmen tren warna dan riasan praktis.",
-  },
-  {
-    num: "05",
-    name: "Baby Care",
-    href: "/produk/babycare/",
-    description:
-      "Formulasi lembut khusus kulit bayi dan anak, antara lain baby 2-in-1 wash, baby shampoo, baby lotion, dan baby cologne. Dirancang bagi brand keluarga dan ibu-anak yang memprioritaskan keamanan formula serta kenyamanan pemakaian.",
-  },
-  {
-    num: "06",
-    name: "Parfum & Fragrance",
-    href: "/produk/parfum/",
-    description:
-      "Lini wewangian mulai dari Eau de Parfum, Extrait de Parfum, body mist, hingga signature scent eksklusif untuk merek Anda sendiri. Sangat pas untuk brand lifestyle, fashion, maupun kreator yang ingin menghadirkan karakter aroma unik.",
-  },
-  {
-    num: "07",
-    name: "Foot Care",
-    href: "/produk/footcare/",
-    description:
-      "Produk perawatan kaki seperti foot cream dan foot care treatment untuk membantu melembapkan serta merawat area tumit yang kering. Cocok sebagai produk pelengkap lini body care atau segmen perawatan khusus di klinik dan spa.",
   },
 ];
 
@@ -171,31 +108,31 @@ const maklonSteps = [
     step: "01",
     title: "Konsultasi Konsep & Target Pasar",
     detail:
-      "Diskusikan ide produk, target konsumen, kisaran HPP, serta kategori kosmetik yang paling sesuai dengan positioning brand Anda bersama tim Business Development kami.",
+      "Bahas ide produk, target konsumen, dan kisaran HPP. Kami bantu pilih hero product pertama Anda.",
   },
   {
     step: "02",
-    title: "Riset Formula & Pembuatan Sampel",
+    title: "Riset Formula & Sampel",
     detail:
-      "Tim R&D Dreamlab meracik custom formula (1 Client = 1 Formula) dan menyiapkan sampel awal untuk Anda uji tekstur, aroma, serta performanya.",
+      "Tim R&D meracik formula eksklusif (1 Client = 1 Formula). Anda uji tekstur, aroma, dan performanya.",
   },
   {
     step: "03",
-    title: "Desain Kemasan & Pendaftaran Legalitas",
+    title: "Desain Kemasan & Legalitas",
     detail:
-      "Visualisasi desain kemasan sekaligus registrasi izin edar BPOM RI, sertifikasi Halal MUI, serta pendampingan pendaftaran merek (HAKI).",
+      "Desain kemasan plus pengurusan BPOM RI, Halal MUI, dan pendaftaran merek (HAKI).",
   },
   {
     step: "04",
-    title: "Produksi Massal di Pabrik CPKB Grade A",
+    title: "Produksi CPKB Grade A",
     detail:
-      "Setelah sampel disetujui dan legalitas berjalan, produksi massal dilakukan di fasilitas berstandar CPKB Grade A di Surabaya.",
+      "Setelah sampel disetujui, produksi massal berjalan di pabrik Dreamlab Surabaya.",
   },
   {
     step: "05",
-    title: "Quality Control & Pengiriman Produk",
+    title: "Quality Control & Pengiriman",
     detail:
-      "Setiap batch melalui pemeriksaan kualitas dan pengemasan akhir sebelum dikirim ke gudang atau lokasi distribusi Anda.",
+      "Setiap batch dicek kualitasnya, dikemas, lalu dikirim ke gudang Anda.",
   },
 ];
 
@@ -204,6 +141,11 @@ const produkFaqs = [
     question: "Apakah Dreamlab cocok untuk beautypreneur pemula yang ingin membuat brand kosmetik sendiri?",
     answer:
       "Ya. Dreamlab adalah perusahaan maklon kosmetik dan parfum di Surabaya yang melayani beautypreneur pemula hingga brand yang sudah berjalan. Dengan MOQ fleksibel, konsultasi gratis, dan pendampingan lengkap mulai dari formula, desain kemasan, hingga BPOM dan Halal, beautypreneur bisa meluncurkan brand sendiri tanpa harus membangun pabrik.",
+  },
+  {
+    question: "Bagaimana cara memilih produk maklon pertama untuk brand Anda?",
+    answer:
+      "Mulailah dari masalah utama target pasar, misalnya kulit kusam, jerawat, rambut rontok, atau parfum harian. Produk yang dipakai rutin dan cepat habis lebih mudah menghasilkan repeat order. Untuk brand yang berjualan di marketplace dan media sosial, Dreamlab menyarankan memulai dari 1–2 SKU unggulan (hero product) agar anggaran pemasaran fokus dan perputaran stok tetap sehat.",
   },
   {
     question: "Berapa Minimum Order Quantity (MOQ) maklon kosmetik di Dreamlab?",
@@ -229,11 +171,6 @@ const produkFaqs = [
     question: "Apakah Dreamlab membantu pengurusan BPOM, sertifikat Halal MUI, dan HAKI?",
     answer:
       "Ya. Sebagai layanan maklon one-stop service, tim regulasi dan kepatuhan Dreamlab mendampingi beautypreneur dalam pengurusan legalitas produk, mulai dari notifikasi BPOM RI, sertifikasi Halal MUI, hingga pendaftaran merek (HAKI).",
-  },
-  {
-    question: "Bagaimana cara beautypreneur memulai maklon dan mengajukan sampel di Dreamlab?",
-    answer:
-      "Mulailah dengan konsultasi gratis bersama tim Dreamlab untuk menyampaikan ide produk, referensi tekstur, dan target harga. Tim R&D Dreamlab kemudian membuatkan sampel awal untuk Anda evaluasi dan revisi hingga sesuai, sebelum masuk ke produksi massal.",
   },
 ];
 
@@ -271,26 +208,30 @@ const faqSchema = {
 
 export default function ProdukPage() {
   return (
-    <main className="min-h-screen bg-white text-[#212120] overflow-x-clip">
+    <div className="min-h-screen bg-white text-[#212120] overflow-x-clip">
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={faqSchema} />
 
       <style>{`
-        .prod-focus:focus-visible {
+        .prod-focus:focus-visible,
+        details.prod-faq summary:focus-visible {
           outline: 2px solid #F39200;
           outline-offset: 4px;
-        }
-        .prod-hero-bg {
-          background-color: #EAF2FA;
+          border-radius: 6px;
         }
         .prod-hero-overlay {
-          background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0) 82%);
+          background: linear-gradient(180deg, #ffffff 0%, #ffffff 60%, rgba(255, 255, 255, 0.6) 68%, rgba(255, 255, 255, 0) 78%);
+        }
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .prod-hero-overlay {
+            background: linear-gradient(180deg, #ffffff 0%, #ffffff 48%, rgba(255, 255, 255, 0.7) 58%, rgba(255, 255, 255, 0) 72%);
+          }
         }
         @media (min-width: 1025px) {
           .prod-hero-overlay {
             background:
               linear-gradient(90deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.92) 34%, rgba(255, 255, 255, 0.55) 52%, rgba(255, 255, 255, 0) 68%),
-              linear-gradient(0deg, rgba(255, 255, 255, 0.6), transparent 22%);
+              linear-gradient(0deg, #ffffff, transparent 18%);
           }
         }
         .prod-tabs {
@@ -300,38 +241,96 @@ export default function ProdukPage() {
         .prod-tabs::-webkit-scrollbar {
           display: none;
         }
-        .prod-tile-img {
-          transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-        }
         .prod-tile {
-          transition: box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1);
+          transition: box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1), transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .prod-tile-img {
+          transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .prod-tile-go {
+          transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1), transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
         }
         @media (hover: hover) {
           .prod-card:hover .prod-tile {
             box-shadow: 0 2px 4px rgba(60, 35, 10, 0.04), 0 18px 40px -14px rgba(60, 35, 10, 0.18);
+            transform: translateY(-4px);
           }
           .prod-card:hover .prod-tile-img {
             transform: scale(1.04);
           }
-          .prod-card:hover .prod-tile-arrow {
+          .prod-card:hover .prod-tile-go {
             opacity: 1;
+            transform: translateY(0);
           }
         }
-        .prod-index-row {
-          transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+        @keyframes prod-spin {
+          to { transform: rotate(360deg); }
         }
-        @media (hover: hover) {
-          .prod-index-row:hover {
-            transform: translateX(8px);
-          }
+        @keyframes prod-float {
+          50% { transform: translateY(-14px) scale(1.04); }
         }
-        .prod-choose-overlay {
-          background: linear-gradient(180deg, #F7F6F4 0%, #F7F6F4 58%, rgba(247, 246, 244, 0.72) 76%, rgba(247, 246, 244, 0.1) 100%);
+        @keyframes prod-mq {
+          to { transform: translateX(calc(-50% - 10px)); }
         }
-        @media (min-width: 1025px) {
-          .prod-choose-overlay {
-            background: linear-gradient(90deg, #F7F6F4 0%, rgba(247, 246, 244, 0.96) 38%, rgba(247, 246, 244, 0.6) 54%, rgba(247, 246, 244, 0) 70%);
-          }
+        @keyframes prod-mq-logo {
+          to { transform: translateX(calc(-50% - 8px)); }
+        }
+        .prod-spin-slow {
+          animation: prod-spin 16s linear infinite;
+        }
+        .prod-spin-ring {
+          animation: prod-spin 40s linear infinite reverse;
+        }
+        .prod-float-blob {
+          animation: prod-float 7s ease-in-out infinite;
+        }
+        .prod-mq-mask {
+          -webkit-mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+        }
+        .prod-mq-track {
+          display: flex;
+          gap: 20px;
+          width: max-content;
+          animation: prod-mq 50s linear infinite;
+        }
+        .prod-logo-track {
+          display: flex;
+          gap: 16px;
+          width: max-content;
+          animation: prod-mq-logo 35s linear infinite reverse;
+        }
+        .prod-mq-mask:hover .prod-mq-track,
+        .prod-mq-mask:hover .prod-logo-track {
+          animation-play-state: paused;
+        }
+        .prod-doc-img {
+          transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .prod-doc-card:hover .prod-doc-img {
+          transform: scale(1.05);
+        }
+        .prod-logo-img {
+          transition: filter 350ms cubic-bezier(0.22, 1, 0.36, 1), opacity 350ms cubic-bezier(0.22, 1, 0.36, 1), transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .prod-logo-img:hover {
+          filter: none;
+          opacity: 1;
+          transform: translateY(-3px);
+        }
+        .prod-flow-bg {
+          background: radial-gradient(70% 60% at 50% 0%, #FFE9CC 0%, rgba(255, 233, 204, 0) 70%), linear-gradient(180deg, #FFF8EF 0%, #FBF4EC 100%);
+        }
+        .prod-step-card {
+          transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .prod-step-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 2px 4px rgba(60, 35, 10, 0.04), 0 18px 40px -14px rgba(60, 35, 10, 0.18);
+        }
+        .prod-step-title {
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+          font-weight: 600 !important;
         }
         details.prod-faq summary {
           list-style: none;
@@ -340,44 +339,60 @@ export default function ProdukPage() {
           display: none;
         }
         details.prod-faq[open] .prod-faq-icon {
-          background-color: #212120;
-          color: #ffffff;
+          background-color: #F39200;
+          color: #212120;
+          border-color: #F39200;
           transform: rotate(45deg);
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-tile,
           .prod-tile-img,
-          .prod-index-row,
-          .prod-btn-primary,
+          .prod-tile-go,
+          .prod-doc-img,
+          .prod-logo-img,
+          .prod-step-card,
+          .prod-btn-p,
           .prod-faq-icon {
             transition: none !important;
           }
+          .prod-spin-slow,
+          .prod-spin-ring,
+          .prod-float-blob,
+          .prod-mq-track,
+          .prod-logo-track {
+            animation: none !important;
+          }
+          .prod-card:hover .prod-tile,
           .prod-card:hover .prod-tile-img,
-          .prod-index-row:hover,
-          .prod-btn-primary:hover {
+          .prod-doc-card:hover .prod-doc-img,
+          .prod-logo-img:hover,
+          .prod-step-card:hover,
+          .prod-btn-p:hover {
             transform: none !important;
           }
         }
       `}</style>
 
-      {/* 2) HERO: full-bleed photo background */}
-      <section className="prod-hero-bg relative w-full min-h-0 lg:min-h-[640px] flex items-center overflow-hidden border-b border-[rgba(33,33,32,0.08)]">
+      {/* 1) HERO */}
+      <section
+        aria-label="Rangkaian produk maklon kosmetik Dreamlab"
+        className="relative w-full min-h-0 lg:min-h-[620px] flex items-center overflow-hidden bg-[#EAF2FA] pt-[32px] pb-0 sm:pt-[56px] lg:py-[88px] lg:pt-[56px]"
+      >
         <Image
           src="/assets/images/hero/hero-03.jpg"
           alt="Rangkaian produk maklon kosmetik Dreamlab"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[72%_bottom] max-lg:!top-auto max-lg:!h-[340px] max-lg:sm:!h-[390px] lg:object-[70%_center]"
+          className="object-cover object-[72%_bottom] max-lg:!top-auto max-lg:!h-[46%] max-lg:sm:!h-[62%] lg:object-[70%_center]"
         />
         <div aria-hidden="true" className="prod-hero-overlay absolute inset-0 z-10 pointer-events-none" />
 
-        <div className="relative z-20 mx-auto w-full max-w-[1240px] px-[16px] lg:px-[40px] pt-8 pb-0 lg:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-6 lg:gap-10 items-center">
+        <div className="relative z-20 mx-auto w-full max-w-[1240px] px-[16px] sm:px-[40px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-[24px] lg:gap-[64px] items-center">
             {/* Left Column */}
             <div>
-              {/* Breadcrumb */}
-              <nav aria-label="Breadcrumb" className="text-[12px] text-[#9A958F] mb-4 flex items-center gap-1.5">
+              <nav aria-label="Breadcrumb" className="text-[12px] text-[#9A958F] mb-[20px] flex items-center gap-1.5">
                 <Link href="/" className="prod-focus hover:text-[#212120] transition-colors">
                   Beranda
                 </Link>
@@ -385,58 +400,53 @@ export default function ProdukPage() {
                 <span className="text-[#6B6762]">Katalog Produk</span>
               </nav>
 
-              {/* Eyebrow Pill */}
-              <span className="inline-flex items-center gap-2 rounded-full bg-[#FFF3E2] px-3.5 py-1.5 text-[12px] font-medium text-[#C86400] mb-5">
-                <span className="h-[7px] w-[7px] rounded-full bg-[#F39200] ring-4 ring-[#F39200]/20" />
-                Maklon Kosmetik BPOM &amp; Halal · Surabaya
-              </span>
-
-              {/* H1 */}
-              <h1 className="font-display text-[38px] sm:text-[46px] lg:text-[58px] font-normal leading-[1.05] tracking-[-0.02em] text-[#212120] mb-5">
+              <h1 className="font-display text-[clamp(38px,4.6vw,60px)] font-normal leading-[1.05] tracking-[-0.02em] text-[#212120]">
                 Katalog Produk <span className="text-[#F39200]">Maklon</span> Dreamlab
               </h1>
 
-              {/* Lead */}
-              <p className="text-[16.5px] lg:text-[19px] text-[#6B6762] leading-relaxed max-w-[480px] mb-5">
+              <p className="mt-[20px] text-[16.5px] sm:text-[19px] leading-[1.55] text-[#6B6762] max-w-[470px]">
                 Pilih produknya, kami racik formula eksklusif untuk brand Anda. Lengkap dengan BPOM, Halal, dan desain kemasan.
               </p>
 
-              {/* USP Row */}
-              <ul className="flex flex-wrap items-center gap-x-5 gap-y-2.5 text-[14px] font-medium text-[#212120] mb-7">
+              <ul className="mt-[22px] flex flex-wrap gap-x-[16px] sm:gap-x-[22px] gap-y-[8px]">
                 {["1 Client = 1 Formula", "MOQ fleksibel", "Siap jual 2–3 bulan"].map((usp) => (
-                  <li key={usp} className="inline-flex items-center gap-2">
-                    <span className="size-[18px] rounded-full bg-[#FFF3E2] text-[#C86400] flex items-center justify-center shrink-0">
-                      <Check className="size-3 stroke-[2.5]" />
+                  <li key={usp} className="inline-flex items-center gap-[8px] text-[13px] sm:text-[14px] font-medium text-[#212120]">
+                    <span
+                      aria-hidden="true"
+                      className="size-[18px] rounded-full bg-[#FFF3E2] flex items-center justify-center shrink-0"
+                    >
+                      <svg className="size-[11px]" viewBox="0 0 24 24" fill="none" stroke="#C86400" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12l5 5L20 7" />
+                      </svg>
                     </span>
                     <span>{usp}</span>
                   </li>
                 ))}
               </ul>
 
-              {/* CTAs */}
-              <div className="flex items-center gap-2.5 sm:gap-3 mb-7">
+              <div className="mt-[32px] flex items-center gap-[12px]">
                 <Link
                   href="/thankyou/google/?source=produk-hero"
                   rel="nofollow"
-                  className="prod-focus prod-btn-primary flex-1 sm:flex-none whitespace-nowrap inline-flex items-center justify-center rounded-full bg-[#F39200] text-[#212120] text-[13.5px] sm:text-[15px] font-semibold px-[14px] sm:px-[28px] py-[13px] sm:py-[16px] shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] transition-transform duration-300 hover:-translate-y-0.5"
+                  className="prod-focus prod-btn-p flex-1 sm:flex-none whitespace-nowrap text-center rounded-full bg-[#F39200] text-[#212120] text-[13.5px] sm:text-[15px] font-semibold px-[12px] sm:px-[28px] py-[13px] sm:py-[16px] shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_14px_28px_-10px_rgba(243,146,0,0.8)]"
                 >
                   Konsultasi Gratis →
                 </Link>
                 <a
                   href="#katalog"
-                  className="prod-focus flex-1 sm:flex-none whitespace-nowrap inline-flex items-center justify-center rounded-full bg-white text-[#212120] border border-[rgba(33,33,32,0.10)] hover:border-[#212120] text-[13.5px] sm:text-[15px] font-semibold px-[14px] sm:px-[28px] py-[13px] sm:py-[16px] transition-colors"
+                  className="prod-focus flex-1 sm:flex-none whitespace-nowrap text-center rounded-full bg-white text-[#212120] border border-[rgba(33,33,32,0.10)] hover:border-[#212120] text-[13.5px] sm:text-[15px] font-semibold px-[12px] sm:px-[28px] py-[13px] sm:py-[16px] transition-colors"
                 >
                   Lihat Katalog
                 </a>
               </div>
 
-              {/* Cert Logos Row */}
-              <div className="border-t border-[rgba(33,33,32,0.10)] pt-[20px] sm:pt-[24px] grid grid-cols-4 sm:flex items-center gap-3 sm:gap-7">
+              <div className="mt-[36px] pt-[24px] border-t border-[rgba(33,33,32,0.10)] max-w-[470px] flex items-center gap-[16px]">
                 <Image
                   src="/images/certifications/bpom.png"
                   alt="Sertifikasi BPOM RI"
                   width={90}
                   height={30}
+                  priority
                   className="h-[26px] sm:h-[30px] w-auto object-contain"
                 />
                 <Image
@@ -444,6 +454,7 @@ export default function ProdukPage() {
                   alt="Sertifikasi Halal MUI"
                   width={90}
                   height={30}
+                  priority
                   className="h-[26px] sm:h-[30px] w-auto object-contain"
                 />
                 <Image
@@ -451,6 +462,7 @@ export default function ProdukPage() {
                   alt="Sertifikasi CPKB Grade A"
                   width={90}
                   height={30}
+                  priority
                   className="h-[26px] sm:h-[30px] w-auto object-contain"
                 />
                 <Image
@@ -458,91 +470,86 @@ export default function ProdukPage() {
                   alt="Terdaftar HKI"
                   width={110}
                   height={30}
+                  priority
                   className="h-[26px] sm:h-[30px] w-auto object-contain"
                 />
               </div>
             </div>
 
-            {/* Right Column (spacer on mobile/tablet, stat chips over photo) */}
-            <div className="relative h-[300px] sm:h-[340px] lg:h-[460px] flex items-end justify-between lg:block pb-6 lg:pb-0 gap-3">
-              {/* Chip 1 */}
-              <div className="lg:absolute lg:left-[8%] lg:top-[6%] rounded-[16px] bg-[rgba(255,255,255,0.95)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.92)] backdrop-blur-[12px] px-[14px] py-[12px] sm:px-[18px] sm:py-[14px] shadow-[0_12px_30px_-12px_rgba(60,35,10,0.3)] flex-1 lg:flex-none">
-                <div className="font-display text-[22px] lg:text-[30px] text-[#C86400] leading-none">
+            {/* Right Column: spacer over photo with 2 glass stat chips */}
+            <div className="relative min-h-[300px] sm:min-h-[340px] lg:min-h-[420px] self-stretch">
+              <div className="absolute left-0 bottom-[24px] lg:left-[8%] lg:top-[6%] lg:bottom-auto flex items-center gap-[12px] rounded-[16px] bg-[rgba(255,255,255,0.96)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.92)] backdrop-blur-[12px] px-[12px] py-[10px] sm:px-[18px] sm:py-[14px] shadow-[0_12px_30px_-12px_rgba(60,35,10,0.3)]">
+                <b className="font-display font-normal text-[22px] lg:text-[30px] text-[#C86400] leading-none">
                   1000+
-                </div>
-                <div className="text-[10.5px] lg:text-[12px] text-[#6B6762] mt-1">
-                  brand telah bekerja sama
-                </div>
+                </b>
+                <span className="text-[10.5px] lg:text-[12px] leading-[1.35] text-[#6B6762]">
+                  brand telah
+                  <br />
+                  bekerja sama
+                </span>
               </div>
 
-              {/* Chip 2 */}
-              <div className="lg:absolute lg:right-0 lg:bottom-0 rounded-[16px] bg-[rgba(255,255,255,0.95)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.92)] backdrop-blur-[12px] px-[14px] py-[12px] sm:px-[18px] sm:py-[14px] shadow-[0_12px_30px_-12px_rgba(60,35,10,0.3)] flex-1 lg:flex-none">
-                <div className="font-display text-[22px] lg:text-[30px] text-[#C86400] leading-none">
+              <div className="absolute right-0 bottom-[24px] lg:bottom-[4%] flex items-center gap-[12px] rounded-[16px] bg-[rgba(255,255,255,0.96)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.92)] backdrop-blur-[12px] px-[12px] py-[10px] sm:px-[18px] sm:py-[14px] shadow-[0_12px_30px_-12px_rgba(60,35,10,0.3)]">
+                <b className="font-display font-normal text-[22px] lg:text-[30px] text-[#C86400] leading-none">
                   7
-                </div>
-                <div className="text-[10.5px] lg:text-[12px] text-[#6B6762] mt-1">
-                  kategori produk dalam satu pabrik
-                </div>
+                </b>
+                <span className="text-[10.5px] lg:text-[12px] leading-[1.35] text-[#6B6762]">
+                  kategori produk
+                  <br />
+                  dalam satu pabrik
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3) KATALOG LAYANAN MAKLON PREMIUM (IKKARI-style) */}
-      <section id="katalog" className="bg-white py-[64px] lg:py-[96px]">
-        <div className="mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
-          {/* Small Left Header */}
-          <div className="mb-8">
-            <h2 className="font-display text-[22px] font-normal text-[#212120] mb-2">
+      {/* 2) KATALOG */}
+      <section id="katalog" className="bg-white pt-[56px] sm:pt-[72px] pb-[64px] sm:pb-[104px]">
+        <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+          <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
               Katalog Layanan Maklon Premium
+            </span>
+            <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+              Kategori Produk Maklon &amp; Spesialisasi Formula
             </h2>
-            <p className="text-[14px] text-[#6B6762] leading-relaxed max-w-[620px]">
-              Dari formulasi riset laboratorium (R&amp;D) kustom, visualisasi desain branding eksklusif, hingga pendaftaran legalitas resmi BPOM, Halal, &amp; HKI — kami mewujudkan brand kecantikan juara Anda.
+            <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+              7 kategori dalam satu pabrik CPKB Grade A di Surabaya. Pilih kategorinya, tim R&amp;D Dreamlab meracik formula khusus untuk brand Anda.
             </p>
           </div>
 
-          {/* Tabs Row */}
           <nav
-            aria-label="Navigasi kategori katalog"
-            className="prod-tabs -mx-[16px] px-[16px] lg:mx-0 lg:px-0 flex items-center gap-5 lg:gap-6 overflow-x-auto border-b border-[rgba(33,33,32,0.10)] mb-8 lg:mb-10"
+            aria-label="Kategori"
+            className="prod-tabs -mx-[16px] px-[16px] sm:mx-0 sm:px-0 flex justify-start lg:justify-center gap-[22px] sm:gap-[28px] overflow-x-auto border-b border-[rgba(33,33,32,0.10)] mb-[28px] sm:mb-[40px]"
           >
             {catalogTabs.map((tab) => (
               <Link
                 key={tab.label}
                 href={tab.href}
-                className={`prod-focus shrink-0 pb-3.5 text-[13px] font-medium uppercase tracking-[0.04em] transition-colors border-b-2 -mb-[1px] ${
+                className={`prod-focus relative shrink-0 text-[13px] font-medium uppercase tracking-[0.04em] pb-[14px] pr-[10px] whitespace-nowrap transition-colors ${
                   tab.active
-                    ? "text-[#212120] border-[#212120]"
-                    : "text-[#6B6762] border-transparent hover:text-[#212120]"
+                    ? "text-[#212120] after:content-[''] after:absolute after:left-0 after:right-[10px] after:bottom-0 after:h-[2px] after:bg-[#F39200]"
+                    : "text-[#6B6762] hover:text-[#212120]"
                 }`}
               >
                 {tab.label}
-                <sup className="ml-0.5 text-[9.5px] text-[#9A958F] font-normal">
+                <sup className="ml-0.5 text-[9.5px] font-normal text-[#9A958F]">
                   {tab.sup}
                 </sup>
               </Link>
             ))}
           </nav>
 
-          {/* 4-Column Editorial Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-[28px] lg:gap-y-[40px] gap-x-[12px] lg:gap-x-[24px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[12px] gap-y-[28px] sm:gap-x-[24px] sm:gap-y-[40px]">
             {catalogCategories.map((cat) => (
               <Link
                 key={cat.id}
                 href={cat.href}
                 aria-label={`Lihat katalog maklon ${cat.name}`}
-                className="prod-card prod-focus group block"
+                className="prod-card prod-focus block"
               >
-                <span
-                  className={`block text-[9.5px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.14em] mb-1.5 sm:mb-2 truncate ${
-                    cat.isParfum ? "text-[#C86400]" : "text-[#6B6762]"
-                  }`}
-                >
-                  {cat.eyebrow}
-                </span>
-
-                <div className="prod-tile relative aspect-[4/5] rounded-[6px] overflow-hidden bg-[#F2EEE9] mb-3.5">
+                <span className="prod-tile block relative aspect-[4/5] bg-[#F2EEE9] rounded-[12px] sm:rounded-[16px] overflow-hidden">
                   <Image
                     src={cat.image}
                     alt={cat.alt}
@@ -551,310 +558,191 @@ export default function ProdukPage() {
                     sizes="(max-width:640px) 46vw, (max-width:1024px) 30vw, 280px"
                     className="prod-tile-img object-cover object-center"
                   />
+                  <span className="absolute left-[8px] top-[8px] sm:left-[12px] sm:top-[12px] rounded-full bg-[rgba(255,255,255,0.95)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.9)] backdrop-blur-[8px] px-[8px] py-[4px] sm:px-[10px] sm:py-[5px] text-[9.5px] sm:text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#C86400]">
+                    {cat.tag}
+                  </span>
                   <span
                     aria-hidden="true"
-                    className="prod-tile-arrow absolute bottom-3 right-3 size-[32px] lg:size-[38px] rounded-full bg-white text-[#212120] flex items-center justify-center shadow-sm opacity-100 lg:opacity-0 transition-opacity duration-300"
+                    className="prod-tile-go absolute right-[8px] bottom-[8px] sm:right-[12px] sm:bottom-[12px] size-[32px] sm:size-[38px] rounded-full bg-white grid place-items-center text-[15px] text-[#212120] opacity-100 sm:opacity-0 sm:translate-y-[6px]"
                   >
-                    <ArrowRight className="w-4 h-4" />
+                    →
                   </span>
-                </div>
-
-                <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="text-[14px] font-semibold uppercase tracking-[0.02em] text-[#212120]">
-                    {cat.name}
-                  </h3>
-                  <span className="hidden sm:inline text-[12px] text-[#9A958F] shrink-0">
-                    {cat.countLabel}
-                  </span>
-                </div>
-                <p className="hidden sm:block text-[13px] text-[#6B6762] leading-snug mt-1">
+                </span>
+                <h3 className="mt-[12px] sm:mt-[16px] font-display font-normal text-[15px] sm:text-[19px] leading-[1.2] text-[#212120]">
+                  {cat.name}
+                </h3>
+                <p className="hidden sm:block mt-[6px] text-[13px] leading-[1.55] text-[#6B6762]">
                   {cat.variants}
                 </p>
               </Link>
             ))}
 
-            {/* 8th Slot: CTA Tile */}
-            <div className="col-span-2 lg:col-span-1 flex flex-col justify-between rounded-[6px] bg-[#F7F5F2] p-[22px] sm:p-[28px] lg:aspect-[4/5]">
+            {/* 8th slot CTA tile */}
+            <div className="col-span-2 lg:col-span-1 flex flex-col justify-between gap-[20px] lg:gap-0 rounded-[16px] border border-[#FBE3C2] bg-[linear-gradient(180deg,#FFF4E5_0%,#FFFFFF_100%)] p-[22px] sm:p-[28px] lg:aspect-[4/5]">
               <div>
-                <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-3">
-                  FORMULA CUSTOM
+                <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400]">
+                  Formula Custom
                 </span>
-                <h3 className="font-display text-[22px] sm:text-[24px] font-normal text-[#212120] leading-[1.2] mb-3">
+                <h3 className="mt-[12px] font-display font-normal text-[24px] leading-[1.2] text-[#212120]">
                   Belum menemukan kategori yang pas?
                 </h3>
-                <p className="text-[13.5px] text-[#6B6762] leading-relaxed mb-6">
+                <p className="mt-[10px] text-[13.5px] leading-[1.6] text-[#6B6762]">
                   Tim R&amp;D kami bisa mengembangkan formula baru sesuai konsep, target pasar, dan modal brand Anda.
                 </p>
               </div>
               <Link
                 href="/thankyou/google/?source=produk-katalog-cta"
                 rel="nofollow"
-                className="prod-focus prod-btn-primary inline-flex items-center justify-center rounded-full bg-[#F39200] text-[#212120] text-[14px] font-semibold px-[22px] py-[13px] shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] transition-transform duration-300 hover:-translate-y-0.5 w-full sm:w-fit"
+                className="prod-focus prod-btn-p self-start rounded-full bg-[#F39200] text-[#212120] text-[13px] font-semibold px-[18px] py-[12px] shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_14px_28px_-10px_rgba(243,146,0,0.8)]"
               >
                 Konsultasi Gratis →
               </Link>
             </div>
           </div>
-
-          {/* SEO Block: TENTANG KATALOG INI */}
-          <div className="mt-[72px] pt-[32px] border-t border-[rgba(33,33,32,0.10)] grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-8">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9A958F]">
-              TENTANG KATALOG INI
-            </span>
-            <p className="text-[14px] text-[#6B6762] leading-[1.8] max-w-[820px]">
-              Dreamlab adalah perusahaan maklon kosmetik dan parfum di Surabaya yang memproduksi rangkaian skincare, body care, hair care, kosmetik dekoratif, baby care, wewangian, hingga foot care dalam satu ekosistem layanan terpadu. Katalog ini dirancang untuk membantu pemilik brand baru, klinik kecantikan, reseller, hingga beautypreneur yang ingin membangun lini produk bermerek sendiri tanpa harus membangun pabrik. Setiap produk dikembangkan melalui sistem custom formula (1 Client = 1 Formula) di fasilitas berstandar CPKB Grade A, lengkap dengan pendampingan registrasi izin edar BPOM RI dan sertifikasi Halal MUI.
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* 4) KATEGORI PRODUK MAKLON & SPESIALISASI FORMULA: editorial index */}
-      <section className="bg-white py-[64px] lg:py-[96px] border-t border-[rgba(33,33,32,0.10)]">
-        <div className="mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
-          <div className="grid grid-cols-1 lg:grid-cols-[4fr_8fr] gap-10 lg:gap-[64px] items-start">
-            {/* Left Sticky */}
-            <div className="lg:sticky lg:top-[104px]">
-              <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-3">
-                SPESIALISASI FORMULA
-              </span>
-              <h2 className="font-display text-[28px] lg:text-[34px] font-normal text-[#212120] leading-[1.15] mb-4">
-                Kategori Produk Maklon &amp; Spesialisasi Formula
-              </h2>
-              <p className="text-[15px] text-[#6B6762] leading-relaxed">
-                Pilih kategori produk yang paling relevan dengan target audiens dan strategi distribusi bisnis Anda. Klik setiap kategori untuk melihat daftar varian produk dan opsi formulasi yang tersedia.
-              </p>
-            </div>
+      {/* 3) TENTANG DREAMLAB */}
+      <DreamlabIntroSection ctaHref="/thankyou/google/?source=produk-tentang" />
 
-            {/* Right Editorial Index Rows */}
-            <div className="border-t border-[rgba(33,33,32,0.10)]">
-              {categorySummaries.map((cat) => (
-                <Link
-                  key={cat.href}
-                  href={cat.href}
-                  aria-label={`Lihat Katalog ${cat.name}`}
-                  className="prod-index-row prod-focus group grid grid-cols-[32px_1fr_20px] sm:grid-cols-[48px_1fr_28px] gap-4 items-start py-6 border-b border-[rgba(33,33,32,0.10)]"
-                >
-                  <span className="text-[12px] text-[#9A958F] pt-1 font-medium">
-                    {cat.num}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-[19px] sm:text-[22px] font-normal text-[#212120] group-hover:text-[#C86400] transition-colors mb-1.5">
-                      {cat.name}
-                    </h3>
-                    <p className="text-[14.5px] text-[#6B6762] leading-relaxed max-w-[620px]">
-                      {cat.description}
-                    </p>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-[#212120] group-hover:text-[#C86400] group-hover:translate-x-1 transition-all mt-1.5" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 4) BRAND MEREKA DIMULAI DARI SINI */}
+      <DreamlabDocumentationSection showLogos />
 
-      {/* 5) CARA MEMILIH PRODUK MAKLON UNTUK BRAND ANDA */}
-      <section className="relative bg-[#F6F5F3] overflow-hidden pt-[64px] pb-0 lg:py-[104px] border-t border-[rgba(33,33,32,0.10)]">
-        <Image
-          src="/new asset/new-icon-packing-design/sampul-web-2.webp"
-          alt="Produk maklon kosmetik Dreamlab"
-          fill
-          loading="lazy"
-          sizes="(max-width:1024px) 100vw, 60vw"
-          className="object-cover object-[80%_bottom] max-lg:!top-auto max-lg:!h-[240px] lg:object-right"
-        />
-        <div aria-hidden="true" className="prod-choose-overlay absolute inset-0 z-10 pointer-events-none" />
-
-        <div className="relative z-20 mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
-          <div className="max-w-[560px] pb-[220px] lg:pb-0">
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-3">
-              PANDUAN MEMULAI
+      {/* 5) ALUR MAKLON */}
+      <section className="prod-flow-bg py-[64px] sm:py-[104px]">
+        <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+          <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
+              Dari Ide ke Produk Siap Jual
             </span>
-            <h2 className="font-display text-[28px] lg:text-[34px] font-normal text-[#212120] leading-[1.15] mb-3">
-              Cara Memilih Produk Maklon untuk Brand Anda
+            <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+              Alur Maklon di Dreamlab
             </h2>
-            <p className="text-[17px] text-[#212120] leading-relaxed mb-6">
-              Menentukan produk pertama (hero product) adalah langkah paling penting sebelum produksi batch awal.
+            <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+              Lima tahap terstruktur, didampingi tim Dreamlab dari konsultasi sampai produk sampai di gudang Anda.
             </p>
-
-            {/* 2 Numbered Tip Cards */}
-            <ol className="space-y-[18px]">
-              <li className="rounded-[14px] bg-[rgba(255,255,255,0.92)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.85)] backdrop-blur-[10px] border border-[rgba(33,33,32,0.06)] p-[18px_20px] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] grid grid-cols-[40px_1fr] gap-3.5 items-start">
-                <span className="size-[40px] rounded-full bg-[#FFF3E2] text-[#C86400] font-display text-[15px] flex items-center justify-center shrink-0">
-                  01
-                </span>
-                <div>
-                  <h3 className="text-[15.5px] font-semibold text-[#212120] mb-1">
-                    Mulai dari masalah target pasar
-                  </h3>
-                  <p className="text-[14px] text-[#6B6762] leading-relaxed">
-                    Petakan kebutuhan utama konsumen Anda, misalnya kulit kusam, jerawat, rambut rontok, atau parfum harian. Produk yang dipakai rutin dan cepat habis lebih mudah menghasilkan repeat order.
-                  </p>
-                </div>
-              </li>
-
-              <li className="rounded-[14px] bg-[rgba(255,255,255,0.92)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.85)] backdrop-blur-[10px] border border-[rgba(33,33,32,0.06)] p-[18px_20px] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] grid grid-cols-[40px_1fr] gap-3.5 items-start">
-                <span className="size-[40px] rounded-full bg-[#FFF3E2] text-[#C86400] font-display text-[15px] flex items-center justify-center shrink-0">
-                  02
-                </span>
-                <div>
-                  <h3 className="text-[15.5px] font-semibold text-[#212120] mb-1">
-                    Sesuaikan dengan modal &amp; saluran jualan
-                  </h3>
-                  <p className="text-[14px] text-[#6B6762] leading-relaxed">
-                    Brand yang berjualan di marketplace dan media sosial sebaiknya mulai dari 1–2 SKU unggulan agar anggaran pemasaran fokus dan perputaran stok tetap sehat.
-                  </p>
-                </div>
-              </li>
-            </ol>
-
-            {/* CTA Row */}
-            <div className="mt-[28px] flex flex-col sm:flex-row gap-[12px]">
-              <Link
-                href="/thankyou/google/?source=produk-cara-memilih"
-                rel="nofollow"
-                className="prod-focus prod-btn-primary w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-[#F39200] text-[#212120] text-[15px] font-semibold px-[28px] py-[16px] shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                Konsultasi Pilih Produk Gratis →
-              </Link>
-              <a
-                href="#katalog"
-                className="prod-focus w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-white text-[#212120] border border-[rgba(33,33,32,0.10)] hover:border-[#212120] text-[15px] font-semibold px-[28px] py-[16px] transition-colors"
-              >
-                Lihat Katalog
-              </a>
-            </div>
-
-            {/* Internal Links Row */}
-            <div className="mt-[22px] flex flex-wrap items-center gap-x-4 gap-y-2 text-[13.5px] font-medium text-[#212120]">
-              <Link href="/panduan/" className="prod-focus border-b border-[#F39200] pb-0.5 hover:text-[#C86400] transition-colors">
-                Panduan maklon Dreamlab →
-              </Link>
-              <span aria-hidden="true" className="text-[#9A958F]">·</span>
-              <Link href="/services/" className="prod-focus border-b border-[#F39200] pb-0.5 hover:text-[#C86400] transition-colors">
-                Layanan maklon kosmetik →
-              </Link>
-              <span aria-hidden="true" className="text-[#9A958F]">·</span>
-              <Link href="/contact-us/" className="prod-focus border-b border-[#F39200] pb-0.5 hover:text-[#C86400] transition-colors">
-                Kontak Dreamlab →
-              </Link>
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* 6) ALUR MAKLON DI DREAMLAB: horizontal timeline */}
-      <section className="bg-white py-[64px] lg:py-[96px] border-t border-[rgba(33,33,32,0.10)]">
-        <div className="mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <h2 className="font-display text-[28px] lg:text-[34px] font-normal text-[#212120] mb-2">
-                Alur Maklon di Dreamlab
-              </h2>
-              <p className="text-[14px] text-[#6B6762]">
-                Tahapan terstruktur dari penyusunan konsep hingga produk siap edar di pasaran.
-              </p>
-            </div>
+          <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-[12px] sm:gap-[16px]">
+            {maklonSteps.map((item, idx) => (
+              <li
+                key={item.step}
+                className={`prod-step-card grid grid-cols-[40px_1fr] sm:block gap-x-[16px] rounded-[18px] bg-[rgba(255,255,255,0.92)] supports-[backdrop-filter]:bg-[rgba(255,255,255,0.82)] backdrop-blur-[10px] border border-[rgba(255,255,255,0.9)] p-[20px] sm:px-[22px] sm:py-[26px] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] ${
+                  idx === maklonSteps.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
+                }`}
+              >
+                <span
+                  aria-hidden="true"
+                  className="row-span-2 sm:row-span-1 grid place-items-center size-[40px] rounded-full bg-[#FFF3E2] text-[#C86400] font-semibold text-[13px]"
+                >
+                  {item.step}
+                </span>
+                <h3 className="prod-step-title sm:mt-[18px] text-[16px] leading-[1.35] text-[#212120]">
+                  {item.title}
+                </h3>
+                <p className="mt-[8px] text-[13.5px] leading-[1.6] text-[#6B6762]">
+                  {item.detail}
+                </p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-[48px] flex flex-col sm:flex-row justify-center items-center gap-[18px] sm:gap-[24px]">
+            <Link
+              href="/thankyou/google/?source=produk-alur"
+              rel="nofollow"
+              className="prod-focus prod-btn-p w-full sm:w-auto text-center rounded-full bg-[#F39200] text-[#212120] text-[15px] font-semibold px-[28px] py-[16px] shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_14px_28px_-10px_rgba(243,146,0,0.8)]"
+            >
+              Mulai Konsultasi Gratis →
+            </Link>
             <Link
               href="/about-us/alur-maklon/"
-              className="prod-focus text-[13px] font-medium text-[#212120] underline underline-offset-4 hover:text-[#C86400] transition-colors shrink-0"
+              className="prod-focus text-[14px] font-medium text-[#212120] border-b border-[#F39200] pb-[2px] hover:text-[#C86400] transition-colors"
             >
-              Pelajari Alur Maklon Lengkap →
+              Pelajari alur maklon lengkap →
             </Link>
           </div>
-
-          <div className="relative">
-            {/* Desktop horizontal connector line */}
-            <div
-              aria-hidden="true"
-              className="hidden lg:block absolute top-[20px] left-0 right-0 h-[1px] bg-[rgba(33,33,32,0.10)]"
-            />
-            {/* Mobile/tablet vertical connector line */}
-            <div
-              aria-hidden="true"
-              className="lg:hidden absolute top-[20px] bottom-[20px] left-[19.5px] w-[1px] bg-[rgba(33,33,32,0.10)]"
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-6">
-              {maklonSteps.map((item) => (
-                <div
-                  key={item.step}
-                  className="group relative pl-[56px] lg:pl-0"
-                >
-                  <div className="absolute left-0 top-0 lg:static size-[40px] rounded-full bg-white border border-[rgba(33,33,32,0.15)] group-hover:bg-[#F39200] group-hover:border-[#F39200] text-[#212120] font-display text-[14px] flex items-center justify-center relative z-10 transition-colors mb-4">
-                    {item.step}
-                  </div>
-                  <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9A958F] mb-1.5">
-                    TAHAP {item.step}
-                  </span>
-                  <h3 className="text-[16px] font-semibold text-[#212120] leading-snug mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-[13.5px] text-[#6B6762] leading-relaxed">
-                    {item.detail}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* 7) FAQ: entity-rich (Dreamlab + beautypreneur) */}
-      <section className="bg-[#F7F5F2] py-[64px] lg:py-[96px] border-t border-[rgba(33,33,32,0.10)]">
-        <div className="mx-auto max-w-[1240px] px-[16px] lg:px-[40px]">
-          <div className="grid grid-cols-1 lg:grid-cols-[4fr_8fr] gap-10 lg:gap-16 items-start">
-            {/* Left Sticky */}
-            <div className="lg:sticky lg:top-[104px]">
-              <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-3">
-                FAQ
-              </span>
-              <h2 className="font-display text-[28px] lg:text-[34px] font-normal text-[#212120] leading-[1.15] mb-4">
-                Pertanyaan yang Sering Diajukan (FAQ)
-              </h2>
-              <p className="text-[14.5px] text-[#6B6762] leading-relaxed mb-6">
-                Jawaban singkat seputar maklon kosmetik di Dreamlab untuk beautypreneur. Belum menemukan jawabannya? Tim Dreamlab siap membantu.
-              </p>
-              <Link
-                href="/thankyou/google/?source=produk-faq"
-                rel="nofollow"
-                className="prod-focus inline-flex items-center justify-center rounded-full bg-white text-[#212120] border border-[rgba(33,33,32,0.15)] hover:border-[#212120] text-[14px] font-semibold px-6 py-3 transition-colors"
+      {/* 6) FAQ */}
+      <section className="bg-white py-[64px] sm:py-[104px]">
+        <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+          <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
+              FAQ
+            </span>
+            <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+              Pertanyaan yang Sering Diajukan (FAQ)
+            </h2>
+            <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+              Jawaban singkat seputar maklon kosmetik di Dreamlab untuk beautypreneur.
+            </p>
+          </div>
+
+          <div className="max-w-[820px] mx-auto">
+            {produkFaqs.map((faq, idx) => (
+              <details
+                key={faq.question}
+                open={idx === 0}
+                className={`prod-faq border-b border-[rgba(33,33,32,0.10)] ${
+                  idx === 0 ? "border-t" : ""
+                }`}
               >
-                Chat Tim Dreamlab →
+                <summary className="cursor-pointer flex items-center justify-between gap-[24px] py-[24px] text-[15px] sm:text-[16px] font-medium leading-[1.45] text-[#212120]">
+                  <span>{faq.question}</span>
+                  <span
+                    aria-hidden="true"
+                    className="prod-faq-icon shrink-0 size-[28px] rounded-full border border-[rgba(33,33,32,0.10)] grid place-items-center text-[16px] font-normal transition-all duration-300"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="pb-[24px] pr-0 sm:pr-[52px] text-[14.5px] leading-[1.75] text-[#6B6762]">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+
+          <div className="text-center mt-[40px] text-[14px] text-[#6B6762]">
+            Belum menemukan jawabannya?{" "}
+            <Link
+              href="/thankyou/google/?source=produk-faq"
+              rel="nofollow"
+              className="prod-focus text-[14px] font-medium text-[#212120] border-b border-[#F39200] pb-[2px] hover:text-[#C86400] transition-colors"
+            >
+              Chat Tim Dreamlab →
+            </Link>
+            <div className="flex justify-center flex-wrap gap-x-[24px] gap-y-[8px] mt-[14px]">
+              <Link
+                href="/panduan/"
+                className="prod-focus text-[14px] font-medium text-[#212120] border-b border-[#F39200] pb-[2px] hover:text-[#C86400] transition-colors"
+              >
+                Panduan maklon
+              </Link>
+              <Link
+                href="/services/"
+                className="prod-focus text-[14px] font-medium text-[#212120] border-b border-[#F39200] pb-[2px] hover:text-[#C86400] transition-colors"
+              >
+                Layanan maklon kosmetik
+              </Link>
+              <Link
+                href="/contact-us/"
+                className="prod-focus text-[14px] font-medium text-[#212120] border-b border-[#F39200] pb-[2px] hover:text-[#C86400] transition-colors"
+              >
+                Kontak Dreamlab
               </Link>
             </div>
-
-            {/* Right Accordion */}
-            <div className="border-t border-[rgba(33,33,32,0.10)]">
-              {produkFaqs.map((faq, idx) => (
-                <details
-                  key={faq.question}
-                  open={idx === 0}
-                  className="prod-faq border-b border-[rgba(33,33,32,0.10)] py-5"
-                >
-                  <summary className="prod-focus cursor-pointer flex items-center justify-between gap-4 text-[15px] sm:text-[16px] font-medium text-[#212120] leading-snug">
-                    <span>{faq.question}</span>
-                    <span
-                      aria-hidden="true"
-                      className="prod-faq-icon size-[28px] rounded-full border border-[rgba(33,33,32,0.18)] flex items-center justify-center text-[16px] leading-none shrink-0 transition-all duration-300"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-3 pr-2 sm:pr-10 text-[14.5px] text-[#6B6762] leading-[1.75]">
-                    {faq.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
+      {/* Final CTA (unchanged) */}
       <CtaSection
         title="Wujudkan Brand Kosmetik Impian Anda dalam 3 Bulan"
         subtitle="Konsultasi gratis dengan tim Dreamlab untuk produk maklon Anda."
       />
-    </main>
+    </div>
   );
 }

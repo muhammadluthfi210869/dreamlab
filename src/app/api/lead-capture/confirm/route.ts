@@ -298,17 +298,101 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // ── ATURAN 2: HANYA CHAT PERTAMA DENGAN KODE TRACKING YANG DICATAT ──
-    // Chat lanjutan, balasan biasa, obrolan internal, notifikasi sistem, atau chat tanpa kode DIABAIKAN.
+    // ── ATURAN 2: JIKA CHAT TANPA KODE TRACKING, TETAP TANGKAP NOMOR BARU KE BUKU TAMU ──
+    // Jika prospek menghapus [Kode: DL-...] saat kirim WA atau chat langsung:
+    //  a) Bila nomor HP sudah ada di tabel `leads`, konfirmasi baris tsb bila belum confirmed, lalu abaikan chat susulan.
+    //  b) Bila nomor HP BELUM ada di `leads`, pasangkan ke klik tombol terbaru (< 15 menit) milik BusDev tujuan yang belum punya nomor,
+    //     atau buat baris baru di Buku Tamu (`leads`) agar nomor WA tetap tercatat.
     if (!trackingCode) {
-      return NextResponse.json(
-        {
-          success: true,
-          ignored: true,
-          reason: 'Chat tanpa kode tracking diabaikan. Hanya chat awal prospek yang divalidasi.',
-        },
-        { status: 200, headers: NO_STORE_HEADERS }
+      if (!normalizedPhone || normalizedPhone.length < 9) {
+        return NextResponse.json(
+          {
+            success: true,
+            ignored: true,
+            reason: 'Chat tanpa kode tracking dan tanpa nomor telepon valid diabaikan.',
+          },
+          { status: 200, headers: NO_STORE_HEADERS }
+        );
+      }
+
+      const existingByPhone = await pool.query(
+        `SELECT id, tracking_code, status, assigned_to, confirmed_at
+           FROM leads
+          WHERE (wa_phone = $1 OR hp = $1 OR whatsapp_phone_e164 = $1)
+            AND is_test IS NOT TRUE
+          ORDER BY id DESC
+          LIMIT 1`,
+        [normalizedPhone]
       );
+
+      if (existingByPhone.rows.length > 0) {
+        const row = existingByPhone.rows[0];
+        if (row.status !== 'confirmed' || !row.confirmed_at) {
+          await pool.query(
+            `UPDATE leads
+                SET status = 'confirmed',
+                    wa_phone = COALESCE(wa_phone, $1),
+                    whatsapp_phone_e164 = COALESCE(whatsapp_phone_e164, $1),
+                    wa_profile_name = COALESCE(wa_profile_name, $2),
+                    wa_message = COALESCE(wa_message, $3),
+                    confirmed_at = COALESCE(confirmed_at, NOW())
+              WHERE id = $4`,
+            [normalizedPhone, waName, messageText, row.id]
+          );
+          return NextResponse.json(
+            {
+              success: true,
+              trackingCode: row.tracking_code,
+              assignedTo: row.assigned_to || busdevName,
+              updated: true,
+              status: 'confirmed',
+              waName,
+              phone: normalizedPhone,
+            },
+            { status: 200, headers: NO_STORE_HEADERS }
+          );
+        }
+
+        return NextResponse.json(
+          {
+            success: true,
+            ignored: true,
+            reason: 'Nomor sudah terdaftar di Buku Tamu. Chat lanjutan disimpan di Live Chat CRM.',
+            leadId: row.id,
+            assignedTo: row.assigned_to,
+          },
+          { status: 200, headers: NO_STORE_HEADERS }
+        );
+      }
+
+      // Nomor HP benar-benar baru: coba pasangkan dengan klik tombol terbaru (< 15 menit) ke BusDev ini yang belum ada nomornya
+      if (busdevName && busdevName !== 'Unassigned') {
+        const recentClick = await pool.query(
+          `SELECT id, tracking_code
+             FROM leads
+            WHERE lower(assigned_to) = lower($1)
+              AND confirmed_at IS NULL
+              AND wa_phone IS NULL
+              AND hp IS NULL
+              AND is_test IS NOT TRUE
+              AND created_at >= NOW() - INTERVAL '15 minutes'
+            ORDER BY created_at DESC
+            LIMIT 1`,
+          [busdevName]
+        );
+
+        if (recentClick.rows.length > 0) {
+          trackingCode = recentClick.rows[0].tracking_code;
+        }
+      }
+
+      // Jika tidak ada klik tombol dalam 15 menit terakhir, buatkan trackingCode baru agar nomor tetap masuk Buku Tamu
+      if (!trackingCode) {
+        const d = new Date();
+        const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+        const rand = Math.random().toString(36).slice(2, 8).toUpperCase();
+        trackingCode = `DL-${ymd}-${rand}`;
+      }
     }
 
     // Cek apakah kode tracking ini SUDAH PERNAH terkonfirmasi sebelumnya (Hanya Chat Pertama)
@@ -440,16 +524,64 @@ export async function POST(req: NextRequest) {
       }
 
       if (updatedRows === 0) {
-        // Jika lead belum ada (misal chat masuk langsung dari web tanpa lewat form pre-assign),
-        // catat sebagai confirmed lead baru untuk busdev terkait
+        // Cek apakah trackingCode berasal dari lead_assignments (misal Fallback A UUID)
+        let laSource = 'wa-direct';
+        let laPageUrl: string | null = null;
+        let laReferrer: string | null = null;
+        let laUtmSource: string | null = null;
+        let laUtmMedium: string | null = null;
+        let laUtmCampaign: string | null = null;
+        let laIntent: string | null = null;
+        let laSalesName: string = busdevName;
+        let laSalesPhone: string | null = null;
+
+        try {
+          const laRes = await pool.query(
+            `SELECT source, landing_page, referrer, utm_source, utm_medium, utm_campaign, message_key, sales_name, sales_phone
+               FROM lead_assignments
+              WHERE event_id = $1 OR id::text = $1
+              LIMIT 1`,
+            [trackingCode]
+          );
+          if (laRes.rows.length > 0) {
+            const la = laRes.rows[0];
+            laSource = la.source || 'wa-direct';
+            laPageUrl = la.landing_page || null;
+            laReferrer = la.referrer || null;
+            laUtmSource = la.utm_source || null;
+            laUtmMedium = la.utm_medium || null;
+            laUtmCampaign = la.utm_campaign || null;
+            laIntent = la.message_key || null;
+            laSalesName = la.sales_name || busdevName;
+            laSalesPhone = la.sales_phone || null;
+            assignedBusdev = laSalesName;
+          }
+        } catch {}
+
         await pool.query(
           `INSERT INTO leads
-             (tracking_code, assigned_to, status, wa_profile_name, wa_phone, whatsapp_phone_e164, wa_message, confirmed_at, source, name_source, name_original)
-           VALUES ($1, $2, 'confirmed', $3, $4, $4, $5, NOW(), 'wa-direct',
-                   CASE WHEN NULLIF(TRIM($3), '') IS NOT NULL THEN 'whatsapp' ELSE NULL END,
-                   NULLIF(TRIM($3), ''))
+             (tracking_code, session_id, assigned_to, assigned_phone, status, wa_profile_name, wa_phone, whatsapp_phone_e164, wa_message, confirmed_at,
+              source, page_url, referrer, utm_source, utm_medium, utm_campaign, intent, name_source, name_original)
+           VALUES ($1, $1, $2, $3, 'confirmed', $4, $5, $5, $6, NOW(),
+                   $7, $8, $9, $10, $11, $12, $13,
+                   CASE WHEN NULLIF(TRIM($4), '') IS NOT NULL THEN 'whatsapp' ELSE NULL END,
+                   NULLIF(TRIM($4), ''))
            ON CONFLICT (tracking_code) DO NOTHING`,
-          [trackingCode, busdevName, waName, normalizedPhone, messageText]
+          [
+            trackingCode,
+            laSalesName,
+            laSalesPhone,
+            waName,
+            normalizedPhone,
+            messageText,
+            laSource,
+            laPageUrl,
+            laReferrer,
+            laUtmSource,
+            laUtmMedium,
+            laUtmCampaign,
+            laIntent,
+          ]
         );
         updatedRows = 1;
       }

@@ -20,6 +20,7 @@ async function fetchWithSchemaCheck(url) {
         let found = 0;
         const types = [];
 
+        let orgCount = 0;
         while ((match = regex.exec(data)) !== null) {
           found++;
           try {
@@ -28,25 +29,22 @@ async function fetchWithSchemaCheck(url) {
             for (const item of items) {
               const t = item['@type'];
               types.push(t);
-              if (t === 'Product') {
-                if (!item.name) issues.push('Product: missing name');
-                if (!item.description) issues.push('Product: missing description');
-                if (!item.image) issues.push('Product: missing image');
-                if (!item.offers) issues.push('Product: missing offers');
-                if (item.offers) {
-                  if (!item.offers.price) issues.push('offers: missing price');
-                  if (!item.offers.priceCurrency) issues.push('offers: missing priceCurrency');
-                  if (!item.offers.availability) issues.push('offers: missing availability');
-                  const hasShippingInOffers = item.offers.shippingDetails;
-                  const hasShippingAtTop = item.shippingDetails;
-                  if (hasShippingInOffers) warnings.push('shippingDetails is inside offers ✓');
-                  else if (hasShippingAtTop) issues.push('shippingDetails is at Product level, should be inside offers');
-                  else issues.push('offers: missing shippingDetails');
-                }
-                if (!item.hasMerchantReturnPolicy) warnings.push('missing hasMerchantReturnPolicy');
-                const img = item.image;
-                if (img && typeof img === 'string' && !img.startsWith('http')) {
-                  issues.push(`image is relative, should be absolute: ${img}`);
+              if (t === 'Organization') {
+                orgCount++;
+                if (!item.name) issues.push('Organization: missing name');
+                if (!item.url) issues.push('Organization: missing url');
+                if (!item.logo) issues.push('Organization: missing logo');
+              } else if (t === 'Service') {
+                if (!item.name) issues.push('Service: missing name');
+                if (!item.description) issues.push('Service: missing description');
+                if (!item.provider) issues.push('Service: missing provider');
+                if (!item.serviceType) issues.push('Service: missing serviceType');
+              } else if (t === 'WebPage' || t === 'CollectionPage') {
+                if (!item.name) issues.push(`${t}: missing name`);
+                if (!item.url) issues.push(`${t}: missing url`);
+                const imgObj = item.primaryImageOfPage;
+                if (imgObj && imgObj.url && typeof imgObj.url === 'string' && !imgObj.url.startsWith('http')) {
+                  issues.push(`primaryImageOfPage.url is relative, should be absolute: ${imgObj.url}`);
                 }
               } else if (t === 'BreadcrumbList') {
                 // present, ok
@@ -60,7 +58,11 @@ async function fetchWithSchemaCheck(url) {
         }
 
         if (found === 0) issues.push('No JSON-LD found on page');
-        if (!types.includes('Product')) issues.push('No Product schema found');
+        if (orgCount > 1) issues.push(`Duplicate top-level Organization schema (${orgCount} found)`);
+        if (orgCount === 0) issues.push('Missing Organization schema');
+        if (!types.includes('Service') && !types.includes('CollectionPage') && !types.includes('FAQPage')) {
+          issues.push('No Service, CollectionPage, or FAQPage schema found');
+        }
         if (!types.includes('BreadcrumbList')) warnings.push('No BreadcrumbList schema (recommended)');
 
         resolve({ url, status: res.statusCode, schemas: found, types, issues, warnings });

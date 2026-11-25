@@ -71,24 +71,28 @@ function MarqueeItemList({ ariaHidden = false }: { ariaHidden?: boolean }) {
       {MARQUEE_ITEMS.map((item, idx) => (
         <div
           key={`${item.title}-${idx}`}
-          className="flex items-center gap-3.5 px-6 sm:px-8 py-3.5 border-r border-white/25 shrink-0"
+          className="flex items-center gap-3.5 px-6 sm:px-8 py-4 border-r border-[rgba(33,33,32,0.10)] shrink-0"
         >
-          {item.logo && (
-            <div className="w-[46px] h-[46px] rounded-full bg-white flex items-center justify-center p-1.5 shrink-0 shadow-xs">
+          {item.logo ? (
+            <div className="w-[44px] h-[44px] rounded-full bg-[#FFF3E2] flex items-center justify-center p-1.5 shrink-0">
               <Image
                 src={item.logo}
                 alt={ariaHidden ? "" : item.logoAlt || item.title}
-                width={36}
-                height={36}
+                width={32}
+                height={32}
                 className="w-full h-full object-contain"
               />
             </div>
+          ) : (
+            <div className="w-[40px] h-[40px] rounded-full bg-[#FFF3E2] text-[#C86400] flex items-center justify-center shrink-0">
+              <Sparkles className="size-4" />
+            </div>
           )}
-          <div className="flex flex-col text-white">
-            <span className="font-display text-sm sm:text-base font-normal tracking-wide leading-tight">
+          <div className="flex flex-col">
+            <span className="font-display text-sm sm:text-base font-normal tracking-wide leading-tight text-[#C86400]">
               {item.title}
             </span>
-            <span className="text-xs text-white/90 font-medium leading-snug">
+            <span className="text-xs text-[#6B6762] font-medium leading-snug">
               {item.subtitle}
             </span>
           </div>
@@ -102,13 +106,10 @@ export function HaircareMarqueeBand() {
   return (
     <section
       aria-label="Keunggulan dan Sertifikasi Dreamlab"
-      className="relative w-full bg-brand-orange text-white overflow-hidden select-none group border-y border-white/15"
-      style={{
-        background: "linear-gradient(90deg, #E88200 0%, #F39200 50%, #E07B00 100%)",
-      }}
+      className="relative w-full bg-white text-[#212120] overflow-x-auto lg:overflow-hidden select-none group border-y border-[rgba(33,33,32,0.10)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
-        className="w-full overflow-hidden"
+        className="w-full lg:overflow-hidden"
         style={{
           maskImage:
             "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
@@ -174,38 +175,38 @@ const VALUE_CARDS = [
 
 export function HaircareValueSection() {
   return (
-    <section className="py-16 md:py-24 bg-white border-b border-gray-100">
-      <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
+    <section className="py-[64px] sm:py-[104px] bg-[#FAF8F5]">
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+        <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-3">
             Kenapa Dreamlab
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight uppercase">
+          <h2 className="font-display text-[clamp(28px,3.2vw,40px)] font-normal text-[#212120] leading-[1.12] uppercase">
             KEUNTUNGAN MENJADI PARTNER DREAMLAB
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {VALUE_CARDS.map((card) => {
             const Icon = card.icon;
             return (
               <div
                 key={card.number}
-                className="bg-white p-6 md:p-7 rounded-3xl border border-gray-200/80 hover:border-brand-orange/40 transition-all duration-300 shadow-2xs hover:shadow-md flex flex-col justify-between"
+                className="bg-white p-6 md:p-7 rounded-[18px] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] hover:shadow-[0_2px_4px_rgba(60,35,10,0.04),0_18px_40px_-14px_rgba(60,35,10,0.18)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between motion-reduce:transition-none motion-reduce:hover:transform-none"
               >
                 <div className="flex items-center justify-between mb-5">
-                  <span className="font-display text-2xl md:text-3xl text-brand-orange">
+                  <span className="font-display text-2xl md:text-3xl text-[#C86400]">
                     {card.number}
                   </span>
-                  <div className="size-11 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center">
+                  <div className="size-[40px] rounded-full bg-[#FFF3E2] text-[#C86400] flex items-center justify-center">
                     <Icon className="size-5 stroke-[1.75]" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-display text-base md:text-lg font-normal text-brand-black mb-2">
+                  <h3 className="font-display text-base md:text-lg font-normal text-[#212120] mb-2">
                     {card.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  <p className="text-[13.5px] text-[#6B6762] leading-relaxed">
                     {card.description}
                   </p>
                 </div>
@@ -480,19 +481,37 @@ const MARQUEE_INGREDIENT_CONFIG: Array<{
   { name: "Argan Oil", image: "/assets/images/haircare/ingredients/argan-oil.jpg" },
 ];
 
-export function HaircareActiveIngredientsSlider() {
-  const marqueeItems = MARQUEE_INGREDIENT_CONFIG.map((cfg) => {
-    const found = ACTIVE_INGREDIENTS.find((i) => i.name === cfg.name);
-    return {
-      name: cfg.name,
-      category: found?.category || "",
-      benefit: found?.benefit || "",
-      suitableFor: found?.suitableFor || "",
-      image: cfg.image,
-      mirror: Boolean(cfg.mirror),
-      star: Boolean(cfg.star),
-    };
-  });
+export interface MarqueeIngredientCardItem {
+  name: string;
+  category: string;
+  benefit: string;
+  suitableFor: string;
+  image: string;
+  mirror?: boolean;
+  star?: boolean;
+}
+
+export function HaircareActiveIngredientsSlider({
+  categoryLabel = "Hair Care",
+  customItems,
+}: {
+  categoryLabel?: string;
+  customItems?: MarqueeIngredientCardItem[];
+} = {}) {
+  const marqueeItems: MarqueeIngredientCardItem[] =
+    customItems ||
+    MARQUEE_INGREDIENT_CONFIG.map((cfg) => {
+      const found = ACTIVE_INGREDIENTS.find((i) => i.name === cfg.name);
+      return {
+        name: cfg.name,
+        category: found?.category || "",
+        benefit: found?.benefit || "",
+        suitableFor: found?.suitableFor || "",
+        image: cfg.image,
+        mirror: Boolean(cfg.mirror),
+        star: Boolean(cfg.star),
+      };
+    });
 
   const renderCard = (
     item: (typeof marqueeItems)[number],
@@ -672,7 +691,7 @@ export function HaircareActiveIngredientsSlider() {
             FORMULASI R&amp;D TERUJI
           </span>
           <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-normal text-[#212120] leading-[1.15]">
-            Bahan Aktif Unggulan <span className="text-[#F39200]">Hair Care</span>
+            Bahan Aktif Unggulan <span className="text-[#F39200]">{categoryLabel}</span>
           </h2>
         </div>
       </div>
@@ -680,7 +699,7 @@ export function HaircareActiveIngredientsSlider() {
       {/* Full-bleed continuous marquee */}
       <div
         role="region"
-        aria-label="Bahan Aktif Unggulan Hair Care"
+        aria-label={`Bahan Aktif Unggulan ${categoryLabel}`}
         className="hc-ing-viewport"
       >
         <div className="hc-ing-track">
@@ -752,7 +771,24 @@ const PAYMENT_STEPS = [
   },
 ];
 
-export function HaircareBusinessPackages() {
+export interface BusinessPackageItem {
+  name: string;
+  quantity: string;
+  hppAmount: string;
+  hppUnit: string;
+  suggestedRetailPrice: string;
+  bpomCount: string;
+  featured: boolean;
+  badge?: string;
+}
+
+export function HaircareBusinessPackages({
+  categoryLabel = "Hair Care",
+  packages = BUSINESS_PACKAGES,
+}: {
+  categoryLabel?: string;
+  packages?: BusinessPackageItem[];
+} = {}) {
   return (
     <section className="py-[72px] lg:py-[104px] bg-[#FAF8F5]">
       <style>{`
@@ -806,7 +842,7 @@ export function HaircareBusinessPackages() {
             ESTIMASI INVESTASI BRAND
           </span>
           <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-normal text-[#212120] leading-[1.15]">
-            Simulasi Paket Maklon <span className="text-[#F39200]">Hair Care</span>
+            Simulasi Paket Maklon <span className="text-[#F39200]">{categoryLabel}</span>
           </h2>
           <p className="text-[14px] sm:text-[16px] text-[#6B6762]">
             Pilih simulasi paket sesuai rencana peluncuran brand Anda. Semua paket dapat disesuaikan kembali saat konsultasi.
@@ -815,7 +851,7 @@ export function HaircareBusinessPackages() {
 
         {/* 3 Package Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[22px] max-w-[520px] lg:max-w-none mx-auto items-stretch mb-10">
-          {BUSINESS_PACKAGES.map((pkg) => {
+          {packages.map((pkg) => {
             const waText = encodeURIComponent(
               `Halo Dreamlab, saya tertarik konsultasi mengenai paket maklon "${pkg.name}" (${pkg.quantity}).`
             );
@@ -906,17 +942,16 @@ export function HaircareBusinessPackages() {
                   </div>
                 </div>
 
-                <a
-                  href={`https://wa.me/6281131900095?text=${waText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={`/thankyou/google/?source=haircare-paket&package=${encodeURIComponent(pkg.name)}`}
+                  rel="nofollow"
                   className={`hc-pkg-btn w-full rounded-full py-3.5 px-5 text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-2 ${pkg.featured
                     ? "bg-[#F39200] text-[#212120] hover:bg-[#C86400] hover:text-white"
-                    : "bg-white text-[#212120] border border-[#212120] hover:bg-[#212120] hover:text-white"
+                    : "bg-white text-[#212120] border border-[rgba(33,33,32,0.10)] hover:border-[#F39200] hover:bg-[#FFF3E2]"
                     }`}
                 >
                   <span>Konsultasi Paket Ini →</span>
-                </a>
+                </Link>
               </div>
             );
           })}
@@ -930,7 +965,7 @@ export function HaircareBusinessPackages() {
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
             {PAYMENT_STEPS.map((item) => (
               <div key={item.step} className="flex items-center gap-3">
-                <span className="size-[28px] rounded-full bg-[#212120] text-white text-[12px] font-bold flex items-center justify-center shrink-0">
+                <span className="size-[28px] rounded-full bg-[#FFF3E2] text-[#C86400] text-[12px] font-bold flex items-center justify-center shrink-0">
                   {item.step}
                 </span>
                 <span className="text-[13.5px] text-[#6B6762] leading-snug">
@@ -966,20 +1001,20 @@ function ClientLogoStrip({ ariaHidden = false }: { ariaHidden?: boolean }) {
   return (
     <div
       aria-hidden={ariaHidden ? "true" : undefined}
-      className="flex items-center gap-16 sm:gap-24 md:gap-32 px-8 sm:px-12 md:px-16 shrink-0"
+      className="flex items-center gap-4 px-2 shrink-0"
     >
       {HAIRCARE_CLIENTS.map((client, idx) => (
         <div
           key={`${client.name}-${idx}`}
-          className="relative w-44 h-28 sm:w-52 sm:h-32 md:w-64 md:h-36 shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-105"
+          className="relative w-[88px] h-[88px] sm:w-[120px] sm:h-[120px] shrink-0 bg-white rounded-[12px] sm:rounded-[16px] p-[6px] sm:p-[10px] shadow-[0_2px_8px_-4px_rgba(60,35,10,0.12)] flex items-center justify-center grayscale opacity-75 hover:grayscale-0 hover:opacity-100 hover:-translate-y-[3px] transition-all duration-300 motion-reduce:transition-none motion-reduce:hover:transform-none"
         >
           <Image
             src={client.src}
             alt={ariaHidden ? "" : `Logo ${client.name} – Klien Maklon Kosmetik Dreamlab`}
-            width={240}
+            width={120}
             height={120}
             className="max-h-full w-auto object-contain"
-            sizes="(max-width: 768px) 176px, 256px"
+            sizes="(max-width: 640px) 88px, 120px"
           />
         </div>
       ))}
@@ -987,53 +1022,59 @@ function ClientLogoStrip({ ariaHidden = false }: { ariaHidden?: boolean }) {
   );
 }
 
-export function HaircareClientsSection() {
+export function HaircareClientsSection({
+  quoteText = "Tim R&D Dreamlab sangat membantu kami merumuskan formula Hair Tonic dan Hair Serum yang pas untuk karakter rambut konsumen Indonesia. Pengurusan BPOM dan Halal MUI berjalan rapi hingga produk kami siap rilis tepat waktu.",
+  quoteAuthor = "Founder Brand Hair Care Mitra Dreamlab",
+  quoteProduct = "Produk: Hair Tonic & Anti Split-End Smoothing Serum",
+}: {
+  quoteText?: string;
+  quoteAuthor?: string;
+  quoteProduct?: string;
+} = {}) {
   return (
-    <section className="py-16 md:py-24 bg-white border-b border-gray-100 overflow-hidden">
-      <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
+    <section className="py-[64px] sm:py-[104px] bg-[#FAF8F5] overflow-hidden">
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+        <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-3">
             Mitra Brand Kami
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal text-brand-black leading-tight">
+          <h2 className="font-display text-[clamp(28px,3.2vw,40px)] font-normal text-[#212120] leading-[1.12]">
             Dipercaya 1000+ Brand di Indonesia
           </h2>
         </div>
-      </div>
 
-      {/* Marquee Logo Partner — Diperbesar & Tanpa Shape/Kotak */}
-      <div
-        className="relative w-full overflow-hidden py-6 mb-12 group"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-        }}
-      >
-        <div className="flex w-max animate-[marquee_28s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
-          <ClientLogoStrip />
-          <ClientLogoStrip ariaHidden />
+        {/* Marquee Logo Partner */}
+        <div
+          className="relative w-full overflow-hidden py-4 mb-10 group"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+          }}
+        >
+          <div className="flex w-max animate-[marquee_28s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+            <ClientLogoStrip />
+            <ClientLogoStrip ariaHidden />
+          </div>
         </div>
-      </div>
 
-      <div className="container-custom">
         {/* Kartu Testimoni Klien Haircare */}
-        <div className="max-w-3xl mx-auto bg-[#FAF9F6] rounded-3xl border border-gray-200/80 p-6 sm:p-8 md:p-10 mb-8">
+        <div className="max-w-3xl mx-auto bg-white rounded-[22px] shadow-[0_2px_6px_rgba(60,35,10,0.05),0_14px_32px_-16px_rgba(60,35,10,0.22)] p-6 sm:p-8 md:p-10 mb-8">
           <div className="flex flex-col sm:flex-row items-start gap-5">
-            <div className="size-12 rounded-2xl bg-brand-orange text-white flex items-center justify-center shrink-0">
+            <div className="size-12 rounded-2xl bg-[#FFF3E2] text-[#C86400] flex items-center justify-center shrink-0">
               <Quote className="size-6" />
             </div>
             <div className="space-y-4">
-              <blockquote className="text-sm sm:text-base text-brand-black leading-relaxed italic">
-                &ldquo;Tim R&amp;D Dreamlab sangat membantu kami merumuskan formula Hair Tonic dan Hair Serum yang pas untuk karakter rambut konsumen Indonesia. Pengurusan BPOM dan Halal MUI berjalan rapi hingga produk kami siap rilis tepat waktu.&rdquo;
+              <blockquote className="text-sm sm:text-base text-[#212120] leading-relaxed italic">
+                &ldquo;{quoteText}&rdquo;
               </blockquote>
               <div>
-                <h3 className="font-display text-base font-normal text-brand-black">
-                  Founder Brand Hair Care Mitra Dreamlab
+                <h3 className="font-display text-base font-normal text-[#212120]">
+                  {quoteAuthor}
                 </h3>
-                <p className="text-xs text-brand-orange font-semibold">
-                  Produk: Hair Tonic &amp; Anti Split-End Smoothing Serum
+                <p className="text-xs text-[#C86400] font-semibold">
+                  {quoteProduct}
                 </p>
               </div>
             </div>
@@ -1044,7 +1085,7 @@ export function HaircareClientsSection() {
         <div className="text-center">
           <Link
             href="/our-client/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-orange hover:text-brand-black transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#212120] border-b border-[#F39200] pb-0.5 hover:text-[#C86400] transition-colors focus-visible:outline-2 focus-visible:outline-[#F39200] focus-visible:outline-offset-4"
           >
             <span>Lihat semua klien</span>
             <ArrowRight className="size-4" />

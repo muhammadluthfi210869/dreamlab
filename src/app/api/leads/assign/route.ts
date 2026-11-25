@@ -12,7 +12,7 @@ import {
   assignAndRecordLeadViaNeonAtomic,
   hashIp,
 } from '@/lib/neon';
-import { convertLead } from '@/lib/round-robin-db';
+import { convertLead, insertLead } from '@/lib/round-robin-db';
 import { pickEmergencyFallbackAgent } from '@/lib/round-robin-config';
 import {
   identifyLeadSource,
@@ -390,6 +390,24 @@ export async function POST(req: NextRequest) {
       safeBackground(async () => {
         try {
           await cacheLeadEvent(eventId, resultPayload).catch(() => {});
+          await insertLead({
+            trackingCode: eventId,
+            sessionId: eventId,
+            visitorId,
+            assignedName: selectedSales.name,
+            assignedPhone: selectedSales.phone,
+            source: resolvedSource,
+            pageUrl: landingPage || undefined,
+            referrer: referrer || undefined,
+            utmSource: utmSource || undefined,
+            utmMedium: utmMedium || undefined,
+            utmCampaign: utmCampaign || undefined,
+            intent: messageKey ?? resolvedSource,
+            hp: clientPhone || undefined,
+            isTest,
+          }).catch((e) => {
+            console.error('[Assign Route] Fallback A insertLead error:', e);
+          });
           const auditResult = await recordLeadAssignment({
             id: assignmentId,
             eventId,

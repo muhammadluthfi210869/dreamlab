@@ -198,13 +198,9 @@ const nextConfig: NextConfig = {
     const legacyRedirects: Array<[string, string]> = [
       ['/thankyoupage-google', '/ads/thankyou/google-ads/'],
       ['/contact-form-dreamlab', '/contact-us/'],
-      ['/cms_block_cat/pop-up-form', '/'],
-      ['/e-floating-buttons/popup-website', '/'],
       ['/https-dreamlab-id-dreamlab-visit-ici-2026', '/'],
       ['/maklon-kosmetik-terbaik-english', '/'],
-      ['/jadwalkanvisitmeeting.php', '/contact-us/'],
       // GSC 404 fixes — legacy pages that no longer exist
-      ['/homepage.php', '/'],
       ['/Homepage{/}?', '/'],
       ['/result-body-lotion-a', '/produk/skincare/'],
       ['/thank-you-maklon', '/thankyou/google/'],
@@ -241,10 +237,8 @@ const nextConfig: NextConfig = {
       ['/babycare-masa-kini-sentuhan-lembut-dan-ilmu-pengetahuan', '/news-blog/'],
       ['/maklon-kosmetik-terbaik', '/news-blog/'],
       ['/category/bisnis-kosmetik/page/2', '/category/bisnis-kosmetik/'],
-      // GSC 404 — legacy pages no longer exist
-      ['/shop', '/produk/'],
-      ['/cart', '/'],
-      ['/my-account', '/'],
+      // NOTE: /shop, /cart, /my-account, /cms_block_cat/*, /e-floating-buttons/*, and *.php
+      // are intentionally NOT redirected here so that src/proxy.ts returns 410 Gone for them.
       // URL with special unicode dash char — redirect to clean URL
       ['/atur‑kosmetik‑halal‑dreamlab', '/news-blog/'],
       ['/atur‑kosmetik‑halal‑2026‑dreamlab', '/news-blog/'],
@@ -345,9 +339,8 @@ const nextConfig: NextConfig = {
       ['/bahan-aktif-untuk-mengatasi-jerawat', '/bahan-aktif-skincare-jerawat/'],
       ['/maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
       ['/rahasia-maklon-parfum-jakarta', '/pabrik-parfum-jakarta/'],
-      ['/body-care-2', '/maklon-body-care/'],
-      // Dikembalikan ke target semula agar URL persis seperti sebelum commit SEO
-      ['/cara-membuat-masker-wajah-organik-praktis-aman-dan-cocok-untuk-ide-bisnis-skincare', '/maklon-skincare/masker-wajah/'],
+      ['/body-care-2', '/produk/bodycare/'],
+      ['/cara-membuat-masker-wajah-organik-praktis-aman-dan-cocok-untuk-ide-bisnis-skincare', '/produk/skincare/face-mask/'],
       ['/berapa-biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
       ['/biaya-membuat-brand-serum', '/rincian-biaya-produksi-serum-wajah/'],
       ['/rincian-biaya-produksi-serum', '/rincian-biaya-produksi-serum-wajah/'],

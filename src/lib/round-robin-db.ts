@@ -112,28 +112,6 @@ export async function insertLead(data: LeadInput): Promise<TrackResult> {
 
   const vid = data.visitorId || null;
 
-  // Dedup 24 jam: visitor yang SAMA konversi lagi dalam 24 jam
-  // cukup increment visit_count, jangan bikin lead baru.
-  if (vid && !data.isTest) {
-    const existing = await pool.query<{ tracking_code: string }>(
-      `SELECT tracking_code
-         FROM leads
-        WHERE visitor_id = $1
-          AND created_at > NOW() - INTERVAL '24 hours'
-          AND is_test IS NOT TRUE
-        ORDER BY id DESC
-        LIMIT 1`,
-      [vid]
-    );
-    if (existing.rows[0]) {
-      await pool.query(
-        `UPDATE leads SET visit_count = visit_count + 1 WHERE tracking_code = $1`,
-        [existing.rows[0].tracking_code]
-      );
-      return { trackingCode: existing.rows[0].tracking_code, waUrl };
-    }
-  }
-
   await pool.query(
     `INSERT INTO leads
        (tracking_code, assigned_to, assigned_phone, source, page_url, page_title,

@@ -210,18 +210,18 @@ export default function HaircareCatalogGrid({
                 onClick={() => setActiveFilter(filter)}
                 className={`hc-filter-btn shrink-0 rounded-full px-[18px] py-[10px] text-[14px] font-medium border transition-colors cursor-pointer ${
                   isActive
-                    ? "bg-[#212120] text-white border-[#212120] shadow-[0_1px_2px_rgba(60,35,10,.04),0_6px_18px_-8px_rgba(60,35,10,.12)]"
-                    : "bg-white text-[#212120] border-[rgba(33,33,32,0.10)] shadow-[0_1px_2px_rgba(60,35,10,.04),0_6px_18px_-8px_rgba(60,35,10,.12)] hover:border-[#212120]/30"
+                    ? "bg-[#F39200] text-[#212120] border-[#F39200] shadow-[0_6px_18px_-10px_rgba(243,146,0,0.6)]"
+                    : "bg-white text-[#212120] border-[rgba(33,33,32,0.10)] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] hover:border-[#212120]"
                 }`}
               >
                 <span>{filter}</span>
-                <span
-                  className={`ml-1.5 text-[12px] ${
-                    isActive ? "text-white/70" : "text-[#6B6762]"
+                <sup
+                  className={`ml-1 text-[10px] font-semibold ${
+                    isActive ? "text-[#212120]/75" : "text-[#9A958F]"
                   }`}
                 >
                   {count}
-                </span>
+                </sup>
               </button>
             );
           })}
@@ -242,7 +242,7 @@ export default function HaircareCatalogGrid({
             return (
               <article
                 key={product.id}
-                className={`hc-card group relative aspect-[3/4] rounded-[16px] sm:rounded-[20px] overflow-hidden bg-[#ECE6DF] ${
+                className={`hc-card group relative aspect-[4/5] rounded-[16px] sm:rounded-[22px] overflow-hidden bg-[#F2EEE9] ${
                   matches ? "block" : "hidden"
                 }`}
               >
@@ -290,7 +290,7 @@ export default function HaircareCatalogGrid({
                     </div>
                     <span
                       aria-hidden="true"
-                      className="hc-card-arrow hidden sm:flex w-[34px] h-[34px] rounded-full bg-[#212120] text-white items-center justify-center shrink-0"
+                      className="hc-card-arrow hidden sm:flex w-[34px] h-[34px] rounded-full bg-[#FFF3E2] text-[#C86400] items-center justify-center shrink-0"
                     >
                       <ArrowRight className="w-4 h-4" />
                     </span>

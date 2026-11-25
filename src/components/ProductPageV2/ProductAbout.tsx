@@ -2,192 +2,277 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useMediaQuery } from "@/hooks/use-media-query";
 
 interface ProductAboutProps {
   categoryName: string;
 }
 
 export default function ProductAbout({ categoryName }: ProductAboutProps) {
-  const isMobile = useMediaQuery("(max-width: 1024px)");
   const waUrl = `/thankyou/google/`;
 
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
-      className="relative py-20 md:py-28 overflow-hidden bg-white"
-    >
-      {/* Soft Background Accents */}
-      <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-brand-orange/[0.02] rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-brand-orange/[0.01] rounded-full blur-[80px] pointer-events-none" />
+    <section className="relative py-[64px] sm:py-[104px] overflow-hidden bg-white">
+      <style>{`
+        @keyframes cat-intro-spin {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes cat-intro-float {
+          50% { transform: translateY(-14px) scale(1.04); }
+        }
+        .cat-intro-spin-slow {
+          animation: cat-intro-spin 16s linear infinite;
+        }
+        .cat-intro-spin-ring {
+          animation: cat-intro-spin 40s linear infinite reverse;
+        }
+        .cat-intro-float-blob {
+          animation: cat-intro-float 7s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cat-intro-spin-slow,
+          .cat-intro-spin-ring,
+          .cat-intro-float-blob {
+            animation: none !important;
+          }
+          .cat-intro-btn {
+            transition: none !important;
+          }
+          .cat-intro-btn:hover {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
-      <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
-          {/* Left Side: Premium Image Collage (5 Columns) */}
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0, x: -30 },
-              show: { opacity: 1, x: 0, transition: { duration: 1.0, ease: "easeOut" } }
-            }}
-            className="lg:col-span-6 relative w-full h-[480px] sm:h-[580px] flex items-center justify-center"
-          >
-            {/* Orange Counter Box (Top Left Melayang) */}
-            <motion.div 
-              variants={{
-                hidden: { scale: 0.8, opacity: 0 },
-                show: { scale: 1, opacity: 1, transition: { delay: 0.4, duration: 0.8, type: "spring" } }
-              }}
-              className="absolute top-4 left-2 sm:left-6 z-30 bg-brand-orange text-white p-5 rounded-full shadow-xl shadow-brand-orange/20 flex flex-col items-center justify-center text-center w-36 h-36 sm:w-40 sm:h-40 border-4 border-white"
-            >
-              {/* Dashed Inner Border */}
-              <div className="absolute inset-2 border-2 border-dashed border-white/40 rounded-full pointer-events-none" />
-              <span className="text-3xl sm:text-4xl font-black font-display tracking-tight leading-none mb-1">
-                1000++
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] font-onest opacity-90 leading-tight">
-                Brand Sukses
-              </span>
-            </motion.div>
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[48px] lg:gap-[88px] items-center">
+          {/* Left Side: Visual Collage */}
+          <div className="relative py-[40px] pl-[24px] sm:py-[56px] sm:pl-[48px] max-w-[560px] mx-auto w-full lg:max-w-none">
+            <span
+              aria-hidden="true"
+              className="cat-intro-spin-ring absolute right-[-60px] sm:right-[-40px] top-0 size-[180px] sm:size-[260px] rounded-full border-[1.5px] border-dashed border-[rgba(243,146,0,0.35)]"
+            />
+            <span
+              aria-hidden="true"
+              className="cat-intro-float-blob absolute left-0 bottom-[10px] size-[220px] rounded-full bg-[radial-gradient(circle,#FFE4BF_0%,rgba(255,228,191,0)_70%)]"
+            />
 
-            {/* Main Big Image (Center Right) */}
-            <div className="relative w-[78%] h-[85%] ml-auto rounded-t-[120px] rounded-b-[40px] overflow-hidden shadow-2xl border-4 border-gray-50 bg-[#F9F7F2]">
-              <Image 
-                src="/new asset/people/foto-bertiga.webp" 
-                alt="Dreamlab RnD Expert Team" 
+            {/* Main Photo */}
+            <div className="relative aspect-[4/5] rounded-[20px_80px_20px_20px] sm:rounded-[28px_120px_28px_28px] overflow-hidden shadow-[0_30px_60px_-28px_rgba(60,35,10,0.35)] bg-[#FAF8F5]">
+              <Image
+                src="/assets/images/home/service-consultation.jpg"
+                alt="Dreamlab RnD Expert Team"
                 title="Tim R&D dan Apoteker Ahli — Dreamlab Maklon Kosmetik"
                 fill
-                priority
-                fetchPriority="high"
-                decoding="sync"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
+                sizes="(max-width: 1024px) 92vw, 520px"
                 className="object-cover object-center"
               />
             </div>
 
-            {/* Small Overlay Image (Bottom Left Melayang) */}
-            <motion.div 
-              variants={{
-                hidden: { y: 30, opacity: 0 },
-                show: { y: 0, opacity: 1, transition: { delay: 0.3, duration: 0.8, ease: "easeOut" } }
-              }}
-              className="absolute bottom-2 left-2 sm:left-6 z-20 w-[42%] h-[42%] rounded-[36px] overflow-hidden shadow-2xl border-[6px] sm:border-[8px] border-white bg-[#F9F7F2]"
-            >
-              <Image 
-                src="/new asset/people/Busdev-dreamlab.png" 
-                alt="Apoteker Penanggung Jawab Dreamlab" 
+            {/* Inset Photo */}
+            <div className="absolute left-0 bottom-0 w-[44%] aspect-[1/1.05] rounded-[18px] sm:rounded-[24px] overflow-hidden border-[5px] sm:border-[8px] border-white shadow-[0_20px_44px_-18px_rgba(60,35,10,0.35)] bg-white">
+              <Image
+                src="/new asset/people/Busdev-dreamlab.png"
+                alt="Apoteker Penanggung Jawab Dreamlab"
                 title="Apoteker Penanggung Jawab — Dreamlab Maklon Kosmetik"
                 fill
-                sizes="(max-width: 1024px) 42vw, 240px"
+                sizes="(max-width: 1024px) 45vw, 260px"
                 loading="lazy"
-                decoding="async"
-                className="object-cover object-center"
+                className="object-cover object-[center_35%]"
               />
-            </motion.div>
-          </motion.div>
-
-          {/* Right Side: Copywriting & Value Propositions (7 Columns) */}
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0, x: 30 },
-              show: { opacity: 1, x: 0, transition: { duration: 1.0, ease: "easeOut" } }
-            }}
-            className="lg:col-span-6 flex flex-col justify-center"
-          >
-            {/* Small Premium Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#F39200]/5 border border-[#F39200]/15 rounded-full w-fit mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange font-onest">
-                One-Stop Maklon Service
-              </span>
             </div>
 
-            {/* Main Headline - Title Case, Clean Display Font */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-normal leading-[1.1] tracking-tight text-brand-black mb-6">
-              Wujudkan Brand <span className="text-brand-orange font-normal">{categoryName}</span> Juaranya Formula
+            {/* Rotating Badge with existing "1000++ / Brand Sukses" text */}
+            <div
+              aria-label="1000++ Brand Sukses"
+              className="absolute left-0 top-0 sm:left-[4px] sm:top-[8px] size-[118px] sm:size-[168px] rounded-full bg-[#F39200] shadow-[0_18px_40px_-14px_rgba(243,146,0,0.75)] grid place-items-center z-20"
+            >
+              <svg
+                viewBox="0 0 168 168"
+                aria-hidden="true"
+                className="cat-intro-spin-slow absolute inset-0 w-full h-full"
+              >
+                <defs>
+                  <path
+                    id="cat-intro-circ"
+                    d="M84,84 m-66,0 a66,66 0 1,1 132,0 a66,66 0 1,1 -132,0"
+                  />
+                </defs>
+                <text className="fill-white font-semibold uppercase text-[11px] sm:text-[11.5px] tracking-[0.24em] sm:tracking-[0.32em]">
+                  <textPath href="#cat-intro-circ">
+                    Brand Sukses • Maklon Dreamlab •{" "}
+                  </textPath>
+                </text>
+              </svg>
+              <div className="text-center text-white leading-none">
+                <span className="block font-display text-[25px] sm:text-[34px] font-normal">
+                  1000++
+                </span>
+                <span className="block font-sans font-semibold text-[8px] sm:text-[9.5px] uppercase tracking-[0.14em] mt-[4px]">
+                  Brand Sukses
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side: Existing Copywriting & Value Propositions */}
+          <div>
+            <div className="inline-flex items-center gap-[8px] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] bg-[#FFF3E2] rounded-full px-[14px] py-[8px]">
+              <span
+                aria-hidden="true"
+                className="size-[6px] rounded-full bg-[#F39200]"
+              />
+              <span>One-Stop Maklon Service</span>
+            </div>
+
+            <h2 className="mt-[18px] font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120]">
+              Wujudkan Brand{" "}
+              <span className="text-[#F39200]">{categoryName}</span> Juaranya
+              Formula
             </h2>
 
-            {/* Main Description */}
-            <p className="text-base sm:text-[17px] leading-relaxed text-brand-black/75 mb-8">
-              Dreamlab adalah perusahaan maklon {categoryName} dengan layanan lengkap dari awal hingga akhir. 
-              Kami menawarkan <strong className="text-brand-black font-bold">One Stop Maklon Service</strong>. 
-              Didukung penuh oleh sertifikasi resmi <strong className="text-brand-black font-bold">CPKB Grade A, BPOM, dan Halal</strong> untuk menjamin keamanan serta standar kualitas produk premium Anda di pasar.
+            <p className="mt-[18px] text-[15.5px] sm:text-[17px] leading-[1.7] text-[#6B6762]">
+              Dreamlab adalah perusahaan maklon {categoryName} dengan layanan
+              lengkap dari awal hingga akhir. Kami menawarkan{" "}
+              <strong className="text-[#212120] font-semibold">
+                One Stop Maklon Service
+              </strong>
+              . Didukung penuh oleh sertifikasi resmi{" "}
+              <strong className="text-[#212120] font-semibold">
+                CPKB Grade A, BPOM, dan Halal
+              </strong>{" "}
+              untuk menjamin keamanan serta standar kualitas produk premium Anda
+              di pasar.
             </p>
 
             {/* Value Checklists (2x2 Grid) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10">
-              
-              <div className="flex items-start gap-3.5 group">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#F39200]/5 border border-[#F39200]/15 flex items-center justify-center text-brand-orange group-hover:bg-[#F39200] group-hover:text-white transition-all duration-300">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            <div className="mt-[32px] pb-[32px] border-b border-[rgba(33,33,32,0.10)] grid grid-cols-1 sm:grid-cols-2 gap-[16px] sm:gap-x-[32px] sm:gap-y-[24px]">
+              <div className="grid grid-cols-[28px_1fr] gap-x-[12px]">
+                <div className="row-span-2 size-[28px] rounded-full bg-[#FFF3E2] flex items-center justify-center text-[#C86400] shrink-0">
+                  <svg
+                    className="size-[13px]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-brand-black mb-0.5">Legalitas CPKB & BPOM</h4>
-                  <p className="text-xs text-brand-black/60 leading-relaxed">Sertifikasi manufaktur CPKB Grade A, BPOM, dan Halal — jaminan izin edar aman.</p>
-                </div>
+                <h4 className="font-display font-normal text-[16px] text-[#212120]">
+                  Legalitas CPKB &amp; BPOM
+                </h4>
+                <p className="mt-[4px] text-[13.5px] text-[#6B6762] leading-[1.55]">
+                  Sertifikasi manufaktur CPKB Grade A, BPOM, dan Halal — jaminan
+                  izin edar aman.
+                </p>
               </div>
 
-              <div className="flex items-start gap-3.5 group">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#F39200]/5 border border-[#F39200]/15 flex items-center justify-center text-brand-orange group-hover:bg-[#F39200] group-hover:text-white transition-all duration-300">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              <div className="grid grid-cols-[28px_1fr] gap-x-[12px]">
+                <div className="row-span-2 size-[28px] rounded-full bg-[#FFF3E2] flex items-center justify-center text-[#C86400] shrink-0">
+                  <svg
+                    className="size-[13px]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-brand-black mb-0.5">Layanan One Stop Maklon</h4>
-                  <p className="text-xs text-brand-black/60 leading-relaxed">Pendampingan penuh mulai konsep, formulasi, hingga siap jual.</p>
-                </div>
+                <h4 className="font-display font-normal text-[16px] text-[#212120]">
+                  Layanan One Stop Maklon
+                </h4>
+                <p className="mt-[4px] text-[13.5px] text-[#6B6762] leading-[1.55]">
+                  Pendampingan penuh mulai konsep, formulasi, hingga siap jual.
+                </p>
               </div>
 
-              <div className="flex items-start gap-3.5 group">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#F39200]/5 border border-[#F39200]/15 flex items-center justify-center text-brand-orange group-hover:bg-[#F39200] group-hover:text-white transition-all duration-300">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              <div className="grid grid-cols-[28px_1fr] gap-x-[12px]">
+                <div className="row-span-2 size-[28px] rounded-full bg-[#FFF3E2] flex items-center justify-center text-[#C86400] shrink-0">
+                  <svg
+                    className="size-[13px]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-brand-black mb-0.5">RnD Formula Juara</h4>
-                  <p className="text-xs text-brand-black/60 leading-relaxed">Pengembangan formula unik menggunakan bahan aktif bersertifikasi global.</p>
-                </div>
+                <h4 className="font-display font-normal text-[16px] text-[#212120]">
+                  RnD Formula Juara
+                </h4>
+                <p className="mt-[4px] text-[13.5px] text-[#6B6762] leading-[1.55]">
+                  Pengembangan formula unik menggunakan bahan aktif
+                  bersertifikasi global.
+                </p>
               </div>
 
-              <div className="flex items-start gap-3.5 group">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#F39200]/5 border border-[#F39200]/15 flex items-center justify-center text-brand-orange group-hover:bg-[#F39200] group-hover:text-white transition-all duration-300">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              <div className="grid grid-cols-[28px_1fr] gap-x-[12px]">
+                <div className="row-span-2 size-[28px] rounded-full bg-[#FFF3E2] flex items-center justify-center text-[#C86400] shrink-0">
+                  <svg
+                    className="size-[13px]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-brand-black mb-0.5">MOQ Fleksibel</h4>
-                  <p className="text-xs text-brand-black/60 leading-relaxed">Skala produksi awal terjangkau, ideal bagi pemula maupun korporasi.</p>
-                </div>
+                <h4 className="font-display font-normal text-[16px] text-[#212120]">
+                  MOQ Fleksibel
+                </h4>
+                <p className="mt-[4px] text-[13.5px] text-[#6B6762] leading-[1.55]">
+                  Skala produksi awal terjangkau, ideal bagi pemula maupun
+                  korporasi.
+                </p>
               </div>
-
             </div>
 
             {/* CTA */}
-            <div className="flex flex-col sm:flex-row items-center gap-8 pt-4 border-t border-gray-100">
+            <div className="mt-[28px]">
               <Link
                 href={waUrl}
                 rel="nofollow"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-black text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-brand-orange/10 hover:-translate-y-0.5"
+                className="cat-intro-btn w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#F39200] text-[#212120] font-semibold text-[15px] py-[16px] px-[28px] rounded-full transition-all duration-300 shadow-[0_10px_24px_-10px_rgba(243,146,0,0.7)] hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-10px_rgba(243,146,0,0.8)] focus-visible:outline-2 focus-visible:outline-[#F39200] focus-visible:outline-offset-4"
               >
-                <span className="uppercase tracking-[0.15em] text-[10px] font-onest">Konsultasi Sekarang</span>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <span>Konsultasi Sekarang</span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
                 </svg>
               </Link>
             </div>
-
-          </motion.div>
-
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

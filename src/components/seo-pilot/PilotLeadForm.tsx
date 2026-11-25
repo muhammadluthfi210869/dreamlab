@@ -82,11 +82,13 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
         <p className="mt-2 text-sm leading-6 text-neutral-600">{description}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
+      <form onSubmit={handleSubmit} autoComplete="on" className="mt-6 grid gap-4">
         <div className="grid gap-4 md:grid-cols-2">
           <label className="grid gap-2 text-sm font-semibold text-[#2a2a28]">
             Nama
             <input
+              name="name"
+              autoComplete="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="rounded-2xl border border-[#e6dac7] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D98A00]"
@@ -96,6 +98,8 @@ export default function PilotLeadForm({ page, title, description, submitLabel }:
           <label className="grid gap-2 text-sm font-semibold text-[#2a2a28]">
             Brand
             <input
+              name="organization"
+              autoComplete="organization"
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               className="rounded-2xl border border-[#e6dac7] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D98A00]"

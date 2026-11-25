@@ -1,4 +1,4 @@
-# Panduan & Standar Baku Pembuatan Artikel Dreamlab (SOP Editorial & Frontend)
+R# Panduan & Standar Baku Pembuatan Artikel Dreamlab (SOP Editorial & Frontend)
 
 Dokumen ini adalah **panduan absolut dan tidak dapat ditawar** untuk seluruh proses pembuatan, formatting, penataan tata letak (UI/UX), hingga deployment artikel blog di website [Dreamlab.id](https://dreamlab.id). Setiap kali menyusun artikel baru atau merevisi artikel lama, panduan ini **wajib diikuti 100% tanpa pengecualian**.
 

@@ -26,16 +26,10 @@ export default async function CategoryPage({ params }: Props) {
     description?: string;
   }>;
 
-  // Schema for product category page
+  // Schema for product category page (Organization is provided globally by OrganizationSchema in layout.tsx)
   const categorySchema = {
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'Organization',
-        '@id': 'https://dreamlab.id/#organization',
-        name: 'Dreamlab Indonesia',
-        url: 'https://dreamlab.id/',
-      },
       {
         '@type': 'CollectionPage',
         '@id': `https://dreamlab.id/produk/${category}/#webpage`,
@@ -68,19 +62,19 @@ export default async function CategoryPage({ params }: Props) {
       },
       ...(faqs.length > 0
         ? [
-            {
-              '@type': 'FAQPage',
-              '@id': `https://dreamlab.id/produk/${category}/#faq`,
-              mainEntity: faqs.map((faq) => ({
-                '@type': 'Question',
-                name: faq.question,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: faq.answer,
-                },
-              })),
-            },
-          ]
+          {
+            '@type': 'FAQPage',
+            '@id': `https://dreamlab.id/produk/${category}/#faq`,
+            mainEntity: faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          },
+        ]
         : []),
     ],
   };

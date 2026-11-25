@@ -55,8 +55,23 @@ export default async function CatchAllPage({ params }: Props) {
             { label: subData.name, href: `/produk/${category}/${segment}/` },
           ],
         };
+        const currentUrl = `https://dreamlab.id/produk/${category}/${segment}/`;
+        const schema = generateProductPageSchema({
+          url: currentUrl,
+          productName: subData.name,
+          categoryName: categoryData.name,
+          tagline: subData.description,
+          description: subData.description,
+          heroImage: subData.heroImage,
+          breadcrumbs: enrichedData.breadcrumb,
+          faqs: categoryData.faqs || [],
+          moq: "MOQ Fleksibel",
+          productionTime: "2-3 Bulan",
+          certifications: ["BPOM RI", "CPKB Grade A", "Halal MUI"],
+        });
         return (
           <main className="min-h-screen bg-white">
+            <JsonLd data={schema} />
             <ProductHero categoryData={enrichedData} subCategorySlug={segment} />
             {category === "skincare" || category === "decorative" ? (
               <ProductSubCategoryFormula categorySlug={category} subCategoryName={subData.name} />

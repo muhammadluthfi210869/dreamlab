@@ -191,14 +191,6 @@ export async function assignLeadViaClient(
             params.get('nomor') ||
             undefined;
         }
-
-        if (!clientPhone) {
-          try {
-            clientPhone = window.localStorage.getItem('dl_client_phone') || undefined;
-          } catch {
-            /* abaikan */
-          }
-        }
       }
 
       // Normalisasi nomor telepon klien

@@ -14,7 +14,12 @@ export default function OrganizationSchema() {
     "name": "Dreamlab Indonesia",
     "legalName": "PT Karya Impian Laboratoris",
     "url": "https://dreamlab.id/",
-    "logo": "https://dreamlab.id/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://dreamlab.id/assets/images/cropped-Logo-Dreamlab-Maklon-Kosmetik--192x192.webp",
+      "width": 192,
+      "height": 192
+    },
     "sameAs": [
       "https://www.instagram.com/dreamlab.id",
       "https://www.facebook.com/dreamlab.id",

@@ -13,6 +13,28 @@ export interface ArticleMeta {
 export const articlesMeta: ArticleMeta[] = 
 [
   {
+    "slug": "/maklon-hb-dosting",
+    "title": "Ingin Punya Brand HB Dosting Sendiri? Mulai dari Ide Produk hingga Produksi",
+    "publishDate": "2026-11-21T00:00:00+00:00",
+    "author": "Dreamlab Maklon Kosmetik",
+    "categories": [
+      "Panduan Bisnis",
+      "Maklon Kosmetik"
+    ],
+    "tags": [
+      "maklon HB Dosting",
+      "maklon HB Dosting untuk brand sendiri",
+      "jasa maklon HB Dosting",
+      "cara membuat brand HB Dosting",
+      "bisnis HB Dosting",
+      "biaya maklon HB Dosting",
+      "bodycare maklon"
+    ],
+    "featuredImage": "/assets/images/blog/maklon-hb-dosting-hero.jpg",
+    "excerpt": "Ingin punya brand HB Dosting sendiri? Pelajari ide produk, cara menentukan target HPP, proses maklon, kemasan, hingga langkah memulai brand Anda.",
+    "readingMinutes": 10
+  },
+  {
     "slug": "/cara-memulai-bisnis-bodycare",
     "title": "Berapa Biaya Memulai Bisnis Bodycare? Rincian Modal, Estimasi HPP, & Simulasi Keuntungan",
     "publishDate": "2026-11-11T00:00:00+00:00",
@@ -1312,18 +1334,21 @@ export const articlesMeta: ArticleMeta[] =
   },
   {
     "slug": "/cara-membuat-hb-dosting-sendiri",
-    "title": "Cara Muda Membuat HB Dosting Sendiri untuk Bisnis Skincare",
+    "title": "Mengenal Kandungan HB Dosting BPOM yang Aman vs Racikan Abal-Abal",
     "publishDate": "2026-03-20T08:51:24+00:00",
     "author": "Dreamlab Maklon Kosmetik",
     "categories": [
-      "Panduan Bisnis"
+      "Formula & R&D"
     ],
     "tags": [
-      "Dreamlab Pedia",
-      "Panduan Bisnis Kosmetik"
+      "kandungan HB Dosting BPOM",
+      "bahan aktif HB Dosting",
+      "HB Dosting aman BPOM",
+      "ciri HB Dosting berbahaya",
+      "formulasi body lotion pencerah"
     ],
-    "featuredImage": "Cara-membuat-HB-Dosting-sendiri-untuk-bisnis-pemula.webp",
-    "excerpt": "Simak cara membuat HB Dosting sendiri dengan modal terjangkau & MOQ fleksibel di Dreamlab. Legal BPOM & Halal. Konsultasi GRATIS sekarang!",
+    "featuredImage": "/assets/images/blog/Cara-membuat-HB-Dosting-sendiri-untuk-bisnis-pemula.webp",
+    "excerpt": "Kenali kandungan bahan aktif HB Dosting BPOM yang aman untuk mencerahkan kulit seperti Niacinamide, Alpha Arbutin, dan Chromabright tanpa risiko merkuri.",
     "readingMinutes": 4
   },
   {

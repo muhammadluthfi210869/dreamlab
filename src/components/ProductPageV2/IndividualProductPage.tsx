@@ -23,10 +23,18 @@ import LogoScroll from "@/components/LogoScroll";
 import OurCertification from "@/components/OurCertification";
 import CtaSection from "@/components/CtaSection";
 import AdvantagesGrid from "@/components/AdvantagesGrid";
+import ProductProcess from "./ProductProcess";
 import {
   HaircareMarqueeBand,
   HaircareValueSection,
+  HaircareActiveIngredientsSlider,
+  HaircareBusinessPackages,
+  HaircareClientsSection,
 } from "./HaircareSections";
+import {
+  DreamlabIntroSection,
+  DreamlabDocumentationSection,
+} from "@/components/ProdukShowcaseSections";
 
 interface IndividualProductPageProps {
   categoryData: ProductCategoryV2;
@@ -239,6 +247,10 @@ export default function IndividualProductPage({
         image={getProductCardImagePath(productData.slug, categoryData.slug) || productData.heroImage}
       />
 
+      {isHaircare && (
+        <DreamlabIntroSection ctaHref="/thankyou/google/?source=haircare-product-tentang" />
+      )}
+
       {/* 2b. Spesifikasi, Ukuran, Waktu Produksi, Bahan Aktif & Detail Produk (SSR HTML) */}
       <section className="py-14 md:py-20 bg-gradient-to-b from-[#F5F9FE] via-[#FAF9F6] to-white border-y border-blue-100/60">
         <div className="container-custom">
@@ -417,6 +429,8 @@ export default function IndividualProductPage({
         </div>
       </section>
 
+      {isHaircare && <HaircareActiveIngredientsSlider />}
+
       {/* 3. Packaging Design Grid */}
       <ProductPackagingGrid 
         categorySlug={categoryData.slug}
@@ -430,6 +444,10 @@ export default function IndividualProductPage({
         <>
           <HaircareValueSection />
           <OurCertification />
+          <ProductProcess />
+          <HaircareBusinessPackages />
+          <HaircareClientsSection />
+          <DreamlabDocumentationSection showLogos={false} />
         </>
       ) : (
         <>

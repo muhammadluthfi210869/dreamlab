@@ -1,16 +1,15 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useInView } from "@/lib/use-in-view";
-import { 
-  Sparkles, 
-  FlaskConical, 
-  Lightbulb, 
-  Sliders, 
-  Coins, 
-  Palette, 
-  Target, 
-  TrendingUp 
+import {
+  Sparkles,
+  FlaskConical,
+  Lightbulb,
+  Sliders,
+  Coins,
+  Palette,
+  Target,
+  TrendingUp,
 } from "lucide-react";
 
 interface AdvantagesProps {
@@ -30,120 +29,53 @@ const bentoPoints = [
     index: "01",
     title: "Formula Eksklusif",
     desc: "1 klien 1 formula. Wujudkan formula impian dan jadilah berbeda.",
-    icon: Sparkles
+    icon: Sparkles,
   },
   {
     index: "02",
     title: "Formulasi Produk",
     desc: "Tim R&D Muda yang sangat inovatif.",
-    icon: FlaskConical
+    icon: FlaskConical,
   },
   {
     index: "03",
     title: "Inovatif",
     desc: "Formulasi produk RnD muda yang sangat inovatif.",
-    icon: Lightbulb
+    icon: Lightbulb,
   },
   {
     index: "04",
     title: "MOQ Menyesuaikan",
     desc: "Menyesuaikan MOQ sesuai kebutuhan klien.",
-    icon: Sliders
+    icon: Sliders,
   },
   {
     index: "05",
     title: "Harga",
     desc: "Harga HPP yang bisa menyesuaikan.",
-    icon: Coins
+    icon: Coins,
   },
   {
     index: "06",
     title: "Kreatif",
     desc: "Team design creative yang siap memvisualisasikan brand anda.",
-    icon: Palette
+    icon: Palette,
   },
   {
     index: "07",
     title: "Branding",
     desc: "Membangun identitas yang kuat sehingga brand mudah dikenali dalam proses pemasaran.",
-    icon: Target
+    icon: Target,
   },
   {
     index: "08",
     title: "Digital Marketing",
     desc: "Tim digital marketing siap menjangkau target audience brand jauh lebih efektif dan efisien.",
-    icon: TrendingUp
-  }
+    icon: TrendingUp,
+  },
 ];
 
-// Elite Custom Easing Curve (Apple / Tom Ford Premium Ease-Out)
-const premiumEase = [0.16, 1, 0.3, 1] as any;
-
-interface AdvantageCardProps {
-  point: typeof bentoPoints[0] | (typeof bentoPoints[0] & { icon?: typeof Sparkles });
-  idx: number;
-}
-
-function AdvantageCard({ point, idx }: AdvantageCardProps) {
-  const { ref, isInView } = useInView();
-  const IconComponent = point.icon;
-
-  return (
-    <div
-      ref={ref as any}
-      className={`bg-white p-6 md:p-7 flex flex-col justify-start min-h-[175px] md:min-h-[195px] transition-all duration-700 hover:bg-[#FAF9F5]/40 group cursor-pointer ${
-        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      }`}
-      style={{ transitionDelay: `${idx * 60}ms` }}
-    >
-      {/* Card Header: Elegant thin number & premium icon */}
-      <div className="flex justify-between items-center mb-6">
-        <span className="font-display text-2xl md:text-3xl font-light text-brand-orange/30 leading-none">
-          {point.index}
-        </span>
-        <div className="size-10 rounded-full bg-brand-orange/5 border border-brand-orange/15 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm">
-          <IconComponent className="size-5 stroke-[1.5]" />
-        </div>
-      </div>
-
-      {/* Text Content - Perfectly aligned to start from the top! */}
-      <div className="flex flex-col">
-        <h3 className="font-display text-[14px] md:text-[15px] font-bold tracking-tight text-brand-black mb-1.5 uppercase group-hover:text-brand-orange transition-colors">
-          {point.title}
-        </h3>
-        <p className="font-sans text-[12px] md:text-[13px] text-gray-600 leading-relaxed font-medium">
-          {point.desc}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function HeaderSection({ content }: { content?: AdvantagesProps["content"] }) {
-  const { ref, isInView } = useInView();
-
-  return (
-    <div
-      ref={ref as any}
-      className={`max-w-3xl mx-auto text-center mb-10 md:mb-12 transition-all duration-700 ${
-        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      }`}
-    >
-      <span className="text-[9px] font-bold tracking-[0.3em] text-brand-orange uppercase bg-brand-orange/5 px-4 py-1.2 rounded-full inline-block mb-3 border border-brand-orange/10">
-        {content?.eyebrow || "Dreamlab Advantages"}
-      </span>
-      <h2 className="text-3xl md:text-4xl lg:text-[42px] font-normal font-display tracking-tight text-brand-black mb-3 uppercase">
-        {content?.title || <>8 Keuntungan <span className="text-brand-orange font-bold">Maklon di Dreamlab</span></>}
-      </h2>
-      <div className="h-[1.5px] w-12 bg-brand-orange/40 mx-auto mb-3" />
-      <p className="text-gray-500 font-sans text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-        {content?.description || "Komitmen Dreamlab untuk menghadirkan solusi manufaktur kosmetik hulu ke hilir yang komprehensif, eksklusif, dan berkualitas dunia."}
-      </p>
-    </div>
-  );
-}
-
-export default function AdvantagesGrid({ title, content }: AdvantagesProps) {
+export default function AdvantagesGrid({ content }: AdvantagesProps) {
   const points = content?.points
     ? content.points.map((point, idx) => ({
         ...point,
@@ -152,27 +84,54 @@ export default function AdvantagesGrid({ title, content }: AdvantagesProps) {
     : bentoPoints;
 
   return (
-    <section className="py-14 md:py-16 lg:py-20 bg-[#FAF9F5] relative overflow-hidden flex items-center min-h-[85vh]">
-      {/* Subtle luxury brand glowing ambiance */}
-      <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-brand-orange/[0.02] rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-orange/[0.01] rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="container-custom relative z-10 w-full">
-        
-        {/* Centered Header Section */}
-        <HeaderSection content={content} />
-
-        {/* Seamless Luxury 4x2 Editorial Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-gray-200/60 rounded-[2rem] overflow-hidden border border-gray-200/60 shadow-[0_20px_50px_rgba(0,0,0,0.015)]">
-          {points.map((point, idx) => (
-            <AdvantageCard
-              key={point.index}
-              point={point}
-              idx={idx}
-            />
-          ))}
+    <section className="py-[64px] sm:py-[104px] bg-[#FAF8F5]">
+      <div className="mx-auto max-w-[1240px] px-[16px] sm:px-[40px]">
+        <div className="text-center max-w-[680px] mx-auto mb-[32px] sm:mb-[48px]">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C86400] mb-[12px]">
+            {content?.eyebrow || "Dreamlab Advantages"}
+          </span>
+          <h2 className="font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.12] tracking-[-0.01em] text-[#212120] uppercase">
+            {content?.title || (
+              <>
+                8 Keuntungan{" "}
+                <span className="text-[#F39200]">Maklon di Dreamlab</span>
+              </>
+            )}
+          </h2>
+          <p className="mt-[14px] text-[15px] sm:text-[16px] leading-[1.6] text-[#6B6762]">
+            {content?.description ||
+              "Komitmen Dreamlab untuk menghadirkan solusi manufaktur kosmetik hulu ke hilir yang komprehensif, eksklusif, dan berkualitas dunia."}
+          </p>
         </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {points.map((point) => {
+            const IconComponent = point.icon || Sparkles;
+            return (
+              <div
+                key={point.index}
+                className="bg-white p-6 md:p-7 rounded-[18px] shadow-[0_6px_18px_-10px_rgba(60,35,10,0.18)] hover:shadow-[0_2px_4px_rgba(60,35,10,0.04),0_18px_40px_-14px_rgba(60,35,10,0.18)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between motion-reduce:transition-none motion-reduce:hover:transform-none"
+              >
+                <div className="flex items-center justify-between mb-5">
+                  <span className="font-display text-2xl md:text-3xl text-[#C86400] leading-none">
+                    {point.index}
+                  </span>
+                  <div className="size-[40px] rounded-full bg-[#FFF3E2] text-[#C86400] flex items-center justify-center">
+                    <IconComponent className="size-5 stroke-[1.75]" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-display text-base md:text-lg font-normal text-[#212120] mb-2">
+                    {point.title}
+                  </h3>
+                  <p className="text-[13.5px] text-[#6B6762] leading-relaxed">
+                    {point.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
