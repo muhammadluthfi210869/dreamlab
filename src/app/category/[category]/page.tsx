@@ -9,15 +9,13 @@ import {
   articleMatchesCategory,
   resolveBlogCategoryWithRouteAliases,
 } from '@/data/blog-categories';
+import { articlesMeta, ArticleMeta } from '@/data/articles-meta';
 
-let articlesCache: any[] | null = null;
 const THIN_CATEGORY_MAX_ARTICLES = 1;
+const MAX_CATEGORY_ARTICLES_PER_PAGE = 24;
 
-async function getArticles() {
-  if (articlesCache) return articlesCache;
-  const { articles } = await import('@/data/articles');
-  articlesCache = articles;
-  return articles;
+async function getArticles(): Promise<ArticleMeta[]> {
+  return articlesMeta;
 }
 
 interface CategoryPageProps {
@@ -112,7 +110,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       const dateA = a.publishDate ? new Date(a.publishDate).getTime() : 0;
       const dateB = b.publishDate ? new Date(b.publishDate).getTime() : 0;
       return dateB - dateA;
-    });
+    })
+    .slice(0, MAX_CATEGORY_ARTICLES_PER_PAGE);
   const seoData = await getSEOData(`/category/${slug}`);
 
   return (

@@ -1,6 +1,6 @@
 import { homepageData } from "@/data/homepage";
 import { aboutData } from "@/data/about-us";
-import { articles } from "@/data/articles";
+import { articlesMeta as articles } from "@/data/articles-meta";
 import { Metadata } from "next";
 import Link from "next/link";
 import { getSEOData } from "@/lib/seo-service";

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { articles, Article } from '@/data/articles';
+import { articlesMeta as articles, ArticleMeta as Article } from '@/data/articles-meta';
 import seoMappingData from '@/data/seo-mapping.json';
 import { SeoMappingItem } from '@/types';
 import { resolveArticleImageSrc } from '@/lib/asset-paths';
