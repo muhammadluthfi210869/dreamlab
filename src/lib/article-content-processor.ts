@@ -197,10 +197,14 @@ function renameLegacyPaths(html: string): string {
   c = c.replace(/loading="lazy"\s+loading="lazy"/gi, 'loading="lazy"');
   c = c.replace(/<img\b([^>]*?)(\/?)>/gi, (full, attrs: string, slash: string) => {
     if (attrs.includes('/_next/image')) return full;
-    const cleaned = attrs
+    let cleaned = attrs
       .replace(/srcset="[^"]*"/gi, '')
       .replace(/\s+sizes="[^"]*"/gi, '')
       .trim();
+    if (!/\balt\s*=\s*["'][^"']+["']/i.test(cleaned)) {
+      cleaned = cleaned.replace(/\s*\balt\s*=\s*["']["']/i, '').trim();
+      cleaned += ' alt="Dreamlab Maklon Kosmetik BPOM &amp; CPKB Grade A"';
+    }
     return `<img${cleaned ? ' ' + cleaned : ''}${slash}>`;
   });
   return c;
