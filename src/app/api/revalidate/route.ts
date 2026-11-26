@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -11,10 +12,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const authHeader = request.headers.get('authorization');
-  const token = authHeader?.replace('Bearer ', '');
+  const authHeader = request.headers.get('authorization') || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.trim();
+  const tokenBuf = Buffer.from(token);
+  const secretBuf = Buffer.from(REVALIDATION_SECRET);
 
-  if (token !== REVALIDATION_SECRET) {
+  if (tokenBuf.length !== secretBuf.length || !crypto.timingSafeEqual(tokenBuf, secretBuf)) {
     return NextResponse.json(
       { error: 'Invalid or missing revalidation token' },
       { status: 401 }

@@ -46,8 +46,12 @@ const share = (names) => {
   return Object.fromEntries(Object.entries(m).map(([k, v]) => [k, Math.round((v / names.length) * 100)]));
 };
 
+let hadTable = false;
 try {
   await client.connect();
+  const preCheck = await client.query(`SELECT to_regclass('rr_settings') AS t`);
+  hadTable = preCheck.rows[0].t !== null;
+
   await client.query('BEGIN');
   await client.query(`SET LOCAL lock_timeout = '3s'`);
   await client.query(`SET LOCAL statement_timeout = '30s'`);
@@ -149,7 +153,8 @@ try {
   try {
     await client.query('ROLLBACK');
     const gone = await client.query(`SELECT to_regclass('rr_settings') AS t, (SELECT COUNT(*)::int FROM leads WHERE source='rr-sim') AS leftover`);
-    check('ROLLBACK bersih: rr_settings tidak ada dan lead uji tidak tersisa', gone.rows[0].t === null && gone.rows[0].leftover === 0, gone.rows[0]);
+    const rollbackOk = hadTable ? gone.rows[0].leftover === 0 : (gone.rows[0].t === null && gone.rows[0].leftover === 0);
+    check('ROLLBACK bersih: rr_settings tidak ada dan lead uji tidak tersisa', rollbackOk, gone.rows[0]);
   } catch (e) {
     failed++;
     console.error('Gagal verifikasi rollback:', e.message);
