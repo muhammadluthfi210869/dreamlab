@@ -72,10 +72,17 @@ Git push ttp bisa (`git add -A && git commit -m "..." && git push origin master`
 - Link: `https://dreamlab.id/thankyou/google/`
 - Subtext: "Diskusikan HPP, formula, dan strategi brand serum-mu tanpa komitmen awal."
 
-### 7. Inbound & Outbound Links
-- **Inbound**: link ke artikel terkait di dreamlab.id (gunakan `<a href=\"https://dreamlab.id/{slug}/\" style=\"color:#4a6fa5\" target=\"_blank\">`)
-- **Outbound**: link ke sumber eksternal otoritatif dengan `rel=\"nofollow\"`
-- Minimal 4 inbound + 2 outbound
+### 7. Inbound & Outbound Links & Proses Produksi Maklon Knowledge
+- **Inbound & Silo Links**: link ke halaman produk & artikel terkait di dreamlab.id (gunakan `<a href=\"https://dreamlab.id/{slug}/\" style=\"color:#4a6fa5\" target=\"_blank\">`). Untuk setiap item jenis/varian produk (misal jenis formula body serum), arahkan pembaca langsung ke halaman silo `/produk/bodycare/body-serum/`, `/produk/bodycare/`, atau artikel silo relevan.
+- **Proses Produksi Maklon Resmi Dreamlab** (wajib digunakan saat membahas alur maklon):
+  1. **Konsultasi Konsep & Ide Produk** (Gratis di Dreamlab)
+  2. **Pembuatan Sampel Formula (Sample Formula)** (*1 Client = 1 Custom Formula*)
+  3. **Desain Logo, Kemasan & Support Marketing Kit** (Gratis desain logo & kemasan di Dreamlab + dukungan *marketing kit*)
+  4. **Pendaftaran Legalitas (HKI, BPOM, Halal & Uji Lainnya)** (Termasuk uji laboratorium tambahan jika diperlukan)
+  5. **Produksi Massal & Quality Control (CPKB Grade A)**
+  6. **Pengiriman Produk Jadi (Shipping)**
+- **Tanpa Box E-E-A-T Rujukan**: JANGAN menambahkan footer `"Daftar Pustaka & Rujukan Resmi (E-E-A-T):"` di akhir artikel.
+- **Tabel Anti-Overlapping**: Jangan gunakan `white-space: nowrap !important` dan `min-width` besar pada `<th>`/`<td>` tabel 4 kolom karena CSS desktop memakai `table-layout: fixed; width: 100%`. Gunakan pembagian `width` persentase proporsional dan `white-space: normal` agar rapi dan tidak bertumpuk.
 
 ### 8. SEO Optimization
 - H1: unique, keyword-rich, ~50-65 chars

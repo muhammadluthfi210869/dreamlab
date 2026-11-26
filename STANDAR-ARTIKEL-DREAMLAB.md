@@ -232,22 +232,35 @@ Ukuran SVG: `width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="curr
 
 ---
 
-## 5. Standar Alur 8 Tahap Maklon Dreamlab
+## 5. Standar Alur Proses Produksi Maklon Dreamlab (WAJIB)
 
-Alur proses maklon di Dreamlab wajib ditampilkan secara **berurutan vertikal ke bawah (01 sampai 08)** untuk keterbacaan mobile terbaik:
+Alur proses maklon di Dreamlab wajib memuat tahapan resmi berikut secara berurutan vertikal ke bawah untuk keterbacaan mobile terbaik:
+
+1. **Konsultasi Konsep & Ide Produk (GRATIS di Dreamlab)**: Diskusi awal konsep produk, target market, pemilihan bahan aktif, dan estimasi HPP bersama tim konsultan & R&D tanpa dipungut biaya.
+2. **Pembuatan Sampel Formula (Sample Formula)**: Peracikan sampel khusus oleh R&D (*1 Client = 1 Custom Formula*) untuk dievaluasi tekstur, sensori, daya serap, dan aromanya hingga disetujui.
+3. **Desain Logo, Kemasan & Support Marketing Kit**: Pembuatan desain logo dan kemasan produk (**Gratis Desain** di Dreamlab) sekaligus dukungan *marketing kit* untuk kebutuhan promosi brand.
+4. **Pendaftaran Legalitas (HKI, BPOM, Halal & Uji Lainnya)**: Pengurusan pendaftaran merek (HKI), izin edar notifikasi BPOM RI, sertifikasi Halal, serta uji laboratorium tambahan lainnya jika diperlukan sesuai klaim produk.
+5. **Produksi Massal & Quality Control (CPKB Grade A)**: Proses produksi higienis di fasilitas pabrik berstandar CPKB Grade A dengan pengawasan mutu ketat di setiap tahapan.
+6. **Pengiriman Produk Jadi (Shipping)**: Pengemasan akhir dan pengiriman (*shipping*) produk jadi yang siap edar ke lokasi atau gudang distribusi brand owner.
 
 ```html
 <div class="dl-workflow-list" style="display:flex;flex-direction:column;gap:12px;margin:24px 0">
   <div style="display:flex;align-items:flex-start;gap:16px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px">
     <div style="background:#D98A00;color:#ffffff;font-weight:800;font-size:14px;border-radius:8px;padding:6px 12px;flex-shrink:0">01</div>
     <div>
-      <h3 style="font-size:15px;font-weight:700;color:#111827;margin:0 0 4px">Konsultasi Ide</h3>
+      <h3 style="font-size:15px;font-weight:700;color:#111827;margin:0 0 4px">Konsultasi Konsep &amp; Ide Produk (Gratis)</h3>
       <p style="font-size:13px;color:#4b5563;line-height:1.6;margin:0">Deskripsi singkat tahapan...</p>
     </div>
   </div>
-  <!-- Lanjutkan urutan 02 sampai 08 -->
+  <!-- Lanjutkan urutan tahapan berikutnya hingga Shipping -->
 </div>
 ```
+
+> [!IMPORTANT]
+> **Aturan Footer / Rujukan Artikel**:
+> - **DILARANG** menambahkan kotak footer atau judul `"Daftar Pustaka & Rujukan Resmi (E-E-A-T):"` di akhir artikel, kecuali diminta secara eksplisit di dalam brief.
+> - **Aturan Silo Kartu Varian/Jenis Produk**: Setiap kartu varian/jenis produk (misal jenis-jenis formula body serum) wajib dilengkapi tautan relevan yang mengarahkan langsung ke halaman kategori/produk terkait (misal `/produk/bodycare/body-serum/`, `/produk/bodycare/`, atau artikel silo terkait) untuk memperkuat struktur internal link Silo.
+> - **Aturan Tabel Anti-Overlapping**: Pada versi desktop (`>= 768px`), CSS global menerapkan `table-layout: fixed; width: 100%`. Oleh karena itu, **dilarang** memasang `white-space: nowrap !important` atau `min-width: 200px+` secara inline pada `<th>`/`<td>` tabel 4 kolom karena akan menyebabkan teks bertumpuk (*overlapping*). Gunakan lebar kolom persentase proporsional (misal `width: 22%`, `26%`, `26%`, `26%`) dengan `white-space: normal; word-wrap: break-word`.
 
 ---
 
