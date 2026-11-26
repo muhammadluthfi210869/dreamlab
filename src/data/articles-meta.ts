@@ -4915,7 +4915,7 @@ export const articlesMeta: ArticleMeta[] =
       "custom formula body serum",
       "pabrik maklon kosmetik bpom"
     ],
-    "featuredImage": "/assets/images/blog/fragrance-brightening-body-serum-mockup.jpg",
+    "featuredImage": "/images/artikel-maklon-body-serum/maklon_body_serum_cover.jpg",
     "excerpt": "Ingin memulai brand body serum sendiri? Simak panduan pilihan formula, proses produksi, faktor penentu MOQ maklon body serum, dan perencanaan biaya di Dreamlab.",
     "readingMinutes": 12
   },
