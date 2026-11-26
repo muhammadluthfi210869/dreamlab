@@ -179,7 +179,25 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                     </div>
                   </div>
                   <div className="text-[11px] text-neutral-500 bg-neutral-50 border border-neutral-200/60 px-3 py-1.5 rounded-lg">
-                    <span className="font-bold text-neutral-700">Ditinjau oleh:</span> Tim Regulasi &amp; Formulator R&amp;D Dreamlab (CPKB Grade A)
+                    <span className="font-bold text-neutral-700">Ditinjau oleh:</span> Tim Regulasi &amp; Formulator R&amp;D Dreamlab (Standar{' '}
+                    <a
+                      href="https://cekbpom.pom.go.id/"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="text-[#4a6fa5] hover:underline font-semibold"
+                    >
+                      CPKB BPOM RI
+                    </a>{' '}
+                    &amp;{' '}
+                    <a
+                      href="https://bpjph.halal.go.id/"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="text-[#4a6fa5] hover:underline font-semibold"
+                    >
+                      Halal BPJPH
+                    </a>
+                    )
                   </div>
                 </div>
 
@@ -201,14 +219,26 @@ const ArticleTemplate: React.FC<ArticleTemplateProps> = ({ article, recentPosts 
                         Dreamlab melayani maklon kosmetik satu atap: riset formula eksklusif (1 Client = 1 Formula), perizinan BPOM &amp; Halal, hingga produksi massal bersertifikat CPKB Grade A.
                       </p>
                       <div className="flex flex-wrap gap-3 pt-2 text-xs font-bold text-sky-200">
-                        <Link href="/jasa-maklon-kosmetik" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                        <Link href="/jasa-maklon-kosmetik/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
                           &rarr; Layanan Maklon Kosmetik
                         </Link>
-                        <Link href="/biaya-maklon-skincare" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                        <Link href="/biaya-maklon-skincare/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
                           &rarr; Biaya &amp; HPP Maklon
                         </Link>
-                        <Link href="/moq-maklon-kosmetik" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                        <Link href="/moq-maklon-kosmetik/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
                           &rarr; Panduan MOQ 500+ Pcs
+                        </Link>
+                        <Link href="/produk/skincare/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Maklon Skincare
+                        </Link>
+                        <Link href="/produk/bodycare/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Maklon Bodycare
+                        </Link>
+                        <Link href="/produk/haircare/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Maklon Haircare
+                        </Link>
+                        <Link href="/produk/parfum/" className="hover:text-[#FFB830] transition-colors underline underline-offset-4 decoration-[#F39200]/50">
+                          &rarr; Maklon Parfum
                         </Link>
                       </div>
                     </div>
