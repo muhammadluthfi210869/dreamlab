@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { POST as confirmLead } from '../confirm/route';
 import {
   normalizeConviaEvent,
@@ -6,6 +6,7 @@ import {
   verifyConviaSignature,
 } from '@/lib/convia-webhook';
 import { getMonitorPool } from '@/lib/db';
+import { relayToNexerp } from '@/lib/convia-relay';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -51,6 +52,9 @@ export async function POST(req: NextRequest) {
   if (!verifyConviaSignature(rawBody, req.headers, secret)) {
     return reply({ success: false, error: 'invalid signature' }, 401);
   }
+
+  // [CR-185 R08] Salinan ke NexERP (Chat WABA ERP) setelah tanda tangan lolos; di latar, tidak menahan balasan.
+  after(() => relayToNexerp(rawBody, req.headers).then(() => undefined));
 
   // Simpan salinan payload mentah yang lolos tanda tangan ke convia_webhook_log (source = 'nexerp')
   // Dijalankan di awal, aman (try/catch), membersihkan data > 30 hari, dan tidak mengganggu proses asli.
